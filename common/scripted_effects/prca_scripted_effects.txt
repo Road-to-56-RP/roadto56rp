@@ -1,0 +1,182 @@
+THIS_activate_propaganda = {
+	if = {
+		limit = { check_variable = { THIS.prop_1_frame?1 = 1 } }
+		set_variable = { THIS.prop_1_frame = THIS.frame }
+		
+		else_if = {
+			limit = { check_variable = { THIS.prop_2_frame?1 = 1 } }
+			set_variable = { THIS.prop_2_frame = THIS.frame }
+			
+			else_if = {
+				limit = { check_variable = { THIS.prop_3_frame?1 = 1 } }
+				set_variable = { THIS.prop_3_frame = THIS.frame }
+			}
+		}
+	}
+	add_to_variable = { THIS.prop_count = 1 }
+	THIS_update_tileset = yes
+}
+
+THIS_deactivate_propaganda = {
+	if = {
+		limit = { check_variable = { THIS.prop_1_frame = THIS.frame } }
+		set_variable  = { THIS.prop_1_frame = 1}
+		
+		else_if = {
+			limit = { check_variable = { THIS.prop_2_frame = THIS.frame } }
+			set_variable  = { THIS.prop_2_frame = 1}
+		
+			else_if = {
+				limit = { check_variable = { THIS.prop_3_frame = THIS.frame } }
+				set_variable  = { THIS.prop_3_frame = 1}
+			}
+		}
+	}
+	subtract_from_variable = { THIS.prop_count = 1 }
+	THIS_update_tileset = yes
+}
+
+THIS_activate_leaflet = {
+	if = {
+		limit = { check_variable = { THIS.leaflet_1_frame?1 = 1 } }
+		set_variable = { THIS.leaflet_1_frame = THIS.frame }
+		
+		else_if = {
+			limit = { check_variable = { THIS.leaflet_2_frame?1 = 1 } }
+			set_variable = { THIS.leaflet_2_frame = THIS.frame }
+			
+			else_if = {
+				limit = { check_variable = { THIS.leaflet_3_frame?1 = 1 } }
+				set_variable = { THIS.leaflet_3_frame = THIS.frame }
+			}
+		}
+	}
+	add_to_variable = { THIS.leaflet_count = 1 }
+	THIS_update_leaflet_modifier = yes
+	THIS_update_tileset = yes
+}
+
+THIS_deactivate_leaflet = {
+	if = {
+		limit = { check_variable = { THIS.leaflet_1_frame = THIS.frame } }
+		set_variable  = { THIS.leaflet_1_frame = 1}
+		
+		else_if = {
+			limit = { check_variable = { THIS.leaflet_2_frame = THIS.frame } }
+			set_variable  = { THIS.leaflet_2_frame = 1}
+		
+			else_if = {
+				limit = { check_variable = { THIS.leaflet_3_frame = THIS.frame } }
+				set_variable  = { THIS.leaflet_3_frame = 1}
+			}
+		}
+	}
+	subtract_from_variable = { THIS.leaflet_count = 1 }
+	THIS_update_leaflet_modifier = yes
+	THIS_update_tileset = yes
+}
+
+THIS_update_leaflet_modifier = {
+	set_temp_variable = { temp_value = -0.10 }
+	
+	multiply_temp_variable = { temp_value = THIS.leaflet_scale_modifier?1 }
+	set_variable = { THIS.leaflet_ppf_value_tt = temp_value }
+	multiply_temp_variable = { temp_value = THIS.leaflet_count }
+	set_variable = { THIS.leaflet_ppf_value = temp_value }
+	
+	set_temp_variable = { temp_value = -0.05 }
+	
+	multiply_temp_variable = { temp_value = THIS.leaflet_scale_modifier?1 }
+	set_variable = { THIS.leaflet_aof_value_tt = temp_value }
+	multiply_temp_variable = { temp_value = THIS.leaflet_count }
+	set_variable = { THIS.leaflet_aof_value = temp_value }
+		
+	hidden_effect = {
+		add_dynamic_modifier = { modifier = prca_hostile_leaflet }
+	}
+}
+
+THIS_update_tileset = {
+	if = {
+		limit = { has_country_flag = show_leaflets }
+		set_variable  = { THIS.slot_1_frame = THIS.leaflet_1_frame }
+		set_variable  = { THIS.slot_2_frame = THIS.leaflet_2_frame }
+		set_variable  = { THIS.slot_3_frame = THIS.leaflet_3_frame }
+		else = {
+			set_variable  = { THIS.slot_1_frame = THIS.prop_1_frame }
+			set_variable  = { THIS.slot_2_frame = THIS.prop_2_frame }
+			set_variable  = { THIS.slot_3_frame = THIS.prop_3_frame }
+		}
+	}
+}
+
+THIS_reset_propaganda = {
+	set_variable = { THIS.prop_1_frame = 1 }
+	set_variable = { THIS.prop_2_frame = 1 }
+	set_variable = { THIS.prop_3_frame = 1 }
+	THIS_update_tileset = yes
+}
+
+THIS_update_department_icon_on_unlock = {
+	if = {
+		limit = {
+			check_variable = {
+				var = THIS.department_ico_1_frame
+				value = 2
+				compare = not_equals
+			}
+		}
+		set_variable = { THIS.department_ico_1_frame = 2 }
+		
+		else_if = {
+			limit = {
+				check_variable = {
+					var = THIS.department_ico_2_frame
+					value = 2
+					compare = not_equals
+				}
+			}
+			set_variable = { THIS.department_ico_2_frame = 2 }
+			
+			else_if = {
+				limit = {
+					check_variable = {
+						var = THIS.department_ico_3_frame
+						value = 2
+						compare = not_equals
+					}
+				}
+				set_variable = { THIS.department_ico_3_frame = 2 }
+			}
+		}
+	}
+}
+
+THIS_recalc_weekly_tokens_gain = {
+	set_variable = { THIS.prca_tokens_weekly = 0 }
+	set_variable = { THIS.prca_departments_tokens_weekly = 0 }
+	
+	# Positive effects (i.e. Departments)
+	add_to_variable = { THIS.prca_tokens_weekly = THIS.prca_newspaper_tokens_weekly }
+	add_to_variable = { THIS.prca_tokens_weekly = THIS.prca_radio_tokens_weekly }
+	add_to_variable = { THIS.prca_tokens_weekly = THIS.prca_movie_tokens_weekly }
+	
+	add_to_variable = { THIS.prca_departments_tokens_weekly = THIS.prca_newspaper_tokens_weekly }
+	add_to_variable = { THIS.prca_departments_tokens_weekly = THIS.prca_radio_tokens_weekly }
+	add_to_variable = { THIS.prca_departments_tokens_weekly = THIS.prca_movie_tokens_weekly }
+	
+	# Negative effects (i.e. Hostile Radio Broadcasts) 
+	add_to_variable = { THIS.prca_tokens_weekly = THIS.prca_hrb_add_tokens_weekly }
+}
+
+THIS_clamp_max_tokens = {
+	clamp_variable = {
+		var = THIS.prca_tokens
+		min = -100
+		max = 500
+	}
+}
+
+THIS_test = {
+	log = "THIS WORKS"
+}

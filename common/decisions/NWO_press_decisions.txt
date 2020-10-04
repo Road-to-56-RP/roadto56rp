@@ -1,0 +1,539 @@
+NWO_press_decisions = {
+	
+	#Encourage Free Thought (Democratic)
+	NWO_encourage_free_thought_democratic = {
+	
+		icon = generic_political_discourse
+
+		visible = {
+			has_idea = free_press
+			has_government = democratic
+		}
+		
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					has_idea = free_press
+				}
+			}
+		}
+		
+		cost = 75
+		
+		fire_only_once = no
+		days_remove = 140
+		days_re_enable = 280
+		
+		modifier = {
+			research_speed_factor = -0.10
+			communism_drift = 0.01
+			fascism_drift = 0.01
+			democratic_drift = -0.03
+			neutrality_drift = 0.01
+		}
+	
+	}
+	
+	# Adopt Free Press
+	NWO_adopt_free_press = {
+		allowed = {
+		}
+		
+		available = {
+			has_government = democratic
+		}
+		
+		visible = {
+			has_government = democratic
+			NOT = { has_idea = free_press }
+			NOT = { has_country_flag = changing_press_law }
+		}
+		
+		modifier = {
+		}
+		
+		cost = 50
+		
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 140
+		
+		complete_effect = {
+			set_country_flag = changing_press_law
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_ideas = free_press
+				clr_country_flag = changing_press_law
+			}
+		}
+		
+	}
+	
+	# Adopt Censored Press
+	NWO_adopt_censored_press = {
+		allowed = {
+		}
+		
+		available = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+		}
+		
+		visible = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+			NOT = { has_country_flag = changing_press_law  }
+			NOT = { has_idea = censored_press }
+		}
+		
+		modifier = {
+		}
+		
+		ai_will_do = {
+			factor = 0.1
+			
+			modifier = {
+				add = 0.2
+				ROOT = { has_stability < 0.50 }
+			}
+			
+			modifier = {
+				add = 0.10
+				ROOT = { has_stability < 0.30 }
+			}
+		}
+		
+		cost = 50
+		
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 140
+		
+		complete_effect = {
+			set_country_flag = changing_press_law
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_ideas = censored_press
+				clr_country_flag = changing_press_law
+			}
+		}
+		
+	}
+	
+	#Man the Assembly Line
+	NWO_man_the_assembly_line = {
+
+		icon = generic_construction
+
+		visible = {
+			has_idea = productive_press
+		}
+		
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					has_idea = productive_press
+				}
+			}
+		}
+
+		modifier = {
+			production_factory_efficiency_gain_factor = 0.25
+		}
+	
+		days_remove = 70
+		days_re_enable = 280
+		cost = 75
+	}
+	
+	# Adopt Productive Press
+	NWO_adopt_productive_press = {
+		
+		allowed = {
+		}
+		
+		available = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+		}
+		
+		visible = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+			NOT = { has_idea = productive_press }
+			NOT = { has_country_flag = changing_press_law }
+		}
+		
+		cost = 50
+		
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 140
+		
+		complete_effect = {
+			set_country_flag = changing_press_law
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_ideas = productive_press
+				clr_country_flag = changing_press_law
+			}
+		}
+		
+	}
+	
+	#Message_Resistance_Cells
+	NWO_message_the_resistance = {
+
+		icon = generic_civil_support
+
+		available = {
+			ROOT = { has_capitulated = yes }
+		}
+		
+		visible = {
+			has_idea = resistance_press
+		}
+	
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					has_idea = resistance_press
+				}
+			}
+		}
+	
+		days_remove = 140
+		days_re_enable = 280
+		cost = 75
+		
+		remove_effect = {
+			random_owned_state = {
+				limit = { NOT = { is_fully_controlled_by = ROOT } }
+				damage_building = {
+					type = arms_factory
+					damage = 0.5
+				}
+
+			}
+			random_owned_state = {
+				limit = { NOT = { is_fully_controlled_by = ROOT } }
+				damage_building = {
+					type = arms_factory
+					damage = 0.5
+				}
+			}
+		}
+	}
+	
+	# Adopt Resistance Press
+	NWO_adopt_resistance_press = {
+	
+		allowed = {
+		}
+		
+		available = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+		}
+		
+		visible = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+			NOT = { has_idea = resistance_press }
+			NOT = { has_country_flag = changing_press_law }
+		}
+		
+		cost = 50
+		
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 140
+		
+		complete_effect = {
+			set_country_flag = changing_press_law
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_ideas = resistance_press
+				clr_country_flag = changing_press_law
+			}
+		}
+		
+	}
+	
+	#Training Initiative
+	NWO_training_initiative = {
+
+		icon = generic_civil_support
+
+		available = {
+		}
+		
+		visible = {
+			has_idea = mobilization_press
+		}
+	
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					has_idea = mobilization_press
+				}
+			}
+		}
+	
+		days_remove = 140
+		days_re_enable = 280
+		cost = 75
+		
+		modifier = {
+			training_time_factor = -0.1
+		}
+	}
+	
+	# Adopt Mobilization Press
+	NWO_adopt_mobilization_press = {
+		allowed = {
+		}
+		
+		available = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+		}
+		
+		visible = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+			NOT = { has_idea = mobilization_press }
+			NOT = { has_country_flag = changing_press_law }
+		}
+		
+		modifier = {
+		}
+		
+		cost = 50
+		
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 140
+		
+		complete_effect = {
+			set_country_flag = changing_press_law
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_ideas = mobilization_press
+				clr_country_flag = changing_press_law
+			}
+		}
+		
+	}
+	
+	#Propaganda Campaign
+	NWO_propaganda_campaign = {
+
+		icon = generic_civil_support
+
+		available = {
+		}
+		
+		visible = {
+			has_idea = nationalism_press
+		}
+	
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					has_idea = aggressive_press
+				}
+			}
+		}
+	
+		days_remove = 70
+		days_re_enable = 280
+		cost = 75
+		
+		complete_effect = {
+			add_war_support = 0.10
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_war_support = -0.10
+			}
+		}
+	}
+	
+	# Adopt Nationalism Press
+	NWO_adopt_nationalism_press = {
+		allowed = {
+		}
+		
+		available = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+		}
+		
+		visible = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+			NOT = { has_idea = nationalism_press }
+			NOT = { has_government = democratic }
+		}
+		
+		cost = 50
+		
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 140
+		
+		complete_effect = {
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_ideas = nationalism_press
+			}
+		}
+		
+	}
+	
+	#Will Contain an Espionage Based Law on the release of that system...
+	
+	# Adopt Security Press
+	NWO_adopt_security_press = {
+		allowed = {
+		}
+		
+		available = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+		}
+		
+		visible = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+			NOT = { has_idea = security_press }
+			NOT = { has_country_flag = changing_press_law }
+		}
+		
+		cost = 50
+		
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 140
+		
+		complete_effect = {
+			set_country_flag = changing_press_law
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_ideas = security_press
+				clr_country_flag = changing_press_law
+			}
+		}
+		
+	}
+	
+	#Logistics Initiative
+	NWO_logistics_initiative = {
+
+		icon = generic_civil_support
+
+		available = {
+		}
+		
+		visible = {
+			has_idea = aggressive_press
+		}
+	
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					has_idea = aggressive_press
+				}
+			}
+		}
+	
+		days_remove = 140
+		days_re_enable = 280
+		cost = 75
+		
+		modifier = {
+			political_power_factor = -0.1
+			supply_consumption_factor = -0.05
+		}
+	}
+	
+	# Adopt Aggressive Press
+	NWO_adopt_aggressive_press = {
+		allowed = {
+		}
+		
+		available = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+		}
+		
+		visible = {
+			OR = {
+				NOT = { has_government = democratic }
+				has_war = yes
+			}
+			NOT = { has_idea = aggressive_press }
+			NOT = { has_country_flag = changing_press_law }
+		}
+		
+		cost = 50
+		
+		fire_only_once = no
+		days_remove = 70
+		days_re_enable = 140
+		
+		complete_effect = {
+			set_country_flag = changing_press_law
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				add_ideas = aggressive_press
+				clr_country_flag = changing_press_law
+			}
+		}
+		
+	}
+}

@@ -1,0 +1,112 @@
+scripted_gui = {
+
+	prca_propaganda_ui = {
+		context_type = decision_category
+		window_name = "prca_propaganda_ui_window"
+
+		# CAMPAIGNS
+		properties = {
+			propaganda_slot_1 = {
+				image = "GFX_[ROOT.GetTag]_prop_tileset"
+				frame = THIS.slot_1_frame
+			}
+			propaganda_slot_2 = {
+				image = "GFX_[ROOT.GetTag]_prop_tileset"
+				frame = THIS.slot_2_frame
+			}
+			propaganda_slot_3 = {
+				image = "GFX_[ROOT.GetTag]_prop_tileset"
+				frame = THIS.slot_3_frame
+			}
+		}
+		
+		# DEPARTMENTS
+		properties = {
+			department_ico_1 = {
+				frame = THIS.department_ico_1_frame
+			}
+			department_ico_2 = {
+				frame = THIS.department_ico_2_frame
+			}
+			department_ico_3 = {
+				frame = THIS.department_ico_3_frame
+			}
+		}
+		
+		# BUTTONS
+		properties = {
+			btn_preparation = {
+				frame = THIS.btn_preparation_frame?1
+			}
+			btn_campaigns = {
+				frame = THIS.btn_campaigns_frame?2
+			}
+		}
+		
+		triggers = {
+            btn_show_campaigns_click_enabled = {
+                has_country_flag = show_leaflets
+			}
+			btn_show_leaflets_click_enabled = {
+                NOT = { has_country_flag = show_leaflets }
+			}
+        }
+		
+		effects = {
+            btn_preparation_click = {
+                set_variable = { THIS.btn_preparation_frame = 1 }
+				set_variable = { THIS.btn_campaigns_frame = 2 }
+				clr_country_flag = campaigns_view
+            }
+            btn_campaigns_click = {				
+				set_variable = { THIS.btn_preparation_frame = 2 }
+                set_variable = { THIS.btn_campaigns_frame = 1 }
+				set_country_flag = campaigns_view
+            }
+			btn_show_campaigns_click = {
+				clr_country_flag = show_leaflets
+				THIS_update_tileset = yes
+            }
+			btn_show_leaflets_click = {
+				set_country_flag = show_leaflets
+				THIS_update_tileset = yes
+            }
+        }
+		
+		ai_enabled = {
+			has_country_flag = prca_enabled
+        }
+        
+        ai_test_interval = 168
+        ai_max_weight_taken_per_test = 1
+        
+        ai_weights = {
+            btn_preparation_click = {
+                ai_will_do = {
+                    base = 0
+                    modifier = {
+                        add = 10
+                        check_variable = {
+							var = THIS.prca_tokens
+							value = 60
+							compare = less_than
+						}
+                    }
+                }
+            }
+			btn_campaigns_click = {
+                ai_will_do = {
+                    base = 0
+                    modifier = {
+                        add = 10
+                        check_variable = {
+							var = THIS.prca_tokens
+							value = 60
+							compare = greater_than_or_equals
+						}
+                    }
+                }
+            }
+        }
+	}
+}

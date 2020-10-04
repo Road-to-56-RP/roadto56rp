@@ -1,0 +1,33 @@
+on_actions = {
+	on_startup = { 
+		effect = {
+			every_country = {
+				limit = {
+					OR = {
+						AND = {
+							is_major = yes	# DISABLES PRCA FOR THE PLAYER IF NOT SOV OR GER
+							is_ai = yes
+						}
+						tag = GER
+						tag = SOV
+					}
+				}
+				set_country_flag = prca_enabled
+				set_country_flag = prca_leaflets_enabled
+				set_country_flag = prca_use_default_set		# Keep for backwards compatibility -> Change to prca_use_default_decisions if it is no longer compatible anyways...
+			}
+		}
+	}
+	
+	on_weekly = { 
+		effect = {
+			if = {
+				limit = { has_country_flag = prca_enabled }
+				add_to_variable = { 
+					THIS.prca_tokens = THIS.prca_tokens_weekly
+				}
+				THIS_clamp_max_tokens = yes
+			}
+		}
+	}
+}

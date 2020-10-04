@@ -1,0 +1,150 @@
+ideas = {
+
+	equality = { 
+	
+		law = yes
+		
+
+		# Equality for all
+		equality_all = {
+		    available = {
+				NOT = {
+					has_government = fascism
+				}
+			}
+			
+			modifier = {
+				stability_factor = 0.1
+				non_core_manpower = 0.12
+				conscription = 0.011
+				drift_defence_factor = -0.33
+				land_reinforce_rate = 0.12
+				political_power_factor = -0.05
+				MONTHLY_POPULATION = 0.5
+			    resistance_damage_to_garrison = 0.15
+			}
+	
+			cost = 150
+			
+			cancel_if_invalid = yes
+			
+			ai_will_do = {
+   				factor = 0.5
+				modifier = {
+				    OR = {
+					has_government = communism
+					has_government = democratic
+					}
+					factor = 1
+					
+				}
+			}		
+			
+		}
+		
+		
+		# Race Segregation
+		equality_segregation = {
+
+			available = {
+		       NOT = { 
+				    OR = {
+					has_government = communism
+				
+					has_government = democratic
+				
+					}
+				}
+			}
+			
+			modifier = {
+				stability_factor = -0.1
+				resistance_damage_to_garrison = -0.2
+				land_reinforce_rate = -0.07
+				non_core_manpower = -0.08
+				political_power_factor = 0.1
+				MONTHLY_POPULATION = 0.3
+				
+			}
+			
+			cost = 150
+
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+   				factor = 0.5
+
+				modifier = {
+				    OR = {
+					has_government = fascism
+					has_government = neutrality
+					}
+					factor = 0.5
+					
+				}
+   			}
+		}
+		
+		
+		# Genocide
+		equality_genocide = {
+
+		available = {
+				NOT = { 
+				    OR = {
+					has_government = communism
+				
+					has_government = democratic
+				
+					has_government = neutrality
+					}
+				}
+			}
+			
+			modifier = {
+			    non_core_manpower = -0.2
+			    army_org_factor = 0.05	
+				stability_factor = -0.1
+				resistance_damage_to_garrison = -0.33
+				drift_defence_factor = 0.33
+				land_reinforce_rate = -0.15
+				political_power_factor = 0.1
+				MONTHLY_POPULATION = 0.075
+			}
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+   				factor = 0.5
+
+   				modifier = {
+					has_government = fascism
+					factor = 1
+				}
+   			}
+		}
+		
+		# Minority Suppression
+		equality_minority = {
+		 available = {}
+			
+			modifier = {
+				resistance_damage_to_garrison = -0.1
+				drift_defence_factor = 0.1
+				non_core_manpower = -0.1
+				political_power_factor = 0.05
+				MONTHLY_POPULATION = 0.4
+			}
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+   				factor = 0.5
+
+   				modifier = {
+					has_government = neutrality
+					factor = 0.5
+				}
+   			}
+		}
+	}
+}
