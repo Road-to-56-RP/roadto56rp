@@ -4298,6 +4298,9 @@ focus_tree = {
 			AUS = {
 				if = {
 					limit = { HUN = { has_country_leader = { name = "Miklós Horthy" } } }
+					HUN = {
+						kill_country_leader = yes
+					}
 					annex_country = { target = HUN transfer_troops = yes }
 					add_ideas = AUS_destabilised_hungary
 					set_cosmetic_tag = HUN_EMPIRE
@@ -6764,6 +6767,9 @@ focus_tree = {
 		
 		available = {
 			is_in_faction_with = GER
+			GER = {
+				is_faction_leader = yes
+			}
 			democratic > 0.5
 		}
 		
@@ -6777,10 +6783,15 @@ focus_tree = {
 				create_wargoal = { type = annex_everything target = AUS 
 				expire = 0}
 			}
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
+			}
 			if = {
 				limit = { 
 					ENG = {
 						has_government = democratic
+						has_war_with = GER
 					}
 					AUS = {
 						has_idea = AUS_british_support
