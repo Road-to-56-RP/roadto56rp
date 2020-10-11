@@ -1,0 +1,587 @@
+propaganda_campaings = {
+	# ANTISPYWARE #
+	prca_antispyware = {
+		icon = onmap_recruit_operative
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+			has_dlc = "La Resistance"
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+			has_intelligence_agency = yes 
+			has_war = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			intelligence_agency_defense = 3
+			own_operative_detection_chance_factor = -0.25
+		}
+		
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 2 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 2 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# RESEARCH #	
+	prca_research = {
+		icon = generic_research
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			research_speed_factor = 0.15
+		}
+		
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 3 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 3 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# STABILITY #
+	prca_stability = {
+		icon = generic_nationalism
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			political_power_factor = 0.15
+			stability_factor = 0.15
+			defensive_war_stability_factor = 0.15
+		}
+		
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 4 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 4 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# CONSTRUCTION #
+	prca_construction = {
+		icon = generic_construction
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			production_speed_buildings_factor = 0.20
+			conversion_cost_civ_to_mil_factor = -0.15
+			conversion_cost_mil_to_civ_factor = -0.15
+			local_resources_factor = 0.05
+		}
+		
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 5 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 5 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# ARMY #
+	prca_army = {
+		icon = generic_tank
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+			has_war = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			army_org_factor = 0.15
+			army_morale_factor = 0.15
+			training_time_army_factor = -0.05
+			experience_gain_army_factor = 0.2
+		}
+	
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 6 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 6 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# NAVY #
+	prca_navy = {
+		icon = generic_naval
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+			has_war = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			naval_hit_chance = 0.10
+			naval_speed_factor = 0.10
+			experience_gain_navy_factor = 0.2
+			ships_at_battle_start = 0.20
+		}
+		
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 7 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 7 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# AIRFORCE #
+	prca_airforce = {
+		icon = generic_air
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+			has_war = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			air_ace_generation_chance_factor = 0.15
+			army_bonus_air_superiority_factor = 0.10
+			enemy_army_bonus_air_superiority_factor = -0.10
+			experience_gain_air_factor = 0.2
+		}
+		
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 8 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 8 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# CONSCRIPTION #
+	prca_conscription = {
+		icon = eng_blackshirt_march
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+			has_war = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			training_time_army_factor = -0.05
+			conscription = 0.005
+			non_core_manpower = 0.02
+			weekly_manpower = 2000
+		}
+		
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 9 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 9 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+
+	# WAR SUPPORT #
+	prca_war_support = {
+		icon = generic_prepare_civil_war
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+			has_war = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			war_support_factor = 0.15
+			offensive_war_stability_factor = 0.15
+			surrender_limit = 0.2
+		}
+		
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 10 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 10 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# PRODUCTION #
+	prca_production = {
+		icon = generic_industry
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+			has_war = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			consumer_goods_factor = -0.05
+			production_factory_max_efficiency_factor = 0.15
+			line_change_production_efficiency_factor = 0.10
+			production_factory_efficiency_gain_factor = 0.15
+		}
+	
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 11 }
+			THIS_activate_propaganda = yes
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 11 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
+	# HOSTILE LEAFLET #
+	prca_hostile_leaflet_1 = {
+		icon = eng_propaganda_campaigns
+		
+		available = {
+			hidden_trigger = { always = no }
+        }
+		
+		activation = {
+			always = no
+		}
+		
+		is_good = no 
+		days_mission_timeout = 160
+		
+		timeout_effect = {
+			set_variable = { THIS.frame = 12 }
+			THIS_deactivate_leaflet = yes
+			subtract_from_variable = { THIS.ongoing_hostile_leaflet_operations = 1 }
+		}
+	}
+	
+	prca_hostile_leaflet_2 = {
+		icon = eng_propaganda_campaigns
+		
+		available = {
+			hidden_trigger = { always = no }
+        }
+		
+		activation = {
+			always = no
+		}
+		
+		is_good = no 
+		days_mission_timeout = 160
+		
+		timeout_effect = {
+			set_variable = { THIS.frame = 13 }
+			THIS_deactivate_leaflet = yes
+			subtract_from_variable = { THIS.ongoing_hostile_leaflet_operations = 1 }
+		}
+	}
+	
+	prca_hostile_leaflet_3 = {
+		icon = eng_propaganda_campaigns
+		
+		available = {
+			hidden_trigger = { always = no }
+        }
+		
+		activation = {
+			always = no
+		}
+		
+		is_good = no 
+		days_mission_timeout = 160
+		
+		timeout_effect = {
+			set_variable = { THIS.frame = 14 }
+			THIS_deactivate_leaflet = yes
+			subtract_from_variable = { THIS.ongoing_hostile_leaflet_operations = 1 }
+		}
+	}
+}

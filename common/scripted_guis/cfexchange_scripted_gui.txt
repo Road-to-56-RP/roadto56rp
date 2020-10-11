@@ -1,0 +1,163 @@
+scripted_gui = {
+
+	cfoffer_window = {
+	
+		context_type = selected_state_context
+		
+		window_name = "cfoffer_window"
+
+		visible = {
+			ROOT = {
+			has_country_flag = cfexchange_open_flag	
+			}
+		}
+		effects = {
+			cf_cancel_button_click = {
+			ROOT = {
+				clr_country_flag = cfexchange_open_flag
+			}	
+		}
+			cf_send_button_click = {
+				ROOT.var:cf_marked_state = {
+					remove_building = {
+					type = industrial_complex
+					level = ROOT.current_civ_select
+					}
+					#set_temp_variable = {temp_slots_removed = ROOT.current_civ_select}
+					#multiply_temp_variable = { temp_slots_removed = -1 }
+					#add_extra_state_shared_building_slots = temp_slots_removed
+				}
+				ROOT = {
+				clr_country_flag = cfexchange_open_flag
+				clr_country_flag = cfexchange_state_marked_flag
+				set_temp_variable = {cf_pp_cost_temp = cf_pp_cost}
+				multiply_temp_variable = {cf_pp_cost_temp = -1}
+				add_political_power = cf_pp_cost_temp
+				}
+				THIS.OWNER = {
+					set_country_flag = cf_recieved_factories
+					ROOT = {
+						PREV = {
+							set_variable = {sending_country = PREV}
+							set_variable = {sending_country_civs = PREV.current_civ_select}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = ROOT.current_civ_select
+					add_building_construction = {
+						type = industrial_complex
+						level = ROOT.current_civ_select
+						instant_build = yes
+				}
+			}
+			add_factory_button_click = {
+				ROOT = {
+				if = {limit = {check_variable = {current_civ_select < ROOT.cf_marked_state_civs}}
+					add_to_variable = {ROOT.current_civ_select = 1}
+					set_variable = {cf_pp_cost = current_civ_select}
+					multiply_variable = {cf_pp_cost = 20}
+					}
+				}
+			}
+			remove_factory_button_click = {
+			ROOT = {
+				if = {limit = {check_variable = {current_civ_select > 0}}
+					subtract_from_variable = {ROOT.current_civ_select = 1}
+					set_variable = {cf_pp_cost = current_civ_select}
+					multiply_variable = {cf_pp_cost = 20}
+					}
+				}
+			}
+		}
+		triggers = {
+			cf_send_button_click_enabled = { AND = {check_variable = {ROOT.current_civ_select > 0} check_variable = {ROOT.cf_pp_cost < ROOT.political_power}}}
+		}
+	}
+	cfoffer_recieve_window = {
+		context_type = player_context
+		
+		window_name = "cfoffer_recieve_window"
+
+		visible = {
+			has_country_flag = cf_recieved_factories
+		}
+		effects = {
+			cf_ok_button_click = {
+				clr_country_flag = cf_recieved_factories
+			}
+		}
+		triggers = {
+		}
+	}
+	cfmark_button = {
+		context_type = selected_state_context
+		
+		window_name = "cfmark_button"
+
+		visible = {
+			is_owned_by = ROOT
+			NOT = {ROOT = {has_country_flag = cfexchange_open_flag}}
+		}
+		effects = {
+			open_cf_button_click = {
+				THIS = {
+					ROOT = {
+					set_country_flag = cfexchange_state_marked_flag
+					set_variable = {var:cf_marked_state = PREV.id}
+					set_variable = {cf_marked_state_name = PREV}
+					set_variable = {cf_marked_state_civs = PREV.industrial_complex_level}
+					}	
+				}
+			}
+		}
+		triggers = {
+		}
+	}
+	cfunmark_button = {
+		context_type = selected_state_context
+		
+		window_name = "cfunmark_button"
+
+		visible = {
+			is_owned_by = ROOT
+			NOT = {ROOT = {has_country_flag = cfexchange_open_flag}}
+		}
+		effects = {
+			open_cf_button_click = {
+				ROOT = {
+				clr_country_flag = cfexchange_state_marked_flag
+				}
+			}
+		}
+		triggers = {
+		}
+	}
+	cfopen_button = {
+		context_type = selected_state_context
+		
+		window_name = "cfopen_button"
+
+		visible = {
+			NOT = {is_owned_by = ROOT}
+			ROOT = {AND = {NOT = {has_country_flag = cfexchange_open_flag} has_country_flag=cfexchange_state_marked_flag}}
+		}
+		effects = {
+			open_cf_button_click = {
+			THIS = {
+				ROOT = {
+				set_country_flag = cfexchange_open_flag
+				set_variable = {
+					var = current_civ_select
+					value = 0
+						}
+				set_variable = {cf_pp_cost = current_civ_select}
+				multiply_variable = {cf_pp_cost = 20}
+					}
+				}
+			}
+		}
+		triggers = {
+		}
+	}
+}
+
