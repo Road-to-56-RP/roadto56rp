@@ -521,6 +521,67 @@ propaganda_campaings = {
 		}
 	}
 	
+	# COLONIAL #
+	prca_ENG_together = {
+		icon = eng_ally_imperialist_coup
+		
+		cost = 0
+		
+		custom_cost_trigger = {
+			check_variable = {
+				var = THIS.prca_tokens
+				value = 50
+				compare = greater_than_or_equals
+			}
+		}
+
+		custom_cost_text = prca_tokens_tt_has_50
+		
+		visible = {
+			original_tag = ENG
+			has_country_flag = campaigns_view
+			NOT = { has_country_flag = prca_disable_default_decisions }
+			has_country_flag = prca_use_default_set
+		}
+		
+		available = {
+			prca_has_available_propaganda_slot = yes
+			has_war = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+
+		days_remove = 160
+		days_re_enable = 80
+		
+		modifier = {
+			non_core_manpower = 0.02
+			army_morale_factor = 0.05
+			war_support_factor = 0.05
+			surrender_limit = 0.05
+		}
+	
+		complete_effect = {
+			subtract_from_variable = { THIS.prca_tokens = 50 }
+			set_variable = { THIS.frame = 15 }
+			THIS_activate_propaganda = yes
+			every_country = {
+				limit = { is_subject_of = ROOT }
+				add_timed_idea = {
+					idea = prca_ENG_together
+					days = 160
+				}
+			}
+		}
+		
+		remove_effect = {
+			set_variable = { THIS.frame = 15 }
+			THIS_deactivate_propaganda = yes
+		}
+	}
+	
 	# HOSTILE LEAFLET #
 	prca_hostile_leaflet_1 = {
 		icon = eng_propaganda_campaigns

@@ -9,7 +9,7 @@ country_event = {
 	id = prca.1
 	title = prca.1.t
 	desc = prca.1.d
-	
+
 	picture = GFX_report_event_generic_rally2
 
 	is_triggered_only = yes
@@ -21,7 +21,7 @@ country_event = {
 		}
 		custom_effect_tooltip = prca_broadcast_to_warmonger_tt
 	}
-	
+
 	option = {
 		name = prca.1.b
 		ai_chance = {
@@ -38,9 +38,9 @@ country_event = {
 # This buffer step ensures that all leaflets are activated.
 country_event = {
 	id = prca.2
-	
+
 	hidden = yes
-	
+
 	is_triggered_only = yes
 
 	immediate = {
@@ -62,9 +62,9 @@ country_event = {
 # Mission Generator for Enemy Planes dropping Propaganda Leaflets
 country_event = {
 	id = prca.3
-	
+
 	hidden = yes
-	
+
 	trigger = {
 		NOT = { has_country_flag = prca_disable_default_decisions }
 		has_country_flag = prca_use_default_set
@@ -72,7 +72,7 @@ country_event = {
 	}
 
 	mean_time_to_happen = { days = 20 }
-	
+
 	immediate = {
 		clr_country_flag = prca_activate_leaflet
 		country_event = prca.4
@@ -93,7 +93,7 @@ country_event = {
 					has_active_mission = prca_hostile_leaflet_2
 				}
 				activate_mission = prca_hostile_leaflet_2
-				set_variable = { THIS.frame = 12 }
+				set_variable = { THIS.frame = 13 }
 				THIS_activate_leaflet = yes
 				set_variable = { THIS.last_activated_leaflet = 2 }
 			}
@@ -103,7 +103,7 @@ country_event = {
 					has_active_mission = prca_hostile_leaflet_3
 				}
 				activate_mission = prca_hostile_leaflet_3
-				set_variable = { THIS.frame = 12 }
+				set_variable = { THIS.frame = 14 }
 				THIS_activate_leaflet = yes
 				set_variable = { THIS.last_activated_leaflet = 3 }
 			}
@@ -116,7 +116,7 @@ country_event = {
 	id = prca.4
 	title = prca.4.t
 	desc = prca.4.d
-	
+
 	picture = GFX_report_event_generic_rally2
 
 	is_triggered_only = yes
@@ -171,30 +171,16 @@ country_event = {
 	}
 }
 
+# Warning: Outdated submod detected
 country_event = {
 	id = prca.5
 	title = prca.5.t
 	desc = prca.5.d
-	
+
 	picture = GFX_report_event_generic_rally2
 
-	trigger = {
-		NOT = { has_country_flag = prca_version_reported }
-		has_country_flag = prca_enabled
-		OR = {
-			# has_country_flag = prca_v0.8.1	-> IS LATEST VERSION
-			always = no
-		}
-	}
-
-	mean_time_to_happen = { days = 20 }
+	is_triggered_only = yes
 	major = yes
-	
-	immediate = {
-		hidden_effect = {
-			set_country_flag = prca_version_reported
-		}
-	}
 
 	option = {
 		name = prca.5.a
@@ -207,9 +193,36 @@ country_event = {
 		ai_chance = {
 			factor = 0
 		}
-		ROOT = { 
+		ROOT = {
 			custom_effect_tooltip = prca.5.tt
 			clr_country_flag = prca_enabled
 		}
 	}
+}
+
+# DISPATCH EVENT: Calls an event for each country running on an outdated
+# Propaganda Campaign version. This is intended to inform the player
+# (and the developer) about any potential issues. Currently not used,
+# since all versions from 0.8.1 on are still compatible.
+country_event = {
+		id = prca.6
+
+		hidden = yes
+
+		fire_only_once = yes
+		is_triggered_only = yes
+
+		immediate = {
+				every_country = {
+						limit = {
+							AND = {
+								always = no
+								# has_country_flag = prca_enabled
+								# NOT = { is_major = yes }
+								# NOT = { has_country_flag = prca_v0.8.2 }
+							}
+						}
+						country_event = prca.5
+				}
+		}
 }
