@@ -22,7 +22,7 @@ focus_tree = {
 			ai_will_do = {
 					factor = 10
 					modifier = {
-							factor = 4
+							add = 6
 							AND = {
 									num_of_factories < 150
 									date < 1939.1.1
@@ -54,7 +54,7 @@ focus_tree = {
 		y = 0
 		cost = 5
 		ai_will_do = {
-			factor = 15
+			factor = 16
 		}
 
 		available_if_capitulated = yes
@@ -143,7 +143,7 @@ focus_tree = {
 		relative_position_id = GER_naval_rearmament_r56
 		cost = 5
 		ai_will_do = {
-			factor = 8
+			factor = 9
 		}
 
 		available_if_capitulated = yes
@@ -218,7 +218,7 @@ focus_tree = {
 		relative_position_id = GER_naval_effort_r56
 		cost = 10
 		ai_will_do = {
-			factor = 8
+			factor = 8.1
 		}
 		text = GER_naval_effort2
 
@@ -369,7 +369,7 @@ focus_tree = {
 	focus = {
 		id = GER_naval_gunnery_r56
 		prerequisite = { focus = GER_plan_z_r56 }
-		icon = GFX_sca_focus_admirality
+		icon = GFX_goal_generic_admirality
 		x = 0
 		y = 1
 		relative_position_id = GER_plan_z_r56
@@ -780,7 +780,7 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_appoint_economic_positions
-		icon = GFX_r56_goal_generic_bills
+		icon = GFX_goal_generic_bills
 		cost = 3.00
 		prerequisite = {
 			focus = GER_begin_depression_recovery
@@ -841,7 +841,7 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_support_autarks_I
-		icon = GFX_r56_goal_generic_fascist_bills
+		icon = GFX_goal_generic_fascist_bills
 		cost = 10.00
 		prerequisite = {
 			focus = GER_appoint_economic_positions
@@ -1011,7 +1011,7 @@ focus_tree = {
 	focus = {
 		id = GER_volksgemeinschaft
 		icon = GFX_goal_generic_citizens
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_appoint_economic_positions
 		}
@@ -1611,6 +1611,10 @@ focus_tree = {
 		}
 			ai_will_do = {
 					factor = 10
+					modifier = {
+						factor = 4
+						date < 1939.01.01 #need to build up
+					}
 				}
 			bypass = {
 					FRA = {
@@ -1769,6 +1773,12 @@ focus_tree = {
 		id = GER_core_lorraine
 		icon = GFX_goal_GER_claim_alsace_lorraine
 		cost = 5.00
+		available = {
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
+		}
 		prerequisite = {
 			focus = GER_prepare_france_invasion
 		}
@@ -1789,7 +1799,6 @@ focus_tree = {
 		}
 		completion_reward = {
 				add_state_core = 28
-				add_state_core = 8
 				add_state_core = 828
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -2521,6 +2530,7 @@ focus_tree = {
 			modifier = {
 				factor = 0
 				OR = {
+					date < 1939.01.01
 					AND = {
 						has_war_with = CZE
 						NOT = {
@@ -2540,6 +2550,12 @@ focus_tree = {
 					surrender_progress > 0.05
 				}
 
+			}
+			modifier = {
+				add = 0.5
+				GER = {
+					has_war = NO
+				}
 			}
 			modifier = {
 				factor = 0
@@ -2656,7 +2672,7 @@ focus_tree = {
 	focus = {
 		id = GER_sweden_friend
 		icon = GFX_Goal_alliance_sweden
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_weserubung
 		}
@@ -3848,37 +3864,6 @@ focus_tree = {
 
 	}
 	focus = {
-		id = GER_form_the_reichskommissariats
-		icon = GFX_focus_ger_reichskommisariats
-		cost = 10.00
-		prerequisite = {
-			focus = GER_rhineland
-		}
-		x = 35
-		y = 1
-		ai_will_do = {
-			factor = 10		
-			modifier = {
-				factor = 0
-				date < 1940.06.06
-			}						
-					
-		}
-		available = {
-			has_government = fascism
-			is_puppet = no
-		}
-		completion_reward = {
-			custom_effect_tooltip = GER_reichskommissariats_tt
-			unlock_decision_tooltip = GER_reichskommissariat_norwegen
-			unlock_decision_tooltip = GER_reichskommissariat_niederlande
-			unlock_decision_tooltip = GER_reichskommissariat_belgien_nordfrankreich
-			unlock_decision_tooltip = GER_reichskommissariat_ostland
-			unlock_decision_tooltip = GER_reichskommissariat_ukraine
-		}
-
-	}
-	focus = {
 		id = GER_prepare_italian_invasion
 		icon = GFX_goal_generic_construct_military
 		cost = 5.00
@@ -4194,13 +4179,15 @@ focus_tree = {
 		cost = 10.00
 		prerequisite = {
 			focus = GER_demand_memel
+		}
+		prerequisite = {
 			focus = GER_anti_comitern_pact
 		}
 		mutually_exclusive = {
-			focus = GER_prepare_poland_invasion
+			focus = GER_danzig_or_war
 		}
-		x = 40
-		y = 2
+		x = 39
+		y = 4
 			ai_will_do = {
 					factor = 2.5
 					modifier = {
@@ -4287,15 +4274,15 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_prepare_poland_invasion
-		icon = GFX_goal_GER_prepare_to_invade_poland
-		cost = 2.00
+		icon = GFX_goal_generic_territory_or_war
+		cost = 5
 		prerequisite = {
 			focus = GER_demand_memel
 		}
-		mutually_exclusive = {
-			focus = GER_poland_friend
+		prerequisite = {
+			focus = GER_anti_comitern_pact
 		}
-		x = 42
+		x = 41
 		y = 2
 		available = {
 				country_exists = POL
@@ -4315,9 +4302,28 @@ focus_tree = {
 			}
 		}
 		ai_will_do = {
-				factor = 10.5
+				factor = 10
+				modifier = {
+					factor = 0.1
+					GER = {
+						has_offensive_war = yes
+					}
+				}
+				modifier = {
+					factor = 3
+					date < 1939.03.01
+				}
+				modifier = {
+					add = 1
+					AND = {
+						GER = {
+							has_war = NO
+						}
+						date > 1939.03.01
+					}
+				}
 			}
-		completion_reward = {
+		completion_reward = { #this really needs better code - SpicyAlfredo
 				5 = {
 						add_building_construction = {
 								type = infrastructure
@@ -4330,6 +4336,30 @@ focus_tree = {
 								instant_build = yes
 							}
 					}
+					63 = {
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					add_building_construction = {
+							type = air_base
+							level = 1
+							instant_build = yes
+						}
+					}
+					68 = {
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					add_building_construction = {
+							type = air_base
+							level = 1
+							instant_build = yes
+						}
+					}
 			}
 			search_filters = { FOCUS_FILTER_INDUSTRY }
 
@@ -4340,7 +4370,6 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = GER_prepare_poland_invasion
-			focus = GER_poland_friend
 		}
 		x = 40
 		y = 3
@@ -4352,6 +4381,17 @@ focus_tree = {
 		}
 		completion_reward = {
 			air_experience = 25
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				add_tech_bonus = {
+					name = scout_plane
+					bonus = 1.0
+					uses = 1
+					category = cat_scout_plane
+				}				
+			}					
 			add_tech_bonus = {
 				name = GER_modernize_CAS
 				bonus = 1
@@ -4375,7 +4415,9 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = GER_prepare_poland_invasion
-			focus = GER_poland_friend
+		}
+		prerequisite = {
+			focus = GER_mol_rib_pact
 		}
 		x = 42
 		y = 3
@@ -4399,65 +4441,6 @@ focus_tree = {
 
 	}
 	focus = {
-		id = GER_war_with_poland
-		icon = GFX_goal_GER_war_with_poland
-		cost = 10.00
-		prerequisite = {
-			focus = GER_modernize_CAS
-		}
-		prerequisite = {
-			focus = GER_schwerepunkt_tactics
-		}
-		mutually_exclusive = {
-			focus = GER_danzig_or_war
-		}
-		x = 40
-		y = 4
-		ai_will_do = {
-			factor = 10.1
-			modifier = {
-				factor = 0.25
-				OR = {
-					has_war_with = FRA
-					NOT = {
-						FRA = {
-							has_capitulated = yes
-						}
-					}
-					has_war_with = ITA
-					NOT = {
-						ITA = {
-							has_capitulated = yes
-						}
-					}							
-				}
-			}
-		}
-		available = {
-			r56_script_i_am_sane = yes
-			#POL = {
-			#	r56_script_target_is_sane = yes 
-			# }
-		}			
-		bypass = {
-			OR = {
-				has_completed_focus = GER_poland_friend
-				POL = {
-					r56_script_standard_bypass = yes
-				}
-			}
-		}
-		completion_reward = {
-			create_wargoal = {
-					type = take_state_focus
-					target = POL
-					expire = 0
-					generator = { 85 }
-				}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
-	focus = {
 		id = GER_danzig_or_war
 		icon = GFX_goal_DNZ_coat_of_arms
 		cost = 10.00
@@ -4468,26 +4451,69 @@ focus_tree = {
 			focus = GER_schwerepunkt_tactics
 		}
 		mutually_exclusive = {
-			focus = GER_war_with_poland
+			focus = GER_poland_friend
 		}
-		x = 42
+		x = 41
 		y = 4
 		cancel_if_invalid = no
 		ai_will_do = {
-			factor = 20
+			factor = 19
+			modifier = {
+				add = 0.5
+				GER = {
+					has_war = NO
+				}
+			}
+			modifier = {
+				add = 1
+				AND = {
+					GER = {
+						has_war = NO
+					}
+					date > 1939.11.01
+				}
+			}
 			modifier = {
 				factor = 0.25
 				OR = {
-					has_war_with = FRA
-					NOT = {
-						FRA = {
-							has_capitulated = yes
+					AND = {
+						has_war_with = CZE
+						NOT = {
+							CZE = {
+								has_capitulated = yes
+							}
 						}
 					}
-					has_war_with = ITA
-					NOT = {
-						ITA = {
-							has_capitulated = yes
+					AND = {
+						has_war_with = DEN
+						NOT = {
+							DEN = {
+								has_capitulated = yes
+							}
+						}
+					}
+					AND = {
+						has_war_with = FRA
+						NOT = {
+							FRA = {
+								has_capitulated = yes
+							}
+						}
+					}
+					AND = {
+						has_war_with = ENG
+						NOT = {
+							ENG = {
+								has_capitulated = yes
+							}
+						}
+					}
+					AND = {
+						has_war_with = ITA
+						NOT = {
+							ITA = {
+								has_capitulated = yes
+							}
 						}
 					}							
 				}
@@ -4672,7 +4698,7 @@ focus_tree = {
 		icon = GFX_goal_generic_romanian_treaty
 		cost = 10.00
 		prerequisite = {
-			focus = GER_war_with_poland
+			focus = GER_poland_friend
 			focus = GER_danzig_or_war
 		}
 		mutually_exclusive = {
@@ -4753,10 +4779,10 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_second_vienna_award
-		icon = GFX_goal_consitution
+		icon = GFX_goal_constitution
 		cost = 5.00
 		prerequisite = {
-			focus = GER_war_with_poland
+			focus = GER_poland_friend
 			focus = GER_danzig_or_war
 		}
 		mutually_exclusive = {
@@ -4856,7 +4882,7 @@ focus_tree = {
 		cost = 10.00
 		prerequisite = {
 			focus = GER_danzig_or_war
-			focus = GER_war_with_poland
+			focus = GER_poland_friend
 		}
 		mutually_exclusive = {
 			focus = GER_romania_friend
@@ -5168,11 +5194,11 @@ focus_tree = {
 	focus = {
 		id = GER_anti_comitern_pact
 		icon = GFX_goal_attack_communists
-		cost = 1.00
+		cost = 1
 		prerequisite = {
 			focus = GER_rhineland
 		}
-		x = 39
+		x = 40
 		y = 1
 			available = {
 					is_puppet = no
@@ -5199,7 +5225,7 @@ focus_tree = {
 						}
 				}
 			completion_reward = {
-				add_political_power = 25
+				add_political_power = 50
 					SOV = {
 							add_opinion_modifier = {
 									target = ROOT
@@ -5207,7 +5233,7 @@ focus_tree = {
 								}
 						}
 					add_named_threat = {
-							threat = 0.5
+							threat = 0.3
 							name = GER_anti_comitern_pact
 						}
 					every_other_country = {
@@ -5251,10 +5277,10 @@ focus_tree = {
 		icon = GFX_goal_molotov_ribbentrop_pact
 		cost = 5.00
 		prerequisite = {
-			focus = GER_prepare_poland_invasion
+			focus = GER_demand_memel
 		}
-		x = 44
-		y = 3
+		x = 43
+		y = 2
 			ai_will_do = {
 					factor = 10
 					modifier = {
@@ -5303,7 +5329,6 @@ focus_tree = {
 		icon = GFX_goal_SOV_trot_destalinization
 		cost = 10.00
 		prerequisite = {
-			focus = GER_war_with_poland
 			focus = GER_danzig_or_war
 		}
 		x = 46
@@ -5707,12 +5732,38 @@ focus_tree = {
 			factor = 50
 		}
 		
-			completion_reward = {
-					add_timed_idea = {
-							idea = GER_restore_weimar_idea
-							days = 730
-						}
+		completion_reward = {
+			add_timed_idea = {
+				idea = GER_restore_weimar_idea
+				days = 730
+			}
+			if = {
+				limit = {
+					date < 1942.01.01
 				}
+				create_field_marshal = {
+					name = "Werner von Blomberg"
+					picture = "r56_portrait_GER_Werner_von_Blomberg.dds"
+					traits = {  infantry_leader  }
+					skill = 3
+					attack_skill = 3
+					defense_skill = 2
+					planning_skill = 2
+					logistics_skill = 3
+				}
+				create_field_marshal = {
+					name = "Werner von Fritsch"
+					picture = "r56_portrait_GER_Werner_von_Fritsch.dds"
+					traits = { infantry_leader skilled_staffer expert_delegator }
+					skill = 3
+					attack_skill = 2
+					defense_skill = 3
+					planning_skill = 3
+					logistics_skill = 2
+				}				
+			}
+			
+		}
 
 	}
 	focus = {
@@ -5963,8 +6014,39 @@ focus_tree = {
 
 	}
 	focus = {
+		id = GER_form_the_reichskommissariats
+		icon = GFX_focus_ger_reichskommisariats
+		cost = 10.00
+		prerequisite = {
+			focus =  GER_combine_SS_gestapo
+		}
+		x = 66
+		y = 3
+		ai_will_do = {
+			factor = 10		
+			modifier = {
+				factor = 0
+				date < 1940.06.06
+			}						
+					
+		}
+		available = {
+			has_government = fascism
+			is_puppet = no
+		}
+		completion_reward = {
+			custom_effect_tooltip = GER_reichskommissariats_tt
+			unlock_decision_tooltip = GER_reichskommissariat_norwegen
+			unlock_decision_tooltip = GER_reichskommissariat_niederlande
+			unlock_decision_tooltip = GER_reichskommissariat_belgien_nordfrankreich
+			unlock_decision_tooltip = GER_reichskommissariat_ostland
+			unlock_decision_tooltip = GER_reichskommissariat_ukraine
+		}
+
+	}
+	focus = {
 		id = GER_purge_political_opponents
-		icon = GFX_r56_goal_FRA_front_de_la_liberte
+		icon = GFX_goal_FRA_front_de_la_liberte
 		cost = 5
 		prerequisite = {
 			focus = GER_denounce_versailles
@@ -6075,7 +6157,7 @@ focus_tree = {
 	}
 #	focus = {
 #		id = GER_foreign_volunteers
-#		icon = GFX_r56_focus_multinational_army
+#		icon = GFX_goal_generic_multinational_army
 #		cost = 10.00
 #		prerequisite = {
 #			focus = GER_combine_SS_gestapo
@@ -6655,7 +6737,7 @@ focus_tree = {
 	focus = {
 		id = GER_finland_friend
 		icon = GFX_Goal_alliance_finland
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_sweden_friend
 			focus = GER_sweden_war
@@ -7027,7 +7109,7 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_collectivize_industry
-		icon = GFX_r56_focus_commie_investments
+		icon = GFX_goal_generic_commie_investments
 		cost = 10.00
 		prerequisite = {
 			focus = GER_production_effort

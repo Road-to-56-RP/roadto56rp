@@ -1331,7 +1331,7 @@ focus = {
 	focus = {
 		id = GRE_naval_artillery
 		prerequisite = { focus = GRE_battleship_focus }
-		icon = GFX_sca_focus_admirality
+		icon = GFX_goal_generic_admirality
 		x = 2
 		y = 1
 		relative_position_id = GRE_battleship_focus
@@ -2121,7 +2121,7 @@ focus = {
 
 
 	focus = {
-	   id = GRE_divided_nation
+	   	id = GRE_divided_nation
 		icon = GFX_goal_pp
        	text = GRE_divided_nation
        	prerequisite = { focus = GRE_political_awakening }
@@ -2137,8 +2137,9 @@ focus = {
 
 		completion_reward = {
 		    add_political_power = 75
-		  	unlock_decision_tooltip = GRE_work_on_government
-		  }
+			unlock_decision_tooltip = GRE_work_on_government
+			custom_effect_tooltip = GRE_divided_nation_tt
+		}
 		  search_filters = { FOCUS_FILTER_POLITICAL }
  	  }
 
@@ -2153,7 +2154,11 @@ focus = {
 		cost = 10
 		relative_position_id = GRE_divided_nation
 		ai_will_do = {
-			factor = 2
+			factor = 2.5
+		}
+
+		select_effect = { 
+			set_country_flag = r56_no_commie_civil_war
 		}
 
 		available = {
@@ -2163,6 +2168,7 @@ focus = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			custom_effect_tooltip = GRE_divided_no_commie_cw_tt
 			add_ideas = nationalism
 			remove_ideas = GRE_divided_nation
 		}
@@ -2567,12 +2573,17 @@ focus = {
 		y = 1
 		relative_position_id = GRE_divided_nation
 		cost = 5
+
 		ai_will_do = {
 			factor = 15
 		}
 
+		select_effect = { 
+			set_country_flag = r56_no_commie_civil_war
+		}
+
 		available = {
-      has_country_flag = GRE_metaxas_pm
+      	has_country_flag = GRE_metaxas_pm
 			OR = {
 			  has_government = democratic
 				has_government = neutrality
@@ -2581,8 +2592,9 @@ focus = {
 
 		available_if_capitulated = no
 
-    completion_reward = {
-		  add_popularity = { ideology = neutrality popularity = 0.04 }
+    	completion_reward = {
+			custom_effect_tooltip = GRE_divided_no_commie_cw_tt
+			add_popularity = { ideology = neutrality popularity = 0.04 }
 			add_stability = 0.07
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
@@ -3557,13 +3569,18 @@ focus = {
 			factor = 9
 		}
 
+		select_effect = { 
+			set_country_flag = r56_no_commie_civil_war
+		}
+
 		available = {
-      has_country_flag = GRE_democratic_party_appointed
+      		has_country_flag = GRE_democratic_party_appointed
 		}
 
 		available_if_capitulated = no
 
       	completion_reward = {
+			custom_effect_tooltip = GRE_divided_no_commie_cw_tt
 			add_timed_idea = { idea = GRE_democratic_support days = 360 }
 			remove_ideas = GRE_idea_transition_government
 		}
@@ -3637,7 +3654,7 @@ focus = {
 
 	focus = {
 		id = GRE_democratic_economic_policy
-		icon = GFX_r56_goal_FRA_reynaud_economic_reforms
+		icon = GFX_goal_FRA_reynaud_economic_reforms
     	text = GRE_democratic_economic_policy
 		prerequisite = { focus = GRE_ensure_stability }
 		prerequisite = { focus = GRE_denounce_metaxism }
@@ -4247,7 +4264,7 @@ focus = {
 
 	focus = {
 		id = GRE_restaff_the_army_command
-		icon = GFX_sca_focus_communist_loyalty
+		icon = GFX_goal_generic_communist_loyalty
 		prerequisite = { focus = GRE_begin_internal_reforms }
 		x = 0
 		y = 3
@@ -4584,7 +4601,7 @@ focus = {
 
 		focus = {
 			id = GRE_protect_northern_minorities
-			icon = GFX_r56_focus_multinational_army
+			icon = GFX_goal_generic_multinational_army
 			prerequisite = { focus = GRE_fate_of_the_royal_family }
 			relative_position_id = GRE_fate_of_the_royal_family
 			x = 1
@@ -4657,7 +4674,7 @@ focus = {
 
 		focus = {
 			id = GRE_marxs_dream
-			icon = GFX_r56_goal_generic_karl_marx
+			icon = GFX_goal_generic_karl_marx
 			prerequisite = { focus = GRE_enforce_nationalization }
 			prerequisite = { focus = GRE_deal_with_klaras }
 			prerequisite = { focus = GRE_Reinforce_the_hierarchy }
@@ -5514,9 +5531,13 @@ focus = {
 		x = 0
 		y = 1
 		relative_position_id = GRE_divided_nation
-		cost = 7
+		cost = 5
 		ai_will_do = {
 			factor = 10
+		}
+
+		select_effect = { 
+			set_country_flag = r56_no_commie_civil_war
 		}
 
 		available = {
@@ -5526,6 +5547,7 @@ focus = {
 		available_if_capitulated = no
 
       	completion_reward = {
+			custom_effect_tooltip = GRE_divided_no_commie_cw_tt
 			add_political_power = 100
 			add_stability = 0.05
 			remove_ideas = GRE_divided_nation
@@ -6006,17 +6028,24 @@ focus = {
 
 		bypass = {
 			341 = { is_owned_by = GRE }
+			797 = { is_owned_by = GRE }
 		}
 
 		completion_reward = {
 			341 = { add_claim_by = GRE }
+			797 = { add_claim_by = GRE }
 
 			if = {
 				limit = {
-					TUR = { owns_state = 341 }
+					TUR = {
+						controls_state = {
+							341
+							797
+						}
+					}
 				}
-			}
-			TUR = { country_event = greece.35 }
+				TUR = { country_event = greece.35 }
+			}	
 	    }
     }
 
@@ -6073,7 +6102,7 @@ focus = {
 
 	focus = {
 		id = GRE_purchase_cyprus
-		icon = GFX_eye_focus_banking
+		icon = GFX_goal_generic_banking
     	text = GRE_purchase_cyprus
 		prerequisite = { focus = GRE_prepare_expansion }
 		mutually_exclusive = { focus = GRE_reclaim_cyprus }
@@ -6124,7 +6153,7 @@ focus = {
 
 	focus = {
 		id = GRE_purge_republicans
-		icon = GFX_r56_goal_FRA_front_de_la_liberte
+		icon = GFX_goal_FRA_front_de_la_liberte
     	text = GRE_purge_republicans
 		prerequisite = { focus = GRE_devout_to_the_monarchy }
 		x = 0

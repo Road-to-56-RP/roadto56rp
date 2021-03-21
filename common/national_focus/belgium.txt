@@ -33,7 +33,7 @@ focus_tree = {
         y = 0
         cost = 10
 		ai_will_do = {
-			factor = 15
+			factor = 10
 		}
         completion_reward = {
 			add_timed_idea = {
@@ -378,7 +378,7 @@ focus_tree = {
 	}	
     focus = { 
         id = tblra_communist_propaganda_Benelux
-        icon = GFX_focus_propaganda_soviet
+        icon = gfx_postive_heroism
         prerequisite = { focus = tblra_political_commissars}
 		mutually_exclusive = { focus = tblra_puppet_netherlands }
         relative_position_id = tblra_go_left
@@ -501,6 +501,39 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
+	focus = {
+		id = tblra_ideological_propaganda
+		icon = GFX_focus_propaganda_soviet
+		prerequisite = { focus = tblra_communist_propaganda_Benelux }
+		x = 0
+		y = 1
+		relative_position_id = tblra_communist_propaganda_Benelux
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		allow_branch = {
+			has_dlc = "La Resistance"
+		}
+
+		available = {
+			has_intelligence_agency = yes
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+
+		completion_reward = {
+			upgrade_intelligence_agency = upgrade_psycho_warfare
+			add_ideas = r56_clandestine_propaganda_techniques
+		}
+		search_filters = { FOCUS_FILTER_ESPIONAGE }
+	}	
     focus = {
         id = tblra_technology_sharing_communism
         icon = GFX_goal_communist_brain
@@ -1839,6 +1872,9 @@ focus_tree = {
 				has_country_flag = tblra_king_martial_law
 				has_government = neutrality
 			}
+			custom_trigger_tooltip = {
+				tooltip = BEL_neutrality_path_tt		
+			}			
 		}
 		bypass = {
 			has_country_flag = tblra_king_martial_law
@@ -1878,6 +1914,16 @@ focus_tree = {
 			}
 			add_ideas = tblra_monarchist_repression
 			add_political_power = 50
+			if = {
+				limit = {
+					has_completed_focus = tblra_go_right
+					has_country_leader = {
+						name = "Léopold III"
+						ruling_only = yes
+					}						
+				}
+				add_country_leader_trait = r56_trait_opposed_to_fascism
+			}
         }
         search_filters = {  FOCUS_FILTER_POLITICAL }
     }
@@ -4099,7 +4145,18 @@ focus_tree = {
 		6 = { is_owned_by = BEL }
         }		
         completion_reward = {
-            air_experience = 25
+			air_experience = 25
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				add_tech_bonus = {
+					name = scout_plane
+					bonus = 1.0
+					uses = 1
+					category = cat_scout_plane
+				}				
+			}	
             add_tech_bonus = {
                 name = air_doc_bonus
                 bonus = 1
@@ -4934,7 +4991,7 @@ focus_tree = {
 	}
     focus = {
         id = tblra_expand_the_navy
-        icon = GFX_goal_generic_navy_battleship
+        icon = GFX_goal_generic_expand_the_naval_industry
 		relative_position_id = tblra_recreate_the_navy
         x = 0
         y = 3
@@ -5023,7 +5080,19 @@ focus_tree = {
 				category = cl_tech
 				category = bc_tech
 
-            }
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = SPR_navy_modernization
+					bonus = 2
+					uses = 1
+					category = asw_tech
+				}
+				
+			}			
         }
         search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -5031,7 +5100,7 @@ focus_tree = {
 		id = tblra_naval_artillery
 		prerequisite = { focus = tblra_cruisers_and_destroyers }
 		prerequisite = { focus = tblra_expand_the_navy }
-		icon = GFX_sca_focus_admirality
+		icon = GFX_goal_generic_admirality
 		x = -1
 		y = 2
 		relative_position_id = tblra_cruisers_and_destroyers

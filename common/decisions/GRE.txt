@@ -3724,7 +3724,7 @@ political_actions = {
 	}
 }
 ###########################################################################
-
+#Rt56
 GRE_divided_nation_category = {
 
   GRE_communist_insurrection = {
@@ -3733,10 +3733,16 @@ GRE_divided_nation_category = {
 
 		available = {
 			hidden_trigger = { 			
-				
 				has_country_flag = r56_commie_crisis
-					
-			}
+				OR = {
+					NOT = {
+						has_country_flag = gre_bftb_focus_tree_cf
+					}
+					NOT = {
+						has_dlc = "Battle for the Bosporus"
+					}
+				}
+			}			
 		}
 
 		priority = 10
@@ -3746,31 +3752,58 @@ GRE_divided_nation_category = {
 		fire_only_once = yes
 
 		activation = {
-			tag = GRE
-			NOT = {
-				has_country_flag = gre_bftb_focus_tree_cf
+			AND = {
+					NOT = { #just in case
+						has_country_flag = gre_bftb_focus_tree_cf
+					}
+					OR = {
+						NOT = {
+							has_game_rule = {
+								rule = GRE_focus_tree_selection
+								option = STANDARD_TREE
+							}
+						}
+						NOT = {
+							has_dlc = "Battle for the Bosporus"
+						}
+					}
+					original_tag = GRE
+				}
 			}
-			
-		}
 
 		visible = {
-			tag = GRE
-			NOT = {
-				has_country_flag = gre_bftb_focus_tree_cf
-			}	
+			AND = {
+				hidden_trigger = { 
+					NOT = { #just in case
+						has_country_flag = gre_bftb_focus_tree_cf
+					}
+					OR = {
+						NOT = {
+							has_game_rule = {
+								rule = GRE_focus_tree_selection
+								option = STANDARD_TREE
+							}
+						}
+						NOT = {
+							has_dlc = "Battle for the Bosporus"
+						}
+					}
+				}
+				original_tag = GRE
+			}
 		}
 
-		cancel_if_not_visible = no
+		cancel_if_not_visible = yes
 
 		is_good = no
 
 		timeout_effect = {
-      GRE = { country_event = { hours = 12 id = greece.81 } }
-      hidden_effect = {
-        set_country_flag = r56_commie_crisis
-      }
-    }
-  }
+		GRE = { country_event = { hours = 1 id = greece.81 } }
+			hidden_effect = {
+				set_country_flag = r56_commie_crisis
+			}
+   		}
+  	}
 
   GRE_legislative_elections = {
 
@@ -3778,7 +3811,21 @@ GRE_divided_nation_category = {
 
 		available = {
 			hidden_trigger = { 			
-				has_country_flag = r56_demerzis_crisis
+				has_country_flag = GRE_legislative_elections_r56
+				NOT = {
+					has_country_flag = gre_bftb_focus_tree_cf
+				}
+				OR = {
+					NOT = {
+						has_game_rule = {
+							rule = GRE_focus_tree_selection
+							option = STANDARD_TREE
+						}
+					}
+					NOT = {
+						has_dlc = "Battle for the Bosporus"
+					}
+				}
 			}
 		}
 
@@ -3789,17 +3836,38 @@ GRE_divided_nation_category = {
 		fire_only_once = yes
 
 		activation = {
-			tag = GRE
-			NOT = {
-				has_country_flag = gre_bftb_focus_tree_cf
-			}		
+			AND = {
+				hidden_trigger = { 
+					NOT = { #just in case
+						has_country_flag = gre_bftb_focus_tree_cf
+					}
+					OR = {
+						has_game_rule = {
+							rule = GRE_focus_tree_selection
+							option = R56_TREE
+						}
+						NOT = {
+							has_dlc = "Battle for the Bosporus"
+						}
+					}
+				}
+				original_tag = GRE
+			}	
 		}
 
-		visible = {
-			tag = GRE
-			NOT = {
-				has_country_flag = gre_bftb_focus_tree_cf
-			}	
+		visible = { 
+			original_tag = GRE
+			hidden_trigger = { 
+				OR = {
+					has_game_rule = {
+						rule = GRE_focus_tree_selection
+						option = R56_TREE
+					}
+					NOT = {
+						has_dlc = "Battle for the Bosporus"
+					}
+				}	
+			}
 		}
 
 		cancel_if_not_visible = yes
@@ -3807,28 +3875,28 @@ GRE_divided_nation_category = {
 		is_good = yes
 
 		timeout_effect = {
-      GRE = { country_event = { hours = 8 id = greece.43 } }
-      hidden_effect = {
-        set_country_flag = r56_demerzis_crisis
-      }
-    }
+			hidden_effect = {
+				set_country_flag = GRE_legislative_elections_r56
+				set_country_flag = r56_demerzis_crisis
+			}
+			GRE = { country_event = { hours = 8 id = greece.43 } }
+    	}
   }
+
   GRE_demertzis_illing_health = {
 
 		icon = decision_revolt
 
 		available = {
-			#hidden_trigger = {
-			#	NOT = {
-			#		has_country_flag = gre_bftb_focus_tree_cf
-			#	}
-			#}
-    }
+			hidden_trigger = { 	
+				has_country_flag = r56_demerzis_illness
+			}
+    	}
     
-    visible = {
-      tag = GRE
-      has_country_flag = r56_demerzis_crisis
-    }
+		visible = {
+			original_tag = GRE
+			has_country_flag = r56_demerzis_crisis
+		}
 
 		priority = 9
 
@@ -3837,21 +3905,33 @@ GRE_divided_nation_category = {
 		fire_only_once = yes
 
 		activation = {
-			tag = GRE
+			original_tag = GRE
 			has_country_flag = r56_demerzis_crisis
 			NOT = {
 				has_country_flag = gre_bftb_focus_tree_cf
+			}
+			OR = {
+				NOT = {
+					has_game_rule = {
+						rule = GRE_focus_tree_selection
+						option = STANDARD_TREE
+					}
+				}
+				NOT = {
+					has_dlc = "Battle for the Bosporus"
+				}
 			}	
 		}
 
-		cancel_if_not_visible = yes
+		cancel_if_not_visible = no
 
 		is_good = no
 
 		timeout_effect = {
-      		GRE = { country_event = { hours = 10 id = greece.5 } }
-    }
-  }
+			set_country_flag = r56_demerzis_illness
+			GRE = { country_event = { hours = 8 id = greece.5 } }
+    	}
+  	}
 
 	GRE_work_on_stability = {
 
@@ -3869,7 +3949,7 @@ GRE_divided_nation_category = {
 		}
 
 		ai_will_do = {
-		factor = 100
+			factor = 100
 		}
 
 		fire_only_once = yes
@@ -3896,14 +3976,14 @@ GRE_divided_nation_category = {
 		}
 
 		allowed = {
-			tag = GRE
+			original_tag = GRE
 		}
 
 		visible = {
-				has_completed_focus = GRE_end_the_depression
-				NOT = {
-					has_country_flag = gre_bftb_focus_tree_cf
-				}	
+			has_completed_focus = GRE_end_the_depression
+			NOT = {
+				has_country_flag = gre_bftb_focus_tree_cf
+			}	
 	    }
 
       ai_will_do = {
@@ -3941,24 +4021,24 @@ GRE_divided_nation_category = {
 		}
 
 		allowed = {
-			tag = GRE
+			original_tag = GRE
 		}
 
 		visible = {
-		tag = GRE
-		NOT = {
-			has_country_flag = gre_bftb_focus_tree_cf
-		}	
+			original_tag = GRE
+			NOT = {
+				has_country_flag = gre_bftb_focus_tree_cf
+			}	
 	    }
 
-      ai_will_do = {
+     	ai_will_do = {
   			factor = 100
   		}
 
 		fire_only_once = yes
 
 		modifier = {
-			political_power_gain = -0.3
+			political_power_gain = -0.1
 		}
 
 		days_remove = 50

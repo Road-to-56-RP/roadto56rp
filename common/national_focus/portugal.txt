@@ -1862,6 +1862,26 @@ focus_tree = {
 			    uses = 1
 			    category = cat_fleet_in_being
 			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = industrial_bonus
+					bonus = 1
+					uses = 1
+					category = naval_armor_tech
+				}
+				add_tech_bonus = {
+					name = SPR_navy_modernization
+					bonus = 1
+					uses = 1
+					technology = fire_control_methods_1
+					technology = fire_control_methods_2
+					technology = fire_control_methods_3
+				}				
+										
+			}			
 		}
 	}
 
@@ -2904,7 +2924,7 @@ focus_tree = {
 		}
 		prerequisite = { focus = POR_popular_front }
 		mutually_exclusive = { focus = POR_strict_neutrality_in_the_spanish_civil_war focus = POR_support_the_spanish_nationalists focus = POR_a_royal_wedding }
-		icon = GFX_r56_goal_generic_spanish_civil_war_soldier
+		icon = GFX_goal_generic_spanish_civil_war_soldier
 		x = 0
 		y = 1
 
@@ -3257,34 +3277,51 @@ focus_tree = {
 		relative_position_id = POR_the_iberian_socialist_union
 		cost = 10
 		completion_reward = {
-			create_faction = POR_popular_front_bloc
-			every_other_country = {
+			if = {
 				limit = {
-					capital_scope = { is_on_continent = europe }
-					has_government = communism
-					is_in_faction = yes
+					any_other_country = {
+						NOT = {
+							original_tag = SOV
+						}
+						is_faction_leader = yes
+						has_government = communism
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
 				}
-				add_opinion_modifier = {
-					target = POR
-					modifier = POR_iberian_communism
-				}
+				r56_other_faction_invite_communism_NOT_SOV = yes
 			}
-			every_other_country = {
-				limit = {
-					capital_scope = { is_on_continent = europe }
-					has_government = communism
-					is_in_faction = no
+			else = {
+				create_faction = POR_popular_front_bloc
+				every_other_country = {
+					limit = {
+						capital_scope = { is_on_continent = europe }
+						has_government = communism
+						is_in_faction = yes
+					}
+					add_opinion_modifier = {
+						target = POR
+						modifier = POR_iberian_communism
+					}
 				}
-				add_opinion_modifier = {
-					target = POR
-					modifier = POR_iberian_communism
+				every_other_country = {
+					limit = {
+						capital_scope = { is_on_continent = europe }
+						has_government = communism
+						is_in_faction = no
+					}
+					add_opinion_modifier = {
+						target = POR
+						modifier = POR_iberian_communism
+					}
+					hidden_effect = {
+						country_event = generic.5
+					}
+					custom_effect_tooltip = POR_the_popular_front_bloc_tt
 				}
-				hidden_effect = {
-					country_event = generic.5
-				}
-				custom_effect_tooltip = POR_the_popular_front_bloc_tt
-			}
-			custom_effect_tooltip = POR_the_popular_front_bloc_explanatory_tt
+				custom_effect_tooltip = POR_the_popular_front_bloc_explanatory_tt
+			}			
 			every_other_country = {
 				limit = {
 					capital_scope = { is_on_continent = europe }
@@ -3830,6 +3867,10 @@ focus_tree = {
 		id = POR_strict_neutrality_in_the_spanish_civil_war
 		available = {
 			SPR_scw_in_progress = yes
+		}
+
+		ai_will_do = {
+			factor = 1
 		}
 
 		bypass = {
@@ -4462,6 +4503,11 @@ focus_tree = {
 		bypass = {
 			has_global_flag = scw_over
 		}
+
+		ai_will_do = {
+			factor = 1.1
+		}
+		
 		prerequisite = { focus = POR_portuguese_legion }
 		icon = GFX_goal_generic_position_armies
 		x = -4
@@ -4668,6 +4714,10 @@ focus_tree = {
 			has_manpower > 80000
 			has_equipment = { support_equipment > 799 }
 			has_equipment = { infantry_equipment > 799 }
+		}
+
+		ai_will_do = {
+			factor = 1
 		}
 
 		bypass = {
@@ -5037,6 +5087,10 @@ focus_tree = {
 		icon = GFX_focus_generic_strike_at_democracy2
 		x = 8
 		y = 0
+
+		ai_will_do = {
+			factor = 0.5
+		}
 
 		relative_position_id = POR_observation_mission
 		cost = 10
@@ -5761,6 +5815,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
 
 	focus = {
@@ -5777,6 +5832,25 @@ focus_tree = {
 		icon = GFX_focus_generic_royal_wedding
 		x = 13
 		y = 0
+		
+		ai_will_do = {
+			factor = 0.2
+			modifier = {
+				factor = 0
+				BRA = {
+					is_ai = no 
+				}
+			}
+			modifier = {
+				add = 1
+				AND = {	
+					has_global_flag = rt56_old_school
+					BRA = {
+						is_ai = yes
+					}
+				}
+			}
+		}
 
 		relative_position_id = POR_support_the_spanish_nationalists
 		cost = 10
@@ -6103,8 +6177,7 @@ focus_tree = {
 					OR = {
 						has_country_leader = { name = "Pedro III" ruling_only = yes }
 						has_capitulated = yes 
-					} 
-					
+					} 	
 				}
 			}
 		}
@@ -6116,71 +6189,68 @@ focus_tree = {
 		relative_position_id = POR_the_return_of_duarte
 		cost = 10
 		completion_reward = {
-				BRA = {
-					country_event = lar_portugal_promote_monarchist_cause.7
-					effect_tooltip = {
-						add_timed_idea = {
-							idea = POR_monarchists_on_the_rise
-							days = 730
+			BRA = {
+				country_event = lar_portugal_promote_monarchist_cause.7
+				effect_tooltip = {
+					add_timed_idea = {
+						idea = POR_monarchists_on_the_rise
+						days = 730
+					}
+					set_party_name = { 
+						ideology = neutrality
+						long_name = BRA_monarchy_party_long
+						name = BRA_monarchy_party
+					}
+					set_party_name = { 
+						ideology = fascism
+						long_name = BRA_antimonarchist_coalition_long
+						name = BRA_antimonarchist_coalition
+					}
+					if = {
+						limit = {
+							OR = {
+								has_government = neutrality
+								has_government = democratic
+								has_government = communism
+							} 
 						}
-						set_party_name = { 
-							ideology = neutrality
-							long_name = BRA_monarchy_party_long
-							name = BRA_monarchy_party
+						set_politics = {
+							ruling_party = fascism
 						}
-						set_party_name = { 
-							ideology = fascism
-							long_name = BRA_antimonarchist_coalition_long
-							name = BRA_antimonarchist_coalition
+					}
+					set_popularities = {
+						democratic = 0
+						neutrality = 20
+						fascism = 80
+						communism = 0
+					}
+					hidden_effect = {
+						retire_country_leader = yes
+					}
+					create_country_leader = {
+						name = "Getúlio Vargas"
+						desc = "POLITICS_GETÚLIO_VARGAS_DESC"
+						picture = "gfx/leaders/BRA/Portrait_Brazil_Getulio_Vargas.dds"
+						expire = "1954.8.24"
+						ideology = fascism_ideology
+						traits = {
+							anti_communist
 						}
-						if = {
-							limit = {
-								OR = {
-									has_government = neutrality
-									has_government = democratic
-									has_government = communism
-								} 
-							}
-							set_politics = {
-								ruling_party = fascism
-							}
-						}
-						set_popularities = {
-							democratic = 0
-							neutrality = 20
-							fascism = 80
-							communism = 0
-						}
-						hidden_effect = {
-							retire_country_leader = yes
-						}
-						create_country_leader = {
-							name = "Getúlio Vargas"
-							desc = "POLITICS_GETÚLIO_VARGAS_DESC"
-							picture = "gfx/leaders/BRA/Portrait_Brazil_Getulio_Vargas.dds"
-							expire = "1954.8.24"
-							ideology = fascism_ideology
-							traits = {
-								anti_communist
-							}
-						}
-						create_country_leader = {
-							name = "Arlindo Veiga dos Santos"
-							desc = "POLITICS_ARLINDO_VEIGA_DOS_SANTOS_DESC"
-							picture = "gfx/leaders/BRA/portrait_bra_arlindo_veiga_dos_santos.dds"
-							expire = "1954.8.24"
-							ideology = despotism
-							traits = {
-								staunch_monarchist
-							}
+					}
+					create_country_leader = {
+						name = "Arlindo Veiga dos Santos"
+						desc = "POLITICS_ARLINDO_VEIGA_DOS_SANTOS_DESC"
+						picture = "gfx/leaders/BRA/portrait_bra_arlindo_veiga_dos_santos.dds"
+						expire = "1954.8.24"
+						ideology = despotism
+						traits = {
+							staunch_monarchist
 						}
 					}
 				}
-						
-
+			}			
 		}
 	}
-
 	focus = {
 		id = POR_the_empire_of_brazil
 
@@ -6206,7 +6276,6 @@ focus_tree = {
 					}					
 				}
 				has_country_leader = { name = "Dom Duarte Nuno" ruling_only = yes }
-
 			}			
 		}
 
@@ -6215,15 +6284,17 @@ focus_tree = {
 				NOT = { country_exists = BRA }
 				BRA = { has_capitulated = yes }
 				is_in_faction_with = BRA
+				BRA = {
+					has_country_leader = { name = "Pedro III" ruling_only = no }
+				}
 			}
-
 		}
+		relative_position_id = POR_monarchist_uprising_in_brazil
 		prerequisite = { focus = POR_monarchist_uprising_in_brazil }
 		icon = GFX_goal_BRA_monarchy
 		x = 0
 		y = 1
 
-		relative_position_id = POR_monarchist_uprising_in_brazil
 		cost = 10
 		completion_reward = {
 			if = {
@@ -6326,8 +6397,7 @@ focus_tree = {
 
 		relative_position_id = POR_promote_the_monarchist_cause_in_portugal
 		cost = 10
-		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY
-		FOCUS_FILTER_STABILITY}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		completion_reward = {
 			remove_ideas = POR_estado_novo
 			swap_ideas = {
@@ -6442,6 +6512,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 5
+			modifier = {
+				factor = 50
+				has_idea = POR_unstable_monarchy
+			}
 
 		}
 
@@ -6455,6 +6529,12 @@ focus_tree = {
 		relative_position_id = POR_restoration_of_the_monarchy
 		cost = 10
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = POR_unstable_monarchy
+				}
+				remove_ideas = POR_unstable_monarchy
+			}
 			add_stability = 0.05
 			add_ideas = POR_luso_monarchist_cooperation
 			BRA = {
@@ -6463,7 +6543,7 @@ focus_tree = {
 			}
 			
 		}
-		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 	}
 	focus = {
 		id = POR_luso_imperial_and_royal_armies
@@ -6530,8 +6610,8 @@ focus_tree = {
 		}
 
 		bypass = {
-			owns_state = 170
-			owns_state = 169
+			owns_state = 171
+			owns_state = 290
 		}
 		prerequisite = { focus = POR_restoration_of_the_monarchy }
 		mutually_exclusive = { focus = POR_the_royal_iberian_alliance }
@@ -6542,12 +6622,12 @@ focus_tree = {
 		relative_position_id = POR_restoration_of_the_monarchy
 		cost = 10
 		completion_reward = {
-			add_state_claim = 170
-			add_state_claim = 169
+			add_state_claim = 171
+			add_state_claim = 290
 
 			hidden_effect = {
 				random_country = {
-					limit = { controls_state = 170 }
+					limit = { controls_state = 171 }
 					ROOT = {
 						add_ai_strategy = {
 							type = prepare_for_war

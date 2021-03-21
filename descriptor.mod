@@ -1,4 +1,5 @@
-version="1.10.2.1"
+version="1.10.4.0"
+picture="thumbnail.png"
 tags={
 	"Alternative History"
 	"Events"
@@ -6,5 +7,5 @@ tags={
 	"National Focuses"
 }
 name="Road to 56 RP"
-supported_version="1.10.2"
+supported_version="1.10.4"
 remote_file_id="1875414471"

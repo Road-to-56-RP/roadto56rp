@@ -1867,7 +1867,7 @@ focus_tree = {
 
 	focus = {
 		id = YUG_join_axis
-		icon = GFX_r56_goal_generic_the_axis
+		icon = GFX_goal_generic_the_axis
 		prerequisite = { focus = YUG_concessions_for_macedonians focus = YUG_surrender_macedonia focus = YUG_banat_for_support focus = YUG_autonomous_transylvania focus = YUG_fortify_banat }
 		mutually_exclusive = { focus = YUG_end_the_regency }
 		x = 0
@@ -3363,7 +3363,13 @@ focus_tree = {
 				ideology = neutrality
 				popularity = -0.2
 			}
-			swap_ideas = { remove_idea = YUG_idea_peasant_councils add_idea = YUG_idea_empowered_peasant_councils }
+			effect_tooltip = {
+				swap_ideas = { remove_idea = YUG_idea_peasant_councils add_idea = YUG_idea_empowered_peasant_councils }
+			}
+			hidden_effect = {
+				remove_ideas = { YUG_idea_peasant_councils }
+				add_ideas = { YUG_idea_empowered_peasant_councils }
+			}
 		}
 	}
 
@@ -3591,11 +3597,30 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
+			if = {
+				limit = {
+					any_other_country = {
+						NOT = {
+							original_tag = SOV
+						}
+						is_faction_leader = yes
+						has_government = communism
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+				}
+				r56_other_faction_invite_communism_NOT_SOV = yes
+			}
+			else = {
+				create_faction = panslavic_workers_congress
+				hidden_effect = { news_event = { id = news.330 } }
+			}
 			set_rule = { can_create_factions = yes }
-			create_faction = panslavic_workers_congress
+			
 			unlock_decision_tooltip = YUG_instigate_in_bulgaria
 			unlock_decision_tooltip = YUG_instigate_in_albania
-			hidden_effect = { news_event = { id = news.330 } }
+			
 		}
 	}
 
@@ -4268,7 +4293,15 @@ focus_tree = {
 				OR = {
 					exists = no
 					is_puppet_of = ROOT
-					is_in_faction = yes
+					AND = {
+						is_in_faction = yes
+						is_faction_leader = no
+						NOT = {
+							has_government = communism
+						}
+					}
+					
+
 					has_country_flag = banned_communism_flag
 					AND = {
 						NOT = {
@@ -4291,9 +4324,43 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			HUN = {
-				country_event = generic.5
+
+			if = {
+				limit = {
+					OR = {
+						HUN = { 
+							is_faction_leader = yes
+							is_ai = no
+						}						
+					}
+
+				}
+				every_country = {
+					limit = {
+						OR = {
+							tag = ROOT
+							is_in_faction_with = ROOT
+						}
+					}
+
+					HUN = {
+						add_to_faction = PREV
+					}
+					
+				}
+				hidden_effect = {
+					save_event_target_as = alliance_applicant
+					HUN = { save_event_target_as = alliance_inviter }					
+					set_country_flag = alliance_applicant@ROOT
+					HUN = { set_country_flag = alliance_inviter@ROOT }
+					news_event = { id = r56i.event.16 hours = 12 }
+				}
 			}
+			else = {
+				HUN = {
+					country_event = generic.5
+				}
+			}			
 			if = {
 				limit = {
 					has_completed_focus = YUG_invite_greece
@@ -5401,6 +5468,17 @@ focus_tree = {
 
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				add_tech_bonus = {
+					name = scout_plane
+					bonus = 1.0
+					uses = 1
+					category = cat_scout_plane
+				}				
+			}					
 			add_tech_bonus = {
 				name = air_doc_bonus
 				bonus = 1.0
@@ -6843,7 +6921,7 @@ focus_tree = {
 
 	focus = {
 		id = YUG_contest_the_adriatic
-		icon = GFX_sca_focus_admirality
+		icon = GFX_goal_generic_admirality
 		prerequisite = { focus = YUG_expand_the_split_shipyards }
 		x = 0
 		y = 1

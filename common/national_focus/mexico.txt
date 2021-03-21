@@ -580,7 +580,7 @@ focus_tree = {
 
 	focus = {
 		id = MEX_focus_liberalize_the_banking_sector
-		icon = GFX_eye_focus_banking
+		icon = GFX_goal_generic_banking
 		prerequisite = { focus = MEX_focus_national_bank }
 		mutually_exclusive = { focus = MEX_focus_agricultural_credit_bank }
 		x = 3
@@ -718,6 +718,13 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			859 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -821,6 +828,8 @@ focus_tree = {
 						state = 478
 						state = 479
 						state = 480
+						state = 859
+						state = 858
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -2349,6 +2358,12 @@ focus_tree = {
 		available = {
 			NOT = {
 				has_global_flag = flag_mexico_cedillo_has_revolted
+			}
+			NOT = {
+				has_country_leader = {
+					name = "Saturnino Cedillo"
+					ruling_only = yes
+				}
 			}
 		}
 
@@ -4130,7 +4145,7 @@ focus_tree = {
 
 	focus = {
 		id = MEX_focus_spanish_civil_war_refugees
-		icon = GFX_r56_goal_generic_spanish_civil_war_soldier
+		icon = GFX_goal_generic_spanish_civil_war_soldier
 		prerequisite = { focus = MEX_focus_professional_army focus = MEX_focus_soldaderas focus = MEX_focus_hispanic_culture focus = MEX_focus_revolutionary_class_war }
 		x = 1
 		y = 2
@@ -6347,7 +6362,7 @@ focus_tree = {
 
 	focus = {
 		id = MEX_focus_pacific_coast_naval_yards
-		icon = GFX_goal_generic_construct_naval_dockyard
+		icon = GFX_goal_generic_expand_the_naval_industry
 		prerequisite = { focus = MEX_focus_military_budget_review }
 		x = 0
 		y = 1
@@ -6472,6 +6487,18 @@ focus_tree = {
 				category = dd_tech
 				category = cl_tech
 			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = SPR_navy_modernization
+					bonus = 2
+					uses = 1
+					category = asw_tech
+				}
+				
+			}				
 		}
 	}
 
@@ -6535,6 +6562,31 @@ focus_tree = {
 				category = ca_tech
 				category = bb_tech
 			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = artillery_bonus
+					bonus = 1
+					uses = 1
+					category = naval_gunnery_tech
+				}
+				add_tech_bonus = {
+					name = artillery_bonus
+					bonus = 1
+					uses = 1
+					category = naval_shell_tech
+				}
+				add_tech_bonus = {
+					name = SPR_navy_modernization
+					bonus = 1
+					uses = 1
+					technology = fire_control_methods_1
+					technology = fire_control_methods_2
+					technology = fire_control_methods_3
+				}								
+			}			
 		}
 	}
 
@@ -6593,6 +6645,17 @@ focus_tree = {
 				category = ss_tech
 				category = bc_tech
 			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = SPR_navy_modernization
+					bonus = 2
+					uses = 2
+					category = torpedo_equipment
+				}
+			}				
 		}
 	}
 

@@ -2124,6 +2124,17 @@ focus_tree = {
 		available_if_capitulated = yes
 		complete_tooltip = {
 			air_experience = 25
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				add_tech_bonus = {
+					name = scout_plane
+					bonus = 1.0
+					uses = 1
+					category = cat_scout_plane
+				}				
+			}					
 			add_tech_bonus = {
 				name = air_sup_bonus
 				bonus = 1.0
@@ -6890,7 +6901,12 @@ focus_tree = {
 		available = {
 			is_puppet = no
 			NOT = { has_war_with = ITA }
-			ITA = { has_country_leader = { ruling_only = yes name = "Benito Mussolini" } }
+			ITA = {
+				OR = {
+					has_country_leader = { ruling_only = yes name = "Benito Mussolini" }
+					has_country_leader = { ruling_only = yes name = "Augustus Mussolini" }
+				}				 
+			}
 		}
 		cancel_if_invalid = yes
 		x = 0
@@ -7065,7 +7081,7 @@ focus_tree = {
 				OR = {
 					has_war_with = ENG 
 					ENG = {
-						has_completed_focus = ENG_concession_to_the_trade_unions
+						has_completed_focus = ENG_concessions_to_the_trade_unions
 					}
 				}
 				
@@ -7669,7 +7685,7 @@ focus_tree = {
 
 	focus = {
 		id = GER_anti_soviet_pact_unaligned
-		icon = GFX_r56_goal_FRA_root_out_communism
+		icon = GFX_goal_FRA_root_out_communism
 		prerequisite = { focus = GER_anti_comintern_pact_unaligned }
 		available = {
 			is_puppet = no

@@ -7,7 +7,6 @@ scripted_diplomatic_actions = {
 		visible = {		#The target country
 			NOT = { ROOT = { is_puppet_of = PREV } }
 			NOT = { is_puppet_of = ROOT }
-			NOT = { tag = UNN }
 			NOT = { ROOT = { is_puppet_of = FROM } }
 			NOT = {
 				is_in_array = {
@@ -20,7 +19,9 @@ scripted_diplomatic_actions = {
 			NOT = { is_puppet_of = ROOT }
 			NOT = { is_in_faction_with = ROOT }
 			NOT = { has_idea = closed_economy }
-			hidden_trigger = { ROOT = { NOT = { has_country_flag = did_diplomatic_action } } }		#Used to suspend request spam by AI 
+			hidden_trigger = {
+				ROOT = { NOT = { has_country_flag = did_diplomatic_action } }		#Used to suspend request spam by AI
+			}
 		}
 		can_be_accepted = {
 			always = yes
@@ -33,46 +34,52 @@ scripted_diplomatic_actions = {
 		accept_title = CW_EMBARGO_INITIATED_TITLE
 		accept_description = CW_EMBARGO_INITIATED_DESC
 		
-		cost = 10
+		cost = 50
 
 		requires_acceptance = no
 
-		on_sent_effect = {		
-		}
-		complete_effect = {
+		on_sent_effect = {
 			if = {
 				limit = {
 					ROOT = { is_ai = yes }
 				}
-				ROOT = { set_country_flag = { flag = did_diplomatic_action value = 1 days = 45 } }
-			}
-			add_to_array = { ROOT.embargoed_countries = FROM.id }
-			reverse_add_opinion_modifier = { target = ROOT modifier = cw_embargo }
-			reverse_add_opinion_modifier = { target = ROOT modifier = cw_embargo_relations_target }
-			add_opinion_modifier = { target = ROOT modifier = cw_embargo_relations_initiator }
+				ROOT = { set_country_flag = { flag = did_diplomatic_action_embargo value = 1 days = 45 } }
+			}		
+		}
+		complete_effect = {
+			cw_impose_embargo_diplomacy = yes
 		}
 		ai_desire = {
-			base = 1
+			base = 0
+			modifier = {
+				ROOT = { has_country_flag = did_diplomatic_action_embargo }
+				add = -500
+			}
+			modifier = {
+				is_major = yes
+				add = -900
+			}			
 			modifier = {
 				ROOT = { has_opinion = { target = PREV value < -50 } }
 				add = 100
 			}			
 			modifier = {		#We dont trade with our enemies
 				has_war_with = ROOT
-				add = 100
+				add = 1000
 			}			
 			modifier = {		#Retaliate with a counter embargo
 				ROOT = { is_in_array = { array = FROM.embargoed_countries value = ROOT.id } }
+				add = 100
+			}
+			modifier = {
+				var:ROOT.faction_leader = {
+					any_of_scopes = {
+						array = THIS.embargoed_countries
+						tag = FROM
+					}
+				}
 				add = 50
 			}
-#			modifier = {		#They are at war with our master so we embargo too
-#				ROOT = { OVERLORD = { has_war_with = FROM } }
-#				add = 50
-#			}
-			modifier = {		#Join the faction in embargo
-				ROOT = { all_allied_country = { has_war_with = FROM } }
-				add = 50
-			}			
 		}
 	}
 	cw_cancel_embargo = {
@@ -87,12 +94,17 @@ scripted_diplomatic_actions = {
 			}
 		}
 		selectable = {
-			OR = {
-				is_ai = no
-				always = yes 
-				AND = {
-					is_ai = yes
-					NOT = {  ROOT = { has_opinion = { target = FROM value > 0 } } }
+			custom_trigger_tooltip = {
+				tooltip = "CW_CHECK_IS_EMBARGOED_BY_US"
+			}			
+			hidden_trigger = {
+				OR = {
+					is_ai = no
+					always = yes
+					AND = {
+						is_ai = yes
+						NOT = {  ROOT = { has_opinion = { target = FROM value > 0 } } }
+					}
 				}
 			}
 		}
@@ -107,27 +119,28 @@ scripted_diplomatic_actions = {
 		accept_title = CW_CANCEL_EMBARGO_INITIATED_TITLE
 		accept_description = CW_CANCEL_EMBARGO_INITIATED_DESC
 		
-		cost = 10
+		cost = 100
 
 		requires_acceptance = no
 
 		on_sent_effect = {
-		}
-		complete_effect = {
 			if = {
 				limit = {
 					ROOT = { is_ai = yes }
 				}
 				ROOT = { set_country_flag = { flag = did_diplomatic_action value = 1 days = 45 } }
 			}		
-			set_country_flag = this_remove_embargo
-			ROOT = { remove_opinion_modifier = { target = EMB modifier = cw_embargo } }
-			ROOT = { remove_opinion_modifier = { target = EMB modifier = cw_embargo_relations_target } }
-			remove_opinion_modifier = { target = ROOT modifier = cw_embargo_relations_initiator }
-			remove_from_array = { ROOT.embargoed_countries = FROM.id }
-			clr_country_flag = this_remove_embargo
+		}
+		complete_effect = {
+			cw_remove_embargo_diplomacy = yes
 		}
 		ai_desire = {
+			modifier = {
+				ROOT = {
+					has_country_flag = did_diplomatic_action
+				}
+				add = -1000
+			}		
 			modifier = {
 				NOT = { ROOT = { has_opinion = { target = PREV value < -50 } } }
 				add = 100
@@ -151,10 +164,6 @@ scripted_diplomatic_actions = {
 				}
 				add = 50
 			}
-#			modifier = {		#They are no longer at war with master so no need to embargo
-#				ROOT = { OVERLORD = { NOT = { has_war_with = FROM } } }
-#				add = 50
-#			}			
 		}
-	}	
+	}
 }
