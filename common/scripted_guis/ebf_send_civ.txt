@@ -1,0 +1,969 @@
+scripted_gui = {
+
+    open_send_civ_ui = {
+        window_name = "open_send_civ_window"
+        context_type = player_context
+
+        visible = {
+            always = yes
+            #always = no
+        }
+        
+        effects = {
+            open_civ_trade_button_click = {
+				if = {
+                    limit = {
+                        check_variable = {
+                            show = 1
+                        }
+                    }
+                    set_variable = { show = 0 }
+                    set_variable = { trade_civ = 0 }
+                    set_variable = { mils_factory_amount = 0 } 
+                    set_variable = { civ_factory_amount = 0 } 
+                    set_variable = { dock_factory_amount = 0 } 
+                    set_variable = { trade_duration = 0 }
+                }
+                else = {
+                    set_variable = { show = 1 }
+                }
+                set_variable = { trade_civ = 1 }
+                set_variable = { mils_factory_amount = 0 } 
+                set_variable = { civ_factory_amount = 0 } 
+                set_variable = { dock_factory_amount = 0 }
+                set_variable = { trade_duration = 0 } 
+			}
+        }
+    }
+
+    send_factories_ui = {
+        window_name = "send_factory_window"
+        context_type = selected_country_context
+
+        visible = {
+            ROOT = { check_variable = { mils_factory_amount < num_of_military_factories } }
+            ROOT = { check_variable = { civ_factory_amount < num_of_civilian_factories } }
+            ROOT = { check_variable = { dock_factory_amount < num_of_naval_factories } }
+            ROOT = { check_variable = { trader = 0 } }
+            ROOT = { NOT = { check_variable = { trade_duration = 0 } } }
+            OR = {
+                ROOT = { NOT = { check_variable = { mils_factory_amount = 0 } } }
+                ROOT = { NOT = { check_variable = { civ_factory_amount = 0 } } }
+                ROOT = { NOT = { check_variable = { dock_factory_amount = 0 } } }
+            }
+            ROOT = { 
+                OR = {
+                    check_variable = { trade1 = 0 } 
+                    check_variable = { trade2 = 0 } 
+                    check_variable = { trade3 = 0 } 
+                    check_variable = { trade4 = 0 } 
+                    check_variable = { trade5 = 0 } 
+                } 
+            }
+
+            if = {
+                limit = {
+                    has_global_flag = ftt_trade_in_faction_no
+                }
+                NOT = { is_in_faction_with = ROOT }
+            }
+            NOT = { original_tag = ROOT }
+
+            ROOT = {
+                check_variable = {
+                    show = 1
+                }
+            }
+        }
+
+        effects = {
+            send_button_click = {
+
+                if = {
+                    limit = {
+                        ROOT = {
+                            NOT = {
+                                OR = {
+                                    check_variable = { trades = 1 }
+                                    check_variable = { trades = 2 }
+                                    check_variable = { trades = 3 }
+                                    check_variable = { trades = 4 }
+                                    check_variable = { trades = 5 }
+                                }
+                            }
+                        }
+                    }
+                    ROOT = {  
+                        set_variable = { 
+                            trades = 0
+                        }
+                    }
+                }
+
+                if = {
+                    limit = {
+                        ROOT = {
+                            NOT = {
+                                OR = {
+                                    check_variable = { trade1 = 1 }
+                                    check_variable = { trade2 = 1 }
+                                    check_variable = { trade3 = 1 }
+                                    check_variable = { trade4 = 1 }
+                                    check_variable = { trade5 = 1 }
+                                }
+                            }
+                        }
+                    }
+                    ROOT = {  
+                        set_variable = { 
+                            trade1 = 0
+                        }
+                        set_variable = { 
+                            trade2 = 0
+                        }
+                        set_variable = { 
+                            trade3 = 0
+                        }
+                        set_variable = { 
+                            trade4 = 0
+                        }
+                        set_variable = { 
+                            trade5 = 0
+                        }
+                    }
+                }
+
+                #trade_duration
+                #Trade 1
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { trader = 0 }
+                            check_variable = { trade1 = 0 }
+                        }
+                    }
+                    ROOT = { 
+                        set_variable = { 
+                            trader = 1
+                        }
+                        set_variable = { 
+                            trade1 = 1
+                        }
+                        set_variable = { 
+                            reciver1 = PREV
+                        } 
+                        set_variable = { 
+                            civ_amount_fix1 = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix1 = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix1 = dock_factory_amount 
+                        }
+                        set_variable = { 
+                            civ_amount_fix1_event = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix1_event = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix1_event = dock_factory_amount 
+                        }
+                        add_to_variable = {
+                            trades = 1
+                        }
+
+                        print_variables = {
+                            print_global = yes
+                            var_list = { reciver1 civ_amount_fix1 mil_amount_fix1 civ_amount_fix1_event mil_amount_fix1_event }
+                            file = "Variable"
+                            text = "Trade1"
+                        }
+
+                        country_event = { id = ebf_trade.666 days = 1 }
+                        
+                        if = { limit = { check_variable = { trade_duration = 1 } } country_event = { id = ebf_trade.1 days = 193 } }
+                        else_if = { limit = { check_variable = { trade_duration = 2 } } country_event = { id = ebf_trade.1 days = 365 } }
+                        else_if = { limit = { check_variable = { trade_duration = 3 } } country_event = { id = ebf_trade.1 days = 548 } }
+                        else_if = { limit = { check_variable = { trade_duration = 4 } } country_event = { id = ebf_trade.1 days = 730 } }
+                        else_if = { limit = { check_variable = { trade_duration = 5 } } country_event = { id = ebf_trade.1 days = 913 } }
+                        else_if = { limit = { check_variable = { trade_duration = 6 } } country_event = { id = ebf_trade.1 days = 1095 } }
+                        else_if = { limit = { check_variable = { trade_duration = 7 } } country_event = { id = ebf_trade.1 days = 1278 } }
+                        else_if = { limit = { check_variable = { trade_duration = 8 } } country_event = { id = ebf_trade.1 days = 1460 } }
+                        else_if = { limit = { check_variable = { trade_duration = 9 } } country_event = { id = ebf_trade.1 days = 1643 } }
+                        else_if = { limit = { check_variable = { trade_duration = 10 } } country_event = { id = ebf_trade.1 days = 1825 } }
+                        
+                    }
+
+                    if = { limit = { ROOT = { check_variable = { trade_duration = 1 } } } country_event = { id = ebf_trade.101 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 2 } } } country_event = { id = ebf_trade.101 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 3 } } } country_event = { id = ebf_trade.101 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 4 } } } country_event = { id = ebf_trade.101 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 5 } } } country_event = { id = ebf_trade.101 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 6 } } } country_event = { id = ebf_trade.101 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 7 } } } country_event = { id = ebf_trade.101 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 8 } } } country_event = { id = ebf_trade.101 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 9 } } } country_event = { id = ebf_trade.101 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 10 } } } country_event = { id = ebf_trade.101 days = 1825 } }
+                }
+
+                #Trade 2
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { trader = 0 }
+                            check_variable = { trade2 = 0 }
+                        }
+                    }
+                    ROOT = { 
+                        set_variable = { 
+                            trader = 1
+                        }
+                        set_variable = { 
+                            trade2 = 1
+                        }
+                        set_variable = { 
+                            reciver2 = PREV
+                        } 
+                        set_variable = { 
+                            civ_amount_fix2 = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix2 = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix2 = dock_factory_amount 
+                        }
+                        set_variable = { 
+                            civ_amount_fix2_event = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix2_event = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix2_event = dock_factory_amount 
+                        }
+                        add_to_variable = {
+                            trades = 1
+                        }
+
+
+                        print_variables = {
+                            print_global = yes
+                            var_list = { reciver2 civ_amount_fix2 mil_amount_fix2 }
+                            file = "Variable"
+                            text = "Trade2"
+                        }
+                        if = { limit = { check_variable = { trade_duration = 1 } } country_event = { id = ebf_trade.2 days = 193 } }
+                        else_if = { limit = { check_variable = { trade_duration = 2 } } country_event = { id = ebf_trade.2 days = 365 } }
+                        else_if = { limit = { check_variable = { trade_duration = 3 } } country_event = { id = ebf_trade.2 days = 548 } }
+                        else_if = { limit = { check_variable = { trade_duration = 4 } } country_event = { id = ebf_trade.2 days = 730 } }
+                        else_if = { limit = { check_variable = { trade_duration = 5 } } country_event = { id = ebf_trade.2 days = 913 } }
+                        else_if = { limit = { check_variable = { trade_duration = 6 } } country_event = { id = ebf_trade.2 days = 1095 } }
+                        else_if = { limit = { check_variable = { trade_duration = 7 } } country_event = { id = ebf_trade.2 days = 1278 } }
+                        else_if = { limit = { check_variable = { trade_duration = 8 } } country_event = { id = ebf_trade.2 days = 1460 } }
+                        else_if = { limit = { check_variable = { trade_duration = 9 } } country_event = { id = ebf_trade.2 days = 1643 } }
+                        else_if = { limit = { check_variable = { trade_duration = 10 } } country_event = { id = ebf_trade.2 days = 1825 } }
+
+                        country_event = { id = ebf_trade.666 days = 1 }
+                    }
+
+                    if = { limit = { ROOT = { check_variable = { trade_duration = 1 } } } country_event = { id = ebf_trade.102 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 2 } } } country_event = { id = ebf_trade.102 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 3 } } } country_event = { id = ebf_trade.102 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 4 } } } country_event = { id = ebf_trade.102 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 5 } } } country_event = { id = ebf_trade.102 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 6 } } } country_event = { id = ebf_trade.102 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 7 } } } country_event = { id = ebf_trade.102 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 8 } } } country_event = { id = ebf_trade.102 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 9 } } } country_event = { id = ebf_trade.102 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 10 } } } country_event = { id = ebf_trade.102 days = 1825 } }
+
+                    # if = { limit = { check_variable = { trade_duration = 1 } } country_event = { id = ebf_trade.102 days = 10 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 2 } } country_event = { id = ebf_trade.102 days = 365 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 3 } } country_event = { id = ebf_trade.102 days = 548 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 4 } } country_event = { id = ebf_trade.102 days = 730 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 5 } } country_event = { id = ebf_trade.102 days = 913 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 6 } } country_event = { id = ebf_trade.102 days = 1095 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 7 } } country_event = { id = ebf_trade.102 days = 1278 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 8 } } country_event = { id = ebf_trade.102 days = 1460 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 9 } } country_event = { id = ebf_trade.102 days = 1643 } }
+                    # else_if = { limit = { check_variable = { trade_duration = 10 } } country_event = { id = ebf_trade.102 days = 1825 } }
+
+                }
+
+                #Trade 3
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { trader = 0 }
+                            check_variable = { trade3 = 0 }
+                        }
+                    }
+                    ROOT = { 
+                        set_variable = { 
+                            trader = 1
+                        }
+                        set_variable = { 
+                            trade3 = 1
+                        }
+                        set_variable = { 
+                            reciver3 = PREV
+                        } 
+                        set_variable = { 
+                            civ_amount_fix3 = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix3 = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix3 = dock_factory_amount 
+                        }
+                        set_variable = { 
+                            civ_amount_fix3_event = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix3_event = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix3_event = dock_factory_amount 
+                        }
+                        add_to_variable = {
+                            trades = 1
+                        }
+
+
+                        print_variables = {
+                            print_global = yes
+                            var_list = { reciver3 civ_amount_fix3 mil_amount_fix3 }
+                            file = "Variable"
+                            text = "Trade3"
+                        }
+                        if = { limit = { check_variable = { trade_duration = 1 } } country_event = { id = ebf_trade.3 days = 193 } }
+                        else_if = { limit = { check_variable = { trade_duration = 2 } } country_event = { id = ebf_trade.3 days = 365 } }
+                        else_if = { limit = { check_variable = { trade_duration = 3 } } country_event = { id = ebf_trade.3 days = 548 } }
+                        else_if = { limit = { check_variable = { trade_duration = 4 } } country_event = { id = ebf_trade.3 days = 730 } }
+                        else_if = { limit = { check_variable = { trade_duration = 5 } } country_event = { id = ebf_trade.3 days = 913 } }
+                        else_if = { limit = { check_variable = { trade_duration = 6 } } country_event = { id = ebf_trade.3 days = 1095 } }
+                        else_if = { limit = { check_variable = { trade_duration = 7 } } country_event = { id = ebf_trade.3 days = 1278 } }
+                        else_if = { limit = { check_variable = { trade_duration = 8 } } country_event = { id = ebf_trade.3 days = 1460 } }
+                        else_if = { limit = { check_variable = { trade_duration = 9 } } country_event = { id = ebf_trade.3 days = 1643 } }
+                        else_if = { limit = { check_variable = { trade_duration = 10 } } country_event = { id = ebf_trade.3 days = 1825 } }
+
+                        country_event = { id = ebf_trade.666 days = 1 }
+                    }
+                    if = { limit = { ROOT = { check_variable = { trade_duration = 1 } } } country_event = { id = ebf_trade.103 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 2 } } } country_event = { id = ebf_trade.103 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 3 } } } country_event = { id = ebf_trade.103 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 4 } } } country_event = { id = ebf_trade.103 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 5 } } } country_event = { id = ebf_trade.103 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 6 } } } country_event = { id = ebf_trade.103 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 7 } } } country_event = { id = ebf_trade.103 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 8 } } } country_event = { id = ebf_trade.103 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 9 } } } country_event = { id = ebf_trade.103 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 10 } } } country_event = { id = ebf_trade.103 days = 1825 } }
+
+                }
+
+                #Trade 4
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { trader = 0 }
+                            check_variable = { trade4 = 0 }
+                        }
+                    }
+                    ROOT = {
+                        set_variable = { 
+                            trader = 1
+                        }
+                        set_variable = { 
+                            trade4 = 1
+                        } 
+                        set_variable = { 
+                            reciver4 = PREV
+                        } 
+                        set_variable = { 
+                            civ_amount_fix4 = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix4 = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix4 = dock_factory_amount 
+                        }
+                        set_variable = {
+                            civ_amount_fix4_event = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix4_event = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix4_event = dock_factory_amount 
+                        }
+                        add_to_variable = {
+                            trades = 1
+                        }
+
+
+                        print_variables = {
+                            print_global = yes
+                            var_list = { reciver4 civ_amount_fix4 mil_amount_fix4 }
+                            file = "Variable"
+                            text = "Trade4"
+                        }
+                        if = { limit = { check_variable = { trade_duration = 1 } } country_event = { id = ebf_trade.4 days = 193 } }
+                        else_if = { limit = { check_variable = { trade_duration = 2 } } country_event = { id = ebf_trade.4 days = 365 } }
+                        else_if = { limit = { check_variable = { trade_duration = 3 } } country_event = { id = ebf_trade.4 days = 548 } }
+                        else_if = { limit = { check_variable = { trade_duration = 4 } } country_event = { id = ebf_trade.4 days = 730 } }
+                        else_if = { limit = { check_variable = { trade_duration = 5 } } country_event = { id = ebf_trade.4 days = 913 } }
+                        else_if = { limit = { check_variable = { trade_duration = 6 } } country_event = { id = ebf_trade.4 days = 1095 } }
+                        else_if = { limit = { check_variable = { trade_duration = 7 } } country_event = { id = ebf_trade.4 days = 1278 } }
+                        else_if = { limit = { check_variable = { trade_duration = 8 } } country_event = { id = ebf_trade.4 days = 1460 } }
+                        else_if = { limit = { check_variable = { trade_duration = 9 } } country_event = { id = ebf_trade.4 days = 1643 } }
+                        else_if = { limit = { check_variable = { trade_duration = 10 } } country_event = { id = ebf_trade.4 days = 1825 } }
+
+                        country_event = { id = ebf_trade.666 days = 1 }
+                    }
+                    if = { limit = { ROOT = { check_variable = { trade_duration = 1 } } } country_event = { id = ebf_trade.104 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 2 } } } country_event = { id = ebf_trade.104 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 3 } } } country_event = { id = ebf_trade.104 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 4 } } } country_event = { id = ebf_trade.104 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 5 } } } country_event = { id = ebf_trade.104 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 6 } } } country_event = { id = ebf_trade.104 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 7 } } } country_event = { id = ebf_trade.104 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 8 } } } country_event = { id = ebf_trade.104 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 9 } } } country_event = { id = ebf_trade.104 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 10 } } } country_event = { id = ebf_trade.104 days = 1825 } }
+
+                }
+
+                #Trade 5
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { trader = 0 }
+                            check_variable = { trade5 = 0 }
+                        }
+                    }
+                    ROOT = { 
+                        set_variable = { 
+                            trader = 1
+                        }
+                        set_variable = { 
+                            trade5 = 1
+                        }
+                        set_variable = { 
+                            reciver5 = PREV
+                        } 
+                        set_variable = { 
+                            civ_amount_fix5 = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix5 = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix5 = dock_factory_amount 
+                        }
+                        set_variable = {
+                            civ_amount_fix4_event = civ_factory_amount 
+                        }
+                        set_variable = { 
+                            mil_amount_fix4_event = mils_factory_amount 
+                        }
+                        set_variable = { 
+                            dock_amount_fix5_event = dock_factory_amount 
+                        }
+                        add_to_variable = {
+                            trades = 1
+                        }
+
+
+                        print_variables = {
+                            print_global = yes
+                            var_list = { reciver5 civ_amount_fix5 mil_amount_fix5 }
+                            file = "Variable"
+                            text = "Trade5"
+                        }
+                        if = { limit = { check_variable = { trade_duration = 1 } } country_event = { id = ebf_trade.5 days = 193 } }
+                        else_if = { limit = { check_variable = { trade_duration = 2 } } country_event = { id = ebf_trade.5 days = 365 } }
+                        else_if = { limit = { check_variable = { trade_duration = 3 } } country_event = { id = ebf_trade.5 days = 548 } }
+                        else_if = { limit = { check_variable = { trade_duration = 4 } } country_event = { id = ebf_trade.5 days = 730 } }
+                        else_if = { limit = { check_variable = { trade_duration = 5 } } country_event = { id = ebf_trade.5 days = 913 } }
+                        else_if = { limit = { check_variable = { trade_duration = 6 } } country_event = { id = ebf_trade.5 days = 1095 } }
+                        else_if = { limit = { check_variable = { trade_duration = 7 } } country_event = { id = ebf_trade.5 days = 1278 } }
+                        else_if = { limit = { check_variable = { trade_duration = 8 } } country_event = { id = ebf_trade.5 days = 1460 } }
+                        else_if = { limit = { check_variable = { trade_duration = 9 } } country_event = { id = ebf_trade.5 days = 1643 } }
+                        else_if = { limit = { check_variable = { trade_duration = 10 } } country_event = { id = ebf_trade.5 days = 1825 } }
+
+                        country_event = { id = ebf_trade.666 days = 1 }
+                    }
+                    if = { limit = { ROOT = { check_variable = { trade_duration = 1 } } } country_event = { id = ebf_trade.105 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 2 } } } country_event = { id = ebf_trade.105 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 3 } } } country_event = { id = ebf_trade.105 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 4 } } } country_event = { id = ebf_trade.105 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 5 } } } country_event = { id = ebf_trade.105 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 6 } } } country_event = { id = ebf_trade.105 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 7 } } } country_event = { id = ebf_trade.105 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 8 } } } country_event = { id = ebf_trade.105 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 9 } } } country_event = { id = ebf_trade.105 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { trade_duration = 10 } } } country_event = { id = ebf_trade.105 days = 1825 } }
+
+                }
+
+
+
+                #Initial Trade of Factories
+                while_loop_effect = {
+                    limit = { 
+                        OR = {
+                            ROOT = {
+                                check_variable = {
+                                    mils_factory_amount > 0
+                                }
+                            }
+                            ROOT = {
+                                check_variable = {
+                                    civ_factory_amount > 0
+                                } 
+                            }
+                            ROOT = {
+                                check_variable = {
+                                    dock_factory_amount > 0
+                                }
+                            }
+                        }
+                    }
+
+                    if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    civ_factory_amount > 0
+                                }  
+                            }
+                        }
+                        
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    industrial_complex > 0
+                                }
+                                remove_building = {
+                                    type = industrial_complex
+                                    level = 1   
+                                }
+                            }
+                        }
+                        add_offsite_building = {
+                            type = industrial_complex
+                            level = 1
+                        }
+                        ROOT = {
+                            subtract_from_variable = { civ_factory_amount = 1 } 
+                        }
+                    }
+
+                    else_if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    mils_factory_amount > 0
+                                }
+                            }  
+                        }
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    arms_factory > 0
+                                }
+                                remove_building = {
+                                    type = arms_factory
+                                    level = 1
+                                }
+                            }
+                        }
+                        add_offsite_building = {
+                            type = arms_factory
+                            level = 1
+                        }
+                        ROOT = {
+                            subtract_from_variable = { mils_factory_amount = 1 } 
+                        }
+                    }
+
+                    else_if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    dock_factory_amount > 0
+                                }
+                            }  
+                        }
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    dockyard > 0
+                                }
+                                remove_building = {
+                                    type = dockyard
+                                    level = 1
+                                }
+                            }
+                        }
+                        add_offsite_building = {
+                            type = dockyard
+                            level = 1
+                        }
+                        ROOT = {
+                            subtract_from_variable = { dock_factory_amount = 1 } 
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    trade_factories_ui = {
+        window_name = "send_civ_window"
+        context_type = player_context
+
+        visible = {
+            ROOT = {
+                check_variable = {
+                    show = 1
+                }
+            }
+        }
+
+        triggers = {
+            
+            #help
+            ebf_help_bg_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            help_trade_type_titel_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            help_trade_amount_titel_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            help_trade_duration_titel_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            help_trade_confirm_titel_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            #
+
+            trade_type_desc_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            trade_amount_desc_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            trade_duration_desc_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            trade_confirm_desc_visible = {
+                check_variable = { help = 1 } 
+            }
+
+            #########
+
+            choose_civilian_factory_visible = {
+                check_variable = { trade_civ = 1 } 
+            }
+
+            choose_military_factory_visible = {
+                check_variable = { trade_mils = 1 } 
+            }
+
+            choose_dockyard_factory_visible = {
+                check_variable = { trade_dock = 1 } 
+            }
+
+            #Trade Anzeige
+            trades_free_5_visible = {
+                check_variable = { trades = 0 } 
+            }
+
+            trades_free_4_visible = {
+                check_variable = { trades = 1 } 
+            }
+
+            trades_free_3_visible = {
+                check_variable = { trades = 2 } 
+            }
+
+            trades_free_2_visible = {
+                check_variable = { trades = 3 } 
+            }
+
+            trades_free_1_visible = {
+                check_variable = { trades = 4 } 
+            }
+
+            trades_free_0_visible = {
+                check_variable = { trades = 5 } 
+            }
+        }
+        
+        effects = {
+            
+            help_button_click = {
+                ROOT = {
+                    if = {
+                        limit = { 
+                            check_variable = {
+                                help = 1
+                            }
+                        }
+                        set_variable = { help = 0 }
+                    }
+                    else = {
+                        set_variable = { help = 1 }
+                    }
+                }
+            }
+
+            close_button_click = {
+                ROOT = {
+                    set_variable = { show = 0 }
+                    set_variable = { trade_civ = 0 }
+                    set_variable = { trade_dock = 0 }
+                    set_variable = { mils_factory_amount = 0 } 
+                    set_variable = { civ_factory_amount = 0 } 
+                    set_variable = { dock_factory_amount = 0 } 
+                    set_variable = { trade_duration = 0 }
+                    set_variable = { trade_duration_half = 0 }
+                }
+			}
+
+            civilian_factory_button_click = {
+                ROOT = {
+                    set_variable = { trade_civ = 1 }
+                    set_variable = { trade_mils = 0 }
+                    set_variable = { trade_dock = 0 }
+                    set_variable = { mils_factory_amount = 0 } 
+                    set_variable = { civ_factory_amount = 0 } 
+                    set_variable = { dock_factory_amount = 0 } 
+                }
+			}
+
+            naval_factory_button_click = {
+                ROOT = {
+                    set_variable = { trade_civ = 0 }
+                    set_variable = { trade_mils = 0 }
+                    set_variable = { trade_dock = 1 }
+                    set_variable = { mils_factory_amount = 0 } 
+                    set_variable = { civ_factory_amount = 0 } 
+                    set_variable = { dock_factory_amount = 0 } 
+                }
+			}
+
+            military_factory_button_click = {
+                ROOT = {
+                    set_variable = { trade_civ = 0 }
+                    set_variable = { trade_mils = 1 }
+                    set_variable = { trade_dock = 0 }
+                    set_variable = { mils_factory_amount = 0 } 
+                    set_variable = { civ_factory_amount = 0 } 
+                    set_variable = { dock_factory_amount = 0 } 
+                }
+			}
+
+            amount_up_button_click = {
+                ROOT = {
+                    if = {
+                        limit = {
+                            check_variable = {
+                                trade_civ = 1
+                            }
+                        }
+                        ROOT = {
+                            add_to_variable = { civ_factory_amount = 1 }  
+                        }  
+                    }
+
+                    if = {
+                        limit = {
+                            check_variable = {
+                                trade_mils = 1
+                            }
+                        }   
+                        add_to_variable = { mils_factory_amount = 1 } 
+                    }
+
+                    if = {
+                        limit = {
+                            check_variable = {
+                                trade_dock = 1
+                            }
+                        }   
+                        add_to_variable = { dock_factory_amount = 1 } 
+                    }
+                }
+			}
+
+            amount_down_button_click = {
+                ROOT = {
+                    if = {
+                        if = {
+                            limit = { 
+                                check_variable = {
+                                    civ_factory_amount = 0
+                                }
+                            }
+                            add_to_variable = { civ_factory_amount = 1 }     
+                        } 
+                        limit = {
+                            check_variable = {
+                                trade_civ = 1
+                            }
+                        }
+                        subtract_from_variable = { civ_factory_amount = 1 }  
+                    }
+
+                    if = {
+                        if = {
+                            limit = { 
+                                check_variable = {
+                                    mils_factory_amount = 0
+                                }
+                            }
+                            add_to_variable = { mils_factory_amount = 1 }     
+                        }
+                        limit = {
+                            check_variable = {
+                                trade_mils = 1
+                            }
+                        }   
+                        subtract_from_variable = { mils_factory_amount = 1 } 
+                    }
+
+                    if = {
+                        if = {
+                            limit = { 
+                                check_variable = {
+                                    dock_factory_amount = 0
+                                }
+                            }
+                            add_to_variable = { dock_factory_amount = 1 }     
+                        }
+                        limit = {
+                            check_variable = {
+                                trade_dock = 1
+                            }
+                        }   
+                        subtract_from_variable = { dock_factory_amount = 1 } 
+                    }
+                }
+			}
+            
+            duration_up_button_click = {
+                ROOT = {
+                    if = {
+                        limit = {
+                            check_variable = {
+                                trade_duration < 10
+                            }
+                        }   
+                        add_to_variable = { trade_duration = 1 }
+                        add_to_variable = { trade_duration_half = 0.5 }
+                    }
+                }
+			}
+
+            duration_down_button_click = {
+                ROOT = {
+                    if = {
+                        limit = {
+                            check_variable = {
+                                trade_duration = 0
+                            }
+                        }   
+                        subtract_from_variable = { mils_factory_amount = 0 }
+                        add_to_variable = { trade_duration_half = 0 } 
+                    }
+                    else = {
+                        subtract_from_variable = { trade_duration = 1 }   
+                        subtract_from_variable = { trade_duration_half = 0.5 }
+                    }
+                }
+			}
+        }
+        
+        # triggers = {
+        #     <element>_click_enabled = {
+        #         <triggers>
+        #     }
+        #     <element>_visible = {
+        #         <triggers>
+        #     }
+        # }
+        
+        # properties = {
+        #     <element> = {
+        #         image = <string>
+        #         frame = <var>
+        #         x = <var>
+        #         y = <var>
+        #     }
+        # }
+        
+        # ai_enabled = {
+        #     <triggers>
+        # }
+        
+        # ai_test_parent = <string>
+        
+        # ai_test_interval = <int>
+        # ai_test_variance = <float>
+        # ai_test_scopes = <type>
+        
+        # ai_check = {
+        #     <triggers>
+        # }
+        
+        # ai_check_scope = {
+        #     <triggers>
+        # }
+        
+        # ai_max_weight_taken_per_test = <int>
+        
+        # ai_weights = {
+        #     <element>_<modifiers>_click = {
+        #         ai_will_do = {
+        #             base = <int>
+        #             factor = <float>
+        #             add = <float>
+                    
+        #             modifier = {
+        #                 factor = <float>
+        #                 add = <float>
+                        
+        #                 <triggers>
+        #             }
+        #         }
+        #         ignore_lower_weights = {
+        #             factor = <float>
+        #         }
+        #     }
+        # }
+    }
+
+
+}
