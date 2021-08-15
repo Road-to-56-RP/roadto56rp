@@ -1,11 +1,11 @@
-version="1.10.5.0"
-picture="thumbnail.png"
+version="1.10.7.1"
 tags={
 	"Alternative History"
-	"Events"
-	"Gameplay"
+	"Balance"
 	"National Focuses"
+	"Gameplay"
 }
 name="Road to 56 RP"
-supported_version="1.10.5"
+picture="thumbnail.png"
+supported_version="1.10.*"
 remote_file_id="1875414471"

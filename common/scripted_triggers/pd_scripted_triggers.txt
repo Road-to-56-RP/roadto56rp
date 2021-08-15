@@ -27,11 +27,17 @@ pd_calculate_province_cost = {
 		}
 		# Cost modifiers
 		if = {
-			limit = { is_core_of = ROOT }
+			limit = { 
+				NOT = { ROOT = { has_country_flag = pd_root_gives } }
+				is_core_of = ROOT 
+			}
 			divide_temp_variable = { pts = 2 }
 		}
 		else_if = {
-			limit = { is_claimed_by = ROOT }
+			limit = { 
+				NOT = { ROOT = { has_country_flag = pd_root_gives } }
+				is_claimed_by = ROOT 
+			}
 			divide_temp_variable = { pts = 1.5 }
 		}
 	}

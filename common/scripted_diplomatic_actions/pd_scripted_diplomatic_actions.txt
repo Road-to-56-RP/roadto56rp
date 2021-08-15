@@ -141,6 +141,7 @@ scripted_diplomatic_actions = {
 		}
 
 		complete_effect = {
+			clear_vp = yes
 			execute_peace_deal = yes
 			ROOT = { 
 				clr_country_flag = pd_waiting_response
@@ -267,6 +268,10 @@ scripted_diplomatic_actions = {
 					multiply_temp_variable = { str = 100 }
 					round_temp_variable = str
 					subtract_from_temp_variable = { str = 100 }
+					clamp_temp_variable = {
+						var = str
+						max = 1000
+					}
 					add = var:str
 				}
 			}
@@ -292,7 +297,7 @@ scripted_diplomatic_actions = {
 				}
 				modifier = {
 					# while threat < 0.2 -> 0, later -100 for each 0.1
-					set_temp_variable = { wt = var:threat }
+					set_temp_variable = { wt = global.threat }
 					multiply_temp_variable = { wt = -1000 }
 					round_temp_variable = wt
 					add_to_temp_variable = { wt = 200 }

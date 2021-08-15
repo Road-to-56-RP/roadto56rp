@@ -6,3 +6,8 @@ NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 6.0 --It always takes atleast 10 
 NDefines.NDiplomacy.VOLUNTEERS_PER_COUNTRY_ARMY = 0.05 --Each province owned by the target country contributes this amount of volunteers to the limit.
 NDefines.NDiplomacy.VOLUNTEERS_PER_TARGET_PROVINCE = 0.025 --Each army unit owned by the source country contributes this amount of volunteers to the limit.
 
+NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 4.25
+NDefines.NProduction.BASE_FACTORY_SPEED = 4.75
+NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 2
+NDefines.NProduction.BASE_FACTORY_MAX_EFFICIENCY_FACTOR = 45
+NDefines.NProduction.BASE_FACTORY_EFFICIENCY_GAIN = 0.9

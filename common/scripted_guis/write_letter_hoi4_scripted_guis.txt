@@ -31,6 +31,7 @@ scripted_gui = {
 			ROOT = {
 				OR = {
 					has_variable = show_insults_expanded_diplo_actions
+					#is_ai = yes
 				}
 			}
 		}
@@ -215,7 +216,7 @@ scripted_gui = {
 				}
 			}
 			send_button_click = {
-				set_variable = { last_insult_sent_this_amount_of_days_ago = 10 }
+				set_variable = { last_insult_sent_this_amount_of_days_ago = 5 }
 				var:selected_country_to_insult = {
 					send_insult_effect = yes
 					if = {
@@ -1818,6 +1819,8 @@ scripted_gui = {
 					tooltip = ROOT_COULD_INSULT_TARGET_NORMALLY_TOO
 					NOT = { check_variable = { last_insult_sent_this_amount_of_days_ago > 0 } }
 					var:selected_country_to_insult = {
+						NOT = { is_in_faction_with = ROOT }
+						NOT = { has_war_with = ROOT }
 						OR = {
 							NOT = { has_country_flag = recently_insulted_by_@ROOT }
 							has_country_flag = {
@@ -2079,7 +2082,7 @@ scripted_gui = {
 		}
 		
 		ai_enabled = {
-			always = yes
+			always = no
 		}
 		
 		ai_test_interval = 24
@@ -2145,153 +2148,6 @@ scripted_gui = {
 				ai_will_do = {
 					factor = 0
 				}
-			}
-		}
-	}
-	
-	insults_expanded_save_insults_window = {
-		context_type = player_context
-		
-		window_name = "insults_expanded_save_insults_window"
-		parent_window_name = "insults_expanded_popup_sender"
-		
-		visible = {
-			check_variable = { show_save_insuls_window > 0 }
-		}
-		
-		effects = {
-			insult_save_button_click = {
-				if = {
-					limit = {
-						check_variable = { v = 0 }
-						check_variable = { written_type_of_insult_array^num > 0 }
-					}
-					set_temp_variable = { new_value_temp = 1 }
-					while_loop_effect = {
-						limit = {
-							is_in_array = { saved_written_insults_array = new_value_temp }
-						}
-						break = break_temp
-						add_to_temp_variable = { new_value_temp = 1 }
-						if = {
-							limit = {
-								check_variable = { new_value_temp > 100 }
-							}
-							set_temp_variable = { break_temp = 1 }
-						}
-					}
-					if = {
-						limit = {
-							is_in_array = { saved_written_insults_array = new_value_temp }
-						}
-						for_each_loop = {
-							array = saved_written_insults_array
-							add_to_temp_array = { saved_written_insults_array_temp = v }
-						}
-						for_loop_effect = {
-							start = 1
-							end = saved_written_insults_array_temp^num
-							value = v
-							set_temp_variable = { var = j value = v }
-							set_temp_variable = { var = j_minus value = j }
-							subtract_from_temp_variable = { var = j_minus value = 1 }
-							while_loop_effect = {
-								limit = {
-									check_variable = { j > 0 }
-									check_variable = { saved_written_insults_array_temp^j_minus < saved_written_insults_array_temp^j }
-								}
-								# swap j-1 with j if value of j-1 < j
-								set_temp_variable = { var = temp value = saved_written_insults_array_temp^j }
-								set_temp_variable = { var = saved_written_insults_array_temp^j value = saved_written_insults_array_temp^j_minus }
-								set_temp_variable = { var = saved_written_insults_array_temp^j_minus value = temp }
-								subtract_from_temp_variable = { var = j value = 1 }
-								subtract_from_temp_variable = { var = j_minus value = 1 }
-							}
-						}
-						set_temp_variable = { temp = saved_written_insults_array_temp^0 }
-						add_to_temp_variable = { temp = 1 }
-					}
-					else_if = {
-						limit = {
-							always = yes
-						}
-						set_temp_variable = { temp = new_value_temp }
-					}
-					add_to_array = { saved_written_insults_array = temp }
-					for_each_loop = {
-						array = written_type_of_insult_array
-						meta_effect = {
-							text = {
-								add_to_array = { saved_written_insults_array_text_[SAVE] = v }
-							}
-							SAVE = "[?temp]"
-						}
-					}
-				}
-				else_if = {
-					limit = {
-						check_variable = { written_type_of_insult_array^num > 0 }
-					}
-					set_temp_variable = { temp = v }
-					meta_effect = {
-						text = {
-							clear_array = saved_written_insults_array_text_[SAVE]
-						}
-						SAVE = "[?temp]"
-					}
-					for_each_loop = {
-						array = written_type_of_insult_array
-						meta_effect = {
-							text = {
-								add_to_array = { saved_written_insults_array_text_[SAVE] = v }
-							}
-							SAVE = "[?temp]"
-						}
-					}
-				}
-			}
-			insult_save_button_right_click = {
-				clear_array = written_type_of_insult_array
-				meta_effect = {
-					text = {
-						for_each_loop = {
-							array = saved_written_insults_array_text_[LOAD]
-							add_to_array = { written_type_of_insult_array = v }
-						}
-					}
-					LOAD = "[?v]"
-				}
-			}
-			insult_save_button_control_right_click = {
-				meta_effect = {
-					text = {
-						clear_array = saved_written_insults_array_text_[SAVE]
-					}
-					SAVE = "[?v]"
-				}
-				remove_from_array = { saved_written_insults_array = v }
-			}
-		}
-		
-		triggers = {
-			insult_save_button_click_enabled = {
-				OR = {
-					NOT = { check_variable = { v = 0 } }
-					check_variable = { written_type_of_insult_array^num > 0 }
-				}
-			}
-			insult_save_button_right_click_enabled = {
-				NOT = { check_variable = { v = 0 } }
-			}
-			insult_save_button_control_right_click_enabled = {
-				NOT = { check_variable = { v = 0 } }
-			}
-		}
-		
-		dynamic_lists = {
-			saved_insults_gridbox = {
-				array = saved_written_insults_array
-				entry_container = saved_insults_entry
 			}
 		}
 	}
@@ -2409,7 +2265,7 @@ scripted_gui = {
 		}
 		
 		ai_enabled = {
-			always = yes
+			always = no
 		}
 		
 		ai_test_interval = 24

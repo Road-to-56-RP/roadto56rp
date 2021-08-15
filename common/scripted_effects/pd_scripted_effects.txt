@@ -259,6 +259,48 @@ remove_state_from_list = {
 	} 
 }
 
+clear_vp = {
+	set_temp_variable = { root_this_pts = ROOT.vp@THIS }
+	set_temp_variable = { this_root_pts = THIS.vp@ROOT }
+	# Substract from faction leader in case of seperate peace deal
+	if = {
+		limit = {
+			ROOT = { 
+				has_country_flag = pd_root_gives 
+				is_in_faction = yes
+				NOT = { is_faction_leader = yes }
+			}
+		}
+		random_country = {
+			limit = {
+				is_in_faction_with = ROOT
+				is_faction_leader = yes
+			}
+			divide_temp_variable = { this_root_pts = 2 }
+			round_temp_variable = this_root_pts
+			subtract_from_variable = { PREV.vp@THIS = this_root_pts }
+		}
+	}
+	else_if = {
+		limit = {
+			is_in_faction = yes
+			NOT = { is_faction_leader = yes }
+		}
+		random_country = {
+			limit = {
+				is_in_faction_with = PREV
+				is_faction_leader = yes
+			}
+			divide_temp_variable = { root_this_pts = 2 }
+			round_temp_variable = root_this_pts
+			subtract_from_variable = { ROOT.vp@THIS = root_this_pts }
+		}
+	}
+	# Clear vps
+	clear_variable = ROOT.vp@THIS
+	clear_variable = THIS.vp@ROOT
+}
+
 execute_peace_deal = {
 	# Set up scopes
 	if = {

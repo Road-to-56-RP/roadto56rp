@@ -1,0 +1,1409 @@
+scripted_gui = {
+
+    open_send_res_ui = {
+        window_name = "open_send_res_window"
+        context_type = player_context
+
+        visible = {
+            always = yes
+            #always = no
+        }
+        
+        effects = {
+            rtt_open_button_click = {
+				if = { 
+                    limit = {
+                        check_variable = {
+                            rtt_show = 1
+                        }
+                    }
+                    set_variable = { rtt_show = 0 }
+                    set_variable = { rtt_trade_res = 0 }
+                    set_variable = { rtt_resources_amount = 0 } 
+                    set_variable = { rtt_trade_duration = 0 }
+                }
+                else = {
+                    set_variable = { rtt_show = 1 }
+                }
+                set_variable = { rtt_trade_res = 1 }
+                set_variable = { rtt_resources_amount = 0 } 
+                set_variable = { rtt_trade_duration = 0 } 
+               
+			}
+        }
+    }
+
+    send_res_ui = {
+        window_name = "rtt_send_factory_window"
+        context_type = selected_country_context
+
+        triggers = {
+            rtt_send_button_visible = {
+                
+                ROOT = { 
+                    if = {
+                        limit = {
+                            check_variable = { trade_oil = 1 }
+                        }
+                        check_variable = { rtt_resources_amount < resource@oil } 
+                    }
+                    if = {
+                        limit = {
+                            check_variable = { trade_alu = 1 }
+                        }
+                        check_variable = { rtt_resources_amount < resource@aluminium } 
+                    }
+                    if = {
+                        limit = {
+                            check_variable = { trade_rub = 1 }
+                        }
+                        check_variable = { rtt_resources_amount < resource@rubber } 
+                    }
+                    if = {
+                        limit = {
+                            check_variable = { trade_tun = 1 }
+                        }
+                        check_variable = { rtt_resources_amount < resource@tungsten } 
+                    }
+                    if = {
+                        limit = {
+                            check_variable = { trade_ste = 1 }
+                        }
+                        check_variable = { rtt_resources_amount < resource@steel } 
+                    }
+                    if = {
+                        limit = {
+                            check_variable = { trade_chr = 1 }
+                        }
+                        check_variable = { rtt_resources_amount < resource@chromium }
+                    }   
+                } 
+                
+
+                ROOT = { check_variable = { rtt_trader = 0 } }
+                ROOT = { NOT = { check_variable = { rtt_trade_duration = 0 } } }
+                ROOT = { NOT = { check_variable = { rtt_resources_amount = 0 } } }
+                
+                ROOT = { 
+                    OR = {
+                        check_variable = { rtt_trade1 = 0 } 
+                        check_variable = { rtt_trade2 = 0 } 
+                        check_variable = { rtt_trade3 = 0 } 
+                        check_variable = { rtt_trade4 = 0 } 
+                        check_variable = { rtt_trade5 = 0 } 
+                    } 
+                }
+
+                NOT = { original_tag = ROOT }
+
+                ROOT = {
+                    check_variable = {
+                        rtt_show = 1
+                    }
+                }
+            }
+
+            rtt_reciever_country_flag_visible = {
+                ROOT = {
+                    check_variable = {
+                        rtt_show = 1
+                    }
+                }
+            }
+
+            rtt_large_flag_frame_visible = {
+                ROOT = {
+                    check_variable = {
+                        rtt_show = 1
+                    }
+                }
+            }
+        }
+
+        properties = {
+            rtt_reciever_country_flag = {
+                image = "[THIS.GetFlag]"
+            }
+		}
+
+        effects = {
+            rtt_send_button_click = {
+
+                if = {
+                    limit = {
+                        ROOT = {
+                            NOT = {
+                                OR = {
+                                    check_variable = { rtt_trades = 1 }
+                                    check_variable = { rtt_trades = 2 }
+                                    check_variable = { rtt_trades = 3 }
+                                    check_variable = { rtt_trades = 4 }
+                                    check_variable = { rtt_trades = 5 }
+                                }
+                            }
+                        }
+                    }
+                    ROOT = {  
+                        set_variable = { 
+                            rtt_trades = 0
+                        }
+                    }
+                }
+
+                if = {
+                    limit = {
+                        ROOT = {
+                            NOT = {
+                                OR = {
+                                    check_variable = { rtt_trade1 = 1 }
+                                    check_variable = { rtt_trade2 = 1 }
+                                    check_variable = { rtt_trade3 = 1 }
+                                    check_variable = { rtt_trade4 = 1 }
+                                    check_variable = { rtt_trade5 = 1 }
+                                }
+                            }
+                        }
+                    }
+                    ROOT = {  
+                        set_variable = { 
+                            rtt_trade1 = 0
+                        }
+                        set_variable = { 
+                            rtt_trade2 = 0
+                        }
+                        set_variable = { 
+                            rtt_trade3 = 0
+                        }
+                        set_variable = { 
+                            rtt_trade4 = 0
+                        }
+                        set_variable = { 
+                            rtt_trade5 = 0
+                        }
+                    }
+                }
+
+                #rtt_trade_duration
+                #Trade 1
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { rtt_trader = 0 }
+                            check_variable = { rtt_trade1 = 0 }
+                        }
+                    }
+                    ROOT = { 
+                        set_variable = { 
+                            rtt_trader = 1
+                        }
+                        set_variable = { 
+                            rtt_trade1 = 1
+                        }
+                        set_variable = { 
+                            rtt_reciver1 = PREV
+                        } 
+                        
+                        set_variable = { 
+                            rtt_resources_amount_fix1 = rtt_resources_amount 
+                        }
+                        set_variable = { 
+                            rtt_resources_amount_fix1_event = rtt_resources_amount 
+                        }
+                        add_to_variable = {
+                            rtt_trades = 1
+                        }
+                        
+                        if = {
+                            limit = {
+                                check_variable = {
+                                    trade_alu = 1
+                                }
+                            }
+                            set_variable = { trade_resource_1 = "alu" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_chr = 1
+                                }
+                            }
+                            set_variable = { trade_resource_1 = "chr" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_oil = 1
+                                }
+                            }
+                            set_variable = { trade_resource_1 = "oil" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_rub = 1
+                                }
+                            }
+                            set_variable = { trade_resource_1 = "rub" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_ste = 1
+                                }
+                            }
+                            set_variable = { trade_resource_1 = "ste" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_tun = 1
+                                }
+                            }
+                            set_variable = { trade_resource_1 = "tun" }
+                        }
+
+                        country_event = { id = rtt_trade.666 days = 1 }
+                        
+                        if = { limit = { check_variable = { rtt_trade_duration = 1 } } country_event = { id = rtt_trade.1 days = 193 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 2 } } country_event = { id = rtt_trade.1 days = 365 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 3 } } country_event = { id = rtt_trade.1 days = 548 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 4 } } country_event = { id = rtt_trade.1 days = 730 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 5 } } country_event = { id = rtt_trade.1 days = 913 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 6 } } country_event = { id = rtt_trade.1 days = 1095 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 7 } } country_event = { id = rtt_trade.1 days = 1278 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 8 } } country_event = { id = rtt_trade.1 days = 1460 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 9 } } country_event = { id = rtt_trade.1 days = 1643 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 10 } } country_event = { id = rtt_trade.1 days = 1825 } }
+                        
+                    }
+
+                    if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 1 } } } country_event = { id = rtt_trade.101 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 2 } } } country_event = { id = rtt_trade.101 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 3 } } } country_event = { id = rtt_trade.101 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 4 } } } country_event = { id = rtt_trade.101 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 5 } } } country_event = { id = rtt_trade.101 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 6 } } } country_event = { id = rtt_trade.101 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 7 } } } country_event = { id = rtt_trade.101 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 8 } } } country_event = { id = rtt_trade.101 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 9 } } } country_event = { id = rtt_trade.101 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 10 } } } country_event = { id = rtt_trade.101 days = 1825 } }
+                }
+
+                #Trade 2
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { rtt_trader = 0 }
+                            check_variable = { rtt_trade2 = 0 }
+                        }
+                    }
+                    ROOT = { 
+                        set_variable = { 
+                            rtt_trader = 1
+                        }
+                        set_variable = { 
+                            rtt_trade2 = 1
+                        }
+                        set_variable = { 
+                            rtt_reciver2 = PREV
+                        } 
+                        set_variable = { 
+                            rtt_resources_amount_fix2 = rtt_resources_amount 
+                        }
+                        set_variable = { 
+                            rtt_resources_amount_fix2_event = rtt_resources_amount 
+                        }
+                        add_to_variable = {
+                            rtt_trades = 1
+                        }
+
+                        if = {
+                            limit = {
+                                check_variable = {
+                                    trade_alu = 1
+                                }
+                            }
+                            set_variable = { trade_resource_2 = "alu" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_chr = 1
+                                }
+                            }
+                            set_variable = { trade_resource_2 = "chr" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_oil = 1
+                                }
+                            }
+                            set_variable = { trade_resource_2 = "oil" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_rub = 1
+                                }
+                            }
+                            set_variable = { trade_resource_2 = "rub" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_ste = 1
+                                }
+                            }
+                            set_variable = { trade_resource_2 = "ste" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_tun = 1
+                                }
+                            }
+                            set_variable = { trade_resource_2 = "tun" }
+                        }
+
+                        e
+                        if = { limit = { check_variable = { rtt_trade_duration = 1 } } country_event = { id = rtt_trade.2 days = 193 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 2 } } country_event = { id = rtt_trade.2 days = 365 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 3 } } country_event = { id = rtt_trade.2 days = 548 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 4 } } country_event = { id = rtt_trade.2 days = 730 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 5 } } country_event = { id = rtt_trade.2 days = 913 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 6 } } country_event = { id = rtt_trade.2 days = 1095 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 7 } } country_event = { id = rtt_trade.2 days = 1278 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 8 } } country_event = { id = rtt_trade.2 days = 1460 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 9 } } country_event = { id = rtt_trade.2 days = 1643 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 10 } } country_event = { id = rtt_trade.2 days = 1825 } }
+
+                        country_event = { id = rtt_trade.666 days = 1 }
+                    }
+
+                    if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 1 } } } country_event = { id = rtt_trade.102 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 2 } } } country_event = { id = rtt_trade.102 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 3 } } } country_event = { id = rtt_trade.102 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 4 } } } country_event = { id = rtt_trade.102 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 5 } } } country_event = { id = rtt_trade.102 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 6 } } } country_event = { id = rtt_trade.102 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 7 } } } country_event = { id = rtt_trade.102 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 8 } } } country_event = { id = rtt_trade.102 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 9 } } } country_event = { id = rtt_trade.102 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 10 } } } country_event = { id = rtt_trade.102 days = 1825 } }
+
+                    # if = { limit = { check_variable = { rtt_trade_duration = 1 } } country_event = { id = rtt_trade.102 days = 10 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 2 } } country_event = { id = rtt_trade.102 days = 365 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 3 } } country_event = { id = rtt_trade.102 days = 548 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 4 } } country_event = { id = rtt_trade.102 days = 730 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 5 } } country_event = { id = rtt_trade.102 days = 913 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 6 } } country_event = { id = rtt_trade.102 days = 1095 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 7 } } country_event = { id = rtt_trade.102 days = 1278 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 8 } } country_event = { id = rtt_trade.102 days = 1460 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 9 } } country_event = { id = rtt_trade.102 days = 1643 } }
+                    # else_if = { limit = { check_variable = { rtt_trade_duration = 10 } } country_event = { id = rtt_trade.102 days = 1825 } }
+
+                }
+
+                #Trade 3
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { rtt_trader = 0 }
+                            check_variable = { rtt_trade3 = 0 }
+                        }
+                    }
+                    ROOT = { 
+                        set_variable = { 
+                            rtt_trader = 1
+                        }
+                        set_variable = { 
+                            rtt_trade3 = 1
+                        }
+                        set_variable = { 
+                            rtt_reciver3 = PREV
+                        } 
+                        set_variable = { 
+                            rtt_resources_amount_fix3 = rtt_resources_amount 
+                        }
+                        set_variable = { 
+                            rtt_resources_amount_fix3_event = rtt_resources_amount 
+                        }
+                        add_to_variable = {
+                            rtt_trades = 1
+                        }
+
+                        if = {
+                            limit = {
+                                check_variable = {
+                                    trade_alu = 1
+                                }
+                            }
+                            set_variable = { trade_resource_3 = "alu" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_chr = 1
+                                }
+                            }
+                            set_variable = { trade_resource_3 = "chr" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_oil = 1
+                                }
+                            }
+                            set_variable = { trade_resource_3 = "oil" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_rub = 1
+                                }
+                            }
+                            set_variable = { trade_resource_3 = "rub" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_ste = 1
+                                }
+                            }
+                            set_variable = { trade_resource_3 = "ste" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_tun = 1
+                                }
+                            }
+                            set_variable = { trade_resource_3 = "tun" }
+                        }
+
+                        print_variables = {
+                            print_global = yes
+                            var_list = { rtt_reciver3 rtt_civ_amount_fix3 rtt_mil_amount_fix3 }
+                            file = "Variable"
+                            text = "rtt_trade3"
+                        }
+                        if = { limit = { check_variable = { rtt_trade_duration = 1 } } country_event = { id = rtt_trade.3 days = 193 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 2 } } country_event = { id = rtt_trade.3 days = 365 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 3 } } country_event = { id = rtt_trade.3 days = 548 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 4 } } country_event = { id = rtt_trade.3 days = 730 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 5 } } country_event = { id = rtt_trade.3 days = 913 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 6 } } country_event = { id = rtt_trade.3 days = 1095 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 7 } } country_event = { id = rtt_trade.3 days = 1278 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 8 } } country_event = { id = rtt_trade.3 days = 1460 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 9 } } country_event = { id = rtt_trade.3 days = 1643 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 10 } } country_event = { id = rtt_trade.3 days = 1825 } }
+
+                        country_event = { id = rtt_trade.666 days = 1 }
+                    }
+                    if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 1 } } } country_event = { id = rtt_trade.103 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 2 } } } country_event = { id = rtt_trade.103 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 3 } } } country_event = { id = rtt_trade.103 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 4 } } } country_event = { id = rtt_trade.103 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 5 } } } country_event = { id = rtt_trade.103 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 6 } } } country_event = { id = rtt_trade.103 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 7 } } } country_event = { id = rtt_trade.103 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 8 } } } country_event = { id = rtt_trade.103 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 9 } } } country_event = { id = rtt_trade.103 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 10 } } } country_event = { id = rtt_trade.103 days = 1825 } }
+
+                }
+
+                #Trade 4
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { rtt_trader = 0 }
+                            check_variable = { rtt_trade4 = 0 }
+                        }
+                    }
+                    ROOT = {
+                        set_variable = { 
+                            rtt_trader = 1
+                        }
+                        set_variable = { 
+                            rtt_trade4 = 1
+                        } 
+                        set_variable = { 
+                            rtt_reciver4 = PREV
+                        } 
+                        set_variable = { 
+                            rtt_resources_amount_fix4 = rtt_resources_amount 
+                        }
+                        set_variable = { 
+                            rtt_resources_amount_fix4_event = rtt_resources_amount 
+                        }
+                        add_to_variable = {
+                            rtt_trades = 1
+                        }
+
+                        if = {
+                            limit = {
+                                check_variable = {
+                                    trade_alu = 1
+                                }
+                            }
+                            set_variable = { trade_resource_4 = "alu" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_chr = 1
+                                }
+                            }
+                            set_variable = { trade_resource_4 = "chr" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_oil = 1
+                                }
+                            }
+                            set_variable = { trade_resource_4 = "oil" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_rub = 1
+                                }
+                            }
+                            set_variable = { trade_resource_4 = "rub" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_ste = 1
+                                }
+                            }
+                            set_variable = { trade_resource_4 = "ste" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_tun = 1
+                                }
+                            }
+                            set_variable = { trade_resource_4 = "tun" }
+                        }
+
+                        print_variables = {
+                            print_global = yes
+                            var_list = { rtt_reciver4 rtt_civ_amount_fix4 rtt_mil_amount_fix4 }
+                            file = "Variable"
+                            text = "rtt_trade4"
+                        }
+                        if = { limit = { check_variable = { rtt_trade_duration = 1 } } country_event = { id = rtt_trade.4 days = 193 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 2 } } country_event = { id = rtt_trade.4 days = 365 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 3 } } country_event = { id = rtt_trade.4 days = 548 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 4 } } country_event = { id = rtt_trade.4 days = 730 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 5 } } country_event = { id = rtt_trade.4 days = 913 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 6 } } country_event = { id = rtt_trade.4 days = 1095 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 7 } } country_event = { id = rtt_trade.4 days = 1278 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 8 } } country_event = { id = rtt_trade.4 days = 1460 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 9 } } country_event = { id = rtt_trade.4 days = 1643 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 10 } } country_event = { id = rtt_trade.4 days = 1825 } }
+
+                        country_event = { id = rtt_trade.666 days = 1 }
+                    }
+                    if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 1 } } } country_event = { id = rtt_trade.104 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 2 } } } country_event = { id = rtt_trade.104 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 3 } } } country_event = { id = rtt_trade.104 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 4 } } } country_event = { id = rtt_trade.104 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 5 } } } country_event = { id = rtt_trade.104 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 6 } } } country_event = { id = rtt_trade.104 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 7 } } } country_event = { id = rtt_trade.104 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 8 } } } country_event = { id = rtt_trade.104 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 9 } } } country_event = { id = rtt_trade.104 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 10 } } } country_event = { id = rtt_trade.104 days = 1825 } }
+
+                }
+
+                #Trade 5
+                if = {
+                    limit = {
+                        ROOT = {
+                            check_variable = { rtt_trader = 0 }
+                            check_variable = { rtt_trade5 = 0 }
+                        }
+                    }
+                    ROOT = { 
+                        set_variable = { 
+                            rtt_trader = 1
+                        }
+                        set_variable = { 
+                            rtt_trade5 = 1
+                        }
+                        set_variable = { 
+                            rtt_reciver5 = PREV
+                        } 
+                        set_variable = { 
+                            rtt_resources_amount_fix5 = rtt_resources_amount 
+                        }
+                        set_variable = { 
+                            rtt_resources_amount_fix5_event = rtt_resources_amount 
+                        }
+                        add_to_variable = {
+                            rtt_trades = 1
+                        }
+
+                        if = {
+                            limit = {
+                                check_variable = {
+                                    trade_alu = 1
+                                }
+                            }
+                            set_variable = { trade_resource_5 = "alu" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_chr = 1
+                                }
+                            }
+                            set_variable = { trade_resource_5 = "chr" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_oil = 1
+                                }
+                            }
+                            set_variable = { trade_resource_5 = "oil" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_rub = 1
+                                }
+                            }
+                            set_variable = { trade_resource_5 = "rub" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_ste = 1
+                                }
+                            }
+                            set_variable = { trade_resource_5 = "ste" }
+                        }
+
+                        else_if = {
+                            limit = {
+                                check_variable = {
+                                    trade_tun = 1
+                                }
+                            }
+                            set_variable = { trade_resource_5 = "tun" }
+                        }
+
+                        print_variables = {
+                            print_global = yes
+                            var_list = { rtt_reciver5 rtt_civ_amount_fix5 rtt_mil_amount_fix5 }
+                            file = "Variable"
+                            text = "rtt_trade5"
+                        }
+                        if = { limit = { check_variable = { rtt_trade_duration = 1 } } country_event = { id = rtt_trade.5 days = 193 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 2 } } country_event = { id = rtt_trade.5 days = 365 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 3 } } country_event = { id = rtt_trade.5 days = 548 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 4 } } country_event = { id = rtt_trade.5 days = 730 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 5 } } country_event = { id = rtt_trade.5 days = 913 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 6 } } country_event = { id = rtt_trade.5 days = 1095 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 7 } } country_event = { id = rtt_trade.5 days = 1278 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 8 } } country_event = { id = rtt_trade.5 days = 1460 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 9 } } country_event = { id = rtt_trade.5 days = 1643 } }
+                        else_if = { limit = { check_variable = { rtt_trade_duration = 10 } } country_event = { id = rtt_trade.5 days = 1825 } }
+
+                        country_event = { id = rtt_trade.666 days = 1 }
+                    }
+                    if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 1 } } } country_event = { id = rtt_trade.105 days = 193 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 2 } } } country_event = { id = rtt_trade.105 days = 365 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 3 } } } country_event = { id = rtt_trade.105 days = 548 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 4 } } } country_event = { id = rtt_trade.105 days = 730 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 5 } } } country_event = { id = rtt_trade.105 days = 913 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 6 } } } country_event = { id = rtt_trade.105 days = 1095 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 7 } } } country_event = { id = rtt_trade.105 days = 1278 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 8 } } } country_event = { id = rtt_trade.105 days = 1460 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 9 } } } country_event = { id = rtt_trade.105 days = 1643 } }
+                    else_if = { limit = { ROOT = { check_variable = { rtt_trade_duration = 10 } } } country_event = { id = rtt_trade.105 days = 1825 } }
+
+                }
+
+
+
+                #Initial Trade of Factories
+                while_loop_effect = {
+                    limit = { 
+                        OR = {
+                            ROOT = {
+                                check_variable = {
+                                    trade_oil > 0
+                                }
+                            }
+                            ROOT = {
+                                check_variable = {
+                                    trade_alu > 0
+                                } 
+                            }
+                            ROOT = {
+                                check_variable = {
+                                    trade_rub > 0
+                                }
+                            }
+                            ROOT = {
+                                check_variable = {
+                                    trade_tun > 0
+                                }
+                            }
+                            ROOT = {
+                                check_variable = {
+                                    trade_ste > 0
+                                } 
+                            }
+                            ROOT = {
+                                check_variable = {
+                                    trade_chr > 0
+                                }
+                            }
+                        }
+                        ROOT = {
+                            check_variable = {
+                                rtt_resources_amount > 0
+                            }
+                        }
+                    }
+
+                    if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    trade_oil > 0
+                                }  
+                            }
+                        }
+                        
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    has_resources_amount = {
+                                        resource = oil
+                                        amount > 0
+                                    }
+                                }
+                                add_resource = {
+                                    type = oil
+                                    amount = -1
+                                }
+                            }
+                        }
+
+                        random_owned_controlled_state = {
+                            add_resource = {
+                                type = oil
+                                amount = 1
+                            }
+                        }
+
+                        ROOT = {
+                            subtract_from_variable = { rtt_resources_amount = 1 } 
+                        }
+                    }
+
+                    else_if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    trade_alu > 0
+                                }  
+                            }
+                        }
+                        
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    has_resources_amount = {
+                                        resource = aluminium
+                                        amount > 0
+                                    }
+                                }
+                                add_resource = {
+                                    type = aluminium
+                                    amount = -1
+                                }
+                            }
+                        }
+
+                        random_owned_controlled_state = {
+                            add_resource = {
+                                type = aluminium
+                                amount = 1
+                            }
+                        }
+
+                        ROOT = {
+                            subtract_from_variable = { rtt_resources_amount = 1 } 
+                        }
+                    }
+
+                    else_if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    trade_rub > 0
+                                }  
+                            }
+                        }
+                        
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    has_resources_amount = {
+                                        resource = rubber
+                                        amount > 0
+                                    }
+                                }
+                                add_resource = {
+                                    type = rubber
+                                    amount = -1
+                                }
+                            }
+                        }
+
+                        random_owned_controlled_state = {
+                            add_resource = {
+                                type = rubber
+                                amount = 1
+                            }
+                        }
+
+                        ROOT = {
+                            subtract_from_variable = { rtt_resources_amount = 1 } 
+                        }
+                    }
+
+                    else_if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    trade_tun > 0
+                                }  
+                            }
+                        }
+                        
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    has_resources_amount = {
+                                        resource = tungsten
+                                        amount > 0
+                                    }
+                                }
+                                add_resource = {
+                                    type = tungsten
+                                    amount = -1
+                                }
+                            }
+                        }
+
+                        random_owned_controlled_state = {
+                            add_resource = {
+                                type = tungsten
+                                amount = 1
+                            }
+                        }
+
+                        ROOT = {
+                            subtract_from_variable = { rtt_resources_amount = 1 } 
+                        }
+                    }
+
+                    else_if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    trade_ste > 0
+                                }  
+                            }
+                        }
+                        
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    has_resources_amount = {
+                                        resource = steel
+                                        amount > 0
+                                    }
+                                }
+                                add_resource = {
+                                    type = steel
+                                    amount = -1
+                                }
+                            }
+                        }
+
+                        random_owned_controlled_state = {
+                            add_resource = {
+                                type = steel
+                                amount = 1
+                            }
+                        }
+
+                        ROOT = {
+                            subtract_from_variable = { rtt_resources_amount = 1 } 
+                        }
+                    }
+
+                    else_if = {
+                        limit = { 
+                            ROOT = {
+                                check_variable = {
+                                    trade_chr > 0
+                                }  
+                            }
+                        }
+                        
+                    
+                        ROOT = {
+                            random_owned_controlled_state = {
+                                limit = {
+                                    has_resources_amount = {
+                                        resource = chromium
+                                        amount > 0
+                                    }
+                                }
+                                add_resource = {
+                                    type = chromium
+                                    amount = -1
+                                }
+                            }
+                        }
+
+                        random_owned_controlled_state = {
+                            add_resource = {
+                                type = chromium
+                                amount = 1
+                            }
+                        }
+
+                        ROOT = {
+                            subtract_from_variable = { rtt_resources_amount = 1 } 
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    trade_res_ui = {
+        window_name = "rtt_send_civ_window"
+        context_type = player_context
+
+        visible = {
+            ROOT = {
+                check_variable = {
+                    rtt_show = 1
+                }
+            }
+        }
+
+        triggers = {
+            
+            #rtt_help
+            rtt_help_bg_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            rtt_help_trade_type_titel_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            rtt_help_trade_amount_titel_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            rtt_help_trade_duration_titel_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            rtt_help_trade_confirm_titel_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            #
+
+            rtt_trade_type_desc_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            rtt_trade_amount_desc_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            rtt_trade_duration_desc_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            rtt_trade_confirm_desc_visible = {
+                check_variable = { rtt_help = 1 } 
+            }
+
+            #########
+
+            rtt_choose_oil_resource_visible = {
+                check_variable = { trade_oil = 1 } 
+            }
+
+            rtt_choose_aluminium_resource_visible = {
+                check_variable = { trade_alu = 1 } 
+            }
+
+            rtt_choose_rubber_resource_visible = {
+                check_variable = { trade_rub = 1 } 
+            }
+
+            rtt_choose_tungsten_resource_visible = {
+                check_variable = { trade_tun = 1 } 
+            }
+
+            rtt_choose_steel_resource_visible = {
+                check_variable = { trade_ste = 1 } 
+            }
+
+            rtt_choose_chromium_resource_visible = {
+                check_variable = { trade_chr = 1 } 
+            }
+
+            #Trade Anzeige
+            rtt_trades_free_5_visible = {
+                check_variable = { rtt_trades = 0 } 
+            }
+
+            rtt_trades_free_4_visible = {
+                check_variable = { rtt_trades = 1 } 
+            }
+
+            rtt_trades_free_3_visible = {
+                check_variable = { rtt_trades = 2 } 
+            }
+
+            rtt_trades_free_2_visible = {
+                check_variable = { rtt_trades = 3 } 
+            }
+
+            rtt_trades_free_1_visible = {
+                check_variable = { rtt_trades = 4 } 
+            }
+
+            rtt_trades_free_0_visible = {
+                check_variable = { rtt_trades = 5 } 
+            }
+
+            rtt_asfhelp_button_visible = { 
+                always = no
+            }
+        }
+        
+        effects = {
+            
+            rtt_help_button_click = {
+                ROOT = {
+                    if = {
+                        limit = { 
+                            check_variable = {
+                                rtt_help = 1
+                            }
+                        }
+                        set_variable = { rtt_help = 0 }
+                    }
+                    else = {
+                        set_variable = { rtt_help = 1 }
+                    }
+                }
+            }
+
+            rtt_close_button_click = {
+                ROOT = {
+                    set_variable = { trade_oil = 0 }
+                    set_variable = { trade_alu = 0 }
+                    set_variable = { trade_rub = 0 }
+                    set_variable = { trade_tun = 0 }
+                    set_variable = { trade_ste = 0 }
+                    set_variable = { trade_chr = 0 }
+                    set_variable = { rtt_resources_amount = 0 } 
+                    set_variable = { rtt_show = 0 }
+                }
+			}
+
+            rtt_choose_oil_resource_button_click = {
+                ROOT = {
+                    set_variable = { trade_oil = 1 }
+                    set_variable = { trade_alu = 0 }
+                    set_variable = { trade_rub = 0 }
+                    set_variable = { trade_tun = 0 }
+                    set_variable = { trade_ste = 0 }
+                    set_variable = { trade_chr = 0 }
+                    set_variable = { rtt_resources_amount = 0 } 
+                }
+			}
+
+            rtt_choose_aluminium_resource_button_click = {
+                ROOT = {
+                    set_variable = { trade_oil = 0 }
+                    set_variable = { trade_alu = 1 }
+                    set_variable = { trade_rub = 0 }
+                    set_variable = { trade_tun = 0 }
+                    set_variable = { trade_ste = 0 }
+                    set_variable = { trade_chr = 0 }
+                    set_variable = { rtt_resources_amount = 0 } 
+                }
+			}
+
+            rtt_choose_rubber_resource_button_click = {
+                ROOT = {
+                    set_variable = { trade_oil = 0 }
+                    set_variable = { trade_alu = 0 }
+                    set_variable = { trade_rub = 1 }
+                    set_variable = { trade_tun = 0 }
+                    set_variable = { trade_ste = 0 }
+                    set_variable = { trade_chr = 0 }
+                    set_variable = { rtt_resources_amount = 0 } 
+                }
+			}
+
+            rtt_choose_tungsten_resource_button_click = {
+                ROOT = {
+                    set_variable = { trade_oil = 0 }
+                    set_variable = { trade_alu = 0 }
+                    set_variable = { trade_rub = 0 }
+                    set_variable = { trade_tun = 1 }
+                    set_variable = { trade_ste = 0 }
+                    set_variable = { trade_chr = 0 }
+                    set_variable = { rtt_resources_amount = 0 } 
+                }
+			}
+
+            rtt_choose_steel_resource_button_click = {
+                ROOT = {
+                    set_variable = { trade_oil = 0 }
+                    set_variable = { trade_alu = 0 }
+                    set_variable = { trade_rub = 0 }
+                    set_variable = { trade_tun = 0 }
+                    set_variable = { trade_ste = 1 }
+                    set_variable = { trade_chr = 0 }
+                    set_variable = { rtt_resources_amount = 0 } 
+                }
+			}
+
+            rtt_choose_chromium_resource_button_click = {
+                ROOT = {
+                    set_variable = { trade_oil = 0 }
+                    set_variable = { trade_alu = 0 }
+                    set_variable = { trade_rub = 0 }
+                    set_variable = { trade_tun = 0 }
+                    set_variable = { trade_ste = 0 }
+                    set_variable = { trade_chr = 1 }
+                    set_variable = { rtt_resources_amount = 0 } 
+                }
+			}
+
+            rtt_amount_up_button_click = {
+                ROOT = {
+                    add_to_variable = { rtt_resources_amount = 1 }
+                }
+			}
+
+            rtt_amount_down_button_click = {
+                ROOT = {
+                    if = {
+                        limit = {
+                            check_variable = { rtt_resources_amount > 0 }
+                        }
+                        subtract_from_variable = { rtt_resources_amount = 1 }
+                    }
+                }
+			}
+            
+            rtt_duration_up_button_click = {
+                ROOT = {
+                    if = {
+                        limit = {
+                            check_variable = {
+                                rtt_trade_duration < 10
+                            }
+                        }   
+                        add_to_variable = { rtt_trade_duration = 1 }
+                        add_to_variable = { rtt_trade_duration_half = 0.5 }
+                    }
+                }
+			}
+
+            rtt_duration_down_button_click = {
+                ROOT = {
+                    if = {
+                        limit = {
+                            check_variable = {
+                                rtt_trade_duration = 0
+                            }
+                        }   
+                        add_to_variable = { rtt_trade_duration_half = 0 } 
+                    }
+                    else = {
+                        subtract_from_variable = { rtt_trade_duration = 1 }   
+                        subtract_from_variable = { rtt_trade_duration_half = 0.5 }
+                    }
+                }
+			}
+
+            # rtt_asfhelp_button_click = {
+			# 	if = { 
+            #         limit = {
+            #             check_variable = {
+            #                 rtt_current_show = 1
+            #             }
+            #         }
+            #         set_variable = { rtt_current_show = 0 }
+            #     }
+            #     else = {
+            #         set_variable = { rtt_current_show = 1 }
+            #     }
+               
+			# }
+        }
+
+        
+        # triggers = {
+        #     <element>_click_enabled = {
+        #         <triggers>
+        #     }
+        #     <element>_visible = {
+        #         <triggers>
+        #     }
+        # }
+        
+        # properties = {
+        #     <element> = {
+        #         image = <string>
+        #         frame = <var>
+        #         x = <var>
+        #         y = <var>
+        #     }
+        # }
+        
+        # ai_enabled = {
+        #     <triggers>
+        # }
+        
+        # ai_test_parent = <string>
+        
+        # ai_test_interval = <int>
+        # ai_test_variance = <float>
+        # ai_test_scopes = <type>
+        
+        # ai_check = {
+        #     <triggers>
+        # }
+        
+        # ai_check_scope = {
+        #     <triggers>
+        # }
+        
+        # ai_max_weight_taken_per_test = <int>
+        
+        # ai_weights = {
+        #     <element>_<modifiers>_click = {
+        #         ai_will_do = {
+        #             base = <int>
+        #             factor = <float>
+        #             add = <float>
+                    
+        #             modifier = {
+        #                 factor = <float>
+        #                 add = <float>
+                        
+        #                 <triggers>
+        #             }
+        #         }
+        #         ignore_lower_weights = {
+        #             factor = <float>
+        #         }
+        #     }
+        # }
+    }
+
+    # current_res_trades_ui = {
+    #     window_name = "current_res_trades"
+    #     context_type = player_context
+
+    #     visible = {
+    #         check_variable = { rtt_current_show = 1 }
+    #         check_variable = { rtt_show = 1 }
+            
+    #     }
+
+    #     effects = {
+    #         rtt_test_button1_click = {
+    #             set_variable = { 
+    #                 var  = rtt_reciver_flag_1 
+    #                 value = Afas
+    #             }
+
+    #             print_variables = {
+    #                 var_list = { rtt_reciver1 rtt_reciver_flag_1 }
+    #                 file = "VariableButton"
+    #                 text = "rtt_trade1"
+    #             }
+                
+    #         }
+    #     }
+    # }
+
+
+    # current_res_trades_flags_ui = {
+    #     window_name = "current_res_trades_flags"
+    #     context_type = player_context
+
+    #     visible = {
+    #         check_variable = { rtt_current_show = 1 }
+    #         check_variable = { rtt_show = 1 }
+    #     }
+
+    #     properties = {
+    #         rtt_trade_flag1 = {
+    #             image = "[ROOT.GetFlag]"
+    #         }
+	# 	}
+    # }
+} 
