@@ -1,4 +1,4 @@
-version="1.10.7.1"
+version="1.10.8.0"
 tags={
 	"Alternative History"
 	"Balance"
@@ -7,5 +7,5 @@ tags={
 }
 name="Road to 56 RP"
 picture="thumbnail.png"
-supported_version="1.10.*"
+supported_version="1.10.8"
 remote_file_id="1875414471"

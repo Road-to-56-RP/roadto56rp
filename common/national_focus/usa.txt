@@ -14,7 +14,7 @@ focus_tree = {
 			original_tag = USA
 		}
 	}
-	continuous_focus_position = { x = 50 y = 1600 }
+	continuous_focus_position = { x = 3600 y = 1200 }
 	default = no
 #	focus = {
 #		id = USA_
@@ -282,17 +282,25 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_country_flag = mtg_usa_civil_war_fascists_1
-					not = { has_country_flag = mtg_usa_civil_war_fascists_2 }
+					NOT = {
+						country_exists = CSA
+					}
 				}
-				country_event = mtg_usa_civil_war_fascists.2
-				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+				if = {
+					limit = {
+						has_country_flag = mtg_usa_civil_war_fascists_1
+						not = { has_country_flag = mtg_usa_civil_war_fascists_2 }
+					}
+					country_event = mtg_usa_civil_war_fascists.2
+					custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+				}
+				else_if = {
+					limit = { not = { has_country_flag = mtg_usa_civil_war_fascists_1 } }
+					country_event = mtg_usa_civil_war_fascists.1
+					custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+				}				
 			}
-			else_if = {
-				limit = { not = { has_country_flag = mtg_usa_civil_war_fascists_1 } }
-				country_event = mtg_usa_civil_war_fascists.1
-				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
-			}
+
 		}
 	}
 	focus = {
@@ -323,6 +331,13 @@ focus_tree = {
 		completion_reward = {
 			set_politics = { ruling_party = communism elections_allowed = yes } #good and nice communism has elections
 			add_popularity = { ideology = communism popularity = 0.25 }
+			if = {
+				limit = {
+					NOT = {
+						country_exists = CSA
+					}					
+				}
+			}
 			hidden_effect = {
 				if = {
 					limit = {
@@ -433,15 +448,15 @@ focus_tree = {
 						}	
 					}
 				}
-			}
-			523 = {
-				OWNER = {
-					ROOT = {
-						create_wargoal = {
-							target = PREV
-							type = take_state
-							expire = 0
-							generator = { 523 }
+				523 = {
+					OWNER = {
+						ROOT = {
+							create_wargoal = {
+								target = PREV
+								type = take_state
+								expire = 0
+								generator = { 523 }
+							}
 						}
 					}
 				}
@@ -929,6 +944,7 @@ focus_tree = {
 				country_event = generic.2
 			}
 		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 	focus = {
 		id = USA_secure_china
@@ -986,6 +1002,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 	focus = {
 		id = USA_end_monarchism
@@ -1042,7 +1059,6 @@ focus_tree = {
 				}
 				create_wargoal = {
 					target = GER
-					expire = 0
 					type = topple_government
 					expire = 0
 				}
@@ -1056,7 +1072,6 @@ focus_tree = {
 				}
 				create_wargoal = {
 					target = PRE
-					expire = 0
 					type = topple_government
 					expire = 0
 				}
@@ -1065,13 +1080,11 @@ focus_tree = {
 				limit = {
 					HUN = {
 						has_cosmetic_tag = HUN_EMPIRE
-						has_cosmetic_tag = AUS_EMPIRE
 						not = { is_in_faction_with = ROOT }
 					}
 				}
 				create_wargoal = {
 					target = HUN
-					expire = 0
 					type = topple_government
 					expire = 0
 				}
@@ -1186,7 +1199,6 @@ focus_tree = {
 					ROOT = {
 						create_wargoal = {
 							target = PREV
-							expire = 0
 							type = puppet_wargoal_focus
 							expire = 0
 						}
@@ -1215,7 +1227,6 @@ focus_tree = {
 					ROOT = {
 						create_wargoal = {
 							target = PREV
-							expire = 0
 							type = puppet_wargoal_focus
 							expire = 0
 						}
@@ -1245,7 +1256,6 @@ focus_tree = {
 					ROOT = {
 						create_wargoal = {
 							target = PREV
-							expire = 0
 							type = puppet_wargoal_focus
 							expire = 0
 						}
@@ -1274,7 +1284,6 @@ focus_tree = {
 					ROOT = {
 						create_wargoal = {
 							target = PREV
-							expire = 0
 							type = puppet_wargoal_focus
 							expire = 0
 						}
@@ -1564,7 +1573,6 @@ focus_tree = {
 		icon = GFX_goal_generic_territory_or_war
 		prerequisite = { focus = USA_continue_the_new_deal focus = USA_reestablish_the_gold_standard }
 		mutually_exclusive = { focus = USA_neutrality_act }
-		continue_if_invalid = yes
 		x = 0
 		y = 1
 		relative_position_id = USA_continue_the_new_deal
@@ -1895,7 +1903,7 @@ focus_tree = {
 			add_ideas = GER_abwehr_contacts
 			create_operative_leader = {
 				name = "Stephanie Rader"
-				portrait_path = gfx/leaders/Europe/portrait_europe_generic_operative_female_24.dds 
+				portrait_path = gfx/leaders/Europe/portrait_europe_generic_operative_female_13.dds 
 				traits = { operative_demolition_expert }
 				bypass_recruitment = no
 				available_to_spy_master = yes
@@ -2016,18 +2024,16 @@ focus_tree = {
 				news_event = { id = mtg_news.3 days = 3 random_days = 5 }
 				every_other_country = { #Prevents America from lend leasing weird minors countries 
 					limit = {
-						AND = {
-							is_major = no
-							is_ai = yes
-							has_government = ROOT
-							NOT = {
-								original_tag = FRA
-								original_tag = CHI
-								original_tag = CAN
-								original_tag = AST
-								original_tag = ENG
-								original_tag = NZL
-							}
+						is_major = no
+						is_ai = yes
+						has_government = ROOT
+						NOT = {
+							original_tag = FRA
+							original_tag = CHI
+							original_tag = CAN
+							original_tag = AST
+							original_tag = ENG
+							original_tag = NZL
 						}
 					}
 					ROOT = {
@@ -2101,14 +2107,10 @@ focus_tree = {
 							AND = {
 								tag = CHI
 								CHI = {
-									AND = {
-										has_war_with = JAP
-										NOT = {
-											OR = {
-												has_government = fascism
-												has_government = communism
-											}
-										}
+									has_war_with = JAP
+									OR = {
+										has_government = democratic
+										has_government = neutrality
 									}
 								}
 								JAP = {
@@ -2324,7 +2326,7 @@ focus_tree = {
 			}
 			has_idea = free_trade
 			OR = {
-				AND {
+				AND = {
 					has_war = yes
 					num_of_military_factories > 150
 				}
@@ -3061,7 +3063,7 @@ focus_tree = {
 	focus = {
 		id = r56_USA_foundation_of_NATO
 		icon = GFX_focus_chi_mission_to_the_us
-		prerequisite = { focus = USA_expand_unoffical_operations focus = USA_wartime_industry }
+		prerequisite = { focus = USA_arsenal_of_democracy focus = USA_war_propaganda }
 		available = {
 			has_government = democratic
 			is_puppet = no
@@ -3091,7 +3093,7 @@ focus_tree = {
 				has_war_with = SOV
 			}
 			OR = {
-				AND {
+				AND = {
 					has_war = yes
 					num_of_military_factories > 200
 				}
@@ -3104,9 +3106,9 @@ focus_tree = {
 
 		continue_if_invalid = no
 		
-		x = 2
-		y = 1
-		relative_position_id = USA_expand_unoffical_operations
+		x = -2
+		y = 5
+		relative_position_id = USA_arsenal_of_democracy
 		cost = 7
 		ai_will_do = {
 			factor = 1
@@ -3262,7 +3264,7 @@ focus_tree = {
 			set_rule = { can_send_volunteers = yes }
 			add_ideas = tblra_volunteer_corps
 		}
-		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_ANNEXATION }
+		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_ANNEXATION }
 	}
 
 	focus = {
@@ -3391,14 +3393,14 @@ focus_tree = {
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Micronesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Micronesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Micronesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Micronesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
@@ -3477,14 +3479,14 @@ focus_tree = {
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Polynesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Polynesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Polynesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Polynesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
@@ -3563,14 +3565,14 @@ focus_tree = {
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Fijian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Fijian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Polynesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Polynesian Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
@@ -3649,7 +3651,7 @@ focus_tree = {
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Guam Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Guam Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
@@ -3728,7 +3730,7 @@ focus_tree = {
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Samoa Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Samoa Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
@@ -3853,21 +3855,21 @@ focus_tree = {
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Philippine Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Philippine Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Philippine Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Philippine Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
 						random_owned_controlled_state = {
 							limit = { PREV = { has_full_control_of_state = PREV } }
 							create_unit = {
-								division = "name = \"Philippine Division\" division_template = \"National Guard Division\" start_experience_factor = 0.9" 
+								division = "name = \"Philippine Division\" division_template = \"National Guard Division\" start_experience_factor = 0.2" 
 								owner = PREV
 							}
 						}
@@ -3934,6 +3936,17 @@ focus_tree = {
 			KOR = {
 				exists = yes
 				has_government = communism
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56_USA_Korea_controls_peninsula
+				KOR = {
+					controls_state = 846
+					controls_state = 847
+					controls_state = 525
+					controls_state = 844
+					controls_state = 527
+					controls_state = 845
+				}
 			}
 		}
 
@@ -4313,7 +4326,7 @@ focus_tree = {
 						has_government = democratic
 					}
 				}
-				add_ideas = GER_marshall_plan_idea
+				add_timed_idea = { idea = GER_marshall_plan_idea days = 720 }
 			}
 			if = {
 				limit = {
@@ -4322,13 +4335,13 @@ focus_tree = {
 						has_government = democratic
 					}
 				}
-				add_ideas = GER_marshall_plan_idea
+				add_timed_idea = { idea = GER_marshall_plan_idea days = 720 }
 			}
 			every_other_country = {
 				limit = {
 					is_in_faction_with = USA
 				}
-				add_ideas = GER_marshall_plan_idea
+				add_timed_idea = { idea = GER_marshall_plan_idea days = 720 }
 			}
 			add_timed_idea = { idea = r56_financing_marshall_plan days = 280 }
 		}
@@ -4522,7 +4535,7 @@ focus_tree = {
 				}
 			}	
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_ALLIANCE }
 	}
 
 	focus = {
@@ -4684,6 +4697,7 @@ focus_tree = {
 				}				
 			}
 		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 
 	focus = {
@@ -4798,6 +4812,7 @@ focus_tree = {
 				}				
 			}
 		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 
 	focus = {
@@ -4911,6 +4926,7 @@ focus_tree = {
 				}				
 			}
 		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 
 	focus = {
@@ -5898,7 +5914,7 @@ focus_tree = {
 	focus = {
 		id = USA_honor_the_confederacy
 		icon = GFX_focus_usa_honor_the_confederacy
-		x = -2
+		x = -4
 		y = 3
 		prerequisite = { focus = USA_work_with_the_bund }
 		prerequisite = { focus = USA_national_employment_strategy }
@@ -5921,6 +5937,12 @@ focus_tree = {
 				has_government = fascism
 				has_government = neutrality
 			}
+			NOT = {
+				has_country_leader = { ruling_only = yes name = "Douglas MacArthur" }
+			}
+			NOT = {
+				country_exists = CSA
+			}
 		}
 		
 		bypass = {
@@ -5934,12 +5956,15 @@ focus_tree = {
 		completion_reward = {
 			unlock_decision_category_tooltip = USA_honor_the_confederacy
 			custom_effect_tooltip = USA_honor_the_confederacy_tt
+			every_state = {
+				remove_core_of = CSA
+			}
 		}
 	}
 	focus = {
 		id = USA_cult_of_washington
 		icon = GFX_Goal_USA_washington
-		x = 1
+		x = 3
 		y = 1
 		prerequisite = { focus = USA_work_with_the_bund }
 		prerequisite = { focus = USA_national_employment_strategy }
@@ -5955,6 +5980,11 @@ focus_tree = {
 				fascism > 0.5
 			}
 		}
+
+		ai_will_do = {
+			factor = 7
+		}
+
 
 		available = {
 			OR = {
@@ -5976,7 +6006,71 @@ focus_tree = {
 			custom_effect_tooltip = USA_honor_the_confederacy_tt
 		}
 	}
+	focus = {
+		id = USA_heirs_of_lafayette
+		icon = GFX_focus_chi_reach_out_to_france
+		x = 4
+		y = 1
+		prerequisite = { focus = USA_war_powers_act }
+		prerequisite = { focus = USA_cult_of_washington }
+		relative_position_id = USA_cult_of_washington
+		cost = 5
 
+		ai_will_do = {
+			factor = 50
+		}
+
+		available = {
+			has_government = fascism
+			FRA = {
+				has_government = fascism
+				is_subject = no
+				OR = {
+					is_faction_leader = yes
+					is_in_faction = no
+				}
+				has_capitulated = no
+			}
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			if = {
+				limit = {
+					FRA = {
+						is_faction_leader = yes
+					}
+				}
+				FRA = {
+					country_event = generic.2
+				}
+			}
+			if = {
+				limit = {
+					FRA = {
+						is_faction_leader = no
+					}
+					
+					is_faction_leader = yes	
+				}
+				FRA = {
+					country_event = generic.5
+				}				
+			}
+			else = {
+				FRA = {
+					country_event = r56_usa.10
+				}
+			}					
+		}
+	}
 
 #   #  ##  ###      ###   ##  #   # ### ###   ##      ##   ##  ### 
 #   # #  # #  #     #  # #  # #   # #   #  # #       #  # #  #  #  
@@ -5987,7 +6081,7 @@ focus_tree = {
 	focus = {
 		id = USA_war_powers_act
 		icon = GFX_goal_generic_forceful_treaty
-		x = 11
+		x = 13
 		y = 1
 		prerequisite = { focus = USA_america_first }
 		prerequisite = { focus = USA_war_department }
@@ -6023,11 +6117,12 @@ focus_tree = {
 	}
 	focus = {
 		id = USA_seize_cuba
-		icon = GFX_goal_cuba_presidential_guard
+		icon = GFX_goal_attack_cuba
 		x = -1
 		y = 1
 		prerequisite = { focus = USA_war_powers_act }
 		relative_position_id = USA_war_powers_act
+		mutually_exclusive = { focus = USA_invite_cuba }
 		cost = 10
 
 		ai_will_do = {
@@ -6045,6 +6140,25 @@ focus_tree = {
 			OR = {
 				owns_state = 315
 				has_war_with = CUB
+				AND = {
+					has_volunteers_amount_from = {
+    					tag = CUB
+    					count > 0
+					}
+					CUB = {
+						NOT = {
+							has_government = communism
+						}
+					}
+				}
+				CUB = {
+					has_government = fascism
+					OR = {
+						is_in_faction_with = ROOT
+						has_completed_focus = CUB_intervene_ACW
+					}
+					
+				}				
 			}
 		}
 
@@ -6063,7 +6177,6 @@ focus_tree = {
 					type = annex_everything
 					expire = 0
 					target = CUB
-					expire = 0
 				}
 			}
 			else_if = {
@@ -6086,11 +6199,49 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = USA_invite_cuba
+		icon = GFX_goal_cuba_stimulate_exportations
+		cost = 5
+		x = -3
+		y = 1
+		prerequisite = { focus = USA_war_powers_act }
+		relative_position_id = USA_war_powers_act
+		mutually_exclusive = { focus = USA_seize_cuba }
+		ai_will_do = {
+			factor = 50
+		}
+		available = {
+			is_faction_leader = yes
+			CUB = {
+				exists = yes
+				is_in_faction = no
+				NOT = {
+					has_government = democratic
+					has_government = communism
+					has_war_with = ROOT
+				}
+				
+				has_opinion = {
+					target = ROOT
+					value > 0
+				}
+				
+			}
+		}
+		completion_reward = {
+			CUB = {
+				country_event = {
+					id = generic.5
+					days = 2
+				}
+			}
+		}
+	}	
+	focus = {
 		id = USA_manifest_destiny
 		icon = GFX_goal_generic_political_pressure
 		text = USA_manifest_destiny_r56
 		prerequisite = { focus = USA_war_powers_act }
-		available = { }
 		x = 1
 		y = 1
 		relative_position_id = USA_war_powers_act
@@ -6112,7 +6263,8 @@ focus_tree = {
 		icon = GFX_focus_mex_jefe_maximo
 		x = -1
 		y = 2
-		prerequisite = { focus = USA_seize_cuba }
+		prerequisite = { focus = USA_seize_cuba focus = USA_invite_cuba }
+		mutually_exclusive = { focus = USA_invite_synarchist_mexico }
 		relative_position_id = USA_war_powers_act
 		cost = 10
 
@@ -6147,12 +6299,51 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = USA_invite_synarchist_mexico
+		icon = GFX_Goal_CAN_Support_synarchist_Baja
+		cost = 5
+		x = -2
+		y = 1
+		prerequisite = { focus = USA_seize_cuba focus = USA_invite_cuba }
+		mutually_exclusive = { focus = USA_eliminate_the_southern_threat }
+		relative_position_id = USA_seize_cuba
+		ai_will_do = {
+			factor = 50
+		}
+		available = {
+			is_faction_leader = yes
+			MEX = {
+				exists = yes
+				is_in_faction = no
+				has_government = fascism
+				NOT = {
+					has_war_with = ROOT
+				}
+				
+				has_opinion = {
+					target = ROOT
+					value > 0
+				}
+				
+			}
+		}
+		completion_reward = {
+			MEX = {
+				country_event = {
+					id = generic.5
+					days = 2
+				}
+			}
+		}
+	}	
+	focus = {
 		id = USA_the_canadian_corridor
 		icon = GFX_goal_CAN_newfoundland_labrador
 		x = 1
 		y = 2
 		prerequisite = { focus = USA_manifest_destiny }
 		relative_position_id = USA_war_powers_act
+		mutually_exclusive = { focus = USA_ally_the_new_canada }
 		cost = 10
 
 		ai_will_do = {
@@ -6192,12 +6383,50 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = USA_ally_the_new_canada
+		icon = GFX_goal_CAN_arcand
+		cost = 5
+		x = 2
+		y = 1
+		prerequisite = { focus = USA_manifest_destiny }
+		relative_position_id = USA_manifest_destiny
+		mutually_exclusive = { focus = USA_the_canadian_corridor }
+		ai_will_do = {
+			factor = 50
+		}
+		available = {
+			is_faction_leader = yes
+			CAN = {
+				exists = yes
+				is_in_faction = no
+				has_government = fascism
+				NOT = {
+					has_war_with = ROOT
+				}
+				
+				has_opinion = {
+					target = ROOT
+					value > 0
+				}
+				
+			}
+		}
+		completion_reward = {
+			CAN = {
+				country_event = {
+					id = generic.5
+					days = 2
+				}
+			}
+		}
+	}		
+	focus = {
 		id = USA_north_american_dominion
 		icon = GFX_goal_generic_usa_assistance
 		x = 0
 		y = 3
-		prerequisite = { focus = USA_the_canadian_corridor }
-		prerequisite = { focus = USA_eliminate_the_southern_threat }
+		prerequisite = { focus = USA_the_canadian_corridor focus = USA_ally_the_new_canada }
+		prerequisite = { focus = USA_eliminate_the_southern_threat focus = USA_invite_synarchist_mexico }
 		relative_position_id = USA_war_powers_act
 		cost = 10
 
@@ -6235,7 +6464,12 @@ focus_tree = {
 						original_tag = ELS
 					}
 					not = { has_war_with = ROOT }
-					not = { is_subject_of = ROOT }
+					not = { 
+						OR = {
+							is_subject_of = ROOT
+							is_in_faction_with = USA
+						} 
+					}
 					exists = yes
 				}
 				country_event = mtg_usa_north_american_dominion.1
@@ -6756,7 +6990,7 @@ focus_tree = {
  	focus = {
 		id = USA_war_plans_division
 		icon = GFX_goal_CAN_scheme_no1
-		x = 42
+		x = 47
 		y = 1
 		prerequisite = { focus = USA_war_department }
 		offset = {
@@ -7096,7 +7330,7 @@ focus_tree = {
 		bypass = {
 
 		}
-
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
@@ -7808,7 +8042,7 @@ focus_tree = {
 	focus = {
 		id = USA_war_department
 		icon = GFX_Goal_USA_department_of_defense
-		x = 58
+		x = 63
 		y = 0
 		offset = {
 			x = -26
@@ -8030,7 +8264,6 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
 			army_experience = 25
 			add_tech_bonus = {
@@ -8089,7 +8322,7 @@ focus_tree = {
 	}
 	focus = {
 		id = USA_army_of_the_united_states
-		icon = GFX_focus_generic_little_entente
+		icon = GFX_goal_USA_coa_army
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_louisiana_maneuvers }
@@ -8605,7 +8838,7 @@ focus_tree = {
 	}
 	focus = {
 		id = USA_us_army_airforce
-		icon = GFX_focus_generic_strike_at_democracy1
+		icon = GFX_goal_USA_coa_air_force_army
 		x = -1
 		y = 4
 		prerequisite = { focus = USA_TAC }
@@ -8640,7 +8873,7 @@ focus_tree = {
 	}
 	focus = {
 		id = USA_us_air_force
-		icon = GFX_goal_generic_build_airforce
+		icon = GFX_goal_USA_coa_air_force
 		x = 1
 		y = 4
 		prerequisite = { focus = USA_combined_bomber_offensive }
@@ -8841,7 +9074,7 @@ focus_tree = {
 
 	focus = {
 		id = USA_bureau_of_ships
-		icon = GFX_goal_generic_build_navy
+		icon = GFX_goal_naval_treaty
 		x = -3
 		y = 1
 		cost = 10
@@ -9226,7 +9459,7 @@ focus_tree = {
 
 	focus = {
 		id = USA_fund_the_navy
-		icon = GFX_goal_generic_construct_naval_dockyard
+		icon = GFX_goal_USA_coa_navy
 		x = 3
 		y = 1
 		relative_position_id = USA_two_ocean_navy_act

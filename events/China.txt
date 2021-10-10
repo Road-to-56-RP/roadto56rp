@@ -1250,8 +1250,15 @@ country_event = {
 			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 6000 producer = SOV }
 			load_oob = "PRC_SOV_reinforcements_2"
 			set_global_flag = PRC_restart_CHI_war
-			drop_cosmetic_tag = yes
-			set_cosmetic_tag = GCDcivilwar			 
+			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = PRC_found_our_nation
+					}
+				}
+				drop_cosmetic_tag = yes
+				set_cosmetic_tag = GCDcivilwar
+			}		 
 		}
 	}
 }
@@ -1500,64 +1507,7 @@ country_event = {
 
 	fire_only_once = yes
 
-	trigger = {
-		OR = {
-			original_tag = PRC
-			original_tag = YUN
-			original_tag = XSM
-			original_tag = SHX
-			original_tag = SIK
-			original_tag = GXC
-		}
-		has_focus_tree = china_communist_focus
-		
-		has_war = no
-		OR = {
-			AND = {
-				OR = {
-					has_global_flag = PRC_restart_CHI_war
-					CHI = {
-						OR = {
-							is_puppet_of = JAP
-							is_in_faction_with = JAP
-						}
-					}
-				}
-				CHI = {
-					exists = yes
-				}
-			}
-			CHI = {
-				exists = no
-			}
-		}
-		OR = {
-			608 = {
-				owner = {
-					OR = {
-						has_war_with = ROOT
-						tag = ROOT
-					}
-				}
-			}
-			613 = {
-				owner = {
-					OR = {
-						has_war_with = ROOT
-						tag = ROOT
-					}
-				}
-			}
-		}
-		OR = {
-			controls_state = 608 #Beijing
-			controls_state = 613 #Nanjing
-		}
-	}
-
-	mean_time_to_happen = {
-		days = 10
-	}
+	is_triggered_only = yes
 
 	#Move to Beijing
 	option = {

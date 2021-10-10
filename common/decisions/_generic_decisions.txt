@@ -346,6 +346,10 @@ propaganda_efforts = {
 		icon = generic_prepare_civil_war
 
 		available = {
+			always = yes
+		}
+
+		visible = {
 			NOT = { has_country_flag = war_propaganda_campaign_running }
 			FROM = {
 				OR = {
@@ -381,37 +385,6 @@ propaganda_efforts = {
 						is_neighbor_of = ROOT
 					}
 					set_temp_variable = { war_propaganda_cost = 50 }
-				}
-			}
-		}
-
-		visible = {
-			FROM = {
-				NOT = { is_in_faction_with = ROOT }
-				OR = {
-					is_justifying_wargoal_against = ROOT
-					AND = {
-						is_neighbor_of = ROOT
-						OR = {
-							has_war_with = ROOT
-							AND = {
-								NOT = { has_government = ROOT }
-								has_offensive_war = yes
-								has_added_tension_amount > 5
-							}
-						}
-					}
-					AND = {
-						NOT = { is_neighbor_of = ROOT }
-						OR = {
-							has_offensive_war_with = ROOT
-							AND = {
-								NOT = { has_government = ROOT }
-								has_offensive_war = yes
-								has_added_tension_amount > 30
-							}
-						}
-					}
 				}
 			}
 		}
@@ -1189,6 +1162,7 @@ operations = {
 					OR = {
 						has_full_control_of_state = 685
 						has_full_control_of_state = 304
+						has_full_control_of_state = 864
 					}
 				}
 				set_country_flag = blew_up_panama
@@ -1319,7 +1293,10 @@ special_projects = {
 			has_full_control_of_state = 685
 			NOT = {
 				any_enemy_country = {
-					controls_state = 304
+					OR = {
+						controls_state = 304
+						controls_state = 864
+					}
 				}
 			}
 			num_of_civilian_factories > 25
@@ -1345,7 +1322,10 @@ special_projects = {
 					has_full_control_of_state = 685
 					NOT = {
 						any_enemy_country = {
-							controls_state = 304
+							OR = {
+								controls_state = 304
+								controls_state = 864
+							}
 						}
 					}
 				}
@@ -1677,17 +1657,13 @@ foreign_politics = {
         }
 
         visible = {
+        	has_war = yes
+        	has_capitulated = no
         	FROM = {
         		NOT = { has_country_flag = rejected_withdrawing_attache }
         		NOT = { has_country_flag = rejected_withdrawing_attache@ROOT }
         		NOT = { has_country_flag = object_attache_going_on }
         	}
-        	has_war = yes
-        	has_capitulated = no
-        	NOT = { has_war_with = FROM }
-        	any_enemy_country = {
-				has_attache_from = FROM
-			}
 			NOT = {
 				AND = {
 					original_tag = SPR

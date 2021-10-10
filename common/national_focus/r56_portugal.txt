@@ -666,7 +666,7 @@ focus_tree = {
 
 	focus = {
 		id = POR_army_primacy
-		icon = GFX_goal_generic_axis_build_infantry
+		icon = GFX_goal_POR_coa_army
 		x = 6
 		y = 0
 		cost = 10
@@ -869,7 +869,7 @@ focus_tree = {
 
 	focus = {
 		id = POR_mare_nostrum
-		icon = GFX_goal_generic_build_navy
+		icon = GFX_goal_POR_coa_navy
 		x = 8
 		y = 0
 		cost = 10
@@ -968,7 +968,7 @@ focus_tree = {
 
 	focus = {
 		id = POR_air_innovation
-		icon = GFX_goal_generic_build_airforce
+		icon = GFX_goal_POR_coa_air_force
 		prerequisite = { focus = POR_army_primacy focus = POR_mare_nostrum }
 		x = 7
 		y = 1
@@ -2032,6 +2032,7 @@ focus = {
 				}
 			}		
 		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 
 
@@ -2059,10 +2060,11 @@ focus = {
 		y = 6
 		cost = 10
 		completion_reward = {
-				SOV = {
-					country_event = { id = portugal.20 }
-				}
+			SOV = {
+				country_event = { id = portugal.20 }
+			}
 		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 
 focus = {
@@ -2161,7 +2163,7 @@ focus = {
 			}
 			threat > 0.5
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
 			create_faction = "Imperio Iberico"
@@ -2346,7 +2348,7 @@ focus = {
 
 	focus = {
 		id = POR_brazil
-		icon = GFX_goal_ger_influence_brazil
+		icon = GFX_goal_generic_attack_brazil
 		prerequisite = { focus = POR_call_of_arms }
 		mutually_exclusive = { focus = POR_befriend_brazil }
 		x = 31
@@ -2398,11 +2400,11 @@ focus = {
 			}
 			threat > 0.8
 		}
-		completion_reward = {
-			
+		completion_reward = {	
 			BRA = {
 				country_event = generic.5
-				}
 			}
+		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 }
