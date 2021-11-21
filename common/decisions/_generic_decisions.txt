@@ -346,10 +346,6 @@ propaganda_efforts = {
 		icon = generic_prepare_civil_war
 
 		available = {
-			always = yes
-		}
-
-		visible = {
 			NOT = { has_country_flag = war_propaganda_campaign_running }
 			FROM = {
 				OR = {
@@ -385,6 +381,37 @@ propaganda_efforts = {
 						is_neighbor_of = ROOT
 					}
 					set_temp_variable = { war_propaganda_cost = 50 }
+				}
+			}
+		}
+
+		visible = {
+			FROM = {
+				NOT = { is_in_faction_with = ROOT }
+				OR = {
+					is_justifying_wargoal_against = ROOT
+					AND = {
+						is_neighbor_of = ROOT
+						OR = {
+							has_war_with = ROOT
+							AND = {
+								NOT = { has_government = ROOT }
+								has_offensive_war = yes
+								has_added_tension_amount > 5
+							}
+						}
+					}
+					AND = {
+						NOT = { is_neighbor_of = ROOT }
+						OR = {
+							has_offensive_war_with = ROOT
+							AND = {
+								NOT = { has_government = ROOT }
+								has_offensive_war = yes
+								has_added_tension_amount > 30
+							}
+						}
+					}
 				}
 			}
 		}
@@ -1657,13 +1684,17 @@ foreign_politics = {
         }
 
         visible = {
-        	has_war = yes
-        	has_capitulated = no
         	FROM = {
         		NOT = { has_country_flag = rejected_withdrawing_attache }
         		NOT = { has_country_flag = rejected_withdrawing_attache@ROOT }
         		NOT = { has_country_flag = object_attache_going_on }
         	}
+        	has_war = yes
+        	has_capitulated = no
+        	NOT = { has_war_with = FROM }
+        	any_enemy_country = {
+				has_attache_from = FROM
+			}
 			NOT = {
 				AND = {
 					original_tag = SPR

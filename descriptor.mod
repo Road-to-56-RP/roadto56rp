@@ -1,4 +1,4 @@
-version="1.10.8.0"
+version="1.10.8.1"
 tags={
 	"Alternative History"
 	"Balance"
