@@ -698,8 +698,7 @@ focus_tree = {
 					name = GER_landing_craft
 					bonus = 1
 					uses = 1
-					technology = amphibious_tank
-					technology = amphibious_tank_2
+					category = amphibious_armor_tech
 				}
 								
 			}			
@@ -1529,8 +1528,7 @@ focus_tree = {
 							name = JAP_expand_the_snlf
 							bonus = 1
 							uses = 1
-							technology = amphibious_tank
-							technology = amphibious_tank_2
+							category = amphibious_armor_tech
 						}				
 					}					
 				}
@@ -2121,7 +2119,7 @@ focus_tree = {
 		will_lead_to_war_with = BEL
 		will_lead_to_war_with = HOL
 		will_lead_to_war_with = LUX
-		will_lead_to_war_with = VLA
+		will_lead_to_war_with = FLA
 		will_lead_to_war_with = WLL #no france here unlike base game version
 		completion_reward = {
 			add_state_claim = 828
@@ -2153,13 +2151,13 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					VLA = {
+					FLA = {
 						r56_script_target_is_sane = yes
 					}
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = VLA
+					target = FLA
 					expire = 0
 					generator = { 6 }
 				}
@@ -3046,7 +3044,7 @@ focus_tree = {
 
 	focus = {
 		id = GER_norway_friend_2
-		icon = GFX_goal_invitenorway
+		icon = GFX_goal_generic_befriend_norway
 		text = GER_norway_friend
 		prerequisite = { focus = GER_denmark_friend_2 }
 		available = {
@@ -3120,7 +3118,7 @@ focus_tree = {
 
 	focus = {
 		id = GER_dutch_friend_2
-		icon = GFX_goal_HOL_diplomacy
+		icon = GFX_goal_generic_befriend_netherlands
 		text = GER_dutch_friend
 		prerequisite = { focus = GER_denmark_friend_2 }
 		available = {
@@ -4825,7 +4823,8 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_poland_friend
-		icon = GFX_focus_generic_polish_deal
+		icon = GFX_goal_generic_befriend_poland
+		text = GER_poland_friend_r56
 		cost = 10.00
 		prerequisite = {
 			focus = GER_demand_memel
@@ -5370,7 +5369,7 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_romania_friend
-		icon = GFX_goal_generic_romanian_treaty
+		icon = GFX_goal_generic_befriend_romania
 		cost = 10.00
 		prerequisite = {
 			focus = GER_poland_friend
@@ -5508,6 +5507,19 @@ focus_tree = {
 				size > 649999
 			}
 			has_capitulated = no
+			HUN = {
+				OR = {
+					is_puppet_of = GER
+					is_puppet = no
+				}
+				OR = {
+					is_in_faction_with = GER
+					is_in_faction = no
+				}
+				NOT = { has_war_with = GER }
+				has_capitulated = no
+				exists = yes
+			}
 		}
 		bypass = {
 			OR = {
@@ -6700,19 +6712,33 @@ focus_tree = {
 		}
 		x = 67
 		y = 2
-			ai_will_do = {
-					factor = 10
-				}
-			completion_reward = {
-				add_ideas = GER_combine_SS_gestapo_idea
-				add_tech_bonus = {
-					name = mp_focus
-					bonus = 1
-					uses = 1
-					category = military_police_tech
-				}
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_combine_SS_gestapo_idea
+			add_tech_bonus = {
+				name = mp_focus
+				bonus = 1
+				uses = 1
+				category = military_police_tech
 			}
-			search_filters = {  FOCUS_FILTER_POLITICAL }
+			if = {
+				limit = {
+					NOT = {
+						has_idea = r56i_laws_security_balanced
+						has_idea = r56i_laws_security_rights
+						has_idea = r56i_laws_security_order
+					}
+				}
+				custom_effect_tooltip = EFFECT_CHANGE_LAW_r56i_laws_social
+				show_ideas_tooltip = r56i_laws_security_order
+				hidden_effect = {
+					add_ideas = r56i_laws_security_order
+				}				
+			}
+		}	
+		search_filters = {  FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 
 	}
 	focus = {
@@ -7955,38 +7981,22 @@ focus_tree = {
 		}
 		x = 72
 		y = 5
-			ai_will_do = {
-					factor = 10
-				}
-			completion_reward = {
-					add_state_core = 85
-					add_state_core = 86
-					add_state_core = 188
-					add_state_core = 28
-					add_state_core = 762
-					add_state_core = 810
-					add_state_core = 828
-					85 = {
-							add_claim_by = GER
-						}
-					86 = {
-							add_claim_by = GER
-						}
-					188 = {
-							add_claim_by = GER
-						}
-					28 = {
-							add_claim_by = GER
-						}
-					762 = {
-							add_claim_by = GER
-						}
-					810 = {
-							add_claim_by = GER
-						}
-				}
-				search_filters = { FOCUS_FILTER_ANNEXATION }
-
+		available = {
+			is_subject = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_state_core = 85
+			add_state_core = 86
+			add_state_core = 188
+			add_state_core = 28
+			add_state_core = 762
+			add_state_core = 810
+			add_state_core = 828
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
 	
 	focus = {
@@ -8007,7 +8017,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		relative_position_id = GER_european_claims
-		cost = 10
+		cost = 7.16
 		ai_will_do = {
 			factor = 10
 		}
@@ -8046,29 +8056,23 @@ focus_tree = {
 		}
 		x = 74
 		y = 6
-			ai_will_do = {
-					factor = 10
+		ai_will_do = {
+				factor = 10
+			}
+		available = {
+			is_subject = no
+			has_war_with = SOV
+		}
+		cancel = {
+			has_war_with = SOV
+		}
+		completion_reward = {
+			SOV = {
+				country_event = {
+					id = erwache.7
 				}
-			available = {
-					GER = {
-							has_war_with = SOV
-						}
-				}
-			cancel = {
-					NOT = {
-							GER = {
-									has_war_with = SOV
-								}
-						}
-				}
-			completion_reward = {
-					SOV = {
-							country_event = {
-									id = erwache.7
-								}
-						}
-				}
-
+			}
+		}
 	}
 	focus = {
 		id = GER_african_claims
@@ -8079,23 +8083,18 @@ focus_tree = {
 		}
 		x = 72
 		y = 6
-			ai_will_do = {
-					factor = 10
-				}
-			completion_reward = {
-					541 = {
-							add_claim_by = GER
-						}
-					546 = {
-							add_claim_by = GER
-						}
-					773 = {
-							add_claim_by = GER
-						}
-					777 = {
-							add_claim_by = GER
-						}
-				}
+		available = {
+			is_subject = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_state_claim = 541
+			add_state_claim = 546
+			add_state_claim = 773
+			add_state_claim = 777
+		}
 
 	}
 	focus = {
@@ -8107,31 +8106,20 @@ focus_tree = {
 		}
 		x = 72
 		y = 7
+		available = {
+			is_subject = no
+		}
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			743 = {
-				add_claim_by = GER
-			}
-			684 = {
-				add_claim_by = GER
-			}
-			638 = {
-				add_claim_by = GER
-			}
-			646 = {
-				add_claim_by = GER
-			}
-			726 = {
-				add_claim_by = GER
-			}
-			737 = {
-				add_claim_by = GER
-			}
-			523 = {
-				add_claim_by = GER
-			}
+			add_state_claim = 743
+			add_state_claim = 684
+			add_state_claim = 638
+			add_state_claim = 646
+			add_state_claim = 726
+			add_state_claim = 737
+			add_state_claim = 523
 		}
 	}
 	focus = {

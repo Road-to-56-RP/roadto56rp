@@ -1671,7 +1671,13 @@
 				tag = FRI
 			}
 		}
-
+		offset = {
+			x = -14
+			y = 0
+			trigger = {
+				has_focus_tree = israel_focus
+			}
+		}
 		offset = {
 		x = 10
 		y = 0
@@ -1895,7 +1901,7 @@
 	
 	shared_focus = {
 		id = GEN_University
-		icon = GFX_focus_research
+		icon = GFX_focus_research2
 		prerequisite = { focus = GEN_Communication }
 		
 		x = 0
@@ -2971,7 +2977,14 @@
 			trigger = {
 				has_focus_tree = r56_india
 			}
-		}		
+		}	
+		offset = {
+			x = -6
+			y = 0
+			trigger = {
+				has_focus_tree = israel_focus
+			}
+		}			
 		cost = 10
 
 		available_if_capitulated = yes
@@ -3714,7 +3727,13 @@
 		cost = 5
 
 		available_if_capitulated = yes
-
+		offset = {
+			x = -14
+			y = 0
+			trigger = {
+				has_focus_tree = israel_focus
+			}
+		}
 		ai_will_do = {
 			factor = 10
 			modifier = {
@@ -4039,7 +4058,7 @@
 		
 			if = {
 				limit = {
-					has_government = fascism
+					has_completed_focus = nationalism_focus
 				}
 				ROOT = {
 					add_ideas = GEN_Organise_Youth_Fas_I
@@ -4048,7 +4067,7 @@
 			
 			if = {
 				limit = {
-					has_government = communism
+					has_completed_focus = internationalism_focus
 				}
 				ROOT = {
 					add_ideas = GEN_Organise_Youth_Com_I
@@ -4549,10 +4568,16 @@
 		completion_reward = {
 			if = {
 				limit = {
-					NOT = { has_idea = service_by_requirement }
+					NOT = {
+						OR = {
+							has_idea = service_by_requirement
+							has_idea = scraping_the_barrel
+							has_idea = all_adults_serve
+						} 
+					}
 				}
 				add_ideas = service_by_requirement
-			}	
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 	}
