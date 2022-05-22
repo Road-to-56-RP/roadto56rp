@@ -2,7 +2,12 @@ version="1.11.11"
 tags={
 	"Alternative History"
 	"Balance"
+	"Events"
+	"Fixes"
+	"Technologies"
 	"National Focuses"
+	"Military"
+	"Utilities"
 	"Gameplay"
 }
 name="Road to 56 RP"
