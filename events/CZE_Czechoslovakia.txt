@@ -21,7 +21,7 @@ country_event = {
 		GER = {
 			if = {
 				limit = {
-					has_global_flag = GER_use_vanilla_tree
+					has_global_flag = ger_standard_focus_tree
 				}
 				has_completed_focus = GER_rhineland_vanilla
 			}
@@ -1668,12 +1668,12 @@ country_event = {
 		name = czke.218.a
 		ai_chance = { factor = 1 }		
 		custom_effect_tooltip = new_research
-		add_tech_bonus = {
+		add_doctrine_cost_reduction = {
 			name = air_doc_bonus
-			bonus = 1
+			cost_reduction = 0.5
 			uses = 1
 			category = air_doctrine
-		}	
+		}
 	}
 }
 
@@ -1813,13 +1813,13 @@ country_event = {
 		custom_effect_tooltip = new_ace
 		add_ace = { name = "Josef" surname = "František" callsign = "Lonewolf" type = fighter_genius }
 
-		custom_effect_tooltip = new_research
-		add_tech_bonus = {
+		custom_effect_tooltip = new_research	
+		add_doctrine_cost_reduction = {
 			name = air_doc_bonus
-			bonus = 1
+			cost_reduction = 0.5
 			uses = 1
 			category = air_doctrine
-		}				
+		}
 	}
 }
 
@@ -2016,18 +2016,18 @@ country_event = {
 					has_tech = r56_guerilla_warfare 
 				} 
 				NOT = { 
-					has_idea = CZKE_ludvik_krejci 
+					has_idea = CZKE_ludvik_krejci_army_chief 
 				}
 			}
 			custom_effect_tooltip = new_army_chief_gained
-			add_ideas = CZKE_ludvik_krejci
+			add_ideas = CZKE_ludvik_krejci_army_chief
 			custom_effect_tooltip = new_land_doctrines
-				add_tech_bonus = {
-					name = land_doc_bonus
-					bonus = 1
-					uses = 1
-					category = land_doctrine
-				}
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
 		}
 
 		if = {
@@ -2040,11 +2040,11 @@ country_event = {
 					has_tech = r56_guerilla_warfare 
 				}
 				NOT = {
-					has_idea = CZKE_ludvik_krejci 
+					has_idea = CZKE_ludvik_krejci_army_chief 
 				}
 			}
  			custom_effect_tooltip = new_army_chief_gained
-			add_ideas = CZKE_ludvik_krejci
+			add_ideas = CZKE_ludvik_krejci_army_chief
 			custom_effect_tooltip = new_land_doctrines
 			set_technology = { trench_warfare = 1 }
 		}
@@ -2058,20 +2058,20 @@ country_event = {
 					has_tech = superior_firepower 
 					has_tech = r56_guerilla_warfare
 				} 
-				has_idea = CZKE_ludvik_krejci 
+				has_idea = CZKE_ludvik_krejci_army_chief 
 			}
 			custom_effect_tooltip = new_land_doctrines
-			add_tech_bonus = {
-					name = land_doc_bonus
-					bonus = 1
-					uses = 2
-					category = land_doctrine
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
 			}
 		}
 
 		if = {
 			limit = { 
-				has_idea = CZKE_ludvik_krejci 
+				has_idea = CZKE_ludvik_krejci_army_chief 
 				NOT = { 
 					has_tech = mobile_warfare 
 					has_tech = trench_warfare 
@@ -2082,11 +2082,11 @@ country_event = {
 			}
 			custom_effect_tooltip = new_land_doctrines
 			set_technology = { trench_warfare = 1 }
-			add_tech_bonus = {
-					name = land_doc_bonus
-					bonus = 1
-					uses = 1
-					category = land_doctrine
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
 			}
 		}
 	}
@@ -2109,14 +2109,14 @@ country_event = {
 			set_country_flag = chief_prchala_appointed
 
 			custom_effect_tooltip = new_army_chief_gained
-			add_ideas = CZKE_lev_prchala_chief
+			add_ideas = CZKE_lev_prchala_army_chief
 			custom_effect_tooltip = new_land_doctrines
-				add_tech_bonus = {
-					name = land_doc_bonus
-					bonus = 1
-					uses = 1
-					category = land_doctrine
-				}
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
 		}
 
 		if = {
@@ -2133,7 +2133,7 @@ country_event = {
  			set_country_flag = chief_prchala_appointed
 
  			custom_effect_tooltip = new_army_chief_gained
-			add_ideas = CZKE_lev_prchala_chief
+			add_ideas = CZKE_lev_prchala_army_chief
 			custom_effect_tooltip = new_land_doctrines
 			set_technology = { superior_firepower = 1 }
 		}
@@ -2160,12 +2160,12 @@ country_event = {
 			custom_effect_tooltip = new_army_chief_gained
 			add_ideas = CZKE_vojtech_boris_luza_chief
 			custom_effect_tooltip = new_land_doctrines
-				add_tech_bonus = {
-					name = land_doc_bonus
-					bonus = 1
-					uses = 1
-					category = land_doctrine
-				}
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
 		}
 
 		if = {
@@ -3665,27 +3665,26 @@ country_event = {
 
 			if = {
 				limit = {
-					CZE = {
-						is_faction_leader = yes
-					}
+					is_faction_leader = yes
 				}
-				CZE = {
-					add_to_faction = ROOT
+				add_to_faction = ROOT
+				POL = {
+					add_ai_strategy = { #dont leave immediately, if their ideology
+						type = alliance
+						id = CZE
+						value = 150
+					}
 				}
 			}
 
 			if = {
 				limit = {
-					CZE = {
-						is_in_faction = no
-					}
+					is_in_faction = no
 				}
 				POL = {
-						give_guarantee = CZE
+					give_guarantee = CZE
 				}
-				CZE = {
-						give_military_access = POL
-				}
+				give_military_access = POL
 			}
 		}	
 	}

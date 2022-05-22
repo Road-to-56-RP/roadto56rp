@@ -23,8 +23,8 @@ unite_the_levant_category = {
             custom_trigger_tooltip = {
                 tooltip = form_country_gs_israel_palestina_required_states_tt
                 controls_state = 454
-                controls_state = 830
-                controls_state = 831
+                controls_state = 877
+                controls_state = 894
             }
             controls_state = 455
             NOT = { has_cosmetic_tag = ARA_UNIFIED }
@@ -45,6 +45,7 @@ unite_the_levant_category = {
                     add_core_of = ROOT #ROOT
                     #Siria, Libano, Palestina, Jordan
                 }
+                news_event = { id = r56.news_event.34 hours = 6 }
             }
             set_province_name = { id = 1086 name = "Al-Quds" }
             custom_effect_tooltip = form_country_gs_iraq_kuwait_coring_states_tt
@@ -53,6 +54,7 @@ unite_the_levant_category = {
                 add_state_core = 675
                 add_state_core = 291
                 add_state_core = 656
+                
             }
             183 = { add_core_of = ROOT }
 
@@ -76,6 +78,65 @@ unite_the_levant_category = {
                 factor = 0
                 is_historical_focus_on = yes
             }
+        }
+    }
+}
+
+unify_the_peninsula_category = {
+    unite_korea = {
+        icon = GFX_decision_korea_unification
+
+        allowed = {
+            OR = {
+                original_tag = KOR
+                original_tag = NKR
+            }
+        }
+        fire_only_once = yes
+        available = {
+            is_subject = no
+            custom_trigger_tooltip = {
+                tooltip = form_country_joseon_south_korea_required_states_tt
+                controls_state = 525
+                controls_state = 846
+                controls_state = 847
+            }
+            custom_trigger_tooltip = {
+                tooltip = form_country_joseon_north_korea_required_states_tt
+                controls_state = 527
+                controls_state = 844
+                controls_state = 845
+            }
+            NOT = { has_cosmetic_tag = KOR_unified }
+        }
+		visible = {
+            original_tag = JAP
+			NOT = { has_global_flag = unite_joseon_flag }
+		}
+        complete_effect = {
+            set_cosmetic_tag = KOR_unified
+            custom_effect_tooltip = form_country_joseon_korea_coring_states_tt
+            hidden_effect = {
+                every_state = {
+                    limit = { 
+                        OR = {
+                            is_core_of = KOR
+                            is_core_of = NKR
+                        }
+                    }
+                    add_core_of = ROOT #ROOT
+                    #North and South Korea
+                }
+				set_global_flag = unite_joseon_flag
+            }
+
+            add_ideas = generic_recent_political_unification
+            add_ideas = generic_recent_army_unification
+            add_ideas = generic_recent_economic_unification
+        }
+
+        ai_will_do = {
+            factor = 200
         }
     }
 }
@@ -153,26 +214,28 @@ form_prussia_category = {
             controls_state = 63
             controls_state = 66
             controls_state = 67
-            controls_state = 810
+            controls_state = 807
             controls_state = 86
             controls_state = 762
             controls_state = 85
             controls_state = 62
+            controls_state = 5
+            controls_state = 763
         }
         
         ai_will_do = {
             factor = 150
         }
         
-        visible = {
-            OR = {
-                controls_state = 64
-                controls_state = 5
-                controls_state = 63
-                controls_state = 810
-                has_completed_focus = DNZ_prussia_legacy
-            }
-        }
+        #visible = {
+        #    OR = { #weird conditions removed
+        #        controls_state = 64
+        #        controls_state = 5
+        #        controls_state = 63
+        #        controls_state = 807
+        #        has_completed_focus = DNZ_prussia_legacy
+        #    }
+        #}
         
         complete_effect = {
             add_state_core = 64
@@ -180,7 +243,7 @@ form_prussia_category = {
             add_state_core = 63
             add_state_core = 66
             add_state_core = 67
-            add_state_core = 810
+            add_state_core = 807
             add_state_core = 86
             add_state_core = 762
             add_state_core = 763
@@ -327,7 +390,7 @@ recreate_belgium_category = {
             }
 
             BEL = {
-                set_capital = 6
+                set_capital = { state = 6 }
                 add_ideas = generic_recent_political_unification
                 add_ideas = generic_recent_army_unification
                 add_ideas = generic_recent_economic_unification
@@ -517,6 +580,7 @@ form_carribean_category = {
                     }
                     add_core_of = ROOT
                 }
+                news_event = { id = r56.news_event.35 hours = 6 }
             }
             every_state = { #This has a day of lag, for reasons
                 limit = {
@@ -539,19 +603,19 @@ ENG_restore_the_UK = {
         visible = { original_tag = ENG }
         available = { #Scotland & Wales
             is_subject = no
-            all_state = {
+            any_state = {
                 OR = {
                     is_core_of = SCO 
                     is_core_of = WLS
-                    state = 812
+                    state = 119
                 }
+
                 OR = {
                     is_controlled_by = ROOT
                     OWNER = {
                         is_puppet_of = ROOT
                     }
-                }
-                
+                }                
             }
             #119 = { is_controlled_by = ROOT }
         }
@@ -569,9 +633,13 @@ ENG_restore_the_UK = {
                 }
                 add_core_of = ROOT
             }
+            set_capital = { state = 126 }
             add_ideas = generic_recent_political_unification
             add_ideas = generic_recent_army_unification
             add_ideas = generic_recent_economic_unification
+            hidden_effect = {
+                news_event = { id = r56.news_event.38 hours = 6 }  
+            }
         }
         ai_will_do = {
             factor = 50
@@ -595,20 +663,20 @@ celtic_unification_category = {
         available = {
             is_subject = no
             #IRE
-            113 = { is_controlled_by = ROOT }
-            119 = { is_controlled_by = ROOT }
-            134 = { is_controlled_by = ROOT }
-            135 = { is_controlled_by = ROOT }
+            controls_state = 113
+            controls_state = 119
+            controls_state = 134
+            controls_state = 135
             #WLS
-            122 = { is_controlled_by = ROOT }
+            controls_state = 122
             #SCO
-            133 = { is_controlled_by = ROOT }
-            121 = { is_controlled_by = ROOT }
-            136 = { is_controlled_by = ROOT }
-            120 = { is_controlled_by = ROOT }
-            841 = { is_controlled_by = ROOT }
+            controls_state = 133
+            controls_state = 121
+            controls_state = 136
+            controls_state = 120
+            controls_state = 123
             #BRI
-            14 = { is_controlled_by = ROOT }
+            controls_state = 14
         }
         complete_effect = {
             set_cosmetic_tag = CEL_UNIFIED
@@ -623,8 +691,11 @@ celtic_unification_category = {
                 121 = { add_core_of = ROOT }
                 136 = { add_core_of = ROOT }
                 120 = { add_core_of = ROOT }
-                841 = { add_core_of = ROOT }
+                123 = { add_core_of = ROOT }
+                898 = { add_core_of = ROOT }
+                899 = { add_core_of = ROOT }
                 14 = { add_core_of = ROOT }
+                news_event = { id = r56.news_event.33 hours = 6 }                        
             }
             123 = { add_core_of = ROOT }
             add_ideas = generic_recent_political_unification
@@ -654,10 +725,10 @@ celtic_unification_category = {
 
         ai_will_do = {
             factor = 200
-            modifier = {
-                factor = 0
-                is_historical_focus_on = yes
-            }
+        #   modifier = {
+        #       factor = 0
+        #       is_historical_focus_on = yes
+        #   }
         }
     }
 
@@ -695,136 +766,180 @@ celtic_unification_category = {
 
         ai_will_do = {
             factor = 200
-            modifier = {
-                factor = 0
-                is_historical_focus_on = yes
-            }
+        #    modifier = {
+        #        factor = 0
+        #        is_historical_focus_on = yes
+        #    }
         }
     }
-}
 
-form_turkestan_category = {
-    form_turkestan = {
-        icon = generic_form_nation
+    CEL_UNIFIED_wall_of_steel = {
+        icon = generic_political_discourse
         fire_only_once = yes
 
         allowed = {
             OR = {
-                original_tag = KAZ
-                original_tag = UZB
-                original_tag = TMS
-                original_tag = TAJ
-                original_tag = KYR
-                original_tag = TAN
-                #AND = { #Can't add Sinkiang until a solution is found regarding the political struggle in China
-                #    original_tag = SIK
-                #    NOT = {
-                #        tag = event_target:WTT_current_china_leader
-                #    }
-                #}
+                original_tag = SCO
+                original_tag = IRE
+                original_tag = NIR
+                original_tag = WLS
             }
         }
 
-        available = {
-            is_subject = no
-            # Kazakhstan
-            custom_trigger_tooltip = {
-                tooltip = form_country_kazakhstan_required_states_tt
-                all_state = {
-                    OR = {
-                        NOT = { is_core_of = KAZ }
-                        is_controlled_by = ROOT
-                    }
-                }
-            }
-            # Uzbekistan
-            custom_trigger_tooltip = {
-                tooltip = form_country_uzbekistan_required_states_tt
-                controls_state = 405
-                controls_state = 585
-            }
-            # Turkmenistan
-            custom_trigger_tooltip = {
-                tooltip = form_country_turkmenistan_required_states_tt
-                controls_state = 584
-            }
-            # Tajikistan
-            custom_trigger_tooltip = {
-                tooltip = form_country_tajikistan_required_states_tt
-                controls_state = 742
-            }
-            # Kyrgyzstan
-            custom_trigger_tooltip = {
-                tooltip = form_country_kyrgyzstan_required_states_tt
-                controls_state = 732
-            }
+        cost = 25
+
+        visible = {
+            has_cosmetic_tag = CEL_UNIFIED
+            NOT = { original_tag = BRI }
         }
 
         complete_effect = {
-            set_cosmetic_tag = TRK_UNITED
-            hidden_effect = {
-                every_state = {
-                    limit = {
-                        OR = {
-                            region = 136 #The Great Steppe, contains most of the provinces.
-                            region = 145 #Sinkiang
-                            is_core_of = TAN #Tannu Tuva
-                            is_core_of = KAZ #Kazakhstan
-                        }
-                    }
-                    add_core_of = ROOT
-                }
-            }
-            # Kazakhstan
-            custom_effect_tooltip = form_country_kazakhstan_coring_states_tt
-            # Uzbekistan
-            custom_effect_tooltip = form_country_uzbekistan_coring_states_tt
-            # Turkmenistan
-            custom_effect_tooltip = form_country_turkmenistan_coring_states_tt
-            # Tajikistan
-            custom_effect_tooltip = form_country_tajikistan_coring_states_tt
-            # Kyrgyzstan
-            custom_effect_tooltip = form_country_kyrgyzstan_coring_states_tt
-            #Uyguristan - Sinkiang
-            custom_effect_tooltip = form_country_sinkiang_coring_states_tt
-            654 = { add_core_of = ROOT }
-#            329 = { add_core_of = ROOT }
-
-            ROOT = {
-                add_state_claim = 40
-                add_state_claim = 570
-
-                add_state_claim = 569
-                add_state_claim = 572
-                add_state_claim = 582
-                add_state_claim = 651
-
-                add_state_claim = 652
-                add_state_claim = 251
-                add_state_claim = 249
-
-                add_state_claim = 401
-                add_state_claim = 236
-            }
-            add_ideas = generic_recent_political_unification
-            add_ideas = generic_recent_army_unification
-            add_ideas = generic_recent_economic_unification
-            hidden_effect = {
-                #news_event = { id = wtt_news.1003 hours = 6 }
-                #country_event = { id = armenia.28 days = 2 }
-                set_global_flag = turkestan_formed
-            }
+        #    BRI = { retire_character = BRI_francois_taldir_jaffrennou }
+        #    ROOT = { recruit_character = BRI_francois_taldir_jaffrennou }
+            #set_nationality is what the wiki recommends but it doesn't work.
+           # BRI_francois_taldir_jaffrennou = {    
+           #     set_nationality = ROOT
+           # }   
+            every_possible_country = {
+                limit = { has_character = BRI_francois_taldir_jaffrennou } 
+                random_character = { 
+                    limit = { 
+                        is_character = BRI_francois_taldir_jaffrennou 
+                    } 
+                    set_nationality = ROOT 
+                } 
+            }           
+            set_country_flag = CEL_francois_recruited
         }
 
         ai_will_do = {
             factor = 200
-            modifier = {
-                factor = 0
-                is_historical_focus_on = yes
-            }
         }
     }
 }
+
+#form_turkestan_category = {
+#    form_turkestan = {
+#        icon = generic_form_nation
+#        fire_only_once = yes
+#
+#        allowed = {
+#            OR = {
+#                original_tag = KAZ
+#                original_tag = UZB
+#                original_tag = TMS
+#                original_tag = TAJ
+#                original_tag = KYR
+#                original_tag = TAN
+#                #AND = { #Can't add Sinkiang until a solution is found regarding the political struggle in China
+#                #    original_tag = SIK
+#                #    NOT = {
+#                #        tag = event_target:WTT_current_china_leader
+#                #    }
+#                #}
+#            }
+#        }
+#
+#        available = {
+#            is_subject = no
+#            # Kazakhstan
+#            custom_trigger_tooltip = {
+#                tooltip = form_country_kazakhstan_required_states_tt
+#                all_state = {
+#                    OR = {
+#                        NOT = { is_core_of = KAZ }
+#                        is_controlled_by = ROOT
+#                    }
+#                }
+#            }
+#            # Uzbekistan
+#            custom_trigger_tooltip = {
+#                tooltip = form_country_uzbekistan_required_states_tt
+#                controls_state = 405
+#                controls_state = 585
+#            }
+#            # Turkmenistan
+#            custom_trigger_tooltip = {
+#                tooltip = form_country_turkmenistan_required_states_tt
+#                controls_state = 584
+#            }
+#            # Tajikistan
+#            custom_trigger_tooltip = {
+#                tooltip = form_country_tajikistan_required_states_tt
+#                controls_state = 742
+#            }
+#            # Kyrgyzstan
+#            custom_trigger_tooltip = {
+#                tooltip = form_country_kyrgyzstan_required_states_tt
+#                controls_state = 732
+#            }
+#        }
+#
+#        complete_effect = {
+#            set_cosmetic_tag = TRK_UNITED
+#            hidden_effect = {
+#                every_state = {
+#                    limit = {
+#                        OR = {
+#                            region = 136 #The Great Steppe, contains most of the provinces.
+#                            region = 145 #Sinkiang
+#                            is_core_of = TAN #Tannu Tuva
+#                            is_core_of = KAZ #Kazakhstan
+#                        }
+#                    }
+#                    add_core_of = ROOT
+#                }
+#            }
+#            # Kazakhstan
+#            custom_effect_tooltip = form_country_kazakhstan_coring_states_tt
+#            # Uzbekistan
+#            custom_effect_tooltip = form_country_uzbekistan_coring_states_tt
+#            # Turkmenistan
+#            custom_effect_tooltip = form_country_turkmenistan_coring_states_tt
+#            # Tajikistan
+#            custom_effect_tooltip = form_country_tajikistan_coring_states_tt
+#            # Kyrgyzstan
+#            custom_effect_tooltip = form_country_kyrgyzstan_coring_states_tt
+#            #Uyguristan - Sinkiang
+#            custom_effect_tooltip = form_country_sinkiang_coring_states_tt
+#            654 = { add_core_of = ROOT }
+##            329 = { add_core_of = ROOT }
+#
+#            ROOT = {
+#                add_state_claim = 40
+#                add_state_claim = 570
+#
+#                add_state_claim = 569
+#                add_state_claim = 572
+#                add_state_claim = 582
+#                add_state_claim = 651
+#
+#                add_state_claim = 652
+#                add_state_claim = 251
+#                add_state_claim = 249
+#
+#                add_state_claim = 401
+#                add_state_claim = 236
+#            }
+#            add_ideas = generic_recent_political_unification
+#            add_ideas = generic_recent_army_unification
+#            add_ideas = generic_recent_economic_unification
+#            hidden_effect = {
+#                #news_event = { id = wtt_news.1003 hours = 6 }
+#                #country_event = { id = armenia.28 days = 2 }
+#                set_global_flag = turkestan_formed
+#            }
+#        }
+#
+#        ai_will_do = {
+#            factor = 200
+#            modifier = {
+#                factor = 0
+#                is_historical_focus_on = yes
+#            }
+#        }
+#    }
+#}
 
 form_nation_mod_category = {
 
@@ -920,7 +1035,7 @@ form_nation_mod_category = {
                 limit = {
                     278 = { is_capital = no }
                 }
-                set_capital = 278
+                set_capital = { state = 278 }
             }
             hidden_effect = {
                 every_state = { #This has a day of lag, for some reason.
@@ -928,7 +1043,8 @@ form_nation_mod_category = {
                     add_core_of = PREV #ROOT
                 }
                 add_state_core = 506
-            }
+                news_event = { id = r56.news_event.36 hours = 6 }
+            }            
             add_state_claim = 299
             add_ideas = generic_recent_political_unification
             add_ideas = generic_recent_army_unification
@@ -951,6 +1067,7 @@ form_nation_mod_category = {
                 original_tag = CMR
                 original_tag = DAH
                 original_tag = GNA
+                original_tag = NGA
             }
 
         }
@@ -996,7 +1113,19 @@ form_nation_mod_category = {
                     NOT = { is_core_of = GNA }
                     is_controlled_by = ROOT
                 }
-            }                                       
+            } 
+            all_state = {
+                OR = {
+                    NOT = { is_core_of = NGA }
+                    is_controlled_by = ROOT
+                }
+            }   
+            all_state = {
+                OR = {
+                    NOT = { is_core_of = SIE }
+                    is_controlled_by = ROOT
+                }
+            }                                                            
         }
         complete_effect = {
             set_cosmetic_tag = WAU_UNITED
@@ -1016,10 +1145,16 @@ form_nation_mod_category = {
                             is_core_of = TOG
                             is_core_of = SEN
                             is_core_of = GNA
+                            is_core_of = NGA
+                            is_core_of = LIB
+                            is_core_of = SIE
+                            is_core_of = GNB
+                            is_core_of = GAM
                         } 
                     }
                     add_core_of = PREV #ROOT
                 }
+                news_event = { id = r56.news_event.37 hours = 6 }
             }
             add_ideas = generic_recent_political_unification
             add_ideas = generic_recent_army_unification
@@ -1103,6 +1238,7 @@ form_nation_mod_category = {
                     }
                     add_core_of = PREV #ROOT
                 }
+                news_event = { id = r56.news_event.37 hours = 6 }
             }
             add_ideas = generic_recent_political_unification
             add_ideas = generic_recent_army_unification
@@ -1124,6 +1260,7 @@ form_nation_mod_category = {
                 original_tag = KEN
                 original_tag = BRD
                 original_tag = RWA
+                original_tag = SSU
             }
 
         }
@@ -1183,6 +1320,7 @@ form_nation_mod_category = {
                     }
                     add_core_of = PREV #ROOT
                 }
+                news_event = { id = r56.news_event.37 hours = 6 }
             }
             add_ideas = generic_recent_political_unification
             add_ideas = generic_recent_army_unification
@@ -1209,6 +1347,8 @@ form_nation_mod_category = {
                 original_tag = BAY
                 original_tag = BAD
                 original_tag = DNZ
+
+                original_tag = VGE
             }
         }
         fire_only_once = yes
@@ -1225,9 +1365,9 @@ form_nation_mod_category = {
             57 = { is_controlled_by = ROOT }
             58 = { is_controlled_by = ROOT }
             59 = { is_controlled_by = ROOT }
-            807 = { is_controlled_by = ROOT }
-            808 = { is_controlled_by = ROOT }
-            809 = { is_controlled_by = ROOT }
+            848 = { is_controlled_by = ROOT }
+            849 = { is_controlled_by = ROOT }
+            850 = { is_controlled_by = ROOT }
             #DDR IRL
             60 = { is_controlled_by = ROOT }
             61 = { is_controlled_by = ROOT }
@@ -1237,7 +1377,7 @@ form_nation_mod_category = {
             #119 = { is_controlled_by = ROOT }
         }
         icon = generic_form_nation
-        complete_effect = { #Region 7: 42, 50, 51, 52, 53, 54, 55, 807, 808, 809
+        complete_effect = { #Region 7: 42, 50, 51, 52, 53, 54, 55, 848, 849, 850
             every_state = {
                 limit = { region = 7 }
                 add_core_of = ROOT
@@ -1258,6 +1398,10 @@ form_nation_mod_category = {
             add_ideas = generic_recent_economic_unification
             set_country_flag = reunited_germany
             set_cosmetic_tag = GER_REUNITED
+            set_capital = { state = 64 }
+            hidden_effect = {
+                news_event = { id = r56.news_event.39 hours = 6 }  
+            }            
         }
         ai_will_do = {
             factor = 50
@@ -1317,7 +1461,7 @@ form_nation_mod_category = {
 #                GER = {
 #                    has_government = ROOT
 #                    OR = {
-#                        controls_state = 810
+#                        controls_state = 807
 #                        controls_state = 763
 #                    }
 #                    is_puppet = no
@@ -1363,11 +1507,11 @@ form_nation_mod_category = {
 #                if = {
 #                    limit = {
 #                        DNZ = {
-#                            owns_state = 810
+#                            owns_state = 807
 #                        }
 #                    }
-#                    transfer_state = 810
-#                    810 = {	add_core_of = GER }
+#                    transfer_state = 807
+#                    807 = {	add_core_of = GER }
 #                }
 #			}
 #		}

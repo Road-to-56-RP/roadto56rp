@@ -2,6 +2,8 @@
 #####---------------------------------------------------------------------> By Spicy Alfredo et al. moved by Thinking_waffle to avoid clashes with game updates
 
 add_namespace = r56.news_event
+add_namespace = r56.kill_hitler
+
 #Itlay loses to Ethopia LOL 
 
 news_event = {
@@ -89,9 +91,6 @@ news_event = {
 	
 	major = yes
 	fire_only_once = yes
-	immediate = {
-		set_global_flag = game_1942_world_cup_took_place
-	}
 	
 	trigger = {
 		date > 1942.6.3
@@ -132,6 +131,10 @@ news_event = {
 		BEL = { has_war = no }
 		USA = { has_war = no } 
 		USA = { has_civil_war = no } 
+	}
+
+	immediate = {
+		set_global_flag = game_1942_world_cup_took_place
 	}
 	
 	mean_time_to_happen = {
@@ -549,7 +552,7 @@ news_event = {
 	id = r56.news_event.17
 	title = r56.news_event.17.t
 	desc = r56.news_event.17.d
-	picture = GFX_news_event_partisan_revolt
+	picture = "[GetPartisanRevoltImage]"
 
 	major = yes
 
@@ -557,6 +560,9 @@ news_event = {
 
 	option = { 
 		name = r56.news_event.17.a
+		every_country = {
+			clr_country_flag = partisan_rebellion
+		}
 	}
 
 }
@@ -675,7 +681,7 @@ news_event = {
 news_event = {
 	id = r56.news_event.21
 	title = r56.news_event.21.t
-	picture = GFX_news_event_USA_america_first
+	picture = GFX_news_event_USA_join_faction_france
 	desc = r56.news_event.21.d
 
 	major = yes
@@ -1144,6 +1150,906 @@ news_event = {
 		name = r56.news_event.28.d #fascist and non-royalist unaligned
 		trigger = {
 			has_government = fascism
+		}
+	}
+}
+#338
+news_event = {
+	id = r56.news_event.29
+	title = r56.news_event.29.title
+	desc = r56.news_event.29.desc
+	picture = GFX_news_event_052
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.29.a
+		trigger = {
+			NOT = { tag = VEN }
+		}
+	}
+	option = {
+		name = r56.news_event.29.b
+		trigger = {
+			tag = VEN
+		}
+	}
+}
+#news.339
+news_event = { #Post-yalta occupation news
+	id = r56.news_event.30
+	title = r56.news_event.30.title
+	desc = r56.news_event.30.desc
+	picture = GFX_news_event_GER_yalta_occupation
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.30.a
+	}
+}
+#Japan is about to invite someone into their faction
+news_event = {
+	id = r56.news_event.31
+	title = r56.news_event.31.title
+	desc = r56.news_event.31.desc
+	picture = GFX_news_event_japanese_army_parade
+
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.31.a
+	}
+}
+#Goering emerges in the CSA
+news_event = {
+	id = r56.news_event.32
+	title = r56.news_event.32.title
+	desc = r56.news_event.32.desc
+	picture = GFX_news_event_USA_goering_texas
+
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.32.a
+		trigger = {
+			NOT = {
+				OR = {
+					has_country_flag = goering_in_exile
+					tag = GER
+				}	
+			}		
+		}		
+	}
+	option = {
+		name = r56.news_event.32.b
+		trigger = {
+			has_country_flag = goering_in_exile
+		}
+	}
+	option = {
+		name = r56.news_event.32.c
+		trigger = {
+			tag = GER
+		}
+	}		
+}
+#news event - Creation of the Celtic Union
+news_event = {
+	id = r56.news_event.33
+	title = r56.news_event.33.t
+	desc = r56.news_event.33.desc
+	picture = GFX_news_event_celtic_union
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.33.a
+		trigger = {
+			has_cosmetic_tag = CEL_UNIFIED
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.33.b
+		trigger = {
+			NOT = { has_cosmetic_tag = CEL_UNIFIED }
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.33.c
+		trigger = {
+			has_war_with = FROM
+		}
+	}
+}
+#news event - Levantine Union
+news_event = {
+	id = r56.news_event.34
+	title = r56.news_event.34.t
+	desc = r56.news_event.34.desc
+	picture = GFX_news_event_arab_diplomats_neutral
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.34.a
+		trigger = {
+			has_cosmetic_tag = SYR_UNIFIED
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.34.b
+		trigger = {
+			NOT = { has_cosmetic_tag = SYR_UNIFIED }
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.34.c
+		trigger = {
+			has_war_with = FROM
+		}
+	}
+}
+#news event - Carribbean Union
+news_event = {
+	id = r56.news_event.35
+	title = r56.news_event.35.t
+	desc = r56.news_event.35.desc
+	picture = GFX_news_event_south_american_stahlhelm
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.35.a
+		trigger = {
+			has_cosmetic_tag = CAB
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.35.b
+		trigger = {
+			NOT = { has_cosmetic_tag = CAB }
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.35.c
+		trigger = {
+			has_war_with = FROM
+		}
+	}
+}
+#news event - Platine Union
+news_event = {
+	id = r56.news_event.36
+	title = r56.news_event.36.t
+	desc = r56.news_event.36.desc
+	picture = GFX_news_event_south_american_argentine_soldiers
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.36.a
+		trigger = {
+			has_cosmetic_tag = PLA
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.36.b
+		trigger = {
+			NOT = { has_cosmetic_tag = PLA }
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.36.c
+		trigger = {
+			has_war_with = FROM
+		}
+	}
+}
+news_event = {
+	id = r56.news_event.37
+	title = r56.news_event.37.t
+	desc = r56.news_event.37.desc
+	picture = GFX_news_event_african_diplomats
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.37.a
+		trigger = {
+			tag = FROM
+		}
+	}
+	option = {
+		name = r56.news_event.37.b
+		trigger = {
+			NOT = { tag = FROM }
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.37.c
+		trigger = {
+			has_war_with = FROM
+		}
+	}
+}
+news_event = {
+	id = r56.news_event.38
+	title = r56.news_event.38.t
+	desc = r56.news_event.38.desc
+	picture = GFX_news_event_ENG_royal_navy_infantry
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.38.a
+		trigger = {
+			tag = FROM
+		}
+	}
+	option = {
+		name = r56.news_event.38.b
+		trigger = {
+			NOT = { tag = FROM }
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.38.c
+		trigger = {
+			has_war_with = FROM
+		}
+	}
+}
+news_event = {
+	id = r56.news_event.39
+	title = r56.news_event.39.t
+	desc = r56.news_event.39.desc
+	picture = GFX_news_event_german_soldiers
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.39.a
+		trigger = {
+			tag = FROM
+		}
+	}
+	option = {
+		name = r56.news_event.39.b
+		trigger = {
+			NOT = { tag = FROM }
+			NOT = { has_war_with = FROM }
+		}
+	}
+	option = {
+		name = r56.news_event.39.c
+		trigger = {
+			has_war_with = FROM
+		}
+	}
+}
+news_event = {
+	id = r56.news_event.40
+	title = r56.news_event.40.t
+	desc = r56.news_event.40.desc
+	picture = GFX_news_event_romania_parliament
+	
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.40.a 
+		trigger = {
+			NOT = {
+				has_war_with = ROM
+			}
+		}
+	}
+	option = {
+		name = r56.news_event.40.b
+		trigger = {
+			has_war_with = ROM
+		}
+	}
+}
+news_event = { #Dawn of the Atlantic Pact
+	id = r56.news_event.41
+	title = r56.news_event.41.t
+	desc = r56.news_event.41.desc
+	picture = GFX_news_event_GER_panzerschif_dock2
+	
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.41.a 
+		trigger = {
+			NOT = {
+				has_war_with = BRA
+			}
+		}
+	}
+	option = {
+		name = r56.news_event.41.b
+		trigger = {
+			has_war_with = BRA
+		}
+	}
+}
+news_event = { #Dawn of the Defensul
+	id = r56.news_event.42
+	title = r56.news_event.42.t
+	desc = r56.news_event.42.desc
+	picture = GFX_news_event_smoking_snakes_soldiers
+	
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.42.a 
+		trigger = {
+			NOT = {
+				has_war_with = BRA
+			}
+		}
+	}
+	option = {
+		name = r56.news_event.42.b
+		trigger = {
+			has_war_with = BRA
+		}
+	}
+}
+news_event = { #Sweden creates a faction
+	id = r56.news_event.43
+	title = r56.news_event.43.t
+	desc = r56.news_event.43.desc
+	picture = GFX_news_event_gustaf_exiled
+	
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.43.a 
+		trigger = {
+			NOT = {
+				has_war_with = SWE
+			}
+		}
+	}
+	option = {
+		name = r56.news_event.43.b
+		trigger = {
+			has_war_with = SWE
+		}
+	}
+}
+# Norway Swedish puppet
+news_event = {
+	id = r56.news_event.900
+	title = r56.news_event.900.t
+	desc = r56.news_event.900.d
+	picture = GFX_news_event_067
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.900.a
+	}
+}
+
+# EST & LAT mutiny
+news_event = {
+	id = r56.news_event.902
+	title = r56.news_event.902.t
+	desc = r56.news_event.902.d
+	picture = GFX_news_event_006
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.902.a
+	}
+}
+
+# est mutiny
+news_event = {
+	id = r56.news_event.903
+	title = r56.news_event.903.t
+	desc = r56.news_event.903.d
+	picture = GFX_news_event_006
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.903.a
+	}
+}
+
+
+# Finnish Civil War black chamber
+news_event = {
+	id = r56.news_event.904
+	title = r56.news_event.904.t
+	desc = r56.news_event.904.d
+	picture = GFX_news_event_006
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.904.a
+	}
+}
+
+
+# Sweden join finnish civil war
+news_event = {
+	id = r56.news_event.905
+	title = r56.news_event.905.t
+	desc = r56.news_event.905.d
+	picture = GFX_news_event_011
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.905.a
+	}
+}
+
+# Revoke Åland Convention
+news_event = {
+	id = r56.news_event.906
+	title = r56.news_event.906.t
+	desc = r56.news_event.906.d
+	picture = GFX_news_event_sweden_revokes_aland_convetion
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.906.a
+		trigger = {
+			NOT = {
+				TAG = SWE
+			}
+		}
+	}
+	option = {
+		name = r56.news_event.906.b
+		trigger = {
+				TAG = SWE
+		}
+	}
+}
+
+
+# King fights communists
+news_event = {
+	id = r56.news_event.907
+	title = r56.news_event.907.t
+	desc = r56.news_event.907.d
+	picture = GFX_news_event_gustaf_denounces_communism
+	
+	major = no
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.907.a
+		trigger = {
+				TAG = SWE
+		}
+	}
+}
+
+# King of Sweden arrested
+news_event = {
+	id = r56.news_event.908
+	title = r56.news_event.908.t
+	desc = r56.news_event.908.d
+	picture = GFX_news_event_gustaf_arrested_by_communists
+	
+	major = no
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.908.a
+		trigger = {
+				TAG = SWE
+		}
+	}
+}
+
+# King of Sweden flees to switzerland
+news_event = {
+	id = r56.news_event.909
+	title = r56.news_event.909.t
+	desc = r56.news_event.909.d
+	picture = GFX_news_event_gustaf_exiled
+	
+	major = no
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.909.a
+		trigger = {
+				TAG = SWE
+		}
+	}
+}
+
+# King of Sweden in Britain
+news_event = {
+	id = r56.news_event.910
+	title = r56.news_event.910.t
+	desc = r56.news_event.910.d
+	picture = GFX_news_event_sweden_the_buckingham_gathering
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.910.a
+		trigger = {
+				TAG = SWE
+				TAG = SOV
+		}
+	}
+	option = {
+		name = r56.news_event.910.b
+		trigger = {
+			NOT = {
+				TAG = SWE
+				TAG = SOV
+			}
+		}
+	}
+}
+
+
+# Scandinavian Union
+news_event = {
+	id = r56.news_event.911
+	title = r56.news_event.911.t
+	desc = r56.news_event.911.d
+	picture = GFX_news_event_sweden_scandinavian_socialist_union
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.911.a
+		trigger = {
+			NOT = {
+				TAG = SWE
+			}
+		}
+	}
+	option = {
+		name = r56.news_event.911.b
+		trigger = {
+			TAG = SWE			
+		}
+	}
+
+}
+
+# Icelandic Independence
+news_event = {
+	id = r56.news_event.912
+	title = r56.news_event.912.t
+	desc = r56.news_event.912.d
+	picture = GFX_news_event_sweden_icelandic_independence
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.news_event.912.a
+		trigger = {
+			NOT = {
+				TAG = SWE
+				TAG = DEN
+			}
+		}
+	}
+	option = {
+		name = r56.news_event.912.b
+		trigger = {
+			TAG = SWE			
+		}
+	}
+	option = {
+		name = r56.news_event.912.c
+		trigger = {
+			TAG = DEN			
+		}
+	}
+}
+
+
+news_event = { #Austria-Hungary reforms
+	id = r56.news_event.1114
+	title = r56.news_event.1114.t
+	desc = r56.news_event.1114.d
+	picture = GFX_news_event_HUN_blessed_otto
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = r56.news_event.1114.a
+		
+		trigger = {
+			NOT = { tag = AUS }
+		}
+	}
+	option = {
+		name = r56.news_event.1114.b
+		
+		trigger = {
+			tag = AUS
+		}
+	}	
+}
+
+news_event = { #alps defence pact
+	id = r56.news_event.1115
+	title = r56.news_event.1115.t
+	desc = r56.news_event.1115.d 
+	picture = GFX_news_event_AUS_italian_alliance
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = r56.news_event.1115.a
+		trigger = {
+			NOT = {
+				original_tag = AUS
+				original_tag = ITA
+			}
+		}
+	}
+	option = {
+		name = r56.news_event.1115.b
+		trigger = {
+			OR = {
+				original_tag = AUS
+				original_tag = ITA
+			}
+		}
+	}		
+}
+
+###
+### KILL HITLER
+### EVENTS
+###
+
+#Hitler Killed by an Explosion! (Success)
+news_event = {
+	id = r56.kill_hitler.1
+	title = r56.kill_hitler.1.t
+	desc = r56.kill_hitler.1.desc
+	picture = GFX_news_event_GER_hitler_dead_chancellor
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.kill_hitler.1.a
+		
+		trigger = {
+			NOT = { tag = GER }
+		}
+	}
+	option = {
+		name = r56.kill_hitler.1.b
+		
+		trigger = {
+			tag = GER
+		}
+	}
+}
+
+#The German Chancellor Gunned Down! (Success)
+news_event = {
+	id = r56.kill_hitler.2
+	title = r56.kill_hitler.2.t
+	desc = r56.kill_hitler.2.desc
+	picture = GFX_news_event_german_speech
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.kill_hitler.2.a
+		
+		trigger = {
+			NOT = { tag = GER }
+		}
+	}
+	option = {
+		name = r56.kill_hitler.2.b
+		
+		trigger = {
+			tag = GER
+		}
+	}
+}
+
+#Hitler killed in Martial Artist's Attack! (Success)
+news_event = {
+	id = r56.kill_hitler.3
+	title = r56.kill_hitler.3.t
+	desc = r56.kill_hitler.3.desc
+	picture = GFX_news_event_GER_hitler_kung_fuhrer_duel
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.kill_hitler.3.a
+	}
+}
+
+#Hitler's Plane Crashed! (Success)
+news_event = {
+	id = r56.kill_hitler.4
+	title = r56.kill_hitler.4.t
+	desc = r56.kill_hitler.4.desc
+	picture = GFX_news_event_GER_hitler_plane
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.kill_hitler.4.a
+		
+		trigger = {
+			NOT = { tag = GER }
+		}
+	}
+	option = {
+		name = r56.kill_hitler.4.b
+		
+		trigger = {
+			tag = GER
+		}
+	}
+}
+
+#The Chancellery Wrecked by an Explosion! (Success)
+news_event = {
+	id = r56.kill_hitler.5
+	title = r56.kill_hitler.5.t
+	desc = r56.kill_hitler.5.desc
+	picture = GFX_news_event_GER_hitler_dead_chancellor
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.kill_hitler.5.a
+		
+		trigger = {
+			NOT = { tag = GER }
+		}
+	}
+	option = {
+		name = r56.kill_hitler.5.b
+		
+		trigger = {
+			tag = GER
+		}
+	}
+}
+
+#Hitler Killed by Hitman at the Obersatlzberg! (Success)
+news_event = {
+	id = r56.kill_hitler.6
+	title = r56.kill_hitler.6.t
+	desc = r56.kill_hitler.6.desc
+	picture = GFX_news_event_GER_hitler_dead_sniper
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.kill_hitler.6.a
+		
+		trigger = {
+			NOT = { tag = GER }
+		}
+	}
+	option = {
+		name = r56.kill_hitler.6.b
+		
+		trigger = {
+			tag = GER
+		}
+	}
+}
+
+#Hitler Shot to Death! (Success)
+news_event = {
+	id = r56.kill_hitler.7
+	title = r56.kill_hitler.7.t
+	desc = r56.kill_hitler.7.desc
+	picture = GFX_news_event_GER_hitler_couch
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.kill_hitler.7.a
+		
+		trigger = {
+			NOT = { tag = GER }
+		}
+	}
+	option = {
+		name = r56.kill_hitler.7.b
+		
+		trigger = {
+			tag = GER
 		}
 	}
 }

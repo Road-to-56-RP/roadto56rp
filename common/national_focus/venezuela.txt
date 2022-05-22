@@ -5,7 +5,7 @@ focus_tree = {
         modifier = {
             add = 30
             tag = VEN
-             }
+        }
     }
     default = no
 	continuous_focus_position = { x = 650 y = 1350 }
@@ -183,7 +183,7 @@ focus_tree = {
             swap_ideas = {
                 remove_idea = VEN_corruption
                 add_idea = VEN_corruption_2
-                }
+            }
         }
     }
     focus = {
@@ -231,7 +231,7 @@ focus_tree = {
                 }
             }
             custom_effect_tooltip = available_political_advisor
-            show_ideas_tooltip = VEN_pedro_estrada
+            show_ideas_tooltip = pedro_estrada
 
         }
     }
@@ -1064,6 +1064,7 @@ focus_tree = {
             add_state_core = 304
             add_state_core = 864
             set_cosmetic_tag = GCO_UNIFIED
+            set_country_flag = has_formed_gran_colombia
         }
     }
     focus = {
@@ -1072,11 +1073,8 @@ focus_tree = {
         x = 44
         y = 11
         cost = 10
-
         available = {
-            has_full_control_of_state = 304
-            has_full_control_of_state = 306
-            has_full_control_of_state = 305
+            has_country_flag = has_formed_gran_colombia
         }
         prerequisite = {
             focus = VEN_strike_panama
@@ -1274,22 +1272,10 @@ focus_tree = {
         x = -4
         y = 1
         cost = 10
-
-        available = {
-			COL = {
-				exists = no
-			}
-            PAN = {
-				exists = no
-			}
-            ECU = {
-				exists = no
-			}
-		}
         prerequisite = {
             focus = VEN_unify_political_command
         }
-        search_filters = {FOCUS_FILTER_ANNEXATION}
+        search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION}
         ai_will_do = {
             factor = 10
         }
@@ -1505,7 +1491,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_alliance_with_mexico
-        icon = GFX_goal_mexico_the_homefront
+        icon = GFX_goal_mexico_mexico_first
         relative_position_id = VEN_unify_political_command
         x = -3
         y = 3
@@ -1595,7 +1581,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_alliance_with_bolivia
-        icon = GFX_goal_CHL_alliance_with_bolivia
+        icon = GFX_goal_generic_befriend_bolivia
         relative_position_id = VEN_unify_political_command
         x = -7
         y = 2
@@ -1671,7 +1657,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_alliance_with_south_south_america
-        icon = GFX_goal_CHL_alliance_with_the_argentinians
+        icon = GFX_goal_generic_befriend_argentina
         relative_position_id = VEN_unify_political_command
         x = -7
         y = 3
@@ -1740,7 +1726,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_attack_south_south_america
-        icon = GFX_goal_CHL_alliance_with_the_argentinians
+        icon = GFX_goal_generic_attack_argentina
         relative_position_id = VEN_unify_political_command
         x = -5
         y = 3
@@ -1763,14 +1749,14 @@ focus_tree = {
         }
         completion_reward = {
             add_state_claim = 506
-            add_state_claim = 817
+            add_state_claim = 882
             add_state_claim = 279
             add_state_claim = 507
             create_wargoal = {
                     type = annex_everything
                     target = CHL
                     expire = 0
-                    generator = { 506 817 279 507 }
+                    generator = { 506 882 279 507 }
                 }
             add_state_claim = 509
             add_state_claim = 508
@@ -2267,8 +2253,9 @@ focus_tree = {
         }
         completion_reward = {
             air_experience = 25
-            add_tech_bonus = {
-                bonus = 1
+            add_doctrine_cost_reduction = {
+                name = VEN_recruit_haitian_pilots
+                cost_reduction = 0.5
                 uses = 1
                 category = air_doctrine
                 }
@@ -2277,7 +2264,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_unite_the_caribbean_under_venezuela
-        icon = GFX_goal_brefriend_unified_caribbean
+        icon = GFX_goal_generic_befriend_united_caribbean
         relative_position_id = VEN_caribbean_naval_hub
         x = 0
         y = 1
@@ -2296,149 +2283,44 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            custom_effect_tooltip = VEN_caribbean_war_goal
-            hidden_effect = {
-                add_state_core = 686
-                add_state_core = 694
-                add_state_core = 308
-                add_state_core = 692
-                add_state_core = 689
-                add_state_core = 690
-                add_state_core = 693
-                if = {
-                    limit = {
-                        NOT = {
-                            owns_state = 686
-                        }
-                    }
-                    686 = {
-                        OWNER = {
-                            ROOT = {
-                                create_wargoal = {
-                                    target = PREV
-                                    expire = 0
-                                    type = take_state_focus
-                                    generator = { 686 }
-                                }
-                            }
-                        }
-                    }
-                }
-                if = {
-                    limit = {
-                        NOT = {
-                            owns_state = 694
-                        }
-                    }
-                    694 = {
-                        OWNER = {
-                            ROOT = {
-                                create_wargoal = {
-                                    target = PREV
-                                    expire = 0
-                                    type = take_state_focus
-                                    generator = { 694 }
-                                }
-                            }
-                        }
-                    }
-                }
-                if = {
-                    limit = {
-                        NOT = {
-                            owns_state = 308
-                        }
-                    }
-                    308 = {
-                        OWNER = {
-                            ROOT = {
-                                create_wargoal = {
-                                    target = PREV
-                                    expire = 0
-                                    type = take_state_focus
-                                    generator = { 308 }
-                                }
-                            }
-                        }
-                    }
-                }
-                if = {
-                    limit = {
-                        NOT = {
-                            owns_state = 692
-                        }
-                    }
-                    692 = {
-                        OWNER = {
-                            ROOT = {
-                                create_wargoal = {
-                                    target = PREV
-                                    expire = 0
-                                    type = take_state_focus
-                                    generator = { 692 }
-                                }
-                            }
-                        }
-                    }
-                }
-                if = {
-                    limit = {
-                        NOT = {
-                            owns_state = 689
-                        }
-                    }
-                    689 = {
-                        OWNER = {
-                            ROOT = {
-                                create_wargoal = {
-                                    target = PREV
-                                    expire = 0
-                                    type = take_state_focus
-                                    generator = { 689 }
-                                }
-                            }
-                        }
-                    }
-                }
-                if = {
-                    limit = {
-                        NOT = {
-                            owns_state = 690
-                        }
-                    }
-                    690 = {
-                        OWNER = {
-                            ROOT = {
-                                create_wargoal = {
-                                    target = PREV
-                                    expire = 0
-                                    type = take_state_focus
-                                    generator = { 690 }
-                                }
-                            }
-                        }
-                    }
-                }
-                if = {
-                    limit = {
-                        NOT = {
-                            owns_state = 693
-                        }
-                    }
-                    693 = {
-                        OWNER = {
-                            ROOT = {
-                                create_wargoal = {
-                                    target = PREV
-                                    expire = 0
-                                    type = take_state_focus
-                                    generator = { 693 }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+			every_state = {
+				limit = {
+					OR = {
+						state = 686
+						state = 694
+						state = 308
+						state = 692
+						state = 689
+						state = 690
+						state = 693
+					}
+				}
+				add_core_of = ROOT
+			}
+			every_other_country = {
+				limit = {
+					NOT = { is_in_faction_with = ROOT }
+					NOT = { is_subject_of = ROOT }
+					any_owned_state = {
+						OR = {
+                            state = 686
+                            state = 694
+                            state = 308
+                            state = 692
+                            state = 689
+                            state = 690
+                            state = 693
+						}
+					}
+				}
+				ROOT = {
+					create_wargoal = {
+						target = PREV
+						type = take_state_focus
+						expire = 0
+					}
+				}
+			}
         }
     }
     focus = {
@@ -2630,7 +2512,7 @@ focus_tree = {
             swap_ideas = {
                 remove_idea = VEN_corruption
                 add_idea = VEN_corruption_3
-                }
+            }
 
         }
     }
@@ -2757,7 +2639,7 @@ focus_tree = {
             swap_ideas = {
                 remove_idea = VEN_corruption_3
                 add_idea = VEN_corruption_6
-                }
+            }
 
         }
     }
@@ -2789,9 +2671,6 @@ focus_tree = {
         }
         completion_reward = {
             country_event = { hours = 12 id = venezuela.20 }
-            custom_effect_tooltip = available_political_advisor
-            show_ideas_tooltip = VEN_german_borregales
-
 
         }
     }
@@ -2907,9 +2786,9 @@ focus_tree = {
 				ideology = communism
 				popularity = -0.20
 			}
-            custom_effect_tooltip = available_political_advisor
-            show_ideas_tooltip = VEN_pedro_estrada
             add_country_leader_trait = anti_communist
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = pedro_estrada
 
         }
     }
@@ -3012,10 +2891,9 @@ focus_tree = {
             army_experience = 10
             navy_experience = 10
             air_experience = 10
-            add_tech_bonus = {
-                name = land_doc_bonus
-                bonus = 1
+            add_doctrine_cost_reduction = {
                 uses = 1
+                cost_reduction = 0.5
                 category = land_doctrine
             }
         }
@@ -3110,8 +2988,6 @@ focus_tree = {
         }
         completion_reward = {
             country_event = { hours = 12 id = venezuela.22 }
-            custom_effect_tooltip = available_political_advisor
-            show_ideas_tooltip = VEN_romulo_betancourt
 
         }
     }
@@ -3253,7 +3129,7 @@ focus_tree = {
 
     focus = {
         id = VEN_reorganize_the_ARDI
-        icon = GFX_r56_goal_generic_socdem
+        icon = GFX_goal_generic_socdem
         x = 11
         y = 1
         relative_position_id = VEN_congress
@@ -3421,7 +3297,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_arm_the_companies
-        icon = GFX_goal_generic_left_militia
+        icon = GFX_goal_generic_into_fire
         relative_position_id = VEN_cult_of_creole
         x = 2
         y = 1
@@ -3661,9 +3537,9 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_tech_bonus = {
-                bonus = 1
+            add_doctrine_cost_reduction = {
                 uses = 1
+                cost_reduction = 0.5
                 category = land_doctrine
             }
             add_tech_bonus = {
@@ -3692,49 +3568,54 @@ focus_tree = {
             if = {
                 limit = {
                     has_dlc = "La Resistance"
-                }
-                    create_operative_leader = {
-                        name = "Halyna Kouzmenko"
-                        portrait_path = gfx/leaders/Europe/portrait_europe_generic_operative_female_9.dds
-                        traits = { operative_linguist }
-                        bypass_recruitment = no
-                        available_to_spy_master = yes
-                        female = yes
-                        nationalities = { FRA UKR }
-                    }
-                    create_operative_leader = {
-                        name = "Giovanni Baldelli"
-                        portrait_path = gfx/leaders/Europe/portrait_europe_generic_operative_male_8.dds
-                        traits = { operative_linguist }
-                        bypass_recruitment = no
-                        available_to_spy_master = yes
-                        nationalities = { ENG FRA ITA }
-                    }
-                    create_operative_leader = {
-                        name = "Augustin Souchy"
-                        portrait_path = gfx/leaders/Europe/portrait_europe_generic_operative_male_7.dds
-                        traits = { operative_natural_orator }
-                        bypass_recruitment = no
-                        available_to_spy_master = yes
-                        nationalities = { GER }
-                    }
-                    create_operative_leader = {
-                        name = "Woody Guthrie"
-                        portrait_path = gfx/leaders/Europe/portrait_europe_generic_operative_male_2.dds
-                        traits = { operative_natural_orator }
-                        bypass_recruitment = no
-                        available_to_spy_master = yes
-                        nationalities = { USA }
-                    }
-                    create_operative_leader = {
-                        name = "Li Shizeng"
-                        portrait_path = gfx/leaders/Asia/portrait_asia_generic_operative_male_9.dds
-                        traits = { operative_natural_orator }
-                        bypass_recruitment = no
-                        available_to_spy_master = yes
-                        nationalities = { CHI }
+                    NOT = {
+                        any_other_country = {
+                            has_completed_focus = SPR_anarchism_knows_no_borders
+                        }
                     }
                 }
+                create_operative_leader = {
+                    name = "Halyna Kouzmenko"
+                    gfx = GFX_portrait_europe_generic_operative_f_9
+                    traits = { operative_linguist }
+                    bypass_recruitment = no
+                    available_to_spy_master = yes
+                    female = yes
+                    nationalities = { FRA UKR RUT }
+                }
+                create_operative_leader = {
+                    name = "Giovanni Baldelli"
+                    gfx = GFX_portrait_europe_generic_operative_m_8
+                    traits = { operative_linguist }
+                    bypass_recruitment = no
+                    available_to_spy_master = yes
+                    nationalities = { ENG FRA ITA }
+                }
+                create_operative_leader = {
+                    name = "Augustin Souchy"
+                    gfx = GFX_portrait_europe_generic_operative_m_7
+                    traits = { operative_natural_orator }
+                    bypass_recruitment = no
+                    available_to_spy_master = yes
+                    nationalities = { GER }
+                }
+                create_operative_leader = {
+                    name = "Woody Guthrie"
+                    gfx = GFX_portrait_europe_generic_operative_m_2
+                    traits = { operative_natural_orator }
+                    bypass_recruitment = no
+                    available_to_spy_master = yes
+                    nationalities = { USA }
+                }
+                create_operative_leader = {
+                    name = "Li Shizeng"
+                    gfx = GFX_portrait_asia_generic_operative_m_9
+                    traits = { operative_natural_orator }
+                    bypass_recruitment = no
+                    available_to_spy_master = yes
+                    nationalities = { CHI }
+                }
+            }
 		}
 	}
     focus = {
@@ -3846,7 +3727,6 @@ focus_tree = {
             add_popularity = { ideology = communism popularity = -0.2 }
             custom_effect_tooltip = available_political_advisor
             show_ideas_tooltip = VEN_juan_oropeza
-
 
         }
     }
@@ -4017,21 +3897,21 @@ focus_tree = {
         }
         completion_reward = {
             random_owned_controlled_state = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-							type = industrial_complex
-							level = 1
-							instant_build = yes
-						}
-                    }
-            random_owned_controlled_state = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-					    type = arms_factory
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+						type = industrial_complex
 						level = 1
 						instant_build = yes
 					}
                 }
+            random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+            }
         }
     }
     focus = {
@@ -4503,7 +4383,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_support_argentinian_revolution
-        icon = GFX_goal_CHL_alliance_with_the_argentinians
+        icon = GFX_goal_generic_befriend_argentina
         relative_position_id = VEN_venezuelan_way_of_communism
         x = -2
         y = 2
@@ -4642,7 +4522,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_support_peruvian_revolution
-        icon = GFX_goal_CHL_alliance_with_peru
+        icon = GFX_goal_generic_befriend_peru
         relative_position_id = VEN_venezuelan_way_of_communism
         x = 2
         y = 2
@@ -5349,7 +5229,6 @@ focus_tree = {
         prerequisite = {
             focus = VEN_alliance_with_political_opponents
         }
-        search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER}
         ai_will_do = {
             factor = 10
         }
@@ -5371,7 +5250,7 @@ focus_tree = {
         prerequisite = {
             focus = VEN_exile_government
         }
-        search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER}
+        search_filters = {FOCUS_FILTER_INDUSTRY}
         ai_will_do = {
             factor = 10
         }
@@ -5394,7 +5273,6 @@ focus_tree = {
         prerequisite = {
             focus = VEN_evacuate_industry
         }
-        search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER}
         ai_will_do = {
             factor = 10
         }
@@ -5420,7 +5298,7 @@ focus_tree = {
         prerequisite = {
             focus = VEN_FVI
         }
-        search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER}
+        search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
         ai_will_do = {
             factor = 10
         }
@@ -5561,16 +5439,15 @@ focus_tree = {
                 }
                 add_ideas = extensive_conscription
             }
-            create_corps_commander = {
-                name = "Gral. Audelino Moreno"
-                id = 6973
-                gfx = "GFX_Portrait_r56_VEN_Audelino_Moreno"
+            add_corps_commander_role = {
+                character = VEN_audelino_moreno
                 traits = { career_officer trait_cautious commando }
                 skill = 3
                 attack_skill = 2
                 defense_skill = 3
                 planning_skill = 1
                 logistics_skill = 2
+                legacy_id=6973
             }
         }
         search_filters = {FOCUS_FILTER_MANPOWER}
@@ -5591,10 +5468,9 @@ focus_tree = {
         }
         completion_reward = {
             army_experience = 20
-            add_tech_bonus = {
-                name = land_doc_bonus
-                bonus = 1
+            add_doctrine_cost_reduction = {
                 uses = 2
+                cost_reduction = 0.5
                 category = land_doctrine
             }
         }
@@ -5621,9 +5497,7 @@ focus_tree = {
 				add_defense = 1
 			}
             custom_effect_tooltip = available_chief_of_army
-            show_ideas_tooltip = VEN_isaias_medina_angarita
-
-
+            show_ideas_tooltip = isaias_medina_angarita
         }
     }
     focus = {
@@ -5739,10 +5613,9 @@ focus_tree = {
                 bonus = 1
                 uses = 1
                 category = motorized_equipment
-                }
+            }
             custom_effect_tooltip = available_chief_of_army
-            show_ideas_tooltip = VEN_antonio_chalbaud_cardona
-
+            show_ideas_tooltip = antnio_chalbaud_cardoma
         }
     }
     focus = {
@@ -5852,7 +5725,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_purchase_czech_equipment
-        icon = GFX_goal_czech_deal
+        icon = GFX_goal_generic_befriend_czech
         x = -30
         y = 4
         cost = 10
@@ -5884,7 +5757,7 @@ focus_tree = {
 				producer = CZE
 			}
             add_equipment_to_stockpile = {
-				type = light_tank_equipment
+				type = light_tank_chassis
 				amount = 75
 				producer = CZE
 			}
@@ -6014,11 +5887,11 @@ focus_tree = {
             focus = VEN_navy
         }
         completion_reward = {
-            add_tech_bonus = {
-                bonus = 1
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 2
                 category = cat_fleet_in_being
-                }
+            }
             custom_effect_tooltip = available_designer
             show_ideas_tooltip = VEN_alantic_ship_designer
 
@@ -6167,9 +6040,9 @@ focus_tree = {
             focus = VEN_navy
         }
         completion_reward = {
-            add_tech_bonus = {
-                bonus = 1
+            add_doctrine_cost_reduction = {
                 uses = 2
+                cost_reduction = 0.5
                 category = cat_trade_interdiction
             }
             custom_effect_tooltip = available_designer
@@ -6218,7 +6091,7 @@ focus_tree = {
             focus = VEN_undersea_warfare
         }
         completion_reward = {
-            random_controlled_state = {
+            random_owned_controlled_state = {
                 limit = {
                     is_core_of = ROOT
 					dockyard > 0
@@ -6391,20 +6264,20 @@ focus_tree = {
                 remove_idea = VEN_oil_2
                 add_idea = VEN_oil_3
             }
-        random_owned_controlled_state = {
-                    prioritize = { 307 }
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-								type = steel_mill
-								level = 2
-								instant_build = yes
-						}
-                        add_building_construction = {
-                            type = industrial_complex
-                            level = 1
-                            instant_build = yes
-                    }
+            random_owned_controlled_state = {
+                prioritize = { 307 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = steel_mill
+					level = 2
+					instant_build = yes
+				}
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
                 }
+            }
         }
     }
     focus = {
@@ -6426,22 +6299,22 @@ focus_tree = {
                 remove_idea = VEN_oil_3
                 add_idea = VEN_oil_4
             }
-        add_tech_bonus = {
+            add_tech_bonus = {
                 bonus = 1
                 uses = 1
                 category = excavation_tech
-                }
-        add_resource = {
+            }
+            add_resource = {
                 type = steel
                 amount = 9
                 state = 307
             }
-        add_resource = {
+            add_resource = {
                 type = aluminium
                 amount = 4
                 state = 488
             }
-        add_resource = {
+            add_resource = {
                 type = chromium
                 amount = 2
                 state = 489
@@ -6464,7 +6337,7 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-        add_tech_bonus = {
+            add_tech_bonus = {
                 bonus = 1
                 uses = 2
                 category = electronics
@@ -6514,32 +6387,31 @@ focus_tree = {
         }
         completion_reward = {
             remove_ideas = VEN_oil_4
-            random_controlled_state = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-								type = industrial_complex
-								level = 2
-								instant_build = yes
-						}
-                    }
-            random_controlled_state = {
-                        add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-								type = industrial_complex
-								level = 2
-								instant_build = yes
-						}
-                    }
             random_owned_controlled_state = {
-                        prioritize = { 875 }
-                        add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-								type = industrial_complex
-								level = 2
-								instant_build = yes
-						}
-                    }
-
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+            }
+            random_owned_controlled_state = {
+                add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+            }
+            random_owned_controlled_state = {
+                prioritize = { 875 }
+                add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+            }
         }
     }
     focus = {
@@ -6643,9 +6515,9 @@ focus_tree = {
                 prioritize = { 875 }
                 add_extra_state_shared_building_slots = 2
                 add_building_construction = {
-                        type = rubber_refinery
-                        level = 2
-                        instant_build = yes
+                    type = rubber_refinery
+                    level = 2
+                    instant_build = yes
                 }
             }
 
@@ -6681,9 +6553,9 @@ focus_tree = {
             695 = {
                 add_extra_state_shared_building_slots = 2
                 add_building_construction = {
-                        type = synthetic_refinery
-                        level = 2
-                        instant_build = yes
+                    type = synthetic_refinery
+                    level = 2
+                    instant_build = yes
                 }
             }
         }
@@ -6709,13 +6581,13 @@ focus_tree = {
                 }
 
             random_owned_controlled_state = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-								type = industrial_complex
-								level = 2
-								instant_build = yes
-						}
-                    }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+							type = industrial_complex
+							level = 2
+							instant_build = yes
+					}
+                }
 
 
 
@@ -6738,18 +6610,12 @@ focus_tree = {
         completion_reward = {
             custom_effect_tooltip = available_designer
             show_ideas_tooltip = VEN_IFE
-            random_owned_controlled_state = {
-                prioritize = { 307 }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-                }
+            build_railway = {
+				path = { 8113 7968 10912 }
+			}
             random_owned_controlled_state = {
                 prioritize = { 489 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = infrastructure
                     level = 1
@@ -6894,7 +6760,7 @@ focus_tree = {
                 category = nuclear
             }
             custom_effect_tooltip = available_theorist
-			show_ideas_tooltip = VEN_maria_fernanda_agustina
+            show_ideas_tooltip = maria_fernanda_agustina
         }
     }
 
@@ -6912,11 +6778,11 @@ focus_tree = {
         }
         completion_reward = {
             air_experience = 25
-            add_tech_bonus = {
-                bonus = 1
+            add_doctrine_cost_reduction = {
                 uses = 2
+                cost_reduction = 0.5
                 category = air_doctrine
-                }
+            }
         }
     }
 
@@ -6942,7 +6808,7 @@ focus_tree = {
                 bonus = 0.5
                 uses = 2
                 category = light_fighter
-                }
+            }
         }
     }
 
@@ -7051,9 +6917,9 @@ focus_tree = {
 					category = cat_scout_plane
 				}
 			}
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = air_doc_bonus
-                bonus = 1
+                cost_reduction = 0.5
                 uses = 1
                 category = air_doctrine
             }

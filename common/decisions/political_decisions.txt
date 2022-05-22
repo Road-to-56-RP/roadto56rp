@@ -73,12 +73,12 @@ fascism_on_the_rise = {
 		
 		cost = 25
 
-		days_remove = 30
+		days_remove = 60
 
 		modifier = {
-			fascism_drift = 0.02
-			stability_weekly = -0.03
- 			political_power_gain = -0.2
+			fascism_drift = 0.15
+			stability_weekly = -0.015
+ 			political_power_gain = -0.3
 		}
 		
 		ai_will_do = {
@@ -773,12 +773,12 @@ democratic_on_the_rise = {
 		
 		cost = 25
 
-		days_remove = 30
+		days_remove = 60
 
 		modifier = {
-			democratic_drift = 0.02
-			stability_weekly = -0.03
- 			political_power_gain = -0.2
+			democratic_drift = 0.15
+			stability_weekly = -0.015
+ 			political_power_gain = -0.3
 		}
 		
 		ai_will_do = {
@@ -1403,12 +1403,12 @@ communism_on_the_rise = {
 		
 		cost = 25
 
-		days_remove = 30
+		days_remove = 60
 
 		modifier = {
-			communism_drift = 0.02
-			stability_weekly = -0.03
- 			political_power_gain = -0.2
+			communism_drift = 0.15
+			stability_weekly = -0.015
+ 			political_power_gain = -0.3
 		}
 		
 		ai_will_do = {
@@ -2098,6 +2098,12 @@ political_actions = {
 					has_idea = SPR_political_violence
 				}
 			}
+			if = {
+				limit = {
+					tag = DEN
+				}
+				has_country_flag = political_violence_resolved
+			}
         }
 	
 		modifier = {
@@ -2161,6 +2167,12 @@ political_actions = {
 					has_idea = SPR_political_violence
 				}
 			}
+			if = {
+				limit = {
+					tag = DEN
+				}
+				has_country_flag = political_violence_resolved
+			}
         }
 	
 		modifier = {
@@ -2207,6 +2219,12 @@ political_actions = {
 					has_idea = SPR_political_violence
 				}
 			}
+			if = {
+				limit = {
+					tag = DEN
+				}
+				has_country_flag = political_violence_resolved
+			}
         }
 	
 		modifier = {
@@ -2242,6 +2260,19 @@ political_actions = {
 				NOT = {
 					has_idea = SPR_political_violence
 				}
+			}
+			if = {
+				limit = {
+					tag = DEN
+					has_government = democratic
+				}
+				has_completed_focus = DEN_Crackdown_on_Political_Violence
+			}
+			else_if = {
+				limit = {
+					tag = DEN
+				}
+				has_country_flag = political_violence_resolved
 			}
 		}
 
@@ -2281,6 +2312,7 @@ political_actions = {
 					var = ban_ideology_var
 					value = 0.66
 				}
+				set_country_flag = banned_fascism_flag
 			}
 			custom_effect_tooltip = ban_fascist_party_tt
 			add_stability = ban_ideology_var
@@ -2304,6 +2336,26 @@ political_actions = {
 				NOT = {
 					has_idea = SPR_political_violence
 				}
+			}
+			if = {
+				limit = {
+					tag = DEN
+					has_government = democratic
+				}
+				has_completed_focus = DEN_Crackdown_on_Political_Violence
+			}
+			else_if = {
+				limit = {
+					tag = DEN
+					has_government = fascism
+				}
+				has_completed_focus = DEN_Consolidate_Media_Institutions
+			}
+			else_if = {
+				limit = {
+					tag = DEN
+				}
+				has_country_flag = political_violence_resolved
 			}
 		}
 
@@ -2367,6 +2419,19 @@ political_actions = {
 					has_idea = SPR_political_violence
 				}
 			}
+			if = {
+				limit = {
+					tag = DEN
+					has_government = democratic
+				}
+				has_completed_focus = DEN_Crackdown_on_Political_Violence
+			}
+			else_if = {
+				limit = {
+					tag = DEN
+				}
+				has_country_flag = political_violence_resolved
+			}
 		}
 
 		visible = {
@@ -2413,6 +2478,15 @@ political_actions = {
 				}
 			}
 			set_country_flag = banned_communism_flag	#used for Yugoslavia initiating communist propaganda around Balkans
+				if = {#NSB -> If country has Trotskyist Revolutionary Uprisings NS, swap it with the weakened version
+					limit = {
+						has_idea = SOV_trotskyist_revolutionary_agitation
+					}
+					swap_ideas = {
+						remove_idea = SOV_trotskyist_revolutionary_agitation
+						add_idea = SOV_trotskyist_revolutionary_agitation_weakened
+					}
+				}
 			custom_effect_tooltip = ban_communist_party_tt
 			add_stability = ban_ideology_var
 		}
@@ -2434,6 +2508,12 @@ political_actions = {
 				NOT = {
 					has_idea = SPR_political_violence
 				}
+			}
+			if = {
+				limit = {
+					tag = DEN
+				}
+				has_completed_focus = DEN_Consolidate_Media_Institutions
 			}
 		}
 
@@ -2468,6 +2548,12 @@ political_actions = {
 				NOT = {
 					has_idea = SPR_political_violence
 				}
+			}
+			if = {
+				limit = {
+					tag = DEN
+				}
+				has_country_flag = political_violence_resolved
 			}
 		}
 

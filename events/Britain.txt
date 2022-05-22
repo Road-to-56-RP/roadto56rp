@@ -254,7 +254,7 @@ country_event = {
 		}
 		NOT = { has_country_flag = chamberlain_died }
 		has_country_leader = {
-			name = "Neville Chamberlain"
+			character = ENG_neville_chamberlain
 			ruling_only = yes
 		}
 	}
@@ -267,16 +267,8 @@ country_event = {
 	
 	option = {
 		name = britain.9.a
-		create_country_leader = {
-			name = "Winston Churchill"
-			desc = "POLITICS_WINSTON_CHURCHILL_DESC"
-			picture = "Portrait_Britain_Winston_Churchill.dds"
-			expire = "1965.1.1"
-			ideology = conservatism
-			traits = {
-				british_bulldog
-			}
-		}
+		promote_character = ENG_winston_churchill
+		retire_character = ENG_neville_chamberlain
 		add_stability = 0.1
 		add_war_support = 0.1
 	}
@@ -298,7 +290,7 @@ country_event = {
 		date > 1940.9.11
 		NOT = { has_country_flag = chamberlain_resigned }
 		has_country_leader = {
-			name = "Neville Chamberlain"
+			character = ENG_neville_chamberlain
 			ruling_only = yes
 		}
 	}
@@ -547,7 +539,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = YUG
-					generator = { 102 819 820 }
+					generator = { 102 884 885 }
 				}
 			}
 		}
@@ -875,8 +867,6 @@ country_event = {
 			modifier = {
 				has_government = fascism
 				factor = 0
-			  
-			   
 			}
 		}
 		name = britain.23.a
@@ -966,6 +956,76 @@ country_event = {
 		}
     }
 }
+
+# 
+country_event = {
+	id = britain.25
+	title = britain.25.t
+	desc = britain.25.d
+	picture = GFX_report_event_degaulle_churchill
+
+	is_triggered_only = yes
+	
+	option = {
+		name = britain.25.a
+		add_to_faction = FRA
+		FROM = {
+			add_ai_strategy = {
+				type = alliance
+				id = "FRA"
+				value = 200
+			}
+		}
+		FROM = { country_event = { id = britain.26 } }
+		hidden_effect = {
+			news_event = { id = news.175 }
+		}
+	}
+	
+	option = {
+		name = britain.25.b
+		ai_chance = { factor = 0 }
+		FROM = { 
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = FRA_go_with_britain_reject
+			}
+			country_event = { id = britain.27 }
+		}
+		hidden_effect = {
+			news_event = { id = news.176 }
+		}
+	}
+}
+
+country_event = {
+	id = britain.26
+	title = britain.26.t
+	desc = britain.26.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	
+	option = {
+		name = britain.26.a
+		
+	}
+}
+
+country_event = {
+	id = britain.27
+	title = britain.27.t
+	desc = britain.27.d
+	picture = GFX_report_event_french_british_officers
+
+	is_triggered_only = yes
+	
+	option = {
+		name = britain.27.a
+		
+	}
+}
+
 
 #country_event = {
 #	id = britain.31

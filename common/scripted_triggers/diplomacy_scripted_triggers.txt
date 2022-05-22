@@ -29,7 +29,7 @@
 #				}
 #			}
 #		}
-
+############ NEEDS TO ADD R56 GAME RULES SUPPORT #############################################
 # This specifically overrides the rule check as to whether or not you can guarantee other ideologies
 DIPLOMACY_GUARANTEE_ENABLE_TRIGGER_OVERRIDES_GAME = {
 	NOT = {
@@ -115,6 +115,14 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 				NOT = { has_dlc = "La Resistance" }
 				NOT = { original_tag = SPR }
 			}
+			OR = {
+				NOT = { has_dlc = "Death or Dishonor" }
+				AND = {
+					NOT = { original_tag = ROM }
+					NOT = { original_tag = YUG }
+				}
+			}
+			NOT = { original_tag = SOV }
 		}
 		always = yes
 	}
@@ -174,23 +182,6 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 				rule = allow_release_nations
 				option = FREE
 			}
-			AND = {
-				has_dlc = "Man the Guns"
-				original_tag = ENG
-				is_ai = no #AI can release Newfoundland
-			}
-		}
-		custom_trigger_tooltip = {
-			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_BRITAIN_TOOLTIP
-			NOT = { FROM = { tag = NFL } }
-		}
-	}
-	if = {
-		limit = {
-			has_game_rule = {
-				rule = allow_release_nations
-				option = FREE
-			}
 			has_dlc = "Death or Dishonor"
 			original_tag = YUG
 			NOT = { has_completed_focus = YUG_reunite_the_kingdom }
@@ -208,11 +199,18 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			NOT = { FROM = { tag = TRA } }
 		}
 	}
+
 	if = {
 		limit = {
-			has_game_rule = {
-				rule = allow_release_nations
-				option = FREE
+			OR = {
+				has_game_rule = {
+					rule = allow_release_nations
+					option = FREE
+				}
+				has_game_rule = {
+					rule = allow_release_nations
+					option = PEACE_ONLY
+				}
 			}
 			OR = {
 				original_tag = ROM
@@ -222,14 +220,107 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 		custom_trigger_tooltip = {
 			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_TRANSYLVANIA_TOOLTIP
 			NOT = { FROM = { tag = TRA } }
-			NOT = { FROM = { tag = SZK } } 
 		}
 	}
 	if = {
 		limit = {
-			has_game_rule = {
-				rule = allow_release_nations
-				option = FREE
+			OR = {
+				has_game_rule = {
+					rule = allow_release_nations
+					option = FREE
+				}
+				has_game_rule = {
+					rule = allow_release_nations
+					option = PEACE_ONLY
+				}
+			}
+			FROM = { tag = DNZ }
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_POLAND_DANZIG_TOOLTIP
+			NOT = { FROM = { tag = DNZ } }
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_game_rule = {
+					rule = allow_release_nations
+					option = FREE
+				}
+				has_game_rule = {
+					rule = allow_release_nations
+					option = PEACE_ONLY
+				}
+			}
+			OR = {
+				FROM = { original_tag = DON }
+				FROM = { original_tag = KUB }
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_COSSACK_TOOLTIP
+			NOT = {
+				FROM = { tag = DON }
+				FROM = { tag = KUB }
+			}
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_game_rule = {
+					rule = allow_release_nations
+					option = FREE
+				}
+				has_game_rule = {
+					rule = allow_release_nations
+					option = PEACE_ONLY
+				}
+			}
+			OR = {
+				original_tag = POL
+				original_tag = GER
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_POLAND_KASHUBIA_TOOLTIP
+			NOT = { FROM = { tag = KSH } }
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_game_rule = {
+					rule = allow_release_nations
+					option = FREE
+				}
+				has_game_rule = {
+					rule = allow_release_nations
+					option = PEACE_ONLY
+				}
+			}
+			OR = {
+				original_tag = POL
+				original_tag = GER
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_POLAND_SILESIA_TOOLTIP
+			NOT = { FROM = { tag = SIL } }
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_game_rule = {
+					rule = allow_release_nations
+					option = FREE
+				}
+				has_game_rule = {
+					rule = allow_release_nations
+					option = PEACE_ONLY
+				}
 			}
 			has_dlc = "Death or Dishonor"
 			original_tag = ITA
@@ -266,6 +357,19 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 		custom_trigger_tooltip = {
 			tooltip = RULE_ALLOW_RELEASE_NATIONS_ANARCHIST_SPAIN_TOOLTIP
 			NOT = { original_tag = SPR }
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = {
+				rule = allow_release_nations
+				option = FREE
+			}
+			original_tag = SOV
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_SOVIET_TOOLTIP
+			has_completed_focus = SOV_autonomous_soviet_republics
 		}
 	}
 	if = {
@@ -359,12 +463,28 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 		limit = {
 			has_game_rule = {
 				rule = allow_release_nations
+				option = PEACE_ONLY
+			}
+			original_tag = SOV
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_PEACE_ONLY_TOOLTIP
+			has_war = no
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_SOVIET_TOOLTIP
+			has_completed_focus = SOV_autonomous_soviet_republics
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = {
+				rule = allow_release_nations
 				option = FREE
 			}
 			has_dlc = "Battle for the Bosporus"
 			OR = { 
 				original_tag = TUR
-				original_tag = FRA
 				original_tag = SYR
 				original_tag = PER
 				original_tag = IRQ
@@ -387,6 +507,56 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			always = no
 		}
 	}
+	#Rt56 Add-ons
+	if = {
+		limit = {
+			original_tag = USA
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_CSA_TOOLTIP #US constitution has no exit clause
+			NOT = { FROM = { tag = CSA } }
+		}
+	}
+	if = {
+		limit = {
+			original_tag = CSA
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_CSA_TOOLTIP #LOL
+			NOT = { FROM = { tag = USA } }
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				original_tag = ROM
+				original_tag = HUN
+				original_tag = TRA
+				original_tag = SOV
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_SZK_TOOLTIP
+			NOT = { FROM = { tag = SZK } } 
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				original_tag = ROM
+				original_tag = SOV
+				original_tag = POL
+				original_tag = UKR
+				original_tag = HUN
+				original_tag = GER
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_RUT_TOOLTIP 
+			NOT = { FROM = { tag = RUT } }
+		}
+	}
+	#End Rt56 Ad-ons
 }
 DIPLOMACY_MILACC_ENABLE_TRIGGER = {
 	if = {
@@ -754,6 +924,42 @@ DIPLOMACY_GENERATE_WARGOAL_ENABLE_TRIGGER = {
 			always = no
 		}
 	}
+	if = {
+		limit = {
+			has_game_rule = {
+				rule = allow_wargoals
+				option = FOCUSES_ONLY_UNTIL_38
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_WARGOALS_FOCUSES_ONLY_38_DESC
+			date > 1938.1.1
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = {
+				rule = allow_wargoals
+				option = FOCUSES_ONLY_UNTIL_39
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_WARGOALS_FOCUSES_ONLY_39_DESC
+			date > 1939.1.1
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = {
+				rule = allow_wargoals
+				option = FOCUSES_ONLY_UNTIL_40
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_WARGOALS_FOCUSES_ONLY_40_DESC
+			date > 1940.1.1
+		}
+	}
 }
 DIPLOMACY_BOOST_PARTY_POPULARITY_ENABLE_TRIGGER = {
 	if = {
@@ -981,9 +1187,9 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 		else_if = { #Bulgarian volunteers in SCW (without La Resistance)
 			limit = {
 				has_dlc = "Battle for the Bosporus"
-				tag = BUL
-				FROM = { original_tag = SPR }
 				NOT = { has_dlc = "La Resistance" }
+				tag = BUL
+				FROM = { original_tag = SPR }	
 				any_country = {
 					original_tag = SPR
 					has_civil_war = yes
@@ -995,10 +1201,8 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 					AND = {
 						has_completed_focus = BUL_the_spanish_struggle
 						FROM = {
-							OR = {
-								NOT = { has_government = communism }
-								NOT = { has_government = democratic }
-							}
+							NOT = { has_government = communism }
+							NOT = { has_government = democratic }
 						}
 					}
 				}
@@ -1006,12 +1210,197 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 					AND = {
 						has_completed_focus = BUL_support_the_spanish_coup
 						FROM = {
-							OR = {
+							NOT = { has_government = fascism }
+							NOT = { has_government = neutrality }
+						}
+					}
+				}
+			}
+		}
+		else_if = { #Soviet volunteers to China (Communist Soviet -> Only to the supported China)
+			limit = {
+				original_tag = SOV
+				has_government = communism
+				FROM = { is_literally_china = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_SOVIET_CHINA_SUPPORT_CHOSEN_ONE_TT
+				OR = {
+					has_completed_focus = SOV_the_gobi_gambit
+					has_completed_focus = SOV_two_red_flags
+					has_completed_focus = SOV_support_the_kuomintang
+				}
+				NOT = {
+					AND = {
+						has_completed_focus = SOV_the_gobi_gambit
+						FROM = { NOT = { tag = SIK } }
+					}
+				}
+				NOT = {
+					AND = {
+						has_completed_focus = SOV_two_red_flags
+						FROM = { NOT = { tag = PRC } }
+					}
+				}
+				NOT = {
+					AND = {
+						has_completed_focus = SOV_support_the_kuomintang
+						FROM = { NOT = { tag = CHI } }
+					}
+				}
+			}
+		}
+		else_if = { #Soviet volunteers to China (other ideologies -> Only to one China)
+			limit = {
+				original_tag = SOV
+				NOT = { has_government = communism }
+				FROM = { is_literally_china = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_SOVIET_CHINA_ONLY_ONE_TT
+				NOT = {
+					any_other_country = {
+						is_literally_china = yes
+						NOT = { tag = FROM }
+						has_country_flag = SOV_russian_volunteers_in_china_flag
+					}
+				}
+			}
+		}
+		else_if = { #Soviet volunteers to Spain (Commie & Democr) (no POUM) (with No Step Back)
+			limit = {
+				has_dlc = "No Step Back"
+				original_tag = SOV
+				OR = {
+					has_government = communism
+					has_government = democratic
+				}
+				FROM = { original_tag = SPR }
+				OR = {
+					NOT = { has_completed_focus = SOV_covert_support_for_spanish_poum }
+					AND = {
+						has_completed_focus = SOV_covert_support_for_spanish_poum
+						NOT = { has_global_flag = SPR_anarchist_uprising_flag }
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_SOVIET_SCW_TT
+				NOT = {
+					OR = {
+						AND = {
+							has_dlc = "La Resistance"
+							FROM = { NOT = { tag = SPD } }
+						}
+						AND = {
+							NOT = { has_dlc = "La Resistance" }
+							FROM = {
+								NOT = { has_government = communism }
+								NOT = { has_government = democratic }
+							}
+						}
+					}
+				}
+			}
+		}
+		else_if = { #Soviet volunteers to Spain (Commie) (supporting POUM -> POUM split happened -> Stalin in charge) (with No Step Back)
+			limit = {
+				has_dlc = "No Step Back"
+				has_dlc = "La Resistance"
+				original_tag = SOV
+				has_government = communism
+				FROM = { original_tag = SPR }
+				has_completed_focus = SOV_covert_support_for_spanish_poum
+				NOT = { has_completed_focus = SOV_coup_detat }
+				has_global_flag = SPR_anarchist_uprising_flag
+				SPC = { has_completed_focus = SPR_the_anti_fascist_workers_revolution }
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_SOVIET_SCW_COVERT_POUM_TT
+				NOT = {
+					FROM = { NOT = { tag = SPD } }
+				}
+			}
+		}
+		else_if = { #Soviet volunteers to Spain (Commie) (supporting POUM -> POUM split happened -> Right Oppo in charge) (with No Step Back)
+			limit = {
+				has_dlc = "No Step Back"
+				has_dlc = "La Resistance"
+				original_tag = SOV
+				has_government = communism
+				FROM = { original_tag = SPR }
+				has_completed_focus = SOV_covert_support_for_spanish_poum
+				has_completed_focus = SOV_coup_detat
+				has_global_flag = SPR_anarchist_uprising_flag
+				SPC = { has_completed_focus = SPR_the_anti_fascist_workers_revolution }
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_SOVIET_SCW_POUM_TT
+				NOT = {
+					AND = {
+						country_exists = SPC
+						FROM = { NOT = { tag = SPC } }
+					}
+				}
+			}
+		}
+		else_if = { #Soviet volunteers to Spain (Commie & Democr) (without No Step Back)
+			limit = {
+				NOT = { has_dlc = "No Step Back" }
+				original_tag = SOV
+				OR = {
+					has_government = communism
+					has_government = democratic
+				}
+				FROM = { original_tag = SPR }
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_SOVIET_SCW_TT
+				NOT = {
+					OR = {
+						AND = {
+							has_dlc = "La Resistance"
+							FROM = { NOT = { tag = SPD } }
+						}
+						AND = {
+							NOT = { has_dlc = "La Resistance" }
+							FROM = {
+								NOT = { has_government = communism }
+								NOT = { has_government = democratic }
+							}
+						}
+					}
+						
+				}
+			}
+		}
+		else_if = { #Soviet volunteers to Spain (Exiles)
+			limit = {
+				original_tag = SOV
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
+				FROM = { original_tag = SPR }
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_SOVIET_EXILES_SCW_TT
+				NOT = {
+					OR = {
+						AND = {
+							has_dlc = "La Resistance"
+							FROM = { NOT = { tag = SPA } }
+							FROM = { NOT = { tag = SPB } }
+						}
+						AND = {
+							NOT = { has_dlc = "La Resistance" }
+							FROM = {
 								NOT = { has_government = fascism }
 								NOT = { has_government = neutrality }
 							}
 						}
 					}
+						
 				}
 			}
 		}

@@ -104,7 +104,10 @@ ideas = {
 						original_tag = HUN
 						has_dlc = "Death or Dishonor"
 					}
-					NOT = { has_idea = HUN_treaty_of_triannon }
+					OR = {
+						has_completed_focus = HUN_secret_rearmament
+						NOT = { has_idea = HUN_treaty_of_triannon }
+					}
 				}
 				if = {
 					limit = {
@@ -171,10 +174,7 @@ ideas = {
 						original_tag = HUN
 						has_dlc = "Death or Dishonor"
 					}
-					OR = {
-						has_completed_focus = HUN_secret_rearmament
-						NOT = { has_idea = HUN_treaty_of_triannon }
-					}
+					NOT = { has_idea = HUN_treaty_of_triannon }
 				}
 				if = {
 					limit = {
@@ -425,11 +425,126 @@ ideas = {
 			
 			cancel_if_invalid = no
 		}
+
+		new_economic_policy = {
+
+			picture = new_economic_policy
+			
+			allowed = {
+				always = no
+			}
+			allowed_to_remove = {
+				OR = {
+					surrender_progress > 0.75
+					NOT = { has_government = communism }				
+				}
+			}
+	
+			removal_cost = -1
+			
+			modifier = {
+				consumer_goods_factor = 0.15	
+				production_speed_buildings_factor = -0.15 
+				
+			}
+			
+			cancel_if_invalid = no
+			
+			ai_will_do = {
+   				factor = 0
+   			}
+		}
+		new_economic_policy_2 = {
+			name = new_economic_policy
+
+			picture = new_economic_policy
+			
+			allowed = {
+				always = no
+			}
+			allowed_to_remove = {
+				OR = {
+					surrender_progress > 0.75
+					NOT = { has_government = communism }				
+				}
+			}
+	
+			removal_cost = -1
+			
+			modifier = {
+				consumer_goods_factor = 0.10	
+				production_speed_buildings_factor = -0.2 
+				global_building_slots_factor = 0.1
+			}
+			
+			cancel_if_invalid = no
+			
+			ai_will_do = {
+   				factor = 0
+   			}
+		}
 	}
 	
 	trade_laws = { 
 		law = yes
 		use_list_view = yes
+
+		uncontrolled_exports = {
+
+
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			picture = isolation
+
+			modifier = {
+				min_export = 0.25
+				consumer_goods_factor = 0.05
+				civilian_intel_to_others = 40.0
+				navy_intel_to_others = 40.0
+				agency_upgrade_time = 0.15
+			}
+
+			allowed_to_remove = {
+				OR = {
+					has_war = yes
+					has_completed_focus = POL_integrate_gdansk_industries
+					has_completed_focus = POL_expand_gdynia_seaport
+					NOT = {
+						owns_state = 85
+						owns_state = 807
+					}
+					any_owned_state = {
+						NOT = {
+							state = 85
+							state = 807
+						}
+						is_coastal = yes
+					}
+				}
+			}
+
+			on_remove = {
+				if = {
+					limit = {
+						tag = POL
+						85 = { is_demilitarized_zone = no }
+						has_civil_war = no 
+					}
+					85 = {
+						if = {
+							limit = {
+								has_dynamic_modifier = { modifier = international_city }
+							}
+							remove_dynamic_modifier = { modifier = international_city }
+						}
+					}
+				}
+			}
+			
+			cancel_if_invalid = no
+		}		
 		
 		free_trade = {
 
@@ -654,13 +769,6 @@ ideas = {
 			
 			
 			available = {
-				if = {
-					limit = {
-						original_tag = HON
-						has_completed_focus = HON_free_our_markets
-					}
-					NOT = { has_idea = r56_idea_capitalism_anarchist_society  }
-				}
 				has_war = yes
 				OR = { 
 					has_government = fascism
@@ -670,11 +778,19 @@ ideas = {
 					has_idea = war_economy
 					has_idea = tot_economic_mobilisation
 				}
-				OR = {
-					NOT = {	tag = SOV }
+				if = {
+					limit = {
+						original_tag = HON
+						has_completed_focus = HON_free_our_markets
+					}
+					NOT = { has_idea = r56_idea_capitalism_anarchist_society  }
+				}
+				if = {
+					limit = {
+						original_tag = SOV
+					}
 					NOT = { has_opinion_modifier = MR_pact }
 				}
-
 				if = {
 					limit = {
 						original_tag = CHI

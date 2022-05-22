@@ -327,7 +327,7 @@ execute_peace_deal = {
 				var:giver = {
 					set_truce = {
 						target = PREV
-						days = 360
+						days = 720
 					}
 				}
 			}
@@ -340,7 +340,7 @@ execute_peace_deal = {
 				white_peace = PREV
 				set_truce = {
 					target = PREV
-					days = 360
+					days = 720
 				}
 			}
 		}
@@ -351,7 +351,15 @@ execute_peace_deal = {
 			leave_faction = yes
 			add_timed_idea = {
 				idea = conditional_surrender
-				days = 360
+				days = 720
+			}
+		}
+		else = {
+			every_other_country = {
+				limit = {
+					is_in_faction_with = var:giver
+				}
+				white_peace = var:taker
 			}
 		}
 	}

@@ -2145,18 +2145,33 @@ country_event = {
 			country_event = lar_spheres_of_influence.2
 		}
 		effect_tooltip = {
-			ROOT = {
-				add_state_claim = 8
+			ROOT = {#they
 				add_state_claim = 7
 				add_state_claim = 35
 				add_state_claim = 36
+				add_state_claim =  893
 				#add_to_faction = FROM
 			}
 			FROM = {
+				add_state_claim = 8
 				add_state_claim = 34
 				add_state_claim = 6
-				remove_state_claim = 42
-				remove_state_claim = 51
+				if = {
+					limit = {
+						42 = {
+							is_claimed_by = ROOT
+						}
+					}
+					remove_state_claim = 42
+				}
+				if = {
+					limit = {
+						51 = {
+							is_claimed_by = ROOT
+						}
+					}
+					remove_state_claim = 51
+				}
 			}
 		}
 	}
@@ -2182,16 +2197,11 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = lar_spheres_of_influence.2.a #agree
-		ai_chance = {
-			factor = 100
-		}
 		FROM = {
-			add_state_claim = 8
 			add_state_claim = 7
 			add_state_claim = 35
 			add_state_claim = 36
-			add_state_claim = 6
-			add_state_claim = 828
+			add_state_claim =  893
 			#add_to_faction = ROOT
 			diplomatic_relation = {
 				country = ROOT
@@ -2200,7 +2210,25 @@ country_event = {
 			}			
 		}
 		ROOT = {
+			add_state_claim = 8
 			add_state_claim = 34
+			add_state_claim = 6
+			if = {
+				limit = {
+					42 = {
+						is_claimed_by = ROOT
+					}
+				}
+				remove_state_claim = 42
+			}
+			if = {
+				limit = {
+					51 = {
+						is_claimed_by = ROOT
+					}
+				}
+				remove_state_claim = 51
+			}
 		}
 		set_global_flag = FRA_GER_sphere_of_influence_agreement
 		hidden_effect = {
@@ -2217,15 +2245,13 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = lar_spheres_of_influence.3.a #agree
-		ai_chance = {
-			factor = 80
-		}
 		add_state_claim = 34
 		add_state_claim = 6
 		add_state_claim = 8
 		add_state_claim = 7
 		add_state_claim = 35
 		add_state_claim = 36
+		add_state_claim =  893
 	}
 }
 
@@ -2367,8 +2393,8 @@ country_event = {
 			}
 			transfer_state = 34
 			GER = {
-				transfer_state = 828
-				add_state_core = 828
+				transfer_state = 893
+				add_state_core = 893
 			}						
 		}
 		if = {
@@ -2377,8 +2403,8 @@ country_event = {
 			}
 			transfer_state = 34
 			GER = {
-				transfer_state = 828
-				add_state_core = 828
+				transfer_state = 893
+				add_state_core = 893
 			}						
 		}
 		if = {
@@ -2424,8 +2450,8 @@ country_event = {
 		effect_tooltip = {
 			transfer_state = 34
 			GER = {
-				transfer_state = 828
-				add_state_core = 828
+				transfer_state = 893
+				add_state_core = 893
 				puppet = FLA
 			}	
 		}
@@ -4066,7 +4092,7 @@ country_event = {
 		}
 		VIC = { country_event = LaR_france_vichy_notification_events.3 }
 		FRA_transfer_central_africa_effect = yes
-		set_capital = 772
+		set_capital = { state = 772 }
 	}
 }
 # western africa remains with Vichy France
