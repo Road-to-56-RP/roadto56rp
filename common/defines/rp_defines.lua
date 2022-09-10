@@ -2,10 +2,8 @@ NDefines.NCountry.ARMY_COUNT_DAILY_DECREASE_FOR_TRAINING_XP = 0.05 -- number of 
 NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 20 --This much progress can be saved while not having a focus selected
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 45 --BASE_RESEARCH_POINTS_SAVED
 NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 6.0 --It always takes atleast 10 days to justify a wargoal
-
 NDefines.NDiplomacy.VOLUNTEERS_PER_COUNTRY_ARMY = 0.05 --Each province owned by the target country contributes this amount of volunteers to the limit.
 NDefines.NDiplomacy.VOLUNTEERS_PER_TARGET_PROVINCE = 0.025 --Each army unit owned by the source country contributes this amount of volunteers to the limit.
-
 NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 5 --VANILLA - 2.5
 NDefines.NAir.AIR_WING_ATTACK_LOGISTICS_NO_TRUCK_DISRUPTION_FACTOR = 0.02 -- If a unit isn't motorized, still disrupt its supply by damage * this
 NDefines.NAir.AIR_WING_ATTACK_LOGISTICS_TRUCK_DAMAGE_FACTOR = 0.15
@@ -52,7 +50,7 @@ NDefines.NAir.MISSION_FUEL_COSTS = {  -- fuel cost per plane for each mission
 		1.0, -- NAVAL_MINES_SWEEPING
 		1.0, -- MISSION_RECON
 	}
-	
+NDefines.NAir.AIR_WING_MAX_SIZE = 100 -- Max amount of airplanes in wing
 NDefines.NSupply.FLOATING_HARBOR_BASE_SUPPLY = 10.0
 NDefines.NSupply.FLOATING_HARBOR_BASE_DURATION = 14
 
