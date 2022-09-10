@@ -50,7 +50,12 @@ NDefines.NAir.MISSION_FUEL_COSTS = {  -- fuel cost per plane for each mission
 		1.0, -- NAVAL_MINES_SWEEPING
 		1.0, -- MISSION_RECON
 	}
+<<<<<<< Updated upstream
 NDefines.NAir.AIR_WING_MAX_SIZE = 100 -- Max amount of airplanes in wing
+=======
+NDefines.NAir.AIR_WING_MAX_SIZE	= 100 --Max amount of airplanes in wing
+
+>>>>>>> Stashed changes
 NDefines.NSupply.FLOATING_HARBOR_BASE_SUPPLY = 10.0
 NDefines.NSupply.FLOATING_HARBOR_BASE_DURATION = 14
 
