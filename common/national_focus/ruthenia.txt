@@ -465,7 +465,11 @@ focus_tree = {
                 bonus = 1.0
                 uses = 2
                 category = r56_special_forces_training_tech 
-            }				
+            }		
+			hidden_effect = {
+				set_country_flag = cite_an_airborne_unit_flag
+			}
+			unlock_decision_tooltip = { decision = cite_an_airborne_unit show_effect_tooltip = yes }					
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -520,6 +524,7 @@ focus_tree = {
 				technology = fighter3
 			}
 			random_owned_controlled_state = {
+				prioritize = { 996 }
 				limit = {
 					free_building_slots = {
 						building = air_base
@@ -565,10 +570,7 @@ focus_tree = {
 				name = fighter_bonus
 				bonus = 1
 				uses = 1
-				technology = early_bomber
-				technology = heavy_fighter1
-				technology = heavy_fighter2
-				technology = heavy_fighter3
+				category = cat_heavy_fighter
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -1175,9 +1177,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_tech_bonus = {
+			add_doctrine_cost_reduction = {
 				name = sub_op_bonus
-				bonus = 1
+				cost_reduction = 0.5
 				uses = 2
 				category = submarine_doctrine
 			}
@@ -1574,10 +1576,8 @@ focus_tree = {
         y = 3
 		prerequisite = { focus = RUT_transcarpathian_infrastructure }
         available = {
-			RUT ={
-				controls_state = 73
-			}
-			73 = { is_owned_by = RUT }
+			controls_state  = 996
+			owns_state = 996
         }		
         cost = 10
 		ai_will_do = {
@@ -1585,8 +1585,7 @@ focus_tree = {
 			}		
 		available_if_capitulated = yes
         completion_reward = {
-            73 = {
-				
+            996 = {
                 add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
@@ -1669,12 +1668,12 @@ focus_tree = {
 			}		
         available = {
 			RUT ={
-				controls_state = 73
+				controls_state = 996
 			}
         }		
         completion_reward = {
 
-            73 = {
+            996 = {
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = arms_factory
@@ -2333,8 +2332,11 @@ focus_tree = {
 			factor = 5
 		}
 		completion_reward = {
+            996 = {
+                add_extra_state_shared_building_slots = 2
+            }
             73 = {
-                add_extra_state_shared_building_slots = 3
+                add_extra_state_shared_building_slots = 1
             }
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -3324,15 +3326,27 @@ focus_tree = {
 				popularity = 0.25
 			}
 			set_party_name = { ideology = fascism long_name = RUT_oun_radicals_party_long name = RUT_oun_radicals_party }
-			create_country_leader = {
-				name = "Stepan Bandera"
-				desc = ""
-				picture = "gfx/leaders/RUT/r56_portrait_UKR_Stepan_Bandera.dds"
-				expire = "1953.3.1"
-				ideology = fascism_ideology
-				traits = {
+			if = {
+				limit = {
+					NOT = {
+						any_other_country = {
+							has_country_leader = {
+								character = UKR_stepan_bandera ruling_only = yes
+							}
+						}
+					}
+				}
+				create_country_leader = {
+					name = "Stepan Bandera"
+					desc = ""
+					picture = "gfx/leaders/RUT/r56_portrait_UKR_Stepan_Bandera.dds"
+					expire = "1953.3.1"
+					ideology = fascism_ideology
+					traits = {
+					}
 				}
 			}
+
 			add_ideas = RUT_idea_oun_militias
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
@@ -3700,6 +3714,8 @@ focus_tree = {
 			}
 			SOV = { add_state_core = 73 }
 			UKR = { add_state_core = 73 }
+			SOV = { add_state_core = 996 }
+			UKR = { add_state_core = 996 }
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
@@ -3742,6 +3758,8 @@ focus_tree = {
 			}
 			SOV = { add_state_core = 73 }
 			UKR = { add_state_core = 73 }
+			SOV = { add_state_core = 996 }
+			UKR = { add_state_core = 996 }
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}	

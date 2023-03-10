@@ -3,7 +3,7 @@ focus_tree = {
     country = {
         factor = 0
         modifier = {
-            add = 30
+            add = 1
             tag = AFG
         }
     }
@@ -11,7 +11,77 @@ focus_tree = {
 	shared_focus = GEN_Industrial_Start
     shared_focus = GEN_Industrial_Boom
     shared_focus = GEN_State_Matter
+    shared_focus = ABC_establish_a_general_staff
+    shared_focus = GEN_Aviation_Effort
+    shared_focus = GEN_Naval_Effort
 	continuous_focus_position = { x = 1800 y = 800 }
+
+    focus = {
+		id = AFG_treaty_of_saadabad # Ironic that the nation that did it historically is the only one who can't, eh?
+        text = TUR_treaty_of_saadabad
+		icon = GFX_focus_TUR_treaty_of_saadabad
+		x = 54
+		y = 0
+		cost = 5
+		ai_will_do = {
+			base = 10
+		}
+
+		bypass = {
+			OR = {
+				has_global_flag = TUR_saadabad_pact
+				NOT = {
+					any_other_country = {
+						capital_scope = {
+							is_on_continent = middle_east
+						}
+						exists = yes
+						is_subject = no
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+				}
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			every_other_country = {
+				limit = {
+					OR = {
+						AND = {
+							capital_scope = {
+								is_on_continent = middle_east
+							}
+							exists = yes
+							is_subject = no
+							NOT = {
+								has_war_with = ROOT
+							}
+						}
+					}
+					if = {
+						limit = {
+							OR = {
+								original_tag = SAU
+								original_tag = YEM
+								original_tag = OMA
+							}
+						}
+						ROOT = {
+							has_opinion = {
+								target = PREV
+								value > 49
+							}
+						}
+					}
+				}
+				country_event = { id = bftb_turkey.23 }
+			}
+			add_war_support = 0.05
+		}
+	}
 
 	focus = {
         id = AFG_national_army
@@ -19,7 +89,9 @@ focus_tree = {
         x = 24
         y = 0
         cost = 5
-
+        allow_branch = {
+            always = no # will probably remove since it's getting replaced by a bop anyway
+        }
         search_filters = {FOCUS_FILTER_POLITICAL}
         ai_will_do = {
             factor = 10
@@ -60,6 +132,7 @@ focus_tree = {
             }
             army_experience = 10
             add_doctrine_cost_reduction = {
+                name = AFG_continue_westernisation
                 uses = 1
                 cost_reduction = 0.5
                 category = land_doctrine
@@ -162,13 +235,13 @@ focus_tree = {
             }
             army_experience = 5
             add_tech_bonus = {
-				name = logistics_tech_bonus
+                name = AFG_modern_logistics
 				bonus = 1
 				uses = 1
 				category = logistics_tech
 			}
             add_tech_bonus = {
-				name = logistics_tech_bonus
+                name = AFG_modern_logistics
 				bonus = 1
 				uses = 1
 				category = hospital_tech
@@ -199,6 +272,7 @@ focus_tree = {
                 add_idea = AFG_tribal_based_military_kabul_military_institute
             }
             add_doctrine_cost_reduction = {
+                name = AFG_kabul_military_institute
                 uses = 1
                 cost_reduction = 0.5
                 category = land_doctrine
@@ -234,6 +308,7 @@ focus_tree = {
 				}
             }
             add_doctrine_cost_reduction = {
+                name = AFG_afghan_airforce
                 uses = 1
                 cost_reduction = 0.5
                 category = air_doctrine
@@ -374,6 +449,7 @@ focus_tree = {
             }
             army_experience = 20
             add_doctrine_cost_reduction = {
+                name = AFG_adpot_guerilla_tactics
                 uses = 2
                 cost_reduction = 0.5
                 category = land_doctrine
@@ -506,6 +582,7 @@ focus_tree = {
         completion_reward = {
             navy_experience = 25
             add_doctrine_cost_reduction = {
+                name = AFG_first_afghani_navy
                 uses = 2
                 cost_reduction = 0.5
                 category = naval_doctrine

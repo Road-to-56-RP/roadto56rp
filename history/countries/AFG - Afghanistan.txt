@@ -1,19 +1,6 @@
 capital = 267
 
-if = {
-	limit = {
-		NOT = {
-			has_dlc = "No Step Back"
-		}
-	}
-	set_oob = "AFG_1936"
-}
-if = {
-	limit = {
-		has_dlc = "No Step Back"
-	}
-	set_oob = "AFG_1936_nsb"
-}
+oob = "AFG_1936"
 
 set_technology = {
 
@@ -23,14 +10,22 @@ set_technology = {
 	r56_militia_tech = 1
 
 	infantry_weapons = 1
-	early_fighter = 1
 	tech_mountaineers = 1
 	camo = 1
 	sniper_rifle = 1
 }
-
-set_technology = {
-	infantry_weapons = 1
+if = {
+	limit = { has_dlc = "By Blood Alone" }
+		set_technology = {
+			iw_small_airframe = 1
+			engines_1 = 1
+			aa_lmg = 1
+		}
+	else = {
+		set_technology = {
+			early_fighter = 1
+		}
+	}
 }
 if = {
 	limit = {
@@ -58,9 +53,24 @@ set_research_slots = 3
 
 add_ideas = {
 	AFG_graveyard_of_empires
-	AFG_tribal_based_military
+	#AFG_tribal_based_military
 	limited_conscription
 	low_economic_mobilisation
+	limited_exports
+}
+
+set_power_balance = {
+	id = AFG_power_balance
+	set_default = yes
+}
+
+every_owned_state = {
+	limit = {
+		NOT = {
+			state = 267
+		}
+	}
+	set_state_flag = AFG_tribal_state_flag
 }
 
 # leaders
@@ -171,6 +181,7 @@ set_popularities = {
 	#planning_skill = 3
 	#logistics_skill = 3
 #}
+
 if = {
 	limit = {
 		has_dlc = "La Resistance"

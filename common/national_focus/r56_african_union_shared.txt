@@ -46,7 +46,7 @@
 
 	shared_focus = {
 		id = AFR_african_unification
-		icon = GFX_goal_morale_bonus
+		icon = GFX_focus_generic_africa_liberation
 		cost = 5
 		prerequisite = {
 
@@ -155,9 +155,9 @@
 			controls_state = 542
 			controls_state = 545
 			controls_state = 544
-			controls_state = 865
-			controls_state = 866
-			controls_state = 867
+			controls_state = 938
+			controls_state = 939
+			controls_state = 940
 		}
 			
 		bypass = {
@@ -194,9 +194,9 @@
 			542 = { add_core_of = ROOT }
 			545 = { add_core_of = ROOT }
 			544 = { add_core_of = ROOT }
-			865 = { add_core_of = ROOT }
-			866 = { add_core_of = ROOT }
-			867 = { add_core_of = ROOT }
+			938 = { add_core_of = ROOT }
+			939 = { add_core_of = ROOT }
+			940 = { add_core_of = ROOT }
 			hidden_effect = {
 				news_event = { id = wtt_news.63 hours = 6 }
 				set_global_flag = form_mutapa_flag
@@ -237,7 +237,10 @@
 			
 		}
 		available = {
-			has_idea = generic_recent_army_unification
+			NOT = {
+				has_idea = generic_recent_army_unification
+			}
+			
 		}		
 		relative_position_id = AFR_african_unification
 
@@ -409,9 +412,44 @@
 		}
 
 		completion_reward = {
-			add_stability = 0.15							
+			add_stability = 0.10						
 		}
 	}	
+	shared_focus = {
+		id = AFR_claim_a_fitting_title
+		icon = GFX_focus_ETH_the_african_union
+		cost = 10
+		prerequisite = {
+			focus = AFR_ethnic_collaboration
+		}
+		available = {
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+		relative_position_id = AFR_ethnic_collaboration
+		x = 2
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					has_government = fascism
+				}
+				add_country_leader_trait = father_of_the_empire
+			}		
+			if = {
+				limit = {
+					has_government = communism
+				}
+				add_country_leader_trait = stalin_great_commander
+			}					
+		}
+	}		
 	shared_focus = {
 		id = UNIFIED_africa_trans_african_railway
 		icon = GFX_goal_generic_construct_infrastructure

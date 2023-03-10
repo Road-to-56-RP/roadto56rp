@@ -1,24 +1,232 @@
 spheres_of_influence__under_influence = {
-	resist_outside_influence = {
+	strict_rules_against_delta = {
 		icon = decision_icon_resist_outside_influence
-		days_remove = 70
-		days_re_enable = 14
-		available = {
-			any_country = {
-				check_variable = { THIS.influence_level@ROOT > 1 }
+		days_remove = 30
+		days_re_enable = 15
+		target_trigger = {
+			FROM = {
+				check_variable = { FROM.influence_level@ROOT > 0.5 }
 			}
 		}
-		visible = {
-			always = yes
+
+		ai_will_do = {
+			base = -10
+			modifier = {
+				add = 10
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_LOW
+						}
+					}
+					check_variable = { FROM.influence_level@ROOT > 8.0 }
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_AVRG
+						}
+					}
+					check_variable = { FROM.influence_level@ROOT > 6.0 }
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_HIGH
+						}
+					}
+					check_variable = { FROM.influence_level@ROOT > 4.0 }
+				}
+			}
+			modifier = {
+				add = 5
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_LOW
+						}
+					}
+					OR = {
+						political_power_daily > 0.8
+						has_political_power > 60
+					}
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_AVRG
+						}
+					}
+					OR = {
+						political_power_daily > 0.6
+						has_political_power > 30
+					}
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_HIGH
+						}
+					}
+					OR = {
+						political_power_daily > 0.3
+						has_political_power > 15
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = soi_ai_influence_resistance
+					option = SOI_DEFAULT_RESIST
+				}
+			}
+		}
+
+		available = {
+			AND = {
+				custom_trigger_tooltip = {
+					tooltip = SOI_not_resisting_influence_delta
+					NOT = {
+						has_country_flag = ROOT.resisting_outside_influence@FROM
+					}
+				}
+			}
 		}
 		complete_effect = {
-			every_country = {
-				add_to_variable = { THIS.influence_level@ROOT = -0.05 }
-			}
-			set_country_flag = ROOT.resist_outside_influence
+			set_country_flag = ROOT.resisting_outside_influence@FROM
+			set_variable = { ROOT.country_actions@FROM = 2 }
+			custom_effect_tooltip = SOI_influence_lower_daily_tt
+		}
+		modifier = {
+			political_power_factor = -0.05
 		}
 		remove_effect = {
-			clr_country_flag = ROOT.resist_outside_influence
+			clr_country_flag = ROOT.resisting_outside_influence@FROM
+			set_variable = { ROOT.country_actions@FROM = 0 }
+		}
+	}
+	ban_country_delta = {
+		icon = decision_icon_resist_outside_influence
+		days_remove = 45
+		days_re_enable = 25
+		target_trigger = {
+			FROM = {
+				check_variable = { FROM.influence_level@ROOT > 0.5 }
+			}
+		}
+
+		ai_will_do = {
+			base = -10
+			modifier = {
+				add = 5
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_LOW
+						}
+					}
+					check_variable = { FROM.influence_level@ROOT > 8.5 }
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_AVRG
+						}
+					}
+					check_variable = { FROM.influence_level@ROOT > 7.0 }
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_HIGH
+						}
+					}
+					check_variable = { FROM.influence_level@ROOT > 6.0 }
+				}
+			}
+			modifier = {
+				add = 5
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_LOW
+						}
+					}
+					OR = {
+						political_power_daily > 1.0
+						has_political_power > 80
+					}
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_AVRG
+						}
+					}
+					OR = {
+						political_power_daily > 0.5
+						has_political_power > 50
+					}
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = soi_ai_influence_resistance
+							option = SOI_DO_RESIST_HIGH
+						}
+					}
+					OR = {
+						political_power_daily > 0.25
+						has_political_power > 25
+					}
+				}
+			}
+			modifier = {
+				add = 5
+				FROM = { NOT = { has_government = ROOT } }
+			}
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = soi_ai_influence_resistance
+					option = SOI_DEFAULT_RESIST
+				}
+			}
+		}
+
+		available = {
+			AND = {
+				custom_trigger_tooltip = {
+					tooltip = SOI_not_resisting_influence_delta
+					NOT = {
+						has_country_flag = ROOT.resisting_banned_country@FROM
+					}
+				}
+			}
+		}
+		complete_effect = {
+			set_country_flag = ROOT.resisting_banned_country@FROM
+			set_variable = { ROOT.country_actions@FROM = 1 }
+			custom_effect_tooltip = SOI_influence_lower_daily_by_010_tt
+		}
+		modifier = {
+			political_power_factor = -0.1
+		}
+		remove_effect = {
+			clr_country_flag = ROOT.resisting_banned_country@FROM
+			set_variable = { ROOT.country_actions@FROM = 0 }
 		}
 	}
 	go_with_delta = {
@@ -26,23 +234,31 @@ spheres_of_influence__under_influence = {
 		days_remove = 0
 		days_re_enable = 180
 		cost = 50
-		
 		target_trigger = {
 			FROM = {
-				check_variable = { FROM.influence_level@ROOT > 3.99 }
+				check_variable = { FROM.influence_level@ROOT > 8.99 }
 			}
 		}
 		
 		available = {
-			check_variable = { FROM.influence_level@ROOT > 3.99 }
+			check_variable = { FROM.influence_level@ROOT > 8.99 }
 		}
 		visible = {
 			always = yes
 		}
 		complete_effect = {
 			FROM = {
+				add_political_power = 75
 				puppet = ROOT
-				set_autonomy = { target = ROOT autonomy_state = autonomy_colony }
+				if = {
+					limit = {
+						has_dlc = "Together for Victory"
+					}
+					set_autonomy = { target = ROOT autonomy_state = autonomy_colony }
+				}
+				else = {
+					set_autonomy = { target = ROOT autonomy_state = autonomy_puppet }
+				}
 			}
 		}
 		remove_effect = {

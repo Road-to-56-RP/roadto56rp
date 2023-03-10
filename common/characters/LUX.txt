@@ -88,7 +88,9 @@ characters={
 				communist_revolutionary 
 			}
 			on_add = {
-				country_event = political.1
+				owner = {
+					country_event = political.1
+				}
 			}
 			do_effect  = {
 				not  = {
@@ -130,7 +132,9 @@ characters={
 			}
 			traits = { fascist_demagogue editor }
 			on_add = {
-				country_event = political.7
+				owner = {
+					country_event = political.7
+				}
 			}
 			do_effect  = {
 				not  = {
@@ -282,6 +286,9 @@ characters={
 			ideology=marxism
 			expire="1965.1.1"
 			id=-1
+			traits = {
+				feverous_marxist
+			}
 		}
 	}
 	LUX_pierre_dupong={
@@ -310,9 +317,6 @@ characters={
 				large="gfx/leaders/LUX/r56_portrait_LUX_Pierre_Dupong.dds"
 				small="GFX_idea_LUX_pierre_dupong"
 			}
-			army={
-				
-			}
 		}
 		#country_leader={
 		#	ideology=liberalism
@@ -339,7 +343,6 @@ characters={
 					factor = 1.000
 				}
 		}
-# TODO[ PORTRAIT LARGE ]: Missing large portrait please check!
 		name="Damien Roeser"
 		portraits={
 			army={
@@ -352,8 +355,6 @@ characters={
 
 	LUX_emile_speller={
 		advisor={
-			
-			
 			slot = army_chief
 			idea_token = LUX_emile_speller
 			allowed = {
@@ -367,16 +368,16 @@ characters={
 					factor = 1.000
 				}
 		}
-		name="LUX_emile_speller"
+		name="Emile Speller"
 		portraits={
 			army={
 				small="GFX_idea_LUX_emile_speller"
-				large="gfx/leaders/SWI/Portrait_SWI_Generic_land_3.dds"
+				large="gfx/leaders/SWI/Portrait_SWI_Generic_land_2.dds"
 				#"gfx/leaders/LUX/r56_portrait_LUX_Emile_Speller.dds"
 			}
 		}
 		field_marshal = {
-			traits = { trait_cautious infantry_officer }
+			traits = { trait_cautious caring_leader career_officer }
 			skill = 2
 			attack_skill = 1
 			defense_skill = 2
@@ -671,4 +672,33 @@ characters={
 			}
 		}
 	}
+	LUX_navy_chief={ #there might be a commander of the fluvial police to find, good luck finding his name though.
+		name="Admiral in Chief"
+			portraits={
+			army={
+				small="GFX_idea_generic_navy_europe_1"
+			}
+		}
+		advisor={
+			slot = navy_chief
+			idea_token = LUX_navy_chief
+			allowed = {
+				original_tag = LUX
+			}
+			traits = {
+				navy_chief_maneuver_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+				modifier = {
+					factor = 0
+					date < 1941.01.01
+					NOT = {
+						has_cosmetic_tag = UNL_UNIFIED
+					}
+				}			
+			}
+		}
+	}	
 }

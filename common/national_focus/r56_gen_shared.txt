@@ -965,20 +965,29 @@
 
 		available = {
 			num_of_controlled_states > 0
-			SOV = {
+			any_other_country = {
+				original_tag = SOV
 				exists = yes
-				has_capitulated = no
-				has_opinion = { target = ROOT value > 49 }
+				has_capitulated = no				
 				has_government = communism
-			}
+				is_faction_leader = yes
+				NOT = { has_war_with = ROOT }
+				has_opinion = { target = ROOT value > 49 }					
+			}			
 			has_government = communism
-			NOT = {
-				has_war_with = SOV
-			}
 		}
 
 		completion_reward = {
-			SOV = {
+			random_country = {
+				limit = {
+					original_tag = SOV
+					exists = yes
+					has_capitulated = no				
+					has_government = communism
+					is_faction_leader = yes
+					NOT = { has_war_with = ROOT }
+					has_opinion = { target = ROOT value > 49 }		
+				}
 				add_ai_strategy = {
 					type = support
 					id = ROOT
@@ -988,9 +997,9 @@
 					type = send_volunteers_desire
 					id = ROOT
 					value = 100
-				}
+				}				
 			}
-
+			add_opinion_modifier = { target = PREV modifier = gen_invited_soviet }
 			add_offsite_building = { type = industrial_complex level = 1 }
 
 			add_tech_bonus = {
@@ -1000,7 +1009,7 @@
 				category = industry
 			}
 
-			add_opinion_modifier = { target = SOV modifier = gen_invited_soviet }
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 	}
@@ -1026,12 +1035,16 @@
 
 		available = {
 			num_of_controlled_states > 0
-			SOV = {
+			any_other_country = {
+				original_tag = SOV
 				exists = yes
-				has_capitulated = no
-				has_opinion = { target = ROOT value > 49 }
+				has_capitulated = no				
 				has_government = communism
-			}
+				is_faction_leader = yes
+				NOT = { has_war_with = ROOT }
+				has_opinion = { target = ROOT value > 49 }					
+			}			
+			has_government = communism
 			OR = {
 				has_tech = concentrated_industry2
 				has_tech = dispersed_industry2
@@ -1099,42 +1112,42 @@
 							has_war_with = ROOT
 						}
 					}
-				if = {
-					limit = { BAY = { exists = yes } }
-					BAY = {
-						exists = yes
-						has_capitulated = no
-						has_opinion = { target = ROOT value > 49 }
-						has_government = ROOT
-						NOT = {
-							has_war_with = ROOT
+					if = {
+						limit = { BAY = { exists = yes } }
+						BAY = {
+							exists = yes
+							has_capitulated = no
+							has_opinion = { target = ROOT value > 49 }
+							has_government = ROOT
+							NOT = {
+								has_war_with = ROOT
+							}
 						}
 					}
-				}
-				if = {
-					limit = { PRE = { exists = yes } }
-					PRE = {
-						exists = yes
-						has_capitulated = no
-						has_opinion = { target = ROOT value > 49 }
-						has_government = ROOT
-						NOT = {
-							has_war_with = ROOT
+					if = {
+						limit = { PRE = { exists = yes } }
+						PRE = {
+							exists = yes
+							has_capitulated = no
+							has_opinion = { target = ROOT value > 49 }
+							has_government = ROOT
+							NOT = {
+								has_war_with = ROOT
+							}
 						}
 					}
-				}
-				if = {
-					limit = { WGR = { exists = yes } }
-					WGR = {
-						exists = yes
-						has_capitulated = no
-						has_opinion = { target = ROOT value > 49 }
-						has_government = ROOT
-						NOT = {
-							has_war_with = ROOT
+					if = {
+						limit = { WGR = { exists = yes } }
+						WGR = {
+							exists = yes
+							has_capitulated = no
+							has_opinion = { target = ROOT value > 49 }
+							has_government = ROOT
+							NOT = {
+								has_war_with = ROOT
+							}
 						}
 					}
-				}
 				}
 			OR = {
 				has_tech = concentrated_industry2
@@ -1360,17 +1373,17 @@
 				}
 			}
 
-			random_owned_controlled_state = {
-				limit = {
-					has_state_flag = GEN_Futher_Investments_3
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
+		#	random_owned_controlled_state = {
+		#		limit = {
+		#			has_state_flag = GEN_Futher_Investments_3
+		#		}
+		#		add_extra_state_shared_building_slots = 2
+		#		add_building_construction = {
+		#			type = industrial_complex
+		#			level = 1
+		#			instant_build = yes
+		#		}
+		#	}
 		}
 
 		completion_reward = {
@@ -1551,10 +1564,38 @@
 		x = 43
 		y = 0
 		offset = {
+			x = 16
+			y = 0
+			trigger = {
+				has_focus_tree = ukraine_focus
+			}
+		}
+		offset = {
+			x = -33
+			y = 0
+			trigger = {
+				has_focus_tree = monaco_focus
+			}
+		}
+		offset = {
+			x = -36
+			y = 0
+			trigger = {
+				has_focus_tree = liechtenstein_focus
+			}
+		}		
+		offset = {
 			x = 22
 			y = 0
 			trigger = {
 				tag = ALB
+			}
+		}
+		offset = {
+			x = -5
+			y = 0
+			trigger = {
+				tag = PRU
 			}
 		}
 		offset = {
@@ -1583,6 +1624,13 @@
 			y = 0
 			trigger = {
 				tag = IRE
+			}
+		}
+		offset = {
+			x = -10
+			y = 0
+			trigger = {
+				tag = MEX
 			}
 		}
 		cost = 10
@@ -1853,6 +1901,13 @@
 				has_focus_tree = r56_india
 			}
 		}
+		offset = {
+			x = 10
+			y = 0
+			trigger = {
+				has_focus_tree = ukraine_focus
+			}
+		}		
 		offset = { #remove when air for WLS done
 			x = 8
 			y = 0
@@ -1912,7 +1967,7 @@
 
 	shared_focus = {
 		id = GEN_Foreign_Design
-		icon = GFX_goal_generic_intelligence_exchange
+		icon = GFX_focus_generic_copy_plane_designs
 		prerequisite = { focus = GEN_Aviation_Effort }
 		mutually_exclusive = { focus = GEN_Own_Design }
 
@@ -1933,10 +1988,32 @@
 
 		available_if_capitulated = yes
 
+		ai_will_do = {
+			factor = 1
+			modifier = {		#Swiss DLC tree check
+				factor = 0.2
+				original_tag = SWI
+				has_dlc = "By Blood Alone"
+				NOT = {
+					has_global_flag = SWI_R56_focus_tree
+				}
+				SWI_someone_is_about_to_be_angry = yes 
+			}
+		}
+		
 		completion_reward = {
 			air_experience = 25
-			#add_to_tech_sharing_group = HUN_joint_air_development_group
 			add_to_tech_sharing_group = HUN_joint_air_development_group
+			if = {				#Swiss unique DLC tree effects here	- Fantom
+				limit = {
+					original_tag = SWI
+					has_dlc = "By Blood Alone"
+					NOT = {
+						has_global_flag = SWI_R56_focus_tree
+					}
+				}
+				SWI_add_suspicious_prep_opinion = yes
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -1977,6 +2054,19 @@
 					type = support
 					id = ROOT
 					value = 25
+				}
+				if = {			#Swiss DLC decision where they can buy planes from various countries
+					limit = {
+						ROOT = {
+							original_tag = SWI
+							has_dlc = "By Blood Alone"
+							NOT = {
+								has_global_flag = SWI_R56_focus_tree
+							}
+						}
+					}
+					custom_effect_tooltip = SWI_purchase_foreign_planes_unlock_TT
+					set_country_flag = SWI_can_buy_planes_from_them_flag
 				}
 			}
 
@@ -2045,6 +2135,19 @@
 					type = support
 					id = ROOT
 					value = 25
+				}
+				if = {			#Swiss DLC decision where they can buy planes from various countries
+					limit = {
+						ROOT = {
+							original_tag = SWI
+							has_dlc = "By Blood Alone"
+							NOT = {
+								has_global_flag = SWI_R56_focus_tree
+							}
+						}
+					}
+					custom_effect_tooltip = SWI_purchase_foreign_planes_unlock_TT
+					set_country_flag = SWI_can_buy_planes_from_them_flag
 				}
 			}
 
@@ -2115,6 +2218,19 @@
 					id = ROOT
 					value = 25
 				}
+				if = {			#Swiss DLC decision where they can buy planes from various countries
+					limit = {
+						ROOT = {
+							original_tag = SWI
+							has_dlc = "By Blood Alone"
+							NOT = {
+								has_global_flag = SWI_R56_focus_tree
+							}
+						}
+					}
+					custom_effect_tooltip = SWI_purchase_foreign_planes_unlock_TT
+					set_country_flag = SWI_can_buy_planes_from_them_flag
+				}
 			}
 
 			add_tech_bonus = {
@@ -2173,6 +2289,19 @@
 					type = support
 					id = ROOT
 					value = 25
+				}
+				if = {			#Swiss DLC decision where they can buy planes from various countries
+					limit = {
+						ROOT = {
+							original_tag = SWI
+							has_dlc = "By Blood Alone"
+							NOT = {
+								has_global_flag = SWI_R56_focus_tree
+							}
+						}
+					}
+					custom_effect_tooltip = SWI_purchase_foreign_planes_unlock_TT
+					set_country_flag = SWI_can_buy_planes_from_them_flag
 				}
 			}
 
@@ -2240,6 +2369,19 @@
 					type = support
 					id = ROOT
 					value = 25
+				}
+				if = {			#Swiss DLC decision where they can buy planes from various countries
+					limit = {
+						ROOT = {
+							original_tag = SWI
+							has_dlc = "By Blood Alone"
+							NOT = {
+								has_global_flag = SWI_R56_focus_tree
+							}
+						}
+					}
+					custom_effect_tooltip = SWI_purchase_foreign_planes_unlock_TT
+					set_country_flag = SWI_can_buy_planes_from_them_flag
 				}
 			}
 
@@ -2355,6 +2497,19 @@
 						id = ROOT
 						value = 25
 					}
+					if = {			#Swiss DLC decision where they can buy planes from various countries
+						limit = {
+							ROOT = {
+								original_tag = SWI
+								has_dlc = "By Blood Alone"
+								NOT = {
+									has_global_flag = SWI_R56_focus_tree
+								}
+							}
+						}
+						custom_effect_tooltip = SWI_purchase_foreign_planes_unlock_TT
+						set_country_flag = SWI_can_buy_planes_from_them_flag
+					}
 				}
 			}
 			if = {
@@ -2377,6 +2532,19 @@
 						value = 25
 					}
 				}
+				if = {			#Swiss DLC decision where they can buy planes from various countries
+					limit = {
+						ROOT = {
+							original_tag = SWI
+							has_dlc = "By Blood Alone"
+							NOT = {
+								has_global_flag = SWI_R56_focus_tree
+							}
+						}
+					}
+					custom_effect_tooltip = SWI_purchase_foreign_planes_unlock_TT
+					set_country_flag = SWI_can_buy_planes_from_them_flag
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2386,7 +2554,7 @@
 	shared_focus = {
 		id = GEN_Fighter_Competition
 		icon = GFX_goal_zero_blue
-		prerequisite = { focus = GEN_Aircraft_England focus = GEN_Aircraft_German focus = GEN_Aircraft_Soviet focus = GEN_Aircraft_Italian focus = GEN_Aircraft_japanese}
+		prerequisite = { focus = GEN_Aircraft_German focus = GEN_Aircraft_England focus = GEN_Aircraft_american focus = GEN_Aircraft_Soviet focus = GEN_Aircraft_Italian focus = GEN_Aircraft_japanese}
 		x = 1
 		y = 1
 		relative_position_id = GEN_Aircraft_american
@@ -2528,7 +2696,7 @@
 				}
 
 				add_equipment_to_stockpile = {
-					type = strat_bomber_equipment
+					type = large_plane_airframe
 					amount = 15
 					producer = SOV
 				}
@@ -2711,8 +2879,31 @@
 
 		available_if_capitulated = yes
 
+		ai_will_do = {
+			factor = 1
+			modifier = {		#Swiss DLC tree check
+				factor = 0.2
+				original_tag = SWI
+				has_dlc = "By Blood Alone"
+				NOT = {
+					has_global_flag = SWI_R56_focus_tree
+				}
+				SWI_someone_is_about_to_be_angry = yes 
+			}
+		}
+
 		completion_reward = {
 			add_ideas = HUN_indigenous_designs
+			if = {				#Swiss unique DLC tree effects here	- Fantom
+				limit = {
+					original_tag = SWI
+					has_dlc = "By Blood Alone"
+					NOT = {
+						has_global_flag = SWI_R56_focus_tree
+					}
+				}
+				SWI_add_suspicious_prep_opinion = yes
+			}
 		}
 	}
 
@@ -2830,6 +3021,13 @@
 				tag = ALB
 			}
 		}
+		offset = {
+			x = 36
+			y = 0
+			trigger = {
+				has_focus_tree = ukraine_focus
+			}
+		}		
 		offset = {
 			x = 36
 			y = 0
@@ -3074,10 +3272,6 @@
 
 		ai_will_do = {
 			factor = 1
-		}
-
-		available = {
-
 		}
 
 		bypass = {
@@ -3387,10 +3581,6 @@
 
 		available_if_capitulated = yes
 
-		available = {
-
-		}
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = nav_bomber_bonus
@@ -3584,6 +3774,13 @@
 			y = 0
 			trigger = {
 				has_focus_tree = israel_focus
+			}
+		}
+		offset = {
+			x = -33
+			y = 0
+			trigger = {
+				has_focus_tree = monaco_focus
 			}
 		}
 		ai_will_do = {
@@ -4147,22 +4344,18 @@
 
 			ROOT = {
 				every_neighbor_country = {
-					if = {
-						limit = {
-							ROOT = {
-								exists = yes
-								has_war = no
-							}
-							has_capitulated = no
-							is_major = no
-							NOT = {
-								is_in_faction_with = ROOT
-							}
+					limit = {
+						exists = yes
+						has_war = no
+						has_capitulated = no
+						is_major = no
+						NOT = {
+							is_in_faction_with = ROOT
 						}
-						news_event = {
-							hours = 8
-							id = r56.news_event.10
-						}
+					}
+					news_event = {
+						hours = 8
+						id = r56.news_event.10
 					}
 				}
 			}
@@ -4242,10 +4435,6 @@
 				is_historical_focus_on = no
 				factor = 3
 			}
-		}
-
-		available = {
-
 		}
 
 		completion_reward = {
@@ -4539,10 +4728,6 @@
 			}
 		}
 
-		available = {
-
-		}
-
 		completion_reward = {
 			add_political_power = 75
 			add_stability = 0.05
@@ -4595,10 +4780,6 @@
 				factor = 6
 				has_government = neutrality
 			}
-		}
-
-		available = {
-
 		}
 
 		completion_reward = {
@@ -4676,10 +4857,6 @@
 				is_puppet = no
 				tag = WGR
 			}
-		}
-
-		available = {
-
 		}
 
 		completion_reward = {
@@ -4893,10 +5070,6 @@
 
 		available_if_capitulated = yes
 
-		available = {
-
-		}
-
 		completion_reward = {
 			add_ideas = GEN_Brigades_I
 		}
@@ -4917,10 +5090,6 @@
 
 		available_if_capitulated = yes
 
-		available = {
-
-		}
-
 		completion_reward = {
 			add_ideas = GEN_Military_Build_I
 		}
@@ -4940,10 +5109,6 @@
 		cost = 10
 
 		available_if_capitulated = yes
-
-		available = {
-
-		}
 
 		completion_reward = {
 			add_ideas = GEN_Anti_Invasion_I

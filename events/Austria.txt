@@ -14,22 +14,44 @@
 		option = { 
 			name = austria.1111.a
 			ai_chance = { factor = 90 }
-			if = {
-				limit = {
-					is_faction_leader = yes
+			effect_tooltip = {
+				if = {
+					limit = { 
+						NOT = { has_dlc = "Together for Victory" }
+						NOT = { has_dlc = "Death or Dishonor" }
+					}
+					puppet = FROM
 				}
-				add_to_faction = AUS
-				effect_tooltip = {
+				if = {
+					limit = { 
+						has_dlc = "Together for Victory"
+						NOT = { has_dlc = "Death or Dishonor" } 
+					}
+					set_autonomy = { target = FROM autonomy_state = autonomy_dominion freedom_level = 0.75 }
+				}
+				if = {
+					limit = {
+						has_dlc = "Death or Dishonor" 
+					}
+					set_autonomy = { target = FROM autonomy_state = autonomy_satellite freedom_level = 0.75 }
+				}
+				FROM = {
 					if = {
 						limit = {
 							has_idea = AUS_austrian_neutrality
 						}
 						remove_ideas = AUS_austrian_neutrality
 					}
-					AUS = { add_ideas = AUS_german_overseers }
+					FROM = { add_ideas = AUS_nationalist_sentiment }
 				}
 			}
-			AUS = {
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				add_to_faction = FROM
+			}
+			FROM = {
 				country_event = { hours = 1 id = austria.1112 }
 			}
 		}
@@ -38,7 +60,7 @@
 		option = { 
 			name = austria.1111.b
 			ai_chance = { factor = 10 }
-			AUS = {
+			FROM = {
 				country_event = { hours = 1 id = austria.1113 }
 				effect_tooltip = {
 					add_ideas = AUS_austrian_resistance
@@ -62,13 +84,35 @@
 		
 		option = {
 			name = austria.1112.a
+			FROM = {
+				if = {
+					limit = { 
+						NOT = { has_dlc = "Together for Victory" }
+						NOT = { has_dlc = "Death or Dishonor" }
+					}
+					puppet = ROOT
+				}
+				if = {
+					limit = { 
+						has_dlc = "Together for Victory"
+						NOT = { has_dlc = "Death or Dishonor" } 
+					}
+					set_autonomy = { target = ROOT autonomy_state = autonomy_dominion freedom_level = 0.75 }
+				}
+				if = {
+					limit = {
+						has_dlc = "Death or Dishonor" 
+					}
+					set_autonomy = { target = ROOT autonomy_state = autonomy_satellite freedom_level = 0.75 }
+				}
+			}
 			if = {
 				limit = {
 					has_idea = AUS_austrian_neutrality
 				}
 				remove_ideas = AUS_austrian_neutrality
 			}
-			add_ideas = AUS_german_overseers
+			add_ideas = AUS_nationalist_sentiment
 		}
 	}
 	
@@ -595,11 +639,11 @@
 			
 			AUS = {
 				add_state_core = 102
-				add_state_core = 884
-				add_state_core = 885
+				add_state_core = 956
+				add_state_core = 853
 				transfer_state = 102
-				transfer_state = 884
-				transfer_state = 885
+				transfer_state = 956
+				transfer_state = 853
 				country_event = { id = austria.1126 days = 1 }
 			}
 		}
@@ -711,14 +755,14 @@
 				
 				transfer_state = 106
 				transfer_state = 802
-				transfer_state = 878
+				transfer_state = 950
 				transfer_state = 803
-				transfer_state = 881
+				transfer_state = 953
 				add_state_core = 106
 				add_state_core = 802
-				add_state_core = 878
+				add_state_core = 950
 				add_state_core = 803
-				add_state_core = 881
+				add_state_core = 953
 				
 				change_tag_from = YUG
 			}
@@ -750,11 +794,11 @@
 				if = {
 					limit = {
 						SER = {
-							controls_state = 880
+							controls_state = 952
 						}
 					}
-					transfer_state = 880
-					880 = {
+					transfer_state = 952
+					952 = {
 						add_core_of = AUS
 					}
 				}
@@ -773,11 +817,11 @@
 				if = {
 					limit = {
 						YUG = {
-							controls_state = 887
+							controls_state = 959
 						}
 					}
-					transfer_state = 887
-					887 = {
+					transfer_state = 959
+					959 = {
 						add_core_of = AUS
 					}
 				}
@@ -806,22 +850,22 @@
 				if = {
 					limit = {
 						YUG = {
-							controls_state = 889
+							controls_state = 961
 						}
 					}
-					transfer_state = 889
-					889 = {
+					transfer_state = 961
+					961 = {
 						add_core_of = AUS
 					}
 				}
 				if = {
 					limit = {
 						YUG = {
-							controls_state = 890
+							controls_state = 962
 						}
 					}
-					transfer_state = 890
-					890 = {
+					transfer_state = 962
+					962 = {
 						add_core_of = AUS
 					}
 				}
@@ -840,11 +884,11 @@
 				if = {
 					limit = {
 						YUG = {
-							controls_state = 886
+							controls_state = 958
 						}
 					}
-					transfer_state = 886
-					886 = {
+					transfer_state = 958
+					958 = {
 						add_core_of = AUS
 					}
 				}
@@ -927,8 +971,8 @@
 				has_war_with = YUG
 				controls_state = 45	#just making sure they control all those states first
 				controls_state = 109
-				controls_state = 886
-				controls_state = 889
+				controls_state = 958
+				controls_state = 961
 			}
 		}
 
@@ -961,32 +1005,32 @@
 			SER = {
 				transfer_state = 106
 				add_state_core = 106
-				transfer_state = 878
-				add_state_core = 878
+				transfer_state = 950
+				add_state_core = 950
 				change_tag_from = YUG
 			}
 			AUS = { 
 				transfer_state = 45 
 				transfer_state = 764 
-				transfer_state = 880
-				transfer_state = 887
+				transfer_state = 952
+				transfer_state = 959
 				transfer_state = 109
-				transfer_state = 886
+				transfer_state = 958
 				transfer_state = 103
-				transfer_state = 889
-				transfer_state = 890
+				transfer_state = 961
+				transfer_state = 962
 				transfer_state = 804
 				transfer_state = 104
 			}
 			45 = { add_core_of = AUS }
 			764 = { add_core_of = AUS }
-			880 = { add_core_of = AUS }
-			887 = { add_core_of = AUS }
+			952 = { add_core_of = AUS }
+			959 = { add_core_of = AUS }
 			109 = { add_core_of = AUS }
-			886 = { add_core_of = AUS }
+			958 = { add_core_of = AUS }
 			103 = { add_core_of = AUS }
-			889 = { add_core_of = AUS }
-			890 = { add_core_of = AUS }
+			961 = { add_core_of = AUS }
+			962 = { add_core_of = AUS }
 			804 = { add_core_of = AUS }
 			104 = { add_core_of = AUS }
 
@@ -1047,6 +1091,23 @@
 				
 					transfer_state = 664 
 					664 = {
+						add_core_of = AUS
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							SLO = { 
+								controls_state = 996
+								is_puppet_of = GER
+							} 
+							GER = { controls_state = 996 } 
+						}
+						
+					}
+				
+					transfer_state = 996 
+					996 = {
 						add_core_of = AUS
 					}
 				}
@@ -1282,8 +1343,8 @@
 				103 = {
 					set_compliance = 30
 				}
-				transfer_state = 886
-				886 = {
+				transfer_state = 958
+				958 = {
 					set_compliance = 30
 				}
 			}
@@ -2064,6 +2125,25 @@
 			name = austria.5000.a 
 			AI_chance = {
 				factor = 95
+				modifier = {	#"sorry pal, I like Germany no matter what on historical" (c) Mussolini, probably, maybe
+					is_historical_focus_on = yes
+					factor = 0
+				}
+			}
+			if = {
+				limit = {
+					has_completed_focus = AUS_propose_the_alps_defence_pact	#leads to Habsburg tree, hence stronger
+					ITA = {
+						has_completed_focus = ITA_foreign_affairs		#fascist or monarchist branch
+						NOT = {		#mutually exclusive
+							has_completed_focus = ITA_pact_of_steel
+							has_completed_focus = ITA_militarize_the_rome_protocols
+						}
+					}
+				}
+				ITA = {
+					complete_national_focus = ITA_guarantee_austrian_independence		#can intervene in Anschluss from now on
+				}
 			}
 			AUS = {
 				add_opinion_modifier = { target = ITA modifier = alps_defence_member }
@@ -2074,9 +2154,8 @@
 					producer = ITA
 				}
 			}
-			ITA = {
+			ITA = {	#removed guarantee, for this one is given via the focus above if conditions are met
 				add_opinion_modifier = { target = AUS modifier = alps_defence_member }
-				give_guarantee = AUS
 			}
 			news_event = r56.news_event.1115
 		}
@@ -2089,6 +2168,10 @@
 			
 			AUS = {
 				country_event = { id = austria.5001 days = 1 }
+				effect_tooltip = {
+					add_political_power = 120
+					add_war_support = 0.1
+				}
 			}
 		}
 	}
@@ -2105,6 +2188,8 @@
 		
 		option = {
 			name = austria.5001.a 
+			add_political_power = 120
+			add_war_support = 0.1
 		}
 		
 	}
@@ -2195,18 +2280,18 @@
 				transfer_state = 39
 				transfer_state = 736
 				#extra state
-				transfer_state = 837
-				transfer_state = 838
+				transfer_state = 852
+				transfer_state = 912
 				39 = {
 					add_core_of = AUS
 				}
 				736 = {
 					add_core_of = AUS
 				}
-				837 = {
+				852 = {
 					add_core_of = AUS
 				}
-				838 = {
+				912 = {
 					add_core_of = AUS
 				}								
 				country_event = { id = austria.5040 hours = 6 }
@@ -2246,7 +2331,7 @@
 		id = austria.5006
 		title = austria.5006.t
 		desc = austria.5006.d
-		picture = GFX_report_event_generic_sign_treaty1
+		picture = GFX_report_event_SWI_soldier_gathering
 		fire_only_once = yes
 		
 		is_triggered_only = yes
@@ -2257,10 +2342,10 @@
 				factor = 95
 			}
 			AUS = {
-				add_opinion_modifier = { target = SWI modifier = alps_defence_member }
-				give_guarantee = SWI
+				add_opinion_modifier = { target = ROOT modifier = alps_defence_member }
+				give_guarantee = ROOT
 			}
-			SWI = {
+			ROOT = {
 				add_opinion_modifier = { target = AUS modifier = alps_defence_member }
 				give_guarantee = AUS
 			}
@@ -2311,18 +2396,18 @@
 			AUS = {
 				transfer_state = 39
 				transfer_state = 736
-				transfer_state = 837
-				transfer_state = 838
+				transfer_state = 852
+				transfer_state = 912
 				39 = {
 					add_core_of = AUS
 				}
 				736 = {
 					add_core_of = AUS
 				}
-				837 = {
+				852 = {
 					add_core_of = AUS
 				}	
-				838 = {
+				912 = {
 					add_core_of = AUS
 				}				
 			}
@@ -2448,6 +2533,12 @@
 			664 = {
 				add_core_of = AUS
 			}
+			AUS = {
+				transfer_state = 996
+			}
+			996 = {
+				add_core_of = AUS
+			}
 		}
 		
 		option = {
@@ -2500,20 +2591,20 @@
 			}
 			if = {
 				limit = {
-					owns_state = 885
+					owns_state = 853
 				}
 				AUS = {
-					transfer_state = 885
-					add_state_core = 885
+					transfer_state = 853
+					add_state_core = 853
 				}
 			}
 			if = {
 				limit = {
-					owns_state = 884
+					owns_state = 956
 				}
 				AUS = {
-					transfer_state = 884
-					add_state_core = 884
+					transfer_state = 956
+					add_state_core = 956
 
 				}
 			}

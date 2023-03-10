@@ -534,6 +534,10 @@ focus_tree = {
                     division = "name = \"3. Red Riflemen\" division_template = \"Red Riflemen\" start_experience_factor = 0.5" 
                     owner = ROOT
                 }
+				create_unit = { 
+					division = "name = \"4. Red Riflemen\" division_template = \"Red Riflemen\" start_experience_factor = 0.5" 
+					owner = ROOT
+				}				
             #    create_unit = { 
             #        division = "name = \"4. Red Riflemen\" division_template = \"Red Riflemen\" start_experience_factor = 0.5" 
             #        owner = ROOT
@@ -577,7 +581,12 @@ focus_tree = {
 				create_intelligence_agency = yes
 				add_ideas = GER_abwehr_contacts
 			}
-			else = {
+			else_if = {
+				limit = {
+					NOT = {	
+						has_dlc = "La Resistance"
+					}			
+				}
 				add_tech_bonus = {
 					bonus = 1
 					uses = 1
@@ -591,13 +600,7 @@ focus_tree = {
 				category = military_police_tech
 			}	
 			remove_ideas = MLI_azawad_divide
-			add_political_power = -50
-			capital_scope = {
-				create_unit = { 
-					division = "name = \"4. Red Riflemen\" division_template = \"Red Riflemen\" start_experience_factor = 0.5" 
-					owner = ROOT
-				}
-			}										
+			add_political_power = -50									
 		}
 	}	
 	focus = {
@@ -917,31 +920,34 @@ focus_tree = {
 				}
 			}
 			else = {
-				if = {
+				every_other_country = {
 					limit = {
-						558 = {
-							OWNER = {
-								NOT = {
-									tag = ROOT
-								}
+						NOT = { is_in_faction_with = ROOT }
+						NOT = { is_subject_of = ROOT }
+						any_owned_state = {
+							OR = {
+								state = 558
+								state = 900
+								state = 902
+								state = 901
 							}
 						}
 					}
-					558 = {
-						OWNER = {
-							ROOT = {
-								create_wargoal = {
-									target = PREV
-									expire = 0
-									type = take_state_focus
-									generator = { 558 }
-								}
-								add_ai_strategy = {
-									type = conquer
-									id = PREV
-									value = 10
-								}
-							}
+					if = {
+						limit = {
+							has_non_aggression_pact_with = ROOT
+						}
+						diplomatic_relation = {
+							country = PREV
+							relation = non_aggression_pact
+							active = no
+						}
+					}
+					ROOT = {
+						create_wargoal = {
+							target = PREV
+							type = annex_everything
+							expire = 0
 						}
 					}
 				}

@@ -931,7 +931,7 @@ country_event = {
 				capital = 797
 				states = { 797 341 }
 				keep_unit_leaders = { 
-					901 
+					446 
 				}
 			}
 		}
@@ -959,7 +959,7 @@ country_event = {
 				capital = 797
 				states = { 797 341 339 354 }
 				keep_unit_leaders = { 
-					901 
+					446 
 				}
 			}
 		}
@@ -987,7 +987,7 @@ country_event = {
 				capital = 797
 				states = { 797 341 339 354 340 342 }
 				keep_unit_leaders = { 
-					901 
+					446 
 				}
 			}
 		}
@@ -1015,7 +1015,7 @@ country_event = {
 				capital = 797
 				states = { 797 341 339 354 340 342 343 346 }
 				keep_unit_leaders = { 
-					901 
+					446 
 				}
 			}
 		}
@@ -1043,7 +1043,7 @@ country_event = {
 				capital = 49
 				states = { 797 341 339 354 340 342 343 346 347 49 }
 				keep_unit_leaders = { 
-					901 
+					446 
 				}
 			}
 		}
@@ -1072,7 +1072,6 @@ country_event = {
 	picture = GFX_report_event_tur_the_saadabad_pact
 
 	is_triggered_only = yes
-	
 	option = {
 		name = bftb_turkey.23.a #we are stronger together!
 		ai_chance = {
@@ -1083,6 +1082,7 @@ country_event = {
 			}
 		}
 		add_political_power = 120
+		#Ignore Error log spam. Root broke it?
 		diplomatic_relation = {
 			country = TUR
 			relation = non_aggression_pact
@@ -1094,7 +1094,6 @@ country_event = {
 				id = FROM
 				value = 100
 			}
-			set_country_flag = TUR_saadabad_pact_member
 			if = {
 				limit = {
 					NOT = {
@@ -1103,6 +1102,7 @@ country_event = {
 				}
 				set_global_flag = TUR_saadabad_pact
 			}
+			set_country_flag = TUR_saadabad_pact_member
 			TUR = { 
 				country_event = { id = bftb_turkey.92 hours = 6 random = 8 }
 				add_ai_strategy = {
@@ -2081,8 +2081,8 @@ country_event = {
 				transfer_state = 455
 				transfer_state = 454
 				transfer_state = 453
-				transfer_state = 877
-				transfer_state = 894
+				transfer_state = 949
+				transfer_state = 966
 			}
 		}
 		hidden_effect = {
@@ -2114,8 +2114,8 @@ country_event = {
 		transfer_state = 455
 		transfer_state = 454
 		transfer_state = 453
-		transfer_state = 877
-		transfer_state = 894		
+		transfer_state = 949
+		transfer_state = 966		
 		custom_effect_tooltip = TUR_unlock_camelry_effect_tt
 		hidden_effect = { set_technology = { camelry = 1 } } 
 	}
@@ -2139,8 +2139,8 @@ country_event = {
 		add_state_claim = 455
 		add_state_claim = 454
 		add_state_claim = 453
-		add_state_claim = 877
-		add_state_claim = 894		
+		add_state_claim = 949
+		add_state_claim = 966		
 		add_stability = -0.15
 	}
 }
@@ -2161,6 +2161,7 @@ country_event = {
 				transfer_state = 656
 				transfer_state = 658
 				transfer_state = 765
+				transfer_state = 1007
 				transfer_state = 659
 			}
 		}
@@ -2193,6 +2194,7 @@ country_event = {
 		transfer_state = 656
 		transfer_state = 658
 		transfer_state = 765
+		transfer_state = 1007
 		transfer_state = 659
 		if = {
 			limit = {
@@ -3872,9 +3874,9 @@ country_event = {
 			}
 			if = {
 				limit = {
-					has_unit_leader = 905
+					has_unit_leader = 974
 				}
-				remove_unit_leader = 905
+				remove_unit_leader = 974
 			}
 			if = {
 				limit = {
@@ -5132,7 +5134,7 @@ country_event = {
 		FROM = {
 			add_ai_strategy = {
 				type = befriend
-				target = ROOT
+				id = ROOT
 				value = 10
 			}
 		}
@@ -5150,7 +5152,7 @@ country_event = {
 			}
 			add_ai_strategy = {
 				type = antagonize
-				target = ROOT
+				id = ROOT
 				value = 5
 			}
 		}
@@ -5199,7 +5201,7 @@ country_event = {
 		FROM = {
 			add_ai_strategy = {
 				type = befriend
-				target = ROOT
+				id = ROOT
 				value = 15
 			}
 		}
@@ -5217,7 +5219,7 @@ country_event = {
 			}
 			add_ai_strategy = {
 				type = antagonize
-				target = ROOT
+				id = ROOT
 				value = 10
 			}
 		}
@@ -5266,12 +5268,12 @@ country_event = {
 		FROM = {
 			add_ai_strategy = {
 				type = befriend
-				target = ROOT
+				id = ROOT
 				value = 50
 			}
 			add_ai_strategy = {
 				type = alliance
-				target = ROOT
+				id = ROOT
 				value = 30
 			}
 		}
@@ -5289,12 +5291,12 @@ country_event = {
 			}
 			add_ai_strategy = {
 				type = antagonize
-				target = ROOT
+				id = ROOT
 				value = 25
 			}
 			add_ai_strategy = {
 				type = conquer
-				target = ROOT
+				id = ROOT
 				value = 5
 			}
 		}
@@ -5939,5 +5941,42 @@ country_event = { #Guarantee request refused
 
 	option = {
 		name = bftb_turkey.146.a
+	}
+}
+
+country_event = { #Turkey thinks of how to deal with Greece in Mediterranean Entente
+	id = bftb_turkey.148
+	title = bftb_turkey.148.t
+	desc = bftb_turkey.148.d
+	picture = GFX_report_event_tur_military_affair
+	
+	is_triggered_only = yes
+
+	#They deserve nothing in the new world order.
+	option = {
+		name = bftb_turkey.148.a
+		if = { 
+			limit = { 
+				is_in_faction_with = ITA
+			}
+			ITA = { country_event = { id = bftb_turkey.66 hours = 6 } }
+		}
+		else = {
+			create_wargoal = {
+				target = GRE
+				type = annex_everything
+			}
+		}
+	}
+
+	#It is a token of a long friendship!
+	option = {
+		name = bftb_turkey.144.b 
+		ai_chance = {
+			factor = 20
+		}
+		GRE = { 
+			country_event = generic.5
+		}
 	}
 }

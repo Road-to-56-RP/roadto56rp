@@ -69,7 +69,6 @@ country_event = {
 			limit = {
 				561 = { 
 					is_owned_by = SOV 
-
 					any_neighbor_state = { 
 						OR = {
 							is_owned_by = JAP							
@@ -85,7 +84,6 @@ country_event = {
 				NOT = { 
 					561 = { 
 						is_owned_by = SOV 
-
 						any_neighbor_state = { 
 							OR = {
 								is_owned_by = JAP
@@ -126,7 +124,6 @@ country_event = {
 			limit = {
 				561 = { 
 					is_owned_by = SOV 
-
 					any_neighbor_state = { 
 						OR = {
 							is_owned_by = JAP
@@ -142,7 +139,6 @@ country_event = {
 				NOT = { 
 					561 = { 
 						is_owned_by = SOV 
-
 						any_neighbor_state = { 
 							OR = {
 								is_owned_by = JAP
@@ -234,7 +230,7 @@ country_event = {
 			}
 		}
 		hidden_effect = {
-			news_event = { id = news.10 days = 1 }
+		#	news_event = { id = news.10 days = 1 }
 		}
 	}
 }
@@ -253,7 +249,8 @@ country_event = {
 		ROOT = {
 			create_wargoal = {
 				target = FROM
-				type = take_state_focus
+				type = take_state
+				generator = { 78 }
 				expire = 0
 			}
 		}
@@ -2169,8 +2166,7 @@ country_event = {
 	
 	fire_only_once = yes
 
-	trigger = {
-		always = no
+	trigger = {	#why was it disabled? Huh?
 		tag = SOV
 		has_global_flag = sov_yes_pact
 		NOT = { #should avoid the soviets giving Poland to Germany after yalta when peace AI is wonky
@@ -2388,36 +2384,6 @@ country_event = {
 				}
 			}
 			GER = { transfer_state = 10 }
-		}
-		if = {
-			limit = {
-				70 = {
-					OR = {
-						is_controlled_by = SOV
-						any_other_country = {
-							controls_state = 70
-							is_in_faction_with = SOV
-							SOV = { is_faction_leader = yes }
-						}
-					}
-				}
-			}
-			GER = { transfer_state = 70 }
-		}
-		if = {
-			limit = {
-				664 = {
-					OR = {
-						is_controlled_by = SOV
-						any_other_country = {
-							controls_state = 664
-							is_in_faction_with = SOV
-							SOV = { is_faction_leader = yes }
-						}
-					}
-				}
-			}
-			GER = { transfer_state = 664 }
 		}
 		if = {
 			limit = {

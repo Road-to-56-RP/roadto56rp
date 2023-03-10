@@ -110,7 +110,6 @@ country_event = {
 				limit = { has_id = 900 }
 				set_nationality = INS	
 			}
-			set_country_flag = helfrich_transferred_indonesia
 			transfer_ship = {
 				prefer_name = "HrMs Java"
 				type = light_cruiser
@@ -132,14 +131,13 @@ country_event = {
 				target = INS
 			}
 		}
-		set_country_flag = helfrich_transferred_indonesia
-		if = { 
-			limit = { 
-				HOL = { has_idea = advisor_helfrich}
-			} 
-			add_ideas = krap 
-			else = { add_ideas = advisor_helfrich }
-		}
+		#if = { 
+			#limit = { 
+			#	HOL = { has_idea = advisor_helfrich} #wasnt available there even before NSB
+			#} 
+			# add_ideas = krap 
+			#else = { add_ideas = advisor_helfrich } #if you think it is desirable, use the new nationality change command, but this guy is pretty good, idk if the Dutch would like to lose him
+		#}
 	}
 }
 
@@ -236,27 +234,28 @@ country_event = {
 
 	option = { #cool
 		name = indonesia.9.a
-
-		HOL = {  
-			if = { 
-				limit = { has_dlc = "Together for Victory" } 
-					
-				set_autonomy = { target = INS autonomous_state = autonomy_colony }
-														}
-													}
-		INS = { if = { 
-					limit = {
-						has_dlc = "Together for Victory"
-						}
-					
-						add_autonomy_ratio = {
-							value = 0.5
-							localization = INS_limited_autonomy_reforms
-						}
-					}
-
+		if = {
+			limit = { has_dlc = "Together for Victory" }
+			if = {	#starts out like this from game start
+				limit = {
+					has_autonomy_state = autonomy_integrated_puppet
 				}
+				overlord = {
+					set_autonomy = {
+						target = INS
+						autonomous_state = autonomy_colony
+						freedom_level = 0.75
+					}
+				}
+			}
+			else = {	#in case autonomy is progressed or someone else puppets the east indies
+				add_autonomy_score = {
+					value = 1000
+					localization = INS_limited_autonomy_reforms
+				}
+			}
 		}
+	}
 }
 
 #indonesia democratic autonomy
@@ -339,7 +338,7 @@ country_event = {
 			ruling_party = democratic
 			ideology = neutrality
 			size = 0.4
-			states = { 334 909 910 673 906 669  738  } 
+			states = { 334 977 978 673 975 669  738  } 
 			}
 			set_cosmetic_tag = INS_democratic
 		}
@@ -443,7 +442,7 @@ country_event = {
 			ruling_party = communism
 			ideology = neutrality
 			size = 0.4
-			states = { 334 909 910 673 906 669 738  } 
+			states = { 334 977 978 673 975 669 738  } 
 		} 
 		set_cosmetic_tag = INS_communism	
 	}	
@@ -500,7 +499,7 @@ country_event = {
 			ruling_party = communism
 			ideology = neutrality
 			size = 0.4
-			states = { 334 909 910 673 906 669  738  } 
+			states = { 334 977 978 673 975 669  738  } 
 		} 
 			set_cosmetic_tag = INS_communism
 	}
@@ -614,7 +613,7 @@ country_event = {
 			ruling_party = fascism
 			ideology = neutrality
 			size = 0.4
-			states = { 334 909 910 673 906 669  738  } 
+			states = { 334 977 978 673 975 669  738  } 
 		} 
 		set_cosmetic_tag = INS_fascism
 	}	
@@ -671,7 +670,7 @@ country_event = {
 			ruling_party = fascism
 			ideology = neutrality
 			size = 0.4
-			states = { 334 909 910 673 906 669  738  } 
+			states = { 334 977 978 673 975 669  738  } 
 		} 
 		set_cosmetic_tag = INS_fascism
 	}
@@ -759,7 +758,7 @@ country_event = {
 			ruling_party = fascism
 			ideology = neutrality
 			size = 0.4
-			states = { 334 909 910 673 906 669  738  } 
+			states = { 334 977 978 673 975 669  738  } 
 		}
 		set_cosmetic_tag = INS_fascism
 			
@@ -776,7 +775,7 @@ country_event = {
 			ruling_party = communism
 			ideology = neutrality
 			size = 0.4
-			states = { 334 909 910 673 906 669  738  }
+			states = { 334 977 978 673 975 669  738  }
 		}
 		set_cosmetic_tag = INS_communism 
 	}
@@ -1212,7 +1211,7 @@ country_event = {
 		start_civil_war = {
 			ideology = neutrality
 			size = 0.4
-			states = { 334 909 910 673 906 669  738  } 
+			states = { 334 977 978 673 975 669  738  } 
 
 			}	
 	}

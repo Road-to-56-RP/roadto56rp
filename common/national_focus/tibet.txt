@@ -281,13 +281,9 @@ focus_tree = {
 				name = bomber_bonus
 				bonus = 1
 				uses = 1
-				technology = strategic_bomber1
-				technology = strategic_bomber2
-				technology = strategic_bomber3
+				category = heavy_air
 				category = tactical_bomber
-				technology = heavy_fighter1
-				technology = heavy_fighter2
-				technology = heavy_fighter3				
+				category = cat_heavy_fighter				
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -513,6 +509,20 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = deterrence		
+			if = {
+				limit = {
+					CHI = {
+						has_war_with = JAP
+					}
+					ROOT = {
+						NOT = {
+							is_in_faction_with = JAP
+							has_war_with = CHI
+						}
+					}
+				}
+				add_ideas = GEN_Intervene_I
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}	
@@ -537,10 +547,7 @@ focus_tree = {
 				}				
 			}
 		}
-
-		available = {
-			
-		}
+		
 		completion_reward = {
 			create_country_leader = {
 				name = "Ngawang Sungrab Thutob"
@@ -2313,9 +2320,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_tech_bonus = {
+			add_doctrine_cost_reduction = {
 				name = sub_op_bonus
-				bonus = 1
+				cost_reduction = 0.5
 				uses = 2
 				category = submarine_doctrine
 			}

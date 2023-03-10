@@ -1,0 +1,62 @@
+morevolunteers = { # decision was made off the more volunteers mod, this was more a test build so tweek as needed, also it doesn't have a localized text name, so displays in game with underscores as of 2:08 pm EST on 2022 11 20
+	morevolunteers_minor = {
+			icon = generic_propaganda
+	
+		visible = {
+			NOT = {
+				is_major = yes
+			}
+		}
+		# above check for basegame major check, major being 7 largest ecos or faction leader
+	
+		ai_will_do = {
+			factor = 0
+		}
+		complete_effect = {
+			set_country_flag = morevolunteers_1 # I don't beleive this flag hooks into anything and was a cut feature
+			set_rule = { can_send_volunteers = yes } #enables volunteers at all times, safeguarding form "trickle down effect
+		}
+	
+		modifier = { #changes used for minors, the idea being that even  tile statec can get envolved in combat in the early game
+			lend_lease_tension = -1
+			send_volunteers_tension = -1
+			send_volunteer_divisions_required = -1
+			send_volunteer_size = 3
+		}
+		fire_only_once = yes
+		days_remove = -1	
+	
+	}
+	morevolunteers_major = { #less powerful major version idea being majors ususally have access to volunteers, be it a focus always open or, like with the usa, a choice.
+		icon = generic_propaganda
+		visible = {
+			is_major = yes 
+		}
+		available = {
+			threat > 0.75 # tension check. logic being to force majors to wait till later in the game, or in an rp sence, using the globle situation to pass laws or acts allowing troops overseas.
+		}
+	
+		ai_will_do = {
+			factor = 0
+		}
+		
+		complete_effect = {
+			set_country_flag = morevolunteers_1
+			set_rule = { can_send_volunteers = yes }
+		}
+		
+		modifier = { #weaker but could be weaker still.
+			lend_lease_tension = -1
+			send_volunteers_tension = -1
+			send_volunteer_divisions_required = -0.5
+			send_volunteer_size = 1
+		}
+		fire_only_once = yes
+		days_remove = -1	
+	}
+}
+
+
+
+
+
