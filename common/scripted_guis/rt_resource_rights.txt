@@ -1,0 +1,635 @@
+scripted_gui = {
+
+	rt_button_topbar = {
+		context_type = player_context
+
+		window_name = "rt_topbar"
+
+		parent_window_token = top_bar
+
+		visible = {
+			
+			has_game_rule = {
+				rule = use_new_tool 
+				option = NO
+			}
+		}
+
+		effects = {
+			rt_button_topbar_click = {
+				ROOT = {
+					if = {
+						limit = { check_variable = { rt_status = 0 } }
+						set_variable = { rt_status = 1 }
+					}
+					else_if = {
+						limit = { check_variable = { rt_status = 1 } }
+						set_variable = { rt_status = 0 }
+					}
+					else = {
+						set_variable = { rt_status = 1 }
+					}
+				}
+			}
+		}
+		triggers = {
+			rt_button_topbar_click_enabled = {
+				always = yes
+			}
+		}
+	}
+
+	rt_menu = {
+		context_type = selected_state_context
+
+		window_name = "rt_menu_container"
+
+		visible = {
+			
+			ROOT = {
+				check_variable = { rt_status = 1 }
+			}
+		}
+		effects = {
+			add_rights_button_click = {
+				ROOT = {
+					set_country_flag = rt_waiting
+				}
+				if = {
+					limit = {
+						check_variable = { ROOT.swap_sides = 0}
+					}
+					
+					THIS.owner = {
+						country_event = rt.1
+					}
+					#resources adder
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.aluminium_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		give_resource_rights = {
+						#			receiver = ROOT
+						#			state = ROOT.state_lock_id
+						#			resources = { aluminium }
+						#		}
+						#	}
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.steel_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		give_resource_rights = {
+						#			receiver = ROOT
+						#			state = ROOT.state_lock_id
+						#			resources = { steel }
+						#		}
+						#	}
+						#	
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.oil_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		give_resource_rights = {
+						#			receiver = ROOT
+						#			state = ROOT.state_lock_id
+						#			resources = { oil }
+						#		}
+						#	}
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.chromium_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		give_resource_rights = {
+						#			receiver = ROOT
+						#			state = ROOT.state_lock_id
+						#			resources = { chromium }
+						#		}
+						#	}
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.rubber_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		give_resource_rights = {
+						#			receiver = ROOT
+						#			state = ROOT.state_lock_id
+						#			resources = { rubber }
+						#		}
+						#	}
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.tungsten_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		give_resource_rights = {
+						#			receiver = ROOT
+						#			state = ROOT.state_lock_id
+						#			resources = { tungsten }
+						#		}
+						#	}
+						#}
+				}
+				else_if = {
+					limit = {
+						check_variable = { ROOT.swap_sides = 1}
+					}
+					THIS.owner = {
+						country_event = rt.2
+					}
+					#res adder
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.aluminium_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		ROOT = {
+						#			give_resource_rights = {
+						#				receiver = PREV
+						#				state = ROOT.state_lock_id
+						#				resources = { aluminium }
+						#			}
+						#		}
+						#	}
+						#	
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.steel_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		ROOT = {
+						#			give_resource_rights = {
+						#				receiver = PREV
+						#				state = ROOT.state_lock_id
+						#				resources = { steel }
+						#			}
+						#		}
+						#	}
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.oil_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		ROOT = {
+						#			give_resource_rights = {
+						#				receiver = PREV
+						#				state = ROOT.state_lock_id
+						#				resources = { oil }
+						#			}
+						#		}
+						#	}
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.chromium_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		ROOT = {
+						#			give_resource_rights = {
+						#				receiver = PREV
+						#				state = ROOT.state_lock_id
+						#				resources = { chromium }
+						#			}
+						#		}
+						#	}
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.rubber_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		ROOT = {
+						#			give_resource_rights = {
+						#				receiver = PREV
+						#				state = ROOT.state_lock_id
+						#				resources = { rubber }
+						#			}
+						#		}
+						#	}
+						#}
+						#if = {
+						#	limit = {
+						#		check_variable = { ROOT.tungsten_selected = 2}
+						#	}
+						#	THIS.owner = {
+						#		ROOT = {
+						#			give_resource_rights = {
+						#				receiver = PREV
+						#				state = ROOT.state_lock_id
+						#				resources = { tungsten }
+						#			}
+						#		}
+						#	}
+						#	
+						#}
+				}
+			}
+			swap_sides_click = {
+				ROOT = {
+					#resources
+						set_variable = { aluminium_selected = 1 }
+						set_variable = { oil_selected = 1 }
+						set_variable = { rubber_selected = 1 }
+						set_variable = { steel_selected = 1 }
+						set_variable = { chromium_selected = 1 }
+						set_variable = { tungsten_selected = 1 }
+						
+						set_variable = { aluminium_ammount = 0 }
+						set_variable = { oil_ammount = 0 }
+						set_variable = { rubber_ammount = 0 }
+						set_variable = { steel_ammount = 0 }
+						set_variable = { chromium_ammount = 0 }
+						set_variable = { tungsten_ammount = 0 }
+
+						clear_array = resource_list
+
+					set_variable = { state_lock = 1 }
+					if = {
+						limit = { check_variable = { swap_sides = 0 } } 
+						set_variable = { swap_sides = 1 }
+					}
+					else_if = {
+						limit = { check_variable = { swap_sides = 1 } } 
+						set_variable = { swap_sides = 0 }
+					}
+					else = {
+						set_variable = { swap_sides = 1 } 
+					}	
+				}
+			}
+			state_lock_click = {
+				ROOT = {
+					#resources
+						set_variable = { aluminium_selected = 1 }
+						set_variable = { oil_selected = 1 }
+						set_variable = { rubber_selected = 1 }
+						set_variable = { steel_selected = 1 }
+						set_variable = { chromium_selected = 1 }
+						set_variable = { tungsten_selected = 1 }
+
+						set_variable = { aluminium_ammount = 0 }
+						set_variable = { oil_ammount = 0 }
+						set_variable = { rubber_ammount = 0 }
+						set_variable = { steel_ammount = 0 }
+						set_variable = { chromium_ammount = 0 }
+						set_variable = { tungsten_ammount = 0 }
+
+						clear_array = resource_list
+
+					if = {
+						limit = { check_variable = { state_lock = 1 } } 
+						set_variable = { state_lock = 2 }
+						set_variable = { state_lock_id = PREV }
+
+						set_variable = { aluminium_ammount = PREV.resource@aluminium }
+						set_variable = { oil_ammount = PREV.resource@oil }
+						set_variable = { rubber_ammount = PREV.resource@rubber }
+						set_variable = { steel_ammount = PREV.resource@steel }
+						set_variable = { chromium_ammount = PREV.resource@chromium }
+						set_variable = { tungsten_ammount = PREV.resource@tungsten }
+						
+					}
+					else_if = {
+						limit = { check_variable = { state_lock = 2 } }
+						set_variable = { state_lock = 1 }
+						clear_variable = state_lock_id
+					}
+					else = {
+						set_variable = { state_lock = 2 }
+						set_variable = { state_lock_id = PREV }
+
+						set_variable = { aluminium_ammount = PREV.resource@aluminium }
+						set_variable = { oil_ammount = PREV.resource@oil }
+						set_variable = { rubber_ammount = PREV.resource@rubber }
+						set_variable = { steel_ammount = PREV.resource@steel }
+						set_variable = { chromium_ammount = PREV.resource@chromium }
+						set_variable = { tungsten_ammount = PREV.resource@tungsten }
+					}	
+				}
+			}
+			#resources
+				resource_button_aluminium_click = {
+					ROOT = {
+						if = {
+							limit = { check_variable = { aluminium_selected = 1 } } 
+							set_variable = { aluminium_selected = 2 }
+							add_to_array = { resource_list = 2}
+						}
+						else_if = {
+							limit = { check_variable = { aluminium_selected = 2 } }
+							set_variable = { aluminium_selected = 1 }
+							remove_from_array = { resource_list = 2 }
+						}
+						else = {
+							set_variable = { aluminium_selected = 2 }
+							add_to_array = { resource_list = 2 }
+						}	
+					}
+				}
+				resource_button_oil_click = {
+					ROOT = {
+						if = {
+							limit = { check_variable = { oil_selected = 1 } } 
+							set_variable = { oil_selected = 2 }
+							add_to_array = { resource_list = 1 }
+						}
+						else_if = {
+							limit = { check_variable = { oil_selected = 2 } }
+							set_variable = { oil_selected = 1 }
+							remove_from_array = { resource_list = 1 }
+						}
+						else = {
+							set_variable = { oil_selected = 2 }
+							add_to_array = { resource_list = 1 }
+						}	
+					}
+				}
+				resource_button_steel_click = {
+					ROOT = {
+						if = {
+							limit = { check_variable = { ROOT.steel_selected = 1 } } 
+							set_variable = { ROOT.steel_selected = 2 }
+							add_to_array = { resource_list = 5 }
+						}
+						else_if = {
+							limit = { check_variable = { ROOT.steel_selected = 2 } }
+							set_variable = { ROOT.steel_selected = 1 }
+							remove_from_array = { resource_list = 5 }
+						}
+						else = {
+							set_variable = { ROOT.steel_selected = 2 }
+							add_to_array = { resource_list = 5 }
+						}	
+					}
+				}
+				resource_button_rubber_click = {
+					ROOT = {
+						if = {
+							limit = { check_variable = { rubber_selected = 1 } } 
+							set_variable = { rubber_selected = 2 }
+							add_to_array = { resource_list = 3}
+						}
+						else_if = {
+							limit = { check_variable = { rubber_selected = 2 } }
+							set_variable = { rubber_selected = 1 }
+							remove_from_array = { resource_list = 3 }
+						}
+						else = {
+							set_variable = { rubber_selected = 2 }
+							add_to_array = { resource_list = 3}
+						}	
+					}
+				}
+				resource_button_tungsten_click = {
+					ROOT = {
+						if = {
+							limit = { check_variable = { tungsten_selected = 1 } } 
+							set_variable = { tungsten_selected = 2 }
+							add_to_array = { resource_list = 4}
+						}
+						else_if = {
+							limit = { check_variable = { tungsten_selected = 2 } }
+							set_variable = { tungsten_selected = 1 }
+							remove_from_array = { resource_list = 4 }
+						}
+						else = {
+							set_variable = { tungsten_selected = 2 }
+							add_to_array = { resource_list = 4}
+						}	
+					}
+				}
+				resource_button_chromium_click = {
+					ROOT = {
+						if = {
+							limit = { check_variable = { ROOT.chromium_selected = 1 } } 
+							set_variable = { ROOT.chromium_selected = 2 }
+							add_to_array = { resource_list = 6}
+						}
+						else_if = {
+							limit = { check_variable = { ROOT.chromium_selected = 2 } }
+							set_variable = { ROOT.chromium_selected = 1 }
+							remove_from_array = { resource_list = 6 }
+						}
+						else = {
+							set_variable = { ROOT.chromium_selected = 2 }
+							add_to_array = { resource_list = 6}
+						}	
+					}
+				}
+
+		}
+		triggers = {
+			add_rights_button_click_enabled = {
+				NOT = {
+					ROOT = {
+						has_country_flag = rt_waiting
+					}
+				}
+				
+				OR ={
+					AND = {
+						NOT = {
+							check_variable = {
+								THIS.owner = ROOT
+							}
+						}
+						THIS.owner = {
+							owns_state = root.state_lock_id
+						}
+					}
+						NOT = {
+							check_variable = {
+								THIS.owner = ROOT
+							}
+							THIS.owner = {
+								owns_state = root.state_lock_id
+							}
+						}
+				}
+				
+				
+				
+				check_variable = {
+					ROOT.state_lock = 2
+				}
+				check_variable = {
+					ROOT.resource_list^num > 0
+				}
+			}
+			swap_sides_click_enabled = {
+				NOT = {
+					ROOT = {
+						has_country_flag = rt_waiting
+					}
+				}
+				always = yes
+			}
+			state_lock_click_enabled = {
+				NOT = {
+					ROOT = {
+						has_country_flag = rt_waiting
+					}
+				}
+				OR = {
+					AND = {
+						check_variable = {
+							THIS.owner = ROOT
+						}
+						check_variable = {
+							ROOT.swap_sides = 1
+						}
+					}
+					AND = {
+						NOT = {
+							check_variable = {
+								THIS.owner = ROOT
+							}
+						}
+						check_variable = {
+							ROOT.swap_sides = 0
+						}
+					}
+				}		
+			}
+			#resources
+				resource_button_aluminium_click_enabled = {
+					NOT = {
+						ROOT = {
+							has_country_flag = rt_waiting
+						}
+					}
+					check_variable = {
+						ROOT.state_lock = 2
+					}
+					check_variable = {
+						THIS = ROOT.state_lock_id
+					}
+					check_variable = {
+						THIS.resource@aluminium > 0
+					}
+				}
+				resource_button_oil_click_enabled = {
+					NOT = {
+						ROOT = {
+							has_country_flag = rt_waiting
+						}
+					}
+					check_variable = {
+						ROOT.state_lock = 2
+					}
+					check_variable = {
+						THIS = ROOT.state_lock_id
+					}
+					check_variable = {
+						THIS.resource@oil > 0
+					}
+				}
+				resource_button_steel_click_enabled = {
+					NOT = {
+						ROOT = {
+							has_country_flag = rt_waiting
+						}
+					}
+					check_variable = {
+						ROOT.state_lock = 2
+					}
+					check_variable = {
+						THIS = ROOT.state_lock_id
+					}
+					check_variable = {
+						THIS.resource@steel > 0
+					}
+				}
+				resource_button_rubber_click_enabled = {
+					NOT = {
+						ROOT = {
+							has_country_flag = rt_waiting
+						}
+					}
+					check_variable = {
+						ROOT.state_lock = 2
+					}
+					check_variable = {
+						THIS = ROOT.state_lock_id
+					}
+					check_variable = {
+						THIS.resource@rubber > 0
+					}
+				}
+				resource_button_tungsten_click_enabled = {
+					NOT = {
+						ROOT = {
+							has_country_flag = rt_waiting
+						}
+					}
+					check_variable = {
+						ROOT.state_lock = 2
+					}
+					check_variable = {
+						THIS = ROOT.state_lock_id
+					}
+					check_variable = {
+						THIS.resource@tungsten > 0
+					}
+				}
+				resource_button_chromium_click_enabled = {
+					NOT = {
+						ROOT = {
+							has_country_flag = rt_waiting
+						}
+					}
+					check_variable = {
+						ROOT.state_lock = 2
+					}
+					check_variable = {
+						THIS = ROOT.state_lock_id
+					}
+					check_variable = {
+						THIS.resource@chromium > 0
+					}
+				}
+		}
+		properties = {
+			#resources
+				resource_button_aluminium = {
+					frame = ROOT.aluminium_selected
+				}
+				resource_button_oil = {
+					frame = ROOT.oil_selected
+				}
+				resource_button_steel = {
+					frame = ROOT.steel_selected
+				}
+				resource_button_rubber = {
+					frame = ROOT.rubber_selected
+				}
+				resource_button_tungsten = {
+					frame = ROOT.tungsten_selected
+				}
+				resource_button_chromium = {
+					frame = ROOT.chromium_selected
+				}
+
+			state_lock = {
+				frame = ROOT.state_lock
+			}
+			TAG_1 = {
+				image = [receiver_img]
+			}
+			TAG_2 = {
+				image = [provider_img]
+			}
+		}
+	}
+	
+}
