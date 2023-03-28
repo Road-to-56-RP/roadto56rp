@@ -24,7 +24,7 @@ scripted_diplomatic_actions = {
 			}	
 		}
 
-		cost = 50
+		cost = 150
 
 		command_power = 15
 
@@ -60,7 +60,6 @@ scripted_diplomatic_actions = {
 					has_idea = subject_military_restrictions
 					exists = yes
 					is_subject_of = ROOT
-					is_ai=yes
 				}
 			}
 		}
@@ -101,4 +100,45 @@ scripted_diplomatic_actions = {
 			}
 		}
 	}
+    eda_puppet_independence = {
+        icon = 1
+        cost = 75
+        command_power = 15
+        requires_acceptance = no
+        show_acceptance_on_action_button = no
+        send_description = EDA_PUPPET_INDEPENDENCE_SEND_DESC
+
+        allowed = {
+			ROOT = { is_ai = no }
+		}
+
+		visible = {
+			PREV = {
+				AND = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+		}
+
+        can_be_sent = { always = yes }
+        complete_effect = {
+			ROOT = {
+				end_puppet = PREV
+			}
+            if = {
+				limit = {
+					has_idea = subject_military_restrictions
+				}
+				remove_ideas = subject_military_restrictions
+			}
+            if = {
+				limit = {
+					has_idea = cant_train_divisions
+				}
+				remove_ideas = cant_train_divisions
+				}
+			}
+		}
+    }
 }
