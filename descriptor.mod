@@ -10,9 +10,10 @@ tags={
 	"Utilities"
 	"Gameplay"
 }
+dependencies= { 
+	"The Road to 56" 
+}
 name="Road to 56 RP"
 picture="thumbnail.png"
-replace_path="history/states"
-replace_path="map/strategicregions"
 supported_version="1.12.*"
 remote_file_id="1875414471"
