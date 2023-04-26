@@ -38,15 +38,18 @@ equipments = {
 		manpower = 20
 		fuel_consumption = 0.05
 		build_cost_ic = 6
+		resources = {
+			aluminium = 2
+			rubber = 1
+		}
+		##Button upgrades
 		upgrades = {
 			r56rp_engine_upgrade_small
 			r56rp_armor_upgrade_small
 			r56rp_number_upgrade_small
 		}
-		resources = {
-			aluminium = 2
-			rubber = 1
-		}
+
+		##Module slots and what goes in them.
 
 		module_slots = {
 			fixed_main_weapon_slot = {
@@ -90,7 +93,32 @@ equipments = {
 					r56rp_plane_materials
 				}
 			}
+
+			special_type_slot_4 = {
+				required = no
+				allowed_module_categories = {
+					plane_special_module_small
+					plane_special_module_bomb_sights
+					plane_special_module_radio_navigation
+					plane_special_module_air_ground_radar
+					plane_special_module_air_air_radar
+					plane_special_module_defense_turret
+				}
+			}
+
 		}
+
+		##Default Modules placed in when you make a fresh design.
+		default_modules = {
+			fixed_main_weapon_slot = empty
+			fixed_auxiliary_weapon_slot_1 = empty
+			engine_type_slot = r56rp_engine_aircooled_1x
+			special_type_slot_1 = r56rp_wing_monoplane_straight
+			special_type_slot_2 = r56rp_material_aluminium_basic
+		}
+
+		##Module count limits.
+
 		module_count_limit = {
 			module = guided_anti_ship_missile
 			count < 2
@@ -133,7 +161,7 @@ equipments = {
 
 		module_count_limit = {
 			module = tank_buster_1
-			count < 3
+			count < 2
 		}
 
 		module_count_limit = {
@@ -181,16 +209,10 @@ equipments = {
 			count < 2
 		}
 
-		default_modules = {
-			fixed_main_weapon_slot = empty
-			fixed_auxiliary_weapon_slot_1 = empty
-			engine_type_slot = r56rp_engine_aircooled_1x
-			special_type_slot_1 = r56rp_wing_monoplane_straight
-			special_type_slot_2 = r56rp_material_aluminium_basic
-		}
 	}
 
-	small_plane_airframe_0 = { #Inter-War
+	##Inter-War Small Frame
+	small_plane_airframe_0 = { 
 		abbreviation = "afs0"
 		derived_variant_name = fighter_equipment_0
 		year = 1933
@@ -208,7 +230,8 @@ equipments = {
 		naval_strike_targetting = 1
 	}
 
-	small_plane_airframe_1 = { #Basic
+	##Basic Small Frame
+	small_plane_airframe_1 = { 
 		abbreviation = "afs1"
 		derived_variant_name = fighter_equipment_1
 		year = 1936
@@ -225,14 +248,27 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 7
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 3
 			rubber = 1
 		}
+
+		upgrades = {
+			r56rp_engine_upgrade_small
+			r56rp_armor_upgrade_small
+			r56rp_number_upgrade_small
+		}
+
+		default_modules = {
+			fixed_main_weapon_slot = empty
+			fixed_auxiliary_weapon_slot_1 = empty
+			engine_type_slot = r56rp_engine_aircooled_1x
+			special_type_slot_1 = r56rp_wing_monoplane_straight
+			special_type_slot_2 = r56rp_material_aluminium_basic
+		}
+
+		##Module slots and what goes in them.
+
 		module_slots = {
 			fixed_main_weapon_slot = {
 				required = yes
@@ -251,7 +287,6 @@ equipments = {
 					fighter_weapon
 					cas_weapon
 					nav_bomber_weapon
-					mine_warfare_offense
 					kamikaze_bomber_weapon
 				}
 			}
@@ -259,24 +294,25 @@ equipments = {
 			engine_type_slot = {
 				required = yes
 				allowed_module_categories = {
-					plane_engine_type
-					twin_plane_engine_type
-				}
+					r56rp_plane_engine_type
+					}
 			}
 
 			special_type_slot_1 = {
-				required = no
+				required = yes
 				allowed_module_categories = {
-					plane_special_module_small
-					plane_special_module_bomb_sights
-					plane_special_module_radio_navigation
-					plane_special_module_air_ground_radar
-					plane_special_module_air_air_radar
-					plane_special_module_defense_turret
+					r56rp_plane_wings
 				}
 			}
 
 			special_type_slot_2 = {
+				required = yes
+				allowed_module_categories = {
+					r56rp_plane_materials
+				}
+			}
+
+			special_type_slot_4 = {
 				required = no
 				allowed_module_categories = {
 					plane_special_module_small
@@ -287,9 +323,24 @@ equipments = {
 					plane_special_module_defense_turret
 				}
 			}
+
+			special_type_slot_5 = {
+				required = no
+				allowed_module_categories = {
+					plane_special_module_small
+					plane_special_module_bomb_sights
+					plane_special_module_radio_navigation
+					plane_special_module_air_ground_radar
+					plane_special_module_air_air_radar
+					plane_special_module_defense_turret
+				}
+			}
+
 		}
 	}
-	small_plane_airframe_2 = { #Improved
+
+	##Improved Small Airframe
+	small_plane_airframe_2 = { 
 		abbreviation = "afs2"
 		derived_variant_name = fighter_equipment_2
 		year = 1939
@@ -309,11 +360,15 @@ equipments = {
 		upgrades = {
 			r56rp_engine_upgrade_small
 			r56rp_armor_upgrade_small
+			r56rp_number_upgrade_small
 		}
 		resources = {
 			aluminium = 3
 			rubber = 1
 		}
+
+		##Module slots and what goes in them.
+
 		module_slots = {
 			fixed_main_weapon_slot = {
 				required = yes
@@ -351,27 +406,25 @@ equipments = {
 			engine_type_slot = {
 				required = yes
 				allowed_module_categories = {
-					plane_engine_type
-					twin_plane_engine_type
-					plane_jet_engine_type
-					twin_plane_jet_engine_type
-					plane_rocket_engine_type
-				}
+					r56rp_plane_engine_type
+					}
 			}
 
 			special_type_slot_1 = {
-				required = no
+				required = yes
 				allowed_module_categories = {
-					plane_special_module_small
-					plane_special_module_bomb_sights
-					plane_special_module_radio_navigation
-					plane_special_module_air_ground_radar
-					plane_special_module_air_air_radar
-					plane_special_module_defense_turret
+					r56rp_plane_wings
 				}
 			}
 
 			special_type_slot_2 = {
+				required = yes
+				allowed_module_categories = {
+					r56rp_plane_materials
+				}
+			}
+
+			special_type_slot_4 = {
 				required = no
 				allowed_module_categories = {
 					plane_special_module_small
@@ -383,7 +436,19 @@ equipments = {
 				}
 			}
 
-			special_type_slot_3 = {
+			special_type_slot_5 = {
+				required = no
+				allowed_module_categories = {
+					plane_special_module_small
+					plane_special_module_bomb_sights
+					plane_special_module_radio_navigation
+					plane_special_module_air_ground_radar
+					plane_special_module_air_air_radar
+					plane_special_module_defense_turret
+				}
+			}
+
+			special_type_slot_6 = {
 				required = no
 				allowed_module_categories = {
 					plane_special_module_small
@@ -397,7 +462,8 @@ equipments = {
 		}
 	}
 
-	small_plane_airframe_3 = { #Advanced
+	##Advanced Small Airframe
+	small_plane_airframe_3 = { 
 		abbreviation = "afs3"
 		derived_variant_name = fighter_equipment_3
 		year = 1942
@@ -422,7 +488,8 @@ equipments = {
 			aluminium = 4
 			rubber = 1
 		}
-		module_slots = {
+
+			module_slots = {
 			fixed_main_weapon_slot = {
 				required = yes
 				allowed_module_categories = {
@@ -456,38 +523,28 @@ equipments = {
 				}
 			}
 
-			fixed_auxiliary_weapon_slot_3 = { 
-				required = no
-				allowed_module_categories = {
-					recon_camera
-					cas_weapon
-				}
-			}
-
 			engine_type_slot = {
 				required = yes
 				allowed_module_categories = {
-					plane_engine_type
-					twin_plane_engine_type
-					plane_jet_engine_type
-					twin_plane_jet_engine_type
-					plane_rocket_engine_type
-				}
+					r56rp_plane_engine_type
+					}
 			}
 
 			special_type_slot_1 = {
-				required = no
+				required = yes
 				allowed_module_categories = {
-					plane_special_module_small
-					plane_special_module_bomb_sights
-					plane_special_module_radio_navigation
-					plane_special_module_air_ground_radar
-					plane_special_module_air_air_radar
-					plane_special_module_defense_turret
+					r56rp_plane_wings
 				}
 			}
 
 			special_type_slot_2 = {
+				required = yes
+				allowed_module_categories = {
+					r56rp_plane_materials
+				}
+			}
+
+			special_type_slot_4 = {
 				required = no
 				allowed_module_categories = {
 					plane_special_module_small
@@ -498,7 +555,32 @@ equipments = {
 					plane_special_module_defense_turret
 				}
 			}
-			special_type_slot_3 = {
+
+			special_type_slot_5 = {
+				required = no
+				allowed_module_categories = {
+					plane_special_module_small
+					plane_special_module_bomb_sights
+					plane_special_module_radio_navigation
+					plane_special_module_air_ground_radar
+					plane_special_module_air_air_radar
+					plane_special_module_defense_turret
+				}
+			}
+
+			special_type_slot_6 = {
+				required = no
+				allowed_module_categories = {
+					plane_special_module_small
+					plane_special_module_bomb_sights
+					plane_special_module_radio_navigation
+					plane_special_module_air_ground_radar
+					plane_special_module_air_air_radar
+					plane_special_module_defense_turret
+				}
+			}
+
+			special_type_slot_7 = {
 				required = no
 				allowed_module_categories = {
 					plane_special_module_small
@@ -512,9 +594,10 @@ equipments = {
 		}
 	}
 
-	small_plane_airframe_4 = { #modern
+	##Modern Small Airframe
+	small_plane_airframe_4 = { 
 		abbreviation = "afs4"
-		derived_variant_name = jet_fighter_equipment_1 # We should use "jet" for this or any of the ones below, but this is good enough for now.
+		derived_variant_name = jet_fighter_equipment_1 
 		year = 1945
 
 		archetype = small_plane_airframe
@@ -532,102 +615,15 @@ equipments = {
 		upgrades = {
 			r56rp_engine_upgrade_small
 			r56rp_armor_upgrade_small
+			r56rp_number_upgrade_small
 		}
 		resources = {
 			aluminium = 4
 			rubber = 1
 		}
-		module_slots = {
-			fixed_main_weapon_slot = {
-				required = yes
-				allowed_module_categories = {
-					fighter_weapon
-					cas_weapon
-					nav_bomber_weapon
-					kamikaze_bomber_weapon
-				}
-			}
-
-			fixed_auxiliary_weapon_slot_1 = { 
-				required = no
-				allowed_module_categories = {
-					recon_camera
-					fighter_weapon
-					cas_weapon
-					nav_bomber_weapon
-					mine_warfare_offense
-					kamikaze_bomber_weapon
-				}
-			}
-			fixed_auxiliary_weapon_slot_2 = { 
-				required = no
-				allowed_module_categories = {
-					recon_camera
-					fighter_weapon
-					cas_weapon
-					nav_bomber_weapon
-					mine_warfare_offense
-					kamikaze_bomber_weapon
-				}
-			}
-			fixed_auxiliary_weapon_slot_3 = { 
-				required = no
-				allowed_module_categories = {
-					recon_camera
-					fighter_weapon
-					cas_weapon
-					nav_bomber_weapon
-					mine_warfare_offense
-					kamikaze_bomber_weapon
-				}
-			}
-
-			engine_type_slot = {
-				required = yes
-				allowed_module_categories = {
-					plane_engine_type
-					twin_plane_engine_type
-					plane_jet_engine_type
-					twin_plane_jet_engine_type
-					plane_rocket_engine_type
-				}
-			}
-
-			special_type_slot_1 = {
-				required = no
-				allowed_module_categories = {
-					plane_special_module_small
-					plane_special_module_bomb_sights
-					plane_special_module_radio_navigation
-					plane_special_module_air_ground_radar
-					plane_special_module_air_air_radar
-					plane_special_module_defense_turret
-				}
-			}
-
-			special_type_slot_2 = {
-				required = no
-				allowed_module_categories = {
-					plane_special_module_small
-					plane_special_module_bomb_sights
-					plane_special_module_radio_navigation
-					plane_special_module_air_ground_radar
-					plane_special_module_air_air_radar
-					plane_special_module_defense_turret
-				}
-			}
-			special_type_slot_3 = {
-				required = no
-				allowed_module_categories = {
-					plane_special_module_small
-					plane_special_module_bomb_sights
-					plane_special_module_radio_navigation
-					plane_special_module_air_ground_radar
-					plane_special_module_air_air_radar
-					plane_special_module_defense_turret
-				}
-			}
-		}
+		
+		module_slots = inherit
+		
 	}
 
 	cv_small_plane_airframe = {
@@ -670,14 +666,19 @@ equipments = {
 		manpower = 20
 		fuel_consumption = 0.05
 		build_cost_ic = 8
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 2
 			rubber = 1
 		}
+
+		##Button upgrades
+		upgrades = {
+			r56rp_engine_upgrade_small
+			r56rp_armor_upgrade_small
+			r56rp_number_upgrade_small
+		}
+
+		##Module slots and what goes in them.
 
 		module_slots = {
 			fixed_main_weapon_slot = {
@@ -704,35 +705,48 @@ equipments = {
 			engine_type_slot = {
 				required = yes
 				allowed_module_categories = {
-					plane_engine_type
-					twin_plane_engine_type
-				}
+					r56rp_plane_engine_type
+					}
 			}
 
 			special_type_slot_1 = {
-				required = no
+				required = yes
 				allowed_module_categories = {
-					plane_special_module_small
-					plane_special_module_bomb_sights
-					plane_special_module_radio_navigation
-					plane_special_module_air_ground_radar
-					plane_special_module_air_air_radar
-					plane_special_module_defense_turret
+					r56rp_plane_wings
 				}
 			}
 
 			special_type_slot_2 = {
+				required = yes
+				allowed_module_categories = {
+					r56rp_plane_materials
+				}
+			}
+
+			special_type_slot_4 = {
 				required = no
 				allowed_module_categories = {
 					plane_special_module_small
-					plane_special_module_defense_turret
 					plane_special_module_bomb_sights
 					plane_special_module_radio_navigation
 					plane_special_module_air_ground_radar
 					plane_special_module_air_air_radar
+					plane_special_module_defense_turret
 				}
 			}
+
 		}
+
+		##Default Modules placed in when you make a fresh design.
+		default_modules = {
+			fixed_main_weapon_slot = empty
+			fixed_auxiliary_weapon_slot_1 = empty
+			engine_type_slot = r56rp_engine_aircooled_1x
+			special_type_slot_1 = r56rp_wing_monoplane_straight
+			special_type_slot_2 = r56rp_material_aluminium_basic
+		}
+
+		##Module count limits.
 
 		module_count_limit = {
 			module = guided_anti_ship_missile
@@ -765,13 +779,18 @@ equipments = {
 		}
 
 		module_count_limit = {
+			module = small_bomb_bay
+			count < 3
+		}
+
+		module_count_limit = {
 			module = torpedo_mounting
 			count < 2
 		}
 
 		module_count_limit = {
 			module = tank_buster_1
-			count < 3
+			count < 2
 		}
 
 		module_count_limit = {
@@ -780,13 +799,8 @@ equipments = {
 		}
 
 		module_count_limit = {
-			module = small_bomb_bay
-			count < 3
-		}
-
-		module_count_limit = {
-			module = floats #can't put floats on carrier planes, that would be silly
-			count < 1
+			module = floats
+			count < 2
 		}
 
 		module_count_limit = {
@@ -823,14 +837,6 @@ equipments = {
 			category = plane_special_module_defense_turret
 			count < 2
 		}
-
-		default_modules = {
-			fixed_main_weapon_slot = empty
-			fixed_auxiliary_weapon_slot_1 = empty
-			engine_type_slot = engine_1_1x
-			special_type_slot_1 = empty
-			special_type_slot_2 = empty
-		}
 	}
 
 	cv_small_plane_airframe_0 = { #Inter-War
@@ -849,6 +855,7 @@ equipments = {
 		weight = 5
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
+
 	}
 
 	cv_small_plane_airframe_1 = { #Basic
@@ -868,14 +875,28 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 10.5
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 3
 			rubber = 1
 		}
+
+		##Button upgrades
+		upgrades = {
+			r56rp_engine_upgrade_small
+			r56rp_armor_upgrade_small
+			r56rp_number_upgrade_small
+		}
+
+		default_modules = {
+			fixed_main_weapon_slot = empty
+			fixed_auxiliary_weapon_slot_1 = empty
+			engine_type_slot = r56rp_engine_aircooled_1x
+			special_type_slot_1 = r56rp_wing_monoplane_straight
+			special_type_slot_2 = r56rp_material_aluminium_basic
+		}
+
+		##Module slots and what goes in them.
+
 		module_slots = {
 			fixed_main_weapon_slot = {
 				required = yes
@@ -901,36 +922,51 @@ equipments = {
 			engine_type_slot = {
 				required = yes
 				allowed_module_categories = {
-					plane_engine_type
-					twin_plane_engine_type
-				}
+					r56rp_plane_engine_type
+					}
 			}
 
 			special_type_slot_1 = {
-				required = no
+				required = yes
 				allowed_module_categories = {
-					plane_special_module_small
-					plane_special_module_defense_turret
-					plane_special_module_bomb_sights
-					plane_special_module_radio_navigation
-					plane_special_module_air_ground_radar
-					plane_special_module_air_air_radar
+					r56rp_plane_wings
 				}
 			}
 
 			special_type_slot_2 = {
+				required = yes
+				allowed_module_categories = {
+					r56rp_plane_materials
+				}
+			}
+
+			special_type_slot_4 = {
 				required = no
 				allowed_module_categories = {
 					plane_special_module_small
-					plane_special_module_defense_turret
 					plane_special_module_bomb_sights
 					plane_special_module_radio_navigation
 					plane_special_module_air_ground_radar
 					plane_special_module_air_air_radar
+					plane_special_module_defense_turret
 				}
 			}
+
+			special_type_slot_5 = {
+				required = no
+				allowed_module_categories = {
+					plane_special_module_small
+					plane_special_module_bomb_sights
+					plane_special_module_radio_navigation
+					plane_special_module_air_ground_radar
+					plane_special_module_air_air_radar
+					plane_special_module_defense_turret
+				}
+			}
+
 		}
 	}
+
 	cv_small_plane_airframe_2 = { #Improved
 		abbreviation = "afc2"
 		derived_variant_name = cv_fighter_equipment_2
@@ -948,10 +984,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 11.5
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 3
 			rubber = 1
@@ -1055,10 +1087,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 13
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 4
 			rubber = 1
@@ -1168,10 +1196,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 16.5
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 4
 			rubber = 1
@@ -1303,10 +1327,6 @@ equipments = {
 		manpower = 40
 		fuel_consumption = 0
 		build_cost_ic = 8
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 2
 			rubber = 1
@@ -1547,10 +1567,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 10
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 3
 			rubber = 1
@@ -1678,10 +1694,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 12
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 4
 			rubber = 1
@@ -1825,10 +1837,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 15
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 5
 			rubber = 1
@@ -1984,10 +1992,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 16
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 5
 			rubber = 1
@@ -2160,10 +2164,6 @@ equipments = {
 		manpower = 80
 		fuel_consumption = 0.16
 		build_cost_ic = 18
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 3
 			rubber = 2
@@ -2394,10 +2394,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 20
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 3
 			rubber = 2
@@ -2533,10 +2529,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 22
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 4
 			rubber = 2
@@ -2697,10 +2689,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 24
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 5
 			rubber = 2
@@ -2861,10 +2849,6 @@ equipments = {
 		naval_strike_attack = 1
 		naval_strike_targetting = 1
 		build_cost_ic = 25
-		upgrades = {
-			r56rp_engine_upgrade_small
-			r56rp_armor_upgrade_small
-		}
 		resources = {
 			aluminium = 6
 			rubber = 2
