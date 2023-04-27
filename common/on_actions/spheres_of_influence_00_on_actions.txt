@@ -5,18 +5,17 @@ on_actions = {
 		effect = {
 		
 			every_country = {
-				set_variable = { ROOT.influence_power = 0.00 }
-				set_variable = { ROOT.influence_power_daily_gain = 0.00 }
+				set_variable = { THIS.influence_power = 0.00 }
+				set_variable = { THIS.influence_power_daily_gain = 0.00 }
 				
-				set_variable = { var = ROOT.AI_check_months value = 0 }
-				set_variable = { var = ROOT.AI_check_months_time value = 1 }
-				set_variable = { var = ROOT.AI_check_priority value = 0 }
-				set_variable = { var = ROOT.check_decision_days value = 0 }
+				set_variable = { var = THIS.AI_check_months value = 0 }
+				set_variable = { var = THIS.AI_check_months_time value = 1 }
+				set_variable = { var = THIS.AI_check_priority value = 0 }
+				set_variable = { var = THIS.check_decision_days value = 0 }
 			}
 			
 			#Only [value] countries per month will be able to start influence
 			set_variable = { var = global.AI_request_per_month_limit value = 15 }
-		
 		}
 
 	}
@@ -65,12 +64,20 @@ on_actions = {
 				}
 			}
 			every_country = {
-				limit = {
-					FROM = { has_country_flag = FROM.influence_tabbed_@THIS }
-					has_country_flag = THIS.influence_tab_open_flag
+				if = {
+					limit = {
+						FROM = { has_country_flag = FROM.influence_tabbed_@THIS }
+						has_country_flag = THIS.influence_tab_open_flag
+					}
+					FROM = { clr_country_flag = FROM.influence_tabbed_@THIS }
+					THIS = { clr_country_flag = THIS.influence_tab_open_flag }
 				}
-				FROM = { clr_country_flag = FROM.influence_tabbed_@THIS }
-				THIS = { clr_country_flag = THIS.influence_tab_open_flag }
+				if = {
+					limit = {
+						FROM = { has_country_flag = under_influence_of_@THIS }
+					}
+					FROM = { clr_country_flag = FROM.under_influence_of_@THIS }
+				}
 			}
 		
 		}
@@ -81,12 +88,346 @@ on_actions = {
 	
 		effect = {
 		
-			#AI Improvement Update (v1.6.1)
-			if = {
-				limit = {
+			#Proportional Influence Update (1.6.2)
+			every_country = {
+				if = {
+					limit = {
+						check_variable = { THIS.influence_level@ROOT > 0.5 }
+					}
+					
+					# DO NOT CHANGE THOSE VARIABLE, ALL OF THEM ARE MATHEMATICALLY DEPENDEND ON EACH OTHER
+					# and, well, caus changing something might break something else. I dont know, im not
+					# testing it for the case when someone wants to change something xd
+					
+					ROOT = {
+						set_variable = { ROOT.avg_influence_resist_1_@PREV = 6.0 } #60% from PREV avg_2 AVRG
+						set_variable = { ROOT.avg_influence_resist_2_@PREV = 7.0 } #70% from PREV avg_2 AVRG
+						
+						set_variable = { ROOT.takeover_avg_@PREV = PREV.avg_influence_2_@ROOT }
+						
+						if = {
+							limit = {
+								has_game_rule = {
+									rule = soi_proportional_influence_req
+									option = SOI_ENABLED_REQ
+								}
+							}
+							#LOW
+							if = {
+								limit = {
+									has_game_rule = {
+										rule = soi_ai_influence_resistance
+										option = SOI_DO_RESIST_LOW
+									}
+								}
+								set_variable = { ROOT.avg_influence_resist_1_@PREV = ROOT.takeover_avg_@PREV } #80% from PREV avg_2
+								divide_variable = { ROOT.avg_influence_resist_1_@PREV = 100 }
+								multiply_variable = { ROOT.avg_influence_resist_1_@PREV = 80 }
+								
+								set_variable = { ROOT.avg_influence_resist_2_@PREV = ROOT.takeover_avg_@PREV } #85% from PREV avg_2
+								divide_variable = { ROOT.avg_influence_resist_2_@PREV = 100 }
+								multiply_variable = { ROOT.avg_influence_resist_2_@PREV = 85 }
+								
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_1_@PREV < 5.3 }
+									}
+									set_variable = { ROOT.avg_influence_resist_1_@PREV = 5.3 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_1_@PREV > 16.0 }
+									}
+									set_variable = { ROOT.avg_influence_resist_1_@PREV = 16.0 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_2_@PREV < 5.6 }
+									}
+									set_variable = { ROOT.avg_influence_resist_2_@PREV = 5.6 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_2_@PREV > 17.0 }
+									}
+									set_variable = { ROOT.avg_influence_resist_2_@PREV = 17.0 }
+								}
+							}
+							#AVRG
+							if = {
+								limit = {
+									has_game_rule = {
+										rule = soi_ai_influence_resistance
+										option = SOI_DO_RESIST_AVRG
+									}
+								}
+								set_variable = { ROOT.avg_influence_resist_1_@PREV = ROOT.takeover_avg_@PREV } #60% from PREV avg_2
+								divide_variable = { ROOT.avg_influence_resist_1_@PREV = 100 }
+								multiply_variable = { ROOT.avg_influence_resist_1_@PREV = 60 }
+								
+								set_variable = { ROOT.avg_influence_resist_2_@PREV = ROOT.takeover_avg_@PREV } #70% from PREV avg_2
+								divide_variable = { ROOT.avg_influence_resist_2_@PREV = 100 }
+								multiply_variable = { ROOT.avg_influence_resist_2_@PREV = 70 }
+								
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_1_@PREV < 4.0 }
+									}
+									set_variable = { ROOT.avg_influence_resist_1_@PREV = 4.0 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_1_@PREV > 12.0 }
+									}
+									set_variable = { ROOT.avg_influence_resist_1_@PREV = 12.0 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_2_@PREV < 4.6 }
+									}
+									set_variable = { ROOT.avg_influence_resist_2_@PREV = 4.6 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_2_@PREV > 14.0 }
+									}
+									set_variable = { ROOT.avg_influence_resist_2_@PREV = 14.0 }
+								}
+							}
+							#HIGH
+							if = {
+								limit = {
+									has_game_rule = {
+										rule = soi_ai_influence_resistance
+										option = SOI_DO_RESIST_HIGH
+									}
+								}
+								set_variable = { ROOT.avg_influence_resist_1_@PREV = ROOT.takeover_avg_@PREV } #40% from PREV avg_2
+								divide_variable = { ROOT.avg_influence_resist_1_@PREV = 100 }
+								multiply_variable = { ROOT.avg_influence_resist_1_@PREV = 40 }
+								
+								set_variable = { ROOT.avg_influence_resist_2_@PREV = ROOT.takeover_avg_@PREV } #60% from PREV avg_2
+								divide_variable = { ROOT.avg_influence_resist_2_@PREV = 100 }
+								multiply_variable = { ROOT.avg_influence_resist_2_@PREV = 60 }
+								
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_1_@PREV < 2.7 }
+									}
+									set_variable = { ROOT.avg_influence_resist_1_@PREV = 2.7 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_1_@PREV > 8.0 }
+									}
+									set_variable = { ROOT.avg_influence_resist_1_@PREV = 8.0 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_2_@PREV < 4.0 }
+									}
+									set_variable = { ROOT.avg_influence_resist_2_@PREV = 4.0 }
+								}
+								if = {
+									limit = {
+										check_variable = { ROOT.avg_influence_resist_2_@PREV > 12.0 }
+									}
+									set_variable = { ROOT.avg_influence_resist_2_@PREV = 12.0 }
+								}
+							}
+						}
+						
+						#a = avg_2 / 100 * p
+					}
 					
 				}
+				if = {
+					limit = {
+						exists = yes
+						has_country_flag = under_influence_of_@ROOT
+					}
+					
+					ROOT = {
+						set_variable = { ROOT.avg_influence_1_@PREV = 5.0 }
+						set_variable = { ROOT.avg_influence_2_@PREV = 10.0 }
+						set_variable = { ROOT.avg_influence_3_@PREV = 15.0 }
+						
+						set_variable = { ROOT.avg_influence_1_show_@PREV = 4.0 }
+						set_variable = { ROOT.avg_influence_2_show_@PREV = 9.0 }
+						set_variable = { ROOT.avg_influence_3_show_@PREV = 14.0 }
+						
+						# ---------- #
+						
+						if = {
+							limit = {
+								has_game_rule = {
+									rule = soi_proportional_influence_req
+									option = SOI_ENABLED_REQ
+								}
+							}
+							set_variable = { ROOT.tempa = var:ROOT.owned_states }
+							divide_variable = { ROOT.tempa = 100 }
+							multiply_variable = { ROOT.tempa = 90 }
+							
+							set_variable = { ROOT.tempb = var:ROOT.owned_states }
+							divide_variable = { ROOT.tempb = 100 }
+							multiply_variable = { ROOT.tempb = 10 }
+							add_to_variable = { ROOT.tempb = var:ROOT.owned_states }
+							
+							
+							round_variable = ROOT.tempa
+							round_variable = ROOT.tempb
+							
+							#log = "(MATH-ROUND) [?ROOT.tempa] [?ROOT.tempb]"
+							
+							if = {
+								limit = {
+									check_variable = { ROOT.tempa > var:PREV.owned_states }
+								}
+								#if going min
+								
+								set_variable = { ROOT.calc_temp_a = var:ROOT.owned_states }
+								divide_variable = { ROOT.calc_temp_a = 100 }
+								multiply_variable = { ROOT.calc_temp_a = 90 }
+								
+								#log = "(MATH-MIN) [?ROOT.calc_temp_a]"
+								
+								set_variable = { ROOT.calc_temp_b = var:PREV.owned_states }
+								divide_variable = { ROOT.calc_temp_b = ROOT.calc_temp_a }
+								multiply_variable = { ROOT.calc_temp_b = 100 }
+								
+								#log = "(MATH-MIN) [?ROOT.calc_temp_b]"
+								
+								set_variable = { ROOT.calc_temp_r1 = ROOT.avg_influence_1_@PREV }
+								divide_variable = { ROOT.calc_temp_r1 = 100 }
+								multiply_variable = { ROOT.calc_temp_r1 = ROOT.calc_temp_b }
+								
+								#log = "(MATH-MIN) [?ROOT.calc_temp_r1]"
+								
+								set_variable = { ROOT.calc_temp_r2 = ROOT.avg_influence_2_@PREV }
+								divide_variable = { ROOT.calc_temp_r2 = 100 }
+								multiply_variable = { ROOT.calc_temp_r2 = ROOT.calc_temp_b }
+								
+								#log = "(MATH-MIN) [?ROOT.calc_temp_r2]"
+								
+								set_variable = { ROOT.calc_temp_r3 = ROOT.avg_influence_3_@PREV }
+								divide_variable = { ROOT.calc_temp_r3 = 100 }
+								multiply_variable = { ROOT.calc_temp_r3 = ROOT.calc_temp_b }
+								
+								#log = "(MATH-MIN) [?ROOT.calc_temp_r3]"
+								
+								set_variable = { ROOT.avg_influence_1_@PREV = ROOT.calc_temp_r1 }
+								set_variable = { ROOT.avg_influence_2_@PREV = ROOT.calc_temp_r2 }
+								set_variable = { ROOT.avg_influence_3_@PREV = ROOT.calc_temp_r3 }
+								
+							}
+							else_if = {
+								limit = {
+									check_variable = { ROOT.tempb < var:PREV.owned_states }
+								}
+								#if going max
+								set_variable = { ROOT.calc_temp_a = var:ROOT.owned_states }
+								divide_variable = { ROOT.calc_temp_a = 100 }
+								multiply_variable = { ROOT.calc_temp_a = 10 }
+								
+								#log = "(MATH-MAX) 1 [?ROOT.calc_temp_a]"
+								
+								set_variable = { ROOT.calc_temp_b = var:ROOT.owned_states }
+								add_to_variable = { ROOT.calc_temp_b = ROOT.calc_temp_a }
+								
+								#log = "(MATH-MAX) 2 [?ROOT.calc_temp_b]"
+								
+								set_variable = { ROOT.calc_temp_c = ROOT.calc_temp_b }
+								divide_variable = { ROOT.calc_temp_c = var:PREV.owned_states }
+								multiply_variable = { ROOT.calc_temp_c = 100 }
+								
+								#log = "(MATH-MAX) 3 [?ROOT.calc_temp_c]"
+								
+								set_variable = { ROOT.calc_temp_d = 100 }
+								subtract_from_variable = { ROOT.calc_temp_d = ROOT.calc_temp_c }
+								
+								#log = "(MATH-MAX) 4 [?ROOT.calc_temp_d]"
+								
+								set_variable = { ROOT.calc_temp_r1 = ROOT.avg_influence_1_@PREV }
+								divide_variable = { ROOT.calc_temp_r1 = 100 }
+								multiply_variable = { ROOT.calc_temp_r1 = ROOT.calc_temp_d }
+								
+								#log = "(MATH-MAX) 5 [?ROOT.calc_temp_r1]"
+								
+								set_variable = { ROOT.calc_temp_r2 = ROOT.avg_influence_2_@PREV }
+								divide_variable = { ROOT.calc_temp_r2 = 100 }
+								multiply_variable = { ROOT.calc_temp_r2 = ROOT.calc_temp_d }
+								
+								#log = "(MATH-MAX) 6 [?ROOT.calc_temp_r2]"
+								
+								set_variable = { ROOT.calc_temp_r3 = ROOT.avg_influence_3_@PREV }
+								divide_variable = { ROOT.calc_temp_r3 = 100 }
+								multiply_variable = { ROOT.calc_temp_r3 = ROOT.calc_temp_d }
+								
+								#log = "(MATH-MAX) 7 [?ROOT.calc_temp_r3]"
+								
+								add_to_variable = { ROOT.avg_influence_1_@PREV = ROOT.calc_temp_r1 }
+								add_to_variable = { ROOT.avg_influence_2_@PREV = ROOT.calc_temp_r2 }
+								add_to_variable = { ROOT.avg_influence_3_@PREV = ROOT.calc_temp_r3 }
+							}
+							if = {
+								limit = {
+									check_variable = { ROOT.avg_influence_1_@PREV < 3.3 }
+								}
+								set_variable = { ROOT.avg_influence_1_@PREV = 3.3 }
+							}
+							if = {
+								limit = {
+									check_variable = { ROOT.avg_influence_1_@PREV > 10.0 }
+								}
+								set_variable = { ROOT.avg_influence_1_@PREV = 10.0 }
+							}
+							if = {
+								limit = {
+									check_variable = { ROOT.avg_influence_2_@PREV < 6.7 }
+								}
+								set_variable = { ROOT.avg_influence_2_@PREV = 6.7 }
+							}
+							if = {
+								limit = {
+									check_variable = { ROOT.avg_influence_2_@PREV > 20.0 }
+								}
+								set_variable = { ROOT.avg_influence_2_@PREV = 20.0 }
+							}
+							if = {
+								limit = {
+									check_variable = { ROOT.avg_influence_3_@PREV < 10.0 }
+								}
+								set_variable = { ROOT.avg_influence_3_@PREV = 10.0 }
+							}
+							if = {
+								limit = {
+									check_variable = { ROOT.avg_influence_3_@PREV > 30.0 }
+								}
+								set_variable = { ROOT.avg_influence_3_@PREV = 30.0 }
+							}
+							
+							set_variable = { ROOT.avg_influence_1_show_@PREV = ROOT.avg_influence_1_@PREV }
+							subtract_from_variable = { ROOT.avg_influence_1_show_@PREV = 1 }
+							set_variable = { ROOT.avg_influence_2_show_@PREV = ROOT.avg_influence_2_@PREV }
+							subtract_from_variable = { ROOT.avg_influence_2_show_@PREV = 1 }
+							set_variable = { ROOT.avg_influence_3_show_@PREV = ROOT.avg_influence_3_@PREV }
+							subtract_from_variable = { ROOT.avg_influence_3_show_@PREV = 1 }
+							
+							clear_variable = ROOT.tempa
+							clear_variable = ROOT.tempb
+							clear_variable = ROOT.calc_temp_a
+							clear_variable = ROOT.calc_temp_b
+							clear_variable = ROOT.calc_temp_c
+							clear_variable = ROOT.calc_temp_d
+							clear_variable = ROOT.calc_temp_r1
+							clear_variable = ROOT.calc_temp_r2
+							clear_variable = ROOT.calc_temp_r3
+						}
+					}
+				}
 			}
+			#AI Improvement Update (v1.6.1)
 			if = {
 				limit = {
 					has_game_rule = {
@@ -292,6 +633,23 @@ on_actions = {
 				}
 				every_country = {
 					add_to_variable = { THIS.influence_level@ROOT =  -0.02 }
+				}
+			}
+			every_country = {
+				limit = {
+					has_country_flag = has_influence_campaign_@ROOT
+				}
+				if = {
+					limit = {
+						ROOT = { has_country_flag = ROOT.resisting_outside_influence_@THIS }
+					}
+					add_to_variable = { THIS.influence_level@ROOT =  -0.05 }
+				}
+				if = {
+					limit = {
+						ROOT = { has_country_flag = ROOT.resisting_banned_country_@THIS }
+					}
+					add_to_variable = { THIS.influence_level@ROOT =  -0.075 }
 				}
 			}
 			

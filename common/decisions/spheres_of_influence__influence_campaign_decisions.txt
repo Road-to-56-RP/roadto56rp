@@ -74,6 +74,7 @@ spheres_of_influence__influence_campaign = {
 		days_re_enable = 0
 		fire_only_once = yes
 		priority = 100
+		cost =  75
 		target_trigger = {
 			if = {
 				limit = {
@@ -449,16 +450,41 @@ spheres_of_influence__influence_campaign = {
 					}
 				}
 				OR = {
-					AND = {
-						is_neighbor_of = ROOT
-					}
-					AND = {
-						any_state = {
-							is_coastal = yes
-							is_controlled_by = FROM
+					OR = {
+						FROM = { is_neighbor_of = ROOT }
+						any_country = {
+							is_puppet_of = ROOT
+							is_neighbor_of = FROM
 						}
-						ROOT = {
-							has_navy_size = { size > 7 }
+					}
+					OR = {
+						AND = {
+							any_country = {
+								is_puppet_of = ROOT
+								any_controlled_state = {
+									is_coastal = yes
+								}
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+						AND = {
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = ROOT
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
 						}
 					}
 				}
@@ -586,23 +612,26 @@ spheres_of_influence__influence_campaign = {
 			}
 		}
 		remove_effect = {
-			random_list = {
-				34 = {
-					set_variable = { ROOT.ai_influence_way = 0 }
-				}
-				33 = {
-					set_variable = { ROOT.ai_influence_way = 1 }
-				}
-				33 = {
-					set_variable = { ROOT.ai_influence_way = 2 }
+			hidden_effect = {
+				random_list = {
+					34 = {
+						set_variable = { ROOT.ai_influence_way = 0 }
+					}
+					33 = {
+						set_variable = { ROOT.ai_influence_way = 1 }
+					}
+					33 = {
+						set_variable = { ROOT.ai_influence_way = 2 }
+					}
 				}
 			}
 		}
 	}
 	send_factories_to_delta = {
+		cost = 50
 		icon = decision_icon_send_factories_to_delta
-		days_remove = 35
-		days_re_enable = 20
+		days_remove = 30
+		days_re_enable = 15
 		priority = 6
 		cancel_if_not_visible = no
 		target_trigger = {
@@ -716,13 +745,41 @@ spheres_of_influence__influence_campaign = {
 					}
 				}
 				OR = {
-					AND = {
-						is_neighbor_of = ROOT
+					OR = {
+						FROM = { is_neighbor_of = ROOT }
+						any_country = {
+							is_puppet_of = ROOT
+							is_neighbor_of = FROM
+						}
 					}
-					AND = {
-						any_state = {
-							is_coastal = yes
-							is_controlled_by = FROM
+					OR = {
+						AND = {
+							any_country = {
+								is_puppet_of = ROOT
+								any_controlled_state = {
+									is_coastal = yes
+								}
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+						AND = {
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = ROOT
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
 						}
 					}
 				}
@@ -796,7 +853,7 @@ spheres_of_influence__influence_campaign = {
 		icon = decision_icon_send_advisors_to_delta
 		days_remove = 35
 		days_re_enable = 10
-		cost = 10
+		cost = 25
 		priority = 5
 
 		cancel_if_not_visible = no
@@ -905,13 +962,41 @@ spheres_of_influence__influence_campaign = {
 					}
 				}
 				OR = {
-					AND = {
-						is_neighbor_of = ROOT
+					OR = {
+						FROM = { is_neighbor_of = ROOT }
+						any_country = {
+							is_puppet_of = ROOT
+							is_neighbor_of = FROM
+						}
 					}
-					AND = {
-						any_state = {
-							is_coastal = yes
-							is_controlled_by = FROM
+					OR = {
+						AND = {
+							any_country = {
+								is_puppet_of = ROOT
+								any_controlled_state = {
+									is_coastal = yes
+								}
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+						AND = {
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = ROOT
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
 						}
 					}
 				}
@@ -963,7 +1048,7 @@ spheres_of_influence__influence_campaign = {
 		}
 		remove_effect = {
 			FROM = {
-				add_political_power = 80
+				add_political_power = 75
 			}
 			custom_effect_tooltip = gain_influence_0_5_tt
 			hidden_effect = {
@@ -992,7 +1077,8 @@ spheres_of_influence__influence_campaign = {
 	send_investment_expedition_in_delta = {
 		icon = decision_icon_send_investment_expedition_in_delta
 		days_remove = 90
-		days_re_enable = 30
+		days_re_enable = 45
+		cost = 75
 		priority = 4
 		
 		cancel_if_not_visible = no
@@ -1110,13 +1196,41 @@ spheres_of_influence__influence_campaign = {
 					}
 				}
 				OR = {
-					AND = {
-						is_neighbor_of = ROOT
+					OR = {
+						FROM = { is_neighbor_of = ROOT }
+						any_country = {
+							is_puppet_of = ROOT
+							is_neighbor_of = FROM
+						}
 					}
-					AND = {
-						any_state = {
-							is_coastal = yes
-							is_controlled_by = FROM
+					OR = {
+						AND = {
+							any_country = {
+								is_puppet_of = ROOT
+								any_controlled_state = {
+									is_coastal = yes
+								}
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+						AND = {
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = ROOT
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
 						}
 					}
 				}
@@ -1180,7 +1294,7 @@ spheres_of_influence__influence_campaign = {
 		}
 		remove_effect = {
 			FROM = {
-				add_political_power = 200
+				add_political_power = 150
 			}
 			custom_effect_tooltip = gain_influence_1_5_tt
 			hidden_effect = {
@@ -1215,7 +1329,7 @@ spheres_of_influence__influence_campaign = {
 		
 		target_trigger = {
 			FROM = {
-				check_variable = { ROOT.influence_level@FROM > 3.99 }
+				check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_1_show_@FROM }
 			}
 		}
 		
@@ -1230,7 +1344,10 @@ spheres_of_influence__influence_campaign = {
 					has_non_aggression_pact_with = ROOT
 				}
 			}
-			check_variable = { ROOT.influence_level@FROM > 4.99 }
+			custom_trigger_tooltip = {
+				tooltip = SOI_avg_1_check_tt
+				check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_1_@FROM }
+			}
 		}
 		visible = {
 			if = {
@@ -1246,6 +1363,7 @@ spheres_of_influence__influence_campaign = {
 				tooltip = has_influence_campaign_tt
 				has_country_flag = has_influence_campaign_@FROM
 			}
+			check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_1_show_@FROM }
 		}
 		complete_effect = {
 			give_military_access = FROM
@@ -1258,8 +1376,8 @@ spheres_of_influence__influence_campaign = {
 				active = yes
 			}
 			hidden_effect = {
-				add_to_variable = { ROOT.influence_level@FROM = 0.05 }
-				set_variable = { ROOT.delta_c@FROM = 0.05 }
+				add_to_variable = { ROOT.influence_level@FROM = 0.2 }
+				set_variable = { ROOT.delta_c@FROM = 0.2 }
 				multiply_variable = { ROOT.delta_c@FROM = ROOT.influence_multiplier@FROM }
 				add_to_variable = { ROOT.influence_level@FROM = ROOT.delta_c@FROM }
 				clear_variable = ROOT.delta_c@FROM
@@ -1276,11 +1394,12 @@ spheres_of_influence__influence_campaign = {
 		cost = 200
 		priority = 2
 		
-		target_trigger = {
-			FROM = {
-				check_variable = { ROOT.influence_level@FROM > 8.99 }
-			}
-		}
+      target_trigger = {
+            FROM = {
+                check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_2_show_@FROM }
+            }
+            has_country_flag = has_influence_campaign_@FROM
+        }
 
 		ai_will_do = {
 			base = -10
@@ -1335,7 +1454,10 @@ spheres_of_influence__influence_campaign = {
 			FROM = {
 				has_war = no
 			}
-			check_variable = { ROOT.influence_level@FROM > 9.99 }
+			custom_trigger_tooltip = {
+				tooltip = SOI_avg_2_check_tt
+				check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_2_@FROM }
+			}
 		}
 		visible = {
 			if = {
@@ -1351,6 +1473,7 @@ spheres_of_influence__influence_campaign = {
 				tooltip = has_influence_campaign_tt
 				has_country_flag = has_influence_campaign_@FROM
 			}
+			check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_2_show_@FROM }
 		}
 		complete_effect = {
 			if = {
@@ -1385,12 +1508,12 @@ spheres_of_influence__influence_campaign = {
 		days_re_enable = 180
 
 		cancel_if_not_visible =  no
-		target_trigger = {
-			FROM = {
-				is_puppet_of = ROOT
-			}
-		}
-
+      target_trigger = {
+            FROM = {
+                check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_2_show_@FROM }
+            }
+            has_country_flag = has_influence_campaign_@FROM
+        }
 		ai_will_do = {
 			base = -10
 			modifier = {
@@ -1410,8 +1533,8 @@ spheres_of_influence__influence_campaign = {
 				is_puppet_of = ROOT
 			}
 			custom_trigger_tooltip = {
-				tooltip = SOI_integrate_influence_required_tt
-				check_variable = { ROOT.influence_level@FROM > 29.99 }
+				tooltip = SOI_avg_3_check_tt
+				check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_3_@FROM }
 			}
 		}
 		visible = {
@@ -1467,6 +1590,26 @@ spheres_of_influence__influence_campaign = {
 			NOT = {
 				has_country_flag = ROOT.hide_onmap_decisions@FROM
 			}
+			FROM = {
+				OR = {
+					any_neighbor_state = {
+						is_owned_by = ROOT
+					}
+					is_coastal = yes
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM.owner = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
 		}
 		available = {
 			custom_trigger_tooltip = {
@@ -1481,14 +1624,25 @@ spheres_of_influence__influence_campaign = {
 				tooltip = SOI_require_influence_power_20_tt
 				check_variable = { var = ROOT.influence_power value = 20 compare = greater_than }
 			}
+			FROM = {
+				OR = {
+					any_neighbor_state = {
+						is_owned_by = ROOT
+					}
+					is_coastal = yes
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
 		}
 		remove_effect = {
 			ROOT = {
 				transfer_state = FROM
 			}
-			custom_effect_tooltip = SOI_will_take_2_influence_level_tt
+			custom_effect_tooltip = SOI_will_take_1_influence_level_tt
 			hidden_effect = {
-				subtract_from_variable = { ROOT.influence_level@FROM.owner = 2 }
+				subtract_from_variable = { ROOT.influence_level@FROM.owner = 1 }
 				subtract_from_variable = { ROOT.influence_power = 20 }
 				set_variable = { ROOT.state_influence@FROM = 0 }
 			}
@@ -1552,11 +1706,40 @@ spheres_of_influence__influence_campaign = {
 			NOT = {
 				has_country_flag = ROOT.hide_onmap_decisions@FROM
 			}
+			FROM = {
+				OR = {
+					any_neighbor_state = {
+						is_owned_by = ROOT
+					}
+					is_coastal = yes
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM.owner = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
 		}
 		available = {
 			FROM = {
 				NOT = {
 					is_owned_by = ROOT
+				}
+				OR = {
+					any_neighbor_state = {
+						is_owned_by = ROOT
+					}
+					is_coastal = yes
+					owner = {
+						is_subject_of = ROOT
+					}
 				}
 			}
 			custom_trigger_tooltip = {
