@@ -11,7 +11,7 @@ tags={
 	"Gameplay"
 }
 dependencies={
-	"The Road to 56"
+    "The Road to 56"
 }
 name="Road to 56 RP"
 picture="thumbnail.png"
