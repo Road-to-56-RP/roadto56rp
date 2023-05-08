@@ -10,39 +10,25 @@ spheres_of_influence__under_influence = {
 		}
 
 		ai_will_do = {
-			base = -10
+			base = 0
 			modifier = {
-				add = 10
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = soi_ai_influence_resistance
-							option = SOI_DO_RESIST_LOW
-						}
+				add = -100
+				OR = {
+					has_game_rule = {
+						rule = soi_ai_influence_resistance
+						option = SOI_DEFAULT_RESIST
 					}
-					check_variable = { FROM.influence_level@ROOT > 8.0 }
-				}
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = soi_ai_influence_resistance
-							option = SOI_DO_RESIST_AVRG
-						}
-					}
-					check_variable = { FROM.influence_level@ROOT > 6.0 }
-				}
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = soi_ai_influence_resistance
-							option = SOI_DO_RESIST_HIGH
-						}
-					}
-					check_variable = { FROM.influence_level@ROOT > 3.0 }
+					check_variable = { FROM.influence_level@ROOT < var:ROOT.avg_influence_resist_1_@FROM }
 				}
 			}
 			modifier = {
 				add = 5
+				NOT = {
+					has_game_rule = {
+						rule = soi_ai_influence_resistance
+						option = SOI_DEFAULT_RESIST
+					}
+				}
 				if = {
 					limit = {
 						has_game_rule = {
@@ -80,13 +66,6 @@ spheres_of_influence__under_influence = {
 					}
 				}
 			}
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = soi_ai_influence_resistance
-					option = SOI_DEFAULT_RESIST
-				}
-			}
 		}
 
 		available = {
@@ -97,6 +76,7 @@ spheres_of_influence__under_influence = {
 						has_country_flag = ROOT.resisting_outside_influence@FROM
 					}
 				}
+				check_variable = { ROOT.country_actions@FROM < 1 }
 			}
 		}
 		complete_effect = {
@@ -123,35 +103,15 @@ spheres_of_influence__under_influence = {
 		}
 
 		ai_will_do = {
-			base = -10
+			base = 0
 			modifier = {
-				add = 5
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = soi_ai_influence_resistance
-							option = SOI_DO_RESIST_LOW
-						}
+				add = -100
+				OR = {
+					has_game_rule = {
+						rule = soi_ai_influence_resistance
+						option = SOI_DEFAULT_RESIST
 					}
-					check_variable = { FROM.influence_level@ROOT > 8.5 }
-				}
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = soi_ai_influence_resistance
-							option = SOI_DO_RESIST_AVRG
-						}
-					}
-					check_variable = { FROM.influence_level@ROOT > 7.0 }
-				}
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = soi_ai_influence_resistance
-							option = SOI_DO_RESIST_HIGH
-						}
-					}
-					check_variable = { FROM.influence_level@ROOT > 5.0 }
+					check_variable = { FROM.influence_level@ROOT < var:ROOT.avg_influence_resist_2_@FROM }
 				}
 			}
 			modifier = {
@@ -197,13 +157,6 @@ spheres_of_influence__under_influence = {
 				add = 5
 				FROM = { NOT = { has_government = ROOT } }
 			}
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = soi_ai_influence_resistance
-					option = SOI_DEFAULT_RESIST
-				}
-			}
 		}
 
 		available = {
@@ -214,6 +167,7 @@ spheres_of_influence__under_influence = {
 						has_country_flag = ROOT.resisting_banned_country@FROM
 					}
 				}
+				check_variable = { ROOT.country_actions@FROM < 1 }
 			}
 		}
 		complete_effect = {
