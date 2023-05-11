@@ -1,5 +1,6 @@
 ## Warlider's ruleset calculator thingy
 ## This assigns on game start initial points values to all nations. fml.
+## After that on faction creation/join/leave calculates points.
 
 #set_variable = { r56rp_rules_normalwargoaldeclaration = YYYY.MM.DD } ## Allowe to go to war
 #set_variable = { r56rp_rules_focuswargoaldeclaration = YYYY.MM.DD } ## Allowed to go to war via focus.
@@ -8,13 +9,484 @@
 #set_variable = { r56rp_rules_fp_maxallowed = 500 } ## max allowed faction's points
 #set_variable = { r56rp_rules_fp_free = 40 } ## free-to-use faction points
 
+#Hoi4's weird with its dates. Cant get it to work so saving integer values.
+#January 1940 = 60794.4
+#July 1939 = 60789.984
+#January 1939 = 60785.64
+#July 1938 = 60781.224
+#January 1938 = 60776.88
+#July 1937 = 60772.464
+#January 1937 = 60768.12
+#January 1936 = 60759.371
+
+
+
 on_actions = {
 	on_startup = {
 		effect = {
-			GER = {
-				set_variable = { r56rp_rules_normalwargoaldeclaration = 1937.1.1.1 } ## Allowe to go to war
-				set_variable = { r56rp_rules_focuswargoaldeclaration = { date = "1956.1.1.1" } } ## Allowed to go to war via focus.
-				set_variable = { r56rp_rules_fp_controlled = 10 } ##currently controlled nation's points
+			## 4+ pointers
+			GER = { # Germany
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 } ## Allowe to go to war
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 } ## Allowed to go to war via focus.
+				set_variable = { r56rp_rules_fp_controlled = 7 } ##currently controlled nation's points
+			}
+			USA = { # United States of America
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+				set_variable = { r56rp_rules_fp_controlled = 7 }
+			}
+			SOV = { # Soviet Russia / USSR
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+				set_variable = { r56rp_rules_fp_controlled = 6 }
+			}
+			ENG = { # England / Great Britan
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+				set_variable = { r56rp_rules_fp_controlled = 5 }
+			}
+			FRA = { # France
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+				set_variable = { r56rp_rules_fp_controlled = 5 }
+			}
+			ITA = { # Italy
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+				set_variable = { r56rp_rules_fp_controlled = 5 }
+			}
+
+			## 4 pointers
+			PRC = { # People's Republic of China / Chineese Soviet Republic
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			CHI = { # Republic of China
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			POL = { # Poland
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			JAP = { # Japan
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			#CSA?? = {
+			#	set_variable = { r56rp_rules_normalwargoaldeclaration = 60785.64 }
+			#	set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+			#	set_variable = { r56rp_rules_fp_controlled = 4 }
+			#}
+
+			## 3 pointers
+			ARG = { # Argentina
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			AUS = { # Austria
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			AST = { # Australia
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			BRA = { # Brazil
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			BEL = { # Belgium
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			RAJ = { # British Raj / India
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			CAN = { # Canada
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			COL = { # Colombia
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			CZE = { # Czehoslovakia
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			GRE = { # Greece
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			HON = { # Honduras
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			PER = { # Iran
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			HOL = { # Netherlands
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			POR = { # Portugal
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			ROM = { # Romania
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			SAF = { # South Africa
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			SPR = { # Spain
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			SWE = { # Sweden
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			TUR = { # Turkey
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			VEN = { # Venezuela
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+			YUG = { # Yugoslavia
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+
+			## 2 pointers
+			COG = { # Belgian Congo
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+				set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			BOL = { # Bolivia
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+				set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			MAL = { # British Malaysia
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+				set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			BUL = { # Bulgaria
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+				set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			CHL = { # Chile
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+				set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			INS = { # Dutch East Indies
+				set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+				set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			EGY = { # Egypt
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			EST = { # Estonia
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			ETH = { # Ethiopia
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			FIN = { # Finland
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			FRI = { # French Indochina
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			GXC = { # Guangxhi Clique / Guanxhi Clique 
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			HUN = { # Hungary 
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			IRQ = { # Iraq 
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			LAT = { # Latvia 
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			LIT = { # Lithuania
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			MAN = { # Manchuria / Manchuko / Qing
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			MEX = { # Mexico
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			NZL = { # New Zealand
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			NOR = { # Norway
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			PRU = { # Peru
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			PHI = { # Philippines
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			SIA = { # Siam
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+			SWI = { # Switzerland
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+			set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+
+			## 1 pointers
+			AFG = { # Afghanistan / Afganistan
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			ALB = { # Albania
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			BHU = { # Bhutan
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			COS = { # Costa Rica
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			CUB = { # Cuba
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			DEN = { # Denmark
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			DOM = { # Dominican Republic
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			ECU = { # Ecuador
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			ELS = { # El Salvador
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			GUA = { # Guatemala
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			HAI = { # Haiti
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			ICE = { # Iceland
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			IRE = { # Ireland
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			LIB = { # Liberia
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			LUX = { # Luxembourg / luxemburg
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			XSM = { # Ma Clique
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			MEN = { # Mongol Political Comiteee / Mengukuo / that shit that flips from china to japan
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			MEN = { # 
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			MON = { # Mongolia
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			NEP = { # Nepal
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			NIC = { # NicaRAGUA
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			OMA = { # OMAN
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			PAN = { # Panama
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			PAR = { # Paraguay
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			SAU = { # Saudi Arabia / Oilland
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			AFA = { # Aussa / Afar
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			SHX = { # Shanxi
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			TAN = { # Tannu Tuva
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			TIB = { # Tibet
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			TIB = { # Tibet
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			TNG = { # Tunganistan / make it so
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			URG = { # Uruguay
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			SIK = { # Sinkiang / Xinjiang
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			YEM = { # Yemen
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+			YUN = { # Yunnan
+			set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+			set_variable = { r56rp_rules_fp_controlled = 1 }
 			}
 		}
 	}
