@@ -4,7 +4,7 @@ Officer_Training = {
 		icon = generic_army_support
 		
 		available = {
-			has_army_experience	> 100
+			has_army_experience	>50
 			command_power > 15
 		}
 		
@@ -15,7 +15,7 @@ Officer_Training = {
 		cost = 15
 		custom_cost_trigger = {
 			command_power > 15
-			has_army_experience > 100
+			has_army_experience > 48
 		}
 		custom_cost_text = army_xp_more_than_100
 		
@@ -25,7 +25,7 @@ Officer_Training = {
 	
 		
 		complete_effect = {
-			army_experience = -100
+			army_experience = -50
 			add_command_power = -15
 			add_political_power = -15
 			custom_effect_tooltip = send_officers_to_specialized_training_tt
@@ -644,5 +644,59 @@ Officer_Training = {
 				}
 			}
 		}
+	}
+	morevolunteers_minor = {
+		icon = GFX_decision_generic_prepare_civil_war
+		visible = {
+			NOT = {
+				is_major = yes
+			}
+		}
+	# above check for basegame major check, major being 7 largest ecos or faction leader
+
+		ai_will_do = {
+			factor = 0
+		}
+		complete_effect = {
+			set_country_flag = morevolunteers_1 # I don't beleive this flag hooks into anything and was a cut feature
+			set_rule = { can_send_volunteers = yes } #enables volunteers at all times, safeguarding form "trickle down effect
+		}
+
+		modifier = { #changes used for minors, the idea being that even  tile statec can get envolved in combat in the early game
+			lend_lease_tension = -1
+			send_volunteers_tension = -1
+			send_volunteer_divisions_required = -1
+			send_volunteer_size = 3
+		}
+		fire_only_once = yes
+		days_remove = -1	
+
+	}
+	morevolunteers_major = { #less powerful major version idea being majors ususally have access to volunteers, be it a focus always open or, like with the usa, a choice.
+		icon = GFX_decision_generic_prepare_civil_war
+		visible = {
+			is_major = yes 
+		}
+		available = {
+			threat > 0.75 # tension check. logic being to force majors to wait till later in the game, or in an rp sence, using the globle situation to pass laws or acts allowing troops overseas.
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	
+		complete_effect = {
+			set_country_flag = morevolunteers_1
+			set_rule = { can_send_volunteers = yes }
+		}
+	
+		modifier = { #weaker but could be weaker still.
+			lend_lease_tension = -1
+			send_volunteers_tension = -1
+			send_volunteer_divisions_required = -0.5
+			send_volunteer_size = 1
+		}
+		fire_only_once = yes
+		days_remove = -1	
 	}
 }
