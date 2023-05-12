@@ -11,11 +11,11 @@
 
 #Hoi4's weird with its dates. Cant get it to work so saving integer values.
 #January 1940 = 60794.4
-#July 1939 = 60789.984
+#July    1939 = 60789.984
 #January 1939 = 60785.64
-#July 1938 = 60781.224
+#July    1938 = 60781.224
 #January 1938 = 60776.88
-#July 1937 = 60772.464
+#July    1937 = 60772.464
 #January 1937 = 60768.12
 #January 1936 = 60759.371
 
@@ -27,6 +27,8 @@ on_actions = {
 
 			every_possible_country = {
 				set_variable = { r56rp_rules_fp_maxallowed = 7 }
+				set_variable = { r56rp_rules_fp_summed = 0 }
+				set_variable = { r56rp_rules_fp_free = 0 }
 			}
 			
 			## 4+ pointers
@@ -633,21 +635,52 @@ on_actions = {
 					set_variable = { r56rp_rules_fp_maxallowed = 27 }
 				}
 
-				else = { # debug. If conditions improper sets to max.
-					set_variable = { r56rp_rules_fp_maxallowed = 30 }
-				}
+				#else = { # debug. If conditions improper sets to max.
+				#	set_variable = { r56rp_rules_fp_maxallowed = 30 }
+				#}
 
 			}
 		}
 	}
 
-	every_possible_country = {
-		set_variable = { r56rp_rules_fp_maxallowed = 7 }
-	}
 
-	on_create_faction = {
+	#on_create_faction = {
+	#	effect = {
+	#		every_country = {
+	#			limit = {
+	#				is_ally_with = ENG
+	#				NOT = { has_country_flag = fp_counted }
+	#			}
+	#			set_country_flag = fp_counted
+	#			add_to_variable = { ENG.r56rp_rules_fp_summed = FROM.r56rp_rules_fp_controlled }
+	#		}
+	#
+	#	}
+	#}
 
-	}
+
+	#on_create_faction = {
+	#	effect = {
+	#		any_allied_country = {
+	#			
+	#			add_to_variable = {
+	#				add_to_variable = { var:r56rp_rules_fp_summed = var:r56rp_rules_fp_controlled }
+	#			}
+	#		}
+	#	}
+	#}
+
+	#on_faction_formed = {
+	#
+	#}
+
+	#on_join_faction = {
+	#
+	#}
+
+	#on_leave_faction = {
+	#
+	#}
 
 
 }
