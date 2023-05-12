@@ -1326,7 +1326,7 @@ political_actions = {
 			capital_scope = {
 				add_building_construction = {
 					type = anti_air_building
-					level = 1
+					level = 5
 					instant_build = yes
 				}
 			}
@@ -1343,7 +1343,7 @@ political_actions = {
 				}
 				add_equipment_to_stockpile = {
 				    type = anti_air_equipment_3
-				    amount = -410
+				    amount = -350
 				}
 			}
 			else_if = {
@@ -2210,10 +2210,6 @@ war_measures = {
 					type = support_good #bomber
 					is_female = yes
 				}
-				#Ruth Rowland Nichols, Phoebe Omlie, Ola Mildred Rexroat (really nicknamed Sexy Rexy) -to add?
-				#Willa Brown if can get afro american w
-				#Maggie Gee and Hazel Ying Lee 2 chinese american wasps, although Hazel Ying wanted to fight for China
-				#Rose Lok was one of a handful of Chinese-American women who earned their pilot's licenses during the 1930s, along with Hazel Ying Lee, Leah Hing, Hilda Yen, and Lee Ya-Ching
 			}
         }
 	}
@@ -2222,7 +2218,6 @@ war_measures = {
 industrial_requisition_category = {
 	seize_machine_toolings_in_state = {
 		icon = generic_factory
-#		fire_only_once = yes #ideally shouldn't be there but flags seemed ineffective for some reason
 
  		allowed = {
 			always = yes
@@ -2232,7 +2227,6 @@ industrial_requisition_category = {
 		}
 		state_target = yes
 		target_array = controlled_states
-		#on_map_mode = map_only
 		target_trigger = { #Once a state is added to the list of valid targets, it's never removed again (short of typing "reload decision" on console).
 			FROM = {
 				NOT = {
@@ -2244,12 +2238,9 @@ industrial_requisition_category = {
 						has_state_flag = machine_tooling_looted
 					}
 				}
-#				AND = { #The array used makes this part redundant.
-#					is_controlled_by = ROOT
-					owner = {
-						has_war_with = ROOT
-					}
-#				}
+				owner = {
+					has_war_with = ROOT
+				}
 				non_damaged_building_level = {
 					building = arms_factory
 					level > 0
@@ -2303,9 +2294,8 @@ industrial_requisition_category = {
 		}
 
 		cost = 30
-##		# + command power?
 		days_remove = 60
-#
+
 		remove_effect = {
 			FROM = {
 				set_state_flag = machine_tooling_looted
@@ -2316,7 +2306,6 @@ industrial_requisition_category = {
 				add_compliance = -5
 				add_resistance = 5
 				add_dynamic_modifier = { modifier = looting_resistance days = 365 }
-				#add_state_modifier = looting_resistance
 			}
 			random_owned_controlled_state = {
 				limit = {
