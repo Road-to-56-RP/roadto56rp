@@ -644,19 +644,30 @@ on_actions = {
 	}
 
 
-	on_create_faction = {
+	on_daily = {
 		effect = {
 			every_country = {
 				limit = {
-					is_ally_with = ENG
-					NOT = { has_country_flag = fp_counted }
+					is_faction_leader = yes
 				}
-				set_country_flag = fp_counted
-				add_to_variable = { ENG.r56rp_rules_fp_summed = FROM.r56rp_rules_fp_controlled }
+				set_temp_variable = { targetFP = THIS }
+				log = "Set [?targetFP.GetTag] as target"
+					
 			}
-	
+			every_country = {
+				limit = {
+					is_ally_with = faction_leader
+					NOT = { is_in_array = { faction_leader.FP_list_array = THIS } }
+				}
+				set_temp_var = { targetFP = faction_leader }
+				log = "Added [?THIS.GetTag]'s [?THIS.r56rp_rules_fp_controlled] to array [?var:targetFP.GetTag]'s"
+				
+				add_to_array = { var:targetFP.FP_list_array = THIS.r56rp_rules_fp_controlled }
+					
+			}
 		}
 	}
+				
 
 
 	#on_create_faction = {
