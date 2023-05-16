@@ -36,7 +36,7 @@ focus_tree = {
 		
 		x = 2
 		y = 0
-		cost = 5
+		cost = 10
 		
 		ai_will_do = {
 			factor = 1
@@ -126,7 +126,7 @@ focus_tree = {
 		
 		x = 2
 		y = 1
-		cost = 5
+		cost = 10
 		completion_reward = {
 			SHX = { country_event = { id = kmt.1  hours = 8 }}
 		}
@@ -3215,9 +3215,10 @@ focus_tree = {
 		id = KMT_national_institute
 		icon = GFX_goal_star_of_david
 		prerequisite = { focus = KMT_science_effort }
+		mutually_exclusive = { focus = KMT_create_national_institute }
 		x = 22
 		y = 4
-		cost = 10
+		cost = 5
 		bypass = {
 			GER = {
 				NOT = {
@@ -3225,6 +3226,20 @@ focus_tree = {
 				}
 			}
 		}
+		
+		completion_reward = {
+			add_ideas = KMT_national_institute_ns
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = KMT_create_national_institute
+		icon = GFX_goal_star_of_david
+		prerequisite = { focus = KMT_electronics_research }
+		x = 20
+		y = 4
+		cost = 10
+		mutually_exclusive = { focus = KMT_national_institute }
 		
 		completion_reward = {
 			add_ideas = KMT_national_institute_ns
@@ -4029,8 +4044,8 @@ focus_tree = {
 		completion_reward = {
 			
 			
-			add_to_variable = { KMT_combined_fascism_modifier_max_planning = 0.1 }
-			add_to_variable = { KMT_combined_fascism_modifier_planning_speed = 0.02 }
+			add_to_variable = { KMT_combined_fascism_modifier_attrition = -0.1 }
+			add_to_variable = { KMT_combined_fascism_modifier_conscription = 0.01 }
 			custom_effect_tooltip = KMT_militarism_focus_tt
 			if = {
 				limit = {
@@ -4184,7 +4199,6 @@ focus_tree = {
 		
 		completion_reward = {
 			add_to_variable = { KMT_combined_fascism_modifier_army_morale_factor = 0.05 }
-			add_to_variable = { KMT_combined_fascism_modifier_attrition = -0.1 }
 			add_to_variable = { KMT_combined_fascism_modifier_stability = -0.05 }
 			custom_effect_tooltip =KMT_war_propaganda_tt
 			add_popularity = {
@@ -4207,7 +4221,7 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			add_to_variable = { KMT_combined_fascism_modifier_conscription = 0.01 }
+			
 			add_to_variable = { KMT_combined_fascism_modifier_consumer_goods_factor = -0.05}
 			add_to_variable = { KMT_combined_fascism_modifier_production_factory_efficiency_gain_factor = 0.05 }
 			custom_effect_tooltip =KMT_military_first_tt
@@ -4226,7 +4240,7 @@ focus_tree = {
 		
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			add_to_variable = { KMT_combined_fascism_modifier_army_morale_factor = 0.05 }
+			add_to_variable = { KMT_combined_fascism_modifier_army_core_defence_factor = 0.1 }
 			add_to_variable = { KMT_combined_fascism_modifier_stability_factor = -0.05}
 			add_to_variable = { KMT_combined_fascism_modifier_production_factory_efficiency_gain_factor = 0.05 }
 			custom_effect_tooltip = KMT_war_fanaticism_tt
@@ -5159,7 +5173,15 @@ focus_tree = {
 		}
 		continue_if_invalid = yes
 		completion_reward = {
-			add_ideas = kmt_dare_to_die_corps_idea
+			if = {
+				limit = { NOT = { has_idea = KMT_combined_army_modifier }}
+			add_dynamic_modifier = {
+				modifier = KMT_combined_army_modifier
+			}
+			add_to_variable = { KMT_combined_army_modifier_land_night_attack = 0.1 }
+			add_to_variable = { KMT_combined_army_modifier_resistance_growth_on_our_occupied_states = 0.2 }
+			custom_effect_tooltip = KMT_dare_to_die_corps_tt
+			}
 			custom_effect_tooltip = kmt_dtdc_tt
 			hidden_effect = {
 				set_technology = { dare_to_die_corps = 1 }
@@ -5182,10 +5204,9 @@ focus_tree = {
 		}
 		continue_if_invalid = yes
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = kmt_dare_to_die_corps_idea
-				add_idea = kmt_dare_to_die_corps_idea_2
-			}
+			add_to_variable = { KMT_combined_army_modifier_equipment_conversion_speed = 0.1 }
+			add_to_variable = { KMT_combined_army_modifier_equipment_capture_factor = 0.3 }
+			custom_effect_tooltip = KMT_dare_to_die_corps_2_tt
 			add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 producer = ROOT }
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
@@ -7226,17 +7247,22 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			set_country_flag = kmt_wont_remove_warlord_army
-			add_ideas = KMT_focus_on_own_army
 			if = {
-				limit = {
-					NOT = {
-						has_idea = KMT_warlord_cliques_war
-					}
+				limit = { NOT = { has_idea = KMT_combined_army_modifier } }
+				add_dynamic_modifier = {
+					modifier = KMT_combined_army_modifier
 				}
-				add_ideas = KMT_warlord_cliques_war
 			}
-			custom_effect_tooltip = kmt_no_remove_warlord_army_tt
+			add_to_variable = { KMT_combined_army_modifier_conscription_factor = -0.20 }
+			add_to_variable = { KMT_combined_army_modifier_army_morale_factor = -0.15 }
+			add_to_variable = { KMT_combined_army_modifier_army_attack_factor = 0.025 }
+			add_to_variable = { KMT_combined_army_modifier_army_defence_factor = 0.025 }
+			add_to_variable = { KMT_combined_army_modifier_army_org_factor = 0.05 }
+			add_to_variable = { KMT_combined_army_modifier_training_time_factor = 0.15 }
+			add_to_variable = { KMT_combined_army_modifier_political_power_cost = 0.1 }
+			add_to_variable = { KMT_combined_army_modifier_planning_speed = -0.2 }
+			custom_effect_tooltip = KMT_focus_on_our_own_army_tt
+			#custom_effect_tooltip = kmt_no_remove_warlord_army_tt
 		}	
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}			
@@ -7315,7 +7341,16 @@ focus_tree = {
 				}
 				remove_ideas = KMT_warlord_cliques_pre_war
 			}
-			add_ideas = KMT_effective_integration
+			if = {
+				limit = { NOT = { has_idea = KMT_combined_army_modifier } }
+				add_dynamic_modifier = {
+					modifier = KMT_combined_army_modifier
+				}
+			}
+			add_to_variable = { KMT_combined_army_modifier_max_planning = 0.1 }
+			add_to_variable = { KMT_combined_army_modifier_planning_speed = 0.05 }
+			add_to_variable = { KMT_combined_army_modifier_training_time_factor = -0.15 }
+			custom_effect_tooltip =KMT_incorporate_warlord_forces_tt
 		}	
 	}
 	focus = {
