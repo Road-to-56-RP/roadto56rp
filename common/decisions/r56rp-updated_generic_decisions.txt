@@ -1559,6 +1559,88 @@ economy_decisions = {
 		}
 		days_remove = 120
 	}
+
+	r56rp_join_techshare_commonwealth_research = { #specificaly joins the commonwelth research if in alliance with them.
+		icon = GFX_decision_generic_research
+		cost = 50
+
+		fire_only_once = no
+		ai_will_do = {
+			factor = 50
+		}
+		#cancel_if_not_visible = yes
+		visible = {
+			NOT = { is_in_tech_sharing_group = commonwealth_research }
+			any_allied_country = {
+				AND = {	
+					is_in_tech_sharing_group = commonwealth_research # fucking only way to target shares is to specify share. to make shares for each nation would be fucking excrutiating. as its quite literary just a separate share for each single nation. thena  veeeeery ling if, if_else checking for your faction members share.
+					is_in_faction_with = ROOT 
+				}
+			}
+		}
+		available = {
+			any_allied_country = {
+				AND = {	
+					is_in_tech_sharing_group = commonwealth_research 
+					is_in_faction_with = ROOT 
+				}
+			}
+		}
+		complete_effect = {
+			add_to_tech_sharing_group = commonwealth_research
+		}
+	}
+
+
+	r56rp_join_techshare_comintern_research = { #specificaly joins the commonwelth research if in alliance with them.
+		icon = GFX_decision_generic_research
+		cost = 50
+
+		fire_only_once = no
+		ai_will_do = {
+			factor = 50
+		}
+		#cancel_if_not_visible = yes
+		visible = {
+			NOT = { is_in_tech_sharing_group = comintern_research }
+			any_allied_country = {
+				AND = {	
+					is_in_tech_sharing_group = comintern_research
+					
+				}
+			}
+		}
+		available = {
+			always = yes
+		}
+		complete_effect = {
+			add_to_tech_sharing_group = comintern_research
+		}
+		
+	}
+
+	r56rp_create_techshare_comintern_research = { #specificaly joins the commonwelth research if in alliance with them.
+		icon = GFX_decision_generic_research
+		cost = 100
+
+		fire_only_once = no
+		ai_will_do = {
+			factor = 50
+		}
+		#cancel_if_not_visible = yes
+		visible = {
+			NOT = { is_in_tech_sharing_group = comintern_research }
+			tag = SOV
+		}
+		available = {
+			NOT = { is_in_tech_sharing_group = comintern_research }
+		}
+		complete_effect = {
+			add_to_tech_sharing_group = comintern_research
+		}
+		
+	}
+
 }
 
 war_measures = {
