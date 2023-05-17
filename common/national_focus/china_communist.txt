@@ -64,55 +64,55 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
 	}
 
-	#focus = {
-	#	id = PRC_anti_japanese_aim
-	#	icon = GFX_focus_attack_japan
-	#	prerequisite = { focus = PRC_recover_from_the_long_march }
-	#	x = 0
-	#	y = 1
-	#	relative_position_id = PRC_recover_from_the_long_march
-	#	cost = 5
-	#
-	#	available = {
-	#		NOT = {
-	#			is_puppet_of = JAP
-	#			has_war_with = CHI
-	#		}
-	#	}
-	#	
-	#	bypass = {
-	#		has_war_with = JAP
-	#	}
-	#
-	#	completion_reward = {
-	#		add_stability = 0.1
-	#		if = {
-	#			limit = {
-	#				CHI = {
-	#					has_completed_focus = KMT_support_pro_japanese_faction
-	#				}
-	#				CHI = {
-	#					PRC = {
-	#						NOT = {
-	#							has_opinion_modifier = pro_jap_traitor
-	#						}
-	#					}
-	#				}
-	#			}
-	#			add_opinion_modifier = {
-	#				target = CHI
-	#				modifier = pro_jap_traitor
-	#			}
-	#		}
-	#	}
-	#	search_filters = { FOCUS_FILTER_STABILITY }
-	#}
+	focus = {
+		id = PRC_anti_japanese_aim
+		icon = GFX_focus_attack_japan
+		prerequisite = { focus = PRC_approach_the_front }
+		x = -2
+		y = 1
+		relative_position_id = PRC_approach_the_front
+		cost = 5
+	
+		available = {
+			NOT = {
+				is_puppet_of = JAP
+				has_war_with = CHI
+			}
+		}
+		
+		bypass = {
+			has_war_with = JAP
+		}
+	
+		completion_reward = {
+			add_stability = 0.1
+			if = {
+				limit = {
+					CHI = {
+						has_completed_focus = KMT_support_pro_japanese_faction
+					}
+					CHI = {
+						PRC = {
+							NOT = {
+								has_opinion_modifier = pro_jap_traitor
+							}
+						}
+					}
+				}
+				add_opinion_modifier = {
+					target = CHI
+					modifier = pro_jap_traitor
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+	}
 
 	focus = {
 		id = PRC_approach_the_front
 		icon = GFX_goal_generic_territory_or_war
 		prerequisite = { focus = PRC_recover_from_the_long_march }
-		x = -1
+		x = 0
 		y = 2
 		relative_position_id = PRC_recover_from_the_long_march
 		cost = 5
@@ -157,25 +157,6 @@ focus_tree = {
 			hidden_effect = {
 				load_oob = "PRC_east_expedition"
 			}
-			add_stability = 0.1
-			if = {
-				limit = {
-					CHI = {
-						has_completed_focus = KMT_support_pro_japanese_faction
-					}
-					CHI = {
-						PRC = {
-							NOT = {
-								has_opinion_modifier = pro_jap_traitor
-							}
-						}
-					}
-				}
-				add_opinion_modifier = {
-					target = CHI
-					modifier = pro_jap_traitor
-				}
-			}
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_MANPOWER }
 	}
@@ -183,10 +164,10 @@ focus_tree = {
 	focus = {
 		id = PRC_front_line_preparation
 		icon = GFX_focus_generic_public_works_A
-		prerequisite = { focus = PRC_approach_the_front }
+		prerequisite = { focus = PRC_anti_japanese_aim }
 		x = -1
 		y = 1
-		relative_position_id = PRC_approach_the_front
+		relative_position_id = PRC_anti_japanese_aim
 		cost = 10
 
 		available = {
@@ -239,10 +220,10 @@ focus_tree = {
 	focus = {
 		id = PRC_expand_taiyuan_arsenal
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = PRC_approach_the_front }
+		prerequisite = { focus = PRC_anti_japanese_aim }
 		x = 1
 		y = 1
-		relative_position_id = PRC_approach_the_front
+		relative_position_id = PRC_anti_japanese_aim
 		cost = 10
 		
 		available = {
@@ -256,7 +237,7 @@ focus_tree = {
 					is_core_of = ROOT
 					free_building_slots = {
 						building = arms_factory
-						size > 1
+						size > 2
 						include_locked = yes
 					}
 					free_building_slots = {
@@ -265,10 +246,10 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = arms_factory
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -287,7 +268,7 @@ focus_tree = {
 		id = PRC_supply_line_from_sov
 		icon = GFX_goal_generic_soviet_assistance
 		prerequisite = { focus = PRC_west_expedition focus = PRC_approach_the_front }
-		x = 0
+		x = 1
 		y = 2
 		relative_position_id = PRC_approach_the_front
 		cost = 10
@@ -339,10 +320,10 @@ focus_tree = {
 		id = PRC_west_expedition
 		icon = GFX_goal_PRC_attack_ma_clique
 		prerequisite = { focus = PRC_approach_the_front focus = PRC_urge_zhang }
-		x = 3
+		x = 2
 		y = 1
 		relative_position_id = PRC_approach_the_front
-		cost = 10
+		cost = 5
 
 		available = {
 			r56_script_i_am_sane = yes

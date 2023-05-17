@@ -34,6 +34,14 @@ focus_tree = {
 				}
 			}
 		}
+		available = {
+			 OR = {
+				has_completed_focus = GER_denounce_versailles
+				has_completed_focus = GER_consolidate_new_reich
+				has_completed_focus = GER_repeal_reichstag_fire_decree 
+				has_completed_focus = GER_restore_weimar
+			}
+		}
 		completion_reward = {
 			#add_stability = 0.05
 			random_owned_controlled_state = {
@@ -108,6 +116,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 16
 		}
+		available = {
+			OR = {
+			   has_completed_focus = GER_denounce_versailles
+			   has_completed_focus = GER_consolidate_new_reich
+			   has_completed_focus = GER_repeal_reichstag_fire_decree 
+			   has_completed_focus = GER_restore_weimar
+		   }
+	   }
 		available = {
 			any_controlled_state = {
 				is_coastal = yes
@@ -3527,6 +3543,23 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
+		available = {
+			42 = {
+				is_demilitarized_zone = no
+			}
+			51 = {
+				is_demilitarized_zone = no
+			}
+			989 = {
+				is_demilitarized_zone = no
+			}
+			922 = {
+				is_demilitarized_zone = no
+			}
+			923 = {
+				is_demilitarized_zone = no
+			}
+		}
 		completion_reward = {
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = todt
@@ -3634,6 +3667,14 @@ focus_tree = {
 		x = 14
 		y = 0
 		cost = 5
+		available = {
+			OR = {
+			   has_completed_focus = GER_denounce_versailles
+			   has_completed_focus = GER_consolidate_new_reich
+			   has_completed_focus = GER_repeal_reichstag_fire_decree 
+			   has_completed_focus = GER_restore_weimar
+		   }
+	   }
 		completion_reward = {
 			add_dynamic_modifier = {
 				modifier = GER_develop_the_heer_r56_modifier
@@ -5152,6 +5193,14 @@ focus_tree = {
 		x = -2
 		y = 1
 		cost = 5
+		available = {
+			OR = {
+			   has_completed_focus = GER_denounce_versailles
+			   has_completed_focus = GER_consolidate_new_reich
+			   has_completed_focus = GER_repeal_reichstag_fire_decree 
+			   has_completed_focus = GER_restore_weimar
+		   }
+	   }
 		completion_reward = {
 			add_to_variable = { GER_mechanization_of_the_army_mechanized_defence_factor = 0.05 }
 			custom_effect_tooltip = GER_mechanization_of_the_army_tt
@@ -5171,6 +5220,14 @@ focus_tree = {
 		id = GER_modernize_CAS
 		icon = GFX_goal_GER_luftwaffe
 		cost = 5.00
+		available = {
+			OR = {
+			   has_completed_focus = GER_denounce_versailles
+			   has_completed_focus = GER_consolidate_new_reich
+			   has_completed_focus = GER_repeal_reichstag_fire_decree 
+			   has_completed_focus = GER_restore_weimar
+		   }
+	   }
 		# prerequisite = {
 		# 	focus = GER_prepare_poland_invasion
 		# }
@@ -10785,6 +10842,7 @@ focus_tree = {
 
 	}
 	focus = {
+		# here be borked monstrosity. user beware. much anger yes-yes.
 		id = GER_political_turmoil
 		icon = GFX_goal_GER_take_advantage_of_political_turmoil
 		cost = 10.00
@@ -10849,49 +10907,69 @@ focus_tree = {
 				}
 				create_dynamic_country = { #commies
 					original_tag = GER
-					set_country_flag = is_commie_ger_cw
-					transfer_state = 60
-					transfer_state = 65
-					set_province_controller = 9560
-					set_province_controller = 9375
-					set_province_controller = 6218
-					set_province_controller = 6377
-					set_province_controller = 6487
-					set_province_controller = 11468
-					set_province_controller = 11402
-					set_province_controller = 11493
-					set_province_controller = 6513
-					set_province_controller = 526
-					set_province_controller = 3522
-					#set_province_controller = 3526 #this is in Greece, idk which tile I intended
-					set_province_controller = 6298
+				}
+				create_dynamic_country = { #democrats
+					original_tag = GER
+					set_country_flag = is_democratic_ger_cw
+					
+					transfer_state = 42 #Mosselland
+					transfer_state = 50 
+					transfer_state = 51 #Rhineland
+					transfer_state = 52 #Bavaria
+					transfer_state = 53 #Bavaria
+					transfer_state = 54 #Bavaria
+					transfer_state = 67 #Oppeln
+					transfer_state = 922
+					transfer_state = 923 #Baden
+					transfer_state = 989 #East Rhineland
+
 					set_politics = {
-						ruling_party = communism
+						ruling_party = democratic
 					}
-					add_popularity = {
-						ideology = communism
-						popularity = 0.75
+					set_popularities = {
+						democratic = 45
+						neutrality = 25
+						fascism = 10
+						communism = 20
 					}
 					declare_war_on = {
 						target = GER
 						type = civil_war
 					}
 					add_civil_war_target = ROOT #does not seem to work like wiki lists
-					set_capital = {state = 65} #largest communist share
-					load_focus_tree = german_focus #seems I cant keep progress since they are a different tag, force path
+					every_country = { #declare war on commie side
+						limit = {
+							original_tag = GER
+							not = {
+								tag = GER
+							}
+						}
+						declare_war_on = {
+							target = PREV
+							type = civil_war
+						}
+						add_civil_war_target = PREV #does not seem to work like wiki lists
+					}
+					load_focus_tree = { 
+						tree = german_focus
+						keep_completed = yes 
+					} #seems I cant keep progress since they are a different tag, force path
+					mark_focus_tree_layout_dirty = yes
 					unlock_national_focus = GER_kill_hitler
 					unlock_national_focus = GER_political_turmoil
-					complete_national_focus = GER_repeal_reichstag_fire_decree
+					complete_national_focus = GER_restore_weimar  #no switching ideology afterwards :P
 					#do not split units yet, because player could sabotage the nazis before picking in event
 					add_ideas = {
-						extensive_conscription
-						war_economy
+						limited_conscription
+						partial_economic_mobilisation
 					}
 					set_rule = {
 						can_send_volunteers = yes
 					}
+					reserve_dynamic_country = yes #required to sustain advisors for communist recruitment
 				}
-				create_dynamic_country = { #democrats
+
+				create_dynamic_country = { #nazi's
 					original_tag = GER
 					set_country_flag = is_democratic_ger_cw
 					transfer_state = 989 #East Rhineland
@@ -10931,7 +11009,11 @@ focus_tree = {
 						}
 						add_civil_war_target = PREV #does not seem to work like wiki lists
 					}
-					load_focus_tree = german_focus #seems I cant keep progress since they are a different tag, force path
+					load_focus_tree = { 
+						tree = german_focus
+						keep_completed = yes 
+					} #seems I cant keep progress since they are a different tag, force path
+					mark_focus_tree_layout_dirty = yes
 					unlock_national_focus = GER_kill_hitler
 					unlock_national_focus = GER_political_turmoil
 					complete_national_focus = GER_restore_weimar  #no switching ideology afterwards :P
@@ -10962,27 +11044,263 @@ focus_tree = {
 		icon = GFX_goal_ger_kpd
 		cost = 10.00
 		prerequisite = {
-			focus = GER_political_turmoil
+			focus = GER_kill_hitler
 		}
 		mutually_exclusive = {
 			focus = GER_restore_weimar
 		}
 		x = -4
 		y = 1
-		relative_position_id = GER_political_turmoil
+		relative_position_id = GER_kill_hitler
 		ai_will_do = {
 			factor = 50
 		}
 
 		completion_reward = {
+			custom_effect_tooltip = GER_civil_war_tt
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = ernst_thalmann
 			add_timed_idea = {
 				idea = GER_repeal_reichstag_fire_decree_idea
 				days = 730
 			}
-		}
+			#Begin civil war pro commie
 
+			##FIXED BY A CUNT WITH 5 WEEKS OF MODDING EXPERIENCE.
+			##Whoever made this mess, next time instead of taking it ass-backwards and tagging to dynamic's why not just change the current nation and fight against dynamics -_-?
+
+			#change flag, set party popularity and teleport army
+			set_country_flag = is_commie_ger_cw
+			set_politics = {
+				ruling_party = communism
+			}
+			set_popularities = {
+				communism = 75
+				democratic = 20
+				neutrality = 5
+			}
+			hidden_effect = {
+				set_capital = {state = 65}
+				if = {
+					limit = {
+						is_faction_leader = yes
+						NOT = {
+							any_other_country = {
+								is_in_faction_with = GER
+							}
+						}
+					}
+					dismantle_faction = yes
+					set_rule = {
+						can_create_factions = no
+					}
+				}
+				add_ideas = {
+					extensive_conscription
+					war_economy
+				}
+				set_rule = {
+					can_send_volunteers = yes
+				}
+				set_global_flag = r56_german_cw_ongoing
+
+				create_dynamic_country = { #democrats in pro commie
+					original_tag = GER
+					set_country_flag = is_democratic_ger_cw
+
+					set_variable = { GER.democratic_dynamic_tag = THIS }
+
+					transfer_state = 989 #East Rhineland
+					transfer_state = 50 
+					transfer_state = 51 #Rhineland
+					transfer_state = 52 #Bavaria
+					transfer_state = 53 #Bavaria
+					transfer_state = 54 #Bavaria
+					transfer_state = 42 #Mosselland
+					transfer_state = 922
+					transfer_state = 923 #Baden
+					transfer_state = 67 #Oppeln
+
+					set_capital = {state = 922} #Frankfurt. Closer to the middle.
+					
+					set_politics = {
+						ruling_party = democratic
+					}
+					set_popularities = {
+						democratic = 45
+						neutrality = 25
+						fascism = 10
+						communism = 20
+					}
+					declare_war_on = {
+						target = GER
+						type = civil_war
+					}
+					add_civil_war_target = ROOT #does not seem to work like wiki lists
+					every_country = { #declare war on commie side
+						limit = {
+							original_tag = GER
+							not = {
+								tag = GER
+							}
+						}
+						declare_war_on = {
+							target = PREV
+							type = civil_war
+						}
+						add_civil_war_target = PREV #does not seem to work like wiki lists
+					}
+					load_focus_tree = { 
+						tree = german_focus
+						keep_completed = yes 
+					} #seems I cant keep progress since they are a different tag, force path
+					mark_focus_tree_layout_dirty = yes
+					unlock_national_focus = GER_kill_hitler
+					unlock_national_focus = GER_political_turmoil
+					complete_national_focus = GER_restore_weimar  #no switching ideology afterwards :P
+					#do not split units yet, because player could sabotage the nazis before picking in event
+					add_ideas = {
+						limited_conscription
+						partial_economic_mobilisation
+					}
+					set_rule = {
+						can_send_volunteers = yes
+					}
+					reserve_dynamic_country = yes #required to sustain advisors for communist recruitment
+				}
+
+				create_dynamic_country = { #fascists in pro commie
+					original_tag = GER
+					set_country_flag = is_fascist_ger_cw
+
+					set_variable = { GER.fascist_dynamic_tag = THIS }
+
+					transfer_state = 5 #Ermland-Masuren
+					transfer_state = 38 #konigsberg
+					transfer_state = 55 #Hessen
+					transfer_state = 56 #Weser-ems
+					transfer_state = 57 #Westfalen
+					transfer_state = 58 #Holstein
+					transfer_state = 59 #Hanover
+					transfer_state = 61 #Mecklenburg
+					transfer_state = 62 #Vorpommern
+					transfer_state = 63 #Hinterpommern
+					transfer_state = 64 #Brandenburg
+					transfer_state = 66 #Niederschlezien
+					transfer_state = 68 #Neumark
+					transfer_state = 998 #Southern Schleswig
+					
+					set_capital = {state = 64}
+
+					# here be dragons.
+					#create fascist paramilitaries here, after splitting and after the player can mess with them
+					
+					set_politics = {
+						ruling_party = fascism
+					}
+					set_popularities = {
+						democratic = 1
+						neutrality = 1
+						fascism = 98
+					}
+					declare_war_on = {
+						target = GER
+						type = civil_war
+					}
+					add_civil_war_target = ROOT
+					every_country = { #declare war on commie side
+						limit = {
+							original_tag = GER
+							not = {
+								tag = GER
+							}
+						}
+						declare_war_on = {
+							target = PREV
+							type = civil_war
+						}
+						add_civil_war_target = PREV
+					}
+					load_focus_tree = { 
+						tree = german_focus
+						keep_completed = yes 
+					} #seems I cant keep progress since they are a different tag, force path
+					mark_focus_tree_layout_dirty = yes
+					unlock_national_focus = GER_denounce_versailles
+					unlock_national_focus = GER_rhineland
+					#do not split units yet, because player could sabotage the nazis before picking in event
+					add_ideas = {
+						limited_conscription
+						partial_economic_mobilisation
+					}
+					set_rule = {
+						can_send_volunteers = yes
+					}
+					reserve_dynamic_country = yes #required to sustain advisors for communist recruitment
+				}
+
+				transfer_units_fraction= { #transfer to fascists
+					target = var:GER.fascist_dynamic_tag
+					size = 0.5
+					stockpile_ratio = 0.3 #fascist stockpiles.
+					army_ratio = 0.4
+					navy_ratio = 1 #no majorities in naval regions so i guess Kriegsmarine is pro fasicst.
+					air_ratio = 0.50
+					keep_unit_leaders_trigger = {
+						always = yes 
+					}
+				}
+
+				transfer_units_fraction= { #transfer to democrats
+					target = var:GER.democratic_dynamic_tag
+					size = 0.3
+					stockpile_ratio = 0.30 #industrial core
+					army_ratio = 0.35
+					navy_ratio = 0 #no majorities in naval regions
+					air_ratio = 0.35
+					keep_unit_leaders_trigger = {
+						always = yes 
+					}
+				}
+
+				every_owned_state = { #get out of warzones for player units
+					limit = {
+						OR = {
+							state = 989 #East Rhineland
+							state = 50 
+							state = 51 #Rhineland
+							state = 52 #Bavaria
+							state = 53 #Bavaria
+							state = 54 #Bavaria
+							state = 42 #Mosselland
+							state = 922
+							state = 923 #Baden
+							state = 67 #Oppeln
+							state = 5 #Ermland-Masuren
+							state = 38 #konigsberg
+							state = 55 #Hessen
+							state = 56 #Weser-ems
+							state = 57 #Westfalen
+							state = 58 #Holstein
+							state = 59 #Hanover
+							state = 61 #Mecklenburg
+							state = 62 #Vorpommern
+							state = 63 #Hinterpommern
+							state = 66 #Niederschlezien
+							state = 68 #Neumark
+							state = 998 #Southern Schleswig
+						}
+					}
+					teleport_armies = {
+						limit = {
+							tag = GER
+						}
+						to_state = 65 #tried array, didnt work right, this is a strategic place
+					}
+				}
+				
+			}
+		}
 	}
 	focus = {
 		id = GER_world_revolution
@@ -11196,14 +11514,14 @@ focus_tree = {
 		icon = GFX_goal_GER_restore_weimar
 		cost = 10.00
 		prerequisite = {
-			focus = GER_political_turmoil
+			focus = GER_kill_hitler
 		}
 		mutually_exclusive = {
 			focus = GER_repeal_reichstag_fire_decree
 		}
 		x = 3
 		y = 1
-		relative_position_id = GER_political_turmoil
+		relative_position_id = GER_kill_hitler
 		ai_will_do = {
 			factor = 50
 		}
