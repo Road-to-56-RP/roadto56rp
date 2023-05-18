@@ -11135,17 +11135,52 @@ focus_tree = {
 						neutrality = 1
 						fascism = 98
 					}
-					create_country_leader = {
-						name = "Philippe Pétain"
-						desc = "POLITICS_PHILIPPE_PÉTAIN_DESC"
-						picture = "Portrait_France_Philippe_Petain.dds"
-						expire = "1965.1.1"
-						ideology = fascism_ideology
-						traits = {
-							popular_figurehead2
+
+					# pick correct leader based on event chosen
+					if = {
+						limit = {
+							GER = {
+								has_country_leader = {
+									name = "Hermann Göring"
+									ruling_only = yes
+								}
+							}
+						}
+						kill_country_leader = yes
+						GER_hermann_goring = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = nazism
+									expire = "1965.1.1"
+									traits = {famous_aviator}
+								}
+							}
 						}
 					}
-					
+
+					if = {
+						limit = {
+							GER = {
+								has_country_leader = {
+									name = "Heinrich Himmler"
+									ruling_only = yes
+								}
+							}
+						}
+						kill_country_leader = yes
+						GER_heinrich_himmler = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = nazism
+									expire = "1965.1.1"
+									traits = {prince_of_terror}
+								}
+							}
+						}
+					}
+
 					load_focus_tree = { 
 						tree = german_focus
 						keep_completed = yes 
@@ -11341,7 +11376,7 @@ focus_tree = {
 					}
 					add_civil_war_target = PREV
 				}
-				
+				add_civil_war_target = ROOT
 			}
 		}
 	}
