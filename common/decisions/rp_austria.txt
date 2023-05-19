@@ -575,4 +575,53 @@ austrian_expansion_dem = {
 			}	
 		}
 	}
+
+	## Example of a "give limited autonomy for factory output at the cost of state manpower."
+	r56rp_AUS_limited_autonomy_bohemia = {
+		icon = generic_form_nation
+		fire_only_once = yes # Only avialible once.
+		cost = 25 # PP cost.
+		visible = { # When the decision appears to the player
+			original_tag = AUS
+			OR = {
+				controls_state = 9 #Bohemia as an example
+			}	
+		}
+		available = { # when the decision is avalible to a player
+			owns_state = 9	
+		}	
+		ai_will_do = { # how likley it is for ai to do decision.
+			factor = 0
+		}
+		complete_effect = { #effects on completion
+
+			## leave it above "add dynamic modifier" otherwise shite doesent appear
+			#add 5prc factory output to the combined spirit made in folder \common\dynamic_modifiers\AUS.txt
+			add_to_variable = { AUS_combined_limited_autonomy_modifier_industrial_capacity_factory = 0.05 }
+			add_to_variable = { AUS_combined_limited_autonomy_modifier_stability_factor = 0.05 }
+
+			# ALL BONUSES YOU WANT COMBINED MUST BE FIRST DECLARED IN THE AUS.txt DYNAMIC MODIFIER FILE.			
+
+			if = { #add the dynamic modifier to the country if you do not have it.
+				limit = {
+					NOT = { has_idea = AUS_combined_limited_autonomy_modifier }
+				}
+				add_dynamic_modifier = { 
+					modifier = AUS_combined_limited_autonomy_modifier
+				}
+			}
+			
+
+			9 = { #state to target
+				add_state_modifier = {
+					modifier = { #modifier to add to a state
+						local_manpower = -0.25 #-25% recruitable manpower in bohemia
+					}
+				}
+			}
+			
+		}
+		
+	}
+
 }
