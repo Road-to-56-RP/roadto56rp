@@ -118,8 +118,8 @@ focus_tree = {
 		id = USA_double_victory
 		icon = GFX_Goal_USA_double_victory
 		x = -6
-		y = 2
-		prerequisite = { focus = USA_wpa focus = USA_suspend_the_presecution }
+		y = 4
+		prerequisite = { focus = USA_agricultural_adjustment_act focus = USA_accumulated_wealth_tax_act }
 		relative_position_id = USA_continue_the_new_deal
 		cost = 5
 
@@ -166,10 +166,10 @@ focus_tree = {
 	focus = {
 		id = USA_fight_jim_crow_now
 		icon = GFX_goal_african_diplomacy
-		x = -6
-		y = 3
+		x = 0
+		y = 1
 		prerequisite = { focus = USA_double_victory }
-		relative_position_id = USA_continue_the_new_deal
+		relative_position_id = USA_double_victory
 		cost = 10
 
 		ai_will_do = {
@@ -239,6 +239,7 @@ focus_tree = {
 		continue_if_invalid = yes
 		
 		search_filters = {  FOCUS_FILTER_USA_CONGRESS}
+
 		completion_reward = {
 			unlock_decision_tooltip = { decision = USA_pass_a_new_civil_rights_bill show_effect_tooltip = yes } 
 			add_stability = -0.10
@@ -248,7 +249,7 @@ focus_tree = {
 	focus = {
 		id = USA_suspend_the_presecution
 		icon = GFX_focus_generic_diplomatic_treaty
-		x = -7
+		x = -8
 		y = 1
 		prerequisite = { focus = USA_continue_the_new_deal }
 		relative_position_id = USA_continue_the_new_deal
@@ -328,7 +329,7 @@ focus_tree = {
 	focus = {
 		id = USA_desegregate_the_armed_forces
 		icon = GFX_Goal_USA_Desegregated_military
-		x = -6
+		x = -10
 		y = 1
 		prerequisite = { focus = USA_suspend_the_presecution }
 		relative_position_id = USA_suspend_the_presecution
@@ -358,7 +359,7 @@ focus_tree = {
 	focus = {
 		id = USA_democratic_socialism
 		icon = GFX_goal_generic_red_freedom
-		x = -1
+		x = 1
 		y = 1
 		prerequisite = { focus = USA_desegregate_the_armed_forces }
 		relative_position_id = USA_desegregate_the_armed_forces
@@ -415,7 +416,7 @@ focus_tree = {
 			}
 		}
 		relative_position_id = USA_democratic_socialism
-		x = -1
+		x = -2
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -653,7 +654,7 @@ focus_tree = {
 	focus = {
 		id = USA_full_desegregation
 		icon = GFX_Goal_USA_desegregation
-		x = 1
+		x = -1
 		y = 1
 		prerequisite = { focus = USA_desegregate_the_armed_forces }
 		relative_position_id = USA_desegregate_the_armed_forces
@@ -725,10 +726,10 @@ focus_tree = {
 	focus = {
 		id = USA_liberty_for_the_philippines
 		icon = GFX_goal_philippines_post_independence_stabilization
-		x = 0
+		x = 1
 		y = 2
 		prerequisite = { focus = USA_democratic_socialism }
-		prerequisite = { focus = USA_full_desegregation }
+		#prerequisite = { focus = USA_full_desegregation }
 		relative_position_id = USA_desegregate_the_armed_forces
 		cost = 10
 
@@ -772,7 +773,7 @@ focus_tree = {
 	focus = {
 		id = USA_pacific_decolonisation
 		icon = GFX_goal_generic_national_unity
-		x = 0
+		x = 1
 		y = 3
 		prerequisite = { focus = USA_liberty_for_the_philippines }
 		relative_position_id = USA_desegregate_the_armed_forces
@@ -837,7 +838,7 @@ focus_tree = {
 	focus = {
 		id = USA_union_representation_act
 		icon = GFX_focus_usa_union_representation_act
-		x = -3
+		x = 0
 		y = 1
 		prerequisite = { focus = USA_suspend_the_presecution }
 		relative_position_id = USA_suspend_the_presecution
@@ -900,7 +901,7 @@ focus_tree = {
 	focus = {
 		id = USA_old_age_pension_act
 		icon = GFX_goal_generic_consumer_goods
-		x = 0
+		x = -2
 		y = 1
 		prerequisite = { focus = USA_union_representation_act }
 		relative_position_id = USA_union_representation_act
@@ -926,9 +927,10 @@ focus_tree = {
 	focus = {
 		id = USA_accumulated_wealth_tax_act
 		icon = GFX_focus_rom_parties_end
-		x = 2
+		x = 0
 		y = 1
 		prerequisite = { focus = USA_union_representation_act }
+		mutually_exclusive = { focus = USA_agricultural_adjustment_act }
 		relative_position_id = USA_union_representation_act
 		cost = 10
 
@@ -1008,6 +1010,7 @@ focus_tree = {
 		}
 
 		available = {
+			date > 1938.1.1
 			congress_high_support_trigger = yes
 			OR = {
 				has_idea_with_trait = communist_revolutionary
@@ -1045,11 +1048,11 @@ focus_tree = {
 	focus = {
 		id = USA_militia_organization_act
 		icon = GFX_focus_secret_rearmament
-		x = 2
+		x = -2
 		y = 1
 		prerequisite = { focus = USA_guarantee_the_american_dream }
 		relative_position_id = USA_guarantee_the_american_dream
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1149,10 +1152,10 @@ focus_tree = {
 	focus = {
 		id = USA_reach_out_to_the_ware_group
 		icon = GFX_goal_generic_propaganda
-		x = 0
-		y = 3
+		x = -5
+		y = 1
 		prerequisite = { focus = USA_suspend_the_presecution }
-		prerequisite = { focus = USA_agricultural_adjustment_act }
+		#prerequisite = { focus = USA_agricultural_adjustment_act }
 		relative_position_id = USA_suspend_the_presecution
 		cost = 10
 
@@ -1194,9 +1197,9 @@ focus_tree = {
 		id = USA_us_ussr_economic_cooperation
 		icon = GFX_goal_generic_soviet_construction
 		x = 0
-		y = 5
+		y = 1
 		prerequisite = { focus = USA_reach_out_to_the_ware_group }
-		relative_position_id = USA_suspend_the_presecution
+		relative_position_id = USA_reach_out_to_the_ware_group
 		cost = 10
 
 		ai_will_do = {
@@ -1247,7 +1250,7 @@ focus_tree = {
 		}
 
 		x = 0
-		y = 3
+		y = 2
 		relative_position_id = USA_reach_out_to_the_ware_group
 		cost = 10
 		#ai_will_do = {
@@ -1269,7 +1272,7 @@ focus_tree = {
 		id = USA_secure_china
 		icon = GFX_focus_chi_cooperation_with_the_communists
 		x = 2
-		y = 3
+		y = 2
 		prerequisite = { focus = USA_reach_out_to_the_ware_group }
 		mutually_exclusive = { focus = USA_unholy_alliance }
 		relative_position_id = USA_reach_out_to_the_ware_group
@@ -1322,9 +1325,9 @@ focus_tree = {
 	focus = {
 		id = USA_end_monarchism
 		icon = GFX_focus_rom_abdicate
-		x = 3
-		y = 1
-		prerequisite = { focus = USA_reach_out_to_the_ware_group }
+		x = -2
+		y = 2
+		prerequisite = { focus = USA_reach_out_to_the_ware_group focus = USA_democratic_socialism }
 		relative_position_id = USA_reach_out_to_the_ware_group
 		cost = 10
 
@@ -1433,8 +1436,8 @@ focus_tree = {
 	focus = {
 		id = USA_shatter_the_empires
 		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
-		x = 3
-		y = 2
+		x = -2
+		y = 3
 		prerequisite = { focus = USA_end_monarchism }
 		relative_position_id = USA_reach_out_to_the_ware_group
 		cost = 10
@@ -1648,8 +1651,9 @@ focus_tree = {
 		id = USA_agricultural_adjustment_act
 		icon = GFX_goal_generic_agriculture2
 		x = 0
-		y = 1
+		y = 2
 		prerequisite = { focus = USA_wpa }
+		mutually_exclusive = { focus = USA_accumulated_wealth_tax_act }
 		relative_position_id = USA_wpa
 		cost = 10
 
@@ -1698,7 +1702,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_agricultural_adjustment_act }
-		relative_position_id = USA_wpa
+		relative_position_id = USA_agricultural_adjustment_act
 		cost = 10
 
 		ai_will_do = {
@@ -1749,7 +1753,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		prerequisite = { focus = USA_fair_labour_standards_act }
-		relative_position_id = USA_wpa
+		relative_position_id = USA_agricultural_adjustment_act
 		cost = 10
 
 		ai_will_do = {
@@ -2050,7 +2054,7 @@ focus_tree = {
 	focus = {
 		id = USA_focus_on_europe
 		icon = GFX_focus_usa_focus_on_europe
-		x = -2
+		x = -1
 		y = 1
 		prerequisite = { focus = USA_war_propaganda }
 		mutually_exclusive = { focus = USA_focus_on_asia }
@@ -2099,7 +2103,7 @@ focus_tree = {
 	focus = {
 		id = USA_focus_on_asia
 		icon = GFX_focus_usa_focus_on_asia
-		x = 0
+		x = 1
 		y = 1
 		prerequisite = { focus = USA_war_propaganda }
 		mutually_exclusive = { focus = USA_focus_on_europe }
@@ -2127,7 +2131,7 @@ focus_tree = {
 	focus = {
 		id = USA_defense_contractors
 		icon = GFX_goal_generic_gun_purchase
-		x = 0
+		x = 1
 		y = 1
 		prerequisite = { focus = USA_focus_on_europe focus = USA_focus_on_asia }
 		relative_position_id = USA_focus_on_europe
@@ -2293,7 +2297,7 @@ focus_tree = {
 	focus = {
 		id = USA_aquire_war_materiel
 		icon = GFX_goal_generic_all_resource
-		x = 0
+		x = -1
 		y = 1
 		prerequisite = { focus = USA_us_war_economy }
 		relative_position_id = USA_us_war_economy
@@ -2326,7 +2330,7 @@ focus_tree = {
 	focus = {
 		id = USA_military_rnd
 		icon = GFX_goal_generic_warfighting_technology
-		x = 2
+		x = 1
 		y = 1
 		prerequisite = { focus = USA_us_war_economy }
 		relative_position_id = USA_us_war_economy
@@ -2347,10 +2351,10 @@ focus_tree = {
 	focus = {
 		id = USA_over_there
 		icon = GFX_goal_USA_over_there
-		x = 1
+		x = 0
 		y = 2
-		prerequisite = { focus = USA_focus_on_europe focus = USA_focus_on_asia }
-		relative_position_id = USA_focus_on_europe
+		prerequisite = { focus = USA_us_war_economy }
+		relative_position_id = USA_us_war_economy
 		cost = 10
 
 		ai_will_do = {
@@ -2403,7 +2407,7 @@ focus_tree = {
 			
 		}
 		x = 2
-		y = 1
+		y = 2
 		relative_position_id = USA_war_propaganda
 		cost = 10
 		ai_will_do = {
@@ -2445,10 +2449,10 @@ focus_tree = {
 	focus = {
 		id = USA_black_chamber
 		icon = GFX_goal_CAN_CAMP_X
-		prerequisite = { focus = USA_focus_on_europe focus = USA_focus_on_asia }
+		#prerequisite = { focus = USA_focus_on_europe focus = USA_focus_on_asia } 
 		prerequisite = { focus = USA_office_of_strategic_services }
 		available = { }
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = USA_office_of_strategic_services
 		cost = 10
@@ -2480,9 +2484,10 @@ focus_tree = {
 	focus = {
 		id = USA_magic
 		icon = GFX_goal_generic_radar
-		x = 0
+		x = 1
 		y = 1
 		prerequisite = { focus = USA_office_of_strategic_services }
+		prerequisite = { focus = USA_scientist_haven }
 		relative_position_id = USA_office_of_strategic_services
 		cost = 5
 
@@ -2504,7 +2509,7 @@ focus_tree = {
 			has_dlc = "La Resistance"
 		}		
 		relative_position_id = USA_office_of_strategic_services
-		x = -1
+		x = 0
 		y = 2
 		ai_will_do = {
 			factor = 10
@@ -3787,10 +3792,10 @@ focus_tree = {
 	focus = {
 		id = USA_tuskegee_airmen
 		icon = GFX_goal_USA_tuskegee_airmen
-		prerequisite = { focus = USA_war_propaganda focus = USA_arsenal_of_democracy }
-		x = -1
+		prerequisite = { focus = USA_air_war_plans_division }
+		x = 3
 		y = 1
-		relative_position_id = USA_arsenal_of_democracy
+		relative_position_id = USA_air_war_plans_division
 		cost = 5
 		#ai_will_do = {
 		#	factor = 1
@@ -3874,7 +3879,7 @@ focus_tree = {
 		prerequisite = { focus = USA_scientist_haven }
 		
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = USA_scientist_haven
 		cost = 10
 		#ai_will_do = {
@@ -3928,6 +3933,9 @@ focus_tree = {
 		id = r56_USA_foundation_of_NATO
 		icon = GFX_focus_chi_mission_to_the_us
 		prerequisite = { focus = USA_us_war_economy focus = USA_wartime_industry }
+		#allow_branch = {
+		#	has_government = democratic
+		#}
 		available = {
 			has_government = democratic
 			is_puppet = no
@@ -3971,7 +3979,7 @@ focus_tree = {
 		
 		
 		x = -3
-		y = 5
+		y = 6
 		relative_position_id = USA_arsenal_of_democracy
 		cost = 5
 		ai_will_do = {
@@ -6340,7 +6348,7 @@ focus_tree = {
 	focus = {
 		id = USA_america_first
 		icon = GFX_Goal_USA_america_first
-		x = 5
+		x = 4
 		y = 1
 		prerequisite = { focus = USA_reestablish_the_gold_standard }
 		relative_position_id = USA_reestablish_the_gold_standard
@@ -6428,7 +6436,7 @@ focus_tree = {
 	focus = {
 		id = USA_empower_the_huac
 		icon = GFX_Goal_USA_HUAC
-		x = -1
+		x = 0
 		y = 2
 		prerequisite = { focus = USA_extend_the_chinese_exclusion_acts }
 		prerequisite = { focus = USA_labour_management_relations_act }
@@ -6453,7 +6461,7 @@ focus_tree = {
 	focus = {
 		id = USA_voter_registration_act
 		icon = GFX_focus_usa_voter_registration_act
-		x = -1
+		x = 0
 		y = 3
 		prerequisite = { focus = USA_empower_the_huac }
 
@@ -6561,7 +6569,7 @@ focus_tree = {
 	focus = {
 		id = USA_national_prosperity_program
 		icon = GFX_goal_generic_consumer_goods
-		x = -2
+		x = -1
 		y = 1
 		prerequisite = { focus = USA_ally_with_the_silver_shirts }
 		relative_position_id = USA_ally_with_the_silver_shirts
@@ -6583,10 +6591,10 @@ focus_tree = {
 	focus = {
 		id = USA_privatize_the_TVA
 		icon = GFX_focus_generic_industry_1
-		x = -3
-		y = 2
+		x = -1
+		y = 1
 		prerequisite = { focus = USA_national_prosperity_program }
-		relative_position_id = USA_ally_with_the_silver_shirts
+		relative_position_id = USA_national_prosperity_program
 		cost = 10
 
 		ai_will_do = {
@@ -6608,10 +6616,10 @@ focus_tree = {
 	focus = {
 		id = USA_de_regulate_the_banking_sector
 		icon = GFX_goal_generic_banking
-		x = -1
-		y = 2
+		x = 1
+		y = 1
 		prerequisite = { focus = USA_national_prosperity_program }
-		relative_position_id = USA_ally_with_the_silver_shirts
+		relative_position_id = USA_national_prosperity_program
 		cost = 10
 
 		ai_will_do = {
@@ -6629,11 +6637,11 @@ focus_tree = {
 	focus = {
 		id = USA_national_employment_strategy
 		icon = GFX_goal_italy_nationalize_the_banks
-		x = -2
-		y = 3
+		x = 0
+		y = 2
 		prerequisite = { focus = USA_privatize_the_TVA }
 		prerequisite = { focus = USA_de_regulate_the_banking_sector }
-		relative_position_id = USA_ally_with_the_silver_shirts
+		relative_position_id = USA_national_prosperity_program
 		cost = 10
 
 		ai_will_do = {
@@ -6679,7 +6687,7 @@ focus_tree = {
 	focus = {
 		id = USA_invite_foreign_support
 		icon = GFX_goal_generic_military_deal
-		x = 3
+		x = 2
 		y = 1
 		prerequisite = { focus = USA_ally_with_the_silver_shirts }
 		relative_position_id = USA_ally_with_the_silver_shirts
@@ -6793,7 +6801,7 @@ focus_tree = {
 		}
 
 		relative_position_id = USA_recruit_the_free_corps
-		x = -1
+		x = 1
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -9726,7 +9734,7 @@ focus_tree = {
 	focus = {
 		id = USA_build_the_pentagon
 		icon = GFX_focus_usa_build_the_pentagon
-		x = -3
+		x = -2
 		y = 1
 		prerequisite = { focus = USA_war_department }
 		relative_position_id = USA_war_department
@@ -9751,7 +9759,7 @@ focus_tree = {
 	focus = {
 		id = USA_support_rock_island
 		icon = GFX_goal_generic_army_artillery
-		x = -3
+		x = -4
 		y = 1
 		relative_position_id = USA_build_the_pentagon
 		cost = 10
@@ -11047,7 +11055,7 @@ focus_tree = {
 	focus = {
 		id = USA_90_division_gamble
 		icon = GFX_focus_SOV_mobilization_plan
-		x = 0
+		x = -1
 		y = 1
 		prerequisite = { focus = USA_build_the_pentagon }
 		mutually_exclusive = { focus = USA_victory_program }
@@ -11098,7 +11106,7 @@ focus_tree = {
 	focus = {
 		id = USA_victory_program
 		icon = GFX_goal_polish_wartime_industry
-		x = 2
+		x = 1
 		y = 1
 		prerequisite = { focus = USA_build_the_pentagon }
 		mutually_exclusive = { focus = USA_90_division_gamble }
