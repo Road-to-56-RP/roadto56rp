@@ -2383,19 +2383,6 @@ focus_tree = {
 				}
 				add_ideas = BEL_volunteer_corps
 			}
-			if = {
-				limit = {
-					has_war_support < 0.4
-					has_war_support > 0.2
-				}
-				add_stability = -0.1
-			}
-			else_if = {
-				limit = {
-					has_war_support < 0.2
-				}
-				add_stability = -0.25
-			}
 			USA_congress_small_opposition = yes
 		}
 	}
@@ -3878,8 +3865,8 @@ focus_tree = {
 		icon = GFX_goal_generic_nuclear_energy
 		prerequisite = { focus = USA_scientist_haven }
 		
-		x = 0
-		y = 2
+		x = 1
+		y = 1
 		relative_position_id = USA_scientist_haven
 		cost = 10
 		#ai_will_do = {
@@ -9052,7 +9039,7 @@ focus_tree = {
 	focus = {
 		id = USA_war_department
 		icon = GFX_Goal_USA_War_dep
-		x = 75
+		x = 72
 		y = 0
 		offset = {
 			x = -40
@@ -9759,7 +9746,7 @@ focus_tree = {
 	focus = {
 		id = USA_support_rock_island
 		icon = GFX_goal_generic_army_artillery
-		x = -4
+		x = -5
 		y = 1
 		relative_position_id = USA_build_the_pentagon
 		cost = 10
@@ -9888,11 +9875,11 @@ focus_tree = {
 	focus = {
 		id = USA_tank_experiments
 		icon = GFX_goal_generic_army_tanks
-		x = 2
+		x = 3
 		y = 1
 		prerequisite = { focus = USA_support_rock_island }
 		relative_position_id = USA_support_rock_island
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -9904,14 +9891,7 @@ focus_tree = {
 					has_dlc = "No Step Back"
 				}
 				has_tech = basic_medium_tank_chassis
-				has_tech = improved_medium_tank_chassis
-				has_tech = basic_heavy_tank_chassis
-				has_tech = armor_tech_1
-				has_tech = engine_tech_1
-				OR = {
-					has_tech = artillery1
-					has_tech = antitank1
-				}
+				has_tech = artillery1
 			}
 		}
 		
@@ -9919,7 +9899,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = USA_tank_experiments
-				uses = 2
+				uses = 1
 				bonus = 1.0
 				category = armor
 			}
@@ -10225,6 +10205,44 @@ focus_tree = {
 					}
 				}
 				
+			}
+		}
+	}
+	focus = {
+		id = USA_tank_experiments_heavy
+		icon = GFX_goal_generic_army_tanks
+		x = 1
+		y = 1
+		prerequisite = { focus = USA_support_rock_island }
+		relative_position_id = USA_support_rock_island
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				has_tech = basic_heavy_tank_chassis
+				has_tech = antitank1
+			}
+		}
+		
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_tank_experiments
+				uses = 1
+				bonus = 1.0
+				category = armor
+			}
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
 				if = {
 					limit = {
 						has_tech = centimetric_radar
@@ -10319,7 +10337,7 @@ focus_tree = {
 	focus = {
 		id = USA_tank_destroyer_doctrine
 		icon = GFX_focus_usa_tank_destroyer_doctrine
-		x = -1
+		x = -2
 		y = 1
 		prerequisite = { focus = USA_tank_experiments }
 		prerequisite = { focus = USA_department_of_defense }
@@ -10774,13 +10792,13 @@ focus_tree = {
 	focus = {
 		id = USA_main_battle_tanks
 		icon = GFX_focus_generic_combined_arms
-		x = 1
+		x = 0
 		y = 1
 		prerequisite = { focus = USA_tank_experiments }
 		prerequisite = { focus = USA_department_of_defense }
 		mutually_exclusive = { focus = USA_tank_destroyer_doctrine }
 		relative_position_id = USA_tank_experiments
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 1
@@ -11090,17 +11108,21 @@ focus_tree = {
 					has_war_support > 0.2
 					has_war = no
 				}
+				custom_effect_tooltip = USA_victory_program_focus_2_tt
 				add_stability = -0.1
+				
 			}
 			else_if = {
 				limit = {
 					has_war_support < 0.2
 					has_war = no
 				}
+				custom_effect_tooltip = USA_victory_program_focus_tt
 				add_stability = -0.25
+				
 			}
 			else = {
-
+				custom_effect_tooltip = USA_victory_program_focus_3_tt
 			}
 			USA_congress_small_opposition = yes
 		}
@@ -11136,27 +11158,27 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = r56_USA_victory_program
 			if = {
-				limit = {
-					has_war = no
-				}
-				custom_effect_tooltip = USA_victory_program_focus_tt
 				if = {
 					limit = {
 						has_war_support < 0.4
 						has_war_support > 0.2
 						has_war = no
 					}
+					custom_effect_tooltip = USA_victory_program_focus_2_tt
 					add_stability = -0.1
+					
 				}
 				else_if = {
 					limit = {
 						has_war_support < 0.2
 						has_war = no
 					}
+					custom_effect_tooltip = USA_victory_program_focus_tt
 					add_stability = -0.25
+					
 				}
 				else = {
-
+					custom_effect_tooltip = USA_victory_program_focus_3_tt
 				}
 			}
 			USA_congress_small_opposition = yes
@@ -11602,7 +11624,7 @@ focus_tree = {
 	focus = {
 		id = USA_two_ocean_navy_act
 		icon = GFX_focus_generic_navy_battleship2
-		x = 17
+		x = 9
 		y = 1
 		prerequisite = { focus = USA_war_department }
 		relative_position_id = USA_war_department
@@ -11613,81 +11635,62 @@ focus_tree = {
 		}
 
 		available = {
-			has_war_support > 0.05
 			if = {
 				limit = {
-					threat < 0.5
 					has_war = no
 				}
+				NOT = { has_idea = great_depression }
+				NOT = { has_idea = great_depression_2 }
+				NOT = { has_idea = great_depression_3 }
 				congress_high_support_trigger = yes
 			}
 			else = {
 				congress_low_support_trigger = yes
 			}
-			controls_state = 378
-			controls_state = 358
 		}
 
 		cancel_if_invalid = no
 		continue_if_invalid = yes
 		
 
-		complete_tooltip = {
-			378 = { 
-				add_extra_state_shared_building_slots = 5
-				add_building_construction = {
-					type = dockyard
-					level = 5
-					instant_build = yes
-				}
-			}
-			358 = { 
-				add_extra_state_shared_building_slots = 5
-				add_building_construction = {
-					type = dockyard
-					level = 5
-					instant_build = yes
-				}
-			}
-		}
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			if = { 
-				limit = { 
-					378 = {
-						free_building_slots = {
-							building = dockyard
-							size > 4
-							include_locked = yes
-						}
+			random_owned_controlled_state = { #what is it with road devs desperatley making buildings staticaly?
+				prioritize = { 378 }
+				limit = {
+					is_coastal = yes
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
 					}
 				}
-				378 = { 
-					add_extra_state_shared_building_slots = 5
-					add_building_construction = {
-						type = dockyard
-						level = 5
-						instant_build = yes
-					}
+				add_extra_state_shared_building_slots = 5
+				add_building_construction = {
+					type = dockyard
+					level = 5
+					instant_build = yes
 				}
 			}
-			if = { 
-				limit = { 
-					358 = {
-						free_building_slots = {
-							building = dockyard
-							size > 4
-							include_locked = yes
-						}
+			random_owned_controlled_state = {
+				prioritize = { 358 }
+				limit = {
+					is_coastal = yes
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
 					}
 				}
-				358 = { 
-					add_extra_state_shared_building_slots = 5
-					add_building_construction = {
-						type = dockyard
-						level = 5
-						instant_build = yes
-					}
+				add_extra_state_shared_building_slots = 5
+				add_building_construction = {
+					type = dockyard
+					level = 5
+					instant_build = yes
 				}
 			}
 			swap_ideas = { #punishment for doing this focus early 
@@ -11705,10 +11708,10 @@ focus_tree = {
 	focus = {
 		id = USA_maritime_commission
 		icon = GFX_goal_generic_production2
-		x = -7
-		y = 0
-		prerequisite = { focus = USA_war_department }
-		relative_position_id = USA_two_ocean_navy_act
+		x = 5
+		y = 1
+		prerequisite = { focus = USA_bureau_of_ships }
+		relative_position_id = USA_bureau_of_ships
 		cost = 10
 
 		ai_will_do = {
@@ -11760,8 +11763,8 @@ focus_tree = {
 	focus = {
 		id = USA_bureau_of_ships
 		icon = GFX_goal_naval_treaty
-		x = -3
-		y = 1
+		x = 0
+		y = 3
 		cost = 5
 		#ai_will_do = {
 		#	factor = 1
@@ -11794,7 +11797,7 @@ focus_tree = {
 		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = USA_bureau_of_ships }
 		mutually_exclusive = { focus = USA_carrier_primacy }
-		x = -6
+		x = -2
 		y = 1
 		relative_position_id = USA_bureau_of_ships
 		cost = 10
@@ -12018,7 +12021,7 @@ focus_tree = {
 		icon = GFX_goal_generic_navy_carrier
 		prerequisite = { focus = USA_bureau_of_ships }
 		mutually_exclusive = { focus = USA_battleship_primacy }
-		x = -2
+		x = 2
 		y = 1
 		relative_position_id = USA_bureau_of_ships
 		cost = 10
@@ -12129,7 +12132,7 @@ focus_tree = {
 		id = USA_escort_effort
 		icon = GFX_goal_generic_navy_anti_submarine
 		prerequisite = { focus = USA_bureau_of_ships }
-		x = 1
+		x = 7
 		y = 1
 		relative_position_id = USA_bureau_of_ships
 		cost = 5
@@ -12184,7 +12187,7 @@ focus_tree = {
 	focus = {
 		id = USA_fleet_submarines
 		icon = GFX_goal_generic_navy_submarine
-		x = 3
+		x = 9
 		y = 1
 		prerequisite = { focus = USA_bureau_of_ships }
 		relative_position_id = USA_bureau_of_ships
@@ -12214,10 +12217,10 @@ focus_tree = {
 	focus = {
 		id = USA_unrestricted_submarine_warfare
 		icon = GFX_goal_generic_wolf_pack
-		x = 3
-		y = 2
+		x = 0
+		y = 1
 		prerequisite = { focus = USA_fleet_submarines }
-		relative_position_id = USA_bureau_of_ships
+		relative_position_id = USA_fleet_submarines
 		cost = 10
 
 		ai_will_do = {
@@ -12232,7 +12235,7 @@ focus_tree = {
 	focus = {
 		id = USA_fund_the_navy
 		icon = GFX_goal_USA_coa_navy
-		x = 3
+		x = 2
 		y = 1
 		relative_position_id = USA_two_ocean_navy_act
 		cost = 5
