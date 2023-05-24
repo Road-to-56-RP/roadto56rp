@@ -1475,13 +1475,39 @@ CHI_industrial_evacuations = {
 	CHI_industrial_evacuations_from_FROM = { #redone by warlider, cause SHIT WASNT WORKING BEFORE.
 		icon = GFX_decision_generic_industry
 		available = {
+			#should kinda ensure there are civs to move with before moving
 			num_of_civilian_factories_available_for_projects > 5
 			FROM = {
-				OR = {
+				OR = { #show the evacuation decision when there is something to
 					arms_factory > 0
 					industrial_complex > 0
 				}
 			}
+			
+
+			any_state = {
+				state = 325 #Yunnan
+				state = 603 #Guizhou
+				state = 605 #Sichuan
+				state = 747 #Dali
+				state = 748 #Zunyi
+				state = 751 #Liangshan
+				state = 752 #Ganzi
+				is_controlled_by = ROOT
+				OR = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+			}
+		
 		}
 		highlight_states = {
 			highlight_state_targets = {
@@ -1600,11 +1626,13 @@ CHI_industrial_evacuations = {
 					random_owned_controlled_state = {
 						limit = {
 							OR = { #makes it truly random and spreads the industry around a bit instead of dumping it into sechuan
-								state = 605
-								state = 603
-								state = 748 
-								state = 751
-								state = 752
+								state = 325 #Yunnan
+								state = 603 #Guizhou
+								state = 605 #Sichuan
+								state = 747 #Dali
+								state = 748 #Zunyi
+								state = 751 #Liangshan
+								state = 752 #Ganzi
 							}
 							is_fully_controlled_by = ROOT
 							any_neighbor_state = {
@@ -1632,11 +1660,13 @@ CHI_industrial_evacuations = {
 					random_owned_controlled_state = {
 						limit = {
 							OR = { #makes it truly random
-								state = 605
-								state = 603
-								state = 748 
-								state = 751
-								state = 752
+								state = 325 #Yunnan
+								state = 603 #Guizhou
+								state = 605 #Sichuan
+								state = 747 #Dali
+								state = 748 #Zunyi
+								state = 751 #Liangshan
+								state = 752 #Ganzi
 							}
 							is_fully_controlled_by = ROOT
 							free_building_slots = {
