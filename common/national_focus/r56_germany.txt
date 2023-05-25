@@ -10914,7 +10914,8 @@ focus_tree = {
 		}
 
 		select_effect = { 
-
+			set_global_flag = fall_of_berlin_civil_war
+			set_global_flag = r56_german_cw_ongoing
 			if = {
 				limit = {
 					GER = {
@@ -11009,9 +11010,7 @@ focus_tree = {
 					} #seems I cant keep progress since they are a different tag, force path
 					mark_focus_tree_layout_dirty = yes
 					unlock_national_focus = GER_kill_hitler
-					unlock_national_focus = GER_political_turmoil
-					complete_national_focus = GER_restore_weimar  #no switching ideology afterwards :P
-					#do not split units yet, because player could sabotage the nazis before picking in event
+					unlock_national_focus = GER_begin_civilwar_democratic
 					add_ideas = {
 						limited_conscription
 						partial_economic_mobilisation
@@ -11103,6 +11102,9 @@ focus_tree = {
 				create_dynamic_country = { #fascists in pro commie
 					original_tag = GER
 					set_country_flag = is_fascist_ger_cw
+
+					unlock_national_focus = GER_denounce_versailles
+					unlock_national_focus = GER_rhineland
 
 					set_variable = { GER.fascist_dynamic_tag = THIS }
 
@@ -11264,7 +11266,7 @@ focus_tree = {
 						}
 						every_controlled_state = {
 							create_unit = {
-								division = "name = \"Fascist Millitias\" division_template = \"Civil War Millitias\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = GER } }" 
+								division = "name = \"Democratic Millitias\" division_template = \"Civil War Millitias\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = GER } }" 
 								owner = var:GER.fascist_dynamic_tag
 								allow_spawning_on_enemy_provs = yes
 							}
@@ -11330,13 +11332,10 @@ focus_tree = {
 							militia = { x = 0 y = 3 }
 							militia = { x = 0 y = 4 }
 						}
-						#support = {
-						#	military_police = { x = 0 y = 0 }
-						#}
 					}
 					every_controlled_state = {
 						create_unit = {
-							division = "name = \"Communist Millitias\" division_template = \"Civil War Millitias\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = GER } }" 
+							division = "name = \"Democratic Millitias\" division_template = \"Civil War Millitias\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = GER } }" 
 							owner = GER
 							allow_spawning_on_enemy_provs = yes
 						}
@@ -11363,20 +11362,42 @@ focus_tree = {
 			
 			hidden_effect = {
 
-				every_country = {
-					limit = {
-						original_tag = GER
-						not = {
-							tag = GER
-						}
-					}
+				GER = {
 					declare_war_on = {
-						target = PREV
+						target = var:GER.fascist_dynamic_tag
 						type = civil_war
 					}
-					add_civil_war_target = PREV
+					declare_war_on = {
+						target = var:GER.democratic_dynamic_tag
+						type = civil_war
+					}
+					add_civil_war_target = var:GER.fascist_dynamic_tag
+					add_civil_war_target = var:GER.democratic_dynamic_tag
 				}
-				add_civil_war_target = ROOT
+				var:GER.fascist_dynamic_tag = {
+					declare_war_on = {
+						target = GER
+						type = civil_war
+					}
+					declare_war_on = {
+						target = var:GER.democratic_dynamic_tag
+						type = civil_war
+					}
+					add_civil_war_target = GER
+					add_civil_war_target = var:GER.democratic_dynamic_tag
+				}
+				var:GER.democratic_dynamic_tag = {
+					declare_war_on = {
+						target = var:GER.fascist_dynamic_tag
+						type = civil_war
+					}
+					declare_war_on = {
+						target = GER
+						type = civil_war
+					}
+					add_civil_war_target = var:GER.fascist_dynamic_tag
+					add_civil_war_target = GER
+				}
 			}
 		}
 	}
@@ -11397,6 +11418,7 @@ focus_tree = {
 
 		completion_reward = {
 			custom_effect_tooltip = available_political_advisor
+			clr_global_flag = r56_german_cw_ongoing
 			show_ideas_tooltip = ernst_thalmann
 			add_timed_idea = {
 				idea = GER_repeal_reichstag_fire_decree_idea
@@ -11644,11 +11666,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			clr_global_flag = r56_german_cw_ongoing
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = kurt_schumacher
 			if = {
 				limit = {
-					date<1942.01.01
+					date < 1942.01.01
 				}
 				create_field_marshal = {
 					name = "Werner von Blomberg"
