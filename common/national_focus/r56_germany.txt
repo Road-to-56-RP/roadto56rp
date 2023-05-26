@@ -10932,6 +10932,7 @@ focus_tree = {
 					democratic = 20
 					neutrality = 5
 				}
+				
 				teleport_armies = {
 					limit = {
 						tag = GER
@@ -10955,6 +10956,9 @@ focus_tree = {
 						can_create_factions = no
 					}
 				}
+
+				
+
 				add_ideas = {
 					extensive_conscription
 					war_economy
@@ -11028,12 +11032,22 @@ focus_tree = {
 							army_ratio = 0.30
 							navy_ratio = 0 #no ports.
 							air_ratio = 0.30
-							keep_unit_leaders_trigger = {
-								always = yes 
+							keep_unit_leaders_trigger = { #take monarchist and democratic leaders as well as non-aligned
+							 	OR = { #IM VERY FUCKING CONFUSED AS TO WHY THIS DOESENT WORK SEPARATLEY
+									has_trait = r56rp_trait_GER_communist_sympathies
+									has_trait = r56rp_trait_GER_fascist_sympathies
+								    NOT = { #ALMOST AS IF THERE IS JUST A MAGIC 3x TRIGGER LIMIT.
+										OR = { 
+											has_trait = r56rp_trait_GER_monarchist_sympathies #for whatever reason this shit just refused cooperation.
+											has_trait = r56rp_trait_GER_democratic_sympathies
+										} 
+									}
+								}
 							}
 						}
 					}
 
+					
 					every_state = { #get out of warzones ai democrats
 						limit = {
 							OR = {
@@ -11068,35 +11082,7 @@ focus_tree = {
 							to_state_array = owned_controlled_states
 						}
 					}
-
-					set_technology = {
-						r56_militia_tech = 1
-					}
-					division_template = {
-						name = "Civil War Millitias"
-						is_locked = yes
-						#division_cap = 50 
-						division_names_group = GER_INF_01
-						priority = 0
-						template_counter = 0
-						regiments = {
-							militia = { x = 0 y = 0 }
-							militia = { x = 0 y = 1 }
-							militia = { x = 0 y = 2 }
-							militia = { x = 0 y = 3 }
-							militia = { x = 0 y = 4 }
-						}
-						#support = {
-						#	military_police = { x = 0 y = 0 }
-						#}
-					}
-					every_controlled_state = {
-						create_unit = {
-							division = "name = \"Democratic Millitias\" division_template = \"Civil War Millitias\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = GER } }" 
-							owner = var:GER.democratic_dynamic_tag
-							allow_spawning_on_enemy_provs = yes
-						}
-					}
+										
 				}
 
 				create_dynamic_country = { #fascists in pro commie
@@ -11201,18 +11187,25 @@ focus_tree = {
 					reserve_dynamic_country = yes #required to sustain advisors for communist recruitment
 
 					GER = {
-						transfer_units_fraction = {
+						transfer_units_fraction = { #transfer to fascists
 							target = var:GER.fascist_dynamic_tag
 							size = 0.5
 							stockpile_ratio = 0.50 #fascist stockpiles.
 							army_ratio = 0.50
 							navy_ratio = 1 #all the ports
 							air_ratio = 0.50
-							keep_unit_leaders_trigger = {
-								always = yes 
+							keep_unit_leaders_trigger = {#take monarchist and democratic leaders as well as non-aligned
+								OR = {
+									has_trait = r56rp_trait_GER_communist_sympathies
+									has_trait = r56rp_trait_GER_democratic_sympathies
+									has_trait = r56rp_trait_GER_monarchist_sympathies
+									NOT = { has_trait = r56rp_trait_GER_fascist_sympathies }
+								}
 							}
 						}
 					}
+					
+					
 
 					every_state= { #get out of warzones ai fascist
 						limit = {
@@ -11236,6 +11229,7 @@ focus_tree = {
 								state = 67 #Oppeln
 							}
 						}
+						
 						teleport_armies = {
 							limit = {
 								tag = var:GER.fascist_dynamic_tag
@@ -11243,35 +11237,26 @@ focus_tree = {
 							to_state_array = owned_controlled_states
 							NOT = { tag = GER }
 						}
+					}
+
+
+					GER = { #load in millitias before spreading them around
 						set_technology = {
 							r56_militia_tech = 1
 						}
-						division_template = {
-							name = "Civil War Millitias"
-							is_locked = yes
-							division_cap = 50 
-							division_names_group = GER_INF_01
-							priority = 0
-							template_counter = 0
-							regiments = {
-								militia = { x = 0 y = 0 }
-								militia = { x = 0 y = 1 }
-								militia = { x = 0 y = 2 }
-								militia = { x = 0 y = 3 }
-								militia = { x = 0 y = 4 }
-							}
-							#support = {
-							#	military_police = { x = 0 y = 0 }
-							#}
+						load_oob = "GER_r56rp_civilwar_communist"
+					}
+					var:GER.democratic_dynamic_tag = {
+						set_technology = {
+							r56_militia_tech = 1
 						}
-						every_controlled_state = {
-							create_unit = {
-								division = "name = \"Democratic Millitias\" division_template = \"Civil War Millitias\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = GER } }" 
-								owner = var:GER.fascist_dynamic_tag
-								allow_spawning_on_enemy_provs = yes
-							}
+						load_oob = "GER_r56rp_civilwar_democratic"
+					}
+					var:GER.fascist_dynamic_tag = {
+						set_technology = {
+							r56_militia_tech = 1
 						}
-						
+						load_oob = "GER_r56rp_civilwar_fascist"
 					}
 
 					every_state = { #teleport again player units to spread them around in controlled states
@@ -11306,6 +11291,7 @@ focus_tree = {
 								
 							}
 						}
+						
 						teleport_armies = {
 							limit = {
 								tag = GER
@@ -11314,37 +11300,7 @@ focus_tree = {
 						}
 						
 					}
-
-					set_technology = {
-						r56_militia_tech = 1
-					}
-					division_template = { #10w millitias to plug gaps
-						name = "Civil War Millitias"
-						is_locked = yes
-						division_cap = 50 
-						division_names_group = GER_INF_01
-						priority = 0
-						template_counter = 0
-						regiments = {
-							militia = { x = 0 y = 0 }
-							militia = { x = 0 y = 1 }
-							militia = { x = 0 y = 2 }
-							militia = { x = 0 y = 3 }
-							militia = { x = 0 y = 4 }
-						}
-					}
-					every_controlled_state = {
-						create_unit = {
-							division = "name = \"Democratic Millitias\" division_template = \"Civil War Millitias\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = GER } }" 
-							owner = GER
-							allow_spawning_on_enemy_provs = yes
-						}
-						create_unit = {
-							division =  "name = \"Communist Millitias\" division_template = \"Civil War Millitias\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = GER } }" 
-							owner = GER
-							allow_spawning_on_enemy_provs = yes
-						}
-					}
+					
 				}
 
 				set_global_flag = r56_german_cw_ongoing
