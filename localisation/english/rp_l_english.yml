@@ -11,19 +11,23 @@
  morevolunteers_minor:0 "Allow Military Service Overseas"
  morevolunteers_major:0 "Form an Expeditionary Force"
  
- # Generic Arms Purchases Events
+ # Generic Arms Purchases Events - By simpy, with recognition to Kubuś for spotting a mistake and fixing it. (Needs France,Japan Added but can't figure out how to expand the event.
+ # Event Chain Nr 1 (Approach)
  gen_foreign_arms_purchases.1.t:0 "Purchase Foreign Weapons"
  gen_foreign_arms_purchases.1.desc:0 "With our military in constant need of weaponry, we should look to the Major Powers of the world to purchase some of the required weaponry."
  gen_foreign_arms_purchases.1.a:0 "Approach the Americans"
  gen_foreign_arms_purchases.1.b:0 "Approach the Germans"
  gen_foreign_arms_purchases.1.c:0 "Approach the Russians"
  gen_foreign_arms_purchases.1.d:0 "Approach the English"
+ # Event for reciever (They get Purchase question)
  gen_foreign_arms_purchases.2.t:0 "[FROM.GetNameDefCap] wants to purchase weapons"
  gen_foreign_arms_purchases.2.desc:0 "Noting the quickly deteriorating situation across the globe, [From.GetAdjective] officials have reached out to us to acquire export licenses for light and heavy weaponry with orders to be placed in our factories as soon as these licenses are granted. While the overall volume of orders is too low to make a marked difference in the economy, it will still create quite a few jobs."
  gen_foreign_arms_purchases.2.a:0 "We'll do what it takes."
  gen_foreign_arms_purchases.2.b:0 "Absolutely not!"
+ # Refusal Event -> Only for the sender
  gen_foreign_arms_purchases.3.t:0 "[FROM.GetNameDefCap] refuses the sale of their weapons"
  gen_foreign_arms_purchases.3.desc:0 "Noting the quickly deteriorating situation across the globe, [From.GetAdjective] officials have stated that the sale of weaponry will not be permitted - due to the rising neccesity of arming their own military with the finest weapons."
+ # Approach a new  Major-> 
  gen_foreign_arms_purchases.3.a:0 "Approach another Major Nation"
  gen_foreign_arms_purchases.3.b:0 "Forget it, We shall produce our own weapons!"
  gen_foreign_arms_purchases.4.t:0 "[FROM.GetNameDefCap] approves the sale of their weapons to our nation!"
@@ -35,34 +39,44 @@
  if_they_accept_purchases_tt:0 "If one of the chosen §YMajor Nations§! accepts:"
 
  # Generic Arms Purchases Decisions
+ GEN_purchase_foreign_weaponry:0 "Purchase Foreign Weaponry" # Only available for non generic trees and custom focus trees.
  ## USA DECISIONS ##
- GEN_order_weapons_in_USA:0 "Order Small Arms"
- GEN_order_support_equipment_in_USA:0 "Order Support Equipment"
- GEN_order_artillery_in_USA:0 "Order Artillery"
- GEN_order_tanks_in_USA:0 "Order Tanks"
- GEN_order_fighters_in_USA:0 "Order Fighters"
- GEN_order_bombers_in_USA:0 "Order Bombers"
+ GEN_order_weapons_in_USA:0 "[USA.GetFlag]  [USA.GetAdjective] Small Arms"
+ GEN_order_support_equipment_in_USA:0 "[USA.GetFlag] Order [USA.GetAdjective] Support Equipment"
+ GEN_order_artillery_in_USA:0 "[USA.GetFlag] Order [USA.GetAdjective] Artillery"
+ GEN_order_tanks_in_USA:0 "[USA.GetFlag] Order [USA.GetAdjective] Tanks"
+ GEN_order_fighters_in_USA:0 "[USA.GetFlag] Order [USA.GetAdjective] Fighters"
+ GEN_order_bombers_in_USA:0 "[USA.GetFlag] Order Bombers"
  ## SOVIET DECISIONS ##
- GEN_order_weapons_in_SOV:0 "Order Small Arms"
- GEN_order_support_equipment_in_SOV:0 "Order Support Equipment"
- GEN_order_artillery_in_SOV:0 "Order Artillery"
- GEN_order_tanks_in_SOV:0 "Order Tanks"
- GEN_order_fighters_in_SOV:0 "Order Fighters"
- GEN_order_bombers_in_SOV:0 "Order Bombers"
+ GEN_order_weapons_in_SOV:0 "[SOV.GetFlag] Order [SOV.GetAdjective] Small Arms"
+ GEN_order_support_equipment_in_SOV:0 "[SOV.GetFlag] Order [SOV.GetAdjective] Support Equipment"
+ GEN_order_artillery_in_SOV:0 "[SOV.GetFlag] Order [SOV.GetAdjective] Artillery"
+ GEN_order_tanks_in_SOV:0 "[SOV.GetFlag] Order [SOV.GetAdjective] Tanks"
+ GEN_order_fighters_in_SOV:0 "[SOV.GetFlag] Order [SOV.GetAdjective] Fighters"
+ GEN_order_bombers_in_SOV:0 "[SOV.GetFlag] Order [SOV.GetAdjective] Bombers"
  ## GERMANY DECISIONS ##
- GEN_order_weapons_in_GER:0 "Order Small Arms"
- GEN_order_support_equipment_in_GER:0 "Order Support Equipment"
- GEN_order_artillery_in_GER:0 "Order Artillery"
- GEN_order_tanks_in_GER:0 "Order Tanks"
- GEN_order_fighters_in_GER:0 "Order Fighters"
- GEN_order_bombers_in_GER:0 "Order Bombers"
+ GEN_order_weapons_in_GER:0 "[GER.GetFlag] Order [GER.GetAdjective]Small Arms"
+ GEN_order_support_equipment_in_GER:0 "[GER.GetFlag] Order [GER.GetAdjective] Support Equipment"
+ GEN_order_artillery_in_GER:0 "[GER.GetFlag] Order [GER.GetAdjective] Artillery"
+ GEN_order_tanks_in_GER:0 "[GER.GetFlag] Order [GER.GetAdjective] Tanks"
+ GEN_order_fighters_in_GER:0 "[GER.GetFlag] Order [GER.GetAdjective] Fighters"
+ GEN_order_bombers_in_GER:0 "[GER.GetFlag] Order [GER.GetAdjective] Bombers"
  ## ENGLISH DECISIONS ##
- GEN_order_weapons_in_ENG:0 "Order Small Arms"
- GEN_order_support_equipment_in_ENG:0 "Order Support Equipment"
- GEN_order_artillery_in_ENG:0 "Order Artillery"
- GEN_order_tanks_in_ENG:0 "Order Tanks"
- GEN_order_fighters_in_ENG:0 "Order Fighters"
- GEN_order_bombers_in_ENG:0 "Order Bombers"
+ GEN_order_weapons_in_ENG:0 "[ENG.GetFlag] Order [ENG.GetAdjective] Small Arms"
+ GEN_order_support_equipment_in_ENG:0 "[ENG.GetFlag] Order [ENG.GetAdjective] Support Equipment"
+ GEN_order_artillery_in_ENG:0 "[ENG.GetFlag] Order [ENG.GetAdjective] Artillery"
+ GEN_order_tanks_in_ENG:0 "[ENG.GetFlag] Order [ENG.GetAdjective] Tanks"
+ GEN_order_fighters_in_ENG:0 "[ENG.GetFlag]Order [ENG.GetAdjective] Fighters"
+ GEN_order_bombers_in_ENG:0 "[ENG.GetFlag] Order [ENG.GetAdjective] Bombers"
+ ## IDEA PAYMENTS
+ GEN_purchase_weapons_payments:0 "Weapon Payments"
+ purchase_active:0 " §RPurchase Active§!"
+ 
+
+
+
+
+
 
 
 

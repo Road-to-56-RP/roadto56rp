@@ -781,11 +781,52 @@ Officer_Training = {
 			}
 		}
 	}
-	
+
+	GEN_purchase_foreign_weaponry = {
+		icon = generic_prepare_civil_war
+		fire_only_once = yes
+		visible = {
+			is_major = no
+		}
+		available = {
+			OR = {
+				SOV = {
+					has_opinion = {
+						target = ROOT
+						value > 49
+					} 	
+				}
+				ENG = { 
+					has_opinion = {
+						target = ROOT
+						value > 49
+					}
+				} 
+				USA = { 
+					has_opinion = {
+						target = ROOT
+						value > 49
+					}
+				}
+				GER = { 
+					has_opinion = {
+						target = ROOT
+						value > 49
+					}
+				} 
+			}
+		}
+		complete_effect = {
+			ROOT  = { country_event = gen_foreign_arms_purchases.1 }
+		}
+	}
+
 	GEN_order_weapons_in_USA = {
 		icon = generic_prepare_civil_war
 		available = {
-	
+			NOT = {
+				has_country_flag = purchase_active
+			}
 		}
 		visible = {
 			has_country_flag = USA_can_sell_weapons_trigger
@@ -810,6 +851,11 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -820,11 +866,17 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	
 	GEN_order_support_equipment_in_USA = {
 		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = USA_can_sell_weapons_trigger
 		}
@@ -847,6 +899,11 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -857,11 +914,17 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
 	GEN_order_artillery_in_USA = {
 		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = USA_can_sell_weapons_trigger
 		}
@@ -884,6 +947,11 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -894,10 +962,16 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_tanks_in_USA = {
 		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = USA_can_sell_weapons_trigger
 		}
@@ -922,6 +996,11 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			if = {
@@ -965,12 +1044,15 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_fighters_in_USA = {
 		icon = generic_air
 		available = {
-
+			NOT = {
+				has_country_flag = purchase_active
+			}
 		}
 		visible = {
 			has_country_flag = USA_can_sell_weapons_trigger
@@ -996,6 +1078,11 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1006,12 +1093,15 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_bombers_in_USA = {
 		icon = generic_air
 		available = {
-
+			NOT = {
+				has_country_flag = purchase_active
+			}
 		}
 		visible = {
 			has_country_flag = USA_can_sell_weapons_trigger
@@ -1035,6 +1125,11 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1045,6 +1140,7 @@ Officer_Training = {
 			USA = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
@@ -1054,6 +1150,11 @@ Officer_Training = {
 
 	GEN_order_support_equipment_in_SOV = {
 		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = SOV_can_sell_weapons_trigger
 		}
@@ -1076,6 +1177,11 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1086,11 +1192,17 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
 	GEN_order_artillery_in_SOV = {
 		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = SOV_can_sell_weapons_trigger
 		}
@@ -1113,6 +1225,11 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1123,10 +1240,16 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_tanks_in_SOV = {
 		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = SOV_can_sell_weapons_trigger
 		}
@@ -1145,12 +1268,15 @@ Officer_Training = {
 				factor = 0 #need to up conscription laws
 			}
 		}
-		modifier = {
-		}
 		complete_effect = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			if = {
@@ -1194,12 +1320,15 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_fighters_in_SOV = {
 		icon = generic_air
 		available = {
-
+			NOT = {
+				has_country_flag = purchase_active
+			}
 		}
 		visible = {
 			has_country_flag = SOV_can_sell_weapons_trigger
@@ -1225,6 +1354,11 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1235,13 +1369,16 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
 	GEN_order_bombers_in_SOV = {
 		icon = generic_air
 		available = {
-
+			NOT = {
+				has_country_flag = purchase_active
+			}
 		}
 		visible = {
 			has_country_flag = SOV_can_sell_weapons_trigger
@@ -1265,6 +1402,11 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1275,6 +1417,7 @@ Officer_Training = {
 			SOV = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
@@ -1284,6 +1427,11 @@ Officer_Training = {
 
 	GEN_order_support_equipment_in_ENG = {
 		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = ENG_can_sell_weapons_trigger
 		}
@@ -1306,6 +1454,11 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1316,11 +1469,17 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
 	GEN_order_artillery_in_ENG = {
 		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = ENG_can_sell_weapons_trigger
 		}
@@ -1343,6 +1502,11 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1353,10 +1517,16 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_tanks_in_ENG = {
 		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = ENG_can_sell_weapons_trigger
 		}
@@ -1381,6 +1551,11 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			if = {
@@ -1424,12 +1599,15 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_fighters_in_ENG = {
 		icon = generic_air
 		available = {
-
+			NOT = {
+				has_country_flag = purchase_active
+			}
 		}
 		visible = {
 			has_country_flag = ENG_can_sell_weapons_trigger
@@ -1449,12 +1627,15 @@ Officer_Training = {
 				factor = 0 #need to up conscription laws
 			}
 		}
-		modifier = {
-		}
 		complete_effect = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1465,12 +1646,15 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_bombers_in_ENG = {
 		icon = generic_air
 		available = {
-
+			NOT = {
+				has_country_flag = purchase_active
+			}
 		}
 		visible = {
 			has_country_flag = ENG_can_sell_weapons_trigger
@@ -1494,6 +1678,11 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1504,6 +1693,7 @@ Officer_Training = {
 			ENG = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
@@ -1513,6 +1703,11 @@ Officer_Training = {
 
 	GEN_order_support_equipment_in_GER = {
 		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = GER_can_sell_weapons_trigger
 		}
@@ -1535,6 +1730,11 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1545,11 +1745,17 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
 	GEN_order_artillery_in_GER = {
 		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = GER_can_sell_weapons_trigger
 		}
@@ -1572,6 +1778,11 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = 2 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1582,10 +1793,16 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = -2 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 	GEN_order_tanks_in_GER = {
 		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = GER_can_sell_weapons_trigger
 		}
@@ -1610,8 +1827,14 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
+			clr_country_flag = purchase_active
 			if = {
 				limit = {
 					GER = { 
@@ -1657,6 +1880,11 @@ Officer_Training = {
 	}
 	GEN_order_fighters_in_GER = {
 		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+		}
 		visible = {
 			has_country_flag = GER_can_sell_weapons_trigger
 		}
@@ -1681,6 +1909,11 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1691,13 +1924,16 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 
 	GEN_order_bombers_in_GER = {
 		icon = generic_air
 		available = {
-
+			NOT = {
+				has_country_flag = purchase_active
+			}
 		}
 		visible = {
 			has_country_flag = GER_can_sell_weapons_trigger
@@ -1721,6 +1957,11 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = 5 }
 			}
+			add_timed_idea = {
+			    idea = GEN_purchase_weapons_payments
+			    days = 30
+			}
+			set_country_flag = purchase_active
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
@@ -1731,6 +1972,7 @@ Officer_Training = {
 			GER = {
 				add_offsite_building = { type = industrial_complex level = -5 }
 			}
+			clr_country_flag = purchase_active
 		}
 	}
 }
