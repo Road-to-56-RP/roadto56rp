@@ -1328,7 +1328,7 @@
 		id = GEN_purchase_foreign_licenses
 		icon = GFX_focus_generic_license_production
 		prerequisite = { focus = GEN_american_air_industry_expansion focus = GEN_german_heavy_industry_expansion focus = GEN_soviet_heavy_industry}
-		x = 1
+		x = 0
 		y = 2
 		offset = {
 			x = -1
@@ -1359,6 +1359,36 @@
 		completion_reward = {
 			add_ideas = GEN_Licences_I
 			custom_effect_tooltip = GEN_Licences_EXPL
+		}
+	}
+
+	shared_focus = {
+		id =  GEN_purchase_foreign_weapons_focus
+		icon = GFX_goal_generic_gun_purchase
+		prerequisite = { focus = GEN_american_air_industry_expansion focus = GEN_german_heavy_industry_expansion focus = GEN_soviet_heavy_industry}
+		x = 2
+		y = 2
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				tag = SOV
+			}
+		}
+		relative_position_id = GEN_automobile_industry
+
+		cost = 5
+
+		available_if_capitulated = yes
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		completion_reward = {
+			ROOT  = { country_event = gen_foreign_arms_purchases.1}
+			custom_effect_tooltip = if_they_accept_purchases_tt
+			custom_effect_tooltip =  gen_foreign_arms_accepted_tt
 		}
 	}
 

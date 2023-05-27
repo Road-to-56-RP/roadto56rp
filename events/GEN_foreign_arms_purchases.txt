@@ -1,0 +1,79 @@
+add_namespace = gen_foreign_arms_purchases
+
+	country_event = {
+		id = gen_foreign_arms_purchases.1
+		title = gen_foreign_arms_purchases.1.t
+		desc = gen_foreign_arms_purchases.1.desc
+		picture = GFX_report_event_generic_lend_lease
+		is_triggered_only = yes
+
+		option = {
+			name = gen_foreign_arms1.a
+			USA = { country_event = gen_foreign_arms_purchases.2 }
+		}
+
+		option = {
+			name = gen_foreign_arms1.b
+			GER = { country_event = gen_foreign_arms_purchases.2 }
+		}
+	
+		option = {
+			name = gen_foreign_arms1.c
+			SOV = { country_event = gen_foreign_arms_purchases.2 }
+		}
+
+		option = {
+			name = gen_foreign_arms1.d
+			ENG = { country_event = gen_foreign_arms_purchases.2 }
+		}
+	}
+
+	country_event = {
+		id = gen_foreign_arms_purchases.2
+		title = gen_foreign_arms_purchases.2.t
+		desc = gen_foreign_arms_purchases.2.desc
+		picture = GFX_report_event_generic_lend_lease
+		is_triggered_only = yes
+
+		option = {
+			name = gen_foreign_arms_yes
+			ai_chance = {
+				factor = 100
+			}
+			if = {
+				limit = {
+					original_tag = SOV
+				}
+				PREV = {
+					set_country_flag = SOV_can_sell_weapons_trigger
+				}
+			}
+			if = {
+				limit = {
+					original_tag = GER
+				}
+				set_country_flag = GER_can_sell_weapons_trigger
+			}
+			if = {
+				limit = {
+					original_tag = ENG
+				}
+				set_country_flag = ENG_can_sell_weapons_trigger
+			}
+			if = {
+				limit = {
+					original_tag = USA
+				}
+				set_country_flag = USA_can_sell_weapons_trigger
+			}
+		}
+
+		option = {
+			ai_chance = {
+				factor = 0
+			}
+			name = gen_foreign_arms_no
+			ROOT = { country_event = gen_foreign_arms_purchases.2 }
+		}
+
+	}
