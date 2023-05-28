@@ -651,24 +651,14 @@ Officer_Training = {
 				is_major = yes
 			}
 		}
-	# above check for basegame major check, major being 7 largest ecos or faction leader
+		# above check for basegame major check, major being 7 largest ecos or faction leader
 
-		ai_will_do = {
-			factor = 0
-		}
-		complete_effect = {
-			set_country_flag = morevolunteers_1 # I don't beleive this flag hooks into anything and was a cut feature
+		complete_effect = { # I don't beleive this flag hooks into anything and was a cut feature
 			set_rule = { can_send_volunteers = yes } #enables volunteers at all times, safeguarding form "trickle down effect
+			add_ideas =  GEN_morevolunteers_minor
 		}
 
-		modifier = { #changes used for minors, the idea being that even  tile statec can get envolved in combat in the early game
-			lend_lease_tension = -1
-			send_volunteers_tension = -1
-			send_volunteer_divisions_required = -0.50
-			send_volunteer_size = 3
-		}
 		fire_only_once = yes
-		days_remove = -1	
 
 	}
 	morevolunteers_major = { #less powerful major version idea being majors ususally have access to volunteers, be it a focus always open or, like with the usa, a choice.
@@ -680,23 +670,12 @@ Officer_Training = {
 			threat > 0.75 # tension check. logic being to force majors to wait till later in the game, or in an rp sence, using the globle situation to pass laws or acts allowing troops overseas.
 		}
 
-		ai_will_do = {
-			factor = 0
-		}
-	
 		complete_effect = {
-			set_country_flag = morevolunteers_1
 			set_rule = { can_send_volunteers = yes }
+			add_ideas = GEN_morevolunteers_major
 		}
 	
-		modifier = { #weaker but could be weaker still.
-			lend_lease_tension = -1
-			send_volunteers_tension = -1
-			send_volunteer_divisions_required = -0.15
-			send_volunteer_size = 1
-		}
 		fire_only_once = yes
-		days_remove = -1	
 	}
 	 
 	r56_coordinate_land_equipment_manufacturers = {
