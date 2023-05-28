@@ -127,6 +127,11 @@ scripted_diplomatic_actions = {
         complete_effect = {
 			ROOT = {
 				end_puppet = PREV
+				give_guarantee = PREV
+				give_military_access = PREV
+			}
+			PREV = {
+				give_military_access = ROOT
 			}
             if = {
 				limit = {
@@ -202,13 +207,13 @@ scripted_diplomatic_actions = {
 			PREV = {
 				add_opinion_modifier = { 
 					target = ROOT 
-					modifier = trade_opinion_modifier
+					modifier = offered_trade_agreement_modifier
 				}
 			}
 			ROOT = {
 				add_opinion_modifier = { 
 					target = PREV
-					modifier = trade_opinion_modifier
+					modifier = offered_trade_agreement_modifier
 				}
 			}
 		}
@@ -256,6 +261,57 @@ scripted_diplomatic_actions = {
 					factor = 10
 				}
 			}		
+		}
+	}
+
+	rp_revoke_trade_action = {
+		icon = 1
+		cost = 50
+		requires_acceptance = no
+		send_description =  RP_REVOKE_TRADE_ACTION_DESC
+		receive_description = RP_REVOKE_TRADE_ACTION_RECIEVE_DESC
+		allowed = {
+			
+		}
+
+		visible = {
+			FROM = {
+				has_country_flag = tradeagreement_@ROOT
+			}
+		}
+
+		selectable = {
+			
+		}
+
+		requires_acceptance = no
+		send_description =  RP_REVOKE_TRADE_ACTION
+		receive_description = RP_REVOKE_TRADE_ACTION_RECIEVE_DESC
+
+
+
+		complete_effect = {
+			FROM = { clr_country_flag = tradeagreement_@ROOT }
+			PREV = {
+				add_opinion_modifier = { 
+					target = ROOT 
+					modifier = revoke_trade_opinion_modifier
+				}
+				add_opinion_modifier = {
+					target = ROOT 
+					modifier = hatred_trade_opinion_modifier
+				}
+			}
+			ROOT = {
+				add_opinion_modifier = { 
+					target = PREV
+					modifier = revoke_trade_opinion_modifier
+				}
+				add_opinion_modifier = {
+					target = PREV
+					modifier = hatred_trade_opinion_modifier
+				}
+			}
 		}
 	}
 }
