@@ -34,14 +34,10 @@ country_event = {
 		name = gen_foreign_arms_purchases.1.c
 		SOV = { country_event = gen_foreign_arms_purchases.2 }
 	}
-	option = {
-		trigger = {
-			NOT = {
-				has_country_flag = ENG_cant_sell_weapons_trigger
-			}
-		}
+	
+	option = {	# Approach Other Majors
 		name = gen_foreign_arms_purchases.1.d
-		ENG = { country_event = gen_foreign_arms_purchases.2 }
+		ROOT = { country_event = gen_foreign_arms_purchases.5 }
 	}
 }
 
@@ -54,7 +50,7 @@ country_event = {
 	option = { # Yes - Sure ;D 
 		name = gen_foreign_arms_purchases.2.a
 		ai_chance = {
-			factor = 100
+			factor = 40
 		}
 		if = {
 			limit = {
@@ -88,14 +84,39 @@ country_event = {
 				set_country_flag = USA_can_sell_weapons_trigger
 			}
 		}
+		if = {
+			limit = {
+				original_tag = FRA
+			}
+			FROM = {
+				set_country_flag = FRA_can_sell_weapons_trigger
+			}
+		}
+		if = {
+			limit = {
+				original_tag = ITA
+			}
+			FROM = {
+				set_country_flag = ITA_can_sell_weapons_trigger
+			}
+		}
+		if = {
+			limit = {
+				original_tag = JAP
+			}
+			FROM = {
+				set_country_flag = JAP_can_sell_weapons_trigger
+			}
+		}
 		FROM = {
 			country_event = gen_foreign_arms_purchases.4
 		}
 	}
+
 	option = { # No - Go away
 		name = gen_foreign_arms_purchases.2.b
 		ai_chance = {
-			factor = 0
+			factor = 60
 		}
 		FROM = {
 			country_event = gen_foreign_arms_purchases.3
@@ -132,11 +153,35 @@ country_event = {
 				set_country_flag = USA_cant_sell_weapons_trigger
 			}
 		}
+		if = {
+			limit = {
+				original_tag = FRA
+			}
+			FROM = {
+				set_country_flag = FRA_cant_sell_weapons_trigger
+			}
+		}
+		if = {
+			limit = {
+				original_tag = ITA
+			}
+			FROM = {
+				set_country_flag = ITA_cant_sell_weapons_trigger
+			}
+		}
+		if = {
+			limit = {
+				original_tag = JAP
+			}
+			FROM = {
+				set_country_flag = JAP_cant_sell_weapons_trigger
+			}
+		}
 	}
 }
 
 country_event = {
-	id = gen_foreign_arms_purchases.3 # No Sale of Weapons from Major NR 1.
+	id = gen_foreign_arms_purchases.3 # No Sale of Weapons from Major List NR 1.
 	title = gen_foreign_arms_purchases.3.t
 	desc = gen_foreign_arms_purchases.3.desc
 	picture = GFX_report_event_generic_lend_lease
@@ -179,5 +224,68 @@ country_event = {
 				has_country_flag = USA_can_sell_weapons_trigger
 			}
 		}
+		if = {
+			limit = {
+				has_country_flag = FRA_can_sell_weapons_trigger
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = ITA_can_sell_weapons_trigger
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = JAP_can_sell_weapons_trigger
+			}
+		}
+	}
+}
+
+country_event = {
+	id = gen_foreign_arms_purchases.5
+	title = gen_foreign_arms_purchases.5.t
+	desc = gen_foreign_arms_purchases.5.desc
+	picture = GFX_report_event_generic_lend_lease
+	is_triggered_only = yes
+
+	option = {	# Approach France
+		name = gen_foreign_arms_purchases.5.a
+		trigger = {
+			NOT = {
+				has_country_flag = FRA_cant_sell_weapons_trigger
+			}
+		}
+		FRA = { country_event = gen_foreign_arms_purchases.2 }
+	}
+
+	option = { # Approach England
+		trigger = {
+			NOT = {
+				has_country_flag = ENG_cant_sell_weapons_trigger
+			}
+		}
+		name = gen_foreign_arms_purchases.5.b
+		ENG = { country_event = gen_foreign_arms_purchases.2 }
+	}
+
+	option = { # Approach Italy
+		trigger = {
+			NOT = {
+				has_country_flag = ITA_cant_sell_weapons_trigger
+			}
+		}
+		name = gen_foreign_arms_purchases.5.c
+		ITA = { country_event = gen_foreign_arms_purchases.2 }
+	}
+
+	option = { # Approach Japan
+		trigger = {
+			NOT = {
+				has_country_flag = JAP_cant_sell_weapons_trigger
+			}
+		}
+		name = gen_foreign_arms_purchases.5.d
+		JAP = { country_event = gen_foreign_arms_purchases.2 }
 	}
 }
