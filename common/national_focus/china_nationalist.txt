@@ -7916,7 +7916,7 @@ focus_tree = {
 	
 	focus = {
 		id = KMT_trade_deal_with_germany_1
-		icon = GFX_goal_military_agreement_germany
+		icon = GFX_focus_generic_tungsten
 		available = {
 			is_puppet = no
 			NOT = {
@@ -7930,7 +7930,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_increase_sino_german_cooperation }
 		relative_position_id = KMT_increase_sino_german_cooperation
 		x = -1
-		y = 3
+		y = 2
 		cost = 5
 		
 		completion_reward = {
@@ -7983,10 +7983,10 @@ focus_tree = {
 				is_subject = no
 			}
 		}
-		prerequisite = { focus = KMT_increase_sino_german_cooperation }
-		relative_position_id = KMT_increase_sino_german_cooperation
-		x = 1
-		y = 3
+		prerequisite = { focus = KMT_trade_deal_with_germany_1 }
+		relative_position_id = KMT_trade_deal_with_germany_1
+		x = 0
+		y = 2
 		cost = 5
 		
 		completion_reward = {
@@ -8376,6 +8376,87 @@ focus_tree = {
 	}
 
 	focus = {
+		id = KMT_force_japan_to_accept_peace
+		icon = GFX_goal_military_agreement_germany
+
+		prerequisite = { focus = KMT_increase_sino_german_cooperation }
+
+		relative_position_id = KMT_join_the_axis
+		x = 1
+		y = 1
+		cost = 10
+
+		available = {
+			is_puppet = no
+			NOT = {
+				has_war_with = GER
+			}
+			GER = {
+				is_in_faction_with = JAP
+				is_faction_leader = yes
+			}
+			JAP = {
+				has_war_with = ROOT
+			}
+			has_government = fascism
+			NOT = {
+				has_global_flag = jap_civil_war_sf
+			}
+		}
+
+		completion_reward = {
+			GER = {
+				country_event = { id = kmt.233 }
+			}
+		}
+	}		
+	
+	focus = {
+		id = KMT_force_japan_to_cede_land
+		icon = GFX_focus_generic_seek_accomodation_with_germany
+
+		prerequisite = { focus = KMT_force_japan_to_accept_peace }
+
+		relative_position_id = KMT_force_japan_to_accept_peace
+		x = 0
+		y = 2
+		cost = 10
+
+		available = {
+			is_puppet = no
+			NOT = {
+				has_war_with = GER
+			}
+			GER = {
+				is_in_faction_with = JAP
+				is_faction_leader = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = KMT_any_state_chi_core_jap_own_tt
+				any_state = {
+					is_core_of = ROOT
+					OR = {
+						is_owned_by = JAP
+						owner = {
+							is_puppet_of = JAP
+						}
+					}
+				}
+			}
+			has_government = fascism
+			NOT = {
+				has_global_flag = jap_civil_war_sf
+			}
+		}
+
+		completion_reward = {
+			GER = {
+				country_event = { id = kmt.240 }
+			}
+		}
+	}
+
+	focus = {
 		id = KMT_pincer_soviet
 		icon = GFX_goal_generic_war_with_comintern
 		
@@ -8396,7 +8477,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_join_the_axis }
 		relative_position_id = KMT_join_the_axis
 		x = 0
-		y = 1
+		y = 2
 		cost = 10
 		
 		completion_reward = {

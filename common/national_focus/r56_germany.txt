@@ -956,58 +956,59 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = GER_kill_hitler_RP
-		icon = GER_denounce_versailles
-		cost = 5.00
-		prerequisite = {
-			focus = GER_denounce_versailles
-		}
-		allow_branch = {
-			if = {
-				limit = {
-					has_game_rule = {
-						rule = obsolete_focus_branches_visibility
-						option = HIDE
-					}
-				}
-				NOT = {
-					has_completed_focus = GER_kill_hitler
-				}
-			}
-		}
-		available = {
-			is_subject = no
-			has_war = no
-		}
-		relative_position_id = GER_denounce_versailles
-		x = -2
-		y = 1
-		offset = {
-			x = -51
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = GER_kill_hitler
-			}
-		}
-		ai_will_do = {
-			factor = 0
-		}
-		completion_reward = {
-			country_event = {
-				id = germany.71
-			}
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.15
-			}
-		}
+	#focus = {
+	#	id = GER_kill_hitler_RP
+	#	icon = GER_denounce_versailles
+	#	cost = 5.00
+	#	prerequisite = {
+	#		focus = GER_denounce_versailles
+	#	}
+	#	allow_branch = {
+	#		if = {
+	#			limit = {
+	#				has_game_rule = {
+	#					rule = obsolete_focus_branches_visibility
+	#					option = HIDE
+	#				}
+	#			}
+	#			NOT = {
+	#				has_completed_focus = GER_kill_hitler
+	#			}
+	#		}
+	#	}
+	#	available = {
+	#		is_subject = no
+	#		has_war = no
+	#	}
+	#	relative_position_id = GER_denounce_versailles
+	#	x = -2
+	#	y = 1
+	#	offset = {
+	#		x = -51
+	#		y = 0
+	#		trigger = {
+	#			has_game_rule = {
+	#				rule = obsolete_focus_branches_visibility
+	#				option = HIDE
+	#			}
+	#			has_completed_focus = GER_kill_hitler
+	#		}
+	#	}
+	#	ai_will_do = {
+	#		factor = 0
+	#	}
+	#	completion_reward = {
+	#		country_event = {
+	#			id = germany.71
+	#		}
+	#		add_popularity = {
+	#			ideology = fascism
+	#			popularity = -0.15
+	#		}
+	#	}
+	#
+	#}
 
-	}
 	focus = {
 		id = GER_rhineland
 		icon = GFX_goal_ger_rhineland2
@@ -10885,6 +10886,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
+			clr_global_flag = fall_of_berlin_civil_war
 			add_timed_idea = { idea = GER_rebuild_the_nation days = 365 }
 			add_ideas = GER_national_revitalization
 			set_rule = {
@@ -10914,8 +10916,12 @@ focus_tree = {
 		}
 
 		select_effect = {
-			set_global_flag = fall_of_berlin_civil_war
-			set_global_flag = r56_german_cw_ongoing
+			ROOT = {
+				set_global_flag = fall_of_berlin_civil_war
+				set_global_flag = r56_german_cw_ongoing
+			}
+			
+
 			if = {
 				limit = {
 					GER = {
@@ -10949,11 +10955,13 @@ focus_tree = {
 					neutrality = 5
 				}
 				
-				teleport_armies = {
-					limit = {
-						tag = GER
+				every_state = { #i serve lord compiler
+					teleport_armies = {
+						limit = {
+							tag = GER
+						}
+						to_state_array = owned_controlled_states
 					}
-					to_state_array = owned_controlled_states #
 				}
 				
 				GER_ernst_thalmann = {
@@ -11133,7 +11141,6 @@ focus_tree = {
 						teleport_armies = {
 							limit = {
 								tag = var:GER.democratic_dynamic_tag
-								NOT = { tag = GER }
 							}
 							to_state_array = owned_controlled_states
 						}
@@ -11183,7 +11190,7 @@ focus_tree = {
 					# pick correct leader based on event chosen
 					if = {
 						limit = {
-							set_global_flag = r56rp_GER_goring
+							has_global_flag = r56rp_GER_goring
 						}
 						kill_country_leader = yes
 						create_country_leader = {
@@ -11200,7 +11207,7 @@ focus_tree = {
 
 					else_if = {
 						limit = {
-							set_global_flag = r56rp_GER_himmler
+							has_global_flag = r56rp_GER_himmler
 						}
 						kill_country_leader = yes
 						create_country_leader = {
@@ -11284,7 +11291,6 @@ focus_tree = {
 								tag = var:GER.fascist_dynamic_tag
 							}
 							to_state_array = owned_controlled_states
-							NOT = { tag = GER }
 						}
 					}
 
@@ -11352,8 +11358,10 @@ focus_tree = {
 					
 				}
 
-				set_global_flag = r56_german_cw_ongoing
-				set_country_flag = GER.ger_dynamics_released
+				ROOT = {
+					set_global_flag = r56_german_cw_ongoing
+					set_country_flag = GER.ger_dynamics_released
+				}
 				
 			}
 
@@ -11662,8 +11670,12 @@ focus_tree = {
 		relative_position_id = GER_kill_hitler
 
 		select_effect = {
-			set_global_flag = fall_of_berlin_civil_war
-			set_global_flag = r56_german_cw_ongoing
+
+			ROOT = {
+				set_global_flag = fall_of_berlin_civil_war
+				set_global_flag = r56_german_cw_ongoing
+			}
+			
 			if = {
 				limit = {
 					GER = {
@@ -11699,12 +11711,15 @@ focus_tree = {
 					communism = 20
 				}
 				
-				teleport_armies = {
-					limit = {
-						tag = GER
+				every_state = {
+					teleport_armies = {
+						limit = {
+							tag = GER
+						}
+						to_state_array = owned_controlled_states #
 					}
-					to_state_array = owned_controlled_states #
 				}
+				
 				
 				promote_character = GER_erwin_von_witzleben
 				
@@ -11917,9 +11932,11 @@ focus_tree = {
 
 					# pick correct leader based on event chosen
 					if = {
+						
 						limit = {
-							set_global_flag = r56rp_GER_goring
+							has_global_flag = r56rp_GER_goring
 						}
+						
 						kill_country_leader = yes
 						create_country_leader = {
 							name = "Hermann Göring"
@@ -11934,8 +11951,9 @@ focus_tree = {
 					}
 
 					else_if = {
+						
 						limit = {
-							set_global_flag = r56rp_GER_himmler
+							has_global_flag = r56rp_GER_himmler
 						}
 						kill_country_leader = yes
 						create_country_leader = {
@@ -12019,12 +12037,8 @@ focus_tree = {
 								tag = var:GER.fascist_dynamic_tag
 							}
 							to_state_array = owned_controlled_states
-							NOT = { tag = GER }
 						}
 					}
-
-
-					
 
 					every_state = { #teleport again player units to spread them around in controlled states
 						limit = {
@@ -12089,9 +12103,11 @@ focus_tree = {
 					load_oob = "GER_r56rp_civilwar_fascist"
 				}
 				
-
-				set_global_flag = r56_german_cw_ongoing
-				set_country_flag = GER.ger_dynamics_released
+				ROOT = {
+					set_global_flag = r56_german_cw_ongoing
+					set_country_flag = GER.ger_dynamics_released
+				}
+				
 				
 			}
 
