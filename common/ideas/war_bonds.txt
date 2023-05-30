@@ -7,17 +7,22 @@ ideas = {
 		#Force Bonds
 		war_bonds_force = {
 		    available = {
-				NOT = {
-				    
-					has_government = democratic
-				    
+				OR =  {
+					NOT = {
+						has_government = democratic
+					}
+					AND = {
+						tag = USA
+						has_war  = yes
+					}
 				}
+			
 			}
 			
 			modifier = {
-				local_resources_factor = 0.175
+				local_resources_factor = 0.2
 				consumer_goods_factor = -0.05
-				political_power_factor = 0.05
+				political_power_factor = -0.05
 				stability_factor = -0.05
 				war_support_factor = -0.05
 			}
@@ -30,8 +35,8 @@ ideas = {
    				factor = 0.5
 				modifier = {
 				    OR = {
-					has_government = fascism
-					has_government = communism
+						has_government = fascism
+						has_government = communism
 					}
 					factor = 1
 				}
@@ -42,22 +47,24 @@ ideas = {
 		war_bonds_welcome = {
 		
 			available = {
-				NOT = {
-					has_government = fascism
+				OR = {
+					NOT = {
+						has_government = fascism
+					}
+					has_war = yes
 				}
 			}
 
-			cost = 150
+			cost = 200
 		
 			modifier = {
-				war_support_factor= 0.05
-				stability_factor = -0.05
-				consumer_goods_factor = -0.03
-				political_power_factor = -0.1
+				war_support_factor = 0.05
+				consumer_goods_factor = -0.025
+				political_power_factor = 0.05
 				local_resources_factor = 0.125
 			}
 			
-			cost = 150
+			cost = 75
 			
 			cancel_if_invalid = yes
 
@@ -76,22 +83,21 @@ ideas = {
 		
 		available = {
 				NOT = {
-				 OR = {
 					has_government = fascism
 					has_government = communism
-				     }
+					has_war = yes
 				}
 			}
 			
 			modifier = {
-				local_resources_factor = 0.065
-				consumer_goods_factor = 0.02
+				local_resources_factor = 0.075
+				consumer_goods_factor = 0.025
 				stability_factor = 0.05
-				war_support_factor = -0.05
+				war_support_factor = -0.025
 				political_power_factor = 0.1
 			}
 
-			cost = 150
+			cost = 75
 			
 			cancel_if_invalid = no
 

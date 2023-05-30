@@ -4,7 +4,7 @@ Officer_Training = {
 		icon = generic_army_support
 		
 		available = {
-			has_army_experience	> 100
+			has_army_experience	>50
 			command_power > 15
 		}
 		
@@ -15,17 +15,16 @@ Officer_Training = {
 		cost = 15
 		custom_cost_trigger = {
 			command_power > 15
-			has_army_experience > 100
+			has_army_experience > 48
 		}
 		custom_cost_text = army_xp_more_than_100
 		
 		days_remove = 120
-		
 		days_re_enable = 30
 	
 		
 		complete_effect = {
-			army_experience = -100
+			army_experience = -50
 			add_command_power = -15
 			add_political_power = -15
 			custom_effect_tooltip = send_officers_to_specialized_training_tt
@@ -643,6 +642,2397 @@ Officer_Training = {
 					}
 				}
 			}
+		}
+	}
+	morevolunteers_minor = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cost = 50
+		visible = {
+			NOT = {
+				is_major = yes
+			}
+		}
+		# above check for basegame major check, major being 7 largest ecos or faction leader
+
+		complete_effect = { # I don't beleive this flag hooks into anything and was a cut feature
+			set_rule = { can_send_volunteers = yes } #enables volunteers at all times, safeguarding form "trickle down effect
+			add_ideas =  GEN_morevolunteers_minor
+		}
+
+		fire_only_once = yes
+
+	}
+	morevolunteers_major = { #less powerful major version idea being majors ususally have access to volunteers, be it a focus always open or, like with the usa, a choice.
+		icon = GFX_decision_generic_prepare_civil_war
+		cost = 75
+		visible = {
+			is_major = yes 
+		}
+		available = {
+			threat > 0.75 # tension check. logic being to force majors to wait till later in the game, or in an rp sence, using the globle situation to pass laws or acts allowing troops overseas.
+		}
+
+		complete_effect = {
+			set_rule = { can_send_volunteers = yes }
+			add_ideas = GEN_morevolunteers_major
+		}
+	
+		fire_only_once = yes
+	}
+	 
+	r56_coordinate_land_equipment_manufacturers = {
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			amount_taken_ideas = {
+			    amount > 0
+			    slots = {
+			        tank_manufacturer
+			    }
+			}
+			amount_taken_ideas = {
+			    amount > 0
+			    slots = {
+			        materiel_manufacturer
+			    }
+			}
+			amount_taken_ideas = {
+			    amount > 0
+			    slots = {
+			        industrial_concern
+			    }
+			}
+		}
+
+		cost = 50
+		days_remove = 365
+
+		remove_effect = {
+		}
+
+		complete_effect = {
+			add_timed_idea = {
+			    idea = r56_land_equipment_manufacturers_coordination
+			    days = 365
+			}
+		}
+	}
+
+	r56_coordinate_naval_equipment_manufacturers = {
+		icon = generic_naval
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			amount_taken_ideas = {
+			    amount > 0
+			    slots = {
+			        naval_manufacturer
+			    }
+			}
+			amount_taken_ideas = {
+			    amount > 0
+			    slots = {
+			        materiel_manufacturer
+			    }
+			}
+			amount_taken_ideas = {
+			    amount > 0
+			    slots = {
+			        industrial_concern
+			    }
+			}
+			any_controlled_state = {
+				is_coastal = yes
+			}
+		}
+		cost = 50
+		days_remove = 365
+
+		complete_effect = {
+			add_timed_idea = {
+			    idea = r56_naval_equipment_manufacturers_coordination
+			    days = 365
+			}
+		}
+	}
+
+	GEN_purchase_foreign_weaponry = {
+		icon = generic_prepare_civil_war
+		fire_only_once = yes
+		visible = {
+			is_major = no
+		}
+		cost = 25
+		available = {
+			always = yes
+		}
+		complete_effect = {
+			ROOT  = { country_event = gen_foreign_arms_purchases.1 }
+		}
+	}
+
+	GEN_order_weapons_in_USA = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = USA_can_sell_weapons_trigger
+		}
+
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = USA
+				amount = 2500
+			}
+			USA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	
+	GEN_order_support_equipment_in_USA = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = USA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = USA
+				amount = 250
+			}
+			USA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_artillery_in_USA = {
+		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = USA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = USA
+				amount = 250
+			}
+			USA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_tanks_in_USA = {
+		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = USA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 10
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					USA = { 
+						OR = {
+							has_tech = basic_light_tank 
+							has_tech = basic_light_tank_chassis
+						}
+						NOT = { 
+							has_tech = basic_medium_tank 
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = light_tank_chassis
+					producer = USA
+					amount = 50
+				}
+			}
+			else_if = {
+				limit = {
+					USA = {
+						OR = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis
+					producer = USA
+					amount = 50
+				}
+			}
+			USA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_fighters_in_USA = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = USA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				producer = USA
+				amount = 50
+			}
+			USA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_bombers_in_USA = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = USA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				producer = USA
+				amount = 25
+			}
+			USA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	##########################
+	### SOVIET GUN PURCHASE ##
+	##########################
+	GEN_order_weapons_in_SOV = {
+		icon = generic_prepare_civil_war
+			available = {
+				NOT = {
+					has_country_flag = purchase_active
+				}
+			}
+			visible = {
+				has_country_flag = SOV_can_sell_weapons_trigger
+			}
+			days_remove = 60
+			cost = 25
+			ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		complete_effect = {
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = SOV
+				amount = 2500
+			}
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_support_equipment_in_SOV = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = SOV_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = SOV
+				amount = 250
+			}
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_artillery_in_SOV = {
+		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = SOV_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = SOV
+				amount = 250
+			}
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_tanks_in_SOV = {
+		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = SOV_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 10
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					SOV = { 
+						OR = {
+							has_tech = basic_light_tank 
+							has_tech = basic_light_tank_chassis
+						}
+						NOT = { 
+							has_tech = basic_medium_tank 
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = light_tank_chassis
+					producer = SOV
+					amount = 50
+				}
+			}
+			else_if = {
+				limit = {
+					SOV = {
+						OR = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis
+					producer = SOV
+					amount = 50
+				}
+			}
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_fighters_in_SOV = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = SOV_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				producer = SOV
+				amount = 50
+			}
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_bombers_in_SOV = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = SOV_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				producer = SOV
+				amount = 25
+			}
+			SOV = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	##########################
+	## ENGLISH GUN PURCHASE ##
+	##########################
+	GEN_order_weapons_in_ENG = {
+		icon = generic_prepare_civil_war
+			available = {
+				NOT = {
+					has_country_flag = purchase_active
+				}
+			}
+			visible = {
+				has_country_flag = ENG_can_sell_weapons_trigger
+			}
+			days_remove = 60
+			cost = 25
+			ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		complete_effect = {
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = ENG
+				amount = 2500
+			}
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_support_equipment_in_ENG = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = ENG_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = ENG
+				amount = 250
+			}
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_artillery_in_ENG = {
+		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = ENG_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = ENG
+				amount = 250
+			}
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_tanks_in_ENG = {
+		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = ENG_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 10
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					ENG = { 
+						OR = {
+							has_tech = basic_light_tank 
+							has_tech = basic_light_tank_chassis
+						}
+						NOT = { 
+							has_tech = basic_medium_tank 
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = light_tank_chassis
+					producer = ENG
+					amount = 50
+				}
+			}
+			else_if = {
+				limit = {
+					ENG = {
+						OR = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis
+					producer = ENG
+					amount = 50
+				}
+			}
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_fighters_in_ENG = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = ENG_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				producer = ENG
+				amount = 50
+			}
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_bombers_in_ENG = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = ENG_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				producer = ENG
+				amount = 25
+			}
+			ENG = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	##########################
+	## GERMAN GUN PURCHASES ##
+	##########################
+	GEN_order_weapons_in_GER = {
+		icon = generic_prepare_civil_war
+			available = {
+				NOT = {
+					has_country_flag = purchase_active
+				}
+			}
+			visible = {
+				has_country_flag = GER_can_sell_weapons_trigger
+			}
+			days_remove = 60
+			cost = 25
+			ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		complete_effect = {
+			GER = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = GER
+				amount = 2500
+			}
+			GER = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_support_equipment_in_GER = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = GER_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			GER = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = GER
+				amount = 250
+			}
+			GER = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_artillery_in_GER = {
+		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = GER_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			GER = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = GER
+				amount = 250
+			}
+			GER = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_tanks_in_GER = {
+		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = GER_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 10
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			GER = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			clr_country_flag = purchase_active
+			if = {
+				limit = {
+					GER = { 
+						OR = {
+							has_tech = basic_light_tank 
+							has_tech = basic_light_tank_chassis
+						}
+						NOT = { 
+							has_tech = basic_medium_tank 
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = light_tank_chassis
+					producer = GER
+					amount = 50
+				}
+			}
+			else_if = {
+				limit = {
+					GER = {
+						OR = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis
+					producer = GER
+					amount = 50
+				}
+			}
+			GER = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+		}
+	}
+	GEN_order_fighters_in_GER = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = GER_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			GER = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				producer = GER
+				amount = 50
+			}
+			GER = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_bombers_in_GER = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = GER_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			GER = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				producer = GER
+				amount = 25
+			}
+			GER = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	##########################
+	## ITALIAN GUN PURCHASE ##
+	##########################
+	GEN_order_weapons_in_ITA = {
+		icon = generic_prepare_civil_war
+			available = {
+				NOT = {
+					has_country_flag = purchase_active
+				}
+			}
+			visible = {
+				has_country_flag = ITA_can_sell_weapons_trigger
+			}
+			days_remove = 60
+			cost = 25
+			ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			set_country_flag = purchase_active
+			
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = ITA
+				amount = 2500
+			}
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_support_equipment_in_ITA = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = ITA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = ITA
+				amount = 250
+			}
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_artillery_in_ITA = {
+		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = ITA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = ITA
+				amount = 250
+			}
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_tanks_in_ITA = {
+		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = ITA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 10
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					ITA = { 
+						OR = {
+							has_tech = basic_light_tank 
+							has_tech = basic_light_tank_chassis
+						}
+						NOT = { 
+							has_tech = basic_medium_tank 
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = light_tank_chassis
+					producer = ITA
+					amount = 50
+				}
+			}
+			else_if = {
+				limit = {
+					ITA = {
+						OR = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis
+					producer = ITA
+					amount = 50
+				}
+			}
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_fighters_in_ITA = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = ITA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				producer = ITA
+				amount = 50
+			}
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_bombers_in_ITA = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = ITA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				producer = ITA
+				amount = 25
+			}
+			ITA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	##########################
+	## French GUN PURCHASE  ##
+	##########################
+	GEN_order_weapons_in_FRA = {
+		icon = generic_prepare_civil_war
+			available = {
+				NOT = {
+					has_country_flag = purchase_active
+				}
+			}
+			visible = {
+				has_country_flag = FRA_can_sell_weapons_trigger
+			}
+			days_remove = 60
+			cost = 25
+			ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		complete_effect = {
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = FRA
+				amount = 2500
+			}
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_support_equipment_in_FRA = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = FRA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = FRA
+				amount = 250
+			}
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_artillery_in_FRA = {
+		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = FRA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = FRA
+				amount = 250
+			}
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_tanks_in_FRA = {
+		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = FRA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 10
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					FRA = { 
+						OR = {
+							has_tech = basic_light_tank 
+							has_tech = basic_light_tank_chassis
+						}
+						NOT = { 
+							has_tech = basic_medium_tank 
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = light_tank_chassis
+					producer = FRA
+					amount = 50
+				}
+			}
+			else_if = {
+				limit = {
+					FRA = {
+						OR = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis
+					producer = FRA
+					amount = 50
+				}
+			}
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_fighters_in_FRA = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = FRA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				producer = FRA
+				amount = 50
+			}
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_bombers_in_FRA = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = FRA_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				producer = FRA
+				amount = 25
+			}
+			FRA = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	############################
+	## JAPANESE GUN PURCHASE  ##
+	############################
+	GEN_order_weapons_in_JAP = {
+		icon = generic_prepare_civil_war
+			available = {
+				NOT = {
+					has_country_flag = purchase_active
+				}
+			}
+			visible = {
+				has_country_flag = JAP_can_sell_weapons_trigger
+			}
+			days_remove = 60
+			cost = 25
+			ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		complete_effect = {
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = JAP
+				amount = 2500
+			}
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_support_equipment_in_JAP = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = JAP_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = JAP
+				amount = 250
+			}
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+
+	GEN_order_artillery_in_JAP = {
+		icon = ger_military_buildup
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		visible = {
+			has_country_flag = JAP_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = JAP
+				amount = 250
+			}
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_tanks_in_JAP = {
+		icon = generic_tank
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = JAP_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 10
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					JAP = { 
+						OR = {
+							has_tech = basic_light_tank 
+							has_tech = basic_light_tank_chassis
+						}
+						NOT = { 
+							has_tech = basic_medium_tank 
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = light_tank_chassis
+					producer = JAP
+					amount = 50
+				}
+			}
+			else_if = {
+				limit = {
+					JAP = {
+						OR = {
+							has_tech = basic_medium_tank
+							has_tech = improved_medium_tank #needed because basic can be bypassed
+							has_tech = basic_medium_tank_chassis
+							has_tech = improved_medium_tank_chassis
+						}
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_chassis
+					producer = JAP
+					amount = 50
+				}
+			}
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_fighters_in_JAP = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = JAP_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				producer = JAP
+				amount = 50
+			}
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
+		}
+	}
+	GEN_order_bombers_in_JAP = {
+		icon = generic_air
+		available = {
+			NOT = {
+				has_country_flag = purchase_active
+			}
+			num_of_civilian_factories_available_for_projects > 5
+		}
+		visible = {
+			has_country_flag = JAP_can_sell_weapons_trigger
+		}
+		days_remove = 60
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+			}
+			
+			set_country_flag = purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				producer = JAP
+				amount = 25
+			}
+			JAP = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+			}
+			clr_country_flag = purchase_active
 		}
 	}
 }
