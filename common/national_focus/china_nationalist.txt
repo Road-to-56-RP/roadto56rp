@@ -3297,6 +3297,27 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = KMT_electronics_research
+		icon = GFX_goal_generic_radio_development
+		prerequisite = { focus = KMT_extra_research_slot }
+		prerequisite = { focus = KMT_industrial_effort }
+		relative_position_id = KMT_science_effort
+		x = -2
+		y = 4
+		cost = 10
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 1
+				uses = 1
+				category = electronics
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
 		id = KMT_national_institute
 		icon = GFX_goal_star_of_david
 		prerequisite = { focus = KMT_electronics_research }
@@ -3380,27 +3401,6 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = rocketry
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	
-	focus = {
-		id = KMT_electronics_research
-		icon = GFX_goal_generic_radio_development
-		prerequisite = { focus = KMT_extra_research_slot }
-		prerequisite = { focus = KMT_industrial_effort }
-		relative_position_id = KMT_science_effort
-		x = -2
-		y = 4
-		cost = 10
-		
-		completion_reward = {
-			add_tech_bonus = {
-				name = secret_bonus
-				bonus = 1
-				uses = 1
-				category = electronics
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -8059,40 +8059,7 @@ focus_tree = {
 	#	}
 	#}	
 	
-	focus = {
-		id = KMT_pincer_soviet
-		icon = GFX_goal_generic_war_with_comintern
 		
-		available = {
-			r56_script_i_am_sane = yes
-			SOV = {
-				r56_script_target_is_sane = yes
-				has_war = yes
-			}
-		}
-		
-		bypass = {
-			SOV = {
-				r56_script_standard_bypass = yes
-			}
-		}
-		
-		prerequisite = { focus = KMT_join_the_axis }
-		relative_position_id = KMT_join_the_axis
-		x = 0
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			create_wargoal = {
-				target = SOV
-				expire = 0
-				type = take_state_focus
-				generator = { 408 409 657 560 561 742 732 586 589 }
-			}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}		
 	
 	focus = {
 		id = KMT_japanese_advisors
@@ -8406,6 +8373,41 @@ focus_tree = {
 		completion_reward = {
 			GER = { country_event = { id = kmt.247 days = 1 } }	
 		}
+	}
+
+	focus = {
+		id = KMT_pincer_soviet
+		icon = GFX_goal_generic_war_with_comintern
+		
+		available = {
+			r56_script_i_am_sane = yes
+			SOV = {
+				r56_script_target_is_sane = yes
+				has_war = yes
+			}
+		}
+		
+		bypass = {
+			SOV = {
+				r56_script_standard_bypass = yes
+			}
+		}
+		
+		prerequisite = { focus = KMT_join_the_axis }
+		relative_position_id = KMT_join_the_axis
+		x = 0
+		y = 1
+		cost = 10
+		
+		completion_reward = {
+			create_wargoal = {
+				target = SOV
+				expire = 0
+				type = take_state_focus
+				generator = { 408 409 657 560 561 742 732 586 589 }
+			}
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
 	
 	focus = {

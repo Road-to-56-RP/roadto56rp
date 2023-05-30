@@ -3776,38 +3776,7 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = USA_tuskegee_airmen
-		icon = GFX_goal_USA_tuskegee_airmen
-		prerequisite = { focus = USA_air_war_plans_division }
-		x = 3
-		y = 1
-		relative_position_id = USA_air_war_plans_division
-		cost = 5
-		#ai_will_do = {
-		#	factor = 1
-		#}
 
-		available_if_capitulated = yes
-		available = {
-			OR = {
-				has_war = yes
-				has_war_support > 0.3
-			}
-			367 = {
-				air_base > 0
-			}
-			has_tech = fighter2
-			has_tech = tactical_bomber2
-		}
-		completion_reward = {
-			add_war_support = 0.05
-			custom_effect_tooltip = USA_tuskegee_airmen_tt
-			hidden_effect = {
-				load_oob = "USA_tuskegee_airmen"
-			}
-		}
-	}
 	focus = {
 		id = USA_gi_bill
 		icon = GFX_goal_generic_martial_law
@@ -11273,6 +11242,40 @@ focus_tree = {
 			country_event = r56_usa.2
 		}
 	}
+
+	focus = {
+		id = USA_tuskegee_airmen
+		icon = GFX_goal_USA_tuskegee_airmen
+		prerequisite = { focus = USA_air_war_plans_division }
+		x = 3
+		y = 1
+		relative_position_id = USA_air_war_plans_division
+		cost = 5
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = yes
+		available = {
+			OR = {
+				has_war = yes
+				has_war_support > 0.3
+			}
+			367 = {
+				air_base > 0
+			}
+			has_tech = fighter2
+			has_tech = tactical_bomber2
+		}
+		completion_reward = {
+			add_war_support = 0.05
+			custom_effect_tooltip = USA_tuskegee_airmen_tt
+			hidden_effect = {
+				load_oob = "USA_tuskegee_airmen"
+			}
+		}
+	}
+
 	focus = {
 		id = USA_air_support
 		icon = GFX_goal_generic_air_fighter
@@ -11710,6 +11713,40 @@ focus_tree = {
 			}
 		}
 	}
+	
+
+	focus = {
+		id = USA_bureau_of_ships
+		icon = GFX_goal_naval_treaty
+		x = 0
+		y = 3
+		cost = 5
+		#ai_will_do = {
+		#	factor = 1
+		#}
+		prerequisite = { focus = USA_two_ocean_navy_act }
+		relative_position_id = USA_two_ocean_navy_act
+		available_if_capitulated = yes
+
+		completion_reward = {
+			navy_experience = 25
+			add_ideas = bureau_of_ships_focus
+			if = {
+				limit = { has_idea = bureau_of_ordnance_spirit }
+				remove_ideas = bureau_of_ordnance_spirit
+			}
+			if = {
+				limit = {
+					has_idea =  rt56_naval_funding_favoritism
+				}
+				swap_ideas = { #punishment for doing this focus early 
+					remove_idea = rt56_naval_funding_favoritism
+					add_idea = rt56_naval_first_funding
+				}
+			}	
+		}
+	}
+
 	focus = {
 		id = USA_maritime_commission
 		icon = GFX_goal_generic_production2
@@ -11762,38 +11799,6 @@ focus_tree = {
 		completion_reward = {
 			navy_experience = 25
 			add_ideas = liberty_ships_focus
-		}
-	}
-
-	focus = {
-		id = USA_bureau_of_ships
-		icon = GFX_goal_naval_treaty
-		x = 0
-		y = 3
-		cost = 5
-		#ai_will_do = {
-		#	factor = 1
-		#}
-		prerequisite = { focus = USA_two_ocean_navy_act }
-		relative_position_id = USA_two_ocean_navy_act
-		available_if_capitulated = yes
-
-		completion_reward = {
-			navy_experience = 25
-			add_ideas = bureau_of_ships_focus
-			if = {
-				limit = { has_idea = bureau_of_ordnance_spirit }
-				remove_ideas = bureau_of_ordnance_spirit
-			}
-			if = {
-				limit = {
-					has_idea =  rt56_naval_funding_favoritism
-				}
-				swap_ideas = { #punishment for doing this focus early 
-					remove_idea = rt56_naval_funding_favoritism
-					add_idea = rt56_naval_first_funding
-				}
-			}	
 		}
 	}
 	
