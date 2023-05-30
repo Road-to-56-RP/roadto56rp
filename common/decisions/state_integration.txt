@@ -1,16 +1,57 @@
 GLO_state_integration_category = {
-    show_hide_integration_decisions = {
+	
+	#Toggle to hide all coring
+    hide_integration_decisions = {
         priority = 100
-        visible = { always = yes }
+        visible = { 
+			always = yes 
+		}
+		available = {
+			NOT = { has_country_flag = show_integration_decisions }
+		}
+        complete_effect = { 
+			set_country_flag = show_integration_decisions
+        }
+    }
+
+	show_integration_decisions = {
+        priority = 99
+        visible = { 
+			always = yes 
+		}
+		available = {
+			has_country_flag = show_integration_decisions 
+		}
+        complete_effect = { 
+            clr_country_flag = show_integration_decisions  
+        }
+    }
+
+	#Toggle "Show only coring decisions with enough compliance"
+	hide_nonavialible_integration_decisions = {
+        priority = 98
+        visible = { 
+			always = yes 
+		}
+		available = {
+			has_country_flag = show_unavialible_integration_decisions
+		}
+        complete_effect = { 
+            clr_country_flag = show_unavialible_integration_decisions
+        }
+    }
+
+	show_nonavialible_integration_decisions = {
+        priority = 97
+        visible = { 
+			always = yes 
+		}
+		available = {
+			NOT = { has_country_flag = show_unavialible_integration_decisions }
+		}
 
         complete_effect = { 
-            if = {
-                limit = { has_country_flag = show_integration_decisions }
-                clr_country_flag = show_integration_decisions
-            }
-            else = {
-                set_country_flag = show_integration_decisions
-            }
+            set_country_flag = show_unavialible_integration_decisions
         }
     }
 
@@ -18,9 +59,7 @@ GLO_state_integration_category = {
         icon = GFX_decision_generic_nationalism
 
         on_map_mode = map_only
-
         state_target = yes 
-
         target_array = controlled_states
 		
 		ai_will_do = {
@@ -35,37 +74,13 @@ GLO_state_integration_category = {
         }
 
         available = {
-			if = {
-				limit = { has_global_flag = easy_difficulty }
-				FROM = {
-					compliance > 69
-					resistance < 26
-				}
+			FROM = {
+				compliance > 89
+				resistance < 11
 			}
-			if = {
-				limit = { has_global_flag = medium_difficulty }
-				FROM = {
-					compliance > 79
-					resistance < 21
-				}
-			}
-			if = {
-				limit = { has_global_flag = hard_difficulty }
-				FROM = {
-					compliance > 89
-					resistance < 11
-				}
-			}
-			if = {
-				limit = { has_global_flag = very_hard_difficulty }
-				FROM = {
-					compliance > 94
-					resistance < 6
-				}
-			}
-            has_manpower > GLO_p_mp_cost
+            has_manpower > coring_man
             has_equipment = {
-                infantry_equipment > GLO_p_inf_cost
+                infantry_equipment > 499
             }
         }
 
@@ -74,6 +89,13 @@ GLO_state_integration_category = {
 			FROM = { 
 				NOT = { is_core_of = ROOT } 
 				NOT = { has_state_flag = being_cored } 
+			}
+			OR = {
+				has_country_flag = show_unavialible_integration_decisions
+				FROM = {
+					compliance > 89
+					resistance < 11
+				}
 			}
         }
 
@@ -130,12 +152,10 @@ GLO_state_integration_category = {
     integrate_the_state_of_FROM_by_force = {
         icon = GFX_decision_oppression
 
-        on_map_mode = map_only
-
+		on_map_mode = map_only
         state_target = yes 
-
         target_array = controlled_states
-		
+
 		ai_will_do = {
 			base = 0
 		}
@@ -154,46 +174,43 @@ GLO_state_integration_category = {
 					has_government = democratic
 				}
 			}
-            if = {
-				limit = { has_global_flag = easy_difficulty }
-				FROM = {
-					compliance > 29
-					resistance < 41
-				}
+			FROM = {
+				compliance > 39
+				resistance < 31
 			}
-			if = {
-				limit = { has_global_flag = medium_difficulty }
-				FROM = {
-					compliance > 34
-					resistance < 36
-				}
+
+            has_manpower > state_pop
+			has_equipment = {
+				infantry_equipment > 4999
 			}
-			if = {
-				limit = { has_global_flag = hard_difficulty }
+        }
+
+        visible = {
+            NOT = { 
+				has_country_flag = show_integration_decisions 
+			}
+			OR = {
+				has_country_flag = show_unavialible_integration_decisions
 				FROM = {
 					compliance > 39
 					resistance < 31
 				}
 			}
-			if = {
-				limit = { has_global_flag = very_hard_difficulty }
-				FROM = {
-					compliance > 44
-					resistance < 26
+			NOT = {
+				OR = {
+					has_government = neutrality
+					has_government = democratic
 				}
 			}
-            has_manpower > GLO_f_mp_cost
-			has_equipment = {
-				infantry_equipment > GLO_f_inf_cost
-			}
-        }
-
-        visible = {
-            NOT = { has_country_flag = show_integration_decisions }
 			FROM = {
 				NOT = { is_core_of = ROOT }
 				NOT = { has_state_flag = being_cored }
 			}
+        }
+
+        custom_cost_trigger = {
+            has_manpower > GLO_f_mp_cost
+
         }
 
         custom_cost_trigger = {
