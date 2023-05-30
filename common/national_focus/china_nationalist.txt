@@ -3305,11 +3305,9 @@ focus_tree = {
 		x = 1
 		y = 1
 		cost = 5
-		bypass = {
+		available = {
 			GER = {
-				NOT = {
-					has_government = fascism
-				}
+				has_government = fascism
 			}
 		}
 		
@@ -3340,7 +3338,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_national_institute focus = KMT_create_national_institute }
 		prerequisite = { focus = KMT_modernize_army }
 		x = 17
-		y = 6
+		y = 7
 		cost = 10
 
 		completion_reward = {
@@ -7953,6 +7951,46 @@ focus_tree = {
 						level = 5 
 					}
 				}
+			}
+		}
+	
+	}
+
+	focus = {
+		id = KMT_trade_deal_with_germany_2
+		icon = GFX_focus_manufacturers_cooperation
+		available = {
+			is_puppet = no
+			NOT = {
+				has_war_with = GER
+			}
+			GER = {
+				is_subject = no
+			}
+		}
+		prerequisite = { focus = KMT_increase_sino_german_cooperation }
+		relative_position_id = KMT_increase_sino_german_cooperation
+		x = 1
+		y = 3
+		cost = 5
+		
+		completion_reward = {
+			GER = {
+				#country_event = { id = germany.75 days = 1 }
+				custom_effect_tooltip = needs_approval
+			}
+			effect_tooltip = {
+				GER = {
+					add_to_tech_sharing_group = CHI_technological_cooperation_tech_group
+				}
+				CHI = {
+					add_to_tech_sharing_group = CHI_technological_cooperation_tech_group
+				}
+			}
+			
+			hidden_effect = { 
+				GER = { add_to_tech_sharing_group = CHI_technological_cooperation_tech_group }
+				add_to_tech_sharing_group = CHI_technological_cooperation_tech_group	
 			}
 		}
 	
