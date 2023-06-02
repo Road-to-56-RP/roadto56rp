@@ -2666,6 +2666,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
 		}
 	}
+
 	focus = {
 		id = GER_support_autarks_I
 		icon = GFX_goal_generic_allies_build_infantry #GFX_goal_generic_fascist_bills
@@ -2711,6 +2712,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
 		}
 	}
+
 	focus = {
 		id = GER_support_autarks_II
 		icon = GFX_goal_generic_army_doctrines
@@ -2738,6 +2740,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER FOCUS_FILTER_RESEARCH
 		}
 	}
+	
 	focus = {
 		id = GER_support_technocrats_II
 		icon = GFX_goal_generic_intelligence_exchange
@@ -2776,7 +2779,7 @@ focus_tree = {
 			focus = GER_support_autarks_II
 			focus = GER_support_technocrats_II
 		}
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = GER_support_technocrats_II
 		ai_will_do = {
@@ -2801,7 +2804,10 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_reform_uranprojekt
 		}
-		x = 1
+		prerequisite = {
+			focus = GER_establish_peenmunde
+		}
+		x = -1
 		y = 1
 		relative_position_id = GER_reform_uranprojekt
 		ai_will_do = {
@@ -2856,11 +2862,12 @@ focus_tree = {
 		icon = GFX_focus_rocketry
 		cost = 10.00
 		prerequisite = {
-			focus = GER_reform_uranprojekt
+			focus = GER_support_autarks_II
+			focus = GER_support_technocrats_II
 		}
-		x = -1
+		x = 0
 		y = 1
-		relative_position_id = GER_reform_uranprojekt
+		relative_position_id = GER_support_technocrats_II
 		ai_will_do = {
 			factor = 10
 		}
@@ -2868,10 +2875,30 @@ focus_tree = {
 			#date > 1943.1.1
 		}
 		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = { 62 }
+				limit = {
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					rocket_site < 2
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = rocket_site
+					level = 1
+					instant_build = yes
+				}
+			}
+
 			add_tech_bonus = {
-				name = rocketry_tech_bonus_name
-				bonus = 1
 				uses = 2
+				bonus = 1
+				ahead_reduction = 1
 				category = rocketry
 			}
 		}
@@ -3604,28 +3631,10 @@ focus_tree = {
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = todt
 			42 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-						is_demilitarized_zone = no
-					}
-					custom_effect_tooltip = GER_west_wall_forts
-				}
-				else = {
-					custom_effect_tooltip = GER_forts_unavailable
-				}
+				custom_effect_tooltip = GER_west_wall_forts
 			}
 			923 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-						is_demilitarized_zone = no
-					}
-					custom_effect_tooltip = GER_west_wall_forts
-				}
-				else = {
-					custom_effect_tooltip = GER_forts_unavailable
-				}
+				custom_effect_tooltip = GER_west_wall_forts
 			}
 			hidden_effect = {
 				923 = {
