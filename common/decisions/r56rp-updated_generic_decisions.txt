@@ -1560,6 +1560,28 @@ economy_decisions = {
 		days_remove = 120
 	}
 
+	r56rp_create_techshare_commonwealth_research = { #in case the bloody thing doesent trigger when forming a faction.
+		icon = GFX_decision_generic_research
+		cost = 100
+
+		fire_only_once = no
+		ai_will_do = {
+			factor = 50
+		}
+		#cancel_if_not_visible = yes
+		visible = {
+			NOT = { is_in_tech_sharing_group = commonwealth_research }
+			tag = ENG #i COULD make it for more nations, buuuuuuut i am lazy and dont see a point.
+		}
+		available = {
+			NOT = { is_in_tech_sharing_group = commonwealth_research }
+		}
+		complete_effect = {
+			add_to_tech_sharing_group = commonwealth_research
+		}
+		
+	}
+
 	r56rp_join_techshare_commonwealth_research = { #specificaly joins the commonwelth research if in alliance with them.
 		icon = GFX_decision_generic_research
 		cost = 50
@@ -1591,28 +1613,26 @@ economy_decisions = {
 		}
 	}
 
-	r56rp_create_techshare_commonwealth_research = { #in case the bloody thing doesent trigger when forming a faction.
-		icon = GFX_decision_generic_research
-		cost = 100
+	r56rp_create_techshare_comintern_research = { #specificaly joins the commonwelth research if in alliance with them.
+	icon = GFX_decision_generic_research
+	cost = 100
 
-		fire_only_once = no
-		ai_will_do = {
-			factor = 50
-		}
-		#cancel_if_not_visible = yes
-		visible = {
-			NOT = { is_in_tech_sharing_group = commonwealth_research }
-			tag = ENG #i COULD make it for more nations, buuuuuuut i am lazy and dont see a point.
-		}
-		available = {
-			NOT = { is_in_tech_sharing_group = commonwealth_research }
-		}
-		complete_effect = {
-			add_to_tech_sharing_group = commonwealth_research
-		}
-		
+	fire_only_once = no
+	ai_will_do = {
+		factor = 50
 	}
-
+	#cancel_if_not_visible = yes
+	visible = {
+		NOT = { is_in_tech_sharing_group = comintern_research }
+		tag = SOV
+	}
+	available = {
+		NOT = { is_in_tech_sharing_group = comintern_research }
+	}
+	complete_effect = {
+		add_to_tech_sharing_group = comintern_research
+	}
+}
 
 	r56rp_join_techshare_comintern_research = { #specificaly joins the commonwelth research if in alliance with them.
 		icon = GFX_decision_generic_research
@@ -1620,7 +1640,7 @@ economy_decisions = {
 
 		fire_only_once = no
 		ai_will_do = {
-			factor = 50
+			factor = 200
 		}
 		#cancel_if_not_visible = yes
 		visible = {
@@ -1641,28 +1661,60 @@ economy_decisions = {
 		
 	}
 
-	r56rp_create_techshare_comintern_research = { #specificaly joins the commonwelth research if in alliance with them.
+	r56rp_create_techshare_r56rp_GER_berlin_tech_research = {
 		icon = GFX_decision_generic_research
 		cost = 100
+	
+		fire_only_once = no
+		ai_will_do = {
+			factor = 200
+		}
+		#cancel_if_not_visible = yes
+		visible = {
+			NOT = { is_in_tech_sharing_group = r56rp_GER_berlin_tech_research }
+			tag = GER
+		}
+
+		available = {
+			NOT = { is_in_tech_sharing_group = r56rp_GER_berlin_tech_research }
+		}
+
+		complete_effect = {
+			add_to_tech_sharing_group = r56rp_GER_berlin_tech_research
+		}
+
+	}
+
+	r56rp_join_techshare_r56rp_GER_berlin_tech_research = {
+		icon = GFX_decision_generic_research
+		cost = 50
 
 		fire_only_once = no
+
 		ai_will_do = {
 			factor = 50
 		}
 		#cancel_if_not_visible = yes
 		visible = {
-			NOT = { is_in_tech_sharing_group = comintern_research }
-			tag = SOV
-		}
-		available = {
-			NOT = { is_in_tech_sharing_group = comintern_research }
-		}
-		complete_effect = {
-			add_to_tech_sharing_group = comintern_research
+			NOT = { is_in_tech_sharing_group = r56rp_GER_berlin_tech_research  }
+			any_allied_country = {
+				AND = {	
+					is_in_tech_sharing_group = r56rp_GER_berlin_tech_research
+					
+				}
+			}
 		}
 		
-	}
+		available = {
+			always = yes
+		}
 
+		complete_effect = {
+			add_to_tech_sharing_group = r56rp_GER_berlin_tech_research
+		}
+
+	}
+	
 }
 
 war_measures = {
