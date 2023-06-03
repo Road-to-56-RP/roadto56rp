@@ -1,0 +1,185 @@
+catalonia_decisions_category = {		#Decision Panel for Catalonia and Andorra, to gain cores on Catalan areas. Portugal/Spain decisions are WIP, and will go on this document when they are done.
+	adr_form_catalonia = { 		#Andorra Unites Catalonia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 165		#Controls Cataluna
+		}	
+		
+		visible = {
+			original_tag = ADR		#Is Andorra
+		}
+		
+		complete_effect = {		#Lose 125 Political Power, gain 10 war support, rename/move capital to Catalonia, and lose autonomous modifier in state upon clicking the decision.
+			add_political_power = -125
+			add_war_support = 0.1
+			set_cosmetic_tag = CAT
+			165 = {
+				remove_dynamic_modifier = {
+				modifier = autonomous_state	}
+			}
+				set_capital = {
+					state = 165 
+					remember_old_capital = no
+				}
+			load_focus_tree = generic_focus		
+		}		
+		
+		days_remove = 90
+		modifier = {
+     		political_power_gain = -0.75
+			consumer_goods_factor = 0.25	
+	 		stability_weekly = -0.005
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Cataluna.
+	 		add_stability = 0.01
+			165 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	adr_integrate_valencia = { 		#Catalonia integrates Valencia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 167		#Controls Cataluna
+		}	
+		
+		visible = {
+			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
+		}
+		
+		complete_effect = {	#Lose 65 Political Power, and gain 3 war support.
+			add_political_power = -65
+			add_war_support = 0.03
+		}	
+		
+		days_remove = 135
+		modifier = {
+     		political_power_gain = -0.35
+			consumer_goods_factor = 0.035	
+	 		stability_weekly = -0.003
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
+	 		add_stability = 0.01
+			167 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	adr_integrate_balearic_islands = { 		#Catalonia integrates Valencia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 177		#Controls Cataluna
+		}	
+		
+		visible = {
+			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
+		}
+		
+		complete_effect = {	#Lose 65 Political Power, and gain 3 war support.
+			add_political_power = -35
+			add_war_support = 0.02
+		}	
+		
+		days_remove = 110
+		modifier = {
+     		political_power_gain = -0.12
+			consumer_goods_factor = 0.020	
+	 		stability_weekly = -0.001
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
+	 		add_stability = 0.01
+			177 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+}
+portugal_expansionism_decision_category = {	#Portugal decisions to expand territorial reach
+	por_claim_galicia = { 		#Portugal claim Galicia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 40
+		
+		available = {
+			controls_state = 171		#Controls Galicia
+		}	
+		
+		visible = {
+			original_tag = POR
+			NOT = {
+				171 = {	is_core_of = POR	}
+				171 = {	is_claimed_by = POR	}
+			}
+		}
+		
+		complete_effect = {		#Add 1 war support, and claim on Galicia.
+			add_war_support = 0.01
+			171 = { add_claim_by = POR }	
+			custom_effect_tooltip = por_unlocks_integration_decision_tt
+		}
+		ai_will_do = {
+				factor = 100	
+		}
+	}
+	
+	por_integrate_galicia = { 		#Portugal core Galicia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			owns_state = 171		#Controls Galicia
+		}	
+		
+		visible = {
+			original_tag = POR
+			171 = {	is_claimed_by = POR	}
+			NOT = {
+				171 = {	is_core_of = POR	}
+			}
+		}
+		
+		complete_effect = {		#Lose 60 Political Power, gain 3 war support, and lose Autonomous State Modifier.
+			add_political_power = -60
+			add_war_support = 0.03
+			171 = {
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}	
+			}	
+		}
+		days_remove = 140
+		modifier = {
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.01
+	 		stability_weekly = -0.001
+		}	
+		
+		remove_effect = {		#Gain 2 Stability and gains core on Galicia.
+	 		add_stability = 0.02
+			171 = {	add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+}
