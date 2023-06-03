@@ -1,0 +1,114 @@
+catalonia_decisions_category = {		#Decision Panel for Catalonia and Andorra, to gain cores on Catalan areas. Portugal/Spain decisions are WIP, and will go on this document when they are done.
+	adr_form_catalonia = { 		#Andorra Unites Catalonia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 165		#Controls Cataluna
+		}	
+		
+		visible = {
+			original_tag = ADR		#Is Andorra
+		}
+		
+		complete_effect = {		#Lose 125 Political Power, gain 10 war support, rename/move capital to Catalonia, and lose autonomous modifier in state upon clicking the decision.
+			add_political_power = -125
+			add_war_support = 0.1
+			set_cosmetic_tag = CAT
+			165 = {
+				remove_dynamic_modifier = {
+				modifier = autonomous_state	}
+			}
+				set_capital = {
+					state = 165 
+					remember_old_capital = no
+				}
+			load_focus_tree = generic_focus		
+		}		
+		
+		days_remove = 90
+		modifier = {
+     		political_power_gain = -0.75
+			consumer_goods_factor = 0.25	
+	 		stability_weekly = -0.005
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Cataluna.
+	 		add_stability = 0.01
+			165 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	adr_integrate_valencia = { 		#Catalonia integrates Valencia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 167		#Controls Cataluna
+		}	
+		
+		visible = {
+			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
+		}
+		
+		complete_effect = {	#Lose 65 Political Power, and gain 3 war support.
+			add_political_power = -65
+			add_war_support = 0.03
+		}	
+		
+		days_remove = 135
+		modifier = {
+     		political_power_gain = -0.35
+			consumer_goods_factor = 0.035	
+	 		stability_weekly = -0.003
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
+	 		add_stability = 0.01
+			167 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	adr_integrate_balearic_islands = { 		#Catalonia integrates Balearic Islands
+	icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 177		#Controls Cataluna
+		}	
+		
+		visible = {
+			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
+		}
+		
+		complete_effect = {		#Lose 35 Political Power, and gain 2 war support.
+			add_political_power = -35
+			add_war_support = 0.02
+		}		
+		
+		days_remove = 110
+		modifier = {
+     		political_power_gain = -0.12
+			consumer_goods_factor = 0.020	
+	 		stability_weekly = -0.001
+		}	
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Cataluna.
+	 		add_stability = 0.01
+			177 = {	{ add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+}
