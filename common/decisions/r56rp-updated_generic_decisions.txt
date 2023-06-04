@@ -1560,6 +1560,59 @@ economy_decisions = {
 		days_remove = 120
 	}
 
+	r56rp_terraformer_tool_1 = { #terraform tools
+
+		icon = decision_generic_operation
+		cost = 50
+
+		on_map_mode = yes
+		state_target = yes 
+		target_array = controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = {
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = pastoral
+			}
+		}
+
+		available = {
+			num_of_available_civilian_factories > 5
+		}
+
+		visible = {
+			#has_state_category = pastoral
+			FROM = { 
+				is_core_of = ROOT
+			}
+			#NOT = {
+			#	has_state_flag = r56rp_being_terraformed
+			#}
+		}
+
+		days_remove = 7
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		complete_effect = {
+			#set_state_flag = r56rp_being_terraformed
+		}
+
+		remove_effect = {
+			set_state_category = rural
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
 	r56rp_create_techshare_commonwealth_research = { #in case the bloody thing doesent trigger when forming a faction.
 		icon = GFX_decision_generic_research
 		cost = 100
