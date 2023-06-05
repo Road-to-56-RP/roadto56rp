@@ -1560,59 +1560,6 @@ economy_decisions = {
 		days_remove = 120
 	}
 
-	r56rp_terraformer_tool_1 = { #terraform tools
-
-		icon = decision_generic_operation
-		cost = 50
-
-		on_map_mode = yes
-		state_target = yes 
-		target_array = controlled_states
-		
-		ai_will_do = {
-			base = 0
-		}
-
-		target_trigger = {
-			FROM = {
-				is_fully_controlled_by = ROOT
-				is_core_of = ROOT
-				NOT = { has_state_flag = r56rp_being_terraformed }
-				has_state_category = pastoral
-			}
-		}
-
-		available = {
-			num_of_available_civilian_factories > 5
-		}
-
-		visible = {
-			#has_state_category = pastoral
-			FROM = { 
-				is_core_of = ROOT
-			}
-			#NOT = {
-			#	has_state_flag = r56rp_being_terraformed
-			#}
-		}
-
-		days_remove = 7
-
-		modifier = {
-			civilian_factory_use = 5
-		}
-
-		complete_effect = {
-			#set_state_flag = r56rp_being_terraformed
-		}
-
-		remove_effect = {
-			set_state_category = rural
-			#clr_state_flag = r56rp_being_terraformed
-		}
-
-	}
-
 	r56rp_create_techshare_commonwealth_research = { #in case the bloody thing doesent trigger when forming a faction.
 		icon = GFX_decision_generic_research
 		cost = 100
@@ -1667,25 +1614,25 @@ economy_decisions = {
 	}
 
 	r56rp_create_techshare_comintern_research = { #specificaly joins the commonwelth research if in alliance with them.
-	icon = GFX_decision_generic_research
-	cost = 100
+		icon = GFX_decision_generic_research
+		cost = 100
 
-	fire_only_once = no
-	ai_will_do = {
-		factor = 50
+		fire_only_once = no
+		ai_will_do = {
+			factor = 50
+		}
+		#cancel_if_not_visible = yes
+		visible = {
+			NOT = { is_in_tech_sharing_group = comintern_research }
+			tag = SOV
+		}
+		available = {
+			NOT = { is_in_tech_sharing_group = comintern_research }
+		}
+		complete_effect = {
+			add_to_tech_sharing_group = comintern_research
+		}
 	}
-	#cancel_if_not_visible = yes
-	visible = {
-		NOT = { is_in_tech_sharing_group = comintern_research }
-		tag = SOV
-	}
-	available = {
-		NOT = { is_in_tech_sharing_group = comintern_research }
-	}
-	complete_effect = {
-		add_to_tech_sharing_group = comintern_research
-	}
-}
 
 	r56rp_join_techshare_comintern_research = { #specificaly joins the commonwelth research if in alliance with them.
 		icon = GFX_decision_generic_research
@@ -1717,7 +1664,7 @@ economy_decisions = {
 	r56rp_create_techshare_r56rp_GER_tech_research = {
 		icon = GFX_decision_generic_research
 		cost = 100
-	
+
 		fire_only_once = no
 		ai_will_do = {
 			factor = 50
@@ -1771,7 +1718,7 @@ economy_decisions = {
 	r56rp_create_techshare_r56rp_JAP_tech_research = {
 		icon = GFX_decision_generic_research
 		cost = 100
-	
+
 		fire_only_once = no
 		ai_will_do = {
 			factor = 50
@@ -1818,6 +1765,413 @@ economy_decisions = {
 
 		complete_effect = {
 			add_to_tech_sharing_group = r56rp_JAP_tech_research
+		}
+
+	}
+
+	#terraform tools
+
+	r56rp_hide_terraform_decisions = {
+        #priority = 100
+        visible = { 
+			always = yes
+			is_ai = no
+		}
+		ai_will_do = {
+			base = 0
+		}
+		available = {
+			NOT = { has_country_flag = r56rp_hide_terraform }
+		}
+        complete_effect = { 
+			set_country_flag = r56rp_hide_terraform
+        }
+    }
+
+	r56rp_show_terraform_decisions = {
+        #priority = 99
+        visible = { 
+			always = yes
+			is_ai = no
+		}
+		ai_will_do = {
+			base = 0
+		}
+		available = {
+			has_country_flag = r56rp_hide_terraform 
+		}
+        complete_effect = { 
+            clr_country_flag = r56rp_hide_terraform  
+        }
+    }
+
+	r56rp_terraformer_pastoral_rural = {  #pastoral to rural terraform
+
+		icon = decision_generic_operation
+		cost = 50
+
+		on_map_mode = map_only
+		state_target = yes 
+		target_array = controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = pastoral
+			}
+		}
+
+		available = {
+			num_of_available_civilian_factories > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = r56rp_hide_terraform }
+			FROM = { 
+				is_core_of = ROOT
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = rural
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_rural_town = {  #pastoral to rural terraform
+
+		icon = decision_generic_operation
+		cost = 50
+
+		on_map_mode = map_only
+		state_target = yes 
+		target_array = controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = rural
+			}
+		}
+
+		available = {
+			num_of_available_civilian_factories > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = r56rp_hide_terraform }
+			FROM = { 
+				is_core_of = ROOT
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = town
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_town_largetown = {  #pastoral to rural terraform
+
+		icon = decision_generic_operation
+		cost = 50
+
+		on_map_mode = map_only
+		state_target = yes 
+		target_array = controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = town
+			}
+		}
+
+		available = {
+			num_of_available_civilian_factories > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = r56rp_hide_terraform }
+			FROM = { 
+				is_core_of = ROOT
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = large_town
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_largetown_city = {  #pastoral to rural terraform
+
+		icon = decision_generic_operation
+		cost = 50
+
+		on_map_mode = map_only
+		state_target = yes 
+		target_array = controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = large_town
+			}
+		}
+
+		available = {
+			num_of_available_civilian_factories > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = r56rp_hide_terraform }
+			FROM = { 
+				is_core_of = ROOT
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = city
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_city_largecity = {  #pastoral to rural terraform
+
+		icon = decision_generic_operation
+		cost = 50
+
+		on_map_mode = map_only
+		state_target = yes 
+		target_array = controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = city
+			}
+		}
+
+		available = {
+			num_of_available_civilian_factories > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = r56rp_hide_terraform }
+			FROM = { 
+				is_core_of = ROOT
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = large_city
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_largecity_metropolis = {  #pastoral to rural terraform
+
+		icon = decision_generic_operation
+		cost = 50
+
+		on_map_mode = map_only
+		state_target = yes 
+		target_array = controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = large_city
+			}
+		}
+
+		available = {
+			num_of_available_civilian_factories > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = r56rp_hide_terraform }
+			FROM = { 
+				is_core_of = ROOT
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = metropolis
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_metropolis_megalopolis = {  #pastoral to rural terraform
+
+		icon = decision_generic_operation
+		cost = 50
+
+		on_map_mode = map_only
+		state_target = yes 
+		target_array = controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = metropolis
+			}
+		}
+
+		available = {
+			num_of_available_civilian_factories > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+		}
+
+		visible = {
+			NOT = { has_country_flag = r56rp_hide_terraform }
+			FROM = { 
+				is_core_of = ROOT
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = megalopolis
+			}
+			#clr_state_flag = r56rp_being_terraformed
 		}
 
 	}
