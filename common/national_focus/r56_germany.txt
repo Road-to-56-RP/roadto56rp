@@ -178,7 +178,7 @@ focus_tree = {
 			focus = GER_naval_rearmament_r56
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = GER_naval_rearmament_r56
 		cost = 10
 		ai_will_do = {
@@ -358,7 +358,10 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = GER_u_boat_effort_r56
 		}
-		x = 3
+		mutually_exclusive = { 
+			focus = GER_r56rp_mon_allies_alliance
+		}
+		x = 4
 		y = 1
 		relative_position_id = GER_naval_effort_r56
 		text = GER_plan_z
@@ -457,7 +460,7 @@ focus_tree = {
 			focus = GER_plan_z_r56
 		}
 		icon = GFX_goal_generic_admirality
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = GER_plan_z_r56
 		cost = 10
@@ -498,6 +501,398 @@ focus_tree = {
 	}
 
 	focus = {
+		id = GER_r56rp_rebuild_the_high_seas_fleet
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = { focus = GER_plan_z_r56 }
+		#mutually_exclusive = { focus = GER_plan_z focus = GER_u_boat_effort focus = GER_accept_british_naval_dominance }
+		available = {
+			is_subject = no
+		}
+		x = 0
+		y = 2
+		relative_position_id = GER_plan_z_r56
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		complete_tooltip = {
+			navy_experience = 50
+			every_state = {
+				limit = { has_state_flag = GER_rebuild_the_high_seas_fleet_dockyards }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = bc_bonus
+				bonus = 1.0
+				uses = 1
+				category = bc_tech
+			}
+			add_tech_bonus = {
+				name = bb_bonus
+				bonus = 1.0
+				uses = 1
+				category = bb_tech
+				category = shbb_tech
+			}
+			add_ideas = GER_rebuild_the_high_seas_fleet
+		}
+		
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			navy_experience = 50
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = GER_rebuild_the_high_seas_fleet_dockyards
+			}
+			add_tech_bonus = {
+				name = bc_bonus
+				bonus = 1.0
+				uses = 1
+				category = bc_tech
+			}
+			add_tech_bonus = {
+				name = bb_bonus
+				bonus = 1.0
+				uses = 1
+				category = bb_tech
+				category = shbb_tech
+			}
+			add_ideas = GER_rebuild_the_high_seas_fleet
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_pride_of_the_modern_germany
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = GER_r56rp_rebuild_the_high_seas_fleet }
+		available = {
+			is_subject = no
+		}
+		x = 0
+		y = 1
+		relative_position_id = GER_r56rp_rebuild_the_high_seas_fleet
+		cost = 10
+		ai_will_do = {
+			factor = 9
+		}
+		
+		complete_tooltip = {
+			navy_experience = 50
+			every_state = {
+				limit = { has_state_flag = GER_rebuild_the_high_seas_fleet_dockyards }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = GER_pride_of_the_modern_germany
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = bc_tech
+				category = bb_tech
+				category = shbb_tech
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			navy_experience = 50
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = GER_pride_of_the_modern_germany_dockyards
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+					NOT = { has_state_flag = GER_pride_of_the_modern_germany_dockyards }
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = GER_pride_of_the_modern_germany_dockyards
+			}
+			add_tech_bonus = {
+				name = GER_pride_of_the_modern_germany
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = bc_tech
+				category = bb_tech
+				category = shbb_tech
+			}
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_carrier
+		prerequisite = {
+			focus = GER_r56rp_pride_of_the_modern_germany
+		}
+		icon = GFX_goal_generic_admirality
+		x = 1
+		y = 1
+		relative_position_id = GER_r56rp_pride_of_the_modern_germany
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}
+
+		allow_branch = {
+			has_dlc = "Man the Guns"
+		}
+
+		available_if_capitulated = yes
+
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			has_tech = basic_ship_hull_carrier
+		}
+
+		completion_reward = {
+			create_equipment_variant = {
+				name = "Europa-class"
+				type = ship_hull_carrier_1
+				name_group = GER_CV_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_deck_slot_1 = ship_deck_space
+					fixed_ship_deck_slot_2 = ship_deck_space
+					fixed_ship_anti_air_slot = ship_anti_air_1
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = carrier_ship_engine_2
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					front_1_custom_slot = ship_deck_space
+				}
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_carrier_1
+					creator = "GER" 
+					version_name = "Europa-class"
+				}
+				name = Europa
+				requested_factories = 5
+				progress = 0.25
+				amount = 1
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_prepare_for_the_next_blockade
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = GER_r56rp_pride_of_the_modern_germany }
+		available = {
+			is_subject = no
+		}
+		x = 0
+		y = 2
+		relative_position_id = GER_r56rp_pride_of_the_modern_germany
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_stability = 0.05
+			add_ideas = GER_prepare_for_the_next_blockade
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_break_the_anglo_french_colonial_hegemony
+		icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
+		prerequisite = { focus = GER_r56rp_prepare_for_the_next_blockade }
+		available = {
+			is_subject = no
+			NOT = { is_in_faction_with = ENG }
+			NOT = { is_in_faction_with = FRA }
+			NOT = { ENG = { has_completed_focus = ENG_decolonization } }
+		}
+		cancel_if_invalid = yes
+		will_lead_to_war_with = ENG
+		will_lead_to_war_with = FRA
+		x = 0
+		y = 1
+		relative_position_id = GER_r56rp_prepare_for_the_next_blockade
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = ENG
+				expire = 0
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = FRA
+				expire = 0
+			}
+			if = {
+				limit = {
+					BEL = {
+						OR = {
+							owns_state = 768
+							owns_state = 769
+						}
+					}
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = BEL
+					expire = 0
+					generator = { 768 769 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						SAF = {
+							is_subject_of = ENG
+						}
+					}
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = SAF
+					expire = 0
+					generator = { 541 }
+				}
+			}
+			if = {
+				limit = {
+					country_exists = NMB
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = NMB
+					expire = 0
+					generator = { 541 }
+				}
+			}
+			if = {
+				limit = {
+					country_exists = CMR
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = CMR
+					expire = 0
+					generator = { 773 }
+				}
+			}
+			if = {
+				limit = {
+					country_exists = TOG
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = TOG
+					expire = 0
+					generator = { 777 }
+				}
+			}
+			if = {
+				limit = {
+					country_exists = TZN
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = TZN
+					expire = 0
+					generator = { 549 }
+				}
+			}
+			if = {
+				limit = {
+					country_exists = RWA
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = RWA
+					expire = 0
+					generator = { 768 }
+				}
+			}
+			if = {
+				limit = {
+					country_exists = BRD
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = BRD
+					expire = 0
+					generator = { 769 }
+				}
+			}
+			add_state_claim = 523
+			add_state_claim = 773
+			add_state_claim = 541
+			add_state_claim = 546
+			add_state_claim = 737
+			add_state_claim = 684
+			add_state_claim = 633
+			add_state_claim = 646
+			add_state_claim = 647
+			add_state_claim = 726
+			add_state_claim = 777
+			add_state_claim = 768
+			add_state_claim = 769
+		}
+	}
+
+	focus = {
 		id = GER_u_boat_effort_r56
 		text = GER_u_boat_effort
 		icon = GFX_goal_generic_navy_submarine
@@ -506,6 +901,9 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = GER_plan_z_r56
+		}
+		mutually_exclusive = { 
+			focus = GER_r56rp_mon_allies_alliance
 		}
 		x = 1
 		y = 1
@@ -602,6 +1000,156 @@ focus_tree = {
 	}
 
 	focus = {
+		id = GER_r56rp_bismarck_battleship
+		prerequisite = {
+			focus = GER_plan_z_r56
+			focus = GER_u_boat_effort_r56
+		}
+		icon = GFX_goal_generic_admirality
+		x = 2
+		y = 1
+		relative_position_id = GER_u_boat_effort_r56
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}
+
+		allow_branch = {
+			has_dlc = "Man the Guns"
+		}
+
+		available_if_capitulated = yes
+
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			num_of_naval_factories > 10
+		}
+
+		completion_reward = {
+			create_equipment_variant = {
+				name = "Bismarck-class"								
+				type = ship_hull_heavy_2
+				name_group = GER_BB_HISTORICAL
+				role_icon_index = 1
+				modules = {
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+					fixed_ship_engine_slot = heavy_ship_engine_2
+					fixed_ship_armor_slot = ship_armor_bb_2
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_anti_air_slot = ship_anti_air_1
+					fixed_ship_battery_slot = ship_heavy_battery_2
+					front_1_custom_slot = ship_heavy_battery_2
+					rear_1_custom_slot = ship_heavy_battery_2
+				}
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_heavy_2
+					creator = "GER" 
+					version_name = "Bismarck-class"
+				}
+				name = "Bismarck"
+				requested_factories = 5
+				progress = 0.80
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_heavy_2
+					creator = "GER" 
+					version_name = "Bismarck-class"
+				}
+				name = "Tirpitz"
+				requested_factories = 5
+				progress = 0.55
+				amount = 1
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_h_battleship
+		prerequisite = {
+			focus = GER_r56rp_bismarck_battleship
+		}
+		prerequisite = {
+			focus = GER_r56rp_pride_of_the_modern_germany
+		}
+		icon = GFX_goal_generic_admirality
+		x = 0
+		y = 3
+		relative_position_id = GER_r56rp_bismarck_battleship
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}
+
+		allow_branch = {
+			has_dlc = "Man the Guns"
+		}
+
+		available_if_capitulated = yes
+
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+			has_tech = ship_hull_super_heavy
+		}
+
+		completion_reward = {
+			create_equipment_variant = {
+				name = "Schlachtschiff H-44"								
+				type = ship_hull_super_heavy_1
+				name_group = GER_BB_HISTORICAL
+				role_icon_index = 1
+				modules = {
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+					fixed_ship_engine_slot = heavy_ship_engine_2
+					fixed_ship_armor_slot = ship_armor_shbb
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_anti_air_slot = ship_anti_air_1
+					fixed_ship_battery_slot = ship_super_heavy_battery_1
+					front_1_custom_slot = ship_super_heavy_battery_1
+					rear_1_custom_slot = ship_super_heavy_battery_1
+				}
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_super_heavy_1
+					creator = "GER" 
+					version_name = "Schlachtschiff H-44"
+				}
+				name = "Großdeutschland"
+				requested_factories = 5
+				progress = 0.20
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_super_heavy_1
+					creator = "GER" 
+					version_name = "Schlachtschiff H-44"
+				}
+				name = "Germania"
+				requested_factories = 5
+				progress = 0.15
+				amount = 1
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+
+	focus = {
 		id = GER_trade_interdiction_r56
 		icon = GFX_goal_generic_wolf_pack
 		prerequisite = {
@@ -668,11 +1216,11 @@ focus_tree = {
 		id = GER_crossing_the_atlantic_r56
 		text = GER_crossing_the_atlantic
 		icon = GFX_focus_spa_the_war_of_vengeance
+		relative_position_id = GER_plan_z_r56
+		x = -4
+		y = 4
 		prerequisite = {
 			focus = GER_plan_z_r56 focus = GER_modular_construction_r56
-		}
-		prerequisite = {
-			focus = GER_train_marines
 		}
 		available = {
 			is_puppet = no
@@ -706,9 +1254,6 @@ focus_tree = {
 			}
 		}
 		cancel_if_invalid = yes
-		relative_position_id = GER_plan_z_r56
-		x = 0
-		y = 3
 		cost = 10
 		ai_will_do = {
 			factor = 10
@@ -832,6 +1377,7 @@ focus_tree = {
 	# 		y = 0
 	# 		trigger = {
 	# 			has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_rally_the_monarchists
 	# 			has_game_rule = {
 	# 				rule = obsolete_focus_branches_visibility
 	# 				option = HIDE
@@ -871,6 +1417,8 @@ focus_tree = {
 				}
 				NOT = {
 					has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_rally_the_monarchists
+					has_completed_focus = GER_rally_the_monarchists
 				}
 			}
 		}
@@ -973,6 +1521,7 @@ focus_tree = {
 	#			}
 	#			NOT = {
 	#				has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_rally_the_monarchists
 	#			}
 	#		}
 	#	}
@@ -992,6 +1541,7 @@ focus_tree = {
 	#				option = HIDE
 	#			}
 	#			has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_rally_the_monarchists
 	#		}
 	#	}
 	#	ai_will_do = {
@@ -3182,13 +3732,45 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			# country_event = {	#hermann-goring werke doesnt make sense for other ideologies, resource buffs should only be for steel, and military factory (de)buffs are overused and not correlated
-			# 	id = erwache.2
-			# }
-			add_resource = {
-				type = steel
-				amount = 30
-				state = 66
+			random_owned_controlled_state = {
+				prioritize = {
+					66
+				}
+				limit = {
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = steel_mill
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = steel_mill
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = {
+					67
+				}
+				limit = {
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = steel_mill
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = steel_mill
+					level = 2
+					instant_build = yes
+				}
 			}
 		}
 		search_filters = {
@@ -3375,7 +3957,7 @@ focus_tree = {
 			focus = GER_naval_effort_r56
 		}
 		x = -3
-		y = 2
+		y = 1
 		relative_position_id = GER_naval_effort_r56
 		ai_will_do = {
 			factor = 10
@@ -4229,7 +4811,7 @@ focus_tree = {
 			focus = GER_landing_craft
 		}
 		prerequisite = {
-			focus = GER_train_paratroopers
+			focus = GER_elite_units
 		}
 		relative_position_id = GER_landing_craft
 		x = -1
@@ -4691,6 +5273,7 @@ focus_tree = {
 					ROOT = {
 						NOT = {
 							has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_rally_the_monarchists
 						}
 					}
 				}
@@ -5857,6 +6440,7 @@ focus_tree = {
 				}
 				NOT = {
 					has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_rally_the_monarchists
 				}
 			}
 		}
@@ -10852,6 +11436,7 @@ focus_tree = {
 					option = HIDE
 				}
 				has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_rally_the_monarchists
 			}
 		}
 		ai_will_do = {
@@ -11915,7 +12500,6 @@ focus_tree = {
 
 					# Fascist Held Lands
 					transfer_state = 5 #Ermland-Masuren
-					transfer_
 					transfer_state = 55 #Hessen
 					transfer_state = 56 #Weser-ems
 					transfer_state = 57 #Westfalen
@@ -12985,7 +13569,7 @@ focus_tree = {
 			focus = GER_restore_the_empire
 		}
 		relative_position_id = GER_restore_the_empire
-		x = -4
+		x = -2
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -13062,7 +13646,6 @@ focus_tree = {
 				}
 				NOT = {
 					has_completed_focus = GER_kill_hitler
-					has_completed_focus = GER_denounce_versailles
 				}
 			}
 		}
@@ -13232,21 +13815,42 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = GER_mon_allies_alliance
+		id = GER_r56rp_mon_allies_alliance
 		icon = GFX_focus_ger_accept_british_naval_dominance
 		cost = 5.00
 		prerequisite = {
-			focus = GER_consolidate_new_reich
+			focus = GER_naval_effort_r56
 		}
 		prerequisite = {
-			focus = GER_restore_the_empire
+			focus = GER_consolidate_new_reich
+		}
+		allow_branch = {
+			has_dlc = "Waking the Tiger"
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_denounce_versailles
+				}
+			}
 		}
 		available = {
 			is_subject = no
 			NOT = { has_war_with = ENG }
 		}
-		relative_position_id = GER_restore_the_empire
-		x = -10
+		mutually_exclusive = { 
+			focus = GER_plan_z_r56 
+		}
+		mutually_exclusive = { 
+			focus = GER_u_boat_effort_r56 
+		}
+		relative_position_id = GER_naval_effort_r56
+		x = 7
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -13274,12 +13878,44 @@ focus_tree = {
 			#
 		}
 	}
+
+	focus = {
+		id = GER_r56rp_carte_blanche
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = GER_r56rp_mon_allies_alliance }
+		will_lead_to_war_with = FRA
+		available = {
+			is_subject = no
+			FRA = { has_government = communism }
+			NOT = { is_in_faction_with = FRA }
+		}
+		cancel_if_invalid = yes
+		x = 0
+		y = 2
+		relative_position_id = GER_r56rp_mon_allies_alliance
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = FRA
+				expire = 0
+			}
+			add_state_claim = 28
+			add_state_claim = 773
+			add_state_claim = 777
+		}
+	}
+
 	focus = {
 		id = GER_destabilize_france
 		icon = GFX_focus_focus_fra_liberte_egalite_solidarite
 		cost = 5.00
 		prerequisite = {
-			focus = GER_mon_allies_alliance
+			focus = GER_r56rp_mon_allies_alliance
 			focus = GER_restore_the_central_powers
 		}
 		mutually_exclusive = {
@@ -13297,8 +13933,8 @@ focus_tree = {
 				has_government = communism
 			}
 		}
-		relative_position_id = GER_mon_allies_alliance
-		x = 1
+		relative_position_id = GER_r56rp_mon_allies_alliance
+		x = 2
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -13321,7 +13957,7 @@ focus_tree = {
 		cost = 2.00
 		prerequisite = {
 			#focus = GER_restore_the_empire
-			focus = GER_mon_allies_alliance
+			focus = GER_r56rp_mon_allies_alliance
 			focus = GER_destabilize_france #central powers also get to attack france but they require this focus and wont ask to enter allies
 		}
 		available = {
@@ -13331,8 +13967,8 @@ focus_tree = {
 			}
 			NOT = { is_in_faction_with = FRA }
 		}
-		relative_position_id = GER_mon_allies_alliance
-		x = 0
+		relative_position_id = GER_r56rp_mon_allies_alliance
+		x = 2
 		y = 2
 		ai_will_do = {
 			factor = 10
@@ -13588,7 +14224,7 @@ focus_tree = {
 			}
 		}
 		
-		x = 3
+		x = 4
 		y = 1
 		relative_position_id = GER_restore_the_empire
 		cost = 5
@@ -13711,7 +14347,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = GER_safeguard_the_baltic_r56
 		cost = 5
 		ai_will_do = {
@@ -13753,7 +14389,7 @@ focus_tree = {
 			focus = GER_consolidate_new_reich
 		}
 		relative_position_id = GER_restore_the_empire
-		x = 0
+		x = 2
 		y = 1
 		ai_will_do = {
 			factor = 10
