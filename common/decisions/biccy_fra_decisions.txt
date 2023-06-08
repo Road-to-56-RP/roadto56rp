@@ -1,0 +1,290 @@
+fra_expanisonism_category = {		#Category with options to core several linguistic/historically-French states.
+	fra_core_wll = { 		#France core Wallonia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 34	#Controls Wallonie
+		}	
+		
+		visible = {
+			original_tag = FRA		#Is France
+			NOT = {
+				has_government = neutrality		#Not visible if France is monarchist, as they get their own decision to integrate it.
+			}	
+		}
+		complete_effect = {		#Lose 35 Political Power and gain 3 war support upon clicking the decision.
+			add_political_power = -35
+			add_war_support = 0.03
+		}			
+		days_remove = 150
+		modifier = {
+     		political_power_gain = -0.5
+			consumer_goods_factor = 0.015	
+	 		stability_weekly = -0.0015
+		}		
+		remove_effect = {		#add 3.5% stability, core Wallonie province, and claim Eupen-Malmedy province
+	 		add_stability = 0.035
+			34 = { add_core_of = ROOT }	
+			965 = { add_claim_by = FRA }	
+		}
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	fra_core_lux = { 		#France core Luxembourg
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 8	#Controls Luxembourg
+		}	
+		
+		visible = {
+			original_tag = FRA		#Is France
+		}
+		complete_effect = {		#Lose 15 Political Power upon clicing decision, and gain 1 war support.
+			add_political_power = -15
+			add_war_support = 0.01
+		}			
+		days_remove = 180
+		modifier = {		#Lose 1.05 Political Power and 0.1% stability per week for 180 days.
+     		political_power_gain = -0.15
+	 		stability_weekly = -0.001
+		}		
+		remove_effect = {		#add 2.5% stability, and core Luxembourg
+	 		add_stability = 0.025
+			8 = { add_core_of = ROOT }	
+		}
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	fra_core_jura_mountains= { 		#France core Jura Mountains
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 845		#Controls Jura Mountains
+		}	
+		
+		visible = {
+			original_tag = FRA		#Is France
+		}
+		complete_effect = {		#Lose 25 Political Power upon clicing decision, and gain 1 war support.
+			add_political_power = -25
+			add_war_support = 0.01
+		}			
+		days_remove = 210
+		modifier = {		#Lose 1 Political Power, gain 1% consumer goods, and -0.1% stability per week for 210 days.
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.01
+	 		stability_weekly = -0.001
+		}		
+		remove_effect = {		#add 2.5% stability, and core Luxembourg
+	 		add_stability = 0.025
+			845 = { add_core_of = ROOT }	
+		}
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	fra_core_western_swiss_alps = { 		#France core Jura Mountains
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 847		#Controls Western Swiss Alps
+		}	
+		
+		visible = {
+			original_tag = FRA		#Is France
+		}
+		complete_effect = {		#Lose 20 Political Power upon clicing decision, and gain 1 war support.
+			add_political_power = -20
+			add_war_support = 0.01
+		}			
+		days_remove = 365
+		modifier = {		#Lose 0.8 Political Power a day, and -0.05% stability per week for 365 days.
+     		political_power_gain = -0.08
+	 		stability_weekly = -0.001
+		}		
+		remove_effect = {		#add 2.5% stability, and core Luxembourg
+	 		add_stability = 0.02
+			847 = { add_core_of = ROOT }	
+		}
+
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	fra_claim_cataluna = { 		#France claim Catluña
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 165		#Controls Cataluña
+		}	
+		visible = {
+			original_tag = FRA		#Is France
+			has_government = fascism		#Is Fascist
+		}
+		complete_effect = {		#Lose 15 Political Power upon clicing decision, and gain 1 war support.
+			add_political_power = -15
+			add_war_support = 0.01
+			165 = {
+				add_claim_by = FRA
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}	
+			}			
+			ai_will_do = {
+				factor = 100		
+			}
+		}
+	}
+	fra_core_cataluna = { 		#France core Catluña
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 165		#Controls Cataluña
+			has_government = neutrality		#Is Authoritarian
+		}	
+		visible = {
+			original_tag = FRA		#Is France
+			NOT = { 165 = { is_core_of = ROOT }  }
+		}	
+		complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
+			add_political_power = -60
+			add_war_support = 0.01
+		}		
+		days_remove = 210
+		modifier = {		#Lose 0.1 Political Power a day, gain 1.5% consumer goods, and -0.1% stability per week for 210 days.
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.015	
+	 		stability_weekly = -0.001
+		}	
+		remove_effect = {		#add 2.5% stability, and core Luxembourg
+	 		add_stability = 0.02
+			165 = { 
+				add_core_of = ROOT	
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}
+				add_dynamic_modifier = {
+					modifier = fra_cat_autonomy
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100		
+			}
+		}
+	fra_core_other_catalan_territories = { 		#France core Eastern Aragón, Balaeric Islands, and Valencia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 165		#Controls Cataluña
+			controls_state = 167		#Controls Valencia
+			controls_state = 177		#Controls BalaericIslands
+			has_government = neutrality		#Is Authoritarian
+		}	
+		visible = {
+			original_tag = FRA		#Is France
+			165 = { is_core_of = ROOT }		#Has core on Cataluña
+		}
+		complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
+			add_political_power = -60
+			add_war_support = 0.01
+		}			
+		days_remove = 365
+		modifier = {		#Lose 0.1 Political Power a day, gain 1.5% consumer goods, and -0.1% stability per week for 210 days.
+     		political_power_gain = -0.2
+			consumer_goods_factor = 0.03	
+	 		stability_weekly = -0.002
+		}		
+		remove_effect = {		#add 4% stability, and core Eastern Aragón, Balaeric Islands, and Valencia
+	 		add_stability = 0.04
+			167 = { add_core_of = ROOT 	
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}
+				add_dynamic_modifier = {
+					modifier = fra_cat_autonomy
+				}
+			}
+			177 = { add_core_of = ROOT 	
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}
+				add_dynamic_modifier = {
+					modifier = fra_cat_autonomy
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100		
+			}
+		}
+	fra_push_germany_east = { 		#France claim both Rhinelad tiles
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 85
+		
+		available = {
+		}	
+		visible = {
+			original_tag = FRA		#Is France
+			OR = {	#Is at war with Germany, or controls one or both Rhineland states.
+				has_war_with = GER
+				controls_state = 42
+				controls_state = 51
+			}
+		}
+		complete_effect = {		#gain 5 war support, and adds claim on both Rhineland states.
+			add_war_support = 0.05
+				42 = {
+					add_claim_by = FRA
+				}	
+				51 = {
+					add_claim_by = FRA
+				}	
+			}			
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	fra_push_italy_east = { 		#France claim Piedmont
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 45
+		
+		available = {
+		}	
+		visible = {
+			original_tag = FRA		#Is France
+			OR = {	#Is at war with Italy, or controls Piedmont.
+				has_war_with = ITA
+				controls_state = 158
+				}
+			}
+		complete_effect = {		#gain 2 war support, and adds claim on Piedmont.
+			add_war_support = 0.02
+				158 = {
+					add_claim_by = FRA
+				}			
+		ai_will_do = {
+			factor = 100		
+			}
+		}
+	}
+}	
