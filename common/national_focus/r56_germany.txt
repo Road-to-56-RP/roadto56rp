@@ -378,7 +378,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		complete_tooltip = {
-			navy_experience = 50
+			activate_advisor = raeder
 			every_state = {
 				limit = {
 					has_state_flag = GER_plan_z_dockyards
@@ -409,12 +409,13 @@ focus_tree = {
 				uses = 1
 				category = cv_tech
 			}
+			
 		}
 		search_filters = {
 			FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			navy_experience = 50
+			activate_advisor = raeder
 			random_owned_controlled_state = {
 				limit = {
 					dockyard > 0
@@ -459,7 +460,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_plan_z_r56
 		}
-		icon = GFX_goal_generic_admirality
+		icon = GFX_goal_generic_destroyer
 		x = 1
 		y = 1
 		relative_position_id = GER_plan_z_r56
@@ -580,6 +581,35 @@ focus_tree = {
 	}
 
 	focus = {
+		id = GER_r56rp_dustoff_old_manuals
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = GER_r56rp_rebuild_the_high_seas_fleet }
+		#mutually_exclusive = { focus = GER_plan_z focus = GER_u_boat_effort focus = GER_accept_british_naval_dominance }
+		available = {
+			is_subject = no
+		}
+		x = 1
+		y = 4
+		relative_position_id = GER_plan_z_r56
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				name = ti_bonus
+				cost_reduction = 0.5
+				uses = 4
+				category = fleet_in_being_tree
+			}
+		}
+	}
+
+
+	focus = {
 		id = GER_r56rp_pride_of_the_modern_germany
 		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = GER_r56rp_rebuild_the_high_seas_fleet }
@@ -670,9 +700,9 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_r56rp_pride_of_the_modern_germany
 		}
-		icon = GFX_goal_generic_admirality
-		x = 1
-		y = 1
+		icon = GFX_goal_carrier
+		x = 0
+		y = 2
 		relative_position_id = GER_r56rp_pride_of_the_modern_germany
 		cost = 10
 		ai_will_do = {
@@ -729,13 +759,16 @@ focus_tree = {
 	focus = {
 		id = GER_r56rp_prepare_for_the_next_blockade
 		icon = GFX_goal_generic_consumer_goods
-		prerequisite = { focus = GER_r56rp_pride_of_the_modern_germany }
+		prerequisite = { 
+			focus = GER_our_place_in_the_sun_r56
+			focus = GER_african_claims
+		}
 		available = {
 			is_subject = no
 		}
-		x = 0
-		y = 2
-		relative_position_id = GER_r56rp_pride_of_the_modern_germany
+		x = -1
+		y = 1
+		relative_position_id = GER_our_place_in_the_sun_r56
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -743,7 +776,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
 			add_stability = 0.05
-			add_ideas = GER_prepare_for_the_next_blockade
+			add_ideas = GER_r56rp_prepare_for_the_next_blockade_idea
 		}
 	}
 
@@ -779,116 +812,6 @@ focus_tree = {
 				target = FRA
 				expire = 0
 			}
-			if = {
-				limit = {
-					BEL = {
-						OR = {
-							owns_state = 768
-							owns_state = 769
-						}
-					}
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = BEL
-					expire = 0
-					generator = { 768 769 }
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						SAF = {
-							is_subject_of = ENG
-						}
-					}
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = SAF
-					expire = 0
-					generator = { 541 }
-				}
-			}
-			if = {
-				limit = {
-					country_exists = NMB
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = NMB
-					expire = 0
-					generator = { 541 }
-				}
-			}
-			if = {
-				limit = {
-					country_exists = CMR
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = CMR
-					expire = 0
-					generator = { 773 }
-				}
-			}
-			if = {
-				limit = {
-					country_exists = TOG
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = TOG
-					expire = 0
-					generator = { 777 }
-				}
-			}
-			if = {
-				limit = {
-					country_exists = TZN
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = TZN
-					expire = 0
-					generator = { 549 }
-				}
-			}
-			if = {
-				limit = {
-					country_exists = RWA
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = RWA
-					expire = 0
-					generator = { 768 }
-				}
-			}
-			if = {
-				limit = {
-					country_exists = BRD
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = BRD
-					expire = 0
-					generator = { 769 }
-				}
-			}
-			add_state_claim = 523
-			add_state_claim = 773
-			add_state_claim = 541
-			add_state_claim = 546
-			add_state_claim = 737
-			add_state_claim = 684
-			add_state_claim = 633
-			add_state_claim = 646
-			add_state_claim = 647
-			add_state_claim = 726
-			add_state_claim = 777
-			add_state_claim = 768
-			add_state_claim = 769
 		}
 	}
 
@@ -920,7 +843,7 @@ focus_tree = {
 
 		available_if_capitulated = yes
 		complete_tooltip = {
-			navy_experience = 25
+			activate_advisor = donitz
 			every_state = {
 				limit = {
 					has_state_flag = GER_u_boat_effort_2dockyards
@@ -958,7 +881,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
-			navy_experience = 25
+			activate_advisor = donitz
 			random_owned_controlled_state = {
 				limit = {
 					dockyard > 0
@@ -1005,7 +928,7 @@ focus_tree = {
 			focus = GER_plan_z_r56
 			focus = GER_u_boat_effort_r56
 		}
-		icon = GFX_goal_generic_admirality
+		icon = GFX_focus_generic_navy_battleship2
 		x = 2
 		y = 1
 		relative_position_id = GER_u_boat_effort_r56
@@ -1217,39 +1140,18 @@ focus_tree = {
 		text = GER_crossing_the_atlantic
 		icon = GFX_focus_spa_the_war_of_vengeance
 		relative_position_id = GER_plan_z_r56
-		x = -4
+		x = -3
 		y = 4
 		prerequisite = {
-			focus = GER_plan_z_r56 focus = GER_modular_construction_r56
+			focus = GER_r56rp_pride_of_the_modern_germany focus = GER_modular_construction_r56
 		}
 		available = {
 			is_puppet = no
-			has_war_with = USA
-			OR = {
-				AND = {
-					has_war_with = SOV
-					SOV = {
-						has_capitulated = yes
-					}
-				}
-				SOV = {
-					exists = no
-				}
-				SOV = {
-					is_puppet = yes
-				}
-			}
-			NOT = {
-				any_country = {
-					NOT = {
-						tag = ENG
-					}
-					has_war_with = GER
-					is_in_faction_with = USA
-					any_owned_state = {
-						is_on_continent = europe
-					}
-					has_capitulated = no
+			any_country = {
+				has_war_with = GER
+				naval_strength_ratio = {
+					tag = GER
+					ratio > 2.5
 				}
 			}
 		}
@@ -3976,8 +3878,8 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_naval_superiority_english_channel
-		icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
-		cost = 10.00
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		cost = 5
 		prerequisite = {
 			focus = GER_naval_effort2_r56
 		}
@@ -9635,7 +9537,7 @@ focus_tree = {
 
 		prerequisite = {
 			#focus = GER_european_claims #lets give the peaceful some expansion options
-			focus = GER_european_claims
+			focus = GER_restore_the_empire
 		}
 		prerequisite = {
 			focus = GER_anti_soviet_pact_r56
@@ -13465,7 +13367,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_a_new_reich
 		}
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = GER_a_new_reich
 		ai_will_do = {
@@ -13526,31 +13428,19 @@ focus_tree = {
 		icon = GFX_goal_GER_flag_german_empire
 		cost = 5.00
 		prerequisite = {
-			focus = GER_a_new_reich
+			focus = GER_consolidate_new_reich
 		}
 		prerequisite = {
 			#focus = GER_naval_effort2_r56
 		}
-		# mutually_exclusive = {
-		# 	focus = GER_mon_peaceful
-		# }
-		relative_position_id = GER_a_new_reich
-		x = 1
+		relative_position_id = GER_consolidate_new_reich
+		x = 6
 		y = 1
-		# offset = {
-		# 	x = 2
-		# 	y = 0
-		# 	trigger = {
-		# 		NOT = {
-		# 			has_dlc = "Waking the Tiger"
-		# 		}
-		# 	}
-		# }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			add_ideas = GER_imperial_restoration #restored so this is not empty
+			add_ideas = GER_imperial_restoration
 		}
 		search_filters = {
 			FOCUS_FILTER_ANNEXATION FOCUS_FILTER_MANPOWER
@@ -13563,10 +13453,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_consolidate_new_reich
 		}
-		prerequisite = {
-			focus = GER_restore_the_empire
-		}
-		relative_position_id = GER_restore_the_empire
+		relative_position_id = GER_consolidate_new_reich
 		x = -2
 		y = 1
 		ai_will_do = {
@@ -13888,6 +13775,9 @@ focus_tree = {
 			FRA = { has_government = communism }
 			NOT = { is_in_faction_with = FRA }
 		}
+		mutually_exclusive = {
+			focus = GER_mon_anti_commie_france
+		}
 		cancel_if_invalid = yes
 		x = 0
 		y = 2
@@ -13933,7 +13823,7 @@ focus_tree = {
 			}
 		}
 		relative_position_id = GER_r56rp_mon_allies_alliance
-		x = 2
+		x = 1
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -13955,9 +13845,10 @@ focus_tree = {
 		icon = GFX_goal_spr_stab_the_french_in_the_back
 		cost = 2.00
 		prerequisite = {
-			#focus = GER_restore_the_empire
-			focus = GER_r56rp_mon_allies_alliance
 			focus = GER_destabilize_france #central powers also get to attack france but they require this focus and wont ask to enter allies
+		}
+		mutually_exclusive = {
+			focus = GER_r56rp_carte_blanche
 		}
 		available = {
 			is_subject = no
@@ -13982,9 +13873,6 @@ focus_tree = {
 							is_in_faction_with = ROOT
 						}
 					}
-				}
-				ENG = {
-					country_event = generic.2
 				}
 				add_state_claim = 28
 				add_state_claim = 773
@@ -14157,6 +14045,11 @@ focus_tree = {
 		id = GER_safeguard_the_baltic_r56
 		text = GER_safeguard_the_baltic
 		icon = GFX_goal_SOV_baltic_aggression
+
+		x = -1
+		y = 1
+		relative_position_id = GER_european_claims
+
 		allow_branch = {
 			has_dlc = "Waking the Tiger"
 			if = {
@@ -14172,18 +14065,18 @@ focus_tree = {
 				}
 			}
 		}
+
 		prerequisite = {
-			focus = GER_consolidate_new_reich
+			focus = GER_european_claims
 		}
-		prerequisite = {
-			focus = GER_restore_the_empire
-		}
+
 		available = {
 			is_subject = no
 			NOT = { has_war_with = EST }
 			NOT = { has_war_with = LAT }
 			NOT = { has_war_with = LIT }
 		}
+
 		bypass = {
 			OR = {
 				has_guaranteed = EST
@@ -14223,9 +14116,7 @@ focus_tree = {
 			}
 		}
 		
-		x = 4
-		y = 1
-		relative_position_id = GER_restore_the_empire
+
 		cost = 5
 		ai_will_do = {
 			factor = 1
@@ -14384,12 +14275,11 @@ focus_tree = {
 		icon = GFX_goal_rhineland
 		cost = 10.00
 		prerequisite = {
-			focus = GER_restore_the_empire
 			focus = GER_consolidate_new_reich
 		}
-		relative_position_id = GER_restore_the_empire
-		x = 2
-		y = 1
+		relative_position_id = GER_consolidate_new_reich
+		x = 0
+		y = 4
 		ai_will_do = {
 			factor = 10
 		}
@@ -15102,11 +14992,11 @@ focus_tree = {
 		icon = GFX_goal_GER_great_black_menace
 		cost = 10.00
 		prerequisite = {
-			focus = GER_restore_the_empire focus = GER_consolidate_new_reich
+			focus = GER_restore_the_empire
 		}
-		relative_position_id = GER_restore_the_empire
-		x = 6
-		y = 1
+		relative_position_id = GER_consolidate_new_reich
+		x = 7
+		y = 2
 		available = {
 			is_subject = no
 		}
@@ -15131,9 +15021,6 @@ focus_tree = {
 		id = GER_demand_northern_schleswig_r56
 		text = GER_demand_northern_schleswig
 		icon = GFX_goal_generic_position_armies
-		prerequisite = {
-			focus = GER_consolidate_new_reich
-		}
 		prerequisite = {
 			focus = GER_restore_the_empire
 		}
@@ -15217,12 +15104,12 @@ focus_tree = {
 	focus = {
 		id = GER_african_claims
 		icon = GFX_goal_ger_not_nazi_africa
-		cost = 10.00
+		cost = 10
 		prerequisite = {
-			focus = GER_european_claims
+			focus = GER_restore_the_empire
 		}
-		relative_position_id = GER_european_claims
-		x = 1
+		relative_position_id = GER_restore_the_empire
+		x = -3
 		y = 1
 		available = {
 			is_subject = no
@@ -15305,9 +15192,9 @@ focus_tree = {
 			}
 		}
 		prerequisite = {
-			focus = GER_european_claims
+			focus = GER_restore_the_empire
 		}
-		relative_position_id = GER_european_claims
+		relative_position_id = GER_restore_the_empire
 		x = -1
 		y = 1
 		available = {
@@ -15361,7 +15248,7 @@ focus_tree = {
 	}
 	focus = {
 		id = GER_gott_mit_uns
-		icon = GFX_focus_generic_strike_at_democracy1
+		icon = GFX_FRA_VIC_goal_STO
 		cost = 10.00
 		prerequisite = {
 			focus = GER_support_freikorps
