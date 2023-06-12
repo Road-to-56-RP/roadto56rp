@@ -783,7 +783,10 @@ focus_tree = {
 	focus = {
 		id = GER_r56rp_break_the_anglo_french_colonial_hegemony
 		icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
-		prerequisite = { focus = GER_r56rp_prepare_for_the_next_blockade }
+		prerequisite = { 
+			focus = GER_r56rp_prepare_for_the_next_blockade
+			focus = GER_r56rp_war_with_france_2
+		}
 		available = {
 			is_subject = no
 			NOT = { is_in_faction_with = ENG }
@@ -794,7 +797,7 @@ focus_tree = {
 		will_lead_to_war_with = ENG
 		will_lead_to_war_with = FRA
 		x = 0
-		y = 1
+		y = 3
 		relative_position_id = GER_r56rp_prepare_for_the_next_blockade
 		cost = 10
 		ai_will_do = {
@@ -14046,7 +14049,7 @@ focus_tree = {
 		text = GER_safeguard_the_baltic
 		icon = GFX_goal_SOV_baltic_aggression
 
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = GER_european_claims
 
@@ -14279,7 +14282,7 @@ focus_tree = {
 		}
 		relative_position_id = GER_consolidate_new_reich
 		x = 0
-		y = 4
+		y = 6
 		ai_will_do = {
 			factor = 10
 		}
@@ -15017,12 +15020,318 @@ focus_tree = {
 		}
 	}
 
-	focus = {
+	
+
+	focus = { #GER_r56rp_schlieffen_again
+		id = GER_r56rp_schlieffen_again
+		icon = GFX_goal_plan
+		cost = 5.00
+		prerequisite = {
+			focus = GER_european_claims
+		}
+		x = -1
+		y = 1
+		relative_position_id = GER_european_claims
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			r56_script_i_am_sane = yes
+			has_war_with = FRA
+			OR = {
+				if = {
+					limit = {
+						BEL = {
+							exists = yes
+						}
+					}
+					BEL = {
+						r56_script_target_is_sane = yes
+					}
+				}
+				if = {
+					limit = {
+						WLL = {
+							exists = yes
+						}
+					}
+					WLL = {
+						r56_script_target_is_sane = yes
+					}
+				}
+				if = {
+					limit = {
+						HOL = {
+							exists = yes
+						}
+					}
+					HOL = {
+						r56_script_target_is_sane = yes
+					}
+				}
+				if = {
+					limit = {
+						LUX = {
+							exists = yes
+						}
+					}
+					LUX = {
+						r56_script_target_is_sane = yes
+					}
+				}
+			}
+		}
+		bypass = {
+			OR = {
+				AND = {
+					if = {
+						limit = {
+							BEL = {
+								exists = yes
+							}
+						}
+						BEL = {
+							r56_script_standard_bypass = yes
+						}
+					}
+					if = {
+						limit = {
+							HOL = {
+								exists = yes
+							}
+						}
+						HOL = {
+							r56_script_standard_bypass = yes
+						}
+					}
+					if = {
+						limit = {
+							LUX = {
+								exists = yes
+							}
+						}
+						LUX = {
+							r56_script_standard_bypass = yes
+						}
+					}
+				}
+				FRA = {
+					has_capitulated = yes
+				}
+			}
+		}
+		will_lead_to_war_with = BEL
+		will_lead_to_war_with = HOL
+		will_lead_to_war_with = LUX
+		will_lead_to_war_with = FLA
+		will_lead_to_war_with = WLL #no france here unlike base game version
+		completion_reward = {
+			if = {
+				limit = {
+					BEL = {
+						r56_script_target_is_sane = yes
+					}
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = BEL
+					expire = 0
+					generator = {
+						6 965
+					}
+				}
+			}
+			if = {
+				limit = {
+					WLL = {
+						r56_script_target_is_sane = yes
+					}
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = WLL
+					expire = 0
+					generator = {
+						34 965
+					}
+				}
+			}
+			if = {
+				limit = {
+					FLA = {
+						r56_script_target_is_sane = yes
+					}
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = FLA
+					expire = 0
+					generator = {
+						6
+					}
+				}
+			}
+			if = {
+				limit = {
+					HOL = {
+						r56_script_target_is_sane = yes
+					}
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = HOL
+					expire = 0
+					generator = {
+						7
+					}
+				}
+			}
+			if = {
+				limit = {
+					LUX = {
+						r56_script_target_is_sane = yes
+					}
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = LUX
+					expire = 0
+					generator = {
+						8
+					}
+				}
+			}
+			hidden_effect = {
+				news_event = {
+					hours = 6
+					id = news.234
+				}
+				set_country_flag = r56_around_no_bypass
+			}
+			if = {
+				limit = {
+					BEL = {
+						exists = yes
+					}
+				}
+				add_ai_strategy = {
+					type = front_armor_score
+					id = BEL
+					value = 200
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						difficulty > 1
+						GER = {
+							is_ai = yes
+						}
+					}
+					add_offsite_building = {
+						type = arms_factory level = 1
+					}
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 1000
+						producer = GER
+					}
+					add_equipment_to_stockpile = {
+						type = medium_tank_chassis
+						amount = 1000
+						producer = GER
+					}
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+	}
+
+	focus = { #GER_r56rp_war_with_france_2
+		id = GER_r56rp_war_with_france_2
+		icon = GFX_focus_attack_france
+		cost = 5.00
+		# prerequisite = {
+		# 	focus = GER_mobile_warfare
+		# 	focus = GER_build_panzer_army
+		# }
+		prerequisite = {
+			focus = GER_r56rp_schlieffen_again
+		}
+		x = 0
+		y = 2
+		relative_position_id = GER_r56rp_schlieffen_again
+		will_lead_to_war_with = FRA
+		available = {
+			r56_script_i_am_sane = yes
+			FRA = {
+				r56_script_target_is_sane = yes
+			}
+		}
+		bypass = {
+			OR = {
+				FRA = {
+					exists = no
+				}
+				GER = {
+					has_war_with = FRA
+					has_offensive_war = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.25
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			add_named_threat = {
+				threat = 5
+				name = GER_war_with_france_threat
+			}
+			create_wargoal = {
+				type = take_state_focus
+				target = FRA
+				expire = 0
+				generator = {
+					28
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						difficulty > 1
+						GER = {
+							is_ai = yes
+						}
+					}
+					add_offsite_building = {
+						type = arms_factory level = 1
+					}
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 200
+						producer = GER
+					}
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION
+		}
+
+	}
+
+	focus = { #GER_demand_northern_schleswig_r56
 		id = GER_demand_northern_schleswig_r56
 		text = GER_demand_northern_schleswig
 		icon = GFX_goal_generic_position_armies
 		prerequisite = {
-			focus = GER_restore_the_empire
+			focus = GER_european_claims
 		}
 		available = {
 			is_subject = no
@@ -15109,7 +15418,7 @@ focus_tree = {
 			focus = GER_restore_the_empire
 		}
 		relative_position_id = GER_restore_the_empire
-		x = -3
+		x = -5
 		y = 1
 		available = {
 			is_subject = no
@@ -15195,7 +15504,7 @@ focus_tree = {
 			focus = GER_restore_the_empire
 		}
 		relative_position_id = GER_restore_the_empire
-		x = -1
+		x = -3
 		y = 1
 		available = {
 			is_subject = no
@@ -15246,6 +15555,47 @@ focus_tree = {
 			add_state_claim = 523
 		}
 	}
+
+	focus = {
+		id = GER_r56rp_prepare_imperial_administration
+		icon = GFX_goal_generic_consumer_goods
+
+		prerequisite = { 
+			focus = GER_our_place_in_the_sun_r56
+			focus = GER_african_claims
+			focus = GER_european_claims
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		x = 1
+		y = 1
+		relative_position_id = GER_our_place_in_the_sun_r56
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		search_filters = { FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			custom_effect_tooltip = GER_reichskommissariats_tt
+			unlock_decision_tooltip = GER_reichskommissariat_norwegen
+			unlock_decision_tooltip = GER_reichskommissariat_niederlande
+			unlock_decision_tooltip = GER_reichskommissariat_belgien_nordfrankreich
+			unlock_decision_tooltip = GER_reichskommissariat_ostland
+			unlock_decision_tooltip = GER_reichskommissariat_ukraine
+			unlock_decision_tooltip = GER_reichskommissariat_moskowien
+			unlock_decision_tooltip = GER_reichskommissariat_kaukasien
+			unlock_decision_tooltip = GER_reichskommissariat_turkestan
+			unlock_decision_tooltip = GER_generalgouvernement
+		}
+	}
+
 	focus = {
 		id = GER_gott_mit_uns
 		icon = GFX_FRA_VIC_goal_STO
