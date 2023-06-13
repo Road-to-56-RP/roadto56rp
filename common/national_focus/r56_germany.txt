@@ -780,12 +780,17 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = GER_r56rp_break_the_anglo_french_colonial_hegemony
+	focus = { #GER_r56rp_break_the_colonial_hegemony
+		id = GER_r56rp_break_the_colonial_hegemony
 		icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
 		prerequisite = { 
 			focus = GER_r56rp_prepare_for_the_next_blockade
-			focus = GER_r56rp_war_with_france_2
+		}
+		prerequisite = { 
+			focus = GER_r56rp_schlieffen_again
+		}
+		prerequisite = { 
+			focus = GER_r56rp_plan_sealion
 		}
 		available = {
 			is_subject = no
@@ -796,10 +801,10 @@ focus_tree = {
 		cancel_if_invalid = yes
 		will_lead_to_war_with = ENG
 		will_lead_to_war_with = FRA
-		x = 0
-		y = 3
+		x = 2
+		y = 2
 		relative_position_id = GER_r56rp_prepare_for_the_next_blockade
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -816,6 +821,126 @@ focus_tree = {
 				expire = 0
 			}
 		}
+	}
+
+	focus = { #GER_r56rp_improve_national_spirit
+		id = GER_r56rp_improve_national_spirit_france
+		icon = GFX_goal_GER_european_reich
+		cost = 5.00
+		prerequisite = {
+			focus = GER_r56rp_break_the_colonial_hegemony
+		}
+		relative_position_id = GER_r56rp_break_the_colonial_hegemony
+		x = -1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			is_subject = no
+			OR = {
+				GER = { controls_state = 126 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 126
+				}
+			}
+		}
+		cancel = {
+			AND = {
+				has_war = no
+				126 = {
+					controller = {
+						NOT = { tag = GER }
+						NOT = { is_subject_of = GER }
+					}
+				}
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = sour_loser
+				}
+				swap_ideas = {
+					remove_idea = sour_loser
+					add_idea = triumphant_will_0
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = triumphant_will_0
+				}
+				swap_ideas = {
+					remove_idea = triumphant_will_0
+					add_idea = triumphant_will
+				}
+			}
+			
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+
+	}
+	focus = { #GER_r56rp_improve_national_spirit
+		id = GER_r56rp_improve_national_spirit_britain
+		icon = GFX_goal_GER_european_reich
+		cost = 5.00
+		prerequisite = {
+			focus = GER_r56rp_break_the_colonial_hegemony
+		}
+		relative_position_id = GER_r56rp_break_the_colonial_hegemony
+		x = 1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			is_subject = no
+			OR = {
+				GER = { controls_state = 16 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 16
+				}
+			}
+		}
+		cancel = {
+			AND = {
+				has_war = no
+				16 = {
+					controller = {
+						NOT = { tag = GER }
+						NOT = { is_subject_of = GER }
+					}
+				}
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = sour_loser
+				}
+				swap_ideas = {
+					remove_idea = sour_loser
+					add_idea = triumphant_will_0
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = triumphant_will_0
+				}
+				swap_ideas = {
+					remove_idea = triumphant_will_0
+					add_idea = triumphant_will
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+
 	}
 
 	focus = {
@@ -4783,7 +4908,6 @@ focus_tree = {
 				name = GER_counter_sloped_armor
 				bonus = 0.5
 				uses = 2
-				category = cat_medium_armor
 				category = cat_anti_tank
 			}
 		}
@@ -13668,8 +13792,8 @@ focus_tree = {
 			}
 		}
 		relative_position_id = GER_restore_the_central_powers
-		x = -3
-		y = 1
+		x = -2
+		y = 2
 		ai_will_do = {
 			factor = 10
 		}
@@ -13769,6 +13893,38 @@ focus_tree = {
 	}
 
 	focus = {
+		id = GER_r56rp_alliance_with_shade
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = GER_r56rp_mon_allies_alliance }
+		will_lead_to_war_with = FRA
+		available = {
+			is_subject = no
+			FRA = { has_government = communism }
+			NOT = { is_in_faction_with = FRA }
+		}
+		
+		cancel_if_invalid = yes
+		x = 0
+		y = 1
+		relative_position_id = GER_r56rp_mon_allies_alliance
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = FRA
+				expire = 0
+			}
+			add_state_claim = 28
+			add_state_claim = 773
+			add_state_claim = 777
+		}
+	}
+
+	focus = {
 		id = GER_r56rp_carte_blanche
 		icon = GFX_goal_generic_territory_or_war
 		prerequisite = { focus = GER_r56rp_mon_allies_alliance }
@@ -13783,7 +13939,41 @@ focus_tree = {
 		}
 		cancel_if_invalid = yes
 		x = 0
-		y = 2
+		y = 3
+		relative_position_id = GER_r56rp_mon_allies_alliance
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = FRA
+				expire = 0
+			}
+			add_state_claim = 28
+			add_state_claim = 773
+			add_state_claim = 777
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_towards_usa
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { 
+			focus = GER_r56rp_carte_blanche
+			focus = GER_mon_anti_commie_france
+		}
+		will_lead_to_war_with = FRA
+		available = {
+			is_subject = no
+			FRA = { has_government = communism }
+			NOT = { is_in_faction_with = FRA }
+		}
+		cancel_if_invalid = yes
+		x = 1
+		y = 4
 		relative_position_id = GER_r56rp_mon_allies_alliance
 		cost = 5
 		ai_will_do = {
@@ -13826,8 +14016,8 @@ focus_tree = {
 			}
 		}
 		relative_position_id = GER_r56rp_mon_allies_alliance
-		x = 1
-		y = 1
+		x = 2
+		y = 2
 		ai_will_do = {
 			factor = 10
 		}
@@ -13862,7 +14052,7 @@ focus_tree = {
 		}
 		relative_position_id = GER_r56rp_mon_allies_alliance
 		x = 2
-		y = 2
+		y = 3
 		ai_will_do = {
 			factor = 10
 		}
@@ -15249,79 +15439,51 @@ focus_tree = {
 		}
 	}
 
-	focus = { #GER_r56rp_war_with_france_2
-		id = GER_r56rp_war_with_france_2
-		icon = GFX_focus_attack_france
+	focus = { #GER_r56rp_plan_sealion
+		id = GER_r56rp_plan_sealion
+		icon = GFX_goal_operation_sealion
 		cost = 5.00
-		# prerequisite = {
-		# 	focus = GER_mobile_warfare
-		# 	focus = GER_build_panzer_army
-		# }
 		prerequisite = {
-			focus = GER_r56rp_schlieffen_again
+			focus = GER_european_claims
 		}
-		x = 0
-		y = 2
-		relative_position_id = GER_r56rp_schlieffen_again
-		will_lead_to_war_with = FRA
-		available = {
-			r56_script_i_am_sane = yes
-			FRA = {
-				r56_script_target_is_sane = yes
-			}
+		prerequisite = {
+			#focus = GER_naval_rearmament_r56
 		}
-		bypass = {
-			OR = {
-				FRA = {
-					exists = no
-				}
-				GER = {
-					has_war_with = FRA
-					has_offensive_war = yes
-				}
-			}
-		}
+		x = -3
+		y = 1
+		relative_position_id = GER_european_claims
 		ai_will_do = {
 			factor = 10
-			modifier = {
-				factor = 0.25
-				has_war = yes
+		}
+		available = {
+		}
+		bypass = {
+			ENG = {
+				r56_script_statusquo_bypass = yes
 			}
 		}
 		completion_reward = {
-			add_named_threat = {
-				threat = 5
-				name = GER_war_with_france_threat
+			add_tech_bonus = {
+				name = GER_plan_sealion
+				bonus = 1
+				uses = 1
+				category = marine_tech
 			}
-			create_wargoal = {
-				type = take_state_focus
-				target = FRA
-				expire = 0
-				generator = {
-					28
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
 				}
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						difficulty > 1
-						GER = {
-							is_ai = yes
-						}
-					}
-					add_offsite_building = {
-						type = arms_factory level = 1
-					}
-					add_equipment_to_stockpile = {
-						type = infantry_equipment
-						amount = 200
-						producer = GER
-					}
+				add_tech_bonus = {
+					name = JAP_expand_the_snlf
+					bonus = 1
+					ahead_reduction = 1
+					uses = 1
+					category = amphibious_armor_tech
 				}
 			}
 		}
 		search_filters = {
-			FOCUS_FILTER_ANNEXATION
+			FOCUS_FILTER_RESEARCH
 		}
 
 	}
@@ -15382,6 +15544,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = GER_revive_brest_litovsk
 		icon = GFX_focus_generic_polish_deal
@@ -15563,15 +15726,14 @@ focus_tree = {
 		prerequisite = { 
 			focus = GER_our_place_in_the_sun_r56
 			focus = GER_african_claims
-			focus = GER_european_claims
 		}
 
 		available = {
 			is_subject = no
 		}
 
-		x = 1
-		y = 1
+		x = -2
+		y = 2
 		relative_position_id = GER_our_place_in_the_sun_r56
 
 		cost = 10
