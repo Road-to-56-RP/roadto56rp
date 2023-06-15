@@ -801,8 +801,8 @@ focus_tree = {
 		cancel_if_invalid = yes
 		will_lead_to_war_with = ENG
 		will_lead_to_war_with = FRA
-		x = 2
-		y = 2
+		x = 1
+		y = 1
 		relative_position_id = GER_r56rp_prepare_for_the_next_blockade
 		cost = 5
 		ai_will_do = {
@@ -14431,7 +14431,7 @@ focus_tree = {
 		}
 		
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = GER_safeguard_the_baltic_r56
 		cost = 5
 		ai_will_do = {
@@ -15489,60 +15489,451 @@ focus_tree = {
 
 	}
 
-	focus = { #GER_demand_northern_schleswig_r56
-		id = GER_demand_northern_schleswig_r56
-		text = GER_demand_northern_schleswig
-		icon = GFX_goal_generic_position_armies
+	focus = {
+		id = GER_r56rp_pan_germanism
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+		
+		# Bismarck, while a Genius, lacked a greater vision. Grossdeutchland.
+		# All Germanic people under a single flag.
+
 		prerequisite = {
 			focus = GER_european_claims
 		}
-		available = {
-			is_subject = no
-			OR = {
-				has_full_control_of_state = 964
-				DEN = {
-					has_full_control_of_state = 964
-				}
-			}
-		}
-		will_lead_to_war_with = DEN
-		x = 0
-		y = 2
+
 		relative_position_id = GER_european_claims
-		cost = 5
+		x = 0
+		y = 4
+
 		ai_will_do = {
 			factor = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 964
-				}
-				add_state_core = 964
-				if = {
-					limit = {
-						NOT = {
-							owns_state = 964
-						}
-					}
-					transfer_state = 964
-				}
-				964 = {
-					set_state_name = "Nordschleswig"
-				}
-				set_province_name = {
-					id = 11251 name = "Apenrade"
-				}
-			}
-			else = {
-				DEN = {
-					country_event = {
-						id = wtt_germany.80
-						hours = 4
-					}
-				}
-			}
+			
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_gateway_north
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		# Demand denmark. Gonna be basicaly an anschluss but northern.
+
+		prerequisite = {
+			focus = GER_r56rp_pan_germanism
+		}
+
+		relative_position_id = GER_r56rp_pan_germanism
+		x = 3
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			add_state_claim = 99 #Jutland
+			add_state_claim = 37 #Sjaelland
+			add_state_claim = 964 #Nordschleswig
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_claim_germanic_north
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		# Demand denmark. Gonna be basicaly an anschluss but northern.
+
+		prerequisite = {
+			focus = GER_r56rp_gateway_north
+		}
+
+		relative_position_id = GER_r56rp_gateway_north
+		x = 0
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			# Sweden
+			add_state_claim = 38 # Norrland
+			add_state_claim = 124 # Gotland
+			add_state_claim = 138 # Scania
+			add_state_claim = 139 # Smaland
+			add_state_claim = 140 # Vastergotland
+			add_state_claim = 141 # Svealand
+			add_state_claim = 666 # Lappland
+			add_state_claim = 968 # Jamtland
+			add_state_claim = 969 # Bohuslan
+
+			# Norway
+			add_state_claim = 110 # Ostlandet
+			add_state_claim = 142 # Vestlandet
+			add_state_claim = 143 # Trondelag
+			add_state_claim = 144 # Nord-Norge
+			add_state_claim = 967 # Sorlandet
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_core_norway
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		# Demand denmark. Gonna be basicaly an anschluss but northern.
+
+		prerequisite = {
+			focus = GER_r56rp_claim_germanic_north
+		}
+
+		relative_position_id = GER_r56rp_claim_germanic_north
+		x = 1
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_core_sweden
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		# Demand denmark. Gonna be basicaly an anschluss but northern.
+
+		prerequisite = {
+			focus = GER_r56rp_claim_germanic_north
+		}
+
+		relative_position_id = GER_r56rp_claim_germanic_north
+		x = -1
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_into_benelaux
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		prerequisite = {
+			focus = GER_r56rp_pan_germanism
+		}
+
+		relative_position_id = GER_r56rp_pan_germanism
+		x = -4
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			add_state_claim = 36 #Voralberg
+			add_state_claim = 7 #Holland
+			add_state_claim = 35 #Nord-Brabant
+			add_state_claim = 6 #Vlanderen
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_core_niederdeuche
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+		
+		prerequisite = {
+			focus = GER_r56rp_into_benelaux
+		}
+
+		relative_position_id = GER_r56rp_into_benelaux
+		x = 0
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_second_brothers_war
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		prerequisite = {
+			focus = GER_r56rp_pan_germanism
+		}
+
+		relative_position_id = GER_r56rp_pan_germanism
+		x = 0
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			add_state_claim = 4 #Niederosterreich
+			add_state_claim = 152 #Upper Austria
+			add_state_claim = 153 #Tyrol
+			add_state_claim = 848 #Bergenz
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_war_switzerland
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		prerequisite = {
+			focus = GER_r56rp_pan_germanism
+		}
+
+		relative_position_id = GER_r56rp_pan_germanism
+		x = -2
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = { 
+			# More or less the germanic-speaking region.
+			add_state_claim = 3 #Schweizer Mitteland
+			add_state_claim = 152 #Eastern Swiss Alps
+			add_state_claim = 997 #Liechtenstein
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_core_switzerland
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		prerequisite = {
+			focus = GER_r56rp_war_switzerland
+		}
+
+		relative_position_id = GER_r56rp_war_switzerland
+		x = 0
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_core_austria
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		prerequisite = {
+			focus = GER_r56rp_second_brothers_war
+		}
+
+		relative_position_id = GER_r56rp_second_brothers_war
+		x = 0
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_claim_austrohungary
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		# basicaly bulshitting germany has a claim to the aus-hun throne, allowing for cores for debuffs.
+
+		prerequisite = {
+			focus = GER_r56rp_core_austria
+		}
+
+		relative_position_id = GER_r56rp_core_austria
+		x = 0
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_growing_pains
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		# basicaly bulshitting germany has a claim to the aus-hun throne, allowing for cores for debuffs.
+
+		prerequisite = {
+			focus = GER_r56rp_claim_austrohungary
+			focus = GER_r56rp_core_sweden
+			focus = GER_r56rp_core_norway
+			focus = GER_r56rp_core_switzerland
+			focus = GER_r56rp_core_niederdeuche
+		}
+
+		relative_position_id = GER_r56rp_claim_austrohungary
+		x = -2
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_self_governance
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		# basicaly bulshitting germany has a claim to the aus-hun throne, allowing for cores for debuffs.
+		mutually_exclusive = {
+			focus = GER_r56rp_centralised_administration
+		}
+
+		prerequisite = {
+			focus = GER_r56rp_growing_pains
+		}
+
+		relative_position_id = GER_r56rp_growing_pains
+		x = 1
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
+		}
+	}
+
+	focus = {
+		id = GER_r56rp_centralised_administration
+		icon = GFX_goal_GER_open_the_german_political_sphere
+		cost = 5.00
+
+		# basicaly bulshitting germany has a claim to the aus-hun throne, allowing for cores for debuffs.
+
+		mutually_exclusive = {
+			focus = GER_r56rp_self_governance
+		}
+
+		prerequisite = {
+			focus = GER_r56rp_growing_pains
+		}
+
+		relative_position_id = GER_r56rp_growing_pains
+		x = -1
+		y = 1
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			
 		}
 	}
 
@@ -15558,7 +15949,7 @@ focus_tree = {
 		}
 		relative_position_id = GER_soviet_invasion
 		x = -1
-		y = 1
+		y = 2
 		ai_will_do = {
 			factor = 10
 		}
@@ -15574,6 +15965,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = GER_african_claims
 		icon = GFX_goal_ger_not_nazi_africa
@@ -15678,44 +16070,44 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = GER_r56rp_prepare_imperial_administration
-		icon = GFX_goal_generic_consumer_goods
-
-		prerequisite = { 
-			focus = GER_our_place_in_the_sun_r56
-			focus = GER_african_claims
-		}
-
-		available = {
-			is_subject = no
-		}
-
-		x = -2
-		y = 2
-		relative_position_id = GER_our_place_in_the_sun_r56
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		search_filters = { FOCUS_FILTER_STABILITY }
-
-		completion_reward = {
-			custom_effect_tooltip = GER_reichskommissariats_tt
-			unlock_decision_tooltip = GER_reichskommissariat_norwegen
-			unlock_decision_tooltip = GER_reichskommissariat_niederlande
-			unlock_decision_tooltip = GER_reichskommissariat_belgien_nordfrankreich
-			unlock_decision_tooltip = GER_reichskommissariat_ostland
-			unlock_decision_tooltip = GER_reichskommissariat_ukraine
-			unlock_decision_tooltip = GER_reichskommissariat_moskowien
-			unlock_decision_tooltip = GER_reichskommissariat_kaukasien
-			unlock_decision_tooltip = GER_reichskommissariat_turkestan
-			unlock_decision_tooltip = GER_generalgouvernement
-		}
-	}
+	#focus = {
+	#	id = GER_r56rp_prepare_imperial_administration
+	#	icon = GFX_goal_generic_consumer_goods
+	#
+	#	prerequisite = { 
+	#		focus = GER_our_place_in_the_sun_r56
+	#		focus = GER_african_claims
+	#	}
+	#
+	#	available = {
+	#		is_subject = no
+	#	}
+	#
+	#	x = -2
+	#	y = 2
+	#	relative_position_id = GER_our_place_in_the_sun_r56
+	#
+	#	cost = 10
+	#
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#
+	#	search_filters = { FOCUS_FILTER_STABILITY }
+	#
+	#	completion_reward = {
+	#		custom_effect_tooltip = GER_reichskommissariats_tt
+	#		unlock_decision_tooltip = GER_reichskommissariat_norwegen
+	#		unlock_decision_tooltip = GER_reichskommissariat_niederlande
+	#		unlock_decision_tooltip = GER_reichskommissariat_belgien_nordfrankreich
+	#		unlock_decision_tooltip = GER_reichskommissariat_ostland
+	#		unlock_decision_tooltip = GER_reichskommissariat_ukraine
+	#		unlock_decision_tooltip = GER_reichskommissariat_moskowien
+	#		unlock_decision_tooltip = GER_reichskommissariat_kaukasien
+	#		unlock_decision_tooltip = GER_reichskommissariat_turkestan
+	#		unlock_decision_tooltip = GER_generalgouvernement
+	#	}
+	#}
 
 	focus = {
 		id = GER_gott_mit_uns
