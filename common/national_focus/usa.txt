@@ -930,7 +930,6 @@ focus_tree = {
 		x = 0
 		y = 1
 		prerequisite = { focus = USA_union_representation_act }
-		mutually_exclusive = { focus = USA_agricultural_adjustment_act }
 		relative_position_id = USA_union_representation_act
 		cost = 10
 
@@ -944,6 +943,22 @@ focus_tree = {
 				has_government = communism
 			}
 			congress_high_support_trigger = yes
+			if = {
+				limit = {
+					has_country_flag = USA_new_legislation_drafed_flag
+				}
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
+				custom_trigger_tooltip = {
+					tooltip = r56_USA_legislation_drafted_days_tt
+					has_country_flag = {
+						flag = USA_new_legislation_drafed_flag
+						days > 230
+					}
+				}
+			}
 		}
 
 		cancel_if_invalid = no
@@ -951,6 +966,7 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
 			add_ideas = USA_accumulated_wealth_tax_act
 			if = {
 				limit = {
@@ -971,6 +987,7 @@ focus_tree = {
 				}
 			}
 			USA_great_depression_level_down = yes
+			set_country_flag = USA_new_legislation_drafed_flag
 		}
 	}
 	focus = {
@@ -988,9 +1005,6 @@ focus_tree = {
 			factor = 1
 		}
 
-		
-		
-		
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
 		completion_reward = {
 			add_war_support = 0.1
@@ -1010,11 +1024,21 @@ focus_tree = {
 		}
 
 		available = {
-			date > 1938.1.1
 			congress_high_support_trigger = yes
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_government = communism
+			}
+			has_country_flag = {
+				flag = USA_new_legislation_drafed_flag
+				days > 230
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56_USA_legislation_drafted_days_tt
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
 			}
 		}
 
@@ -1023,6 +1047,7 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
 			add_ideas = USA_worker_management_act
 			if = {
 				limit = {
@@ -1087,6 +1112,17 @@ focus_tree = {
 
 		available = {
 			congress_high_support_trigger = yes
+			has_country_flag = {
+				flag = USA_new_legislation_drafed_flag
+				days > 230
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56_USA_legislation_drafted_days_tt
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
+			}
 		}
 
 		cancel_if_invalid = no
@@ -1094,6 +1130,7 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
 			if = {
 				limit = {
 					communism > 0.3
@@ -1653,7 +1690,6 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_wpa }
-		mutually_exclusive = { focus = USA_accumulated_wealth_tax_act }
 		relative_position_id = USA_wpa
 		cost = 10
 
@@ -1664,6 +1700,22 @@ focus_tree = {
 		available = {
 			congress_medium_support_trigger = yes
 			has_government = democratic
+			if = {
+				limit = {
+					has_country_flag = USA_new_legislation_drafed_flag
+				}
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
+				custom_trigger_tooltip = {
+					tooltip = r56_USA_legislation_drafted_days_tt
+					has_country_flag = {
+						flag = USA_new_legislation_drafed_flag
+						days > 230
+					}
+				}
+			}
 		}
 		
 		bypass = {
@@ -1681,6 +1733,7 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
 			USA_great_depression_level_down = yes
 			USA_congress_medium_opposition = yes
 			unlock_decision_tooltip = { decision = USA_pay_farm_subsidies show_effect_tooltip = yes }
@@ -1710,7 +1763,6 @@ focus_tree = {
 		}
 
 		available = {
-			date > 1938.1.1
 			congress_medium_support_trigger = yes
 			has_government = democratic
 			has_country_flag = {
@@ -1859,6 +1911,7 @@ focus_tree = {
 					set_state_flag = USA_federal_housing_act
 				}
 			}
+			set_country_flag = USA_new_legislation_drafed_flag #Used to unlock the next focus
 		}
 	}
 	focus = {
