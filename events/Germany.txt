@@ -14372,3 +14372,72 @@ country_event = { #
 		add_political_power = 10
 	}
 }
+
+### RT56RP ###
+add_namespace = rpgermany
+country_event = { # 
+	id = rpgermany.1
+	title = rpgermany.1.t
+	desc =  rpgermany.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { # Send the Ultimatum!
+		name = rpgermany.1.b
+	}
+}
+
+country_event = { # Denmark Return Event Y/N
+	id = rpgermany.2
+	title = rpgermany.2.t
+	desc =  rpgermany.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { # Oh No, we accept our fate is sealed.
+		ai_chance = { 
+			factor = 10
+		}
+		name = rpgermany.2.a
+		GER = {
+			annex_country = {
+				target = DEN
+				transfer_troops = yes
+			}
+		}
+	}
+	option = { # Go away! We shall fight till the last man!
+		name = rpgermany.2.b
+		ai_chance = { 
+			factor = 90 
+		}
+		GER = {
+			create_wargoal = {
+				type = take_state_focus
+				target = DEN
+				generator = { 99 37 964 }
+			}
+		}
+	}
+}
+
+country_event = { # German Return Event
+	id = rpgermany.3
+	title = rpgermany.3.t
+	desc =  rpgermany.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	option = { # Alright! Your choice is made.
+		name = rpgermany.3.a
+	}
+
+}
