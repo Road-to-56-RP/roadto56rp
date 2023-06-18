@@ -13897,8 +13897,14 @@ focus_tree = {
 		will_lead_to_war_with = FRA
 		available = {
 			is_subject = no
-			FRA = { has_government = communism }
-			NOT = { is_in_faction_with = FRA }
+			is_subject = no
+			ENG = {
+				has_government = communism
+			}
+			NOT = { is_in_faction_with = ENG }
+		}
+		bypass = {
+			ROOT = { is_in_faction_with = ENG }
 		}
 		
 		cancel_if_invalid = yes
@@ -13911,14 +13917,26 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = FRA
-				expire = 0
+			if = {
+				limit = {
+					ENG = {
+						has_government = democratic
+						is_faction_leader = yes
+						NOT = { has_war_with = ROOT }
+					}
+				}
+				ENG = { country_event = { id = generic.2 } }
 			}
-			add_state_claim = 28
-			add_state_claim = 773
-			add_state_claim = 777
+			else_if = {
+				limit = {
+					ENG = {
+						has_government = neutrality
+						is_faction_leader = yes
+						NOT = { has_war_with = ROOT }
+					}
+				}
+				ENG = { country_event = { id = generic.2 } }			
+			}
 		}
 	}
 
@@ -13981,12 +13999,8 @@ focus_tree = {
 		completion_reward = {
 			create_wargoal = {
 				type = annex_everything
-				target = FRA
-				expire = 0
+				target = USA
 			}
-			add_state_claim = 28
-			add_state_claim = 773
-			add_state_claim = 777
 		}
 	}
 
@@ -15625,6 +15639,18 @@ focus_tree = {
 			add_state_claim = 143 # Trondelag
 			add_state_claim = 144 # Nord-Norge
 			add_state_claim = 967 # Sorlandet
+
+			create_wargoal = {
+				type = take_state_focus
+				target = NOR
+				generator = { 110 142 143 144 967 }
+			}
+
+			create_wargoal = {
+				type = take_state_focus
+				target = NOR
+				generator = { 38 124 138 139140 141 666 968 969 }
+			}
 		}
 	}
 
@@ -15652,7 +15678,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			
+			add_state_core = 110 # Ostlandet
+			add_state_core = 142 # Vestlandet
+			add_state_core = 143 # Trondelag
+			add_state_core = 144 # Nord-Norge
+			add_state_core = 967 # Sorlandet
 		}
 	}
 
@@ -15680,7 +15710,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			
+			add_state_core = 38 # Norrland
+			add_state_core = 124 # Gotland
+			add_state_core = 138 # Scania
+			add_state_core = 139 # Smaland
+			add_state_core = 140 # Vastergotland
+			add_state_core = 141 # Svealand
+			add_state_core = 666 # Lappland
+			add_state_core = 968 # Jamtland
+			add_state_core = 969 # Bohuslan
 		}
 	}
 
@@ -15706,10 +15744,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_state_claim = 36 #Voralberg
+			add_state_claim = 36 #Friesland
 			add_state_claim = 7 #Holland
 			add_state_claim = 35 #Nord-Brabant
 			add_state_claim = 6 #Vlanderen
+			create_wargoal = {
+				type = take_state_focus
+				target = HOL
+				generator = { 36 7 35 6 }
+			}
 		}
 	}
 
@@ -15735,7 +15778,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			
+			add_state_core = 36 #Friesland
+			add_state_core = 7 #Holland
+			add_state_core = 35 #Nord-Brabant
+			add_state_core = 6 #Vlanderen
 		}
 	}
 
@@ -15765,6 +15811,11 @@ focus_tree = {
 			add_state_claim = 152 #Upper Austria
 			add_state_claim = 153 #Tyrol
 			add_state_claim = 848 #Bergenz
+			create_wargoal = {
+				type = take_state_focus
+				target = AUS
+				generator = { 848 153 152 4 }
+			}
 		}
 	}
 
@@ -15792,8 +15843,13 @@ focus_tree = {
 		completion_reward = { 
 			# More or less the germanic-speaking region.
 			add_state_claim = 3 #Schweizer Mitteland
-			add_state_claim = 152 #Eastern Swiss Alps
+			add_state_claim = 151 #Eastern Swiss Alps
 			add_state_claim = 997 #Liechtenstein
+			create_wargoal = {
+				type = take_state_focus
+				target = SWI
+				generator = { 3 151 997 }
+			}
 		}
 	}
 
@@ -15819,7 +15875,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			
+			add_state_core = 3 #Schweizer Mitteland
+			add_state_core = 152 #Eastern Swiss Alps
+			add_state_core = 997 #Liechtenstein
 		}
 	}
 
@@ -15845,7 +15903,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			
+			add_state_core = 4 #Niederosterreich
+			add_state_core= 152 #Upper Austria
+			add_state_core = 153 #Tyrol
+			add_state_core = 848 #Bergenz
 		}
 	}
 
