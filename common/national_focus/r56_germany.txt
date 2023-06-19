@@ -13899,9 +13899,15 @@ focus_tree = {
 			is_subject = no
 			is_subject = no
 			ENG = {
-				has_government = communism
+				OR = {
+					has_government = neutrality
+					has_government = democratic
+				}
+				NOT = {
+					has_government = communism
+					is_in_faction_with = ENG 
+				}
 			}
-			NOT = { is_in_faction_with = ENG }
 		}
 		bypass = {
 			ROOT = { is_in_faction_with = ENG }
@@ -13917,6 +13923,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
+			custom_effect_tooltip =  GER_faction_noeffects_tt
 			if = {
 				limit = {
 					ENG = {
@@ -13985,6 +13992,10 @@ focus_tree = {
 		available = {
 			is_subject = no
 			NOT = { is_in_faction_with = USA}
+			NOT = { is_in_faction_with = MEX }
+		}
+		bypass = {
+			has_war_with = MEX
 		}
 		cancel_if_invalid = yes
 		x = 1
@@ -13996,17 +14007,44 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = USA
+			MEX = {
+				country_event = { id = rpgermany.4 } 
 			}
 		}
 	}
 
+	focus = { # War ->
+		id = GER_r56rp_north_american_war
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { 
+			focus = GER_r56rp_towards_usa
+		}
+		available = {
+			is_subject = no
+			NOT = { is_in_faction_with = USA}
+		}
+		cancel_if_invalid = yes
+		x = 1
+		y = 5
+		relative_position_id = GER_r56rp_mon_allies_alliance
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		
+		completion_reward = { 
+			create_wargoal = {
+				type = take_state_focus
+				target = USA
+			}
+			custom_effect_tooltip = GER_unlock_decision_category_tt
+		}
+		# Unlocks Decision Category if victorious to release the CSA as a subject.
+	}
 	focus = {
 		id = GER_destabilize_france
 		icon = GFX_focus_focus_fra_liberte_egalite_solidarite
-		cost = 5.00
+		cost = 10
 		prerequisite = {
 			focus = GER_r56rp_mon_allies_alliance
 			focus = GER_restore_the_central_powers
@@ -14124,6 +14162,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			custom_effect_tooltip =  GER_faction_noeffects_tt
 			if = {
 				limit = {
 					is_faction_leader = yes
@@ -14206,6 +14245,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			custom_effect_tooltip =  GER_faction_noeffects_tt
 			if = {
 				limit = {
 					is_faction_leader = yes

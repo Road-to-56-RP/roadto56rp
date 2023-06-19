@@ -14452,3 +14452,78 @@ country_event = { # German Return Event
 	}
 
 }
+
+country_event = { #Legacy of the Zimmerman Telegram
+	id = rpgermany.4
+	title = rpgermany.4.t
+	desc = rpgermany.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # 
+		name = rpgermany.4.a
+		ai_chance = {
+			factor = 25
+			modifier = { # If Original Canada has fallen increases chance small
+				CAN = { exists = no }
+				factor = 0.5
+			}
+			modifier = { # If they stand a chance to hold the line they will fight
+				factor = 0.1
+				strength_ratio = {
+					tag = USA
+					ratio > 0.70
+				}
+			}
+			modifier = { #decrease if in faction
+				factor = 0.5
+				is_in_faction = yes
+			}
+			modifier = { # Decreases it again if other bordering nations are in Axis
+				any_neighbor_country = {
+					NOT = { tag = USA }
+					is_in_faction_with = USA
+				}
+				factor = -15
+			}
+		}
+		if = {
+			limit ={
+				is_faction_leader = yes
+			}
+			MEX = {
+				country_event = generic.5
+			}
+		}
+		else_if = {
+			limit = {
+				MEX = {
+					is_faction_leader = yes
+				}
+			}
+			MEX = {
+				country_event = generic.2
+			}
+		}
+		else = {
+			create_faction = "Mexican-German Pact"
+			MEX = {
+				country_event = generic.5
+			}
+		}
+		MEX = {
+			add_state_claim = 375
+			add_state_claim = 376
+			add_state_claim = 377
+			add_state_claim = 378
+		}
+	}
+
+	option = { # No Go away.
+		name = rpgermany.4.b
+		ai_chance = {
+			factor = 65
+		}
+	}
+}
