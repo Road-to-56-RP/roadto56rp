@@ -13892,7 +13892,7 @@ focus_tree = {
 
 	focus = {
 		id = GER_r56rp_alliance_with_shade
-		icon = GFX_goal_generic_territory_or_war
+		icon = GFX_focus_chi_british_cooperation
 		prerequisite = { focus = GER_r56rp_mon_allies_alliance }
 		will_lead_to_war_with = FRA
 		available = {
@@ -13949,13 +13949,15 @@ focus_tree = {
 
 	focus = {
 		id = GER_r56rp_carte_blanche
-		icon = GFX_goal_generic_territory_or_war
+		icon = GFX_goal_GER_prep_west
 		prerequisite = { focus = GER_r56rp_alliance_with_shade }
 		will_lead_to_war_with = FRA
 		available = {
 			is_subject = no
-			FRA = { has_government = communism }
-			NOT = { is_in_faction_with = FRA }
+			NOT = { 
+				is_in_faction_with = FRA
+				FRA = { has_government = communism }
+			}
 		}
 		mutually_exclusive = {
 			focus = GER_mon_anti_commie_france
@@ -13983,7 +13985,7 @@ focus_tree = {
 
 	focus = {
 		id = GER_r56rp_towards_usa
-		icon = GFX_goal_generic_territory_or_war
+		icon = GFX_focus_mex_jefe_maximo
 		prerequisite = { 
 			focus = GER_r56rp_carte_blanche
 			focus = GER_mon_anti_commie_france
@@ -14015,7 +14017,7 @@ focus_tree = {
 
 	focus = { # War ->
 		id = GER_r56rp_north_american_war
-		icon = GFX_goal_generic_territory_or_war
+		icon = GFX_goal_generic_attack_united_states
 		prerequisite = { 
 			focus = GER_r56rp_towards_usa
 		}
@@ -14095,7 +14097,10 @@ focus_tree = {
 		available = {
 			is_subject = no
 			FRA = {
-				has_government = communism
+				OR = {
+					has_government = communism
+					communism > 0.3
+				}
 			}
 			NOT = { is_in_faction_with = FRA }
 		}
