@@ -37,22 +37,22 @@ r56rp_rules = {
 		icon = GFX_decision_generic_operation
         priority = 5
 
-		is_good = no #Tooltip purposes
+		is_good = no #Tooltip purposes, also determines the localisation "will fail if" shite.
 		fire_only_once = yes
 		selectable_mission = no
-		days_mission_timeout = 730
+		days_mission_timeout = 730 #after 2 years since eruption of civil war will remove unplanned anyways
 
-		visible = {
+		visible = { #when you can see it. Duh. Tho the mission also has to be activated, so its kinda weird doing the same shite as allowed.
 			tag = SPR
             original_tag = SPR
         }
 
-		#allowed = {
+		#allowed = { #not needed, activation is used for it.
 		#	tag = SPR
 		#	original_tag = SPR
 		#}
 
-		activation = {
+		activation = { #start once one of the focuses below was completed.
 			OR = {
 				has_completed_focus = SPA_the_phalanx_ascendant
 				has_completed_focus = SPA_unify_the_nationalist_front
@@ -64,11 +64,11 @@ r56rp_rules = {
 			
 		}
 
-        available = {
+        available = { #complete mission once spain is not in a civil war
 			has_civil_war = no
 		}
 
-		complete_effect = {
+		complete_effect = { #effect once "avialible" is met
 			every_state = {
 				limit = {
 					is_core_of = SPR
@@ -83,7 +83,7 @@ r56rp_rules = {
 			}
         }
 
-        timeout_effect = {
+        timeout_effect = { #effect after days_mission_timeout runs out
 			every_state = {
 				limit = {
 					is_core_of = SPR
