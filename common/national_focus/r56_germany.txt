@@ -288,7 +288,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		complete_tooltip = {
-			remove_ideas = r56_ger_naval_treaty_lesser
+			
 			every_state = {
 				limit = {
 					has_state_flag = GER_naval_effort_2dockyards
@@ -305,7 +305,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
-			remove_ideas = r56_ger_naval_treaty_lesser
+			
 			random_owned_controlled_state = {
 				limit = {
 					dockyard > 0
@@ -378,6 +378,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		complete_tooltip = {
+			remove_ideas = r56_ger_naval_treaty_lesser
 			activate_advisor = raeder
 			every_state = {
 				limit = {
@@ -415,6 +416,7 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
+			remove_ideas = r56_ger_naval_treaty_lesser
 			activate_advisor = raeder
 			IF = {
 				limit = {
@@ -496,6 +498,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			custom_effect_tooltip = GER_modify_kriegsmarine_1_tt
 			add_to_variable = { GER_r56rp_kriegsmarine_modifier_navaa = 0.1 }
 			add_to_variable = { GER_r56rp_kriegsmarine_modifier_hitchance = 0.1 }
 			
@@ -613,7 +616,9 @@ focus_tree = {
 		}
 		
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
 		completion_reward = {
+			custom_effect_tooltip = GER_modify_kriegsmarine_2_tt
 			add_to_variable = { GER_r56rp_kriegsmarine_modifier_navcoord = 0.1 }
 			add_to_variable = { GER_r56rp_kriegsmarine_modifier_orgfactor = 0.1 }
 			
@@ -1011,6 +1016,7 @@ focus_tree = {
 
 		available_if_capitulated = yes
 		complete_tooltip = {
+			remove_ideas = r56_ger_naval_treaty_lesser
 			activate_advisor = donitz
 			every_state = {
 				limit = {
@@ -1050,6 +1056,7 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			remove_ideas = r56_ger_naval_treaty_lesser
 			activate_advisor = donitz
 			IF = {
 				limit = {
@@ -1205,7 +1212,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			custom_effect_tooltip = GER_modify_kriegsmarine_3_tt
 			add_to_variable = { GER_r56rp_kriegsmarine_modifier_heavyattack = 0.15 }
+
 			create_equipment_variant = {
 				name = "Schlachtschiff H-44"								
 				type = ship_hull_super_heavy_1
@@ -1270,6 +1279,7 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
+			custom_effect_tooltip = GER_modify_kriegsmarine_4_tt
 			add_to_variable = { GER_r56rp_kriegsmarine_modifier_raideff = 0.1 }
 			add_to_variable = { GER_r56rp_kriegsmarine_modifier_navdet = 0.1 }
 			add_to_variable = { GER_r56rp_kriegsmarine_modifier_enesizepen = 0.1 }
@@ -13888,9 +13898,9 @@ focus_tree = {
 		id = GER_r56rp_mon_allies_alliance
 		icon = GFX_focus_ger_accept_british_naval_dominance
 		cost = 5.00
-		prerequisite = {
-			focus = GER_naval_effort_r56
-		}
+		#prerequisite = {
+		#	focus = GER_naval_effort_r56
+		#}
 		prerequisite = {
 			focus = GER_consolidate_new_reich
 		}
@@ -15562,8 +15572,8 @@ focus_tree = {
 
 	focus = { #GER_r56rp_schlieffen_again
 		id = GER_r56rp_trough_maginot
-		icon = GFX_goal_plan
-		cost = 5.00
+		icon = GFX_focus_generic_railway_gun
+		cost = 10.00
 		mutually_exclusive = {
 			focus = GER_r56rp_schlieffen_again
 		}
@@ -15582,7 +15592,42 @@ focus_tree = {
 		}
 		will_lead_to_war_with = FRA
 		completion_reward = {
-			
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+					NOT = {
+						has_tech = railway_gun
+					}
+				}
+				set_technology = {
+					railway_gun = 1
+				}				
+			}
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				create_equipment_variant = {
+					name = "800mm Schwerer Gustav"								
+					type = railway_gun_equipment_1
+					role_icon_index = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = railway_gun_equipment_1
+						creator = "GER"
+						version_name = "800mm Schwerer Gustav"
+					}
+					requested_factories = 5
+					progress = 0.55
+					amount = 1
+				}
+			}
+			hidden_effect = {
+				set_technology = { GER_r56rp_smash_maginot = 1 }
+			}
+			custom_effect_tooltip = GER_r56rp_trough_maginot_tt
+
 		}
 		search_filters = {
 			FOCUS_FILTER_ANNEXATION
@@ -15805,7 +15850,9 @@ focus_tree = {
 					}
 				}
 			}
+
 			custom_effect_tooltip = GER_growing_pains_5_tt
+
 			add_to_variable = { GER_r56rp_growing_pains_modifier_stability = -0.01 }
 			add_to_variable = { GER_r56rp_growing_pains_modifier_consumergoods = 0.02 }
 			add_to_variable = { GER_r56rp_growing_pains_modifier_resgain = -0.02 }
