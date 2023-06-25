@@ -6,7 +6,107 @@ r56rp_rules = {
 		}
     }
 
+	r56rp_TEST = {
+	
+		#cost = 25
+	
+		icon = GFX_decision_hol_exchange_intelligence_data
+	
+		visible = {
+			is_debug = yes
+		}
+	
+		#target_trigger = {
+		#	FROM = {
+		#		original_tag = CHI
+		#	}
+		#}
+	
+		available = {
+			always = yes
+		}
+	
+		complete_effect = {
+			complete_national_focus = GER_rally_the_monarchists
+			complete_national_focus = GER_a_new_reich
+			complete_national_focus = GER_consolidate_new_reich
+			complete_national_focus = GER_restore_the_empire
+			complete_national_focus = GER_european_claims
+			complete_national_focus = GER_r56rp_pan_germanism
+		}
+	}
+
+	# Removal of unplanned offensives.
+	
+	r56rp_SPR_remove_unplanned = {
+		icon = GFX_decision_generic_operation
+        priority = 5
+
+		is_good = no #Tooltip purposes, also determines the localisation "will fail if" shite.
+		fire_only_once = yes
+		selectable_mission = no
+		days_mission_timeout = 730 #after 2 years since eruption of civil war will remove unplanned anyways
+
+		visible = { #when you can see it. Duh. Tho the mission also has to be activated, so its kinda weird doing the same shite as allowed.
+			tag = SPR
+            original_tag = SPR
+        }
+
+		#allowed = { #not needed, activation is used for it.
+		#	tag = SPR
+		#	original_tag = SPR
+		#}
+
+		activation = { #start once one of the focuses below was completed.
+			OR = {
+				has_completed_focus = SPA_the_phalanx_ascendant
+				has_completed_focus = SPA_unify_the_nationalist_front
+				has_completed_focus = SPA_supremacy_of_the_communion
+				has_completed_focus = SPR_regional_defense_council_of_aragon
+				has_completed_focus = SPR_the_anti_fascist_workers_revolution
+				has_completed_focus = SPR_maintain_the_second_republic
+			}
+			
+		}
+
+        available = { #complete mission once spain is not in a civil war
+			has_civil_war = no
+		}
+
+		complete_effect = { #effect once "avialible" is met
+			every_state = {
+				limit = {
+					is_core_of = SPR
+				}
+				clr_state_flag = SPR_unplanned_offensive_flag
+				remove_province_modifier = {
+					static_modifiers = { unplanned_offensive }
+					province = {
+						all_provinces = yes
+					}
+				}
+			}
+        }
+
+        timeout_effect = { #effect after days_mission_timeout runs out
+			every_state = {
+				limit = {
+					is_core_of = SPR
+				}
+				clr_state_flag = SPR_unplanned_offensive_flag
+				remove_province_modifier = {
+					static_modifiers = { unplanned_offensive }
+					province = {
+						all_provinces = yes
+					}
+				}
+			}
+        }
+  
+    }
+
     # Hardcoded Italian Rule to peace out Ethiopia
+
 	r56rp_peace_ita_eth = {
 		icon = GFX_decision_generic_operation
         priority = 5

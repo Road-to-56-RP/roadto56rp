@@ -1,23 +1,11 @@
 DIPLOMACY_CREATE_FACTION_ENABLE_TRIGGER = {
-	OR = {
-		AND = { # AI can invite ai
-			ROOT = { #sender
-				is_ai = yes
-			}
-			FROM = { #recipient
-				is_ai = yes
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
 			}
 		}
-		AND = { # Players can invite players
-			ROOT = { #sender
-				is_ai = no
-			}
-			FROM = { #recipient
-				is_ai = no
-			}
-		}
-	}
-	custom_trigger_tooltip = {
 		OR = {
 			AND = { # AI can invite ai
 				ROOT = { #sender
@@ -32,7 +20,33 @@ DIPLOMACY_CREATE_FACTION_ENABLE_TRIGGER = {
 					is_ai = no
 				}
 				FROM = { #recipient
-					is_ai = no
+						OR = {
+							is_ai = no
+							is_subject_of = ROOT
+						}
+					}
+			}
+		}
+		custom_trigger_tooltip = {
+			OR = {
+				AND = { # AI can invite ai
+					ROOT = { #sender
+						is_ai = yes
+					}
+					FROM = { #recipient
+						is_ai = yes
+					}
+				}
+				AND = { # Players can invite players
+					ROOT = { #sender
+						is_ai = no
+					}
+					FROM = { #recipient
+						OR = {
+							is_ai = no
+							is_subject_of = ROOT
+						}
+					}
 				}
 			}
 		}
@@ -40,26 +54,13 @@ DIPLOMACY_CREATE_FACTION_ENABLE_TRIGGER = {
 }
 
 DIPLOMACY_JOIN_FACTION_ENABLE_TRIGGER = {
-	OR = {
-		AND = { # AI can invite ai
-			ROOT = { #sender
-				is_ai = yes
-			}
-			FROM = { #recipient
-				is_ai = yes
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
 			}
 		}
-		AND = { # Players can invite players
-			ROOT = { #sender
-				is_ai = no
-			}
-			FROM = { #recipient
-				is_ai = no
-			}
-		}
-	}
-	
-	custom_trigger_tooltip = {
 		OR = {
 			AND = { # AI can invite ai
 				ROOT = { #sender
@@ -74,7 +75,34 @@ DIPLOMACY_JOIN_FACTION_ENABLE_TRIGGER = {
 					is_ai = no
 				}
 				FROM = { #recipient
-					is_ai = no
+						OR = {
+							is_ai = no
+							is_subject_of = ROOT
+						}
+					}
+			}
+		}
+		
+		custom_trigger_tooltip = {
+			OR = {
+				AND = { # AI can invite ai
+					ROOT = { #sender
+						is_ai = yes
+					}
+					FROM = { #recipient
+						is_ai = yes
+					}
+				}
+				AND = { # Players can invite players
+					ROOT = { #sender
+						is_ai = no
+					}
+					FROM = { #recipient
+						OR = {
+							is_ai = no
+							is_subject_of = ROOT
+						}
+					}
 				}
 			}
 		}
@@ -82,26 +110,13 @@ DIPLOMACY_JOIN_FACTION_ENABLE_TRIGGER = {
 }
 
 DIPLOMACY_OFFER_JOIN_FACTION_ENABLE_TRIGGER = {
-	OR = {
-		AND = { # AI can invite ai
-			ROOT = { #sender
-				is_ai = yes
-			}
-			FROM = { #recipient
-				is_ai = yes
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
 			}
 		}
-		AND = { # Players can invite players
-			ROOT = { #sender
-				is_ai = no
-			}
-			FROM = { #recipient
-				is_ai = no
-			}
-		}
-	}
-	
-	custom_trigger_tooltip = {
 		OR = {
 			AND = { # AI can invite ai
 				ROOT = { #sender
@@ -116,7 +131,34 @@ DIPLOMACY_OFFER_JOIN_FACTION_ENABLE_TRIGGER = {
 					is_ai = no
 				}
 				FROM = { #recipient
-					is_ai = no
+					OR = {
+						is_ai = no
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		
+		custom_trigger_tooltip = {
+			OR = {
+				AND = { # AI can invite ai
+					ROOT = { #sender
+						is_ai = yes
+					}
+					FROM = { #recipient
+						is_ai = yes
+					}
+				}
+				AND = { # Players can invite players
+					ROOT = { #sender
+						is_ai = no
+					}
+					FROM = { #recipient
+						OR = {
+							is_ai = no
+							is_subject_of = ROOT
+						}
+					}
 				}
 			}
 		}

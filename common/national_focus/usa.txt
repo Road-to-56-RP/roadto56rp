@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 focus_tree = {
 	id = usa_focus
 	
@@ -16,41 +20,6 @@ focus_tree = {
 	}
 	continuous_focus_position = { x = 3600 y = 1200 }
 	default = no
-#	focus = {
-#		id = USA_
-#		#icon = GFX_
-#		prerequisite = { focus = }
-#		mutually_exclusive = { focus =  }
-#		x = -3
-#		y = 0
-#		relative_position_id = 
-#
-#		cost = 10
-#
-#		ai_will_do = {
-#			factor = 1
-#		}
-#
-#		available = {
-#
-#		}
-#		
-#		bypass = {
-#
-#		}
-#
-#		
-#		
-#		
-#
-#		complete_tooltip = {
-#
-#		}
-#
-#		completion_reward = {
-#
-#		}
-#	}
 
 	focus = {
 		id = USA_continue_the_new_deal
@@ -370,7 +339,7 @@ focus_tree = {
 		}
 
 		available = {
-			communism > 0.35
+			communism > 0.50
 		}
 		
 		bypass = {
@@ -930,7 +899,6 @@ focus_tree = {
 		x = 0
 		y = 1
 		prerequisite = { focus = USA_union_representation_act }
-		mutually_exclusive = { focus = USA_agricultural_adjustment_act }
 		relative_position_id = USA_union_representation_act
 		cost = 10
 
@@ -944,6 +912,22 @@ focus_tree = {
 				has_government = communism
 			}
 			congress_high_support_trigger = yes
+			if = {
+				limit = {
+					has_country_flag = USA_new_legislation_drafed_flag
+				}
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
+				custom_trigger_tooltip = {
+					tooltip = r56_USA_legislation_drafted_days_tt
+					has_country_flag = {
+						flag = USA_new_legislation_drafed_flag
+						days > 230
+					}
+				}
+			}
 		}
 
 		cancel_if_invalid = no
@@ -951,6 +935,7 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
 			add_ideas = USA_accumulated_wealth_tax_act
 			if = {
 				limit = {
@@ -971,6 +956,7 @@ focus_tree = {
 				}
 			}
 			USA_great_depression_level_down = yes
+			set_country_flag = USA_new_legislation_drafed_flag
 		}
 	}
 	focus = {
@@ -988,9 +974,6 @@ focus_tree = {
 			factor = 1
 		}
 
-		
-		
-		
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
 		completion_reward = {
 			add_war_support = 0.1
@@ -1010,11 +993,21 @@ focus_tree = {
 		}
 
 		available = {
-			date > 1938.1.1
 			congress_high_support_trigger = yes
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_government = communism
+			}
+			has_country_flag = {
+				flag = USA_new_legislation_drafed_flag
+				days > 230
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56_USA_legislation_drafted_days_tt
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
 			}
 		}
 
@@ -1023,6 +1016,7 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
 			add_ideas = USA_worker_management_act
 			if = {
 				limit = {
@@ -1087,6 +1081,17 @@ focus_tree = {
 
 		available = {
 			congress_high_support_trigger = yes
+			has_country_flag = {
+				flag = USA_new_legislation_drafed_flag
+				days > 230
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56_USA_legislation_drafted_days_tt
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
+			}
 		}
 
 		cancel_if_invalid = no
@@ -1094,6 +1099,7 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
 			if = {
 				limit = {
 					communism > 0.3
@@ -1157,7 +1163,7 @@ focus_tree = {
 		prerequisite = { focus = USA_suspend_the_presecution }
 		#prerequisite = { focus = USA_agricultural_adjustment_act }
 		relative_position_id = USA_suspend_the_presecution
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 0
@@ -1653,7 +1659,6 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_wpa }
-		mutually_exclusive = { focus = USA_accumulated_wealth_tax_act }
 		relative_position_id = USA_wpa
 		cost = 10
 
@@ -1664,6 +1669,22 @@ focus_tree = {
 		available = {
 			congress_medium_support_trigger = yes
 			has_government = democratic
+			if = {
+				limit = {
+					has_country_flag = USA_new_legislation_drafed_flag
+				}
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
+				custom_trigger_tooltip = {
+					tooltip = r56_USA_legislation_drafted_days_tt
+					has_country_flag = {
+						flag = USA_new_legislation_drafed_flag
+						days > 230
+					}
+				}
+			}
 		}
 		
 		bypass = {
@@ -1681,6 +1702,7 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
 			USA_great_depression_level_down = yes
 			USA_congress_medium_opposition = yes
 			unlock_decision_tooltip = { decision = USA_pay_farm_subsidies show_effect_tooltip = yes }
@@ -1710,7 +1732,6 @@ focus_tree = {
 		}
 
 		available = {
-			date > 1938.1.1
 			congress_medium_support_trigger = yes
 			has_government = democratic
 			has_country_flag = {
@@ -1859,6 +1880,7 @@ focus_tree = {
 					set_state_flag = USA_federal_housing_act
 				}
 			}
+			set_country_flag = USA_new_legislation_drafed_flag #Used to unlock the next focus
 		}
 	}
 	focus = {
@@ -6252,9 +6274,16 @@ focus_tree = {
 		}
 
 		available = {
-			date > 1938.1.1
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = r56rp_enable_bakedinrules
+						option = ENABLED
+					}
+				}
+				date > 1938.1.1
+			}
 			congress_high_support_trigger = yes
-
 		}
 
 		cancel_if_invalid = no
@@ -7952,7 +7981,7 @@ focus_tree = {
 	focus = {
 		id = USA_homeland_security
 		icon = GFX_goal_generic_defence
-		x = -7
+		x = 0
 		y = 1
 		prerequisite = { focus = USA_war_plans_division }
 		relative_position_id = USA_war_plans_division
@@ -8024,10 +8053,10 @@ focus_tree = {
 	focus = {
 		id = USA_war_plan_blue
 		icon = GFX_goal_USA_over_there
-		x = -7
-		y = 2
+		x = 0
+		y = 1
 		prerequisite = { focus = USA_homeland_security }
-		relative_position_id = USA_war_plans_division
+		relative_position_id = USA_homeland_security
 		cost = 10
 
 		allow_branch = {
@@ -8066,7 +8095,7 @@ focus_tree = {
 	focus = {
 		id = USA_intervention_in_the_americas
 		icon = GFX_goal_generic_occupy_states_ongoing_war
-		x = -4
+		x = -3
 		y = 1
 		prerequisite = { focus = USA_war_plans_division }
 		relative_position_id = USA_war_plans_division
@@ -8397,8 +8426,8 @@ focus_tree = {
 	focus = {
 		id = USA_intervention_in_europe
 		icon = GFX_goal_generic_territory_or_war
-		x = 0
-		y = 1
+		x = 2
+		y = 2
 		prerequisite = { focus = USA_war_plans_division }
 		relative_position_id = USA_war_plans_division
 		cost = 5
@@ -8418,8 +8447,8 @@ focus_tree = {
 	focus = {
 		id = USA_war_plan_gold
 		icon = GFX_focus_attack_france
-		x = -2
-		y = 2
+		x = -1
+		y = 1
 		prerequisite = { focus = USA_intervention_in_europe }
 		relative_position_id = USA_intervention_in_europe
 		cost = 10
@@ -8458,7 +8487,7 @@ focus_tree = {
 	focus = {
 		id = USA_war_plan_silver
 		icon = GFX_focus_attack_italy
-		x = -1
+		x = 1
 		y = 1
 		prerequisite = { focus = USA_intervention_in_europe }
 		mutually_exclusive = { }
@@ -8519,7 +8548,7 @@ focus_tree = {
 		continue_if_invalid = yes
 		available_if_capitulated = yes
 
-		x = 0
+		x = -2
 		y = 2
 		relative_position_id = USA_intervention_in_europe
 		cost = 10
@@ -8641,7 +8670,7 @@ focus_tree = {
 				exists = yes
 			}
 		}
-		x = 2
+		x = 0
 		y = 2
 		relative_position_id = USA_intervention_in_europe
 		cost = 10
@@ -8672,7 +8701,7 @@ focus_tree = {
 	focus = {
 		id = USA_anti_bolshevist_aid
 		icon = GFX_goal_attack_communists
-		x = 2
+		x = 0
 		y = 3
 		prerequisite = { focus = USA_war_plan_white }
 		relative_position_id = USA_intervention_in_europe
@@ -8700,7 +8729,7 @@ focus_tree = {
 				exists = yes
 			}
 		}
-		x = 4
+		x = 2
 		y = 2
 		relative_position_id = USA_intervention_in_europe
 		cost = 10
@@ -8731,7 +8760,7 @@ focus_tree = {
 	focus = {
 		id = USA_war_plan_ruby
 		icon = GFX_focus_attack_india
-		x = 4
+		x = 2
 		y = 3
 		prerequisite = { focus = USA_war_plan_red }
 		relative_position_id = USA_intervention_in_europe
@@ -8770,7 +8799,7 @@ focus_tree = {
 	focus = {
 		id = USA_war_plan_scarlet_garnet
 		icon = GFX_focus_attack_australia
-		x = 6
+		x = 4
 		y = 3
 		prerequisite = { focus = USA_war_plan_red }
 		relative_position_id = USA_intervention_in_europe
