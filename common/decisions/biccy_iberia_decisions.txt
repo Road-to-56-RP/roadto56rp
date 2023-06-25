@@ -1,0 +1,649 @@
+catalonia_decisions_category = {		#Decision Panel for Catalonia and Andorra, to gain cores on Catalan areas. Portugal/Spain decisions are WIP, and will go on this document when they are done.
+	adr_form_catalonia = { 		#Andorra Unites Catalonia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 165		#Controls Cataluna
+		}	
+		
+		visible = {
+			original_tag = ADR		#Is Andorra
+		}
+		
+		complete_effect = {		#Lose 125 Political Power, gain 10 war support, rename/move capital to Catalonia, and lose autonomous modifier in state upon clicking the decision.
+			add_political_power = -125
+			add_war_support = 0.1
+			set_cosmetic_tag = CAT
+			165 = {
+				remove_dynamic_modifier = {
+				modifier = autonomous_state	}
+			}
+				set_capital = {
+					state = 165 
+					remember_old_capital = no
+				}
+			load_focus_tree = generic_focus		
+		}		
+		
+		days_remove = 90
+		modifier = {
+     		political_power_gain = -0.75
+			consumer_goods_factor = 0.25	
+	 		stability_weekly = -0.005
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Cataluna.
+	 		add_stability = 0.01
+			165 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	adr_integrate_valencia = { 		#Catalonia integrates Valencia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 167		#Controls Cataluna
+		}	
+		
+		visible = {
+			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
+		}
+		
+		complete_effect = {	#Lose 65 Political Power, and gain 3 war support.
+			add_political_power = -65
+			add_war_support = 0.03
+		}	
+		
+		days_remove = 135
+		modifier = {
+     		political_power_gain = -0.35
+			consumer_goods_factor = 0.035	
+	 		stability_weekly = -0.003
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
+	 		add_stability = 0.01
+			167 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	adr_integrate_balearic_islands = { 		#Catalonia integrates Valencia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			controls_state = 177		#Controls Cataluna
+		}	
+		
+		visible = {
+			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
+		}
+		
+		complete_effect = {	#Lose 65 Political Power, and gain 3 war support.
+			add_political_power = -35
+			add_war_support = 0.02
+		}	
+		
+		days_remove = 110
+		modifier = {
+     		political_power_gain = -0.12
+			consumer_goods_factor = 0.020	
+	 		stability_weekly = -0.001
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
+	 		add_stability = 0.01
+			177 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+}
+portugal_expansionism_decision_category = {	#Portugal decisions to expand territorial reach
+	por_claim_galicia = { 		#Portugal claim Galicia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 40
+		
+		available = {
+			controls_state = 171		#Controls Galicia
+		}	
+		
+		visible = {
+			original_tag = POR
+			NOT = {
+				171 = {	is_core_of = POR	}
+				171 = {	is_claimed_by = POR	}
+			}
+		}
+		
+		complete_effect = {		#Add 1 war support, and claim on Galicia.
+			add_war_support = 0.01
+			171 = { add_claim_by = POR }	
+			custom_effect_tooltip = por_unlocks_integration_decision_tt
+		}
+
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+	
+	por_integrate_galicia = { 		#Portugal core Galicia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 0
+		
+		available = {
+			owns_state = 171		#Controls Galicia
+		}	
+		
+		visible = {
+			original_tag = POR
+			171 = {	is_claimed_by = POR	}
+			NOT = {
+				171 = {	is_core_of = POR	}
+			}
+		}
+		
+		complete_effect = {		#Lose 60 Political Power, gain 3 war support, and lose Autonomous State Modifier.
+			add_political_power = -60
+			add_war_support = 0.03
+			171 = {
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}	
+			}	
+		}
+		days_remove = 140
+		modifier = {
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.01
+	 		stability_weekly = -0.001
+		}	
+		
+		remove_effect = {		#Gain 2 Stability and gains core on Galicia.
+	 		add_stability = 0.02
+			171 = {	add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+	por_integrate_zambia = { 		#Portugal, gain compliance and reduce resistance on Zambia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 20
+		
+		available = {
+			owns_state = 771		#Owns Zambia
+			has_completed_focus = POR_luso_tropicalism
+		}	
+		
+		visible = {
+			original_tag = POR
+			OR = {
+				771 = {	is_controlled_by = ROOT	}
+				771 = {	is_owned_by = ROOT	}
+				771 = {	is_claimed_by = POR	}
+			}
+		}
+		
+		complete_effect = {		#Add state modifier 
+			771 = { add_claim_by = POR 	
+				add_dynamic_modifier = {
+					modifier = por_colonial_integration 
+				}
+			}
+		}
+		days_remove = 365
+		modifier = {
+     		political_power_gain = -0.1
+		}
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+	por_integrate_rhodesia = { 		#Portugal, gain compliance and reduce resistance on Rhodesia
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 20
+		
+		available = {
+			owns_state = 545		#Owns Rhodesia
+			has_completed_focus = POR_luso_tropicalism
+		}	
+		
+		visible = {
+			original_tag = POR
+			OR = {
+				545 = {	is_controlled_by = ROOT	}
+				545 = {	is_owned_by = ROOT	}
+				545 = {	is_claimed_by = POR	}
+			}
+		}
+		
+		complete_effect = {		#Add state modifier 
+			545 = { add_claim_by = POR 	
+				add_dynamic_modifier = {
+					modifier = por_colonial_integration 
+				}
+			}
+		}
+		
+		days_remove = 365
+		modifier = {
+     		political_power_gain = -0.1
+		}
+		
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+	por_integrate_malawi = { 		#Portugal, gain compliance and reduce resistance on Malawi
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 20
+		
+		available = {
+			owns_state = 770		#Owns Malawi
+			has_completed_focus = POR_luso_tropicalism
+		}	
+		
+		visible = {
+			original_tag = POR
+			OR = {
+				770 = {	is_controlled_by = ROOT	}
+				770 = {	is_owned_by = ROOT	}
+				770 = {	is_claimed_by = POR	}
+			}
+		}
+		
+		complete_effect = {		#Add state modifier 
+			770 = { add_claim_by = POR 	
+				add_dynamic_modifier = {
+					modifier = por_colonial_integration 
+				}
+			}
+		}
+		days_remove = 365
+		modifier = {
+     		political_power_gain = -0.1
+		}
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+}
+unify_iberia_decision_category = {
+	SPR_unify_iberia_decision = {
+		icon  = formable_nations_iberia
+		
+		visible = {
+			OR = {
+				original_tag = SPR
+				original_tag = SPA
+			}
+			NOT = {
+				has_completed_focus = SPR_regional_defense_council_of_aragon
+				has_cosmetic_tag  = FORM_IBE
+			}
+		}
+		available = {
+			custom_trigger_tooltip  = { 
+				tooltip  = SPR_controls_all_iberian_states_tt
+				controls_state = 112
+				controls_state = 180
+				controls_state = 795
+				controls_state = 179		
+				controls_state = 181				
+			}
+			OR = {
+				has_completed_focus = SPR_stabilize_the_nation
+				has_completed_focus = SPR_all_must_do_their_part
+				has_completed_focus = SPA_unite_iberia
+				has_completed_focus = SPA_adopt_the_26_points
+				has_completed_focus = SPA_restore_the_iberian_union
+			}
+		}
+		
+		fire_only_once = yes	
+
+		complete_effect  = { 
+			add_political_power = -75
+			capital_scope  = { set_state_flag  = formable_nations_old_capital
+			}
+			set_cosmetic_tag  = FORM_IBE
+			hidden_effect =	{
+				180 = { add_claim_by = SPR }	
+				180 = { add_claim_by = SPA }
+				181 = { add_claim_by = SPR }					
+				181 = { add_claim_by = SPA }	
+				112 = { add_claim_by = SPR }					
+				112 = { add_claim_by = SPA }	
+				795 = { add_claim_by = SPR }					
+				795 = { add_claim_by = SPA }	
+				179 = { add_claim_by = SPR }					
+				179 = { add_claim_by = SPA }	
+				697 = { add_claim_by = SPA }	
+				697 = { add_claim_by = SPR }	
+				698 = { add_claim_by = SPA }		
+				698 = { add_claim_by = SPR }						
+			}
+		}
+		days_remove = 150
+		modifier = {
+     		political_power_gain = -0.5
+			consumer_goods_factor = 0.1	
+	 		stability_weekly = -0.004
+		}
+		remove_effect = {		#add 3.5% stability, and core all of Portugal
+	 		add_stability = 0.06
+			custom_effect_tooltip = SPR_cores_all_iberian_states_tt	
+			hidden_effect =	{
+				180 = { add_core_of = SPR }	
+				180 = { add_core_of = SPA }
+				181 = { add_core_of = SPR }					
+				181 = { add_core_of = SPA }	
+				112 = { add_core_of = SPR }					
+				112 = { add_core_of = SPA }	
+				795 = { add_core_of = SPR }					
+				795 = { add_core_of = SPA }	
+				179 = { add_core_of = SPR }					
+				179 = { add_core_of = SPA }
+				697 = { add_core_of = SPA }
+				697 = { add_core_of = SPR }
+				698 = { add_core_of = SPA }
+				698 = { add_core_of = SPR }
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	POR_unify_iberia_decision = {
+		icon  = formable_nations_iberia
+		cost = 40
+		visible = {
+			original_tag = POR
+			NOT = {
+				has_cosmetic_tag  = FORM_IBE
+			}
+		}
+
+		available = {
+				controls_state = 41
+
+			OR = {
+				has_completed_focus = POR_popular_front
+				has_completed_focus = POR_strengthen_the_regime
+				has_completed_focus = POR_national_syndicalism
+				has_completed_focus = POR_luso_monarchist_cooperation
+				has_completed_focus = POR_recover_brazil
+			}
+		}
+		
+		fire_only_once = yes	
+
+		complete_effect  = { 
+			capital_scope  = { set_state_flag  = formable_nations_old_capital
+			}
+			set_cosmetic_tag  = FORM_IBE
+			hidden_effect =	{
+				171 = { add_claim_by = POR }	
+				790 = { add_claim_by = POR }	
+				174 = { add_claim_by = POR }
+				788 = { add_claim_by = POR }
+				170 = { add_claim_by = POR }
+				169 = { add_claim_by = POR }
+				791 = { add_claim_by = POR }
+				41 = { add_claim_by = POR }
+				790 = { add_claim_by = POR }
+				175 = { add_claim_by = POR }
+				789 = { add_claim_by = POR }
+				173 = { add_claim_by = POR }
+				792 = { add_claim_by = POR }
+				176 = { add_claim_by = POR }
+				793 = { add_claim_by = POR }
+				790 = { add_claim_by = POR }
+				168 = { add_claim_by = POR }
+				167 = { add_claim_by = POR }
+				166 = { add_claim_by = POR }
+				794 = { add_claim_by = POR }
+				165 = { add_claim_by = POR }
+				177 = { add_claim_by = POR }
+				178 = { add_claim_by = POR }
+				172 = { add_claim_by = POR }
+			}
+				custom_effect_tooltip  = POR_claims_all_spanish_states_tt
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	POR_integrate_spaniards  = {
+        icon = generic_form_nation
+		fire_only_once = yes
+		cost = 65
+		visible = {
+				original_tag = POR
+				has_cosmetic_tag  = FORM_IBE
+			}
+		available = {
+			custom_trigger_tooltip  = { 
+				tooltip  = POR_owns_most_iberian_states_tt
+				owns_state = 790
+				owns_state = 174
+				owns_state = 788
+				owns_state = 170
+				owns_state = 169
+				owns_state = 791
+				owns_state = 41
+				owns_state = 175
+				owns_state = 789
+				owns_state = 173
+				owns_state = 168
+				owns_state = 793
+				owns_state = 176
+				owns_state = 794
+			}
+		}
+
+		complete_effect = {
+
+		}
+		days_remove = 175
+		modifier = {
+     		political_power_gain = -0.65
+			consumer_goods_factor = 0.15	
+	 		stability_weekly = -0.003
+		}
+		remove_effect = {		#add 3.5% stability, and core all of Portugal
+	 		add_stability = 0.075
+			hidden_effect =	{
+				790 = { add_core_of = POR }
+				174 = { add_core_of = POR }
+				788 = { add_core_of = POR }
+				170 = { add_core_of = POR }
+				169 = { add_core_of = POR }
+				791 = { add_core_of = POR }
+				41 = { add_core_of = POR }
+				175 = { add_core_of = POR }
+				789 = { add_core_of = POR }
+				173 = { add_core_of = POR }
+				168 = { add_core_of = POR }
+				793 = { add_core_of = POR }
+				176 = { add_core_of = POR }
+				794 = { add_core_of = POR }
+				791 = { add_core_of = POR }
+				166 = { add_core_of = POR }
+				178 = { add_core_of = POR }
+			}
+			custom_effect_tooltip = POR_cores_most_spanish_states
+		}
+	}
+	POR_integrate_CAT  = {
+        icon = generic_form_nation
+		fire_only_once = yes
+		cost = 40
+		visible = {
+			has_cosmetic_tag  = FORM_IBE
+			original_tag = POR
+		}
+		available = {
+			owns_state = 165
+		}
+		complete_effect = {
+			add_stability = -0.01
+		}
+		days_remove = 90
+		modifier = {
+     		political_power_gain = -0.35
+			consumer_goods_factor = 0.035
+	 		stability_weekly = -0.002
+		}
+		remove_effect = {		#add 3.5% stability, and core all of Portugal
+	 		add_stability = 0.015
+				167 = { add_core_of = ROOT }
+				177 = { add_core_of = ROOT }
+			165 = { 
+				add_core_of = ROOT 
+				remove_dynamic_modifier = {
+					modifier = autonomous_state	
+				}
+			}
+		}
+	}
+	POR_integrate_BA  = {
+        icon = generic_form_nation
+		fire_only_once = yes
+		cost = 30
+		visible = {
+			has_cosmetic_tag  = FORM_IBE
+			original_tag = POR
+		}
+		available = {
+			owns_state = 792
+		}
+
+		complete_effect = {
+			add_stability = -0.01
+		}
+		days_remove = 90
+		modifier = {
+     		political_power_gain = -0.2
+			consumer_goods_factor = 0.025
+	 		stability_weekly = -0.001
+		}
+		remove_effect = {		#add 3.5% stability, and core all of Portugal
+	 		add_stability = 0.01
+				792 = { add_core_of = ROOT }
+				172 = { 
+					add_core_of = ROOT 
+					remove_dynamic_modifier = {
+						modifier = autonomous_state	
+					}
+			}
+		}
+	}
+	IBERIA_integrate_PA  = {
+        icon = generic_form_nation
+		fire_only_once = yes
+		cost = 20
+		visible = {
+			OR = {
+				original_tag = SPR
+				original_tag = SPA
+				has_cosmetic_tag = FORM_IBE
+			}
+			OR = {
+				controls_state = 806
+				owns_state = 806				
+			}
+		}
+
+		available = {
+			owns_state = 806
+			792 = { is_core_of = ROOT } 
+		}
+
+		complete_effect = {
+			806 = { add_claim_by = SPR }
+			add_stability = -0.01
+		}
+
+		days_remove = 365
+		modifier = {
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.01
+		}
+
+		remove_effect = {		#add 3.5% stability, and core all of Portugal
+	 		add_stability = 0.005
+			806 = { add_core_of = ROOT }
+		}
+	}
+
+	IBERIA_integrate_ADR  = {
+        icon = generic_form_nation
+		fire_only_once = yes
+		cost = 15
+		visible = {
+			has_cosmetic_tag  = FORM_IBE
+			OR = {
+				controls_state = 973
+				owns_state = 973
+			}
+		}
+
+		available = {
+			owns_state = 973
+		}
+
+		complete_effect = {
+			973 = { add_claim_by = SPR }
+		}
+
+		days_remove = 110
+		modifier = {
+     		political_power_gain = -0.1
+
+		}
+		remove_effect = {		#Core Andorra
+			973 = { add_core_of = ROOT }
+		}
+	}
+	
+	SPR_connect_historic_por_colonies = {
+        icon = generic_form_nation
+		fire_only_once = yes
+		cost = 40
+		visible = {
+			has_cosmetic_tag  = FORM_IBE
+			OR = {
+				original_tag = SPR
+				original_tag = SPA	
+			}
+		}
+		complete_effect = {
+		add_war_support = 0.01
+			771 = { add_claim_by = ROOT }
+			770 = { add_claim_by = ROOT }
+			545 = { add_claim_by = ROOT }
+		}
+	}
+}
