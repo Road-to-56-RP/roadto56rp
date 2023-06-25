@@ -1,3 +1,203 @@
+political_actions = {
+
+	GER_war_with_usa_peace = {
+		icon = generic_prepare_civil_war
+		fire_only_once = yes
+		available = {
+			GER = {
+				has_war_with = USA
+			}
+		}
+
+		visible = {
+			GER = {
+				has_goverment = neutrality
+				has_war_with = USA
+			}
+		}
+
+		complete_effect = {
+			USA = {
+				USA = { country_event = { id = rpgermany.6 } }
+			}
+		}
+	}
+
+	r56rp_GER_demand_northern_schleswig = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_hol_exchange_intelligence_data
+
+		visible = {
+			has_completed_focus = GER_rally_the_monarchists
+			NOT = { has_country_flag = r56rp_demanded_schleswig }
+			original_tag = GER
+		}
+
+		target_trigger = {
+			FROM = {
+				controls_state = 964
+			}
+		}
+
+		available = {
+			has_completed_focus = GER_restore_the_empire
+			always = yes
+		}
+
+		complete_effect = {
+			set_country_flag = r56rp_demanded_schleswig
+			if = {
+				limit = {
+					has_full_control_of_state = 964
+				}
+				add_state_core = 964
+				if = {
+					limit = {
+						NOT = {
+							owns_state = 964
+						}
+					}
+					transfer_state = 964
+				}
+				964 = {
+					set_state_name = "Nordschleswig"
+				}
+				set_province_name = {
+					id = 11251 name = "Apenrade"
+				}
+			}
+			else = {
+				every_country = {
+					limit = {
+						controls_state = 964
+					}
+					country_event = {
+						id = wtt_germany.80
+						hours = 3
+					}
+				}
+			}
+		}
+	}
+
+	r56rp_GER_befriend_china = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_hol_exchange_intelligence_data
+
+		visible = {
+			NOT = { has_country_flag = r56rp_befriended_china_japan }
+			original_tag = GER
+		}
+
+		target_trigger = {
+			FROM = {
+				original_tag = CHI
+			}
+		}
+
+		available = {
+			CHI = {
+				exists = yes
+				is_subject = no 
+				NOT = { has_war_with = ROOT }
+				custom_trigger_tooltip = {
+					tooltip = GER_alone_or_peace_faction_tt
+					is_alone_or_in_faction_at_peace_with_GER = yes
+				}
+			}
+		}
+
+		complete_effect = {
+			event_target:WTT_current_china_leader = {
+				add_offsite_building = { type = arms_factory level = 2 }
+				add_opinion_modifier = { target = GER modifier = ger_chi_diplomacy_focus }
+				set_country_flag = GER_befriended_by_germany_flag
+			}
+			JAP = {
+				add_opinion_modifier = { target = GER modifier = supported_the_chinese }
+			}
+			set_country_flag = r56rp_befriended_china_japan
+		}
+	}
+
+	r56rp_GER_befriend_japan = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_hol_exchange_intelligence_data
+
+		visible = {
+			NOT = { has_country_flag = r56rp_befriended_china_japan }
+			original_tag = GER
+		}
+
+		target_trigger = {
+			FROM = {
+				original_tag = JAP
+			}
+		}
+
+		available = {
+			JAP = {
+				exists = yes
+				is_subject = no 
+				NOT = { has_war_with = ROOT }
+				custom_trigger_tooltip = {
+					tooltip = GER_alone_or_peace_faction_tt
+					is_alone_or_in_faction_at_peace_with_GER = yes
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				is_in_faction_with = JAP
+				factor = 0 #GER-sempai has already noticed you!
+			}
+		}
+
+		complete_effect = {
+			JAP = {
+				add_opinion_modifier = { target = GER modifier = ger_jap_diplomacy_focus }
+			}
+			event_target:WTT_current_china_leader = {
+				add_opinion_modifier = { target = GER modifier = withdrew_advisors }
+				country_event = { id = china.3 hours = 6 }
+			}
+			custom_effect_tooltip = GER_japan_friend_tt
+			set_global_flag = falkenhausen_recalled
+			if = {
+				limit = {
+					has_dlc = "Waking the Tiger"
+				}
+				create_corps_commander = {
+					name = "Alexander von Falkenhausen"
+					gfx = GFX_portrait_chi_alexander_von_falkenhausen
+					skill = 3
+					attack_skill = 2
+					defense_skill = 2
+					planning_skill = 3
+					logistics_skill = 3
+					id = 603
+					traits = { infantry_officer }
+				}
+			}
+			set_country_flag = r56rp_befriended_china_japan
+		}
+	}
+}
+
 imperial_germany_category = {
 
 	GER_mittelafrika_colony = {
