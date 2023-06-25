@@ -422,18 +422,8 @@ focus_tree = {
 		completion_reward = {
 			remove_ideas = r56_ger_naval_treaty_lesser
 			activate_advisor = raeder
-			IF = {
-				limit = {
-					NOT = { 
-						has_dynamic_modifier = {
-							modifier = GER_r56rp_kriegsmarine_modifier
-							scope = GER
-						} 
-					}
-				}
-				add_dynamic_modifier = {
-					modifier = GER_r56rp_kriegsmarine_modifier
-				}
+			add_dynamic_modifier = {
+				modifier = GER_r56rp_kriegsmarine_modifier
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -781,6 +771,224 @@ focus_tree = {
 		}
 		search_filters = {
 			FOCUS_FILTER_RESEARCH
+		}
+	}
+
+	focus = {
+		id = GER_rally_the_monarchists
+		icon = GFX_focus_ger_return_of_the_kaiser
+		cost = 5.00
+		allow_branch = {
+			has_dlc = "Waking the Tiger"
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_denounce_versailles
+				}
+			}
+		}
+		# prerequisite = {
+		# 	focus = GER_political_sphere
+		# }
+		mutually_exclusive = {
+			focus = GER_kill_hitler
+			focus = GER_denounce_versailles
+		}
+		x = 40
+		y = 0
+		#relative_position_id = GER_political_sphere
+		ai_will_do = {
+			factor = 16
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = GER_alfred_hugenberg
+			add_timed_idea = {
+				idea = GER_rally_the_monarchists_idea
+				days = 365
+			}
+			mark_focus_tree_layout_dirty = yes
+		}
+
+	}
+
+
+	focus = {
+		id = GER_a_new_reich
+		icon = GFX_focus_ger_oppose_hitler
+		cost = 5.00
+		prerequisite = {
+			focus = GER_rally_the_monarchists
+		}
+		x = 0
+		y = 1
+		relative_position_id = GER_rally_the_monarchists
+		ai_will_do = {
+			factor = 75
+		}
+		bypass = {
+			has_government = neutrality
+		}
+		completion_reward = {
+			if = { #that change wasn't supposed to be pushed lol
+				limit = {
+					neutrality < 0.4
+				}
+				custom_effect_tooltip = GER_a_new_reich_1_tt
+				random_list = {
+					70 = {
+						country_event = {
+							id = erwache.5
+						}
+					}
+					30 = {
+						country_event = {
+							id = erwache.4
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					neutrality < 0.55
+					neutrality > 0.4
+				}
+				custom_effect_tooltip = GER_a_new_reich_2_tt
+				random_list = {
+					50 = {
+						country_event = {
+							id = erwache.5
+						}
+					}
+					50 = {
+						country_event = {
+							id = erwache.4
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					neutrality > 0.55
+				}
+				custom_effect_tooltip = GER_a_new_reich_3_tt
+				random_list = {
+					10 = {
+						country_event = {
+							id = erwache.5
+						}
+					}
+					90 = {
+						country_event = {
+							id = erwache.4
+						}
+					}
+				}
+			}
+			unlock_decision_tooltip = GER_remilitarize_rhineland #only relavent for no cv but doesnt display right in random_list
+			add_ideas = GER_unstable_government
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER
+		}
+	}
+
+	focus = {
+		id = GER_consolidate_new_reich
+		icon = GFX_focus_ger_revive_kaiserreich
+		cost = 10.00
+		prerequisite = {
+			focus = GER_a_new_reich
+		}
+		x = 0
+		y = 1
+		relative_position_id = GER_a_new_reich
+		ai_will_do = {
+			factor = 70
+		}
+		available = {
+			GER = {
+				has_civil_war = no
+			}
+			has_government = neutrality
+		}
+		completion_reward = {
+			remove_ideas = GER_unstable_government
+			#add_ideas = GER_fourth_reich
+			if = {
+				limit = {
+					is_in_faction = no
+				}
+				create_faction = "Central Powers"
+			}
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				set_faction_name = "Central Powers"
+			}
+			set_rule = {
+				can_create_factions = yes
+			}
+			set_rule = {
+				can_send_volunteers = yes
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_leader = {
+							character = GER_heinrich_himmler
+						}
+					}
+				}
+				hidden_effect = {
+					create_country_leader = {
+						name = "Heinrich Himmler"
+						desc = "POLITICS_HEINRICH_HIMMLER_DESC"
+						picture = "Portrait_Germany_Heinrich_Himmler.dds"
+						expire = "1965.1.1"
+						ideology = nazism
+					}
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = { #restore the empire
+		id = GER_restore_the_empire
+		icon = GFX_goal_GER_flag_german_empire
+		cost = 5.00
+		prerequisite = {
+			focus = GER_consolidate_new_reich
+		}
+		prerequisite = {
+			#focus = GER_naval_effort2_r56
+		}
+		relative_position_id = GER_consolidate_new_reich
+		x = 6
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_imperial_restoration
+		}
+		search_filters = {
+			FOCUS_FILTER_ANNEXATION FOCUS_FILTER_MANPOWER
 		}
 	}
 
@@ -1138,13 +1346,8 @@ focus_tree = {
 		completion_reward = {
 			remove_ideas = r56_ger_naval_treaty_lesser
 			activate_advisor = donitz
-			IF = {
-				limit = {
-					NOT = { has_dynamic_modifier = GER_r56rp_kriegsmarine_modifier }
-				}
-				add_dynamic_modifier = {
-					modifier = GER_r56rp_kriegsmarine_modifier
-				}
+			add_dynamic_modifier = {
+				modifier = GER_r56rp_kriegsmarine_modifier
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -13522,219 +13725,8 @@ focus_tree = {
 			FOCUS_FILTER_STABILITY
 		}
 	}
-	focus = {
-		id = GER_rally_the_monarchists
-		icon = GFX_focus_ger_return_of_the_kaiser
-		cost = 5.00
-		allow_branch = {
-			has_dlc = "Waking the Tiger"
-			if = {
-				limit = {
-					has_game_rule = {
-						rule = obsolete_focus_branches_visibility
-						option = HIDE
-					}
-				}
-				NOT = {
-					has_completed_focus = GER_kill_hitler
-					has_completed_focus = GER_denounce_versailles
-				}
-			}
-		}
-		# prerequisite = {
-		# 	focus = GER_political_sphere
-		# }
-		mutually_exclusive = {
-			focus = GER_kill_hitler
-			focus = GER_denounce_versailles
-		}
-		x = 40
-		y = 0
-		#relative_position_id = GER_political_sphere
-		ai_will_do = {
-			factor = 16
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-		}
 
-		completion_reward = {
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = GER_alfred_hugenberg
-			add_timed_idea = {
-				idea = GER_rally_the_monarchists_idea
-				days = 365
-			}
-			mark_focus_tree_layout_dirty = yes
-		}
 
-	}
-	focus = {
-		id = GER_a_new_reich
-		icon = GFX_focus_ger_oppose_hitler
-		cost = 5.00
-		prerequisite = {
-			focus = GER_rally_the_monarchists
-		}
-		x = 0
-		y = 1
-		relative_position_id = GER_rally_the_monarchists
-		ai_will_do = {
-			factor = 75
-		}
-		bypass = {
-			has_government = neutrality
-		}
-		completion_reward = {
-			if = { #that change wasn't supposed to be pushed lol
-				limit = {
-					neutrality < 0.4
-				}
-				custom_effect_tooltip = GER_a_new_reich_1_tt
-				random_list = {
-					70 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					30 = {
-						country_event = {
-							id = erwache.4
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					neutrality < 0.55
-					neutrality > 0.4
-				}
-				custom_effect_tooltip = GER_a_new_reich_2_tt
-				random_list = {
-					50 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					50 = {
-						country_event = {
-							id = erwache.4
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					neutrality > 0.55
-				}
-				custom_effect_tooltip = GER_a_new_reich_3_tt
-				random_list = {
-					10 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					90 = {
-						country_event = {
-							id = erwache.4
-						}
-					}
-				}
-			}
-			unlock_decision_tooltip = GER_remilitarize_rhineland #only relavent for no cv but doesnt display right in random_list
-			add_ideas = GER_unstable_government
-		}
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER
-		}
-	}
-	focus = {
-		id = GER_consolidate_new_reich
-		icon = GFX_focus_ger_revive_kaiserreich
-		cost = 10.00
-		prerequisite = {
-			focus = GER_a_new_reich
-		}
-		x = 0
-		y = 1
-		relative_position_id = GER_a_new_reich
-		ai_will_do = {
-			factor = 70
-		}
-		available = {
-			GER = {
-				has_civil_war = no
-			}
-			has_government = neutrality
-		}
-		completion_reward = {
-			remove_ideas = GER_unstable_government
-			#add_ideas = GER_fourth_reich
-			if = {
-				limit = {
-					is_in_faction = no
-				}
-				create_faction = "Central Powers"
-			}
-			if = {
-				limit = {
-					is_faction_leader = yes
-				}
-				set_faction_name = "Central Powers"
-			}
-			set_rule = {
-				can_create_factions = yes
-			}
-			set_rule = {
-				can_send_volunteers = yes
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_country_leader = {
-							character = GER_heinrich_himmler
-						}
-					}
-				}
-				hidden_effect = {
-					create_country_leader = {
-						name = "Heinrich Himmler"
-						desc = "POLITICS_HEINRICH_HIMMLER_DESC"
-						picture = "Portrait_Germany_Heinrich_Himmler.dds"
-						expire = "1965.1.1"
-						ideology = nazism
-					}
-				}
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL
-		}
-	}
-	focus = {
-		id = GER_restore_the_empire
-		icon = GFX_goal_GER_flag_german_empire
-		cost = 5.00
-		prerequisite = {
-			focus = GER_consolidate_new_reich
-		}
-		prerequisite = {
-			#focus = GER_naval_effort2_r56
-		}
-		relative_position_id = GER_consolidate_new_reich
-		x = 6
-		y = 1
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_ideas = GER_imperial_restoration
-		}
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION FOCUS_FILTER_MANPOWER
-		}
-	}
 	focus = {
 		id = GER_restore_the_central_powers
 		icon = GFX_goal_GER_central_powers
