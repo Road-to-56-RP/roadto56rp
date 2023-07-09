@@ -381,47 +381,24 @@ focus_tree = {
 
 		available_if_capitulated = yes
 
-		complete_tooltip = {
-			remove_ideas = r56_ger_naval_treaty_lesser
-			activate_advisor = raeder
-			every_state = {
-				limit = {
-					has_state_flag = GER_plan_z_dockyards
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-			add_tech_bonus = {
-				name = bc_bonus
-				bonus = 1.0
-				uses = 1
-				category = bc_tech
-			}
-			add_tech_bonus = {
-				name = bb_bonus
-				bonus = 1.0
-				uses = 1
-				category = bb_tech
-				category = shbb_tech
-			}
-			add_tech_bonus = {
-				name = cv_bonus
-				bonus = 1.0
-				uses = 1
-				category = cv_tech
-			}
-			
-		}
 		search_filters = {
 			FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
 			remove_ideas = r56_ger_naval_treaty_lesser
-			activate_advisor = raeder
+
+			IF = {
+				limit = {
+					NOT = { has_idea = raeder }
+				}
+				
+				activate_advisor = raeder
+				
+			}
+			ELSE = {
+				add_political_power = 75	
+			}
+
 			add_dynamic_modifier = {
 				modifier = GER_r56rp_kriegsmarine_modifier
 			}
@@ -1303,49 +1280,26 @@ focus_tree = {
 		}
 
 		available_if_capitulated = yes
-		complete_tooltip = {
-			remove_ideas = r56_ger_naval_treaty_lesser
-			activate_advisor = donitz
-			every_state = {
-				limit = {
-					has_state_flag = GER_u_boat_effort_2dockyards
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-			
-			add_tech_bonus = {
-				name = GER_u_boat_effort
-				bonus = 1.0
-				uses = 1
-				category = ss_tech
-			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				set_technology = {
-					cruiser_submarines = 1
-				}
-				add_tech_bonus = {
-					name = SPR_navy_modernization
-					bonus = 2
-					uses = 1
-					category = torpedo_equipment
-				}
-			}
-		}
 
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
 		}
 		completion_reward = {
 			remove_ideas = r56_ger_naval_treaty_lesser
-			activate_advisor = donitz
+
+			IF = {
+				limit = {
+					NOT = { has_idea = donitz }
+				}
+				
+				activate_advisor = donitz
+				
+			}
+			ELSE = {
+				add_political_power = 150	
+			}
+
+			
 			add_dynamic_modifier = {
 				modifier = GER_r56rp_kriegsmarine_modifier
 			}
