@@ -16,7 +16,7 @@ focus_tree = {
 	focus = {
 		id = FRA_tools_modernisation
 		icon = GFX_goal_generic_production2
-		cost = 10
+		cost = 5
 		x = 0
 		y = 0
 		ai_will_do = {
@@ -84,7 +84,7 @@ focus_tree = {
 	focus = {
 		id = FRA_rearmament
 		icon = GFX_goal_generic_build_tank
-		cost = 10
+		cost = 7.2
 		x = 11
 		y = 0
 		available = {
@@ -151,7 +151,7 @@ focus_tree = {
 	focus = {
 		id = FRA_radicalize_front
 		icon = GFX_goal_support_communism
-		cost = 10
+		cost = 5
 		mutually_exclusive = {
 			focus = FRA_status_quo
 			focus = FRA_far_right_leagues
@@ -209,7 +209,7 @@ focus_tree = {
 	focus = {
 		id = FRA_status_quo
 		icon = GFX_goal_FRA_status_quo
-		cost = 10
+		cost = 5
 		mutually_exclusive = {
 			focus = FRA_far_right_leagues
 			focus = FRA_radicalize_front
@@ -261,7 +261,7 @@ focus_tree = {
 	focus = {
 		id = FRA_far_right_leagues
 		icon = GFX_goal_FRA_far_right_leagues
-		cost = 10
+		cost = 5
 		mutually_exclusive = {
 			focus = FRA_status_quo
 			focus = FRA_radicalize_front
@@ -312,10 +312,11 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
+
 	focus = {
 		id = FRA_action_francaise
 		icon = GFX_goal_FRA_action_francaise
-		cost = 10
+		cost = 5
 		mutually_exclusive = {
 			focus = FRA_status_quo
 			focus = FRA_radicalize_front
@@ -379,7 +380,7 @@ focus_tree = {
 	focus = {
 		id = FRA_sncf
 		icon = GFX_goal_generic_construct_infrastructure
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_tools_modernisation
 			focus = FRA_colonial_investments
@@ -1574,60 +1575,27 @@ focus_tree = {
 						}
 					}
 				}
-				release = SYR
-				set_autonomy = {
-					target = SYR
-					autonomy_state = autonomy_free
-				}
-				give_guarantee = SYR
+				puppet = SYR
 				SYR = {
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = ENG_guiding_the_colonies
-					}
+					add_ideas = FRA_colonial_focus
+					add_ideas = FRA_transitional_goverment
+					add_to_tech_sharing_group = french_research
+					set_cosmetic_tag = FRA_MEA
+
+					transfer_state = 553
+					transfer_state = 554
+					transfer_state = 680
+					transfer_state = 677
+					transfer_state = 799
+					
 				}
+				
 				hidden_effect = {
 					every_other_country = {
 						limit = {
 							has_war_with = ROOT
 						}
 						SYR = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					LEB = {
-						exists = no
-					}
-					ROOT = {
-						controls_state = 553
-					}
-				}
-				release = LEB
-				set_autonomy = {
-					target = LEB
-					autonomy_state = autonomy_free
-				}
-				give_guarantee = LEB
-				LEB = {
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = ENG_guiding_the_colonies
-					}
-				}
-				hidden_effect = {
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						LEB = {
 							add_to_war = {
 								targeted_alliance = ROOT
 								enemy = PREV
@@ -1659,10 +1627,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_stability = 0.05
-			add_political_power = 110
+			add_political_power = 50
+
 			if = {
 				limit = {
-					OR ={
+					OR = {
 						ROOT = {
 							controls_state = 728
 						}
@@ -1709,105 +1678,13 @@ focus_tree = {
 					transfer_state = 728
 				}
 			}
-			if = {
-				limit = {
-					461 = {
-						is_fully_controlled_by = ROOT
-					}
-					462 = {
-						is_fully_controlled_by = ROOT
-					}
-				}
-				release_puppet = MOR
-				hidden_effect = {
-					MOR = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 90
-							democratic = 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					458 = {
-						is_fully_controlled_by = ROOT
-					}
-					665 = {
-						is_fully_controlled_by = ROOT
-					}
-				}
-				release_puppet = TUN
-				hidden_effect = {
-					TUN = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 90
-							democratic = 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					MOR = {
-						is_subject_of = ROOT
-					}
-				}
-				hidden_effect = {
-					MOR = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 90
-							democratic = 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					TUN = {
-						is_subject_of = ROOT
-					}
-				}
-				hidden_effect = {
-					TUN = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 70
-							democratic = 30
-						}
-					}
-				}
-			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = FRA_consolidate_african_federations
 		icon = GFX_focus_generic_self_management
-		cost = 5
+		cost = 10
 		prerequisite = {
 			focus = FRA_vienot_agreement
 		}
@@ -1870,46 +1747,102 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.05
 			add_political_power = 110
+			custom_effect_tooltip = FRA_AFR_colonies_tt
 			if = {
 				limit = {
 					has_full_control_of_state = 786
 					has_full_control_of_state = 557
 				}
-				release_puppet = MRT
 				hidden_effect = {
-					MRT = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						MRT = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 782
-					has_full_control_of_state = 556
-				}
-				release_puppet = MLI
-				hidden_effect = {
+					release_puppet = MLI
 					MLI = {
 						add_ideas = FRA_colonial_focus
+						add_ideas = FRA_transitional_goverment
 						add_to_tech_sharing_group = french_research
+						set_cosmetic_tag = FRA_AFR
+
+						transfer_state = 557
+						transfer_state = 786
+						transfer_state = 782
+						transfer_state = 515
+						transfer_state = 556
+						transfer_state = 781
+						transfer_state = 778
+						transfer_state = 776
+						transfer_state = 777
+						transfer_state = 779
+						transfer_state = 780
+						transfer_state = 272
+						transfer_state = 514
+
+
+						set_party_name = { 
+							ideology = neutrality 
+							ideology = democratic
+							ideology = fascism
+
+							long_name = "Administration Coloniale Française" 
+							name = "Administration Coloniale"
+						}
+
 					}
+					# Middle-Africa
+
+					release_puppet = CHA
+					CHA = {
+						add_ideas = FRA_colonial_focus
+						add_ideas = FRA_transitional_goverment
+						add_to_tech_sharing_group = french_research
+						set_cosmetic_tag = FRA_MAFR
+
+						transfer_state = 775
+						transfer_state = 774
+						transfer_state = 773
+						transfer_state = 660
+						transfer_state = 539
+						transfer_state = 772
+
+						set_party_name = { 
+							ideology = neutrality
+							ideology = democratic
+							ideology = fascism
+
+							long_name = "Administration Coloniale Française" 
+							name = "Administration Coloniale"
+						}
+					}
+
+					# East Africa
+					release_puppet = MAD
+					MAD = {
+						add_ideas = FRA_colonial_focus
+						add_ideas = FRA_transitional_goverment
+						add_to_tech_sharing_group = french_research
+						set_cosmetic_tag = FRA_EAFR
+
+						transfer_state = 543
+						transfer_state = 706
+						transfer_state = 708
+						transfer_state = 268
+
+						set_party_name = { 
+							ideology = neutrality
+							ideology = democratic
+							ideology = fascism
+
+							long_name = "Administration Coloniale Française" 
+							name = "Administration Coloniale"
+						}
+					}
+
+
+
+
 					every_other_country = {
 						limit = {
 							has_war_with = ROOT
 						}
+
 						MLI = {
 							add_to_war = {
 								targeted_alliance = ROOT
@@ -1917,193 +1850,7 @@ focus_tree = {
 								hostility_reason = asked_to_join
 							}
 						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 272
-				}
-				release_puppet = SEN
-				hidden_effect = {
-					SEN = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						SEN = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 780
-				}
-				release_puppet = GNA
-				hidden_effect = {
-					GNA = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						GNA = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 779
-				}
-				release_puppet = IVO
-				hidden_effect = {
-					IVO = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						IVO = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 778
-				}
-				release_puppet = VOL
-				hidden_effect = {
-					VOL = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						VOL = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 777
-				}
-				release_puppet = TOG
-				hidden_effect = {
-					TOG = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						TOG = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 776
-				}
-				release_puppet = DAH
-				hidden_effect = {
-					DAH = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						DAH = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 781
-					has_full_control_of_state = 515
-				}
-				release_puppet = NGR
-				hidden_effect = {
-					NGR = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						NGR = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 775
-					has_full_control_of_state = 774
-				}
-				release_puppet = CHA
-				hidden_effect = {
-					CHA = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
+
 						CHA = {
 							add_to_war = {
 								targeted_alliance = ROOT
@@ -2114,150 +1861,7 @@ focus_tree = {
 					}
 				}
 			}
-			if = {
-				limit = {
-					has_full_control_of_state = 773
-				}
-				release_puppet = CMR
-				hidden_effect = {
-					CMR = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						CMR = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 660
-				}
-				release_puppet = CAR
-				hidden_effect = {
-					CAR = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						CAR = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 539
-				}
-				release_puppet = GAB
-				hidden_effect = {
-					GAB = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						GAB = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 772
-				}
-				release_puppet = RCG
-				hidden_effect = {
-					RCG = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						RCG = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 268
-				}
-				release_puppet = DJI
-				hidden_effect = {
-					DJI = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						DJI = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 543
-				}
-				release_puppet = MAD
-				hidden_effect = {
-					MAD = {
-						add_ideas = FRA_colonial_focus
-						add_to_tech_sharing_group = french_research
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						MAD = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-			}
+			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
@@ -2280,6 +1884,7 @@ focus_tree = {
 				is_subject_of = ROOT
 			}
 		}
+		
 		bypass = {
 			OR = {
 				FRI = {
@@ -2312,87 +1917,16 @@ focus_tree = {
 						has_full_control_of_state = 671
 					}
 				}
-				FRI = {
-					release = VIN
-				}
 				FRA = {
 					set_autonomy = {
-						target = VIN
+						target = FRI
 						autonomy_state = autonomy_dominion
 					}
-				}
-				hidden_effect = {
-					VIN = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 60
-							democratic = 40
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
+
 					FRI = {
-						has_full_control_of_state = 670
-					}
-				}
-				FRI = {
-					release = LAO
-				}
-				FRA = {
-					set_autonomy = {
-						target = LAO
-						autonomy_state = autonomy_dominion
-					}
-				}
-				hidden_effect = {
-					LAO = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 60
-							democratic = 40
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					FRI = {
-						has_full_control_of_state = 741
-					}
-				}
-				FRI = {
-					release = CAM
-				}
-				FRA = {
-					set_autonomy = {
-						target = CAM
-						autonomy_state = autonomy_dominion
-					}
-				}
-				hidden_effect = {
-					CAM = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 60
-							democratic = 40
-						}
+						add_stability = 0.05
+						add_political_power = 110
+						add_ideas = FRA_transitional_goverment
 					}
 				}
 			}
@@ -2416,9 +1950,10 @@ focus_tree = {
 			is_subject = no
 		}
 		completion_reward = {
-			add_stability = 0.15
+			add_stability = 0.05
 			add_war_support = 0.05
-			add_political_power = 250
+			add_political_power = 150
+
 			every_country = {
 				limit = {
 					is_subject_of = ROOT
@@ -2437,7 +1972,7 @@ focus_tree = {
 	focus = {
 		id = FRA_overseas_departements
 		icon = GFX_goal_generic_position_armies
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_gueye_lamine_law
 		}
@@ -2506,7 +2041,10 @@ focus_tree = {
 					controls_state = 460
 					controls_state = 513
 					controls_state = 933
-					controls_state = 514
+					controls_state = 461
+					controls_state = 462
+					controls_state = 458
+					controls_state = 665
 				}
 				ALG = {
 					is_subject_of = ROOT
@@ -2514,7 +2052,6 @@ focus_tree = {
 					controls_state = 460
 					controls_state = 513
 					controls_state = 933
-					controls_state = 514
 				}
 			}
 		}
@@ -2562,7 +2099,11 @@ focus_tree = {
 			add_state_core = 460
 			add_state_core = 513
 			add_state_core = 933
-			add_state_core = 514
+			add_state_core = 461
+			add_state_core = 462
+			add_state_core = 458
+			add_state_core = 665
+
 			if = {
 				limit = {
 					ALG = {
@@ -2588,7 +2129,7 @@ focus_tree = {
 			focus = FRA_the_blum_viollette_proposal
 		}
 		relative_position_id = FRA_the_blum_viollette_proposal
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -2709,7 +2250,7 @@ focus_tree = {
 	focus = {
 		id = FRA_war_material_licence
 		icon = GFX_goal_ammunitions
-		cost = 10
+		cost = 7.2
 		prerequisite = {
 			focus = FRA_rearmament
 		}
@@ -2762,7 +2303,7 @@ focus_tree = {
 	focus = {
 		id = FRA_commit_automobile_manufacturer
 		icon = GFX_goal_generic_automobile
-		cost = 10
+		cost = 7.2
 		prerequisite = {
 			focus = FRA_rearmament
 		}
@@ -3364,7 +2905,7 @@ focus_tree = {
 	focus = {
 		id = FRA_support_blum
 		icon = GFX_support_blum
-		cost = 5
+		cost = 7.2
 		prerequisite = {
 			focus = FRA_social_reforms
 		}
@@ -3435,6 +2976,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
 	focus = {
 		id = FRA_law_against_combat_groups
 		icon = GFX_focus_generic_anti_fascist_diplomacy
@@ -3443,7 +2985,7 @@ focus_tree = {
 			focus = FRA_status_quo
 			focus = FRA_radicalize_front
 		}
-		x = -5
+		x = -4.75
 		y = 1
 		relative_position_id = FRA_status_quo
 		ai_will_do = {
@@ -3571,7 +3113,7 @@ focus_tree = {
 	focus = {
 		id = FRA_support_daladier
 		icon = GFX_support_daladier
-		cost = 10
+		cost = 7.2
 		prerequisite = {
 			focus = FRA_social_reforms
 		}
@@ -9252,11 +8794,12 @@ focus_tree = {
 		id = FRA_help_the_spanish_republicans
 		icon = GFX_goal_FRA_help_the_spanish_republicans
 		cost = 5
-		x = 15
-		y = 6
+		x = 14
+		y = 2
 		prerequisite = {
-			focus = FRA_humanite_unie
+			focus = FRA_intervention_committee
 		}
+
 		available = {
 			OR = {
 				country_exists = SPD
@@ -9271,9 +8814,11 @@ focus_tree = {
 				is_in_faction_with = SPC
 			}
 		}
+
 		ai_will_do = {
 			factor = 5
 		}
+
 		completion_reward = {
 			random_other_country = {
 					limit = {
@@ -9340,14 +8885,14 @@ focus_tree = {
 	focus = {
 		id = FRA_intervention_in_spain
 		icon = GFX_focus_focus_fra_intervention_spain
-		x = 6
+		x = -7
 		y = 1
 		prerequisite = {
 			focus = FRA_status_quo
-			focus = FRA_radicalize_front
+			focus = FRA_far_right_leagues
 		}
 		
-		relative_position_id = FRA_radicalize_front
+		relative_position_id = FRA_far_right_leagues
 		cost = 5
 
 		ai_will_do = {
@@ -10835,7 +10380,7 @@ focus_tree = {
 	focus = {
 		id = FRA_experiment_castex_strategies
 		icon = GFX_goal_FRA_castex_book
-		cost = 15
+		cost = 10
 		prerequisite = {
 			focus = FRA_CHEDN
 		}
@@ -11324,7 +10869,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = FRA_lay_down_the_jean_bart
-		cost = 10
+		cost = 5
 		available = {
 			any_state = {
 				is_coastal = yes
@@ -11356,7 +10901,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = FRA_lay_down_the_jean_bart
-		cost = 10
+		cost = 7.2
 		available = {
 			any_state = {
 				is_coastal = yes
@@ -11413,6 +10958,12 @@ focus_tree = {
 		relative_position_id = FRA_carrier_focus
 		cost = 10
 
+		allow_branch  = {
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
+		}
+
 		available_if_capitulated = yes
 
 		completion_reward = {
@@ -11428,7 +10979,7 @@ focus_tree = {
 	focus = {
 		id = FRA_naval_construction_program
 		icon = GFX_goal_navy_funding
-		cost = 10
+		cost = 7.2
 		prerequisite = {
 			focus = FRA_improved_screen_ships
 			focus = FRA_capital_ship_focus
@@ -11684,14 +11235,13 @@ focus_tree = {
 		id = FRA_prioritize_the_joffre
 		icon = GFX_goal_carrier
 		prerequisite = {
-			focus = FRA_naval_construction_program
 			focus = FRA_carrier_focus
 		}
 		#mutually_exclusive = {
 		#	focus = FRA_successor_to_the_surcouf
 		#}
 		x = 0
-		y = 3
+		y = 2
 		relative_position_id = FRA_carrier_focus
 		cost = 10
 		ai_will_do = {
@@ -11969,15 +11519,27 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					has_dlc = "La Resistance"
+					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
-					name = scout_plane
-					bonus = 1.0
+					technology =  photo_reconnaisance
+					bonus = 0.75
 					uses = 1
-					category = cat_scout_plane
-				}				
-			}					
+				}
+			}
+			else_if = {
+				if = {
+					limit = {
+						has_dlc = "La Resistance"
+					}
+					add_tech_bonus = {
+						name = scout_plane
+						bonus = 1.0
+						uses = 1
+						category = cat_scout_plane
+					}				
+				}			
+			}		
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -12068,22 +11630,34 @@ focus_tree = {
 		ai_will_do = {
 			factor = 0.5
 		}
-		available = {
-			#has_tech = strategic_bomber1
-		}
 		
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_form_the_first_strategic_bombing_unit
-				bonus = 1
-				uses = 1
-				category = cat_strategic_bomber
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = bomber_command_focus
+					bonus = 1.0
+					uses = 2
+					category = cat_strategic_bomber
+					category = tactical_bomber
+				}
 			}
-			#add_equipment_to_stockpile = {
-			#	type = strat_bomber_equipment_1
-			#	amount = 12
-			#	producer = FRA
-			#}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				air_experience = 25
+				add_tech_bonus = {
+					name = bomber_command_focus
+					bonus = 1.0
+					uses = 1
+					category = heavy_air
+					category = medium_air
+				}
+			}
 			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -12169,13 +11743,36 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = fighter_equipment_0
-				amount = 100
-				producer = USA
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = {
+					type = fighter_equipment_0
+					amount = 100
+					producer = USA
+				}
 			}
-			USA = {
-				add_political_power = 50
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				air_experience = 25
+				create_equipment_variant = {
+					name = "P-36A" #
+					type = small_plane_airframe_1
+					modules = {
+						fixed_main_weapon_slot = light_mg_4x
+						fixed_auxiliary_weapon_slot_1 = light_mg_2x
+						engine_type_slot = engine_2_1x
+						special_type_slot_1 = empty
+					}
+					icon = "GFX_USA_fighter1_medium"
+				}
+
+				USA = {
+					add_political_power = 50
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
@@ -12202,35 +11799,43 @@ focus_tree = {
 			air_experience = 15
 			if = {
 				limit = {
-					NOT = {
-						has_tech = heavy_fighter1
-					}
+					NOT = { has_dlc = "By Blood Alone" }
 				}
 				custom_effect_tooltip = FRA_finalize_the_potez_630_tt
-			}
-			else = {
 				add_tech_bonus = {
 					name = FRA_modernisation_program
 					bonus = 1
 					uses = 1
 					category = cat_heavy_fighter
 				}
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech = heavy_fighter1
+				hidden_effect = {
+					if = {
+						limit = {
+							NOT = {
+								has_tech = heavy_fighter1
+							}
 						}
+						set_technology = { heavy_fighter1 = 1 }
 					}
-					set_technology = { heavy_fighter1 = 1 }
 				}
 			}
-			add_tech_bonus = {
-				name = FRA_modernisation_program
-				bonus = 1
-				uses = 1
-				category = light_fighter
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = fighter_command_focus
+					bonus = 1.0
+					uses = 1
+					category = light_air
+					category  = medium_air
+				}
+				add_tech_bonus = {
+					name = fighter_command_focus
+					bonus = 0.75
+					uses = 1
+					technology = range_improvements
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -12270,7 +11875,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_enact_plan_v
 		}
-		x = 3
+		x = 0
 		y = 1
 		relative_position_id = FRA_enact_plan_v
 		ai_will_do = {
@@ -12278,12 +11883,29 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_develop_bomber_fleet
-				ahead_reduction = 1
-				bonus = 1
-				uses = 1
-				category = tactical_bomber
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				custom_effect_tooltip = FRA_finalize_the_potez_630_tt
+				add_tech_bonus = {
+					name = FRA_develop_bomber_fleet
+					ahead_reduction = 1
+					bonus = 1
+					uses = 1
+					category = tactical_bomber
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = fighter_command_focus
+					bonus = 1.0
+					uses = 1
+					category  = medium_air
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -12296,6 +11918,14 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_develop_bomber_fleet
 		}
+		# lazy simpy fixing
+
+		allow_branch  = {
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
+		}
+
 		x = 0
 		y = 1
 		relative_position_id = FRA_develop_bomber_fleet
@@ -12328,6 +11958,11 @@ focus_tree = {
 			factor = 0.5
 		}
 
+		allow_branch  = {
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
+		}
 		completion_reward = {
 			add_tech_bonus = {
 				name = FRA_provide_aerial_support
@@ -12372,7 +12007,6 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 			focus = FRA_enact_plan_v
-			focus = FRA_naval_construction_program
 		}
 		x = -1
 		y = 2
@@ -12431,6 +12065,13 @@ focus_tree = {
 			focus = FRA_enact_plan_v
 			focus = FRA_naval_construction_program
 		}
+
+		allow_branch  = {
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
+		}
+
 		x = -3
 		y = 2
 		relative_position_id = FRA_enact_plan_v
@@ -12445,6 +12086,7 @@ focus_tree = {
 				uses = 2
 				category = maritime
 			}
+
 			add_tech_bonus = {
 				name = air_bonus
 				bonus = 1
