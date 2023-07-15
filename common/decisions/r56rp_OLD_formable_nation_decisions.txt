@@ -4914,218 +4914,218 @@ form_roman_empire_category = {
 	}
 }
 
-form_persian_empire_category = {
-
-	form_persian_empire = {
-
-		icon = generic_form_nation
-
-		allowed = {
-			OR = {
-				original_tag = PER
-				original_tag = AFG
-				original_tag = KUR
-			}
-			has_dlc = "Waking the Tiger"
-		}
-
-		available = {
-			is_subject = no
-			# Iran
-			custom_trigger_tooltip = {
-				tooltip = form_country_iran_required_states_tt
-				all_state = {
-					OR = {
-						NOT = { 
-							region = 116
-						}
-						is_controlled_by = ROOT 
-					}
-				}
-			}
-			# Afghanistan
-			custom_trigger_tooltip = {
-				tooltip = form_country_afghanistan_required_states_tt
-				controls_state = 415
-				controls_state = 267
-				controls_state = 1008
-				controls_state = 1009
-				controls_state = 1010
-				controls_state = 1011
-			}
-			# Iraq
-			custom_trigger_tooltip = {
-				tooltip = form_country_iraq_required_states_tt
-				controls_state = 676
-				controls_state = 675
-				controls_state = 291
-			}
-			# Turkey
-			custom_trigger_tooltip = {
-				tooltip = form_country_turkey_required_states_tt
-				all_state = {
-					OR = {
-						NOT = { 
-							region = 129
-							state = 341
-							state = 797
-						}
-						is_controlled_by = ROOT 
-					}
-				}
-			}
-			# France: Syria
-			custom_trigger_tooltip = {
-				tooltip = form_persia_france_required_states_tt
-				controls_state = 677
-				controls_state = 680
-				controls_state = 553
-				controls_state = 554
-				controls_state = 799
-			}
-			# Italy: North Africa / Dodecanese
-			custom_trigger_tooltip = {
-				tooltip = form_persia_italy_required_states_tt
-				controls_state = 164
-				controls_state = 450
-				controls_state = 451
-				controls_state = 663
-			}
-			# Britain: Egypt / Middle East
-			custom_trigger_tooltip = {
-				tooltip = form_persia_britain_required_states_tt
-				controls_state = 452
-				controls_state = 447
-				controls_state = 907	#Cairo
-				controls_state = 456
-				controls_state = 457
-				controls_state = 911	#Suez
-				controls_state = 995	#East Suez
-				controls_state = 453
-				controls_state = 454
-				controls_state = 966
-				controls_state = 949
-				controls_state = 455
-				controls_state = 183
-				controls_state = 656
-				controls_state = 911
-			}
-		}
-
-		visible = {
-			OR = {
-				original_tag = PER
-				original_tag = AFG
-				original_tag = KUR
-			}
-			NOT = { 
-				has_global_flag = form_persian_empire_flag
-				has_country_flag  = hide_formable_nations 
-			}
-		}
-
-		complete_effect = {
-			set_cosmetic_tag = PER_UNIFIED
-			# Iran
-			custom_effect_tooltip = form_country_iran_coring_states_tt
-			hidden_effect = {
-				every_state = {
-					limit = {
-						region = 116
-					}
-					add_core_of = ROOT
-				}
-			}
-			# Afghanistan
-			custom_effect_tooltip = form_country_afghanistan_coring_states_tt
-			hidden_effect = {
-				415 = { add_core_of = ROOT }
-				267 = { add_core_of = ROOT }
-				1010 = { add_core_of = ROOT }
-				1008 = { add_core_of = ROOT }
-				1009 = { add_core_of = ROOT }
-
-			}
-			# Iraq
-			custom_effect_tooltip = form_country_iraq_coring_states_tt
-			hidden_effect = {
-				676 = { add_core_of = ROOT }
-				675 = { add_core_of = ROOT }
-				291 = { add_core_of = ROOT }
-			}
-			# Turkey
-			custom_effect_tooltip = form_country_turkey_coring_states_tt
-			hidden_effect = {
-				every_state = {
-					limit = {
-						OR = {
-							region = 129
-							state = 341
-							state = 797
-						}
-					}
-					add_core_of = ROOT
-				}			
-			}
-			# France
-			custom_effect_tooltip = form_persia_france_coring_states_tt
-			hidden_effect = {
-				677 = { add_core_of = ROOT }
-				680 = { add_core_of = ROOT }
-				553 = { add_core_of = ROOT }
-				554 = { add_core_of = ROOT }
-				799 = { add_core_of = ROOT }
-			}
-			# Italy
-			custom_effect_tooltip = form_persia_italy_coring_states_tt
-			hidden_effect = {
-				164 = { add_core_of = ROOT }
-				450 = { add_core_of = ROOT }
-				451 = { add_core_of = ROOT }
-				663 = { add_core_of = ROOT }
-			}
-			# Britain
-			custom_effect_tooltip = form_persia_britain_coring_states_tt
-			hidden_effect = {
-				452 = { add_core_of = ROOT }
-				447 = { add_core_of = ROOT }
-				907 = { add_core_of = ROOT }
-				456 = { add_core_of = ROOT }
-				457 = { add_core_of = ROOT }
-				453 = { add_core_of = ROOT }
-				454 = { add_core_of = ROOT }
-				949 = { add_core_of = ROOT }
-				966 = { add_core_of = ROOT }
-				455 = { add_core_of = ROOT }
-				183 = { add_core_of = ROOT }
-				656 = { add_core_of = ROOT }
-				911 = { add_core_of = ROOT }
-				995 = { add_core_of = ROOT }
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-							has_idea = AFG_graveyard_of_empires
-						}
-					remove_ideas = AFG_graveyard_of_empires
-				}
-				news_event = { id = wtt_news.65 hours = 6 }
-				set_global_flag = form_persian_empire_flag
-			}
-			add_ideas = generic_recent_political_unification
-			add_ideas = generic_recent_army_unification
-			add_ideas = generic_recent_economic_unification				
-		}
-
-		ai_will_do = {
-			factor = 200
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
-	}
-}
+#form_persian_empire_category = { #deprecated, new one with higlights in r56rp_formables.txt
+#
+#	form_persian_empire = {
+#
+#		icon = generic_form_nation
+#
+#		allowed = {
+#			OR = {
+#				original_tag = PER
+#				original_tag = AFG
+#				original_tag = KUR
+#			}
+#			has_dlc = "Waking the Tiger"
+#		}
+#
+#		available = {
+#			is_subject = no
+#			# Iran
+#			custom_trigger_tooltip = {
+#				tooltip = form_country_iran_required_states_tt
+#				all_state = {
+#					OR = {
+#						NOT = { 
+#							region = 116
+#						}
+#						is_controlled_by = ROOT 
+#					}
+#				}
+#			}
+#			# Afghanistan
+#			custom_trigger_tooltip = {
+#				tooltip = form_country_afghanistan_required_states_tt
+#				controls_state = 415
+#				controls_state = 267
+#				controls_state = 1008
+#				controls_state = 1009
+#				controls_state = 1010
+#				controls_state = 1011
+#			}
+#			# Iraq
+#			custom_trigger_tooltip = {
+#				tooltip = form_country_iraq_required_states_tt
+#				controls_state = 676
+#				controls_state = 675
+#				controls_state = 291
+#			}
+#			# Turkey
+#			custom_trigger_tooltip = {
+#				tooltip = form_country_turkey_required_states_tt
+#				all_state = {
+#					OR = {
+#						NOT = { 
+#							region = 129
+#							state = 341
+#							state = 797
+#						}
+#						is_controlled_by = ROOT 
+#					}
+#				}
+#			}
+#			# France: Syria
+#			custom_trigger_tooltip = {
+#				tooltip = form_persia_france_required_states_tt
+#				controls_state = 677
+#				controls_state = 680
+#				controls_state = 553
+#				controls_state = 554
+#				controls_state = 799
+#			}
+#			# Italy: North Africa / Dodecanese
+#			custom_trigger_tooltip = {
+#				tooltip = form_persia_italy_required_states_tt
+#				controls_state = 164
+#				controls_state = 450
+#				controls_state = 451
+#				controls_state = 663
+#			}
+#			# Britain: Egypt / Middle East
+#			custom_trigger_tooltip = {
+#				tooltip = form_persia_britain_required_states_tt
+#				controls_state = 452
+#				controls_state = 447
+#				controls_state = 907	#Cairo
+#				controls_state = 456
+#				controls_state = 457
+#				controls_state = 911	#Suez
+#				controls_state = 995	#East Suez
+#				controls_state = 453
+#				controls_state = 454
+#				controls_state = 966
+#				controls_state = 949
+#				controls_state = 455
+#				controls_state = 183
+#				controls_state = 656
+#				controls_state = 911
+#			}
+#		}
+#
+#		visible = {
+#			OR = {
+#				original_tag = PER
+#				original_tag = AFG
+#				original_tag = KUR
+#			}
+#			NOT = { 
+#				has_global_flag = form_persian_empire_flag
+#				has_country_flag  = hide_formable_nations 
+#			}
+#		}
+#
+#		complete_effect = {
+#			set_cosmetic_tag = PER_UNIFIED
+#			# Iran
+#			custom_effect_tooltip = form_country_iran_coring_states_tt
+#			hidden_effect = {
+#				every_state = {
+#					limit = {
+#						region = 116
+#					}
+#					add_core_of = ROOT
+#				}
+#			}
+#			# Afghanistan
+#			custom_effect_tooltip = form_country_afghanistan_coring_states_tt
+#			hidden_effect = {
+#				415 = { add_core_of = ROOT }
+#				267 = { add_core_of = ROOT }
+#				1010 = { add_core_of = ROOT }
+#				1008 = { add_core_of = ROOT }
+#				1009 = { add_core_of = ROOT }
+#
+#			}
+#			# Iraq
+#			custom_effect_tooltip = form_country_iraq_coring_states_tt
+#			hidden_effect = {
+#				676 = { add_core_of = ROOT }
+#				675 = { add_core_of = ROOT }
+#				291 = { add_core_of = ROOT }
+#			}
+#			# Turkey
+#			custom_effect_tooltip = form_country_turkey_coring_states_tt
+#			hidden_effect = {
+#				every_state = {
+#					limit = {
+#						OR = {
+#							region = 129
+#							state = 341
+#							state = 797
+#						}
+#					}
+#					add_core_of = ROOT
+#				}			
+#			}
+#			# France
+#			custom_effect_tooltip = form_persia_france_coring_states_tt
+#			hidden_effect = {
+#				677 = { add_core_of = ROOT }
+#				680 = { add_core_of = ROOT }
+#				553 = { add_core_of = ROOT }
+#				554 = { add_core_of = ROOT }
+#				799 = { add_core_of = ROOT }
+#			}
+#			# Italy
+#			custom_effect_tooltip = form_persia_italy_coring_states_tt
+#			hidden_effect = {
+#				164 = { add_core_of = ROOT }
+#				450 = { add_core_of = ROOT }
+#				451 = { add_core_of = ROOT }
+#				663 = { add_core_of = ROOT }
+#			}
+#			# Britain
+#			custom_effect_tooltip = form_persia_britain_coring_states_tt
+#			hidden_effect = {
+#				452 = { add_core_of = ROOT }
+#				447 = { add_core_of = ROOT }
+#				907 = { add_core_of = ROOT }
+#				456 = { add_core_of = ROOT }
+#				457 = { add_core_of = ROOT }
+#				453 = { add_core_of = ROOT }
+#				454 = { add_core_of = ROOT }
+#				949 = { add_core_of = ROOT }
+#				966 = { add_core_of = ROOT }
+#				455 = { add_core_of = ROOT }
+#				183 = { add_core_of = ROOT }
+#				656 = { add_core_of = ROOT }
+#				911 = { add_core_of = ROOT }
+#				995 = { add_core_of = ROOT }
+#			}
+#			hidden_effect = {
+#				if = {
+#					limit = {
+#							has_idea = AFG_graveyard_of_empires
+#						}
+#					remove_ideas = AFG_graveyard_of_empires
+#				}
+#				news_event = { id = wtt_news.65 hours = 6 }
+#				set_global_flag = form_persian_empire_flag
+#			}
+#			add_ideas = generic_recent_political_unification
+#			add_ideas = generic_recent_army_unification
+#			add_ideas = generic_recent_economic_unification				
+#		}
+#
+#		ai_will_do = {
+#			factor = 200
+#			modifier = {
+#				factor = 0
+#				is_historical_focus_on = yes
+#			}
+#		}
+#	}
+#}
 
 form_byzantine_empire_category = {
 

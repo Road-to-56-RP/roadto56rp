@@ -8163,6 +8163,10 @@ focus_tree = {
 				producer = JAP
 				amount = 3000
 			}
+			set_division_template_lock = {
+				division_template = "Jōsetsu Shidan"
+				is_locked = no
+			}
 			#bit of help for the AI
 			hidden_effect = {
 				if = {
@@ -8651,6 +8655,15 @@ focus_tree = {
 			modifier = {
 				factor = 2
 				has_completed_focus = JAP_strengthen_civilian_government
+			}
+		}
+
+		available = {
+			OR = {
+				has_completed_focus = JAP_support_the_kodoha_faction
+				has_completed_focus = JAP_purge_the_kodoha_faction
+				has_completed_focus = JAP_cast_the_die
+				has_completed_focus = JAP_the_showa_constitution
 			}
 		}
 
@@ -9159,7 +9172,12 @@ focus_tree = {
 		}
 		
 		available = {
-			NOT = { has_government = democratic }
+			NOT = { has_completed_focus = JAP_the_showa_constitution }
+			OR = {
+				has_completed_focus = JAP_support_the_kodoha_faction
+				has_completed_focus = JAP_purge_the_kodoha_faction
+				has_completed_focus = JAP_cast_the_die
+			}
 		}
 
 		completion_reward = {
