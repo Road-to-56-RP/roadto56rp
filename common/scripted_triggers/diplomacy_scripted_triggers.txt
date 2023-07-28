@@ -778,7 +778,7 @@ DIPLOMACY_OFFER_DOCKING_RIGHTS_ENABLE_TRIGGER = {
 		}
 	}
 }
-DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = {
+DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = { #_OVERRIDES_GAME
 	if = {
 		limit = {
 			has_game_rule = {
@@ -786,7 +786,20 @@ DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = {
 				option = FREE
 			}
 		}
-		always = yes
+		IF = { # why does it look cursed you may ask? well as far as i can tell paradox in its infinite wisdom just attached ignoring of threat limit to this specific  = FREE option.
+			limit = {
+				has_game_rule = {
+					rule = r56rp_enable_bakedinrules
+					option = ENABLED
+				}
+				ROOT = { tag = USA }
+				has_idea = USA_neutrality_act
+			}
+			NOT = { has_idea = USA_neutrality_act }
+		}
+		ELSE_IF = {
+			always = yes
+		}
 	}
 	if = {
 		limit = {

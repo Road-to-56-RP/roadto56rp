@@ -74,14 +74,41 @@ GLO_state_integration_category = {
         }
 
         available = {
-			FROM = {
-				compliance > 79
-				resistance < 11
+			IF = {
+				limit = {
+					FROM = {
+						has_state_flag = {
+							flag = r56rp_coring_discount
+						}
+					}
+				}
 			}
-            has_manpower > coring_man
-            has_equipment = {
-                infantry_equipment > 499
-            }
+			ELSE_IF = {
+				limit = {
+					is_major = yes
+				}
+
+				FROM = {
+					compliance > 79
+					resistance < 11
+				}
+				has_manpower > coring_man
+				has_equipment = {
+					infantry_equipment > 499
+				}
+				
+			}
+			ELSE = {
+				FROM = {
+					compliance > 69
+					resistance < 19
+				}
+				has_manpower > coring_man
+				has_equipment = {
+					infantry_equipment > 99
+				}
+				
+			}
         }
 
         visible = {
@@ -90,17 +117,42 @@ GLO_state_integration_category = {
 				NOT = { is_core_of = ROOT } 
 				NOT = { has_state_flag = being_cored } 
 			}
-			OR = {
-				has_country_flag = show_unavialible_integration_decisions
-				FROM = {
-					compliance > 79
-					resistance < 11
+			IF = {
+				limit = {
+					is_major = no
+				}
+				OR = {
+					has_country_flag = show_unavialible_integration_decisions
+					FROM = {
+						compliance > 69
+						resistance < 19
+					}
+				}
+			}
+			ELSE = {
+				OR = {
+					has_country_flag = show_unavialible_integration_decisions
+					FROM = {
+						compliance > 79
+						resistance < 11
+					}
 				}
 			}
         }
 
         custom_cost_trigger = {
-            has_political_power > GLO_p_pp_cost
+			IF = {
+				limit = {
+					is_major = no
+				}
+				has_political_power > GLO_p_pp_cost
+			}
+			ELSE_IF = {
+				limit = {
+					is_major = yes
+				}
+				has_political_power > GLO_p_pp_cost
+			}
         }
 
         custom_cost_text = GLO_35_pol_power

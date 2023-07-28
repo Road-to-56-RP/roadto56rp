@@ -268,7 +268,7 @@ focus_tree = {
 			focus = FRA_action_francaise
 		}
 		relative_position_id = FRA_rearmament	#dont use political ones, which may be hidden
-		x = 26
+		x = 25
 		y = 0
 		offset = {
 			x = -17
@@ -323,7 +323,7 @@ focus_tree = {
 			focus = FRA_far_right_leagues
 		}
 		relative_position_id = FRA_rearmament	#dont use political ones, which may be hidden
-		x = 39
+		x = 40
 		y = 0
 		offset = {
 			x = -20
@@ -2988,6 +2988,28 @@ focus_tree = {
 		x = -4.75
 		y = 1
 		relative_position_id = FRA_status_quo
+		offset = {
+			x = 2.75
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_status_quo
+			}
+		}
+		offset = {
+			x = -1.75
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_radicalize_front
+			}
+		}
 		ai_will_do = {
 			factor = 2
 			modifier = {
@@ -3693,8 +3715,8 @@ focus_tree = {
 			focus = FRA_cagoule_coup
 		}
 		relative_position_id = FRA_far_right_leagues
-		x =-4
-		y = 1
+		x =-3
+		y = 2
 		
 		ai_will_do = {
 			factor = 2
@@ -3892,8 +3914,8 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_front_liberte
 		}
-		x = 2
-		y = 1
+		x = 3
+		y = 2
 		relative_position_id = FRA_far_right_leagues
 		available = {
 			is_subject = no
@@ -4079,6 +4101,28 @@ focus_tree = {
 				}
 			}
 		}
+		offset = {
+			x = -3
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_far_right_leagues
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_action_francaise
+			}
+		}
 		ai_will_do = {
 			factor = 3
 		}
@@ -4139,7 +4183,8 @@ focus_tree = {
 			focus = FRA_support_ppf
 			focus = FRA_we_want_petain
 			focus = FRA_state_reorganisation
-			focus = FRA_union_latins
+			#focus = FRA_union_latins
+			#focus = FRA_anti_german_front
 		}
 		relative_position_id = FRA_we_want_petain
 		will_lead_to_war_with = BEL
@@ -4214,7 +4259,8 @@ focus_tree = {
 			focus = FRA_support_ppf
 			focus = FRA_we_want_petain
 			focus = FRA_state_reorganisation
-			focus = FRA_union_latins
+			#focus = FRA_union_latins
+			#focus = FRA_anti_german_front
 		}
 		will_lead_to_war_with = BEL
 		mutually_exclusive = { focus = FRA_demand_wallonia }
@@ -4362,7 +4408,7 @@ focus_tree = {
 			focus = FRA_claim_rhineland
 		}
 		relative_position_id = FRA_diplomatic_freedom
-		x = 0
+		x = 1
 		y = 1
 		available = {
 			is_subject = no
@@ -4415,7 +4461,7 @@ focus_tree = {
 			focus = FRA_revise_versailles
 		}
 		relative_position_id = FRA_ultimatum_to_belgium
-		x = 0
+		x = 1
 		y = 1
 		available = {
 			r56_script_i_am_sane = yes
@@ -4492,7 +4538,7 @@ focus_tree = {
 			focus = FRA_state_reorganisation
 		}
 		relative_position_id = FRA_state_reorganisation
-		x = 0
+		x = -1
 		y = 1
 		ai_will_do = {
 			factor = 3
@@ -4601,7 +4647,7 @@ focus_tree = {
 			focus = FRA_state_reorganisation
 		}
 		relative_position_id = FRA_state_reorganisation
-		x = 2
+		x = 1
 		y = 1
 		ai_will_do = {
 			factor = 2
@@ -4614,26 +4660,30 @@ focus_tree = {
 	focus = {
 		id = FRA_convince_spain
 		icon = GFX_goal_generic_befriend_spain_nationalist
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_claim_rhineland
-			focus = FRA_union_latins
+			focus = FRA_invite_portugal
+		}
+		mutually_exclusive = { 
+			focus = FRA_secure_the_crown_of_spain 
+			focus = FRA_pact_with_spain
 		}
 		relative_position_id = FRA_claim_rhineland
 		x = 4
 		y = 1
-		mutually_exclusive = {
-			focus = FRA_secure_the_crown_of_spain
-		}
 		available = {
 			is_subject = no
-			OR = {
-				SPA = {
-					exists = yes
-					is_subject = no
-					is_in_faction = no
+			SPA = {
+				exists = yes
+				is_subject = no
+				is_in_faction = no
+				NOT = {
+					has_government = communism
 				}
-				NOT = { has_completed_focus = FRA_support_the_legitimatises }
+			}
+			NOT = {
+				has_completed_focus = FRA_secure_the_crown_of_spain
 			}
 		}
 		bypass = {
@@ -4847,7 +4897,7 @@ focus_tree = {
 		available = {
 			neutrality > 0.4
 		}
-		x = 1
+		x = 3
 		y = 1
 		relative_position_id = FRA_papal_rehabilitation
 		allow_branch = {
@@ -4947,11 +4997,11 @@ focus_tree = {
 		available = {
 			neutrality > 0.4
 		}
-		x = 11
+		x = 12
 		y = 1
 		relative_position_id = FRA_repeal_the_law_of_exile
 		offset = {
-			x = -19
+			x = -12
 			y = 0
 			trigger = {
 				has_completed_focus = FRA_brumaire_movement
@@ -5433,14 +5483,15 @@ focus_tree = {
 	focus = {
 		id = FRA_assist_the_carlist_cause
 		icon = GFX_focus_spa_supremacy_of_the_communion
-		cost = 10
+		cost = 5
 		prerequisite = {
-			focus = FRA_support_the_legitimatises
+			focus = FRA_union_latins
+			focus = FRA_anti_german_front
 		}
-		x = -1
-		y = 1
-		relative_position_id = FRA_support_the_legitimatises
 		mutually_exclusive = { focus = FRA_support_the_spanish_nationalists }
+		x = -1
+		y = 2
+		relative_position_id = FRA_support_the_legitimatises
 		
 		available = {
 			SPR_scw_in_progress = yes
@@ -5600,11 +5651,12 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_intervene_in_the_spanish_civil_war
 		}
+		mutually_exclusive = { 
+			focus = FRA_convince_spain
+			focus = FRA_pact_with_spain
+		}
 		x = 0
 		y = 2
-		mutually_exclusive = {
-			focus = FRA_convince_spain
-		}
 		available = {
 			custom_trigger_tooltip = { 
 				tooltip = FRA_has_no_deflation_tt
@@ -5650,12 +5702,6 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					has_idea = FRA_disjointed_government
-				}
-				remove_ideas = FRA_disjointed_government
-			}
-			if = {
-				limit = {
 					has_idea = FRA_reforms_failed
 				}
 				remove_ideas = FRA_reforms_failed
@@ -5690,9 +5736,9 @@ focus_tree = {
 		icon = GFX_goal_generic_attack_andorra
 		cost = 5
 		prerequisite = {
-			focus = FRA_secure_the_crown_of_spain
+			focus = FRA_proclaim_the_dual_monarchy
 		}
-		x = -1
+		x = -2
 		y = 1
 		available = {
 			is_subject = no
@@ -5706,7 +5752,7 @@ focus_tree = {
 			}
 		}
 		will_lead_to_war_with = ADR
-		relative_position_id = FRA_secure_the_crown_of_spain
+		relative_position_id = FRA_proclaim_the_dual_monarchy
 		
 		ai_will_do = {
 			factor = 20
@@ -5733,6 +5779,7 @@ focus_tree = {
 		available = {
 			is_subject = no
 			has_government = neutrality
+			has_completed_focus = FRA_support_the_legitimatises
 			OR = {
 				SPB = {
 					exists = yes
@@ -5756,7 +5803,7 @@ focus_tree = {
 				}
 			}
 		}
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = FRA_secure_the_crown_of_spain
 		
@@ -5855,76 +5902,17 @@ focus_tree = {
 			unlock_decision_category_tooltip = FRA_spanish_intervention_category
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}	
-	focus = {
-		id = FRA_support_the_spanish_nationalists
-		icon = GFX_focus_spa_unify_the_nationalist_front
-		cost = 10
-		prerequisite = {
-			focus = FRA_support_the_legitimatises
-			focus = FRA_side_with_the_orleanists
-		}
-		available = {
-			SPR_scw_in_progress = yes
-			country_exists = SPA
-			NOT = { has_war_with = SPA }
-		}
-		bypass = {
-			has_global_flag = scw_over
-			NOT = {
-				has_completed_focus = FRA_union_latins
-			}
-		}
-		mutually_exclusive = { focus = FRA_assist_the_carlist_cause }
-		x = 1
-		y = 1
-		relative_position_id = FRA_support_the_legitimatises
-		
-		ai_will_do = {
-			factor = 3
-		}
-		completion_reward = {
-			SPA = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = POR_helped_in_civil_war
-				}
-				add_manpower = 10000
-			}
-			add_ideas = FRA_volunteers_in_the_war_nationalist
-			add_manpower = -10000
-			hidden_effect = {
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = 2000
-				}
-			}
-			send_equipment = {
-				equipment = infantry_equipment
-				amount = 2000
-				target = SPA
-			}
-			set_rule = { can_send_volunteers = yes }
-			add_ai_strategy = {
-				type = support
-				id = SPA
-				value = 100
-			}
-			add_ai_strategy = {
-				type = protect
-				id = SPA
-				value = 100
-			}
-		}
 	}
 	focus = {
 		id = FRA_anti_german_front
 		icon = GFX_focus_generic_diplomatic_treaty
 		cost = 10
 		prerequisite = {
-			focus = FRA_support_the_spanish_nationalists
+			focus = FRA_support_the_legitimatises
+			focus = FRA_side_with_the_orleanists
 		}
-		x = 0
+		mutually_exclusive = { focus = FRA_union_latins }
+		x = 3
 		y = 1
 		available = {
 			custom_trigger_tooltip = { 
@@ -5949,7 +5937,7 @@ focus_tree = {
 				has_completed_focus = FRA_union_latins
 			}
 		}
-		relative_position_id = FRA_support_the_spanish_nationalists
+		relative_position_id = FRA_support_the_legitimatises
 		
 		ai_will_do = {
 			factor = 10
@@ -6047,14 +6035,77 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_WAR_SUPPORT }
 	}
 	focus = {
+		id = FRA_support_the_spanish_nationalists
+		icon = GFX_focus_spa_unify_the_nationalist_front
+		cost = 5
+		x = 1
+		y = 2
+		relative_position_id = FRA_support_the_legitimatises
+		prerequisite = {
+			focus = FRA_union_latins
+			focus = FRA_anti_german_front
+		}
+		mutually_exclusive = { focus = FRA_assist_the_carlist_cause }
+		available = {
+			SPR_scw_in_progress = yes
+			country_exists = SPA
+			NOT = { has_war_with = SPA }
+		}
+		bypass = {
+			has_global_flag = scw_over
+			NOT = {
+				has_completed_focus = FRA_union_latins
+			}
+		}
+		
+		ai_will_do = {
+			factor = 3
+		}
+		completion_reward = {
+			SPA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = POR_helped_in_civil_war
+				}
+				add_manpower = 10000
+			}
+			add_ideas = FRA_volunteers_in_the_war_nationalist
+			add_manpower = -10000
+			hidden_effect = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+				}
+			}
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 2000
+				target = SPA
+			}
+			set_rule = { can_send_volunteers = yes }
+			add_ai_strategy = {
+				type = support
+				id = SPA
+				value = 100
+			}
+			add_ai_strategy = {
+				type = protect
+				id = SPA
+				value = 100
+			}
+		}
+	}
+
+	focus = {
 		id = FRA_ally_italy
 		icon = GFX_focus_befriend_italy
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_anti_german_front
 		}
-		x = -1
-		y = 1
+		x = 3
+		y = 2
+		relative_position_id = FRA_support_the_legitimatises
 		available = {
 			is_in_faction = yes
 			is_subject = no
@@ -6080,7 +6131,7 @@ focus_tree = {
 				}
 			}
 		}
-		relative_position_id = FRA_anti_german_front
+		
 		
 		ai_will_do = {
 			factor = 3
@@ -6095,12 +6146,97 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
+	focus = { #UNFINISHED
+		id = FRA_r56rp_claim_rhineland
+		icon = GFX_goal_generic_territory_or_war
+		cost = 10
+		prerequisite = {
+			focus = FRA_ally_italy
+		}
+		relative_position_id = FRA_ally_italy
+		x = 1
+		y = 1
+		available = {
+			r56_script_i_am_sane = yes
+			is_subject = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_named_threat = {
+				threat = 8
+				name = FRA_claim_rhineland
+			}
+			country_event = {
+				id = france.127
+			}
+			add_state_claim = 42
+			add_state_claim = 51
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = { #UNFINISHED
+		id = FRA_r56rp_protection_benelaux
+		icon = GFX_goal_generic_military_sphere
+		cost = 10
+		prerequisite = {
+			focus = FRA_ally_italy
+		}
+		relative_position_id = FRA_ally_italy
+		x = -1
+		y = 1
+		available = {
+			r56_script_i_am_sane = yes
+			is_subject = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = { #guarantees on all benelaux states, for military access. Wargoal on those who refuse.
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = { #UNFINISHED
+	id = FRA_r56rp_war_germany
+	icon = GFX_focus_attack_germany
+	cost = 10
+	prerequisite = {
+		focus = FRA_r56rp_protection_benelaux
+	}
+	prerequisite = {
+		focus = FRA_r56rp_claim_rhineland
+	}
+	relative_position_id = FRA_ally_italy
+	x = 0
+	y = 2
+	available = {
+		r56_script_i_am_sane = yes
+		is_subject = no
+	}
+	
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = { #war with germany
+	}
+	search_filters = { FOCUS_FILTER_POLITICAL }
+}
 	focus = {
 		id = FRA_pact_with_spain
 		icon = GFX_focus_intervention_spain_nationalists
-		cost = 10
+		cost = 5
+		x = 1
+		y = 5
+		relative_position_id = FRA_support_the_legitimatises
 		prerequisite = {
-			focus = FRA_anti_german_front
+			focus = FRA_support_the_spanish_nationalists
+		}
+		mutually_exclusive = { 
+			focus = FRA_convince_spain
+			focus = FRA_secure_the_crown_of_spain
 		}
 		available = {
 			has_global_flag = scw_over
@@ -6128,9 +6264,7 @@ focus_tree = {
 				}
 			}
 		}
-		x = 1
-		y = 1
-		relative_position_id = FRA_anti_german_front
+		
 		
 		ai_will_do = {
 			factor = 3
@@ -6150,12 +6284,13 @@ focus_tree = {
 		icon = GFX_goal_anti_comintern_pact
 		cost = 10
 		prerequisite = {
-			focus = FRA_ally_italy
+			focus = FRA_r56rp_war_germany
 			focus = FRA_pact_with_spain
+			focus = FRA_secure_the_crown_of_spain
 		}
-		x = 1
-		y = 1
-		relative_position_id = FRA_ally_italy
+		x = 2
+		y = 6
+		relative_position_id = FRA_support_the_legitimatises
 		
 		available = {
 			is_subject = no
@@ -6198,6 +6333,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_support_the_legitimatises
 		}
+		mutually_exclusive = { focus = FRA_anti_german_front }
 		x = -3
 		y = 1
 		relative_position_id = FRA_support_the_legitimatises
@@ -6279,7 +6415,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_brumaire_movement
 		}
-		x = 11
+		x = 2
 		y = 1
 		relative_position_id = FRA_brumaire_movement
 		ai_will_do = {
@@ -6315,7 +6451,7 @@ focus_tree = {
 			focus = FRA_brumaire_movement
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = FRA_brumaire_movement
 		
 		available={ 
@@ -6375,7 +6511,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_compromise_with_germany
 		}		
-		x = 7
+		x = 6
 		y = 1
 		relative_position_id = FRA_the_new_continental_system
 		
@@ -6662,8 +6798,8 @@ focus_tree = {
 			focus = FRA_our_natural_borders
 			focus = FRA_compromise_with_germany
 		}
-		x = -8
-		y = 1
+		x = -7
+		y = 2
 		relative_position_id = FRA_our_natural_borders
 		
 		available = {
@@ -7010,7 +7146,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_empire_pact_with_spain
 		}
-		x = -10
+		x = -8
 		y = 1
 		relative_position_id = FRA_our_natural_borders
 		
@@ -7128,7 +7264,7 @@ focus_tree = {
 	focus = {
 		id = FRA_compromise_with_germany
 		icon = GFX_focus_chi_mission_to_germany
-		x = -7
+		x = -6
 		y = 1
 		prerequisite = {
 			focus = FRA_the_new_continental_system
@@ -7387,8 +7523,8 @@ focus_tree = {
 	focus = {
 		id = FRA_reorganize_the_dutch
 		icon = GFX_focus_CZE_german_puppet
-		x = 4
-		y = 1
+		x = -1
+		y = 3
 		prerequisite = {
 			focus = FRA_our_natural_borders
 		}
@@ -7473,7 +7609,7 @@ focus_tree = {
 	focus = {
 		id = FRA_disunite_italy
 		icon = GFX_goal_generic_occupy_states_ongoing_war
-		x = 1
+		x = 0
 		y = 1
 		prerequisite = {
 			focus = FRA_nothern_italy_claim
@@ -7507,7 +7643,7 @@ focus_tree = {
 	focus = {
 		id = FRA_return_to_dalmatia
 		icon = GFX_focus_YUG_banovina_of_croatia
-		x = 0
+		x = 1
 		y = 2
 		mutually_exclusive = {
 			focus = FRA_empire_invite_yugoslavia
@@ -7611,7 +7747,7 @@ focus_tree = {
 			focus = FRA_return_to_dalmatia
 		}
 		relative_position_id = FRA_nothern_italy_claim
-		x = -2
+		x = -1
 		y = 2
 		available = {
 			YUG = {
@@ -7901,8 +8037,8 @@ focus_tree = {
 	focus = {
 		id = FRA_take_back_north_america
 		icon = GFX_focus_spa_the_war_of_vengeance
-		x = 1
-		y = 1
+		x = 0
+		y = 2
 		prerequisite = {
 			focus = FRA_destroy_albion
 		}
@@ -8005,7 +8141,7 @@ focus_tree = {
 	focus = {
 		id = FRA_invite_portugal
 		icon = GFX_goal_generic_befriend_portugal
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_union_latins
 		}
@@ -8029,6 +8165,7 @@ focus_tree = {
 				OR = {
 					is_in_faction_with = ROOT
 					is_subject_of = ROOT
+					has_government = communism
 				}
 			}
 		}
@@ -8153,10 +8290,9 @@ focus_tree = {
 	focus = {
 		id = FRA_woo_italy
 		icon = GFX_goal_generic_befriend_italy
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_claim_rhineland
-			focus = FRA_union_latins
 		}
 		relative_position_id = FRA_claim_rhineland
 		x = 2
@@ -8894,6 +9030,29 @@ focus_tree = {
 		
 		relative_position_id = FRA_far_right_leagues
 		cost = 5
+
+		offset = {
+			x = -7
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_status_quo
+			}
+		}
+		offset = {
+			x = 1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_far_right_leagues
+			}
+		}
 
 		ai_will_do = {
 			factor = 0.5
@@ -9655,8 +9814,18 @@ focus_tree = {
 				OR = {
 					has_completed_focus = FRA_status_quo
 					has_completed_focus = FRA_far_right_leagues
-					has_completed_focus = FRA_radicalize_front
 				}
+			}
+		}
+		offset = {
+			x = -54
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_radicalize_front
 			}
 		}
 		relative_position_id = FRA_rearmament
