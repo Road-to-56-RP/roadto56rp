@@ -3195,3 +3195,191 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}
 	}
 }
+yug_expanding_belgrades_reach = {	#Decisions for Yugoslavia to go ham
+	YUG_claim_albania = { 	
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 35
+		
+		visible = {
+			OR = {
+				controls_state = 910
+				controls_state = 44
+				controls_state = 805
+				has_war_with = ALB
+			}
+			NOT = {
+					44 = {	is_claimed_by = YUG	}
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 910
+			}
+		}
+		
+		complete_effect = {		#Add 0.5 war support and claims all of Albania
+			add_war_support = 0.005
+			44 = { add_claim_by = YUG }	
+			910 = { add_claim_by = YUG }	
+			805 = { add_claim_by = YUG }	
+		}
+
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+	yug_integrate_bulgaria = { 		
+		icon = formable_nations_greater_yugoslavia
+		fire_only_once = yes
+		cost = 50
+		
+		available = {
+			custom_trigger_tooltip  = { 
+				tooltip  = YUG_controls_all_bulgarian_states_tt
+				controls_state = 48
+				controls_state = 212
+				controls_state = 801
+				controls_state = 211
+			}
+		}	
+		visible = {
+			NOT = {
+				211 = {	is_core_of = YUG
+				}
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 801
+			}
+		}
+		
+		complete_effect = {		#Gain 2.5 war support, add shit-load of claims, and show explanatory tooltip
+			add_stability = -0.035
+			add_war_support = 0.02
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 48
+						state = 212
+						state = 801
+						state = 211
+						state = 77
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = bulgarias_last_stand
+				}
+			}
+		}
+		days_remove = 315
+		modifier = {		#Lose 0.2 Political Power and gain 1.5% cg for 190 days.
+     		political_power_gain = -0.25
+	 		consumer_goods_factor = 0.02
+		}	
+		remove_effect = {
+			add_stability = 0.001
+			custom_effect_tooltip = yug_cores_bulgaria_tt
+			hidden_effect = {
+				48 = { 
+					add_core_of = ROOT 
+					remove_dynamic_modifier = {
+						modifier = bulgarias_last_stand
+					}
+				}
+				212 = { 
+					add_core_of = ROOT 
+					remove_dynamic_modifier = {
+						modifier = bulgarias_last_stand
+					}
+				}
+				801 = { 
+					add_core_of = ROOT 
+					remove_dynamic_modifier = {
+						modifier = bulgarias_last_stand
+					}
+				}
+				211 = { 
+					add_core_of = ROOT 
+					remove_dynamic_modifier = {
+						modifier = bulgarias_last_stand
+					}
+				}
+				77 = { 
+					add_core_of = ROOT 
+					remove_dynamic_modifier = {
+						modifier = bulgarias_last_stand
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+	YUG_claim_thrace = { 	
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 25
+		
+		visible = {
+			212 = {	is_core_of = YUG
+			}
+			OR = {
+				controls_state = 184
+				controls_state = 731
+				has_war_with = GRE
+			}
+			NOT = {
+				731 = {	is_claimed_by = YUG	}
+				731 = {	is_core_of = YUG	}
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 731
+			}
+		}
+		
+		complete_effect = {		#Add 0.5 war support and claims all of Albania
+			add_war_support = 0.005
+			731 = { add_claim_by = YUG }	
+			184 = { add_claim_by = YUG }	
+		}
+
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+	YUG_claim_banat = { 	
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 20
+		
+		visible = {
+			OR = {
+				controls_state = 82
+				has_war_with = ROM
+			}
+			NOT = {
+				82 = {	is_claimed_by = YUG	}
+				82 = { is_core_of = YUG	}
+			}
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 82
+			}
+		}
+		
+		complete_effect = {
+			82 = { add_claim_by = YUG }	
+		}
+
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+}
