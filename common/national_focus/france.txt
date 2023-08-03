@@ -4408,7 +4408,7 @@ focus_tree = {
 			focus = FRA_claim_rhineland
 		}
 		relative_position_id = FRA_diplomatic_freedom
-		x = 1
+		x = 0
 		y = 1
 		available = {
 			is_subject = no
@@ -4461,7 +4461,7 @@ focus_tree = {
 			focus = FRA_revise_versailles
 		}
 		relative_position_id = FRA_ultimatum_to_belgium
-		x = 1
+		x = 2
 		y = 1
 		available = {
 			r56_script_i_am_sane = yes
@@ -4527,7 +4527,7 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
-		x = 2
+		x = 3
 		y = 1
 	}
 	focus = {
@@ -4663,15 +4663,11 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = FRA_claim_rhineland
-			focus = FRA_invite_portugal
+			focus = FRA_revise_versailles
 		}
-		mutually_exclusive = { 
-			focus = FRA_secure_the_crown_of_spain 
-			focus = FRA_pact_with_spain
-		}
-		relative_position_id = FRA_claim_rhineland
+		relative_position_id = FRA_revise_versailles
 		x = 4
-		y = 1
+		y = 2
 		available = {
 			is_subject = no
 			SPA = {
@@ -5652,7 +5648,6 @@ focus_tree = {
 			focus = FRA_intervene_in_the_spanish_civil_war
 		}
 		mutually_exclusive = { 
-			focus = FRA_convince_spain
 			focus = FRA_pact_with_spain
 		}
 		x = 0
@@ -5952,6 +5947,9 @@ focus_tree = {
 			set_rule = {
 				can_create_factions = yes
 			}
+			FRA = {
+				send_embargo = GER
+			}
 			if = {
 				limit = {
 					ROM = {
@@ -6149,7 +6147,7 @@ focus_tree = {
 	focus = { #UNFINISHED
 		id = FRA_r56rp_claim_rhineland
 		icon = GFX_goal_generic_territory_or_war
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_ally_italy
 		}
@@ -6157,7 +6155,6 @@ focus_tree = {
 		x = 1
 		y = 1
 		available = {
-			r56_script_i_am_sane = yes
 			is_subject = no
 		}
 		
@@ -6166,11 +6163,8 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_named_threat = {
-				threat = 8
+				threat = 5
 				name = FRA_claim_rhineland
-			}
-			country_event = {
-				id = france.127
 			}
 			add_state_claim = 42
 			add_state_claim = 51
@@ -6180,7 +6174,7 @@ focus_tree = {
 	focus = { #UNFINISHED
 		id = FRA_r56rp_protection_benelaux
 		icon = GFX_goal_generic_military_sphere
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_ally_italy
 		}
@@ -6188,7 +6182,6 @@ focus_tree = {
 		x = -1
 		y = 1
 		available = {
-			r56_script_i_am_sane = yes
 			is_subject = no
 		}
 		
@@ -6196,6 +6189,17 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = { #guarantees on all benelaux states, for military access. Wargoal on those who refuse.
+			every_state = {
+				limit = {
+					OR = {
+						tag = BEL
+						tag = HOL
+						tag = FLA
+						tag = WAL
+					}
+					
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -6233,9 +6237,9 @@ focus_tree = {
 		relative_position_id = FRA_support_the_legitimatises
 		prerequisite = {
 			focus = FRA_support_the_spanish_nationalists
+			focus = FRA_intervene_in_the_spanish_civil_war
 		}
 		mutually_exclusive = { 
-			focus = FRA_convince_spain
 			focus = FRA_secure_the_crown_of_spain
 		}
 		available = {
@@ -6322,6 +6326,7 @@ focus_tree = {
 						expire = 0
 					}
 				}
+				send_embargo = THIS
 			}
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -6404,6 +6409,102 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = FRA_r56rp_detente_germany
+		icon = GFX_goal_generic_befriend_portugal
+		cost = 5
+		prerequisite = {
+			focus = FRA_union_latins
+		}
+		x = 0
+		y = 1
+		relative_position_id = FRA_union_latins
+		available = {
+
+		}
+		bypass = {
+
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = { #event to talk de-escalation with germany to focus on economic growth
+
+		}
+	}
+	focus = {
+		id = FRA_r56rp_customs_union
+		icon = GFX_goal_generic_befriend_portugal
+		cost = 5
+		prerequisite = {
+			focus = FRA_r56rp_detente_germany
+		}
+		x = 0
+		y = 2
+		relative_position_id = FRA_union_latins
+		available = {
+
+		}
+		bypass = {
+
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = { #
+
+		}
+	}
+	focus = {
+		id = FRA_r56rp_squash_communism
+		icon = GFX_goal_generic_befriend_portugal
+		cost = 5
+		prerequisite = {
+			focus = FRA_r56rp_customs_union
+		}
+		x = 1
+		y = 3
+		relative_position_id = FRA_union_latins
+		available = {
+
+		}
+		bypass = {
+
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = { # idea applied to everyone in the customs union, reducing communism support.
+
+		}
+	}
+	focus = {
+		id = FRA_r56rp_tech_share
+		icon = GFX_goal_generic_befriend_portugal
+		cost = 5
+		prerequisite = {
+			focus = FRA_r56rp_customs_union
+		}
+		x = -1
+		y = 3
+		relative_position_id = FRA_union_latins
+		available = {
+
+		}
+		bypass = {
+
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = { #
+
+		}
 	}
 	###############################
 	###	Bonapartists Focuses	###
@@ -8138,47 +8239,7 @@ focus_tree = {
 		}
 	}
 	
-	focus = {
-		id = FRA_invite_portugal
-		icon = GFX_goal_generic_befriend_portugal
-		cost = 5
-		prerequisite = {
-			focus = FRA_union_latins
-		}
-		x = 0
-		y = 1
-		relative_position_id = FRA_union_latins
-		available = {
-			is_subject = no
-			NOT = {
-				has_war_with = POR
-			}
-			POR = {
-				exists = yes
-				has_government = neutrality
-				is_subject = no
-				is_in_faction = no
-			}
-		}
-		bypass = {
-			POR = {
-				OR = {
-					is_in_faction_with = ROOT
-					is_subject_of = ROOT
-					has_government = communism
-				}
-			}
-		}
-		
-		ai_will_do = {
-			factor = 5
-		}
-		completion_reward = {
-			POR = {
-				country_event = france.124
-			}
-		}
-	}
+	
 	focus = {
 		id = FRA_split_switzerland
 		icon = GFX_goal_generic_military_deal
@@ -8293,10 +8354,11 @@ focus_tree = {
 		cost = 5
 		prerequisite = {
 			focus = FRA_claim_rhineland
+			focus = FRA_revise_versailles
 		}
-		relative_position_id = FRA_claim_rhineland
+		relative_position_id = FRA_revise_versailles
 		x = 2
-		y = 1
+		y = 2
 		available = {
 			is_subject = no
 			NOT = {
