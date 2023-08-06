@@ -6128,6 +6128,9 @@ focus_tree = {
 		prerequisite = {
 			focus = JAP_expand_aluminium_plants focus = JAP_expand_kobe_steel_works
 		}
+		available = {
+			has_tech = rubber_plant_a
+		}
 		relative_position_id = JAP_corporate_developments
 		x = 0
 		y = 3
@@ -7614,11 +7617,12 @@ focus_tree = {
 	focus = {
 		id = JAP_develop_mengjiang
 		icon = GFX_goal_generic_light_industry
-		x = 3
-		y = 0
+		prerequisite = { focus = JAP_the_manchurian_project }
+		x = 4
+		y = 1
 		relative_position_id = JAP_the_manchurian_project
 
-		cost = 8
+		cost = 5
 
 		ai_will_do = {
 			factor = 2
@@ -7697,8 +7701,8 @@ focus_tree = {
 	focus = {
 		id = JAP_fortify_the_border
 		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = JAP_the_manchurian_project focus = JAP_develop_mengjiang }
-		x = 4
+		prerequisite = { focus = JAP_the_manchurian_project }
+		x = 0
 		y = 1
 		relative_position_id = JAP_the_manchurian_project
 
@@ -8152,7 +8156,7 @@ focus_tree = {
 	focus = {
 		id = JAP_army_expansion_law
 		icon = GFX_goal_JAP_flag_army
-		x = 8
+		x = 10
 		y = 0
 		relative_position_id = JAP_the_manchurian_project
 
@@ -8202,7 +8206,7 @@ focus_tree = {
 		id = JAP_small_arms_modernization
 		icon = GFX_goal_CHI_support_pro_japanese_faction
 		prerequisite = { focus = JAP_army_expansion_law }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = JAP_army_expansion_law
 
@@ -9010,7 +9014,7 @@ focus_tree = {
 		id = JAP_army_expansion
 		icon = GFX_goal_JAP_army_expansion
 		prerequisite = { focus = JAP_army_expansion_law }
-		x = 3
+		x = 2
 		y = 1
 		relative_position_id = JAP_army_expansion_law
 
@@ -9577,6 +9581,65 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			IF = { #shows how much AA is built from focus, when aa is not researched.
+				limit = {
+					NOT = { has_tech = interwar_antiair }
+				}
+				effect_tooltip = {
+					random_owned_controlled_state = {
+						prioritize = { 282 }
+						limit = {
+							is_core_of = ROOT
+							is_in_home_area = yes
+						}
+						add_building_construction = {
+							type = anti_air_building
+							level = 1
+							instant_build = yes
+						}
+					}
+					random_owned_controlled_state = {
+						limit = {
+							is_core_of = ROOT
+							is_in_home_area = yes
+						}
+						add_building_construction = {
+							type = anti_air_building
+							level = 1
+							instant_build = yes
+						}
+					}
+					random_owned_controlled_state = {
+						limit = {
+							is_core_of = ROOT
+							is_in_home_area = yes
+						}
+						add_building_construction = {
+							type = anti_air_building
+							level = 1
+							instant_build = yes
+						}
+					}
+					random_owned_controlled_state = {
+						limit = {
+							is_core_of = ROOT
+							is_in_home_area = yes
+						}
+						add_building_construction = {
+							type = anti_air_building
+							level = 1
+							instant_build = yes
+						}
+					}
+					random_owned_controlled_state = {
+						add_building_construction = {
+							type = anti_air_building
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
 			random_owned_controlled_state = {
 				prioritize = { 282 }
 				limit = {
@@ -9727,16 +9790,7 @@ focus_tree = {
 						all_provinces = yes
 						limit_to_coastal = yes
 					}
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = coastal_bunker
-					province = {
-						all_provinces = yes
-						limit_to_naval_base = yes
-					}
-					level = 1
+					level = 3
 					instant_build = yes
 				}
 			}
@@ -10141,7 +10195,7 @@ focus_tree = {
 	focus = {
 		id = JAP_new_naval_estimates
 		icon = GFX_goal_JAP_new_naval_estimates
-		x = 14
+		x = 13
 		y = 0
 		relative_position_id = JAP_army_expansion_law
 
