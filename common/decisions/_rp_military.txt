@@ -782,17 +782,28 @@ Officer_Training = {
 
 	GEN_purchase_foreign_weaponry = {
 		icon = generic_prepare_civil_war
-		fire_only_once = yes
+		fire_only_once = no
+		ai_will_do = {
+			factor = 0
+		}
 		visible = {
 			is_major = no
+			NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_1 }
 		}
 		cost = 25
 		available = {
-			always = yes
+			custom_trigger_tooltip = {
+				tooltip = r56rp_gen_foreign_arms_purchases_1.tt
+				NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_1 }
+			}
+			#custom_trigger_tooltip = {
+			#	tooltip = r56rp_gen_foreign_arms_purchases_2.tt
+			#	NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_2 }
+			#}
 		}
 		complete_effect = {
 			ROOT  = {
-				set_country_flag = gen_foreign_arms_purchases_1 
+				set_country_flag = r56rp_gen_foreign_arms_purchases_1
 			}
 		}
 	}
@@ -802,19 +813,130 @@ Officer_Training = {
 		fire_only_once = no
 		visible = {
 			is_major = no
-			#NOT = { has_country_flag = gen_foreign_arms_purchases_1 }
+			has_country_flag = r56rp_gen_foreign_arms_purchases_1
 		}
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 7
 		cost = 0
 		target_trigger = {
 			FROM = {
+				NOT = {
+					has_war_with = ROOT
+				}
 				is_major = yes
+				OR = {
+					num_of_military_factories > 25
+					TAG = JAP
+					TAG = USA
+					TAG = ENG
+					TAG = GER
+					TAG = FRA
+					TAG = SOV
+					TAG = ITA
+				}
+				
+				NOT = {
+					any_country = {
+						is_in_array = {
+							array = THIS.r56rp_gun_export_permission_array
+							value = ROOT.id
+						}
+					}
+				}
+				NOT = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ban_array
+						value = ROOT.id
+					}
+				}
+
 			}
 		}
 		available = {
-			always = yes
+			custom_trigger_tooltip = {
+				tooltip = r56rp_gen_foreign_arms_purchases_2.tt
+				NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_2 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56rp_gen_foreign_arms_purchases_3.tt
+				NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_3 }
+			}
 		}
 		complete_effect = {
-			
+			set_country_flag = r56rp_gen_foreign_arms_purchases_2
+		}
+		remove_effect = {
+			FROM = {
+				country_event = gen_foreign_arms_purchases.2
+			}
+		}
+	}
+
+	r56rp_stop_buying_guns_FROM = {
+		icon = generic_prepare_civil_war
+		fire_only_once = no
+		visible = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		cost = 25
+		target_trigger = {
+			FROM = {
+				is_in_array = {
+					array = THIS.r56rp_gun_export_permission_array
+					value = ROOT.id
+				}
+			}
+		}
+		available = {
+			#always = yes
+		}
+		complete_effect = {
+			remove_from_array = {
+				FROM.r56rp_gun_export_permission_array = ROOT.id
+			}
+			set_country_flag = r56rp_gen_foreign_arms_purchases_1
+			clr_country_flag = r56rp_gen_foreign_arms_purchases_3
+		}
+	}
+
+	r56rp_stop_selling_guns_TO = {
+		icon = generic_prepare_civil_war
+		fire_only_once = no
+		visible = {
+			always = yes
+		}
+		cost = 0
+		target_trigger = {
+			any_country = {
+				limit = {
+					NOT = { TAG = ROOT }
+				}
+				is_in_array = {
+					array = ROOT.r56rp_gun_export_permission_array
+					value = FROM.id
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		available = { # r56rp_gen_foreign_arms_purchases_4.tt
+		}
+		complete_effect = {
+			FROM = {
+				remove_from_array = {
+					array = ROOT.r56rp_gun_export_permission_array
+					value = FROM.id
+				}
+				set_country_flag = r56rp_gen_foreign_arms_purchases_1
+				clr_country_flag = r56rp_gen_foreign_arms_purchases_3
+			}
+			log = "Stop seeling guns - ROOT: [ROOT.GetName], FROM: [FROM.GetName], THIS: [THIS.GetName]"
 		}
 	}
 

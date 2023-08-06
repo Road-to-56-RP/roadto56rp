@@ -48,13 +48,35 @@ country_event = { #allow for shipping arms
 	desc = gen_foreign_arms_purchases.2.desc
 	picture = GFX_report_event_generic_lend_lease
 	is_triggered_only = yes
-	
+
 	option = { # Yes - Sure ;D 
 		name = gen_foreign_arms_purchases.2.a
 		ai_chance = {
 			factor = 40
+			modifier = {
+				has_opinion = { target = FROM value < -10 }
+				factor = -80
+			}
+			modifier = {
+				has_opinion = { target = FROM value > 50 }
+				factor = 40
+			}
+			modifier = {
+				has_same_ideology = yes
+				factor = 40
+			}
+		}
+		add_to_array = {
+			array = ROOT.r56rp_gun_export_permission_array
+			value = FROM.id
+		}
+		FROM = {
+			clr_country_flag = r56rp_gen_foreign_arms_purchases_2
+			set_country_flag = r56rp_gen_foreign_arms_purchases_3
 		}
 		
+		
+		log = "Added to gun export array - ROOT: [ROOT.GetName], FROM: [FROM.GetName]"
 	}
 
 	option = { # No - Go away
@@ -64,7 +86,28 @@ country_event = { #allow for shipping arms
 		}
 		FROM = {
 			country_event = gen_foreign_arms_purchases.3
+			clr_country_flag = r56rp_gen_foreign_arms_purchases_2
 		}
+		log = "Denied gun exports - ROOT: [ROOT.GetName], FROM: [FROM.GetName]"
+	}
+
+	option = { # No and dont ask me again! #
+		name = gen_foreign_arms_purchases.2.c
+		ai_chance = {
+			factor = 5
+			modifier = {
+				has_opinion = { target = FROM value < -100 }
+				factor = 95
+			}
+		}
+		add_to_array = {
+			array = ROOT.r56rp_gun_export_ban_array
+			value = FROM.id
+		}
+		FROM = {
+			clr_country_flag = r56rp_gen_foreign_arms_purchases_2
+		}
+		log = "Blacklisted - ROOT: [ROOT.GetName], FROM: [FROM.GetName]"
 	}
 }
 
