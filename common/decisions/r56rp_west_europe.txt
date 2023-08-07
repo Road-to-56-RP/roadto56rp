@@ -348,7 +348,7 @@ unify_iberia_decision_category = {
 	POR_integrate_spaniards  = {
         icon = generic_form_nation
 		fire_only_once = yes
-		cost = 65
+		cost = 90
 		visible = {
 				original_tag = POR
 				has_cosmetic_tag  = FORM_IBE
@@ -378,12 +378,12 @@ unify_iberia_decision_category = {
 		}
 		days_remove = 175
 		modifier = {
-     		political_power_gain = -0.65
-			consumer_goods_factor = 0.15	
-	 		stability_weekly = -0.003
+     		political_power_gain = -0.55
+			consumer_goods_factor = 0.12	
+	 		stability_weekly = -0.002
 		}
-		remove_effect = {		#add 3.5% stability, and core all of Portugal
-	 		add_stability = 0.075
+		remove_effect = {		#add 7% stability, and core all of Portugal
+	 		add_stability = 0.07
 			hidden_effect =	{
 				790 = { add_core_of = POR }
 				174 = { add_core_of = POR }
@@ -409,7 +409,7 @@ unify_iberia_decision_category = {
 	POR_integrate_CAT  = {
         icon = generic_form_nation
 		fire_only_once = yes
-		cost = 40
+		cost = 30
 		visible = {
 			has_cosmetic_tag  = FORM_IBE
 			original_tag = POR
@@ -426,8 +426,8 @@ unify_iberia_decision_category = {
 			consumer_goods_factor = 0.035
 	 		stability_weekly = -0.002
 		}
-		remove_effect = {		#add 3.5% stability, and core all of Portugal
-	 		add_stability = 0.015
+		remove_effect = {		#add 1% stability, and core all Catalan states
+	 		add_stability = 0.01
 				167 = { add_core_of = ROOT }
 				177 = { add_core_of = ROOT }
 			165 = { 
@@ -697,18 +697,18 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 				state = 8
 			}
 		}
-		complete_effect = {		#Lose 15 Political Power upon clicing decision, and gain 1 war support.
-			add_war_support = 0.005
+		complete_effect = {		#Lose 1 stability upon clicing decision, and gain 1.5 war support.
+			add_stability = -0.01
+			add_war_support = 0.0015
 		}			
 		
 		days_remove = 180
 		modifier = {		#Lose 1.05 Political Power and 0.1% stability per week for 180 days.
-     		political_power_gain = -0.15
-	 		stability_weekly = -0.001
+     		political_power_gain = -0.1
 		}		
 		
-		remove_effect = {		#add 2.5% stability, and core Luxembourg
-	 		add_stability = 0.025
+		remove_effect = {		#add 0.5% stability, and core Luxembourg
+	 		add_stability = 0.005
 			8 = { add_core_of = ROOT }	
 		}
 		ai_will_do = {
@@ -718,7 +718,7 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 	fra_core_jura_mountains= { 		#France core Jura Mountains
 		icon = generic_form_nation
 		fire_only_once = yes
-		cost = 30
+		cost = 25
 		
 		available = {
 			controls_state = 845		#Controls Jura Mountains
@@ -735,17 +735,26 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 		}
 		
 		complete_effect = {
-			add_war_support = 0.005
+			add_stability = -0.025
+			add_war_support = 0.015
+			845 = {
+				add_dynamic_modifier = {
+					modifier = swiss_partisans
+				}		
+			}
 		}			
 		days_remove = 210
-		modifier = {		#Lose 1 Political Power, gain 1% consumer goods, and -0.1% stability per week for 210 days.
+		modifier = {		#Lose 1 Political Power, and gain 0.5% consumer goods for 210 days.
      		political_power_gain = -0.1
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
+			consumer_goods_factor = 0.005
 		}		
-		remove_effect = {		#add 2.5% stability, and core Luxembourg
-	 		add_stability = 0.025
-			845 = { add_core_of = ROOT }	
+		remove_effect = {		#add 1.5% stability, remove funny modifier, and core Jura Mountains
+	 		add_stability = 0.015
+			845 = { add_core_of = ROOT 
+				remove_dynamic_modifier = {
+					modifier = swiss_partisans
+				}	
+			}	
 		}
 		ai_will_do = {
 			factor = 100		
@@ -771,15 +780,20 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 		}
 		
 		complete_effect = {
+			add_stability = -0.0015
 			add_war_support = 0.005
+			845 = {
+				add_dynamic_modifier = {
+					modifier = swiss_partisans
+				}		
+			}
 		}			
 		days_remove = 365
-		modifier = {		#Lose 0.8 Political Power a day, and -0.05% stability per week for 365 days.
+		modifier = {		#Lose 0.8 Political Power a day, and -0.001% stability per week for 365 days.
      		political_power_gain = -0.08
-	 		stability_weekly = -0.001
 		}		
-		remove_effect = {		#add 2% stability, and core 847
-	 		add_stability = 0.02
+		remove_effect = {		#add 1% stability, and core 847
+	 		add_stability = 0.01
 			847 = { add_core_of = ROOT }	
 		}
 
@@ -790,7 +804,7 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 	fra_claim_cataluna = { 		#France claim Catluña
 		icon = generic_form_nation
 		fire_only_once = yes
-		cost = 0
+		cost = 20
 		
 		available = {
 			controls_state = 165		#Controls Cataluña
@@ -799,8 +813,7 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 			original_tag = FRA		#Is France
 			has_government = fascism		#Is Fascist
 		}
-		complete_effect = {		#Lose 15 Political Power upon clicing decision, and gain 1 war support.
-			add_political_power = -15
+		complete_effect = {		#gain 1 war support.
 			add_war_support = 0.01
 			165 = {
 				add_claim_by = FRA
@@ -816,7 +829,7 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 	fra_core_cataluna = { 		#France core Catluña
 		icon = generic_form_nation
 		fire_only_once = yes
-		cost = 0
+		cost = 50
 		
 		available = {
 			controls_state = 165		#Controls Cataluña
@@ -834,17 +847,17 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 		}
 		
 		complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
-			add_political_power = -60
+			add_stability = -0.02
 			add_war_support = 0.01
 		}		
 		days_remove = 210
-		modifier = {		#Lose 0.1 Political Power a day, gain 1.5% consumer goods, and -0.1% stability per week for 210 days.
+		modifier = {		#Lose 0.1 Political Power a day, and gain 1% consumer goods for 210 days.
      		political_power_gain = -0.1
-			consumer_goods_factor = 0.015	
+			consumer_goods_factor = 0.01
 	 		stability_weekly = -0.001
 		}	
-		remove_effect = {		#add 2.5% stability, and core Luxembourg
-	 		add_stability = 0.02
+		remove_effect = {		#add 1.5% stability, and core Luxembourg
+	 		add_stability = 0.015
 			165 = { 
 				add_core_of = ROOT	
 				remove_dynamic_modifier = {
@@ -858,55 +871,55 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 		ai_will_do = {
 			factor = 100		
 			}
-		}
+	}
 	fra_core_other_catalan_territories = { 		#France core Eastern Aragón, Balaeric Islands, and Valencia
 		icon = generic_form_nation
 		fire_only_once = yes
 		cost = 0
 		
-		available = {
-			controls_state = 165		#Controls Cataluña
-			controls_state = 167		#Controls Valencia
-			controls_state = 177		#Controls BalaericIslands
-			has_government = neutrality		#Is Authoritarian
-		}	
-		visible = {
-			original_tag = FRA		#Is France
-			165 = { is_core_of = ROOT }		#Has core on Cataluña
-		}
-		complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
-			add_political_power = -60
-			add_war_support = 0.01
-		}			
-		days_remove = 365
-		modifier = {		#Lose 0.1 Political Power a day, gain 1.5% consumer goods, and -0.1% stability per week for 210 days.
-     		political_power_gain = -0.2
-			consumer_goods_factor = 0.03	
-	 		stability_weekly = -0.002
-		}		
-		remove_effect = {		#add 4% stability, and core Eastern Aragón, Balaeric Islands, and Valencia
-	 		add_stability = 0.04
-			167 = { add_core_of = ROOT 	
-				remove_dynamic_modifier = {
-					modifier = autonomous_state
+			available = {
+				controls_state = 165		#Controls Cataluña
+				controls_state = 167		#Controls Valencia
+				controls_state = 177		#Controls BalaericIslands
+				has_government = neutrality		#Is Authoritarian
+			}	
+			visible = {
+				original_tag = FRA		#Is France
+				165 = { is_core_of = ROOT }		#Has core on Cataluña
+			}
+			complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
+				add_political_power = -60
+				add_war_support = 0.01
+			}			
+			days_remove = 365
+			modifier = {		#Lose 0.1 Political Power a day, gain 1.5% consumer goods, and -0.1% stability per week for 210 days.
+				political_power_gain = -0.2
+				consumer_goods_factor = 0.03	
+				stability_weekly = -0.002
+			}		
+			remove_effect = {		#add 4% stability, and core Eastern Aragón, Balaeric Islands, and Valencia
+				add_stability = 0.04
+				167 = { add_core_of = ROOT 	
+					remove_dynamic_modifier = {
+						modifier = autonomous_state
+					}
+					add_dynamic_modifier = {
+						modifier = fra_cat_autonomy
+					}
 				}
-				add_dynamic_modifier = {
-					modifier = fra_cat_autonomy
+				177 = { add_core_of = ROOT 	
+					remove_dynamic_modifier = {
+						modifier = autonomous_state
+					}
+					add_dynamic_modifier = {
+						modifier = fra_cat_autonomy
+					}
 				}
 			}
-			177 = { add_core_of = ROOT 	
-				remove_dynamic_modifier = {
-					modifier = autonomous_state
-				}
-				add_dynamic_modifier = {
-					modifier = fra_cat_autonomy
-				}
-			}
-		}
 		ai_will_do = {
 			factor = 100		
-			}
 		}
+	}
 	fra_push_germany_east = { 		#France claim both Rhinelad tiles
 		icon = generic_form_nation
 		fire_only_once = yes
@@ -944,7 +957,7 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 	fra_push_italy_east = { 		#France claim Piedmont
 		icon = generic_form_nation
 		fire_only_once = yes
-		cost = 45
+		cost = 40
 		
 		available = {
 			original_tag = FRA		#Is France
@@ -955,6 +968,7 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 			OR = {	#Is at war with Italy, or controls Piedmont.
 				has_war_with = ITA
 				controls_state = 158
+				controls_state = 114
 			}
 		}
 		
@@ -964,11 +978,14 @@ fra_expanisonism_category = {		#Category with options to core several linguistic
 			}
 		}
 
-		complete_effect = {		#gain 2 war support, and adds claim on Piedmont.
+		complete_effect = {		#gain 2 war support, and adds claim on Piedmont and Sardinia.
 			add_war_support = 0.02
 			158 = {
 				add_claim_by = FRA
-			}			
+			}	
+			114 = {
+				add_claim_by = FRA
+			}				
 		}
 
 		ai_will_do = {
@@ -1119,6 +1136,7 @@ hol_expansionism	= {
 			}
 		}
 		complete_effect = {
+			add_stability = -0.025
 			add_war_support = 0.02
 			hidden_effect =	{
 				8 = { add_claim_by = HOL }						
@@ -1127,11 +1145,10 @@ hol_expansionism	= {
 		days_remove = 60
 		modifier = {
      		political_power_gain = -0.35
-			consumer_goods_factor = 0.075	
-	 		stability_weekly = -0.0035
+			consumer_goods_factor = 0.05	
 		}	
-		remove_effect = {		#Gain 3 Stability and gains core on Vlaanderen
-	 		add_stability = 0.03
+		remove_effect = {		#Gain 2.5 Stability and gains core on Vlaanderen
+	 		add_stability = 0.025
 			6 = {	add_core_of = ROOT }	
 		}		
 	}
@@ -1156,16 +1173,26 @@ hol_expansionism	= {
 			}
 		}
 		complete_effect = {
+			add_stability = -0.05
+			34 = {
+				add_dynamic_modifier = {
+					modifier = walloon_partisans
+				}		
+			}
 		}
 		days_remove = 210
 		modifier = {
-     		political_power_gain = -0.4
-			consumer_goods_factor = 0.05	
-	 		stability_weekly = -0.0035
+     		political_power_gain = -0.3
+			consumer_goods_factor = 0.035	
 		}	
-		remove_effect = {		#Gain 4 Stability and gains core on Vlaanderen
-	 		add_stability = 0.04
-			34 = {	add_core_of = ROOT }	
+		remove_effect = {		#Gain 2 Stability and gains core on Vlaanderen
+	 		add_stability = 0.02
+			34 = {	add_core_of = ROOT 
+				add_core_of = ROOT
+				remove_dynamic_modifier = {
+					modifier = walloon_partisans
+				}		
+			}	
 			965 = {	add_core_of = ROOT }	
 		}		
 	}
@@ -1376,4 +1403,3 @@ hol_expansionism	= {
 		}
 	}
 }
-
