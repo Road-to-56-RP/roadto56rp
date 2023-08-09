@@ -645,58 +645,218 @@ Officer_Training = {
 		}
 	}
 
+	# MERCENARY 
+	morevolunteers_mercenary = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cost = 150
+
+		visible = {
+			NOT = {
+				is_major = yes
+				has_country_flag = mercenary_nation
+				has_country_flag = rp_minorvolunteerallowed
+			}
+		}
+
+		available = {
+			threat > 0.10
+		}
+
+		complete_effect = { 
+			set_rule = { can_send_volunteers = yes }
+			set_country_flag = mercenary_nation
+			add_ideas = GEN_mercenary_nation
+		}
+		
+		fire_only_once = yes
+		days_remove = 0
+	}
+
+	# RETURN/DISBAND MERCENARY 
+	morevolunteers_mercenary_disband = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cost = 50
+
+		visible = {
+			has_country_flag = mercenary_nation
+		}
+
+		available = {
+			threat > 0.10
+		}
+
+		complete_effect = { 
+			set_rule = { can_send_volunteers = no }
+			clr_country_flag = mercenary_nation
+			remove_ideas = GEN_mercenary_nation
+		}
+		
+		fire_only_once = no
+		days_remove = 0
+	}
+
+	# VOLUNTEERS START
+	morevolunteers_minor_start = { # Starting Decision for Volunteers [MINOR]
+		icon = GFX_decision_generic_prepare_civil_war
+		cost = 50
+
+		visible = {
+			NOT = {
+				is_major = yes
+				has_country_flag = mercenary_nation
+				has_country_flag =  rp_minorvolunteerallowed
+			}
+		}
+
+		available = {
+			threat > 0.05 
+		}
+
+		complete_effect = { 
+			set_rule = { can_send_volunteers = yes } #enables volunteers at all times, safeguarding form "trickle down effect
+			set_country_flag = rp_minorvolunteerallowed
+		}
+
+		fire_only_once = no
+		days_remove = 0
+	}
+
+	morevolunteers_major_start = { # Starting Decision for Volunteers [MAJOR]
+		icon = GFX_decision_generic_prepare_civil_war
+		cost = 100
+		visible = {
+			is_major = yes
+			NOT = {
+				has_country_flag = rp_minorvolunteerallowed # just incase a minor becomes a major not to have double ideas.
+				has_country_flag = rp_majorvolunteerallowed # make sure this doesn't get re-fired
+			}
+		}
+
+		available = {
+			threat > 0.15
+			if = { # There you are Warlider no more Neutrality USA having volunteers everywhere
+				limit = {
+					original_tag = USA
+				}
+				OR = {
+					NOT = {
+						has_idea = USA_neutrality_act
+					}
+					has_completed_focus = USA_limited_intervention
+					has_war_support > 0.5
+				}
+			}
+		}
+
+		complete_effect = { # I don't beleive this flag hooks into anything and was a cut feature
+			set_rule = { can_send_volunteers = yes }
+			set_country_flag = rp_majorvolunteerallowed
+		}
+
+		fire_only_once = no
+		days_remove = 0
+	}
+
+	# EXPAND VOLUNTEERS
+
 	morevolunteers_minor = {
 		icon = GFX_decision_generic_prepare_civil_war
 		cost = 50
 		visible = {
 			NOT = {
 				is_major = yes
+				has_country_flag = rp_minorvolunteer_expanded
 			}
+			has_country_flag = rp_minorvolunteerallowed
 		}
+
 		available = {
 			threat > 0.05 
 		}
-		# above check for basegame major check, major being 7 largest ecos or faction leader
 
-		complete_effect = { # I don't beleive this flag hooks into anything and was a cut feature
-			set_rule = { can_send_volunteers = yes } #enables volunteers at all times, safeguarding form "trickle down effect
+		complete_effect = {
+			add_ideas = GEN_morevolunteers_minor
+			set_country_flag = rp_minorvolunteerallowed_disband
+			set_country_flag = rp_minorvolunteer_expanded
 		}
 
-		modifier = { 
-			lend_lease_tension = -1
-			send_volunteers_tension = -1
-			send_volunteer_divisions_required = -1
-			send_volunteer_size = 3
-		}
-
-		fire_only_once = yes
-		days_remove = -1
+		fire_only_once = no
+		days_remove = 0
 	}
 	
+
 	morevolunteers_major = { #less powerful major version idea being majors ususally have access to volunteers, be it a focus always open or, like with the usa, a choice.
 		icon = GFX_decision_generic_prepare_civil_war
 		cost = 125
 		visible = {
 			is_major = yes 
+			has_country_flag = rp_majorvolunteerallowed
+			NOT = {
+				has_country_flag = rp_majorvolunteer_expanded
+			}
 		}
 		available = {
 			threat > 0.15 # tension check. logic being to force majors to wait till later in the game, or in an rp sence, using the globle situation to pass laws or acts allowing troops overseas.
 		}
 
 		complete_effect = {
-			set_rule = { can_send_volunteers = yes }
-		}
-
-		modifier = { 
-			lend_lease_tension = -0.25
-			send_volunteers_tension = -0.5
-			send_volunteer_size = 2
+			add_ideas = GEN_morevolunteers_major
+			set_country_flag = rp_majorvolunteerallowed_disband
+			set_country_flag = rp_majorvolunteer_expanded
 		}
 	
-		fire_only_once = yes
-		days_remove = -1
+		fire_only_once = no
+		days_remove = 0
 	}
-	 
+
+	## DISBAND DECISIONS
+
+	morevolunteers_disband_major = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cost = 50
+		visible = {
+			has_country_flag = rp_majorvolunteerallowed_disband
+		}
+
+		available = {
+			has_country_flag = rp_majorvolunteerallowed_disband
+		}
+
+		complete_effect = {
+			remove_ideas = GEN_morevolunteers_major
+			clr_country_flag = rp_majorvolunteerallowed_disband
+			clr_country_flag = rp_majorvolunteerallowed
+			clr_country_flag = rp_majorvolunteer_expanded
+		}
+
+		fire_only_once = no
+		days_remove = 0
+	}
+
+	morevolunteers_disband_minor = {
+		icon = GFX_decision_generic_prepare_civil_war
+		cost = 50
+		visible = {
+			has_country_flag = rp_minorvolunteerallowed_disband
+		}
+
+		available = {
+			has_country_flag = rp_minorvolunteerallowed_disband
+		}
+
+		complete_effect = {
+			remove_ideas = GEN_morevolunteers_minor
+			clr_country_flag = rp_minorvolunteerallowed_disband
+			clr_country_flag = rp_minorvolunteerallowed
+			clr_country_flag = rp_minorvolunteer_expanded
+		}
+
+		fire_only_once = no
+		days_remove = 0
+	}
+
+	## VOLUNTEERS END
+
 	r56_coordinate_land_equipment_manufacturers = {
 		icon = generic_industry
 
@@ -913,8 +1073,10 @@ Officer_Training = {
 		cost = 0
 		target_trigger = {
 			any_country = {
-				limit = {
-					NOT = { TAG = ROOT }
+				if = {
+					limit = {
+						NOT = { TAG = ROOT }
+					}
 				}
 				is_in_array = {
 					array = ROOT.r56rp_gun_export_permission_array
