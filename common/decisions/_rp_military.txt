@@ -715,6 +715,7 @@ Officer_Training = {
 		complete_effect = { 
 			set_rule = { can_send_volunteers = yes } #enables volunteers at all times, safeguarding form "trickle down effect
 			set_country_flag = rp_minorvolunteerallowed
+			add_ideas = GEN_morevolunteers_minor
 		}
 
 		fire_only_once = no
@@ -751,6 +752,7 @@ Officer_Training = {
 		complete_effect = { # I don't beleive this flag hooks into anything and was a cut feature
 			set_rule = { can_send_volunteers = yes }
 			set_country_flag = rp_majorvolunteerallowed
+			add_ideas = GEN_morevolunteers_major
 		}
 
 		fire_only_once = no
@@ -775,7 +777,10 @@ Officer_Training = {
 		}
 
 		complete_effect = {
-			add_ideas = GEN_morevolunteers_minor
+			swap_ideas = { 
+				remove_idea = GEN_morevolunteers_minor 
+				add_idea = GEN_morevolunteers_minorexpanded
+			}
 			set_country_flag = rp_minorvolunteerallowed_disband
 			set_country_flag = rp_minorvolunteer_expanded
 		}
@@ -800,9 +805,12 @@ Officer_Training = {
 		}
 
 		complete_effect = {
-			add_ideas = GEN_morevolunteers_major
 			set_country_flag = rp_majorvolunteerallowed_disband
 			set_country_flag = rp_majorvolunteer_expanded
+			swap_ideas = { 
+				remove_idea = GEN_morevolunteers_major
+				add_idea = GEN_morevolunteers_majorexpanded
+			}
 		}
 	
 		fire_only_once = no
@@ -823,7 +831,7 @@ Officer_Training = {
 		}
 
 		complete_effect = {
-			remove_ideas = GEN_morevolunteers_major
+			remove_ideas = GEN_morevolunteers_majorexpanded
 			clr_country_flag = rp_majorvolunteerallowed_disband
 			clr_country_flag = rp_majorvolunteerallowed
 			clr_country_flag = rp_majorvolunteer_expanded
@@ -845,7 +853,7 @@ Officer_Training = {
 		}
 
 		complete_effect = {
-			remove_ideas = GEN_morevolunteers_minor
+			remove_ideas = GEN_morevolunteers_minorexpanded
 			clr_country_flag = rp_minorvolunteerallowed_disband
 			clr_country_flag = rp_minorvolunteerallowed
 			clr_country_flag = rp_minorvolunteer_expanded
