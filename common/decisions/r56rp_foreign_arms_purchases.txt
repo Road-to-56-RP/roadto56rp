@@ -10,10 +10,27 @@ Officer_Training = {
 				is_major = no
 				has_country_flag = r56rp_KMT_foreign_arms_purchases_1
 			}
-			NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_1 }
+			NOT = { 
+				has_country_flag = r56rp_gen_foreign_arms_purchases_1
+				# this is to make sure fucking czechoslovakia cannot import from itself.
+				
+			}
 		}
 		cost = 25
 		available = {
+			IF = {
+				limit = {
+					TAG = HUN
+				}
+				NOT = { has_idea = HUN_treaty_of_triannon }
+			}
+			IF = {
+				limit = {
+					TAG = BUL
+				}
+				NOT = { has_idea = BUL_army_restrictions }
+			}
+			num_of_military_factories < 40
 			custom_trigger_tooltip = {
 				tooltip = r56rp_gen_foreign_arms_purchases_1.tt
 				NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_1 }
@@ -22,6 +39,22 @@ Officer_Training = {
 			#	tooltip = r56rp_gen_foreign_arms_purchases_2.tt
 			#	NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_2 }
 			#}
+			custom_trigger_tooltip = { #this is to make sure you don fucking export guns and import at the same time.
+				tooltip = r56rp_gen_foreign_arms_purchases_5.tt
+				NOT = {
+					OR = {
+						TAG = JAP
+						TAG = USA
+						TAG = ENG
+						TAG = GER
+						TAG = FRA
+						TAG = SOV
+						TAG = ITA
+						TAG = POL
+						TAG = CZE
+					}
+				}
+			}
 		}
 		complete_effect = {
 			set_country_flag = r56rp_gen_foreign_arms_purchases_1
@@ -32,28 +65,34 @@ Officer_Training = {
 		icon = GFX_decision_generic_industry
 		fire_only_once = no
 		visible = {
-			is_major = no
+			num_of_military_factories < 40
 			has_country_flag = r56rp_gen_foreign_arms_purchases_1
 			NOT = {
 				has_country_flag = r56rp_gen_foreign_arms_purchases_3
+				# this is to make sure fucking czechoslovakia cannot import from itself.
+				TAG = JAP
+				TAG = USA
+				TAG = ENG
+				TAG = GER
+				TAG = FRA
+				TAG = SOV
+				TAG = ITA
+				TAG = POL
+				TAG = CZE
 			}
 		}
 		ai_will_do = {
 			factor = 0
 		}
-		days_remove = 2
+		#days_remove = 2
 		cost = 0
 		target_trigger = {
 			FROM = {
 				NOT = {
 					has_war_with = FROM
 				}
-				
 				OR = {
-					AND = {
-						is_major = yes
-						num_of_military_factories > 25
-					}
+					num_of_military_factories > 40
 					TAG = JAP
 					TAG = USA
 					TAG = ENG
@@ -80,6 +119,7 @@ Officer_Training = {
 			}
 		}
 		available = {
+			num_of_military_factories < 40
 			custom_trigger_tooltip = {
 				tooltip = r56rp_gen_foreign_arms_purchases_2.tt
 				NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_2 }
@@ -95,8 +135,8 @@ Officer_Training = {
 				country_event = r56rp_foreign_arms_purchases.1
 			}
 		}
-		remove_effect = {
-		}
+		#remove_effect = {
+		#}
 	}
 
 	r56rp_stop_buying_guns_FROM = {
