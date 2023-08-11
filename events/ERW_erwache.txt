@@ -445,218 +445,256 @@ country_event = { #Reviving Brest Litovsk
 		}
 		#transfer states to germany (like ostland and other things like that.)
 		every_state = {
-			limit = {
-				is_controlled_by = SOV
-				OR = {
-					state = 13
-					state = 191
-					state = 190
-					state = 809
-					state = 934
-					state = 194
-					state = 204
-					state = 206
-					state = 96
-					state = 784
-					state = 935
-					state = 936
-					state = 813
-					state = 812
-					state = 811
-				}
-			}
-			transfer_state_to = GER
-		}
-
-		#finnish shite
-		every_state = {
-			limit = {
-				is_controlled_by = SOV
-				OR = {
-					state = 111
-					state = 145
-					state = 146
-					state = 147
-					state = 148
-					state = 149
-					state = 150
-					state = 722
-				}
-			}
-			transfer_state_to = FIN
-		}
-
-		#ukrainian shite
-		every_state = { 
-			limit = {
-				is_controlled_by = SOV
-				OR = {
-					state = 199
-					state = 198
-					state = 198
-					state = 201
-					state = 202
-					state = 192
-					state = 197
-					state = 203
-					state = 193
-					state = 196
-					state = 226
-					state = 259
-					state = 225
-					state = 221
-					state = 200
-					state = 227
-					state = 228
-					state = 834
-					state = 93
-					state = 91
-					state = 89
-				}
-			}
-			transfer_state_to = UKR
-		}
-
-		GER = {
-			release_puppet = UKR
-			UKR = {
-				set_cosmetic_tag = GER_UKR_TRT
-			}
-		}
-
-		every_state = { #polish shit going to germany
-			limit = {
-				is_controlled_by = SOV
-				OR = {
-					state = 807
-					state = 86
-					state = 762
-					state = 85
-					state = 814
-					state = 934
-					state = 935
-					state = 936
-					state = 190
-					state = 85
-				}
-			}
-			transfer_state_to = GER
-		}
-
-		every_state = { #LITHUANIAN PUPPET
-			limit = {
-				is_controlled_by = SOV
-				OR = {
-					state = 188
-					state = 189
-					state = 815
-					state = 11
-					state = 814
-					state = 934
-					state = 935
-					state = 936
-					state = 190
-				}
-			}
-			transfer_state_to = GER
-		}
-
-		GER = {
-			release_puppet = LIT
-			LIT = {
-				set_cosmetic_tag = GER_OBER_OS
-
-				hidden_effect = {
-					load_focus_tree = generic
-					remove_ideas = LIT_constitutional_loophole
-					remove_ideas = LIT_polish_lithuanian_tensions
-					remove_ideas = LIT_peasant_strikes
-					remove_ideas = LIT_stable_currency
-
-					set_party_name = { 
-						ideology = neutrality 
-						long_name = "Oberbefehlshaber der gesamten Deutschen Streitkräfte im Osten" 
-						name = "Ober Ost"
+			if = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 188
+						state = 807
+						state = 86
+						state = 762
 					}
-	
-					create_country_leader = {
-						name = "Erwin von Witzleben"
-						desc = ""
-						picture = "Portrait_Germany_Erwin_von_Witzleben.dds"
-						expire = "1965.1.1"
-						ideology = oligarchism
-						traits = {
-							popular_figurehead2
+				}
+				transfer_state_to = GER
+			}
+			if = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 13
+						state = 811
+						state = 812
+						state = 813
+						state = 191
+					}
+				}
+				transfer_state_to = EST
+				GER = {
+					if = {
+						limit = { has_government = fascism has_dlc = "Waking the Tiger" }
+						set_autonomy = {
+							target = EST
+							autonomy_state = autonomy_reichskommissariat
+						}
+					}
+					else_if = {
+						limit = { NOT = { has_government = neutrality } }
+						set_autonomy = {
+							target = EST
+							autonomy_state = autonomy_puppet
+						}
+					}
+					else = {
+						set_autonomy = {
+							target = EST
+							autonomy_state = autonomy_reichsland
 						}
 					}
 				}
-				
-
-				transfer_state = 934
-				transfer_state = 935
-				transfer_state = 936
-				transfer_state = 190
-				transfer_state = 97
-				transfer_state = 96
-
+				EST = { set_cosmetic_tag = EST_BRLI }
 			}
-		}
-
-		every_state = { #LATVIAN PROTECTORATE
-			limit = {
-				is_controlled_by = SOV
-				OR = {
-					state = 809
-					state = 12
-					state = 808
-					state = 810
+			if = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 12
+						state = 810
+						state = 808
+						state = 809
+						state = 190
+					}
 				}
+				transfer_state_to = LAT
+				GER = {
+					if = {
+						limit = { has_government = fascism has_dlc = "Waking the Tiger" }
+						set_autonomy = {
+							target = LAT
+							autonomy_state = autonomy_reichskommissariat
+						}
+					}
+					else_if = {
+						limit = { NOT = { has_government = neutrality } }
+						set_autonomy = {
+							target = LAT
+							autonomy_state = autonomy_puppet
+						}
+					}
+					else = {
+						set_autonomy = {
+							target = LAT
+							autonomy_state = autonomy_reichsland
+						}
+					}
+				}
+				LAT = { set_cosmetic_tag = LAT_BRLI }
 			}
-			transfer_state_to = GER
-		}
-
-		GER = {
-			release_puppet = LAT
-			LAT = {
-				set_cosmetic_tag = GER_LAT_OST	
-
-				set_party_name = { 
-					ideology = neutrality 
-					long_name = "Latvian Provisional Government " 
-					name = "Latvian Provisional Government "
+			if = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 189
+						state = 815
+						state = 11
+						state = 814
+						state = 784
+					}
 				}
-
-				transfer_state = 809
-				transfer_state = 12
-				transfer_state = 808
-				transfer_state = 810
+				transfer_state_to = LIT
+				LIT = { set_capital = { state = 784 } }
+				GER = {
+					if = {
+						limit = { has_government = fascism has_dlc = "Waking the Tiger" }
+						set_autonomy = {
+							target = LIT
+							autonomy_state = autonomy_reichskommissariat
+						}
+					}
+					else_if = {
+						limit = { NOT = { has_government = neutrality } }
+						set_autonomy = {
+							target = LIT
+							autonomy_state = autonomy_puppet
+						}
+					}
+					else = {
+						set_autonomy = {
+							target = LIT
+							autonomy_state = autonomy_reichsland
+						}
+					}
+				}
+				LIT = { set_cosmetic_tag = LIT_BRLI }
 			}
-		}
-
-		GER = {
-			release_puppet = EST
-			EST = {
-				set_cosmetic_tag = GER_EST_OST	
-
-				set_party_name = { 
-					ideology = neutrality 
-					long_name = "Estonian Provisional Government " 
-					name = "Estonian Provisional Government "
+			if = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 206
+						state = 204
+						state = 194
+						state = 94
+						state = 95
+						state = 96
+						state = 935
+						state = 936
+						state = 934
+						state = 97
+						state = 814
+					}
 				}
+				transfer_state_to = BLR
+				GER = {
+					if = {
+						limit = { has_government = fascism has_dlc = "Waking the Tiger" }
+						set_autonomy = {
+							target = BLR
+							autonomy_state = autonomy_reichskommissariat
+						}
+					}
+					else_if = {
+						limit = { NOT = { has_government = neutrality } }
+						set_autonomy = {
+							target = BLR
+							autonomy_state = autonomy_puppet
+						}
+					}
+					else = {
+						set_autonomy = {
+							target = BLR
+							autonomy_state = autonomy_reichsland
+						}
+					}
+				}
+				BLR = { set_cosmetic_tag = BLR_BRLI }
 			}
-		}
-
-		
-		GER = {
-			release_puppet = BLR
-			BLR = {
-				set_cosmetic_tag = GER_BLR_OST	
-
-				set_party_name = { 
-					ideology = neutrality 
-					long_name = "Estonian Provisional Government " 
-					name = "Estonian Provisional Government "
+			if = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 228
+						state = 227
+						state = 200
+						state = 196
+						state = 226
+						state = 221
+						state = 197
+						state = 203
+						state = 259
+						state = 225
+						state = 193
+						state = 202
+						state = 192
+						state = 834
+						state = 198
+						state = 199
+						state = 201
+						state = 93
+						state = 91
+						state = 89
+					}
 				}
+				transfer_state_to = UKR
+				GER = {
+					if = {
+						limit = { has_government = fascism has_dlc = "Waking the Tiger" }
+						set_autonomy = {
+							target = UKR
+							autonomy_state = autonomy_reichsprotectorate
+						}
+					}
+					else_if = {
+						limit = { NOT = { has_government = neutrality } }
+						set_autonomy = {
+							target = UKR
+							autonomy_state = autonomy_puppet
+						}
+					}
+					else = {
+						set_autonomy = {
+							target = UKR
+							autonomy_state = autonomy_reichsgouvernement
+						}
+					}
+				}
+				UKR = { set_cosmetic_tag = UKR_BRLI }
+			}
+			if = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 98
+						state = 10
+						state = 92
+						state = 87
+						state = 90
+						state = 88
+					}
+				}
+				transfer_state_to = POL
+				GER = {
+					if = {
+						limit = { has_government = fascism has_dlc = "Waking the Tiger" }
+						set_autonomy = {
+							target = POL
+							autonomy_state = autonomy_reichsprotectorate
+						}
+					}
+					else_if = {
+						limit = { NOT = { has_government = neutrality } }
+						set_autonomy = {
+							target = POL
+							autonomy_state = autonomy_puppet
+						}
+					}
+					else = {
+						set_autonomy = {
+							target = POL
+							autonomy_state = autonomy_reichsgouvernement
+						}
+					}
+				}
+				POL = { set_cosmetic_tag = POL_BRLI }
 			}
 		}
 	}
