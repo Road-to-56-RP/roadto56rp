@@ -27,11 +27,21 @@ r56rp_rules = {
 		}
 	
 		complete_effect = {
-			FRA = {
-				country_event = {
-					id = germany.60
+			GER = {
+				annex_country = {
+					target = POL
 				}
-				custom_effect_tooltip = may_provoke_hostility
+			}
+			SOV = {
+				annex_country = {
+					target = LIT
+				}
+				annex_country = {
+					target = EST
+				}
+				annex_country = {
+					target = LAT
+				}
 			}
 		}
 	}
@@ -56,8 +66,122 @@ r56rp_rules = {
 			is_ai = no
 		}
 	
-		complete_effect = {
-		}
+		complete_effect = { #WHO MADE THIS FUCKING IF =  ABOMINATION?!?
+			GER = { 
+				white_peace	= SOV
+			}
+			#transfer states to germany (like ostland and other things like that.)
+			every_state = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 13
+						state = 191
+						state = 12
+						state = 190
+						state = 809
+						state = 808
+						state = 934
+						state = 194
+						state = 204
+						state = 206
+						state = 96
+						state = 784
+						state = 935
+						state = 936
+						state = 810
+						state = 813
+						state = 812
+						state = 811
+					}
+				}
+				transfer_state_to = GER
+			}
+
+			#finnish shite
+			every_state = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 111
+						state = 145
+						state = 146
+						state = 147
+						state = 148
+						state = 149
+						state = 150
+						state = 722
+					}
+				}
+				transfer_state_to = FIN
+			}
+
+			#ukrainian shite
+			every_state = { 
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 199
+						state = 198
+						state = 198
+						state = 201
+						state = 202
+						state = 192
+						state = 197
+						state = 203
+						state = 193
+						state = 196
+						state = 226
+						state = 259
+						state = 225
+						state = 221
+						state = 200
+						state = 227
+						state = 228
+						state = 834
+					}
+				}
+				transfer_state_to = UKR
+			}
+			GER = {
+				release_puppet = UKR
+			}
+			
+			
+			every_state = { #LITHUANIAN PUPPET
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 188
+						state = 189
+						state = 815
+						state = 11
+						state = 814
+					}
+				}
+				transfer_state_to = GER
+			}
+			GER = {
+				release_puppet = LIT
+			}
+			LIT = {
+				set_cosmetic_tag = GER_OBER_OST
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Oberbefehlshaber der gesamten Deutschen Streitkräfte im Osten" 
+					name = "Ober Ost"
+				}
+				create_country_leader = {
+					name = "Erwin von Witzleben"
+					desc = ""
+					picture = "Portrait_Germany_Erwin_von_Witzleben.dds"
+					expire = "1965.1.1"
+					ideology = conservatism
+					traits = {
+						popular_figurehead2
+					}
+				}
+			}
 	}
 
 	r56rp_disable_axis_armor_pack = {
