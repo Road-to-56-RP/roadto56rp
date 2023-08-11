@@ -450,10 +450,8 @@ country_event = { #Reviving Brest Litovsk
 				OR = {
 					state = 13
 					state = 191
-					state = 12
 					state = 190
 					state = 809
-					state = 808
 					state = 934
 					state = 194
 					state = 204
@@ -462,7 +460,6 @@ country_event = { #Reviving Brest Litovsk
 					state = 784
 					state = 935
 					state = 936
-					state = 810
 					state = 813
 					state = 812
 					state = 811
@@ -540,35 +537,12 @@ country_event = { #Reviving Brest Litovsk
 					state = 935
 					state = 936
 					state = 190
+					state = 85
 				}
 			}
 			transfer_state_to = GER
 		}
 
-		every_state = { #polish puppet
-			limit = {
-				is_controlled_by = SOV
-				OR = {
-					state = 98
-					state = 87
-					state = 10
-					state = 92
-					state = 90
-					state = 88
-				}
-			}
-			transfer_state_to = POL
-
-			GER = {
-				release_puppet = POL
-				POL = {
-					set_cosmetic_tag = GER_POL_TRT
-				}
-			}
-		}
-
-		
-		
 		every_state = { #LITHUANIAN PUPPET
 			limit = {
 				is_controlled_by = SOV
@@ -590,28 +564,99 @@ country_event = { #Reviving Brest Litovsk
 		GER = {
 			release_puppet = LIT
 			LIT = {
-				set_cosmetic_tag = GER_OBER_OST
-				set_party_name = { 
-					ideology = neutrality 
-					long_name = "Oberbefehlshaber der gesamten Deutschen Streitkräfte im Osten" 
-					name = "Ober Ost"
-				}
+				set_cosmetic_tag = GER_OBER_OS
 
-				create_country_leader = {
-					name = "Erwin von Witzleben"
-					desc = ""
-					picture = "Portrait_Germany_Erwin_von_Witzleben.dds"
-					expire = "1965.1.1"
-					ideology = oligarchism
-					traits = {
-						popular_figurehead2
+				hidden_effect = {
+					load_focus_tree = generic
+					remove_ideas = LIT_constitutional_loophole
+					remove_ideas = LIT_polish_lithuanian_tensions
+					remove_ideas = LIT_peasant_strikes
+					remove_ideas = LIT_stable_currency
+
+					set_party_name = { 
+						ideology = neutrality 
+						long_name = "Oberbefehlshaber der gesamten Deutschen Streitkräfte im Osten" 
+						name = "Ober Ost"
+					}
+	
+					create_country_leader = {
+						name = "Erwin von Witzleben"
+						desc = ""
+						picture = "Portrait_Germany_Erwin_von_Witzleben.dds"
+						expire = "1965.1.1"
+						ideology = oligarchism
+						traits = {
+							popular_figurehead2
+						}
 					}
 				}
+				
 
 				transfer_state = 934
 				transfer_state = 935
 				transfer_state = 936
 				transfer_state = 190
+				transfer_state = 97
+				transfer_state = 96
+
+			}
+		}
+
+		every_state = { #LATVIAN PROTECTORATE
+			limit = {
+				is_controlled_by = SOV
+				OR = {
+					state = 809
+					state = 12
+					state = 808
+					state = 810
+				}
+			}
+			transfer_state_to = GER
+		}
+
+		GER = {
+			release_puppet = LAT
+			LAT = {
+				set_cosmetic_tag = GER_LAT_OST	
+
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Latvian Provisional Government " 
+					name = "Latvian Provisional Government "
+				}
+
+				transfer_state = 809
+				transfer_state = 12
+				transfer_state = 808
+				transfer_state = 810
+			}
+		}
+
+		GER = {
+			release_puppet = EST
+			EST = {
+				set_cosmetic_tag = GER_EST_OST	
+
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Estonian Provisional Government " 
+					name = "Estonian Provisional Government "
+				}
+			}
+		}
+
+		
+		GER = {
+			release_puppet = BLR
+			BLR = {
+				set_cosmetic_tag = GER_BLR_OST	
+
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Estonian Provisional Government " 
+					name = "Estonian Provisional Government "
+				}
 			}
 		}
 	}
