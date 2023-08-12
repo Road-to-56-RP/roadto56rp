@@ -326,7 +326,7 @@ focus_tree = {
 		x = 40
 		y = 0
 		offset = {
-			x = -27
+			x = -25
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -334,6 +334,17 @@ focus_tree = {
 					option = HIDE
 				}
 				has_completed_focus = FRA_action_francaise
+			}
+		}
+		offset = {
+			x = -5
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_brumaire_movement
 			}
 		}
 		allow_branch = {
@@ -3715,7 +3726,7 @@ focus_tree = {
 			focus = FRA_cagoule_coup
 		}
 		relative_position_id = FRA_far_right_leagues
-		x =-3
+		x = 3
 		y = 2
 		
 		ai_will_do = {
@@ -3914,7 +3925,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_front_liberte
 		}
-		x = 3
+		x = -3
 		y = 2
 		relative_position_id = FRA_far_right_leagues
 		available = {
@@ -4183,16 +4194,16 @@ focus_tree = {
 			focus = FRA_support_ppf
 			focus = FRA_we_want_petain
 			focus = FRA_state_reorganisation
-			#focus = FRA_union_latins
+			focus = FRA_r56rp_detente_germany
 			#focus = FRA_anti_german_front
 		}
-		relative_position_id = FRA_we_want_petain
+		relative_position_id = FRA_state_reorganisation
 		will_lead_to_war_with = BEL
 		mutually_exclusive = { focus = FRA_ultimatum_to_belgium }
-		x = 1
-		y = 2
+		x = 2
+		y = 3
 		offset = {
-			x = -20
+			x = -19
 			y = 0
 			trigger = {
 				has_completed_focus = FRA_action_francaise
@@ -4259,13 +4270,23 @@ focus_tree = {
 			focus = FRA_support_ppf
 			focus = FRA_we_want_petain
 			focus = FRA_state_reorganisation
-			#focus = FRA_union_latins
+			focus = FRA_r56rp_detente_germany
 			#focus = FRA_anti_german_front
 		}
 		will_lead_to_war_with = BEL
 		mutually_exclusive = { focus = FRA_demand_wallonia }
 		cost = 10
-
+		offset = {
+			x = -4
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_action_francaise
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
 		ai_will_do = {
 			factor = 1
 		}
@@ -4312,9 +4333,21 @@ focus_tree = {
 		icon = GFX_focus_renounce_the_treaty_of_trianon
 		x = 1
 		y = 2
+		offset = {
+			x = -22
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_action_francaise
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
 		prerequisite = {
 			focus = FRA_support_ppf
 			focus = FRA_we_want_petain
+			focus = FRA_r56rp_detente_germany
 		}
 		relative_position_id = FRA_support_ppf
 		cost = 10
@@ -4409,7 +4442,7 @@ focus_tree = {
 		}
 		relative_position_id = FRA_diplomatic_freedom
 		x = 0
-		y = 1
+		y = 2
 		available = {
 			is_subject = no
 			is_in_faction = no
@@ -4461,8 +4494,19 @@ focus_tree = {
 			focus = FRA_revise_versailles
 		}
 		relative_position_id = FRA_ultimatum_to_belgium
-		x = 2
+		x = -4
 		y = 1
+		offset = {
+			x = 1
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_action_francaise
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
 		available = {
 			r56_script_i_am_sane = yes
 			is_subject = no
@@ -4501,7 +4545,7 @@ focus_tree = {
 			focus = FRA_claim_rhineland
 			focus = FRA_revise_versailles
 		}
-		relative_position_id = FRA_revise_versailles
+		relative_position_id = FRA_claim_rhineland
 		available = {
 			r56_script_i_am_sane = yes
 			is_subject = no
@@ -4665,7 +4709,7 @@ focus_tree = {
 			focus = FRA_claim_rhineland
 			focus = FRA_revise_versailles
 		}
-		relative_position_id = FRA_revise_versailles
+		relative_position_id = FRA_claim_rhineland
 		x = 4
 		y = 2
 		available = {
@@ -5253,6 +5297,7 @@ focus_tree = {
 				}
 				NOT = {
 					has_completed_focus = FRA_support_the_legitimatises
+					has_completed_focus = FRA_brumaire_movement
 				}
 			}
 		}	
@@ -5748,7 +5793,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_proclaim_the_dual_monarchy
 		}
-		x = -2
+		x = 2
 		y = 1
 		available = {
 			is_subject = no
@@ -6160,7 +6205,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 
-	focus = { #UNFINISHED
+	focus = {
 		id = FRA_r56rp_claim_rhineland
 		icon = GFX_goal_generic_territory_or_war
 		cost = 5
@@ -6188,7 +6233,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 
-	focus = { #UNFINISHED
+	focus = {
 		id = FRA_r56rp_protection_benelaux
 		icon = GFX_goal_generic_military_sphere
 		cost = 5
@@ -6207,13 +6252,35 @@ focus_tree = {
 		}
 
 		completion_reward = { #guarantees on all benelaux states, for military access. Wargoal on those who refuse.
-			every_state = {
+			custom_effect_tooltip = FRA_r56rp_protection_benelaux.tt
+			every_country = {
 				limit = {
 					OR = {
 						tag = BEL
 						tag = HOL
 						tag = FLA
 						tag = WAL
+					}
+				}
+				if = {
+					limit = {
+						THIS = {
+							has_government = communism
+						}
+					}
+					create_wargoal = {
+						target = THIS
+						type = take_state_focus
+					}
+				}
+				else_if = {
+					limit = {
+						THIS = {
+							NOT = { has_government = communism }
+						}
+					}
+					THIS = {
+						country_event = r56rp_france.8
 					}
 					
 				}
@@ -6237,15 +6304,20 @@ focus_tree = {
 		y = 2
 
 		available = {
-			r56_script_i_am_sane = yes
 			is_subject = no
 		}
 	
 		ai_will_do = {
 			factor = 1
 		}
+		will_lead_to_war_with = GER
 		completion_reward = { #war with germany
-
+			create_wargoal = {
+				target = GER
+				type = puppet_wargoal_focus
+				expire = 0
+			}
+			add_ideas = r56rp_FRA_anti_german
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -6369,9 +6441,6 @@ focus_tree = {
 			has_government = neutrality
 			is_subject = no
 			is_in_faction = no
-			NOT = {
-				has_completed_focus = FRA_anti_german_front
-			}
 			custom_trigger_tooltip = { 
 				tooltip = FRA_has_no_deflation_tt
 				NOT = {
@@ -6401,6 +6470,9 @@ focus_tree = {
 				}
 				NOT = {
 					has_completed_focus = FRA_side_with_the_orleanists
+					has_completed_focus = FRA_far_right_leagues
+					has_completed_focus = FRA_status_quo
+					has_completed_focus = FRA_brumaire_movement
 				}
 			}
 		}	
@@ -6409,12 +6481,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = FRA_disjointed_government
-				}
-				remove_ideas = FRA_disjointed_government
-			}			
+			
 			add_stability = 0.05
 			set_rule = {
 				can_create_factions = yes
@@ -6457,95 +6524,102 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_union_latins
 		available = {
-
+	
 		}
 		bypass = {
-
+	
 		}
 		
 		ai_will_do = {
 			factor = 5
 		}
 		completion_reward = { #event to talk de-escalation with germany to focus on economic growth
+			if = {
+				limit = {
+					has_idea = FRA_disjointed_government
+				}
+				remove_ideas = FRA_disjointed_government
+			}
+			custom_effect_tooltip = FRA_r56rp_detente_germany.tt
 			FRA = {
 				country_event = {
-					id = rpfrance.1
+					id = r56rp_france.1
 				}
 			}
 		}
 	}
-	focus = {
-		id = FRA_r56rp_customs_union
-		icon = GFX_goal_generic_deals
-		cost = 5
-		prerequisite = {
-			focus = FRA_r56rp_detente_germany
-		}
-		x = 0
-		y = 2
-		relative_position_id = FRA_union_latins
-		available = {
-
-		}
-		bypass = {
-
-		}
-		
-		ai_will_do = {
-			factor = 5
-		}
-		completion_reward = { #
-
-		}
-	}
-	focus = {
-		id = FRA_r56rp_squash_communism
-		icon = GFX_goal_generic_nested_fortifications
-		cost = 5
-		prerequisite = {
-			focus = FRA_r56rp_customs_union
-		}
-		x = 1
-		y = 3
-		relative_position_id = FRA_union_latins
-		available = {
-
-		}
-		bypass = {
-
-		}
-		
-		ai_will_do = {
-			factor = 5
-		}
-		completion_reward = { # idea applied to everyone in the customs union, reducing communism support.
-
-		}
-	}
-	focus = {
-		id = FRA_r56rp_tech_share
-		icon = GFX_goal_tfv_generic_tech_sharing
-		cost = 5
-		prerequisite = {
-			focus = FRA_r56rp_customs_union
-		}
-		x = -1
-		y = 3
-		relative_position_id = FRA_union_latins
-		available = {
-
-		}
-		bypass = {
-
-		}
-		
-		ai_will_do = {
-			factor = 5
-		}
-		completion_reward = { #
-
-		}
-	}
+	#focus = {
+	#	id = FRA_r56rp_customs_union
+	#	icon = GFX_goal_generic_deals
+	#	cost = 5
+	#	prerequisite = {
+	#		focus = FRA_r56rp_detente_germany
+	#	}
+	#	x = 0
+	#	y = 2
+	#	relative_position_id = FRA_union_latins
+	#	available = {
+	#
+	#	}
+	#	bypass = {
+	#
+	#	}
+	#	
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+	#	completion_reward = { #
+	#
+	#	}
+	#}
+	#focus = {
+	#	id = FRA_r56rp_squash_communism
+	#	icon = GFX_goal_generic_nested_fortifications
+	#	cost = 5
+	#	prerequisite = {
+	#		focus = FRA_r56rp_customs_union
+	#	}
+	#	x = 1
+	#	y = 3
+	#	relative_position_id = FRA_union_latins
+	#	available = {
+	#
+	#	}
+	#	bypass = {
+	#
+	#	}
+	#	
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+	#	completion_reward = { # idea applied to everyone in the customs union, reducing communism support.
+	#
+	#	}
+	#}
+	#focus = {
+	#	id = FRA_r56rp_tech_share
+	#	icon = GFX_goal_tfv_generic_tech_sharing
+	#	cost = 5
+	#	prerequisite = {
+	#		focus = FRA_r56rp_customs_union
+	#	}
+	#	x = -1
+	#	y = 3
+	#	relative_position_id = FRA_union_latins
+	#	available = {
+	#
+	#	}
+	#	bypass = {
+	#
+	#	}
+	#	
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+	#	completion_reward = { #
+	#
+	#	}
+	#}
 	###############################
 	###	Bonapartists Focuses	###
 	###############################
@@ -8185,7 +8259,6 @@ focus_tree = {
 		}
 		relative_position_id = FRA_destroy_albion
 		cost = 10
-
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -8396,7 +8469,7 @@ focus_tree = {
 			focus = FRA_claim_rhineland
 			focus = FRA_revise_versailles
 		}
-		relative_position_id = FRA_revise_versailles
+		relative_position_id = FRA_claim_rhineland
 		x = 2
 		y = 2
 		available = {
@@ -9134,7 +9207,7 @@ focus_tree = {
 		cost = 5
 
 		offset = {
-			x = -7
+			x = -6
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -9891,7 +9964,7 @@ focus_tree = {
 			}
 		}
 		offset = {
-			x = -18
+			x = -22
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -9899,14 +9972,24 @@ focus_tree = {
 					option = HIDE
 				}
 				OR = {
-					has_completed_focus = FRA_brumaire_movement
 					has_completed_focus = FRA_support_the_legitimatises
 					has_completed_focus = FRA_side_with_the_orleanists
 				}
 			}
 		}
 		offset = {
-			x = -47
+			x = -26
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FRA_brumaire_movement
+			}
+		}
+		offset = {
+			x = -26
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -9917,7 +10000,7 @@ focus_tree = {
 			}
 		}
 		offset = {
-			x = -50
+			x = -28
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -9928,7 +10011,7 @@ focus_tree = {
 			}
 		}
 		offset = {
-			x = -54
+			x = -32
 			y = 0
 			trigger = {
 				has_game_rule = {

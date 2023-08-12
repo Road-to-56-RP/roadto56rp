@@ -4360,21 +4360,21 @@ news_event = {
 	}
 }
 
-add_namespace = rpfrance
+add_namespace = r56rp_france
 
 country_event = { # Detente with Germany # 1 Offer Solution
-	id = rpfrance.1
-	title = rpfrance.1.t
-	desc = rpfrance.1.d
+	id = r56rp_france.1
+	title = r56rp_france.1.t
+	desc = r56rp_france.1.d
 	picture = GFX_report_event_journalists_speech
 
  	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = { # Offer payments to Germany
-		name = rpfrance.1.a
+		name = r56rp_france.1.a
 		country_event = {
-			id = rpfrance.2
+			id = r56rp_france.2
 		}
 	}
 
@@ -4385,10 +4385,10 @@ country_event = { # Detente with Germany # 1 Offer Solution
 				51 = { is_demilitarized_zone = yes }
 			}
 		}
-		name = rpfrance.1.b
+		name = r56rp_france.1.b
 		GER = { # Offer to Remilitarize Rhineland
 			country_event = {
-				id = rpfrance.3
+				id = r56rp_france.3
 			}
 		}
 
@@ -4408,54 +4408,54 @@ country_event = { # Detente with Germany # 1 Offer Solution
 }
 
 country_event = { # Payments for Versaille / Situation 1 Payments
-	id = rpfrance.2
-	title = rpfrance.2.t
-	desc = rpfrance.2.d
+	id = r56rp_france.2
+	title = r56rp_france.2.t
+	desc = r56rp_france.2.d
 	picture = GFX_report_event_generic_sign_treaty2
 
  	fire_only_once = yes
 	is_triggered_only = yes
 	
 	option = { # Heavy Payment - Short
-		name = rpfrance.2.a
+		name = r56rp_france.2.a
 		GER = {
 			country_event = {
-				id = rpfrance.4
+				id = r56rp_france.4
 			}
 		}
 	
 	}
 
 	option = { # Light Payment - Long
-		name = rpfrance.2.b
+		name = r56rp_france.2.b
 		GER = {
 			country_event = {
-				id = rpfrance.5
+				id = r56rp_france.5
 			}
 		}
 	}
 
 	option = { # Return to Options.
-		name = rpfrance.2.c
+		name = r56rp_france.2.c
 		ROOT = {
 			country_event = {
-				id = rpfrance.1
+				id = r56rp_france.1
 			}
 		}
 	}
 }
 
 country_event = { # Remilitarize Rhineland if already hasn't happend. / Situation 2	
-	id = rpfrance.3
-	title = rpfrance.3.t
-	desc = rpfrance.3.d
+	id = r56rp_france.3
+	title = r56rp_france.3.t
+	desc = r56rp_france.3.d
 	picture = GFX_report_event_generic_sign_treaty2
 
  	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = { # German Accept - Positive Opinion / Non-aggression pact
-		name = rpfrance.3.a
+		name = r56rp_france.3.a
 		FRA = {
 			diplomatic_relation = {
 				country = GER
@@ -4463,7 +4463,7 @@ country_event = { # Remilitarize Rhineland if already hasn't happend. / Situatio
 				active = yes
 			}
 			country_event = {
-				id = rpfrance.6
+				id = r56rp_france.6
 			}
 		}
 		GER = {
@@ -4473,30 +4473,23 @@ country_event = { # Remilitarize Rhineland if already hasn't happend. / Situatio
 				active = yes
 			}
 		}
-
-		51 = { # Rhineland
-			set_demilitarized_zone = no
-		}
-
-		989 = { # Ostrhineland
-			set_demilitarized_zone = no
-		}
-
-		922 = { # Frankfurt
-			set_demilitarized_zone = no
-		}
-
-		42 = { # Moselland
-			set_demilitarized_zone = no
-		}
-
-		923 = { # Baden
+		every_state = {
+			limit = {
+				is_demilitarized_zone = yes
+				OR = {
+					state = 51  # Rhineland
+					state = 989 # Ostrhineland
+					state = 922 # Frankfurt
+					state = 42  # Moselland
+					state = 923 # Baden
+				}
+			}
 			set_demilitarized_zone = no
 		}
 	}
 
 	option = { # German say no. - Negative Opinion / Remilitarize anyway for Germany? # Warlider your choice.
-		name = rpfrance.3.b 
+		name = r56rp_france.3.b 
 		FRA = {
 			add_opinion_modifier = {
 				target = GER
@@ -4512,7 +4505,7 @@ country_event = { # Remilitarize Rhineland if already hasn't happend. / Situatio
 
 		FRA = {
 			country_event = {
-				id = rpfrance.7
+				id = r56rp_france.7
 			}
 		}
 
@@ -4525,16 +4518,16 @@ country_event = { # Remilitarize Rhineland if already hasn't happend. / Situatio
 }
 
 country_event = { # German Response Y/N Heavy Payment - Short
-	id = rpfrance.4
-	title = rpfrance.4.t
-	desc = rpfrance.4.d
+	id = r56rp_france.4
+	title = r56rp_france.4.t
+	desc = r56rp_france.4.d
 	picture = GFX_report_event_generic_sign_treaty1
 
  	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = { # German Accept Heavy Payment - Short
-		name = rpfrance.4.a
+		name = r56rp_france.4.a
 		set_country_flag = rp_versaille_payment_1_flag
 		activate_decision = rp_versaille_payment_1 
 		FRA = {
@@ -4554,10 +4547,10 @@ country_event = { # German Response Y/N Heavy Payment - Short
 	}
 
 	option = { # German say no. - Negative Opinion
-		name = rpfrance.4.b
+		name = r56rp_france.4.b
 		FRA = {
 			country_event = {
-				id = rpfrance.7
+				id = r56rp_france.7
 			}
 		}
 	}
@@ -4565,16 +4558,16 @@ country_event = { # German Response Y/N Heavy Payment - Short
 
 
 country_event = { # German Response Y/N Long Payment
-	id = rpfrance.5
-	title = rpfrance.5.t
-	desc = rpfrance.5.d
+	id = r56rp_france.5
+	title = r56rp_france.5.t
+	desc = r56rp_france.5.d
 	picture = GFX_report_event_generic_sign_treaty1
 
  	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = { # German Accept Light Payment - Long
-		name = rpfrance.5.a
+		name = r56rp_france.5.a
 		set_country_flag = rp_versaille_payment_2_flag
 		activate_decision = rp_versaille_payment_2
 		FRA = {
@@ -4594,39 +4587,68 @@ country_event = { # German Response Y/N Long Payment
 	}
 
 	option = { # German say no. - Negative Opinion
-		name = rpfrance.5.b
+		name = r56rp_france.5.b
 		FRA = {
 			country_event = {
-				id = rpfrance.7
+				id = r56rp_france.7
 			}
 		}
 	}
 }
 
 country_event = { # Generic Response Positive
-	id = rpfrance.6
-	title = rpfrance.6.t
-	desc = rpfrance.6.d
+	id = r56rp_france.6
+	title = r56rp_france.6.t
+	desc = r56rp_france.6.d
 	picture = GFX_report_event_worried_french
 
  	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = { # German Accept Sphere of Influence
-	name = rpfrance.6.a
+		name = r56rp_france.6.a
 	}
 }
 
 country_event = { # Generic Response # Negative
-	id = rpfrance.7
-	title = rpfrance.7.t
-	desc = rpfrance.7.d
+	id = r56rp_france.7
+	title = r56rp_france.7.t
+	desc = r56rp_france.7.d
 	picture = GFX_report_event_worried_french
 
  	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = { 
-	name = rpfrance.7.a
+		name = r56rp_france.7.a
+	}
+}
+
+country_event = { # French "protection"
+	id = r56rp_france.8
+	title = r56rp_france.8.t
+	desc = r56rp_france.8.d
+	picture = GFX_report_event_worried_french
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #accept french guarantees
+		name = r56rp_france.8.a
+		FRA = {
+			give_guarantee = ROOT
+		}
+		ROOT = {
+			give_military_access = FRA
+		}
+	}
+	option = { #refuse, gain wargoal
+		name = r56rp_france.8.b
+		FRA = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = ROOT
+			}
+		}
 	}
 }
