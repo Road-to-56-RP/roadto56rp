@@ -264,6 +264,19 @@ focus_tree = {
 			}
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = CHI_taiyuan_arsenal
+			IF = {
+				limit = {
+					NOT = {  
+						amount_taken_ideas = {
+							amount > 0
+							slots = {
+								materiel_manufacturer
+							}
+						}
+					}
+				}
+				add_ideas = CHI_taiyuan_arsenal
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -792,6 +805,20 @@ focus_tree = {
 		y = 2
 		relative_position_id = PRC_army_reform
 		cost = 10
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = PRC_government_reshuffle
+				}
+			}
+		}
 		
 		bypass = {
 			NOT = {
@@ -804,6 +831,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
 			if = {
 				limit = {
 					has_idea = PRC_defeatism_1
@@ -827,6 +855,8 @@ focus_tree = {
 		cost = 10
 		
 		available = {
+			
+			
 			has_idea = PRC_defeatism_2
 			#NOT = {
 			#	any_state = {
@@ -836,116 +866,121 @@ focus_tree = {
 			#		controller = { is_puppet_of = JAP }
 			#	}
 			#}
-			
-			custom_trigger_tooltip = {
-				tooltip = prc_root_out_defeatism_tt
-				NOT = {
-					609 = { is_controlled_by = JAP }
-					609 = { controller = { is_puppet_of = JAP } }
-					610 = { is_controlled_by = JAP }
-					610 = { controller = { is_puppet_of = JAP } }
-					715 = { is_controlled_by = JAP }
-					715 = { controller = { is_puppet_of = JAP } }
-					716 = { is_controlled_by = JAP }
-					716 = { controller = { is_puppet_of = JAP } }
-					527 = { is_controlled_by = JAP }
-					527 = { controller = { is_puppet_of = JAP } }
-					917 = { is_controlled_by = JAP }
-					917 = { controller = { is_puppet_of = JAP } }
-					918 = { is_controlled_by = JAP }
-					918 = { controller = { is_puppet_of = JAP } }
-					919 = { is_controlled_by = JAP }
-					919 = { controller = { is_puppet_of = JAP } }
-					920 = { is_controlled_by = JAP }
-					920 = { controller = { is_puppet_of = JAP } }
-					328 = { is_controlled_by = JAP }
-					328 = { controller = { is_puppet_of = JAP } }
-					714 = { is_controlled_by = JAP }
-					714 = { controller = { is_puppet_of = JAP } }
-					717 = { is_controlled_by = JAP }
-					717 = { controller = { is_puppet_of = JAP } }
-					525 = { is_controlled_by = JAP }
-					525 = { controller = { is_puppet_of = JAP } }
-					611 = { is_controlled_by = JAP }
-					611 = { controller = { is_puppet_of = JAP } }
-					612 = { is_controlled_by = JAP }
-					612 = { controller = { is_puppet_of = JAP } }
-					330 = { is_controlled_by = JAP }
-					330 = { controller = { is_puppet_of = JAP } }
-					921 = { is_controlled_by = JAP }
-					921 = { controller = { is_puppet_of = JAP } }
-					922 = { is_controlled_by = JAP }
-					922 = { controller = { is_puppet_of = JAP } }
-					923 = { is_controlled_by = JAP }
-					923 = { controller = { is_puppet_of = JAP } }
-					563 = { is_controlled_by = JAP }
-					563 = { controller = { is_puppet_of = JAP } }
-					561 = { is_controlled_by = JAP }
-					561 = { controller = { is_puppet_of = JAP } }
-					657 = { is_controlled_by = JAP }
-					657 = { controller = { is_puppet_of = JAP } }
-					409 = { is_controlled_by = JAP }
-					409 = { controller = { is_puppet_of = JAP } }
-					408 = { is_controlled_by = JAP }
-					408 = { controller = { is_puppet_of = JAP } }
-					560 = { is_controlled_by = JAP }
-					560 = { controller = { is_puppet_of = JAP } }
-					621 = { is_controlled_by = JAP }
-					621 = { controller = { is_puppet_of = JAP } }
-					615 = { is_controlled_by = JAP }
-					615 = { controller = { is_puppet_of = JAP } }
-					608 = { is_controlled_by = JAP }
-					608 = { controller = { is_puppet_of = JAP } }
-					614 = { is_controlled_by = JAP }
-					614 = { controller = { is_puppet_of = JAP } }
-					622 = { is_controlled_by = JAP }
-					622 = { controller = { is_puppet_of = JAP } }
-					597 = { is_controlled_by = JAP }
-					597 = { controller = { is_puppet_of = JAP } }
-					598 = { is_controlled_by = JAP }
-					598 = { controller = { is_puppet_of = JAP } }
-					607 = { is_controlled_by = JAP }
-					607 = { controller = { is_puppet_of = JAP } }
-					613 = { is_controlled_by = JAP }
-					613 = { controller = { is_puppet_of = JAP } }
-					606 = { is_controlled_by = JAP }
-					606 = { controller = { is_puppet_of = JAP } }
-					620 = { is_controlled_by = JAP }
-					620 = { controller = { is_puppet_of = JAP } }
-					596 = { is_controlled_by = JAP }
-					596 = { controller = { is_puppet_of = JAP } }
-					600 = { is_controlled_by = JAP }
-					600 = { controller = { is_puppet_of = JAP } }
-					602 = { is_controlled_by = JAP }
-					602 = { controller = { is_puppet_of = JAP } }
-					595 = { is_controlled_by = JAP }
-					595 = { controller = { is_puppet_of = JAP } }
-					593 = { is_controlled_by = JAP }
-					593 = { controller = { is_puppet_of = JAP } }
-					592 = { is_controlled_by = JAP }
-					592 = { controller = { is_puppet_of = JAP } }
-					594 = { is_controlled_by = JAP }
-					594 = { controller = { is_puppet_of = JAP } }
-					326 = { is_controlled_by = JAP }
-					326 = { controller = { is_puppet_of = JAP } }
-					729 = { is_controlled_by = JAP }
-					729 = { controller = { is_puppet_of = JAP } }
-					941 = { is_controlled_by = JAP }
-					941 = { controller = { is_puppet_of = JAP } }
-					942 = { is_controlled_by = JAP }
-					942 = { controller = { is_puppet_of = JAP } }
-					943 = { is_controlled_by = JAP }
-					943 = { controller = { is_puppet_of = JAP } }
-					944 = { is_controlled_by = JAP }
-					944 = { controller = { is_puppet_of = JAP } }
-					945 = { is_controlled_by = JAP }
-					945 = { controller = { is_puppet_of = JAP } }
-					946 = { is_controlled_by = JAP }
-					946 = { controller = { is_puppet_of = JAP } }
-					947 = { is_controlled_by = JAP }
-					947 = { controller = { is_puppet_of = JAP } }
+			OR = {
+				JAP = {
+					casualties_k > 250
+				}
+				custom_trigger_tooltip = {
+					tooltip = prc_root_out_defeatism_tt
+					NOT = {
+						609 = { is_controlled_by = JAP }
+						609 = { controller = { is_puppet_of = JAP } }
+						610 = { is_controlled_by = JAP }
+						610 = { controller = { is_puppet_of = JAP } }
+						715 = { is_controlled_by = JAP }
+						715 = { controller = { is_puppet_of = JAP } }
+						716 = { is_controlled_by = JAP }
+						716 = { controller = { is_puppet_of = JAP } }
+						527 = { is_controlled_by = JAP }
+						527 = { controller = { is_puppet_of = JAP } }
+						917 = { is_controlled_by = JAP }
+						917 = { controller = { is_puppet_of = JAP } }
+						918 = { is_controlled_by = JAP }
+						918 = { controller = { is_puppet_of = JAP } }
+						919 = { is_controlled_by = JAP }
+						919 = { controller = { is_puppet_of = JAP } }
+						920 = { is_controlled_by = JAP }
+						920 = { controller = { is_puppet_of = JAP } }
+						328 = { is_controlled_by = JAP }
+						328 = { controller = { is_puppet_of = JAP } }
+						714 = { is_controlled_by = JAP }
+						714 = { controller = { is_puppet_of = JAP } }
+						717 = { is_controlled_by = JAP }
+						717 = { controller = { is_puppet_of = JAP } }
+						525 = { is_controlled_by = JAP }
+						525 = { controller = { is_puppet_of = JAP } }
+						611 = { is_controlled_by = JAP }
+						611 = { controller = { is_puppet_of = JAP } }
+						612 = { is_controlled_by = JAP }
+						612 = { controller = { is_puppet_of = JAP } }
+						330 = { is_controlled_by = JAP }
+						330 = { controller = { is_puppet_of = JAP } }
+						921 = { is_controlled_by = JAP }
+						921 = { controller = { is_puppet_of = JAP } }
+						922 = { is_controlled_by = JAP }
+						922 = { controller = { is_puppet_of = JAP } }
+						923 = { is_controlled_by = JAP }
+						923 = { controller = { is_puppet_of = JAP } }
+						563 = { is_controlled_by = JAP }
+						563 = { controller = { is_puppet_of = JAP } }
+						561 = { is_controlled_by = JAP }
+						561 = { controller = { is_puppet_of = JAP } }
+						657 = { is_controlled_by = JAP }
+						657 = { controller = { is_puppet_of = JAP } }
+						409 = { is_controlled_by = JAP }
+						409 = { controller = { is_puppet_of = JAP } }
+						408 = { is_controlled_by = JAP }
+						408 = { controller = { is_puppet_of = JAP } }
+						560 = { is_controlled_by = JAP }
+						560 = { controller = { is_puppet_of = JAP } }
+						621 = { is_controlled_by = JAP }
+						621 = { controller = { is_puppet_of = JAP } }
+						615 = { is_controlled_by = JAP }
+						615 = { controller = { is_puppet_of = JAP } }
+						608 = { is_controlled_by = JAP }
+						608 = { controller = { is_puppet_of = JAP } }
+						614 = { is_controlled_by = JAP }
+						614 = { controller = { is_puppet_of = JAP } }
+						622 = { is_controlled_by = JAP }
+						622 = { controller = { is_puppet_of = JAP } }
+						597 = { is_controlled_by = JAP }
+						597 = { controller = { is_puppet_of = JAP } }
+						598 = { is_controlled_by = JAP }
+						598 = { controller = { is_puppet_of = JAP } }
+						607 = { is_controlled_by = JAP }
+						607 = { controller = { is_puppet_of = JAP } }
+						613 = { is_controlled_by = JAP }
+						613 = { controller = { is_puppet_of = JAP } }
+						606 = { is_controlled_by = JAP }
+						606 = { controller = { is_puppet_of = JAP } }
+						620 = { is_controlled_by = JAP }
+						620 = { controller = { is_puppet_of = JAP } }
+						596 = { is_controlled_by = JAP }
+						596 = { controller = { is_puppet_of = JAP } }
+						600 = { is_controlled_by = JAP }
+						600 = { controller = { is_puppet_of = JAP } }
+						602 = { is_controlled_by = JAP }
+						602 = { controller = { is_puppet_of = JAP } }
+						595 = { is_controlled_by = JAP }
+						595 = { controller = { is_puppet_of = JAP } }
+						593 = { is_controlled_by = JAP }
+						593 = { controller = { is_puppet_of = JAP } }
+						592 = { is_controlled_by = JAP }
+						592 = { controller = { is_puppet_of = JAP } }
+						594 = { is_controlled_by = JAP }
+						594 = { controller = { is_puppet_of = JAP } }
+						326 = { is_controlled_by = JAP }
+						326 = { controller = { is_puppet_of = JAP } }
+						729 = { is_controlled_by = JAP }
+						729 = { controller = { is_puppet_of = JAP } }
+						941 = { is_controlled_by = JAP }
+						941 = { controller = { is_puppet_of = JAP } }
+						942 = { is_controlled_by = JAP }
+						942 = { controller = { is_puppet_of = JAP } }
+						943 = { is_controlled_by = JAP }
+						943 = { controller = { is_puppet_of = JAP } }
+						944 = { is_controlled_by = JAP }
+						944 = { controller = { is_puppet_of = JAP } }
+						945 = { is_controlled_by = JAP }
+						945 = { controller = { is_puppet_of = JAP } }
+						946 = { is_controlled_by = JAP }
+						946 = { controller = { is_puppet_of = JAP } }
+						947 = { is_controlled_by = JAP }
+						947 = { controller = { is_puppet_of = JAP } }
+					}
 				}
 			}
+			
 		}
 		bypass = {
 			NOT = {
@@ -997,6 +1032,7 @@ focus_tree = {
 						surrender_progress > 0.4
 					}
 				}
+				NOT = { country_exists = CHI }
 			}
 		}
 		bypass = {
@@ -1146,6 +1182,14 @@ focus_tree = {
 				uses = 1
 				category = land_doctrine
 			}
+			every_army_leader = {
+				limit = {
+					skill > 2
+					is_field_marshal = NO
+				}
+				add_unit_leader_trait = camouflage_expert
+			}
+			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -1155,7 +1199,7 @@ focus_tree = {
 		icon = GFX_focus_prc_infiltration
 		prerequisite = { focus = PRC_prepare_for_war }
 		x = -3
-		y = 2
+		y = 1
 		relative_position_id = PRC_prepare_for_war
 		cost = 10
 
@@ -1297,13 +1341,24 @@ focus_tree = {
 					add_idea = PRC_protracted_war_idea_all
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_idea = PRC_protracted_war_idea
 				}
 				swap_ideas = {
 					remove_idea = PRC_protracted_war_idea
 					add_idea = PRC_protracted_war_idea_nb
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { has_idea = PRC_protracted_war_idea }
+				}
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = PRC_protracted_war_idea
+						add_idea = PRC_protracted_war_idea_nb
+					}
 				}
 			}
 		}
@@ -1343,13 +1398,24 @@ focus_tree = {
 					add_idea = PRC_protracted_war_idea_all
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_idea = PRC_protracted_war_idea
 				}
 				swap_ideas = {
 					remove_idea = PRC_protracted_war_idea
 					add_idea = PRC_protracted_war_idea_gp
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { has_idea = PRC_protracted_war_idea }
+				}
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = PRC_protracted_war_idea
+						add_idea = PRC_protracted_war_idea_gp
+					}
 				}
 			}
 		}
@@ -1365,6 +1431,20 @@ focus_tree = {
 		y = 1
 		relative_position_id = PRC_neccessary_flexibility
 		cost = 10
+
+		offset = {
+			x = -3
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					has_completed_focus = PRC_boost_the_morale
+				}
+			}
+		}
 		
 		available = {
 			has_government = communism
@@ -1619,13 +1699,24 @@ focus_tree = {
 					add_idea = PRC_swift_victory_idea_all
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_idea = PRC_swift_victory_idea
 				}
 				swap_ideas = {
 					remove_idea = PRC_swift_victory_idea
 					add_idea = PRC_swift_victory_idea_mp
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { has_idea = PRC_swift_victory_idea }
+				}
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = PRC_swift_victory_idea
+						add_idea = PRC_swift_victory_idea_mp
+					}
 				}
 			}
 		}
@@ -1664,13 +1755,24 @@ focus_tree = {
 					add_idea = PRC_swift_victory_idea_all
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_idea = PRC_swift_victory_idea
 				}
 				swap_ideas = {
 					remove_idea = PRC_swift_victory_idea
 					add_idea = PRC_swift_victory_idea_ng
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { has_idea = PRC_swift_victory_idea }
+				}
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = PRC_swift_victory_idea
+						add_idea = PRC_swift_victory_idea_ng
+					}
 				}
 			}
 		}
@@ -1699,12 +1801,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = PRC_maybe_theory_is_ok
-			if = {
-				limit = {
-					has_idea = PRC_uncertainty_of_new_theory
-				}
-				remove_ideas = PRC_uncertainty_of_new_theory
+			swap_ideas = {
+				remove_idea = PRC_uncertainty_of_new_theory
+				add_idea = PRC_maybe_theory_is_ok
 			}
 		}
 	}
@@ -1754,10 +1853,28 @@ focus_tree = {
 	focus = {
 		id = PRC_rectification
 		icon = GFX_focus_prc_agrarian_socialism
-		mutually_exclusive = { focus = PRC_the_second_northeast_flag_replacement }
+		mutually_exclusive = { 
+			focus = PRC_the_second_northeast_flag_replacement
+			focus = PRC_submit_to_central_government
+
+		}
 		x = 24
 		y = 0
 		cost = 5
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = PRC_government_reshuffle
+				}
+			}
+		}
 
 		available = {
 			OR = {
@@ -1791,6 +1908,20 @@ focus_tree = {
 		y = 0
 		relative_position_id = PRC_rectification
 		cost = 10
+
+		offset = {
+			x = -6
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					has_completed_focus = PRC_government_reshuffle
+				}
+			}
+		}
 
 		available = {
 			r56_script_i_am_sane = yes
@@ -1931,6 +2062,20 @@ focus_tree = {
 		relative_position_id = PRC_found_our_nation
 		cost = 10
 
+		offset = {
+			x = -20
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					has_completed_focus = PRC_government_reshuffle
+				}
+			}
+		}
+
 		available = {
 			OR = {
 				num_of_factories > 40
@@ -1971,7 +2116,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = PRC_the_first_five_year_plan
 		cost = 10
-		
+
 		available = {
 			OR = {
 				num_of_factories > 100
@@ -3758,7 +3903,7 @@ focus_tree = {
 		id = PRC_anti_soviet_revisionist_aim
 		icon = GFX_goal_lenin3
 		prerequisite = { focus = PRC_the_new_communism_beacon }
-		x = -3
+		x = -4
 		y = 1
 		relative_position_id = PRC_the_new_communism_beacon
 		cost = 10
@@ -4530,7 +4675,7 @@ focus_tree = {
 		id = PRC_hire_sov_experts
 		icon = GFX_focus_generic_socialist_science
 		prerequisite = { focus = PRC_156_project }
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = PRC_156_project
 		cost = 10
@@ -4571,7 +4716,7 @@ focus_tree = {
 		icon = GFX_goal_generic_commie_investments
 		prerequisite = { focus = PRC_156_project }
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = PRC_156_project
 		cost = 10
 		
@@ -4610,7 +4755,7 @@ focus_tree = {
 		id = PRC_invest_in_new_companies
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = PRC_156_project }
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = PRC_156_project
 		cost = 10
@@ -5158,6 +5303,20 @@ focus_tree = {
 		relative_position_id = PRC_destroy_mao_and_his_clique
 		cost = 5
 
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = PRC_boost_the_morale
+				}
+			}
+		}
+
 		available = {
 			has_country_leader = {
 				name = "Zhang Xueliang"
@@ -5167,6 +5326,7 @@ focus_tree = {
 		continue_if_invalid = yes
 
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
 			add_political_power = -150
 			if = {
 				limit = { has_idea = PRC_defeatism_1 }
@@ -6018,13 +6178,46 @@ focus_tree = {
 	focus = {
 		id = PRC_the_second_northeast_flag_replacement
 		icon = GFX_goal_PRC_restore_fengtian_clique
-		mutually_exclusive = { focus = PRC_submit_to_central_government }
-		mutually_exclusive = { focus = PRC_rectification }
+		mutually_exclusive = { 
+			focus = PRC_submit_to_central_government
+			focus = PRC_rectification
+	 	}
 		x = 17
 		y = 0
 		relative_position_id = PRC_rectification
 		cost = 10
-
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = PRC_boost_the_morale
+						#AND = {
+						#	has_completed_focus = PRC_urge_zhang
+						#	date < 1936.11.1
+						#}
+					}
+				}
+			}
+		}
+		offset = {
+			x = -20
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					has_completed_focus = PRC_government_reshuffle
+				}
+			}
+		}
 		available = {
 			is_subject = no
 			has_government = fascism
@@ -6076,11 +6269,34 @@ focus_tree = {
 	focus = {
 		id = PRC_submit_to_central_government
 		icon = GFX_goal_molotov_ribbentrop_pact
-		mutually_exclusive = { focus = PRC_the_second_northeast_flag_replacement}
-		x = 3
+		mutually_exclusive = { 
+			focus = PRC_the_second_northeast_flag_replacement
+			focus = PRC_rectification
+		}
+		x = -2
 		y = 0
 		relative_position_id = PRC_the_second_northeast_flag_replacement
 		cost = 10
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = PRC_boost_the_morale
+						#AND = {
+						#	has_completed_focus = PRC_urge_zhang
+						#	date < 1936.11.1
+						#}
+					}
+				}
+			}
+		}
 
 		available = {
 			has_government = fascism

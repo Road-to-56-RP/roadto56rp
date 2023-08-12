@@ -778,7 +778,7 @@ DIPLOMACY_OFFER_DOCKING_RIGHTS_ENABLE_TRIGGER = {
 		}
 	}
 }
-DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = {
+DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = { #_OVERRIDES_GAME
 	if = {
 		limit = {
 			has_game_rule = {
@@ -786,7 +786,20 @@ DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = {
 				option = FREE
 			}
 		}
-		always = yes
+		IF = { # why does it look cursed you may ask? well as far as i can tell paradox in its infinite wisdom just attached ignoring of threat limit to this specific  = FREE option.
+			limit = {
+				has_game_rule = {
+					rule = r56rp_enable_bakedinrules
+					option = ENABLED
+				}
+				ROOT = { tag = USA }
+				has_idea = USA_neutrality_act
+			}
+			NOT = { has_idea = USA_neutrality_act }
+		}
+		ELSE_IF = {
+			always = yes
+		}
 	}
 	if = {
 		limit = {
@@ -1186,6 +1199,21 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 				NOT = { FROM = { tag = SPC } }
 			}
 		}
+		else_if = {
+			limit = {
+				FROM = {
+					OR = {
+						TAG = ISR
+						TAG = PAL
+					}
+					has_idea = MPL_collapse_idea
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_NOT_MPL_COLLAPSE
+				NOT = { FROM = { has_idea = MPL_collapse_idea } }
+			}
+		}
 		else = {
 			always = yes
 		}
@@ -1208,6 +1236,21 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 			custom_trigger_tooltip = {
 				tooltip = RULE_VOLUNTEERS_NOT_ANARCHISTS_TT
 				NOT = { FROM = { tag = SPC } }
+			}
+		}
+		else_if = {
+			limit = {
+				FROM = {
+					OR = {
+						TAG = ISR
+						TAG = PAL
+					}
+					has_idea = MPL_collapse_idea
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_NOT_MPL_COLLAPSE
+				NOT = { FROM = { has_idea = MPL_collapse_idea } }
 			}
 		}
 		else_if = {
@@ -1512,6 +1555,21 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 				NOT = { FROM = { tag = SPC } }
 			}
 		}
+		else_if = {
+			limit = {
+				FROM = {
+					OR = {
+						TAG = ISR
+						TAG = PAL
+					}
+					has_idea = MPL_collapse_idea
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = RULE_VOLUNTEERS_NOT_MPL_COLLAPSE
+				NOT = { FROM = { has_idea = MPL_collapse_idea } }
+			}
+		}
 	}
 	if = {
 		limit = {
@@ -1555,16 +1613,19 @@ DIPLOMACY_JOIN_ALLY_ENABLE_TRIGGER = {
 			always = no
 		}
 	}
-	if = {			#Poland cannot call in allies for the first two months of the war with USSR due to the shock of MR pact
+	if = {			#Poland MR pact
 		limit = {
 			FROM = {
 				tag = POL
 				OR = {
-					is_government_in_exile = yes 
+					has_idea = POL_ENG_refused_SOV_war	#a (hidden) idea will allow for easy cancellation
 					has_idea = POL_shock_from_surprised_attack_idea
 				}
+				NOT = {	#if ENG wants to declare war, shock doesnt stop them, but it should prevent others joining during event answering
+					has_global_flag = ENG_attacked_soviets_on_MR
+				}
 			}
-			
+
 		}
 		custom_trigger_tooltip = {
 			tooltip = POL_surprise_attack_shock_idea_CALL
@@ -1599,13 +1660,16 @@ DIPLOMACY_CALL_ALLY_ENABLE_TRIGGER = {
 			always = no
 		}
 	}
-	if = {			#Poland cannot call in allies for the first two months of the war with USSR due to the shock of MR pact
+	if = {			#Poland MR pact
 		limit = {
 			ROOT = {
 				tag = POL
 				OR = {
-					is_government_in_exile = yes
+					has_idea = POL_ENG_refused_SOV_war	#a (hidden) idea will allow for easy cancellation
 					has_idea = POL_shock_from_surprised_attack_idea
+				}
+				NOT = {	#if ENG wants to declare war, shock doesnt stop them, but it should prevent others joining during event answering
+					has_global_flag = ENG_attacked_soviets_on_MR
 				}
 			}
 		}

@@ -3958,6 +3958,17 @@ country_event = {
 				is_historical_focus_on = yes
 			}
 		}
+		trigger = {
+			IF = {
+				limit = {
+					has_game_rule = {
+						rule = r56rp_enable_bakedinrules
+						option = ENABLED
+					}
+				}
+				date > 1939.6.1
+			}
+		}
 		add_political_power = -150
 		add_stability = -0.1
 		if = {
@@ -14407,13 +14418,14 @@ country_event = { # Denmark Return Event Y/N
 
 	option = { # Oh No, we accept our fate is sealed.
 		ai_chance = { 
-			factor = 10
+			factor = 50
 		}
+
 		name = rpgermany.2.a
 		GER = {
 			annex_country = {
 				target = DEN
-				transfer_troops = yes
+				transfer_troops = no # Disbandment of the Danish Armed Forces.
 			}
 			country_event = {
 				id = rpgermany.3
@@ -14423,7 +14435,7 @@ country_event = { # Denmark Return Event Y/N
 	option = { # Go away! We shall fight till the last man!
 		name = rpgermany.2.b
 		ai_chance = { 
-			factor = 90 
+			factor = 50
 		}
 		GER = {
 			create_wargoal = {
@@ -14453,6 +14465,7 @@ country_event = { # German Return Event
 
 }
 
+# Germany US-War Inviting Mexico into faction before war with the US/during.
 country_event = { #Legacy of the Zimmerman Telegram
 	id = rpgermany.4
 	title = rpgermany.4.t
