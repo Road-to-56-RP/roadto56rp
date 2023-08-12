@@ -24,25 +24,68 @@ r56rp_rules = {
 	
 		available = {
 			is_ai = no
+			any_state =  {
+				OR = {
+					is_owned_by = CHI
+					is_controlled_by = CHI
+					owner = {
+						is_puppet_of = CHI
+					}
+				}
+				OR = {
+					region = 155
+					region = 242
+					region = 243
+					state = 612
+					state = 611
+					state = 610
+				}
+			}
 		}
 	
 		complete_effect = {
-			GER = {
-				annex_country = {
-					target = POL
+			every_state = {
+				limit = {
+					OR = {
+						is_owned_by = CHI
+						is_controlled_by = CHI
+					}
+					OR = {
+						region = 155
+						region = 242
+						region = 243
+						state = 612
+						state = 611
+						state = 610
+					}
+				}
+				transfer_state_to = PRC
+				teleport_armies = {
+					limit = {
+						has_war_together_with = ROOT
+					}
+					to_state_array = owned_controlled_states
 				}
 			}
-			SOV = {
-				annex_country = {
-					target = LIT
+			IF = {
+				limit = {
+					NOT = { has_tech = tech_support }
 				}
-				annex_country = {
-					target = EST
-				}
-				annex_country = {
-					target = LAT
+				set_technology = { tech_support = 1 }
+			}
+			ELSE = {
+				army_experience = 100
+			}
+			
+			CHI = {
+				add_popularity = {
+					popularity = 0.2
+					ideology = communism
 				}
 			}
+	
+			custom_effect_tooltip = PRC_dongbei_partisans_tt
+			load_oob = "PRC_dongbei_partisans"
 		}
 	}
 
