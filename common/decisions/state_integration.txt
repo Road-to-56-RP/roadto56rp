@@ -94,7 +94,7 @@ GLO_state_integration_category = {
 				}
 				has_manpower > coring_man
 				has_equipment = {
-					infantry_equipment > 499
+					infantry_equipment > FROM.r56rp_core_cost
 				}
 				
 			}
@@ -105,7 +105,7 @@ GLO_state_integration_category = {
 				}
 				has_manpower > coring_man
 				has_equipment = {
-					infantry_equipment > 99
+					infantry_equipment > FROM.r56rp_core_cost_minor
 				}
 				
 			}
@@ -217,9 +217,15 @@ GLO_state_integration_category = {
 				resistance < 31
 			}
 
-            has_manpower > state_pop
+            has_manpower > 12500
 			has_equipment = {
-				infantry_equipment > 4999
+				infantry_equipment > FROM.r56rp_core_cost
+			}
+			hidden_trigger = {
+				FROM = {
+					NOT = { is_core_of = ROOT }
+					NOT = { has_state_flag = being_cored }
+				}
 			}
         }
 
@@ -246,16 +252,12 @@ GLO_state_integration_category = {
 			}
         }
 
-        custom_cost_trigger = {
-            has_manpower > GLO_f_mp_cost
-
+        custom_cost_trigger = { #tried making it display guns but failed miserably. so itll remain on manpower.
+			has_equipment = {
+				infantry_equipment > FROM.r56rp_core_cost
+			}
         }
-
-        custom_cost_trigger = {
-            has_manpower > GLO_f_mp_cost
-        }
-
-        custom_cost_text = GLO_1000_inf_eqmnt
+        custom_cost_text = r56rp_SI_inf_cost_1
 
         days_remove = 75
 
@@ -264,8 +266,9 @@ GLO_state_integration_category = {
 		}
 
         complete_effect = {
+			custom_effect_tooltip = [r56rp_state_integration_target_state]
 			set_temp_variable = { GLO_f_mp_cost_t = GLO_f_mp_cost }
-			set_temp_variable = { GLO_f_inf_cost_t = GLO_f_inf_cost }
+			set_temp_variable = { GLO_f_inf_cost_t = FROM.r56rp_core_cost }
 			multiply_temp_variable = { GLO_f_mp_cost_t = -1 }
 			multiply_temp_variable = { GLO_f_inf_cost_t = -1 }
             add_manpower = GLO_f_mp_cost_t
