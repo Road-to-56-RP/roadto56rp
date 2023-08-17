@@ -27,49 +27,7 @@ r56rp_rules = {
 		}
 	
 		complete_effect = {
-			every_state = {
-				save_global_event_target_as = r56rp_state_transfer_tooltip
-				set_state_flag = r56rp_has_coring_cost
-				# coring cost for population
-				set_variable = { THIS.r56rp_core_cost = state_population_k }
-				divide_variable = {
-					var = THIS.r56rp_core_cost
-					value = 1.5
-				}
-				round_variable = THIS.r56rp_core_cost
-				#log = "[This.GetName] - [?THIS.r56rp_core_cost] Population Cost"
-				# coring cost for industry
-				set_variable = {
-					var = THIS.r56rp_core_cost_math_1
-					value = arms_factory_level
-				}
-				add_to_variable = {
-					var = r56rp_core_cost_math_1
-					value = industrial_complex_level
-				}
-				add_to_variable = {
-					var = r56rp_core_cost_math_1
-					value = dockyard_level
-				}
-				multiply_variable = {
-					var = r56rp_core_cost_math_1
-					value = 150
-				}
-				round_variable = r56rp_core_cost_math_1
-				#log = "[This.GetName] - [?r56rp_core_cost_math_1] Added factory cost"
-				add_to_variable = { #sum industry and pop cost
-					var = r56rp_core_cost
-					value = r56rp_core_cost_math_1
-				}
-				set_variable = { THIS.r56rp_core_cost_minor = THIS.r56rp_core_cost }
-				divide_variable = {
-					var = THIS.r56rp_core_cost_minor
-					value = 5
-				}
-				round_variable = THIS.r56rp_core_cost_minor
-				# final cost
-				#log = "[This.GetName] - [?THIS.r56rp_core_cost] Final Cost"
-			}
+			r56rp_state_integration_calculate_cost = yes
 		}
 	}
 
@@ -93,7 +51,10 @@ r56rp_rules = {
 			is_ai = no
 		}
 	
-		complete_effect = { 
+		complete_effect = {
+			JAP = {
+				add_state_claim = 593
+			}
 		}
 	}
 
