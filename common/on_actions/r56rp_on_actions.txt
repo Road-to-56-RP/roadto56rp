@@ -17,9 +17,9 @@ on_actions={
 				set_variable = { swap_sides = 0 }
 				set_variable = { rt_status = 0 }
 
-				#########################
-				##Coring Tool Variables##
-				#########################
+				################################
+				## State Integration Variable ##
+				################################
 				
 				set_variable = { GLO_p_pp_cost = 50 }
 				set_variable = { GLO_p_comp_cost = 80 }
@@ -35,97 +35,17 @@ on_actions={
 			}
 		}
 	}
-	###################################
-	## Coring Tool Dynamic Core Cost ##
-	###################################
+	#########################################
+	## State Integration Dynamic Core Cost ##
+	#########################################
 	on_startup = {
-		effect = {
-			every_state = {
-				set_state_flag = r56rp_has_coring_cost
-				# coring cost for population
-				set_variable = { THIS.r56rp_core_cost = state_population_k }
-				divide_variable = {
-					var = THIS.r56rp_core_cost
-					value = 1.5
-				}
-				round_variable = THIS.r56rp_core_cost
-				#log = "[This.GetName] - [?THIS.r56rp_core_cost] Population Cost"
-				# coring cost for industry
-				set_variable = {
-					var = THIS.r56rp_core_cost_math_1
-					value = arms_factory_level
-				}
-				add_to_variable = {
-					var = r56rp_core_cost_math_1
-					value = industrial_complex_level
-				}
-				add_to_variable = {
-					var = r56rp_core_cost_math_1
-					value = dockyard_level
-				}
-				multiply_variable = {
-					var = r56rp_core_cost_math_1
-					value = 150
-				}
-				round_variable = r56rp_core_cost_math_1
-				#log = "[This.GetName] - [?r56rp_core_cost_math_1] Added factory cost"
-				add_to_variable = { #sum industry and pop cost
-					var = r56rp_core_cost
-					value = r56rp_core_cost_math_1
-				}
-				set_variable = { THIS.r56rp_core_cost_minor = THIS.r56rp_core_cost }
-				divide_variable = {
-					var = THIS.r56rp_core_cost_minor
-					value = 5
-				}
-				round_variable = THIS.r56rp_core_cost_minor
-				# final cost
-				#log = "[This.GetName] - [?THIS.r56rp_core_cost] Final Cost"
-			}
+		effect = { #in scripted effects.
+			r56rp_state_integration_calculate_cost = yes
 		}
 	}
 	on_monthly = {
-		effect = {
-			every_state = {
-				# coring cost for population
-				set_variable = { THIS.r56rp_core_cost = state_population_k }
-				divide_variable = {
-					var = THIS.r56rp_core_cost
-					value = 1.5
-				}
-				round_variable = THIS.r56rp_core_cost
-				#log = "[This.GetName] - [?THIS.r56rp_core_cost] Population Cost"
-				# coring cost for industry
-				set_variable = {
-					var = THIS.r56rp_core_cost_math_1
-					value = arms_factory_level
-				}
-				add_to_variable = {
-					var = r56rp_core_cost_math_1
-					value = industrial_complex_level
-				}
-				add_to_variable = {
-					var = r56rp_core_cost_math_1
-					value = dockyard_level
-				}
-				multiply_variable = {
-					var = r56rp_core_cost_math_1
-					value = 150
-				}
-				round_variable = r56rp_core_cost_math_1
-				#log = "[This.GetName] - [?r56rp_core_cost_math_1] Added factory cost"
-				add_to_variable = { #sum industry and pop cost
-					var = r56rp_core_cost
-					value = r56rp_core_cost_math_1
-				}
-				set_variable = { THIS.r56rp_core_cost_minor = THIS.r56rp_core_cost }
-				divide_variable = {
-					var = THIS.r56rp_core_cost_minor
-					value = 5
-				}
-				round_variable = THIS.r56rp_core_cost_minor
-				# final cost
-				#log = "[This.GetName] - [?THIS.r56rp_core_cost] Final Cost"
+		effect = { #in scripted effects.
+			r56rp_state_integration_calculate_cost = yes
 			}
 		}
 	}
