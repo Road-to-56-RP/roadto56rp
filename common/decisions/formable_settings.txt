@@ -14,7 +14,6 @@ formable_nations_mod_category = {
 	#		hidden_effect = { set_country_flag = hide_formable_nations }
 	#	}
 	#}
-
 	unhide_decisions = {
 		ai_will_do = {
 			factor = 100
@@ -3157,4 +3156,94 @@ formable_nations_mod_category = {
 		}
 	}
 
+
+	show_italy = {
+		icon = formable_nations_italy
+		cost  = 0  days_re_enable  = 1
+		ai_will_do = {
+			factor = 100
+		}
+
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+				has_country_flag = italy_shown
+			}
+			OR  = {
+				original_tag  = PAP
+				original_tag  = TOS
+				original_tag  = TTS
+				original_tag  = SPM
+				original_tag  = LBV
+			}
+		}
+
+		complete_effect = {
+			set_country_flag = italy_shown
+		}
+	}
+
+	hide_italy = {
+		icon = formable_nations_italy
+		cost  = 0  days_re_enable  = 1
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+			}
+			has_country_flag = italy_shown
+			OR  = {
+				original_tag  = PAP
+				original_tag  = TOS
+				original_tag  = TTS
+				original_tag  = SPM
+				original_tag  = LBV
+			}
+		}
+
+		complete_effect = {
+			clr_country_flag = italy_shown
+		}
+	}
+
+	show_rattanoskin = {
+		icon = generic_form_nation
+		ai_will_do = {
+			factor = 100
+		}
+
+
+		visible = {
+			original_tag = SIA
+			NOT = { 
+				has_global_flag = form_rattanakosin_kingdom_flag 
+				has_country_flag  = hide_formable_nations
+				has_country_flag = rattanoskin_shown
+			}
+		}
+
+		complete_effect = {
+			set_country_flag = rattanoskin_shown
+		}
+	}
+
+	hide_rattanoskin = {
+		icon = generic_form_nation
+		cost  = 0  days_re_enable  = 1
+
+		visible = {
+			has_country_flag = rattanoskin_shown
+			original_tag = SIA
+			NOT = { 
+				has_global_flag = form_rattanakosin_kingdom_flag 
+				has_country_flag  = hide_formable_nations
+			}
+		}
+
+		complete_effect = {
+			clr_country_flag = rattanoskin_shown
+		}
+	}
 }
+

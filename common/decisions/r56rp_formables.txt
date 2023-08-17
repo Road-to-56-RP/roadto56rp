@@ -1,162 +1,135 @@
 formable_nations_mod_category  = {
-
 }
-	formable_nations_africa_category  = {
-		formable_nations_africa  = {
-			
-			ai_will_do  = {
-				factor  = 1
-				modifier  = {
-					factor  = 0
-					has_global_flag  = ai_disabled
-				}
+formable_nations_africa_category  = {
+	formable_nations_africa  = {
+		
+		ai_will_do  = {
+			factor  = 1
+			modifier  = {
+				factor  = 0
+				has_global_flag  = ai_disabled
 			}
-			
-			cost  = 0  days_re_enable  = 0
-			
-			visible  = {
-				NOT  = { has_country_flag  = unform_available }
-				NOT  = { has_country_flag  = hide_formable_nations }
+		}
+		
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { has_country_flag  = unform_available }
+			NOT  = { has_country_flag  = hide_formable_nations }
+			OR  = {
+				
+				capital_scope  = { is_on_continent  = africa }
+			}
+		}
+		
+		available  = {
+			custom_trigger_tooltip  = { 
+				tooltip  = africa_requirement_tooltip 
 				OR  = {
-					
-					capital_scope  = { is_on_continent  = africa }
-				}
-			}
-			
-			available  = {
-				custom_trigger_tooltip  = { 
-					tooltip  = africa_requirement_tooltip 
-					OR  = {
-						AND  = {
-							all_state  = {
-								OR  = {
-									AND  = {
-										is_on_continent  = africa
-										NOT  = {
-											OR  = {
-												state  = 697
-												state  = 178
-												state  = 702
-												state  = 703
-												state  = 704
-												state  = 297
-												state  = 705
-												state  = 708
-												state  = 709
-												state  = 706
-												state  = 707
-												state  = 713
-												state  = 543
-												state  = 906
-											}
+					AND  = {
+						all_state  = {
+							OR  = {
+								AND  = {
+									is_on_continent  = africa
+									NOT  = {
+										OR  = {
+											state  = 697
+											state  = 178
+											state  = 702
+											state  = 703
+											state  = 704
+											state  = 297
+											state  = 705
+											state  = 708
+											state  = 709
+											state  = 706
+											state  = 707
+											state  = 713
+											state  = 543
+											state  = 906
 										}
-										is_controlled_by  = ROOT
 									}
-									NOT  = { is_on_continent  = africa }
-									state  = 697
-									state  = 178
-									state  = 702
-									state  = 703
-									state  = 704
-									state  = 297
-									state  = 705
-									state  = 708
-									state  = 709
-									state  = 706
-									state  = 707
-									state  = 713
-									state  = 543
-									state  = 906
+									is_controlled_by  = ROOT
 								}
+								NOT  = { is_on_continent  = africa }
+								state  = 697
+								state  = 178
+								state  = 702
+								state  = 703
+								state  = 704
+								state  = 297
+								state  = 705
+								state  = 708
+								state  = 709
+								state  = 706
+								state  = 707
+								state  = 713
+								state  = 543
+								state  = 906
 							}
 						}
-						AND  = {
-							is_ai  = no
-							has_global_flag  = debug_mode
-						}
+					}
+					AND  = {	
+						has_global_flag  = debug_mode
 					}
 				}
-				custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_AFR } } }
-				custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
 			}
-			icon  = formable_nations_africa
-			complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
-				set_cosmetic_tag  = FORM_AFR
-				add_stability  = 0.2
-				add_ideas  = generic_recent_political_unification
-				add_ideas  = generic_recent_army_unification
-				add_ideas  = generic_recent_economic_unification	
-				custom_effect_tooltip  = core_land
-				hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
-					every_state  = {
-						limit  = { 
-							is_on_continent  = africa
-							NOT  = { is_core_of  = ROOT }
-						}
-						add_core_of  = ROOT
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_AFR } } }
+			custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
+		}
+		icon  = formable_nations_africa
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_AFR
+			add_stability  = 0.2
+			add_ideas  = generic_recent_political_unification
+			add_ideas  = generic_recent_army_unification
+			add_ideas  = generic_recent_economic_unification	
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
+				every_state  = {
+					limit  = { 
+						is_on_continent  = africa
+						NOT  = { is_core_of  = ROOT }
 					}
+					add_core_of  = ROOT
 				}
 			}
 		}
 	}
+}
+
+formable_nations_south_america_category  = {
+	formable_nations_south_america  = {#continent
 	
-	formable_nations_south_america_category  = {
-		formable_nations_south_america  = {#continent
+		ai_will_do  = {
+			factor  = 1
+			modifier  = {
+				factor  = 0
+				has_global_flag  = ai_disabled 
+			}
+		}
 		
-			ai_will_do  = {
-				factor  = 1
-				modifier  = {
-					factor  = 0
-					has_global_flag  = ai_disabled 
-				}
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { has_country_flag  = unform_available }
+			NOT  = { has_country_flag  = hide_formable_nations }
+			OR  = {
+				
+				capital_scope  = { is_on_continent  = south_america }
 			}
-			
-			cost  = 0  days_re_enable  = 0
-			
-			visible  = {
-				NOT  = { has_country_flag  = unform_available }
-				NOT  = { has_country_flag  = hide_formable_nations }
+		}
+		
+		available  = {
+			custom_trigger_tooltip  = { 
+				tooltip  = south_america_requirement_tooltip 
 				OR  = {
-					
-					capital_scope  = { is_on_continent  = south_america }
-				}
-			}
-			
-			available  = {
-				custom_trigger_tooltip  = { 
-					tooltip  = south_america_requirement_tooltip 
-					OR  = {
-						all_state  = {
-							OR  = {
-								AND  = {
-									is_on_continent  = south_america
-									is_controlled_by  = ROOT
-									NOT  = {
-										state  = 690
-										state  = 693
-										state  = 689
-										state  = 315
-										state  = 318
-										state  = 319
-										state  = 692
-										state  = 694
-										state  = 308
-										state  = 686
-										state  = 311
-										state  = 313
-										state  = 312
-										state  = 314
-										state  = 316
-										state  = 317
-										state  = 299
-										state  = 720
-										state  = 649
-									}
-								}
+					all_state  = {
+						OR  = {
+							AND  = {
+								is_on_continent  = south_america
+								is_controlled_by  = ROOT
 								NOT  = {
-									is_on_continent  = south_america
-								}
-								OR  = {
 									state  = 690
 									state  = 693
 									state  = 689
@@ -178,30 +151,10 @@ formable_nations_mod_category  = {
 									state  = 649
 								}
 							}
-						}
-						AND  = {
-							is_ai  = no
-							has_global_flag  = debug_mode
-						}
-					}
-				}
-				custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_SOU } } }
-				custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
-			}
-			icon  = formable_nations_south_america
-			complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
-				set_cosmetic_tag  = FORM_SOU
-				#add_stability  = 0.2
-				add_ideas  = generic_recent_political_unification
-				add_ideas  = generic_recent_army_unification
-				add_ideas  = generic_recent_economic_unification
-				custom_effect_tooltip  = core_land
-				hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
-					every_state  = {
-						limit  = {
-							is_on_continent  = south_america
-							NOT  = { 
-								is_core_of  = ROOT 
+							NOT  = {
+								is_on_continent  = south_america
+							}
+							OR  = {
 								state  = 690
 								state  = 693
 								state  = 689
@@ -218,39 +171,209 @@ formable_nations_mod_category  = {
 								state  = 314
 								state  = 316
 								state  = 317
+								state  = 299
+								state  = 720
+								state  = 649
 							}
 						}
-						add_core_of  = ROOT
 					}
+					AND  = {
+						has_global_flag  = debug_mode
+					}
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_SOU } } }
+			custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
+		}
+		icon  = formable_nations_south_america
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_SOU
+			#add_stability  = 0.2
+			add_ideas  = generic_recent_political_unification
+			add_ideas  = generic_recent_army_unification
+			add_ideas  = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
+				every_state  = {
+					limit  = {
+						is_on_continent  = south_america
+						NOT  = { 
+							is_core_of  = ROOT 
+							state  = 690
+							state  = 693
+							state  = 689
+							state  = 315
+							state  = 318
+							state  = 319
+							state  = 692
+							state  = 694
+							state  = 308
+							state  = 686
+							state  = 311
+							state  = 313
+							state  = 312
+							state  = 314
+							state  = 316
+							state  = 317
+						}
+					}
+					add_core_of  = ROOT
 				}
 			}
 		}
 	}
+}
 
-	formable_nations_north_america_category  = {
-		formable_nations_north_america  = {#continent
+formable_nations_north_america_category  = {
+	formable_nations_north_america  = {#continent
+	
+		ai_will_do  = {
+			factor  = 1
+			modifier  = {
+				factor  = 0
+				has_global_flag  = ai_disabled 
+			}
+		}
 		
-			ai_will_do  = {
-				factor  = 1
-				modifier  = {
-					factor  = 0
-					has_global_flag  = ai_disabled 
-				}
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { has_country_flag  = unform_available }
+			NOT  = { has_country_flag  = hide_formable_nations }
+			NOT = {	original_tag = USA	}
+			OR  = {
+				
+				capital_scope  = { is_on_continent  = north_america }
 			}
-			
-			cost  = 0  days_re_enable  = 0
-			
-			visible  = {
-				NOT  = { has_country_flag  = unform_available }
-				NOT  = { has_country_flag  = hide_formable_nations }
-				NOT = {	original_tag = USA	}
-				OR  = {
+		}
+		
+		available  = {
+		custom_trigger_tooltip  = {
+			tooltip  = north_america_requirement_tooltip
+			OR  = {
+				AND  = {
+					OR  = { is_subject  = no has_global_flag  = puppets_allowed }
 					
-					capital_scope  = { is_on_continent  = north_america }
+					all_state  = {
+						OR  = {
+							AND  = {
+								OR  = {
+									is_on_continent  = north_america
+									state  = 311
+									state  = 313
+									state  = 312
+									state  = 314
+									state  = 316
+									state  = 317
+									state  = 685
+									state  = 304
+								}
+								NOT  = {
+									OR  = {
+										state  = 696
+										state  = 101
+										state  = 739
+										state  = 730
+									}
+								}
+								is_controlled_by  = ROOT
+							}
+							NOT  = { 
+								OR  = {
+									is_on_continent  = north_america 
+									state  = 311
+									state  = 313
+									state  = 312
+									state  = 314
+									state  = 316
+									state  = 317
+									state  = 685
+									state  = 304
+								}
+							}
+							state  = 696
+							state  = 101
+							state  = 739
+							state  = 730
+						}
+					}
+				}
+				AND  = {
+					
+					has_global_flag  = debug_mode
 				}
 			}
-			
-			available  = {
+		}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_NOA } } }
+			custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
+		}
+		icon  = formable_nations_north_america
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_NOA
+			#add_stability  = 0.2
+			add_ideas  = generic_recent_political_unification
+			add_ideas  = generic_recent_army_unification
+			add_ideas  = generic_recent_economic_unification
+			set_capital  = { state  = 358 }
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
+				every_state  = {
+					limit  = {
+						OR  = {
+							is_on_continent  = north_america
+							state  = 690
+							state  = 693
+							state  = 689
+							state  = 315
+							state  = 318
+							state  = 319
+							state  = 692
+							state  = 694
+							state  = 308
+							state  = 686
+							state  = 311
+							state  = 313
+							state  = 312
+							state  = 314
+							state  = 316
+							state  = 317
+							state  = 685
+							state  = 304
+						}
+						NOT  = { 
+							is_core_of  = ROOT
+						}
+					}
+					add_core_of  = ROOT
+				}
+			}
+		}
+	}
+}
+
+formable_nations_americas_category  = {
+	formable_nations_americas  = {#continent
+	
+		ai_will_do  = {
+			factor  = 1
+			modifier  = {
+				factor  = 0
+				has_global_flag  = ai_disabled 
+			}
+		}
+		
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { has_country_flag  = unform_available }
+			NOT  = { has_country_flag  = hide_formable_nations }
+			OR  = {
+				
+				capital_scope  = {OR  = { is_on_continent  = north_america  is_on_continent  = south_america } }
+			}
+		}
+		
+		available  = {
 			custom_trigger_tooltip  = {
 				tooltip  = north_america_requirement_tooltip
 				OR  = {
@@ -302,171 +425,20 @@ formable_nations_mod_category  = {
 						}
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
 			}
-				custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_NOA } } }
-				custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
-			}
-			icon  = formable_nations_north_america
-			complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
-				set_cosmetic_tag  = FORM_NOA
-				#add_stability  = 0.2
-				add_ideas  = generic_recent_political_unification
-				add_ideas  = generic_recent_army_unification
-				add_ideas  = generic_recent_economic_unification
-				set_capital  = { state  = 358 }
-				custom_effect_tooltip  = core_land
-				hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
-					every_state  = {
-						limit  = {
-							OR  = {
-								is_on_continent  = north_america
-								state  = 690
-								state  = 693
-								state  = 689
-								state  = 315
-								state  = 318
-								state  = 319
-								state  = 692
-								state  = 694
-								state  = 308
-								state  = 686
-								state  = 311
-								state  = 313
-								state  = 312
-								state  = 314
-								state  = 316
-								state  = 317
-								state  = 685
-								state  = 304
-							}
-							NOT  = { 
-								is_core_of  = ROOT
-							}
-						}
-						add_core_of  = ROOT
-					}
-				}
-			}
-		}
-	}
-
-	formable_nations_americas_category  = {
-		formable_nations_americas  = {#continent
-		
-			ai_will_do  = {
-				factor  = 1
-				modifier  = {
-					factor  = 0
-					has_global_flag  = ai_disabled 
-				}
-			}
-			
-			cost  = 0  days_re_enable  = 0
-			
-			visible  = {
-				NOT  = { has_country_flag  = unform_available }
-				NOT  = { has_country_flag  = hide_formable_nations }
+			custom_trigger_tooltip  = { 
+				tooltip  = south_america_requirement_tooltip 
 				OR  = {
-					
-					capital_scope  = {OR  = { is_on_continent  = north_america  is_on_continent  = south_america } }
-				}
-			}
-			
-			available  = {
-				custom_trigger_tooltip  = {
-					tooltip  = north_america_requirement_tooltip
-					OR  = {
-						AND  = {
-							OR  = { is_subject  = no has_global_flag  = puppets_allowed }
-							
-							all_state  = {
-								OR  = {
-									AND  = {
-										OR  = {
-											is_on_continent  = north_america
-											state  = 311
-											state  = 313
-											state  = 312
-											state  = 314
-											state  = 316
-											state  = 317
-											state  = 685
-											state  = 304
-										}
-										NOT  = {
-											OR  = {
-												state  = 696
-												state  = 101
-												state  = 739
-												state  = 730
-											}
-										}
-										is_controlled_by  = ROOT
-									}
-									NOT  = { 
-										OR  = {
-											is_on_continent  = north_america 
-											state  = 311
-											state  = 313
-											state  = 312
-											state  = 314
-											state  = 316
-											state  = 317
-											state  = 685
-											state  = 304
-										}
-									}
-									state  = 696
-									state  = 101
-									state  = 739
-									state  = 730
-								}
-							}
-						}
-						AND  = {
-							is_ai  = no
-							has_global_flag  = debug_mode
-						}
-					}
-				}
-				custom_trigger_tooltip  = { 
-					tooltip  = south_america_requirement_tooltip 
-					OR  = {
-						all_state  = {
-							OR  = {
-								AND  = {
-									is_on_continent  = south_america
-									is_controlled_by  = ROOT
-									NOT  = {
-										state  = 690
-										state  = 693
-										state  = 689
-										state  = 315
-										state  = 318
-										state  = 319
-										state  = 692
-										state  = 694
-										state  = 308
-										state  = 686
-										state  = 311
-										state  = 313
-										state  = 312
-										state  = 314
-										state  = 316
-										state  = 317
-										state  = 299
-										state  = 720
-										state  = 649
-									}
-								}
+					all_state  = {
+						OR  = {
+							AND  = {
+								is_on_continent  = south_america
+								is_controlled_by  = ROOT
 								NOT  = {
-									is_on_continent  = south_america
-								}
-								OR  = {
 									state  = 690
 									state  = 693
 									state  = 689
@@ -488,37 +460,62 @@ formable_nations_mod_category  = {
 									state  = 649
 								}
 							}
+							NOT  = {
+								is_on_continent  = south_america
+							}
+							OR  = {
+								state  = 690
+								state  = 693
+								state  = 689
+								state  = 315
+								state  = 318
+								state  = 319
+								state  = 692
+								state  = 694
+								state  = 308
+								state  = 686
+								state  = 311
+								state  = 313
+								state  = 312
+								state  = 314
+								state  = 316
+								state  = 317
+								state  = 299
+								state  = 720
+								state  = 649
+							}
 						}
-						AND  = {
-							is_ai  = no
-							has_global_flag  = debug_mode
-						}
+					}
+					AND  = {
+						
+						has_global_flag  = debug_mode
 					}
 				}
-				custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_AME } } }
-				custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
 			}
-			icon  = formable_nations_americas
-			complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
-				set_cosmetic_tag  = FORM_AME
-				#add_stability  = 0.2
-				add_ideas  = generic_recent_political_unification
-				add_ideas  = generic_recent_army_unification
-				add_ideas  = generic_recent_economic_unification
-				set_capital  = { state  = 304 }
-				custom_effect_tooltip  = core_land
-				hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
-					every_state  = {
-						limit  = {
-							OR  = { is_on_continent  = north_america is_on_continent  = south_america }
-							NOT  = { is_core_of  = ROOT }
-						}
-						add_core_of  = ROOT
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_AME } } }
+			custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
+		}
+		icon  = formable_nations_americas
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_AME
+			#add_stability  = 0.2
+			add_ideas  = generic_recent_political_unification
+			add_ideas  = generic_recent_army_unification
+			add_ideas  = generic_recent_economic_unification
+			set_capital  = { state  = 304 }
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
+				every_state  = {
+					limit  = {
+						OR  = { is_on_continent  = north_america is_on_continent  = south_america }
+						NOT  = { is_core_of  = ROOT }
 					}
+					add_core_of  = ROOT
 				}
 			}
 		}
 	}
+}
 
 ## Continent Formables END
 
@@ -582,7 +579,7 @@ formable_nations_mongol_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -610,7 +607,7 @@ formable_nations_mongol_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -1030,7 +1027,7 @@ formable_nations_mongol_empire_category  = {
 
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -1064,7 +1061,7 @@ formable_nations_mongol_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -1087,7 +1084,7 @@ formable_nations_mongol_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -1234,7 +1231,7 @@ formable_nations_mongol_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -1317,7 +1314,7 @@ formable_nations_mongol_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -1352,7 +1349,7 @@ formable_nations_mongol_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -1453,7 +1450,7 @@ formable_nations_mongol_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -1884,7 +1881,7 @@ formable_nations_mongol_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -1944,7 +1941,7 @@ formable_nations_mongol_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -2087,7 +2084,7 @@ formable_nations_mongol_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -2140,7 +2137,7 @@ formable_nations_mongol_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -2162,7 +2159,7 @@ formable_nations_mongol_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -2636,7 +2633,7 @@ formable_nations_grossdeutschland_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -2671,7 +2668,7 @@ formable_nations_grossdeutschland_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -2724,7 +2721,7 @@ formable_nations_grossdeutschland_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -2749,7 +2746,7 @@ formable_nations_grossdeutschland_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -2985,7 +2982,7 @@ formable_nations_latin_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -3026,7 +3023,7 @@ formable_nations_latin_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -3139,7 +3136,7 @@ formable_nations_latin_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -3300,7 +3297,7 @@ formable_nations_latin_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -3377,7 +3374,7 @@ formable_nations_latin_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -3941,7 +3938,7 @@ formable_nations_chinese_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -3982,7 +3979,7 @@ formable_nations_chinese_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4011,7 +4008,7 @@ formable_nations_chinese_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4052,7 +4049,7 @@ formable_nations_chinese_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4067,7 +4064,7 @@ formable_nations_chinese_empire_category  = {
 						} 
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4362,7 +4359,7 @@ formable_nations_frankish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4445,7 +4442,7 @@ formable_nations_frankish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4522,7 +4519,7 @@ formable_nations_frankish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4569,7 +4566,7 @@ formable_nations_frankish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4604,7 +4601,7 @@ formable_nations_frankish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4645,7 +4642,7 @@ formable_nations_frankish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4814,7 +4811,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4843,7 +4840,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4914,7 +4911,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4955,7 +4952,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -4984,7 +4981,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5013,7 +5010,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5048,7 +5045,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5071,7 +5068,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5088,7 +5085,7 @@ formable_nations_austria_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5223,7 +5220,7 @@ formable_nations_commonwealth_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5342,7 +5339,7 @@ formable_nations_commonwealth_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5383,7 +5380,7 @@ formable_nations_commonwealth_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5406,7 +5403,7 @@ formable_nations_commonwealth_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5471,7 +5468,7 @@ formable_nations_commonwealth_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5530,7 +5527,7 @@ formable_nations_commonwealth_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5559,7 +5556,7 @@ formable_nations_commonwealth_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5798,7 +5795,7 @@ formable_nations_hre_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5845,7 +5842,7 @@ formable_nations_hre_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5886,7 +5883,7 @@ formable_nations_hre_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5945,7 +5942,7 @@ formable_nations_hre_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -5974,7 +5971,7 @@ formable_nations_hre_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6009,7 +6006,7 @@ formable_nations_hre_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6044,7 +6041,7 @@ formable_nations_hre_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6285,7 +6282,7 @@ formable_nations_iberia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6326,7 +6323,7 @@ formable_nations_iberia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6421,7 +6418,7 @@ formable_nations_scandinavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6474,7 +6471,7 @@ formable_nations_scandinavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6509,7 +6506,7 @@ formable_nations_scandinavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6679,7 +6676,7 @@ formable_nations_arabia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6696,7 +6693,7 @@ formable_nations_arabia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6725,7 +6722,7 @@ formable_nations_arabia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6777,7 +6774,7 @@ formable_nations_arabia_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -6917,7 +6914,7 @@ formable_nations_great_moravia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6946,7 +6943,7 @@ formable_nations_great_moravia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -6981,7 +6978,7 @@ formable_nations_great_moravia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7028,7 +7025,7 @@ formable_nations_great_moravia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7045,7 +7042,7 @@ formable_nations_great_moravia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7129,7 +7126,7 @@ formable_nations_transcaucasia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7152,7 +7149,7 @@ formable_nations_transcaucasia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7169,7 +7166,7 @@ formable_nations_transcaucasia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7261,7 +7258,7 @@ formable_nations_benelux_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7344,7 +7341,7 @@ formable_nations_baltic_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7385,7 +7382,7 @@ formable_nations_baltic_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7426,7 +7423,7 @@ formable_nations_baltic_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7522,7 +7519,7 @@ formable_nations_central_america_category  = {
 						} 
 				}
 				AND  = {
-					is_ai  = no
+					
 					has_global_flag  = debug_mode
 				}
 			}
@@ -7600,7 +7597,7 @@ formable_nations_hungarian_kingdom_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7635,7 +7632,7 @@ formable_nations_hungarian_kingdom_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7658,7 +7655,7 @@ formable_nations_hungarian_kingdom_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7700,7 +7697,7 @@ formable_nations_hungarian_kingdom_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7717,7 +7714,7 @@ formable_nations_hungarian_kingdom_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7920,7 +7917,7 @@ formable_nations_kievan_rus_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -7979,7 +7976,7 @@ formable_nations_kievan_rus_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8140,7 +8137,7 @@ formable_nations_kievan_rus_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8272,7 +8269,7 @@ formable_nations_bulgarian_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8295,7 +8292,7 @@ formable_nations_bulgarian_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8311,7 +8308,7 @@ formable_nations_bulgarian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -8359,7 +8356,7 @@ formable_nations_bulgarian_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8436,7 +8433,7 @@ formable_nations_bulgarian_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8459,7 +8456,7 @@ formable_nations_bulgarian_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8476,7 +8473,7 @@ formable_nations_bulgarian_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8577,7 +8574,7 @@ formable_nations_gran_colombia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8606,7 +8603,7 @@ formable_nations_gran_colombia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8623,7 +8620,7 @@ formable_nations_gran_colombia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8652,7 +8649,7 @@ formable_nations_gran_colombia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8793,7 +8790,7 @@ formable_nations_mexican_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8840,7 +8837,7 @@ formable_nations_mexican_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8887,7 +8884,7 @@ formable_nations_mexican_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8977,7 +8974,7 @@ formable_nations_greater_albania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -8994,7 +8991,7 @@ formable_nations_greater_albania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9011,7 +9008,7 @@ formable_nations_greater_albania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9040,7 +9037,7 @@ formable_nations_greater_albania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9209,7 +9206,7 @@ formable_nations_balkan_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9244,7 +9241,7 @@ formable_nations_balkan_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9267,7 +9264,7 @@ formable_nations_balkan_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9326,7 +9323,7 @@ formable_nations_balkan_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9403,7 +9400,7 @@ formable_nations_balkan_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9620,7 +9617,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9649,7 +9646,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9684,7 +9681,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9707,7 +9704,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9749,7 +9746,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9766,7 +9763,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9867,7 +9864,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9926,7 +9923,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -9991,7 +9988,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -10020,7 +10017,7 @@ formable_nations_poland_hungary_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -10264,7 +10261,7 @@ formable_nations_angevin_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10311,7 +10308,7 @@ formable_nations_angevin_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10340,7 +10337,7 @@ formable_nations_angevin_empire_category  = {
 						} 	
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10461,7 +10458,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10574,7 +10571,7 @@ formable_nations_macedonian_empire_category  = {
 						} 	
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10657,7 +10654,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10674,7 +10671,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10709,7 +10706,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10738,7 +10735,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10791,7 +10788,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10850,7 +10847,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10909,7 +10906,7 @@ formable_nations_macedonian_empire_category  = {
 						}
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10932,7 +10929,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -10949,7 +10946,7 @@ formable_nations_macedonian_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -11100,7 +11097,7 @@ formable_nations_macedonian_empire_category  = {
 #					
 #				}
 #				AND  = {
-#					is_ai  = no
+#					
 #					has_global_flag  = debug_mode
 #				}
 #			}
@@ -11892,7 +11889,7 @@ formable_nations_greater_israel_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -11946,7 +11943,7 @@ formable_nations_greater_israel_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -12053,7 +12050,7 @@ formable_nations_mughals_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -12149,7 +12146,7 @@ formable_nations_mughals_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -12167,7 +12164,7 @@ formable_nations_mughals_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -12215,7 +12212,7 @@ formable_nations_mughals_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13141,7 +13138,7 @@ formable_nations_north_sea_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13171,7 +13168,7 @@ formable_nations_north_sea_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13195,7 +13192,7 @@ formable_nations_north_sea_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13294,7 +13291,7 @@ formable_nations_inca_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13312,7 +13309,7 @@ formable_nations_inca_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13342,7 +13339,7 @@ formable_nations_inca_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13448,7 +13445,7 @@ formable_nations_greater_finland_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13483,7 +13480,7 @@ formable_nations_greater_finland_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13584,7 +13581,7 @@ formable_nations_turkestan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -13643,7 +13640,7 @@ formable_nations_turkestan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -13738,7 +13735,7 @@ formable_nations_turkestan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -13779,7 +13776,7 @@ formable_nations_turkestan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -13802,7 +13799,7 @@ formable_nations_turkestan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -13819,7 +13816,7 @@ formable_nations_turkestan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -13836,7 +13833,7 @@ formable_nations_turkestan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -13853,7 +13850,7 @@ formable_nations_turkestan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -13980,7 +13977,7 @@ formable_nations_indochina_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -13997,7 +13994,7 @@ formable_nations_indochina_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14014,7 +14011,7 @@ formable_nations_indochina_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14049,7 +14046,7 @@ formable_nations_indochina_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14163,7 +14160,7 @@ formable_nations_swedish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14216,7 +14213,7 @@ formable_nations_swedish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14233,7 +14230,7 @@ formable_nations_swedish_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14334,7 +14331,7 @@ formable_nations_greater_tibet_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14357,7 +14354,7 @@ formable_nations_greater_tibet_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14374,7 +14371,7 @@ formable_nations_greater_tibet_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14415,7 +14412,7 @@ formable_nations_greater_tibet_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14445,7 +14442,7 @@ formable_nations_greater_tibet_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14462,7 +14459,7 @@ formable_nations_greater_tibet_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14548,7 +14545,7 @@ formable_nations_greater_yugoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14595,7 +14592,7 @@ formable_nations_greater_yugoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14618,7 +14615,7 @@ formable_nations_greater_yugoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14647,7 +14644,7 @@ formable_nations_greater_yugoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14676,7 +14673,7 @@ formable_nations_greater_yugoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14693,7 +14690,7 @@ formable_nations_greater_yugoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14710,7 +14707,7 @@ formable_nations_greater_yugoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14745,7 +14742,7 @@ formable_nations_greater_yugoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14908,7 +14905,7 @@ formable_nations_abyssinia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14937,7 +14934,7 @@ formable_nations_abyssinia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14954,7 +14951,7 @@ formable_nations_abyssinia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -14971,7 +14968,7 @@ formable_nations_abyssinia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15084,7 +15081,7 @@ formable_nations_greater_egypt_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15143,7 +15140,7 @@ formable_nations_greater_egypt_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15197,7 +15194,7 @@ formable_nations_greater_egypt_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15288,7 +15285,7 @@ formable_nations_hispaniola_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15373,7 +15370,7 @@ formable_nations_peru_bolivia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15396,7 +15393,7 @@ formable_nations_peru_bolivia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15470,7 +15467,7 @@ formable_nations_caribbean_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15493,7 +15490,7 @@ formable_nations_caribbean_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15634,7 +15631,7 @@ formable_nations_australasia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15657,7 +15654,7 @@ formable_nations_australasia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15674,7 +15671,7 @@ formable_nations_australasia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15697,7 +15694,7 @@ formable_nations_australasia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15867,7 +15864,7 @@ formable_nations_golden_circle_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15926,7 +15923,7 @@ formable_nations_golden_circle_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -15955,7 +15952,7 @@ formable_nations_golden_circle_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16038,7 +16035,7 @@ formable_nations_golden_circle_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16127,7 +16124,7 @@ formable_nations_golden_circle_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16253,7 +16250,7 @@ formable_nations_maghreb_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16288,7 +16285,7 @@ formable_nations_maghreb_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16341,7 +16338,7 @@ formable_nations_maghreb_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16364,7 +16361,7 @@ formable_nations_maghreb_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16381,7 +16378,7 @@ formable_nations_maghreb_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16559,7 +16556,7 @@ formable_nations_visegrad_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16630,7 +16627,7 @@ formable_nations_visegrad_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16665,7 +16662,7 @@ formable_nations_visegrad_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16782,7 +16779,7 @@ formable_nations_la_plata_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16805,7 +16802,7 @@ formable_nations_la_plata_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16822,7 +16819,7 @@ formable_nations_la_plata_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16845,7 +16842,7 @@ formable_nations_la_plata_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16940,7 +16937,7 @@ formable_nations_celtic_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16975,7 +16972,7 @@ formable_nations_celtic_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -16992,7 +16989,7 @@ formable_nations_celtic_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17009,7 +17006,7 @@ formable_nations_celtic_union_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17100,7 +17097,7 @@ formable_nations_alpine_federation_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17135,7 +17132,7 @@ formable_nations_alpine_federation_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17225,7 +17222,7 @@ formable_nations_greater_croatia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17248,7 +17245,7 @@ formable_nations_greater_croatia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17347,7 +17344,7 @@ formable_nations_greater_serbia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17364,7 +17361,7 @@ formable_nations_greater_serbia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17381,7 +17378,7 @@ formable_nations_greater_serbia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17473,7 +17470,7 @@ formable_nations_greater_lithuania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17490,7 +17487,7 @@ formable_nations_greater_lithuania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17549,7 +17546,7 @@ formable_nations_greater_lithuania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17638,7 +17635,7 @@ formable_nations_greater_lithuania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17656,7 +17653,7 @@ formable_nations_greater_lithuania_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17768,7 +17765,7 @@ formable_nations_chile_argentina_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17797,7 +17794,7 @@ formable_nations_chile_argentina_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17880,7 +17877,7 @@ formable_nations_assyria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17897,7 +17894,7 @@ formable_nations_assyria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -17949,7 +17946,7 @@ formable_nations_assyria_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -17996,7 +17993,7 @@ formable_nations_assyria_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -18014,7 +18011,7 @@ formable_nations_assyria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -18067,7 +18064,7 @@ formable_nations_assyria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -18084,7 +18081,7 @@ formable_nations_assyria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -18275,7 +18272,7 @@ formable_nations_great_britain_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -19479,7 +19476,7 @@ formable_nations_greater_russia_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -19538,7 +19535,7 @@ formable_nations_greater_russia_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -19615,7 +19612,7 @@ formable_nations_greater_russia_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -19717,7 +19714,7 @@ formable_nations_greater_russia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -19739,7 +19736,7 @@ formable_nations_greater_russia_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -20066,7 +20063,7 @@ formable_nations_carthage_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20089,7 +20086,7 @@ formable_nations_carthage_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20112,7 +20109,7 @@ formable_nations_carthage_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20141,7 +20138,7 @@ formable_nations_carthage_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20188,7 +20185,7 @@ formable_nations_carthage_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20229,7 +20226,7 @@ formable_nations_carthage_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20334,7 +20331,7 @@ formable_nations_east_africa_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20351,7 +20348,7 @@ formable_nations_east_africa_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20368,7 +20365,7 @@ formable_nations_east_africa_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20427,7 +20424,7 @@ formable_nations_east_africa_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20450,7 +20447,7 @@ formable_nations_east_africa_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20548,7 +20545,7 @@ formable_nations_mali_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20583,7 +20580,7 @@ formable_nations_mali_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20668,7 +20665,7 @@ formable_nations_sahel_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20691,7 +20688,7 @@ formable_nations_sahel_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20714,7 +20711,7 @@ formable_nations_sahel_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20737,7 +20734,7 @@ formable_nations_sahel_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20784,7 +20781,7 @@ formable_nations_sahel_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20874,7 +20871,7 @@ formable_nations_greater_austria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20909,7 +20906,7 @@ formable_nations_greater_austria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20938,7 +20935,7 @@ formable_nations_greater_austria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -20967,7 +20964,7 @@ formable_nations_greater_austria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -21014,7 +21011,7 @@ formable_nations_greater_austria_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -21209,7 +21206,7 @@ formable_nations_anglosphere_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -21288,7 +21285,7 @@ formable_nations_anglosphere_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -21311,7 +21308,7 @@ formable_nations_anglosphere_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -21466,7 +21463,7 @@ formable_nations_anglosphere_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -21729,7 +21726,7 @@ formable_nations_anglosphere_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -21961,7 +21958,7 @@ formable_nations_levant_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -22038,7 +22035,7 @@ formable_nations_greater_korea_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -22073,7 +22070,7 @@ formable_nations_greater_korea_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -22177,7 +22174,7 @@ formable_nations_middle_east_category  = {
 						}
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22331,7 +22328,7 @@ formable_nations_greater_japan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22396,7 +22393,7 @@ formable_nations_greater_japan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22467,7 +22464,7 @@ formable_nations_greater_japan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22490,7 +22487,7 @@ formable_nations_greater_japan_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22598,7 +22595,7 @@ formable_nations_khmer_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22615,7 +22612,7 @@ formable_nations_khmer_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22632,7 +22629,7 @@ formable_nations_khmer_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22661,7 +22658,7 @@ formable_nations_khmer_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22747,7 +22744,7 @@ formable_nations_bengal_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22821,7 +22818,7 @@ formable_nations_guyanas_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22932,7 +22929,7 @@ formable_nations_andes_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -22973,7 +22970,7 @@ formable_nations_andes_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -23150,7 +23147,7 @@ formable_nations_zapadoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23221,7 +23218,7 @@ formable_nations_zapadoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23250,7 +23247,7 @@ formable_nations_zapadoslavia_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23364,7 +23361,7 @@ formable_nations_south_german_federation_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23387,7 +23384,7 @@ formable_nations_south_german_federation_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23422,7 +23419,7 @@ formable_nations_south_german_federation_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23598,7 +23595,7 @@ formable_nations_north_german_federation_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23639,7 +23636,7 @@ formable_nations_north_german_federation_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23846,7 +23843,7 @@ formable_nations_germany_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -23887,7 +23884,7 @@ formable_nations_germany_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24030,7 +24027,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24083,7 +24080,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24226,7 +24223,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24261,7 +24258,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24284,7 +24281,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24313,7 +24310,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24365,7 +24362,7 @@ formable_nations_byzantium_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -24401,7 +24398,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24418,7 +24415,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24435,7 +24432,7 @@ formable_nations_byzantium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24661,7 +24658,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24822,7 +24819,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -24983,7 +24980,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25018,7 +25015,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25047,7 +25044,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25082,7 +25079,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25105,7 +25102,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25128,7 +25125,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25145,7 +25142,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25162,7 +25159,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25203,7 +25200,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25280,7 +25277,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25321,7 +25318,7 @@ formable_nations_west_rome_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25672,7 +25669,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25815,7 +25812,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -25952,7 +25949,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26059,7 +26056,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26220,7 +26217,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26381,7 +26378,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26464,7 +26461,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26493,7 +26490,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26510,7 +26507,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26563,7 +26560,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26597,7 +26594,7 @@ formable_nations_roman_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -26626,7 +26623,7 @@ formable_nations_roman_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -26680,7 +26677,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26756,7 +26753,7 @@ formable_nations_roman_empire_category  = {
 						} 
 					}
 					AND  = {
-						is_ai  = no
+						
 						has_global_flag  = debug_mode
 					}
 				}
@@ -26804,7 +26801,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -26833,7 +26830,7 @@ formable_nations_roman_empire_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27214,7 +27211,7 @@ formable_nations_intermarium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27321,7 +27318,7 @@ formable_nations_intermarium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27392,7 +27389,7 @@ formable_nations_intermarium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27421,7 +27418,7 @@ formable_nations_intermarium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27534,7 +27531,7 @@ formable_nations_intermarium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27611,7 +27608,7 @@ formable_nations_intermarium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27670,7 +27667,7 @@ formable_nations_intermarium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27813,7 +27810,7 @@ formable_nations_intermarium_category  = {
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
+						
 					}
 				}
 			}
@@ -27951,7 +27948,6 @@ formable_nations_intermarium_category  = {
 
 formable_nations_italy_category  = {
 	formable_nations_italy  = {
-	
 		ai_will_do  = {
 			factor  = 1
 		}
@@ -27963,8 +27959,7 @@ formable_nations_italy_category  = {
 				has_country_flag  = unform_available 
 				has_country_flag  = hide_formable_nations 
 			}
-			OR  = { 
-				
+			OR  = {
 				original_tag  = PAP
 				original_tag  = TOS
 				original_tag  = TTS
@@ -28049,11 +28044,34 @@ formable_nations_italy_category  = {
 								is_controlled_by  = ROOT 
 								controller  = { is_subject_of  = ROOT } 
 							} 
-						} 
+						}
+						957= {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						850= {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						39= {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						912= {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
 					}
 					AND  = {
 						has_global_flag  = debug_mode
-						is_ai  = no
 					}
 				}
 			}
@@ -28113,6 +28131,10 @@ formable_nations_italy_category  = {
 					162  = { add_core_of  = ITA }
 					736  = { add_core_of  = ITA }
 					852  = { add_core_of  = ITA }
+					957  = { add_core_of  = ITA }
+					850  = { add_core_of  = ITA }
+					39   = { add_core_of  = ITA }
+					912  = { add_core_of  = ITA }
 				}
 			}
 			39  = { add_core_of  = ROOT }
