@@ -2,11 +2,18 @@ scripted_diplomatic_actions = {
 
 	r56rp_send_letter = {
 
+		cost = 0
+		command_power = 0
+		requires_acceptance = no
+		show_acceptance_on_action_button = no
+		icon = 1
+
 		allowed = {
 			ROOT = { is_ai = no }
 		}
 
 		visible = {
+			ROOT = { is_ai = no }
 			always = yes
 		}
 
@@ -14,26 +21,9 @@ scripted_diplomatic_actions = {
 			
 		}
 
-		cost = 0
-
-		command_power = 0
-
-		requires_acceptance = no
-
-		icon = 1
-
 		complete_effect = {
-			PREV = {
-				add_timed_idea = {
-					idea = recently_restricted
-					days = 20
-				}
-				add_ideas = subject_military_restrictions
-				add_ideas = cant_train_divisions
-				country_lock_all_division_template = yes
-				delete_unit = {
-					disband = yes
-				}
+			ROOT = { #opens the lettermod and sets the target
+				set_variable = { selected_country_to_insult = PREV.id }
 			}
 		}
 	}
