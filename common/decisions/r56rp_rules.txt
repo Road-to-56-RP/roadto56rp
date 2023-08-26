@@ -6,58 +6,6 @@ r56rp_rules = {
 		}
     }
 
-	r56rp_TEST = { ## just something to test various shite on. feel free to use.
-	
-		#cost = 25
-	
-		icon = GFX_decision_hol_exchange_intelligence_data
-	
-		visible = { #will not be visible on debug
-			is_debug = yes
-		}
-	
-		#target_trigger = {
-		#	FROM = {
-		#		original_tag = CHI
-		#	}
-		#}
-	
-		available = {
-			always = yes
-		}
-	
-		complete_effect = {
-			r56rp_state_integration_calculate_cost = yes
-		}
-	}
-
-	r56rp_TEST_2 = { ## just something to test various shite on. feel free to use.
-	
-		#cost = 25
-	
-		icon = GFX_decision_hol_exchange_intelligence_data
-	
-		visible = { #will not be visible on debug
-			is_debug = yes
-		}
-	
-		#target_trigger = {
-		#	FROM = {
-		#		original_tag = CHI
-		#	}
-		#}
-	
-		available = {
-			is_ai = no
-		}
-	
-		complete_effect = {
-			JAP = {
-				add_state_claim = 593
-			}
-		}
-	}
-
 	r56rp_disable_axis_armor_pack = {
 		icon = GFX_decision_generic_operation
 		priority = 5
@@ -65,22 +13,21 @@ r56rp_rules = {
 		is_good = no #Tooltip purposes, also determines the localisation "will fail if" shite.
 		fire_only_once = yes
 		selectable_mission = no
-		days_mission_timeout = 14 #after 2 years since eruption of civil war will remove unplanned anyways
+		days_mission_timeout = 14
 
 		visible = { #when you can see it. Duh. Tho the mission also has to be activated, so its kinda weird doing the same shite as allowed.
 			is_ai = no
 			has_country_flag = r56rp_disable_axis_armor_pack_flag
 		}
 
-		#allowed = { #not needed, activation is used for it.
-		#	tag = SPR
-		#	original_tag = SPR
-		#}
-
-		activation = { #start once one of the focuses below was completed.		
+		allowed = { #checks if you have axis armor pack on game start.
+			has_dlc = "Axis Armor Pack"
 		}
 
-		available = { #complete mission once spain is not in a civil war
+		activation = {	
+		}
+
+		available = {
 			NOT = {
 				has_dlc = "Axis Armor Pack"
 			}
