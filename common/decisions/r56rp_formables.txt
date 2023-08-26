@@ -32595,3 +32595,66 @@ formable_nations_dacian_empire_category  = {
 		}
 	}
 }
+
+formable_nations_oman_category = {
+	formable_nations_oman = {
+		ai_will_do  = {
+			factor  = 100
+		}
+		
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag  = OMA
+			}
+			
+		}
+		available = {
+			custom_trigger_tooltip  = {
+				tooltip  = kingdom_of_heaven_tooltip
+				OR  = {
+					AND  = {
+						294 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						658 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+					AND  = {
+						has_global_flag  = debug_mode
+						
+					}
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_OMA } } }
+			custom_trigger_tooltip   = { tooltip  = is_puppet_tooltip OR  = { is_subject  = no has_global_flag  = puppets_allowed } }
+		}
+		icon = formable_nations_oman
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_OMA
+			add_ideas  = generic_recent_political_unification
+			add_ideas  = generic_recent_army_unification
+			add_ideas  = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
+				658 = { add_core_of = ROOT }
+				294 = { add_core_of = ROOT }
+			}
+			559 = { add_claim_by = ROOT }
+			844 = { add_claim_by = ROOT }
+			979 = { add_core_of = ROOT }
+		}
+	}
+}
