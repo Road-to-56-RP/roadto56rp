@@ -2,41 +2,28 @@ economy_decisions = {
 
 	#terraform tools decision by warlider
 
-	r56rp_hide_terraform_decisions = {
+	r56rp_toggle_terraform_decisions = {
         #priority = 100
         visible = { 
 			always = yes
 			is_ai = no
-			has_country_flag = r56rp_show_terraform
+			#has_country_flag = r56rp_show_terraform
 		}
 		ai_will_do = {
 			base = 0
 		}
 		available = {
-			has_country_flag = r56rp_show_terraform 
 		}
         complete_effect = { 
-            clr_country_flag = r56rp_show_terraform  
-        }
-    }
-
-	r56rp_show_terraform_decisions = {
-        #priority = 99
-        visible = { 
-			always = yes
-			is_ai = no
-			NOT = {
-				has_country_flag = r56rp_show_terraform
+			if = {
+				limit = {
+					has_country_flag = r56rp_show_terraform
+				}
+				clr_country_flag = r56rp_show_terraform  
 			}
-		}
-		ai_will_do = {
-			base = 0
-		}	
-		available = {
-			NOT = { has_country_flag = r56rp_show_terraform }
-		}
-        complete_effect = { 
-			set_country_flag = r56rp_show_terraform
+			else = {
+				set_country_flag = r56rp_show_terraform
+			}
         }
     }
 

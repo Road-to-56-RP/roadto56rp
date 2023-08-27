@@ -1,57 +1,46 @@
 GLO_state_integration_category = {
 	
 	#Toggle to hide all coring
-    hide_integration_decisions = {
+    r56rp_toggle_visibility_integration_decisions = {
         priority = 100
         visible = { 
-			always = yes 
+			is_ai = no
 		}
 		available = {
-			NOT = { has_country_flag = show_integration_decisions }
+			always = yes
 		}
-        complete_effect = { 
-			set_country_flag = show_integration_decisions
-        }
-    }
-
-	show_integration_decisions = {
-        priority = 99
-        visible = { 
-			always = yes 
-		}
-		available = {
-			has_country_flag = show_integration_decisions 
-		}
-        complete_effect = { 
-            clr_country_flag = show_integration_decisions  
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = show_integration_decisions
+				}
+				clr_country_flag = show_integration_decisions
+			}
+			else = {
+				set_country_flag = show_integration_decisions
+			}
         }
     }
 
 	#Toggle "Show only coring decisions with enough compliance"
-	hide_nonavialible_integration_decisions = {
+	r56rp_toggle_visibility_avalible_integration_decisions = {
         priority = 98
         visible = { 
-			always = yes 
+			is_ai = no
 		}
 		available = {
-			has_country_flag = show_unavialible_integration_decisions
+			always = yes
 		}
-        complete_effect = { 
-            clr_country_flag = show_unavialible_integration_decisions # Warlider can't spell for shit - im not even gonna change this.
-        }
-    }
-
-	show_nonavialible_integration_decisions = {
-        priority = 97
-        visible = { 
-			always = yes 
-		}
-		available = {
-			NOT = { has_country_flag = show_unavialible_integration_decisions }
-		}
-
-        complete_effect = { 
-            set_country_flag = show_unavialible_integration_decisions
+        complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = show_unavialible_integration_decisions
+				}
+				clr_country_flag = show_unavialible_integration_decisions
+			}
+			else = {
+				set_country_flag = show_unavialible_integration_decisions
+			}
         }
     }
 
