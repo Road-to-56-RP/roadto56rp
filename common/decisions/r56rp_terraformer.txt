@@ -2,47 +2,34 @@ economy_decisions = {
 
 	#terraform tools decision by warlider
 
-	r56rp_hide_terraform_decisions = {
+	r56rp_toggle_terraform_decisions = {
         #priority = 100
         visible = { 
 			always = yes
 			is_ai = no
-			has_country_flag = r56rp_show_terraform
+			#has_country_flag = r56rp_show_terraform
 		}
 		ai_will_do = {
 			base = 0
 		}
 		available = {
-			has_country_flag = r56rp_show_terraform 
 		}
         complete_effect = { 
-            clr_country_flag = r56rp_show_terraform  
-        }
-    }
-
-	r56rp_show_terraform_decisions = {
-        #priority = 99
-        visible = { 
-			always = yes
-			is_ai = no
-			NOT = {
-				has_country_flag = r56rp_show_terraform
+			if = {
+				limit = {
+					has_country_flag = r56rp_show_terraform
+				}
+				clr_country_flag = r56rp_show_terraform  
 			}
-		}
-		ai_will_do = {
-			base = 0
-		}	
-		available = {
-			NOT = { has_country_flag = r56rp_show_terraform }
-		}
-        complete_effect = { 
-			set_country_flag = r56rp_show_terraform
+			else = {
+				set_country_flag = r56rp_show_terraform
+			}
         }
     }
 
 	r56rp_terraformer_pastoral_rural = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
+		icon = generic_construction
 		cost = 25
 
 		on_map_mode = map_only
@@ -96,7 +83,7 @@ economy_decisions = {
 
 	r56rp_terraformer_rural_town = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
+		icon = generic_construction
 		cost = 25
 
 		on_map_mode = map_only
@@ -150,7 +137,7 @@ economy_decisions = {
 
 	r56rp_terraformer_town_largetown = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
+		icon = generic_construction
 		cost = 50
 
 		on_map_mode = map_only
@@ -204,7 +191,7 @@ economy_decisions = {
 
 	r56rp_terraformer_largetown_city = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
+		icon = generic_construction
 		cost = 75
 
 		on_map_mode = map_only
@@ -258,7 +245,7 @@ economy_decisions = {
 
 	r56rp_terraformer_city_largecity = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
+		icon = generic_construction
 		cost = 75
 
 		on_map_mode = map_only
@@ -312,7 +299,7 @@ economy_decisions = {
 
 	r56rp_terraformer_largecity_metropolis = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
+		icon = generic_construction
 		cost = 100
 
 		on_map_mode = map_only
@@ -366,7 +353,7 @@ economy_decisions = {
 
 	r56rp_terraformer_metropolis_megalopolis = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
+		icon = generic_construction
 		cost = 150
 
 		on_map_mode = map_only

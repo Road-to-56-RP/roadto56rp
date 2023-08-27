@@ -5,7 +5,6 @@ on_actions={
 				####################		
 				##Formable Nations##
 				####################
-
 				set_global_flag = puppets_allowed
 				set_country_flag = hide_formable_nations
 				
@@ -17,9 +16,9 @@ on_actions={
 				set_variable = { swap_sides = 0 }
 				set_variable = { rt_status = 0 }
 
-				#########################
-				##Coring Tool Variables##
-				#########################
+				################################
+				## State Integration Variable ##
+				################################
 				
 				set_variable = { GLO_p_pp_cost = 50 }
 				set_variable = { GLO_p_comp_cost = 80 }
@@ -35,10 +34,26 @@ on_actions={
 			}
 		}
 	}
+	#########################################
+	## State Integration Dynamic Core Cost ##
+	#########################################
+	on_startup = {
+		effect = { #in scripted effects.
+			every_state = {
+				r56rp_state_integration_calculate_cost = yes
+			}
+		}
+	}
+	on_monthly = {
+		effect = { #in scripted effects.
+			every_state = {
+				r56rp_state_integration_calculate_cost = yes
+			}
+		}
+	}
+
 	on_subject_free = {
-	
 		effect = {
-		
 			if = {
 				limit = {
 					ROOT = {

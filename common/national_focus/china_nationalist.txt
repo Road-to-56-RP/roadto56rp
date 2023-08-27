@@ -3742,6 +3742,7 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
+			add_ideas = r56rp_KMT_auth_1
 			add_dynamic_modifier = {
 				modifier = KMT_combined_despotism_modifier
 			}
@@ -3773,13 +3774,7 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			add_dynamic_modifier = {
-				modifier = KMT_combined_fascism_modifier
-			}
-			add_to_variable = { KMT_combined_fascism_modifier_fascism_drift = 0.1 }
-			add_to_variable = { KMT_combined_fascism_modifier_war_support_factor = 0.05 }
-			add_to_variable = { KMT_combined_fascism_modifier_stability_factor = -0.05 }
-			custom_effect_tooltip = KMT_promote_nationalism_tt
+			add_ideas = r56rp_KMT_fascism_1
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 	}
@@ -3805,8 +3800,7 @@ focus_tree = {
 				limit = {
 					has_dlc = "La Resistance"
 				}
-				add_to_variable = { KMT_combined_despotism_modifier_operative_slot = 1 }
-				custom_effect_tooltip = KMT_cbis_tt
+				add_ideas = KMT_cbis_lar
 				custom_effect_tooltip = available_political_advisor
 				show_ideas_tooltip = CHI_dai_li_advisor_lar
 			}
@@ -3829,8 +3823,21 @@ focus_tree = {
 		y = 3
 		cost = 10
 		completion_reward = {
-			add_to_variable = { KMT_combined_despotism_modifier_factory_efficiency_gain_factor = 0.05 }
-			add_to_variable = { KMT_combined_despotism_modifier_industrial_capacity_factory = 0.05 }
+			IF = {
+				limit = {
+					has_idea = r56rp_KMT_auth_3
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_auth_3
+					add_idea = r56rp_KMT_auth_4
+				}
+			}
+			ELSE = {
+				swap_ideas = {
+					remove_idea = r56rp_KMT_auth_1
+					add_idea = r56rp_KMT_auth_2
+				}
+			}
 			custom_effect_tooltip = KMT_cement_control_on_the_economy_tt
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -3844,6 +3851,21 @@ focus_tree = {
 		y = 3
 		cost = 10
 		completion_reward = {
+			IF = {
+				limit = {
+					has_idea = r56rp_KMT_auth_2
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_auth_2
+					add_idea = r56rp_KMT_auth_4
+				}
+			}
+			ELSE = {
+				swap_ideas = {
+					remove_idea = r56rp_KMT_auth_1
+					add_idea = r56rp_KMT_auth_3
+				}
+			}
 			add_to_variable = { KMT_combined_despotism_modifier_conscription = 0.015 }
 			add_to_variable = { KMT_combined_despotism_modifier_army_morale_factor = 0.1 }
 			custom_effect_tooltip = KMT_zhonghua_minzu_tt
@@ -3854,7 +3876,8 @@ focus_tree = {
 	focus = {
 		id = KMT_centralizing_power
 		icon = GFX_goal_generic_political
-		prerequisite = { focus = KMT_zhonghua_minzu focus = KMT_cement_control_on_the_economy }
+		prerequisite = { focus = KMT_zhonghua_minzu }
+		prerequisite = { focus = KMT_cement_control_on_the_economy }
 		available = {
 			has_government = neutrality
 		}
@@ -3883,16 +3906,10 @@ focus_tree = {
 				can_create_factions = yes
 				can_puppet = yes
 			}
-			#swap_ideas = {
-			#	remove_idea = KMT_central_power
-			#	add_idea = KMT_despotism
-			#}
-				add_to_variable = { KMT_combined_despotism_modifier_drift_defence_factor = 0.5 }
-				add_to_variable = { KMT_combined_despotism_modifier_resistance_damage_to_garrison = 0.15 }
-				add_to_variable = { KMT_combined_despotism_modifier_foreign_subversive_activites = -0.75 }
-				add_to_variable = { KMT_combined_despotism_modifier_neutrality_drift = 0.05 }
-				add_to_variable = { KMT_combined_despotism_modifier_political_power_factor = 0.1 }
-				custom_effect_tooltip = KMT_into_despotism_tt
+			swap_ideas = {
+				remove_idea = r56rp_KMT_auth_4
+				add_idea = r56rp_KMT_auth_5
+			}
 			if = {
 				limit = {
 					original_tag = CHI
@@ -4175,11 +4192,11 @@ focus_tree = {
 		
 		completion_reward = {
 			set_country_flag = new_life
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_1
+				add_idea = r56rp_KMT_fascism_2
+			}
 
-			add_to_variable = { KMT_combined_fascism_modifier_fascism_drift = 0.05 }
-			add_to_variable = { KMT_combined_fascism_modifier_conscription = 0.005 }
-			add_to_variable = { KMT_combined_fascism_modifier_resistance_damage_to_garrison = -0.1 }
-			custom_effect_tooltip = KMT_fascism_focus_tt
 			add_popularity = {
 				ideology = fascism
 				popularity = 0.1
@@ -4230,6 +4247,10 @@ focus_tree = {
 		}
 		
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_1
+				add_idea = r56rp_KMT_fascism_r_2
+			}
 			add_to_variable = { KMT_combined_fascism_modifier_attrition = -0.1 }
 			add_to_variable = { KMT_combined_fascism_modifier_conscription = 0.01 }
 			custom_effect_tooltip = KMT_militarism_focus_tt
@@ -4257,29 +4278,27 @@ focus_tree = {
 		y = 1
 		cost = 10
 		completion_reward = {
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.25
-			}
 			if = {
 				limit = {
 					NOT = { has_dlc = "La Resistance" }
 				}
-				add_to_variable = { KMT_combined_fascism_modifier_attrition = -0.1 }
-				add_to_variable = { KMT_combined_fascism_modifier_encryption_factor = 0.25 }
-				add_to_variable = { KMT_combined_fascism_modifier_decryption_factor = 0.25 }
-				custom_effect_tooltip = KMT_ban_communism_2_tt
+				swap_ideas = {
+					remove_idea = r56rp_KMT_fascism_2
+					add_idea = r56rp_KMT_fascism_4
+				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_dlc = "La Resistance"
 				}
-				add_to_variable = { KMT_combined_fascism_modifier_attrition = -0.10 }
-				add_to_variable = { KMT_combined_fascism_modifier_army_intel_factor = 0.10 }
-				add_to_variable = { KMT_combined_fascism_modifier_army_intel_to_others = -10 }
-				add_to_variable = { KMT_combined_fascism_modifier_civilian_intel_factor = 0.10 }
-				add_to_variable = { KMT_combined_fascism_modifier_civilian_intel_to_others = -10 }
-				custom_effect_tooltip = KMT_ban_communism_tt
+				swap_ideas = {
+					remove_idea = r56rp_KMT_fascism_2
+					add_idea = r56rp_KMT_fascism_3
+				}
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.25
 			}
 		}
 	}
@@ -4297,11 +4316,24 @@ focus_tree = {
 		cost = 15
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			add_to_variable = { KMT_combined_fascism_modifier_political_power_gain = 0.5 }
-			add_to_variable = { KMT_combined_fascism_modifier_fascism_drift = 0.1 }
-			add_to_variable = { KMT_combined_fascism_modifier_stability_factor = -0.05 }
-			add_to_variable = { KMT_combined_fascism_modifier_justify_war_goal_time = -0.25}
-			custom_effect_tooltip = KMT_planning_our_empire_tt
+			if = {
+				limit = {
+					NOT = { has_dlc = "La Resistance" }
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_fascism_4
+					add_idea = r56rp_KMT_fascism_6
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_fascism_3
+					add_idea = r56rp_KMT_fascism_5
+				}
+			}
 			add_political_power = 100
 			add_research_slot = 1
 		}
@@ -4392,8 +4424,10 @@ focus_tree = {
 				ideology = fascism
 				popularity = 0.1
 			}
-			add_to_variable = { KMT_combined_fascism_modifier_army_morale_factor = 0.05 }
-			add_to_variable = { KMT_combined_fascism_modifier_stability = -0.05 }
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_r_2
+				add_idea = r56rp_KMT_fascism_r_3
+			}
 			custom_effect_tooltip = KMT_war_propaganda_tt
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
@@ -4412,9 +4446,10 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			
-			add_to_variable = { KMT_combined_fascism_modifier_consumer_goods_factor = -0.05}
-			add_to_variable = { KMT_combined_fascism_modifier_production_factory_efficiency_gain_factor = 0.05 }
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_r_3
+				add_idea = r56rp_KMT_fascism_r_4
+			}
 			custom_effect_tooltip = KMT_military_first_tt
 			add_research_slot = 1
 		}
@@ -4436,10 +4471,10 @@ focus_tree = {
 				ideology = fascism
 				popularity = 0.25
 			}
-			add_to_variable = { KMT_combined_fascism_modifier_army_core_defence_factor = 0.1 }
-			add_to_variable = { KMT_combined_fascism_modifier_stability_factor = -0.05}
-			add_to_variable = { KMT_combined_fascism_modifier_production_factory_efficiency_gain_factor = 0.05 }
-			custom_effect_tooltip = KMT_war_fanaticism_tt
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_r_4
+				add_idea = r56rp_KMT_fascism_r_5
+			}
 			custom_effect_tooltip = kamikaze_focus_tooltip
 			hidden_effect = {
 				set_rule = { can_use_kamikaze_pilots = yes }
