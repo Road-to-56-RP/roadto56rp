@@ -5704,8 +5704,6 @@ formable_nations_mod_category = {
 		}
 	}
 
-	
-
 	hide_hanza = {
 		icon = formable_nations_hanza
 		cost  = 0  days_re_enable  = 1
@@ -5734,6 +5732,51 @@ formable_nations_mod_category = {
 
 		complete_effect = {
 			clr_country_flag = hanza_shown
+		}
+	}
+
+
+	show_southern_china = {
+		icon = formable_nations_southern_china
+		cost  = 0  days_re_enable  = 1
+		ai_will_do = {
+			factor = 100
+		}
+
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+				has_country_flag = south_china_shown
+			}
+			OR  = { 
+				original_tag = GXC
+				original_tag = YUN
+			}
+		}
+
+		complete_effect = {
+			set_country_flag = south_china_shown
+		}
+	}
+
+	hide_southern_china = {
+		icon = formable_nations_southern_china
+		cost  = 0  days_re_enable  = 1
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+			}
+			has_country_flag = south_china_shown
+			OR  = { 
+				original_tag = GXC
+				original_tag = YUN
+			}
+		}
+
+		complete_effect = {
+			clr_country_flag = south_china_shown
 		}
 	}
 }
