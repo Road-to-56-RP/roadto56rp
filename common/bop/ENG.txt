@@ -1,0 +1,466 @@
+ENG_centralization_balance = {
+	initial_value = 0
+	left_side = ENG_decentralization_anarchist
+	right_side = ENG_communist_side	
+				
+	decision_category = ENG_centralization_balance_of_power_category
+	### The "middle ground"
+	range = {
+		id = ENG_balance_range
+		min = -0.15
+		max = 0.15
+		modifier = {
+			war_support_factor = 0
+			research_speed_factor = 0
+			political_power_factor = 0
+			max_command_power_mult = 0
+			consumer_goods_factor = 0
+			custom_modifier_tooltip = ENG_balance_range_tt
+		}
+		on_activate = {
+			# State Variables
+			set_variable = { ENG_state_decentralization_building_slots = 0 }
+			set_variable = { ENG_state_decentralization_infrastructure = 0.00 }
+			set_variable = { ENG_state_decentralization_resources = 0 }
+			set_variable = { ENG_state_decentralization_defence = 0 }
+			set_variable = { ENG_state_decentralization_attack = 0 }
+			set_variable = { ENG_state_decentralization_recruitable_population = 0 }
+			set_variable = { ENG_state_decentralization_army_speed = 0 }
+			# Country Variables
+			set_variable = { ENG_decentralist_advisor_cost = 150 }
+			set_variable = { ENG_centralist_advisor_cost = 150 }
+		}
+		on_deactivate = {
+			# deactivation effect
+		}
+
+	}
+
+	### Decentralization 
+	side = {
+		id = ENG_power_to_the_people
+		icon = GFX_bop_ETH_decentralisation_side
+		range = {
+			id = ENG_mesafint_total_control_range
+			min = -1
+			max = -0.9
+			modifier = {
+
+				war_support_factor = 0.1
+				research_speed_factor = -0.1
+				political_power_factor = -0.15
+				max_command_power_mult = 0.1
+				consumer_goods_factor = 0.1
+
+				custom_modifier_tooltip = ENG_mesafint_total_control_range_state_modifiers_tt
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = -0.25 }
+				set_variable = { ENG_state_decentralization_infrastructure = -0.2 }
+				set_variable = { ENG_state_decentralization_resources = -0.2 }
+				set_variable = { ENG_state_decentralization_defence = 0.2 }
+				set_variable = { ENG_state_decentralization_attack = 0.2 }
+				set_variable = { ENG_state_decentralization_recruitable_population = -0.25 }
+				set_variable = { ENG_state_decentralization_army_speed = 0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 50 }
+				set_variable = { ENG_centralist_advisor_cost = 250 }
+				custom_effect_tooltip = ENG_risk_of_disintegration_tt
+				custom_effect_tooltip = ENG_risk_of_demoralized_ras_tt
+				IF = {
+					limit = {
+						has_stability < 0.15
+						check_variable = { ROOT.party_popularity@ruling_party < 0.4 }
+						
+					}
+					
+					
+				}
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+		range = {
+			id = ENG_people_dominant_range
+			min = -0.9
+			max = -0.65
+			modifier = {
+				war_support_factor = 0.1
+				research_speed_factor = -0.1
+				political_power_factor = -0.1
+				max_command_power_mult = 0.1
+				consumer_goods_factor = 0.1
+				custom_modifier_tooltip = ENG_mesafint_dominant_range_state_modifiers_tt
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = -0.2 }
+				set_variable = { ENG_state_decentralization_infrastructure = -0.15 }
+				set_variable = { ENG_state_decentralization_resources = -0.15 }
+				set_variable = { ENG_state_decentralization_defence = 0.15 }
+				set_variable = { ENG_state_decentralization_attack = 0.15 }
+				set_variable = { ENG_state_decentralization_recruitable_population = -0.2 }
+				set_variable = { ENG_state_decentralization_army_speed = 0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 75 }
+				set_variable = { ENG_centralist_advisor_cost = 225 }
+				IF = {
+					
+					add_stability = -0.05
+					
+				}
+				
+				
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+		range = {
+			id = ENG_people_power_range
+			min = -0.65
+			max = -0.35
+			modifier = {
+				war_support_factor = 0.05
+				research_speed_factor = -0.05
+				political_power_factor = -0.1
+				max_command_power_mult = 0.05
+				consumer_goods_factor = 0.05
+				custom_modifier_tooltip = ETH_mesafint_power_range_state_modifiers_tt
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = -0.15 }
+				set_variable = { ENG_state_decentralization_infrastructure = -0.1 }
+				set_variable = { ENG_state_decentralization_resources = -0.15 }
+				set_variable = { ENG_state_decentralization_defence = 0.1 }
+				set_variable = { ENG_state_decentralization_attack = 0.1 }
+				set_variable = { ENG_state_decentralization_recruitable_population = -0.15 }
+				set_variable = { ENG_state_decentralization_army_speed = 0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 100 }
+				set_variable = { ENG_centralist_advisor_cost = 200 }
+				IF = {
+					
+					add_stability = -0.05
+					
+				}
+				
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+		range = {
+			id = ENG_people_influence_range
+			min = -0.35
+			max = -0.15
+			modifier = {
+				war_support_factor = 0.02
+				research_speed_factor = -0.05
+				political_power_factor = -0.05
+				max_command_power_mult = 0.05
+				consumer_goods_factor = 0
+				custom_modifier_tooltip = ENG_mesafint_influence_range_state_modifiers_tt
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = -0.1 }
+				set_variable = { ENG_state_decentralization_infrastructure = -0.05 }
+				set_variable = { ENG_state_decentralization_resources = -0.1 }
+				set_variable = { ENG_state_decentralization_defence = 0.05 }
+				set_variable = { ENG_state_decentralization_attack = 0.05 }
+				set_variable = { ENG_state_decentralization_recruitable_population = -0.1 }
+				set_variable = { ENG_state_decentralization_army_speed = 0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 125 }
+				set_variable = { ENG_centralist_advisor_cost = 175 }
+				
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+	}
+	side = {
+		id = ENG_power_to_the_goverment
+		icon = GFX_bop_ETH_communist_side
+		range = {
+			id = ENG_goverment_influence_range
+			min = 0.15
+			max = 0.35
+			modifier = {
+				war_support_factor = 0
+				research_speed_factor = 0
+				political_power_factor = 0.02
+				max_command_power_mult = 0
+				consumer_goods_factor = 0
+				
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = -0.05 }
+				set_variable = { ENG_state_decentralization_infrastructure = 0.05 }
+				set_variable = { ENG_state_decentralization_resources = 0.05 }
+				set_variable = { ENG_state_decentralization_defence = -0.05 }
+				set_variable = { ENG_state_decentralization_attack = -0.05 }
+				set_variable = { ENG_state_decentralization_recruitable_population = 0.05 }
+				set_variable = { ENG_state_decentralization_army_speed = -0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 175 }
+				set_variable = { ENG_centralist_advisor_cost = 125 }
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+		range = {
+			id = ENG_goverment_power_range
+			min = 0.35
+			max = 0.65
+			modifier = {
+				war_support_factor = 0
+				research_speed_factor = 0.02
+				political_power_factor = 0.05
+				max_command_power_mult = 0
+				consumer_goods_factor = -0.05
+
+				
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = 0 }
+				set_variable = { ENG_state_decentralization_infrastructure = 0.1 }
+				set_variable = { ENG_state_decentralization_resources = 0.1 }
+				set_variable = { ENG_state_decentralization_defence = -0.1 }
+				set_variable = { ENG_state_decentralization_attack = -0.1 }
+				set_variable = { ENG_state_decentralization_recruitable_population = 0.1 }
+				set_variable = { ENG_state_decentralization_army_speed = -0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 200 }
+				set_variable = { ENG_centralist_advisor_cost = 100 }
+
+				
+					
+					
+					
+			
+			
+
+		}
+		}
+		range = {
+			id = ETH_goverment_dominant_range
+			min = 0.65
+			max = 0.9
+			modifier = {
+				war_support_factor = 0
+				research_speed_factor = 0.05
+				political_power_factor = 0.05
+				max_command_power_mult = 0
+				consumer_goods_factor = -0.05
+				
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = 0 }
+				set_variable = { ENG_state_decentralization_infrastructure = 0.15 }
+				set_variable = { ENG_state_decentralization_resources = 0.15 }
+				set_variable = { ENG_state_decentralization_defence = -0.15 }
+				set_variable = { ENG_state_decentralization_attack = -0.15 }
+				set_variable = { ENG_state_decentralization_recruitable_population = 0.15 }
+				set_variable = { ENG_state_decentralization_army_speed = -0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 225 }
+				set_variable = { ENG_centralist_advisor_cost = 75 }
+
+				
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+		range = {
+			id = ENG_goverment_total_control_range
+			min = 0.9
+			max = 1
+			modifier = {
+				war_support_factor = 0
+				research_speed_factor = 0.05
+				political_power_factor = 0.1
+				max_command_power_mult = 0
+				consumer_goods_factor = -0.05
+				
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = 0 }
+				set_variable = { ENG_state_decentralization_infrastructure = 0.2 }
+				set_variable = { ENG_state_decentralization_resources = 0.2 }
+				set_variable = { ENG_state_decentralization_defence = -0.2 }
+				set_variable = { ENG_state_decentralization_attack = -0.2 }
+				set_variable = { ENG_state_decentralization_recruitable_population = 0.2 }
+				set_variable = { ENG_state_decentralization_army_speed = -0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 250 }
+				set_variable = { ENG_centralist_advisor_cost = 50 }
+
+				
+				
+				
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+	}
+	### Decentralization - Anarchist
+	side = {
+		id = ENG_decentralization_anarchist
+		icon = GFX_bop_ETH_anarchist_side
+		range = {
+			id = ENG_total_anarchist_range
+			min = -1
+			max = -0.9
+			modifier = {
+
+				war_support_factor = -0.1
+				research_speed_factor = -0.1
+				political_power_factor = -0.15
+				max_command_power_mult = 0.1
+				consumer_goods_factor = 0.1
+
+				custom_modifier_tooltip = ENG_mesafint_total_control_range_state_modifiers_tt
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { 	ENG_state_decentralization_building_slots = -0.25 }
+				set_variable = { 	ENG_state_decentralization_infrastructure = -0.2 }
+				set_variable = { 	ENG_state_decentralization_resources = -0.2 }
+				set_variable = { 	ENG_state_decentralization_defence = 0.2 }
+				set_variable = { 	ENG_state_decentralization_attack = 0.2 }
+				set_variable = { 	ENG_state_decentralization_recruitable_population = -0.25 }
+				set_variable = { 	ENG_state_decentralization_army_speed = 0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 50 }
+				set_variable = { ENG_centralist_advisor_cost = 	250 }
+				
+				
+					
+					
+				}
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+		range = {
+			id = ENG_anarchist_dominant_range
+			min = -0.9
+			max = -0.65
+			modifier = {
+				war_support_factor = -0.05
+				research_speed_factor = -0.1
+				political_power_factor = -0.1
+				max_command_power_mult = 0.1
+				consumer_goods_factor = 0.1
+				custom_modifier_tooltip = ETH_mesafint_dominant_range_state_modifiers_tt
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = -0.12 }
+				set_variable = { ENG_state_decentralization_infrastructure = -0.15 }
+				set_variable = { ENG_state_decentralization_resources = -0.15 }
+				set_variable = { ENG_state_decentralization_defence = 0.15 }
+				set_variable = { ENG_state_decentralization_attack = 0.15 }
+				set_variable = { ENG_state_decentralization_recruitable_population = -0.2 }
+				set_variable = { ENG_state_decentralization_army_speed = 0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 75 }
+				set_variable = { ENG_centralist_advisor_cost = 225 }
+				
+				#custom_effect_tooltip = ETH_risk_of_demoralized_ras_tt
+				
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+		range = {
+			id = ENG_anarchist_power_range
+			min = -0.65
+			max = -0.35
+			modifier = {
+				war_support_factor = -0.025
+				research_speed_factor = -0.05
+				political_power_factor = -0.1
+				max_command_power_mult = 0.05
+				consumer_goods_factor = 0.05
+				
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = -0.15 }
+				set_variable = { ENG_state_decentralization_infrastructure = -0.1 }
+				set_variable = { ENG_state_decentralization_resources = -0.15 }
+				set_variable = { ENG_state_decentralization_defence = 0.1 }
+				set_variable = { ENG_state_decentralization_attack = 0.1 }
+				set_variable = { ENG_state_decentralization_recruitable_population = -0.15 }
+				set_variable = { ENG_state_decentralization_army_speed = 0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 100 }
+				set_variable = { ENG_centralist_advisor_cost = 200 }
+				
+				
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+		range = {
+			id = ENG_anarchist_influence_range
+			min = -0.35
+			max = -0.15
+			modifier = {
+				war_support_factor = -0.01
+				research_speed_factor = -0.05
+				political_power_factor = -0.05
+				max_command_power_mult = 0.05
+				consumer_goods_factor = 0
+				
+			}
+			on_activate = {
+				# State Variables
+				set_variable = { ENG_state_decentralization_building_slots = -0.1 }
+				set_variable = { ENG_state_decentralization_infrastructure = -0.05 }
+				set_variable = { ENG_state_decentralization_resources = -0.1 }
+				set_variable = { ENG_state_decentralization_defence = 0.05 }
+				set_variable = { ENG_state_decentralization_attack = 0.5 }
+				set_variable = { ENG_state_decentralization_recruitable_population = -0.1 }
+				set_variable = { ENG_state_decentralization_army_speed = 0.1 }
+				# Country Variables
+				set_variable = { ENG_decentralist_advisor_cost = 125 }
+				set_variable = { ENG_centralist_advisor_cost = 175 }
+				#custom_effect_tooltip = ETH_risk_of_demoralized_ras_tt
+			}
+			on_deactivate = {
+				# deactivation effect
+			}
+
+		}
+	
+	
+		
+}

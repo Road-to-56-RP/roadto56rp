@@ -1926,7 +1926,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = uk_waves_focus
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 2
 		}
@@ -3119,7 +3119,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = ENG_revisit_colonial_policy
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 1
 		}	
@@ -3186,7 +3186,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = ENG_guide_the_colonies
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 1
 		}	
@@ -3264,7 +3264,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = ENG_towards_dominion_independence
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 1
 		}	
@@ -3345,7 +3345,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = ENG_foundations_for_an_indian_state
-		cost = 2.5
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}	
@@ -3445,7 +3445,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = ENG_foundations_for_an_indian_state
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 1
 		}	
@@ -3632,14 +3632,20 @@ focus_tree = {
 					has_full_control_of_state = 720
 				}
 				ARG = {
-					
+					transfer_state = 299
+					299 = { add_core_of = ARG }
+					transfer_state = 720
+					add_opinion_modifier = { target = ENG modifier = ENG_returned_our_territory }
 				}
 			}
 			if = {
 				limit = {
 					has_full_control_of_state = 119
 				}
-				
+				IRE = {
+					transfer_state = 119
+					add_opinion_modifier = { target = ENG modifier = ENG_returned_our_territory }
+				}
 			}
 			if = {
 				limit = {
@@ -3673,8 +3679,21 @@ focus_tree = {
 							tag = SPC
 						}
 					}
-					
-					
+					transfer_state = 118
+					118 = { add_core_of = PREV }
+					if = {
+						limit = {
+							NOT = { has_global_flag = scw_over }
+						}
+						every_other_country = {
+							limit = {
+								original_tag = SPR
+								exists = yes
+							}
+							118 = { add_core_of = PREV }
+						}
+					}
+					add_opinion_modifier = { target = ENG modifier = ENG_returned_our_territory }
 				}
 			}
 		}
@@ -3828,7 +3847,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = ENG_self_government_for_the_mediterranean
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 1
 		}	
@@ -4927,7 +4946,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ENG_self_government_for_the_americas
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 1
 		}	
@@ -14840,7 +14859,7 @@ focus_tree = {
 			factor = 1
 		}	
 		completion_reward = {
-			add_political_power = 100
+			add_political_power = 60
 			custom_effect_tooltip = ENG_eliminate_the_upper_class_tt
 			country_event = { id = mtg_britain.45 }
 		}
@@ -14865,41 +14884,98 @@ focus_tree = {
 		completion_reward = {
 			remove_ideas = ENG_the_war_to_end_all_wars
 			add_ideas = ENG_for_the_good_of_the_revolution_idea
-			set_power_balance = {
-
-						id = ENG_centralization_balance
-						left_side = ENG_decentralization_anarchist
-						right_side = ENG_power_to_the_goverment
-						decision_category = ENG_centralization_balance_of_power_category
-						
-
-			}
-			
-			
-			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+	focus = {
+		id = ENG_agents_of_the_revolution
+		icon = GFX_goal_HON_nkvd_assistance
+		cost = 10
+		prerequisite = {
+			focus = ENG_for_the_good_of_the_revolution
+		}
+		allow_branch = {
+			has_dlc = "La Resistance"
+			has_dlc = "Man the Guns"
+		}		
+		relative_position_id = ENG_for_the_good_of_the_revolution
+		x = 6
+		y = 1
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0.5
+			}
+		}
+		available = {
+		
+		}
+		completion_reward = {		
+			if = {
+				limit = {
+					NOT = {
+						has_intelligence_agency = yes
+					}
+				}
+				create_intelligence_agency = yes				
+			}				
+			add_ideas = GER_abwehr_contacts
+			add_tech_bonus = {
+				name = mp_focus
+				bonus = 1
+				uses = 1
+				category = military_police_tech
+			}							
+		}
+		search_filters = { FOCUS_FILTER_ESPIONAGE }
+	}
+	focus = {
+		id = ENG_ideological_propaganda
+		icon = GFX_focus_propaganda_soviet
+		prerequisite = { focus = ENG_agents_of_the_revolution }
+		x = 1
+		y = 1
+		relative_position_id = ENG_agents_of_the_revolution
+		text = BEL_ideological_propaganda
+		cost = 5
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		allow_branch = {
+			has_dlc = "La Resistance"
+			has_dlc = "Man the Guns"
+		}
+
+		available = {
+			has_intelligence_agency = yes
+		}
 
 		
+		
+		
 
-		
-		
-		
-		
+
+		completion_reward = {
+			upgrade_intelligence_agency = upgrade_psycho_warfare
+			add_ideas = r56_clandestine_propaganda_techniques
+		}
+		search_filters = { FOCUS_FILTER_ESPIONAGE }
+	}	
 	### GO COMMUNIST ALONE BRANCH ###
 
 	focus = {
 		id = ENG_the_british_communist_alternative
 		prerequisite = { focus = ENG_for_the_good_of_the_revolution }
 		mutually_exclusive = { focus = ENG_follow_moscow }
-		mutually_exclusive = { focus = ENG_disband_the_union }
 		available = {
 			is_subject = no
 			NOT = { is_in_faction_with = SOV }
 		}
 		icon = GFX_focus_generic_join_comintern
-		x = 4
+		x = -2
 		y = 1
 		relative_position_id = ENG_for_the_good_of_the_revolution
 		cost = 10
@@ -14967,29 +15043,642 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
 
-	
+	focus = {
+		id = ENG_enforce_decolonization
+		prerequisite = { focus = ENG_the_british_communist_alternative }
+		mutually_exclusive = { focus = ENG_reach_out_across_the_channel }
+		available = {
+			is_subject = no
+			has_completed_focus = ENG_decolonization
+		}
+		icon = GFX_goal_generic_forceful_treaty
+		x = -1
+		y = 1
+		relative_position_id = ENG_the_british_communist_alternative
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			every_other_country = {
+				limit = {
+					OR = {
+						AND = {
+							NOT = { original_tag = PUE }
+							owns_state = 686
+							has_full_control_of_state = 686
+						}
+						PUE = {
+							is_subject_of = PREV
+						}
+						"PHI" = {
+							is_subject_of = PREV
+						}
+						AND = {
+							NOT = { original_tag = GDL }
+							owns_state = 694
+							has_full_control_of_state = 694
+						}
+						AND = {
+							NOT = { original_tag = SYR }
+							owns_state = 677
+							has_full_control_of_state = 677
+							owns_state = 680
+							has_full_control_of_state = 680
+							owns_state = 554
+							has_full_control_of_state = 554
+						}
+						AND = {
+							NOT = { original_tag = LEB }
+							owns_state = 553
+							has_full_control_of_state = 553
+						}
+						AND = {
+							NOT = { original_tag = MAD }
+							owns_state = 543
+							has_full_control_of_state = 543
+						}
+						AND = {
+							owns_state = 670
+							has_full_control_of_state = 670
+						}
+						AND = {
+							owns_state = 741
+							has_full_control_of_state = 741
+						}
+						AND = {
+							owns_state = 671
+							has_full_control_of_state = 671
+							owns_state = 286
+							has_full_control_of_state = 286
+						}
+						AND = {
+							owns_state = 728
+							has_full_control_of_state = 728
+						}
+						AND = {
+							NOT = { original_tag = MOR }
+							owns_state = 461
+							has_full_control_of_state = 461
+							owns_state = 462
+							has_full_control_of_state = 462
+						}
+						AND = {
+							NOT = { original_tag = ALG }
+							owns_state = 459
+							has_full_control_of_state = 459
+							owns_state = 513
+							has_full_control_of_state = 513
+							owns_state = 933
+							has_full_control_of_state = 933
+							owns_state = 460
+							has_full_control_of_state = 460
+							owns_state = 514
+							has_full_control_of_state = 514
+						}
+						AND = {
+							NOT = { original_tag = TUN }
+							owns_state = 458
+							has_full_control_of_state = 458
+							owns_state = 665
+							has_full_control_of_state = 665
+						}
+						AND = {
+							NOT = { original_tag = DJI }
+							owns_state = 268
+							has_full_control_of_state = 268
+						}
+						AND = {
+							NOT = { original_tag = RCG }
+							owns_state = 772
+							has_full_control_of_state = 772
+						}
+						AND = {
+							NOT = { original_tag = GAB }
+							owns_state = 539
+							has_full_control_of_state = 539
+						}
+						AND = {
+							NOT = { original_tag = CMR }
+							owns_state = 773
+							has_full_control_of_state = 773
+						}
+						AND = {
+							NOT = { original_tag = CAR }
+							owns_state = 660
+							has_full_control_of_state = 660
+						}
+						AND = {
+							NOT = { original_tag = CHA }
+							owns_state = 774
+							has_full_control_of_state = 774
+							owns_state = 775
+							has_full_control_of_state = 775
+						}
+						AND = {
+							NOT = { original_tag = NGR }
+							owns_state = 781
+							has_full_control_of_state = 781
+							owns_state = 515
+							has_full_control_of_state = 515
+						}
+						AND = {
+							NOT = { original_tag = DAH }
+							owns_state = 776
+							has_full_control_of_state = 776
+						}
+						AND = {
+							NOT = { original_tag = TOG }
+							owns_state = 777
+							has_full_control_of_state = 777
+						}
+						AND = {
+							NOT = { original_tag = VOL }
+							owns_state = 778
+							has_full_control_of_state = 778
+						}
+						AND = {
+							NOT = { original_tag = IVO }
+							owns_state = 779
+							has_full_control_of_state = 779
+						}
+						AND = {
+							NOT = { original_tag = GNA }
+							owns_state = 780
+							has_full_control_of_state = 780
+						}
+						AND = {
+							NOT = { original_tag = MLI }
+							owns_state = 556
+							has_full_control_of_state = 556
+							owns_state = 782
+							has_full_control_of_state = 782
+						}
+						AND = {
+							NOT = { original_tag = SEN }
+							owns_state = 272
+							has_full_control_of_state = 272
+						}
+						AND = {
+							NOT = { original_tag = CAY }
+							owns_state = 310
+							has_full_control_of_state = 310
+						}
+						GDL = {
+							is_subject_of = PREV
+						}
+						SYR = {
+							is_subject_of = PREV
+						}
+						LEB = {
+							is_subject_of = PREV
+						}
+						LAO = {
+							is_subject_of = PREV
+						}
+						CAM = {
+							is_subject_of = PREV
+						}
+						VIN = {
+							is_subject_of = PREV
+						}
+						MAD = {
+							is_subject_of = PREV
+						}
+						MOR = {
+							is_subject_of = PREV
+						}
+						ALG = {
+							is_subject_of = PREV
+						}
+						TUN = {
+							is_subject_of = PREV
+						}
+						DJI = {
+							is_subject_of = PREV
+						}
+						RCG = {
+							is_subject_of = PREV
+						}
+						GAB = {
+							is_subject_of = PREV
+						}
+						CMR = {
+							is_subject_of = PREV
+						}
+						CAR = {
+							is_subject_of = PREV
+						}
+						CHA = {
+							is_subject_of = PREV
+						}
+						NGR = {
+							is_subject_of = PREV
+						}
+						DAH = {
+							is_subject_of = PREV
+						}
+						TOG = {
+							is_subject_of = PREV
+						}
+						VOL = {
+							is_subject_of = PREV
+						}
+						IVO = {
+							is_subject_of = PREV
+						}
+						GNA = {
+							is_subject_of = PREV
+						}
+						MLI = {
+							is_subject_of = PREV
+						}
+						SEN = {
+							is_subject_of = PREV
+						}
+						CAY = {
+							is_subject_of = PREV
+						}
+						AND = {
+							NOT = { original_tag = LBA }
+							owns_state = 448
+							has_full_control_of_state = 448
+							owns_state = 661
+							has_full_control_of_state = 661
+							owns_state = 449
+							has_full_control_of_state = 449
+							owns_state = 662
+							has_full_control_of_state = 662
+							owns_state = 450
+							has_full_control_of_state = 450
+							owns_state = 451
+							has_full_control_of_state = 451
+							owns_state = 663
+							has_full_control_of_state = 663
+							owns_state = 273
+							has_full_control_of_state = 273
+						}
+						AND = {
+							NOT = { original_tag = ETH }
+							owns_state = 271
+							has_full_control_of_state = 271
+						}
+						AND = {
+							NOT = { original_tag = ERI }
+							owns_state = 550
+							has_full_control_of_state = 550
+						}
+						AND = {
+							NOT = { original_tag = SOM }
+							owns_state = 559
+							has_full_control_of_state = 559
+						}
+						LBA = {
+							is_subject_of = PREV
+						}
+						ETH = {
+							is_subject_of = PREV
+						}
+						ERI = {
+							is_subject_of = PREV
+						}
+						SOM = {
+							is_subject_of = PREV
+						}
+						AND = {
+							NOT = { original_tag = KOR }
+							NOT = { original_tag = NKR }
+							owns_state = 527
+							has_full_control_of_state = 527
+							owns_state = 525
+							has_full_control_of_state = 525
+							owns_state = 917
+							has_full_control_of_state = 917
+							owns_state = 918
+							has_full_control_of_state = 918
+							owns_state = 919
+							has_full_control_of_state = 919
+							owns_state = 920
+							has_full_control_of_state = 920
+						}
+						AND = {
+							original_tag = JAP
+							owns_state = 609
+							has_full_control_of_state = 609
+						}
+						AND = {
+							original_tag = JAP
+							owns_state = 745
+							has_full_control_of_state = 745
+						}
+						AND = {
+							original_tag = JAP
+							owns_state = 524
+							has_full_control_of_state = 524
+						}
+						MAN = {
+							is_subject_of = PREV
+						}
+						MEN = {
+							is_subject_of = PREV
+						}
+						KOR = {
+							is_subject_of = PREV
+						}
+						NKR = {
+							is_subject_of = PREV
+						}
+						AND = {
+							NOT = { original_tag = ANG }
+							owns_state = 540
+							has_full_control_of_state = 540
+						}
+						AND = {
+							NOT = { original_tag = MZB }
+							owns_state = 544
+							has_full_control_of_state = 544
+						}
+						AND = {
+							original_tag = POR
+							owns_state = 729
+							has_full_control_of_state = 729
+						}
+						AND = {
+							NOT = { original_tag = INS }
+							owns_state = 721
+							has_full_control_of_state = 721
+						}
+						AND = {
+							NOT = { original_tag = GNB }
+							owns_state = 296
+							has_full_control_of_state = 296
+						}
+						ANG = {
+							is_subject_of = PREV
+						}
+						MZB = {
+							is_subject_of = PREV
+						}
+						GNB = {
+							is_subject_of = PREV
+						}
+						AND = {
+							NOT = { original_tag = EQG }
+							owns_state = 297
+							has_full_control_of_state = 297
+						}
+						AND = {
+							NOT = { original_tag = WES }
+							owns_state = 699
+							has_full_control_of_state = 699
+						}
+						AND = {
+							NOT = { original_tag = MOR }
+							owns_state = 783
+							has_full_control_of_state = 783
+						}
+						AND = {
+							NOT = { original_tag = MOR }
+							owns_state = 290
+							has_full_control_of_state = 290
+						}
+						EQG = {
+							is_subject_of = PREV
+						}
+						WES = {
+							is_subject_of = PREV
+						}
+						AND = {
+							NOT = { original_tag = CRC }
+							owns_state = 695
+							has_full_control_of_state = 695
+						}
+						AND = {
+							NOT = { original_tag = SUR }
+							owns_state = 309
+							has_full_control_of_state = 309
+						}
+						CRC = {
+							is_subject_of = PREV
+						}
+						SUR = {
+							is_subject_of = PREV
+						}
+						INS = {
+							is_subject_of = PREV
+						}
+						AND = {
+							NOT = { original_tag = INS }
+							owns_state = 976
+							has_full_control_of_state = 976
+							owns_state = 672
+							has_full_control_of_state = 672
+							owns_state = 974
+							has_full_control_of_state = 974
+							owns_state = 334
+							has_full_control_of_state = 334
+							owns_state = 977
+							has_full_control_of_state = 977
+							owns_state = 978
+							has_full_control_of_state = 978
+							owns_state = 673
+							has_full_control_of_state = 673
+							owns_state = 975
+							has_full_control_of_state = 975
+							owns_state = 667
+							has_full_control_of_state = 667
+							owns_state = 309
+							has_full_control_of_state = 309
+							owns_state = 668
+							has_full_control_of_state = 668
+							owns_state = 738
+							has_full_control_of_state = 738
+							owns_state = 669
+							has_full_control_of_state = 669
+						}
+						AND = {
+							NOT = { original_tag = COG }
+							owns_state = 295
+							has_full_control_of_state = 295
+							owns_state = 538
+							has_full_control_of_state = 538
+							owns_state = 718
+							has_full_control_of_state = 718
+						}
+						COG = {
+							is_subject_of = PREV
+						}
+					}
+				}
+				country_event = { id = mtg_britain.46 hours = 6 }
+			}
+			hidden_effect = { news_event = { id = mtg_news.37 days = 1 } }
+		}
+	}
 
-	
+	focus = {
+		id = ENG_reach_out_across_the_channel
+		prerequisite = { focus = ENG_the_british_communist_alternative }
+		mutually_exclusive = { focus = ENG_enforce_decolonization }
+		available = {
+			is_subject = no
+			OR = {
+				country_exists = FRA
+				country_exists = HOL
+				country_exists = BEL
+				country_exists = LUX
+			}
+			OR = {
+				FRA = { has_government = communism }
+				HOL = { has_government = communism }
+				BEL = { has_government = communism }
+				LUX = { has_government = communism }
+			}
+			OR = {
+				NOT = { has_war_with = FRA }
+				NOT = { has_war_with = HOL }
+				NOT = { has_war_with = BEL }
+				NOT = { has_war_with = LUX }
+			}
+		}
+		icon = GFX_goal_tripartite_pact
+		x = 1
+		y = 1
+		relative_position_id = ENG_the_british_communist_alternative
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { FRA = { has_government = communism } }
+					NOT = { HOL = { has_government = communism } }
+					NOT = { BEL = { has_government = communism } }
+					NOT = { LUX = { has_government = communism } }
+				}
+				custom_effect_tooltip = ENG_reach_out_across_the_channel_tt
+			}
+			if = {
+				limit = {
+					FRA = {
+						has_government = communism
+					}
+				}
+				FRA = { country_event = { id = generic.5 } }
+			}
+			if = {
+				limit = {
+					HOL = {
+						has_government = communism
+					}
+				}
+				HOL = { country_event = { id = generic.5 } }
+			}
+			if = {
+				limit = {
+					BEL = {
+						has_government = communism
+					}
+				}
+				BEL = { country_event = { id = generic.5 } }
+			}
+			if = {
+				limit = {
+					LUX = {
+						has_government = communism
+					}
+				}
+				LUX = { country_event = { id = generic.5 } }
+			}
+		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+	}
 
-	
-	
+	focus = {
+		id = ENG_soviet_cooperation
+		prerequisite = { focus = ENG_enforce_decolonization focus = ENG_reach_out_across_the_channel }
+		mutually_exclusive = { focus = ENG_the_one_true_revolution }
+		available = {
+			is_subject = no
+			country_exists = SOV
+			NOT = { has_war_with = SOV }
+			SOV = { has_government = communism }
+		}
+		bypass = {
+			is_in_faction_with = SOV
+		}
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		x = 0
+		y = 1
+		relative_position_id = ENG_enforce_decolonization
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			if = {
+				limit = {
+					SOV = { NOT = { has_war_with = GER } }
+				}
+				SOV = { country_event = { id = mtg_britain.49 hours = 6 } }
+			}
+			else = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = GER
+					expire = 0
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+	}
+
+	focus = {
+		id = ENG_the_one_true_revolution
+		prerequisite = { focus = ENG_enforce_decolonization focus = ENG_reach_out_across_the_channel }
+		mutually_exclusive = { focus = ENG_soviet_cooperation }
+		available = {
+			is_subject = no
+			country_exists = SOV
+			NOT = { is_in_faction_with = SOV }
+			SOV = { has_government = communism }
+		}
+		bypass = {
+			has_war_with = SOV
+		}
+		will_lead_to_war_with = SOV
+		icon = GFX_focus_ger_strike_at_the_source
+		x = 0
+		y = 1
+		relative_position_id = ENG_reach_out_across_the_channel
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = SOV
+				expire = 0
+			}
+			hidden_effect = { news_event = { id = mtg_news.38 days = 1 } }
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
 
 	### GO COMMUNIST WITH SOVIET UNION BRANCH ###
 
 	focus = {
 		id = ENG_follow_moscow
 		prerequisite = { focus = ENG_for_the_good_of_the_revolution }
-		mutually_exclusive = {focus = ENG_disband_the_union  }
-		mutually_exclusive = {focus = ENG_the_british_communist_alternative}
+		mutually_exclusive = { focus = ENG_the_british_communist_alternative }
 		available = {
 			is_subject = no
 			country_exists = SOV
 			NOT = { is_in_faction_with = SOV }
 			NOT = { has_war_with = SOV }
 			SOV = { has_government = communism }
-			power_balance_value = {
-				id = ENG_centralization_balance
-				value > 0.75 }
 		}
 		bypass = {
 			is_in_faction_with = SOV
@@ -15001,32 +15690,275 @@ focus_tree = {
 			}
 		}
 		icon = GFX_focus_SOV_stalins_cult_of_personality
-		x = 8
+		x = 2
 		y = 1
 		relative_position_id = ENG_for_the_good_of_the_revolution
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 10
 		}	
 		completion_reward = {
 			add_stability = 0.05
-			SOU = { country_event = { id = mtg_britain.49 hours = 6 } }
-			
-			
+			SOV = { country_event = { id = mtg_britain.52 hours = 6 } }
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
 
+	focus = {
+		id = ENG_tackle_fascism
+		prerequisite = { focus = ENG_follow_moscow }
+		mutually_exclusive = { focus = ENG_tackle_capitalism }
+		available = {
+			is_subject = no
+			OR = {
+				country_exists = GER
+				country_exists = ITA
+			}
+			OR = {
+				GER = { has_government = fascism }
+				ITA = { has_government = fascism }
+			}
+		}
+		icon = GFX_focus_generic_anti_fascist_diplomacy
+		x = -1
+		y = 1
+		relative_position_id = ENG_follow_moscow
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			if = {
+				limit = {
+					GER = { has_government = fascism }
+					ITA = { has_government = fascism }
+				}
+				add_ideas = ENG_tackle_fascism_idea_1
+				GER = { add_opinion_modifier = { target = ENG modifier = ENG_tackle_fascism } }
+				ITA = { add_opinion_modifier = { target = ENG modifier = ENG_tackle_fascism } }
+			}
+			if = {
+				limit = {
+					GER = { has_government = fascism }
+					NOT = { ITA = { has_government = fascism } }
+				}
+				add_ideas = ENG_tackle_fascism_idea_2
+				GER = { add_opinion_modifier = { target = ENG modifier = ENG_tackle_fascism } }
+			}
+			if = {
+				limit = {
+					NOT = { GER = { has_government = fascism } }
+					ITA = { has_government = fascism }
+				}
+				add_ideas = ENG_tackle_fascism_idea_3
+				ITA = { add_opinion_modifier = { target = ENG modifier = ENG_tackle_fascism } }
+			}
+			hidden_effect = { news_event = { id = mtg_news.39 days = 1 } }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
 
-	
-	
+	focus = {
+		id = ENG_preparing_the_second_front
+		prerequisite = { focus = ENG_tackle_fascism }
+		available = {
 
+		}
+		icon = GFX_goal_generic_amphibious_assault
+		x = 0
+		y = 1
+		relative_position_id = ENG_tackle_fascism
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_tech_bonus = {
+				name = ENG_preparing_the_second_front
+				bonus = 1.0
+				uses = 1
+				category = marine_tech
+			}
+			add_tech_bonus = {
+				name = ENG_preparing_the_second_front
+				bonus = 1.0
+				uses = 1
+				category = tp_tech
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 
-	
+	focus = {
+		id = ENG_tackle_capitalism
+		prerequisite = { focus = ENG_follow_moscow }
+		mutually_exclusive = { focus = ENG_tackle_fascism }
+		available = {
+			is_subject = no
+			country_exists = USA
+			USA = { has_government = democratic }
+		}
+		icon = GFX_focus_generic_strike_at_democracy3
+		x = 1
+		y = 1
+		relative_position_id = ENG_follow_moscow
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_ideas = ENG_tackle_capitalism_idea
+			USA = { add_opinion_modifier = { target = ENG modifier = ENG_tackle_capitalism } }
+			hidden_effect = { news_event = { id = mtg_news.40 days = 1 } }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = ENG_bermuda_invasion_launch_point
+		prerequisite = { focus = ENG_tackle_capitalism }
+		available = {
+			has_full_control_of_state = 696
+		}
+		icon = GFX_goal_generic_position_armies
+		x = 0
+		y = 1
+		relative_position_id = ENG_tackle_capitalism
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			# Bermuda
+			696 = {
+				if = {
+					limit = {
+						is_controlled_by = ROOT
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = air_base
+						level = 5
+						instant_build = yes
+					}
+					# Bermuda
+					add_building_construction = {
+						type = naval_base
+						level = 5
+						province = 13010
+						instant_build = yes
+					}
+				}								
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = ENG_crush_the_dream
+		prerequisite = { focus = ENG_bermuda_invasion_launch_point }
+		available = {
+			is_subject = no
+			NOT = { is_in_faction_with = USA }
+			USA = { has_government = democratic }
+		}
+		will_lead_to_war_with = USA
+		icon = GFX_focus_eng_crush_the_dream
+		x = 0
+		y = 1
+		relative_position_id = ENG_bermuda_invasion_launch_point
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = USA
+				expire = 0
+			}
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
+		id = ENG_socialist_science_pool
+		prerequisite = { focus = ENG_follow_moscow }
+		available = {
+			is_in_faction_with = SOV
+		}
+		icon = GFX_focus_generic_socialist_science
+		x = 3
+		y = 1
+		relative_position_id = ENG_follow_moscow
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_to_tech_sharing_group = socialist_science_pool
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ENG
+				}
+				add_to_tech_sharing_group = socialist_science_pool
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 
 	### COMMUNIST SHARED FINISHER BRANCH ###
 
-	
+	focus = {
+		id = ENG_liberate_the_home_of_marx
+		prerequisite = { focus = ENG_the_one_true_revolution focus = ENG_preparing_the_second_front }
+		available = {
+			is_subject = no
+			country_exists = GER
+			NOT = { is_in_faction_with = GER }
+		}
+		will_lead_to_war_with = GER
+		icon = GFX_focus_eng_liberate_the_home_of_marx
+		x = 1
+		y = 1
+		relative_position_id = ENG_the_one_true_revolution
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = GER
+				expire = 0
+			}
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
+		id = ENG_spirit_of_the_industrial_revolution
+		prerequisite = { focus = ENG_soviet_cooperation focus = ENG_liberate_the_home_of_marx focus = ENG_crush_the_dream }
+		available = {
+
+		}
+		icon = GFX_goal_generic_soviet_construction
+		x = -3
+		y = 1
+		relative_position_id = ENG_liberate_the_home_of_marx
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_ideas = ENG_spirit_of_the_industrial_revolution_idea
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
 	focus = {
 		id = ENG_opposition_to_the_national_government
 		icon = GFX_focus_eng_concessions_to_the_trade_unions
@@ -16182,2601 +17114,5 @@ focus_tree = {
 		}
 		search_filters = {  FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
 	}						
-	focus = {
-		id = ENG_disband_the_union
-		prerequisite = { focus = ENG_for_the_good_of_the_revolution }
-		mutually_exclusive = { focus = ENG_follow_moscow }
-		mutually_exclusive = { focus = ENG_the_british_communist_alternative}
-		available = {
-		has_completed_focus = ENG_decolonization
-		power_balance_value = {
-				id = ENG_centralization_balance
-				value < -0.75 }
-			
-		}
-		icon = GFX_focus_eng_decolonization
-		x = -1
-		y = 1
-		relative_position_id = ENG_for_the_good_of_the_revolution
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			hidden_effect = { news_event = { id =  news.339 days = 1 } }
-			add_stability = -0.05
-			set_faction_name = "The British Isles Defense Pact"
-			release = SCO
-			release = WLS
-			release = NIR
-			set_autonomy = {
-				target = SCO
-				autonomy_state = autonomy_collaboration_government
-			}
-			set_autonomy = {
-				target = WLS
-				autonomy_state = autonomy_collaboration_government
-			}
-							
-			set_autonomy = { 
-				target = NIR
-				autonomy_state = autonomy_collaboration_government
-			}
-			
-							
-							
-			
-
-			
-			
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
-	
-	focus = {
-		id = ENG_empower_local_communes
-		prerequisite = { focus = ENG_disband_the_union }
-		available = {
-			
-		}
-		icon = GFX_focus_eng_concessions_to_the_trade_unions
-		x = 0
-		y = 1
-		relative_position_id = ENG_disband_the_union
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_empower_local_communes
-		}
-
-	}
-	focus = {
-		id = ENG_Invest_In_The_North
-		prerequisite = { focus = ENG_empower_local_communes }
-		mutually_exclusive = { focus = ENG_Invest_In_The_South }
-		available = { 
-			
-		}
-
-		continue_if_invalid = yes
-
-		icon = GFX_goal_generic_expanded_production
-		x = -1
-		y = 1
-		relative_position_id = ENG_empower_local_communes
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		complete_tooltip = {
-			every_state = {
-				limit = { has_state_flag = kickstart_the_war_industry_2AF }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			
-		}
-		completion_reward = {
-			130 = {
-				
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-				set_state_flag = kickstart_the_war_industry_2AF
-			}
-			132 = {
-				
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-				set_state_flag = kickstart_the_war_industry_2AF
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	focus = {
-		id = ENG_Invest_In_The_South
-		prerequisite = { focus = ENG_empower_local_communes }
-		mutually_exclusive = { focus = ENG_Invest_In_The_North }
-		available = {
-			
-		}
-		icon = GFX_goal_generic_construct_civilian	
-		x = 1
-		y = 1
-		relative_position_id = ENG_empower_local_communes
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			125 = {
-				
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
-				set_state_flag = kickstart_the_war_industry_2AF
-			}
-			123 = {
-				
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
-				set_state_flag = kickstart_the_war_industry_2AF
-				
-			}
-		}
-	}	
-		
-	focus = {
-		id = ENG_empower_the_counties
-		prerequisite = { focus = ENG_disband_the_union focus = ENG_the_british_communist_alternative }
-		
-		available = {
-			
-		}
-		icon = GFX_focus_eng_concessions_to_the_trade_unions
-		x = 3
-		y = 1
-		relative_position_id = ENG_disband_the_union
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_empower_the_counties
-		}
-	}
-	focus = {
-		id = ENG_open_the_nhs
-		prerequisite = { focus = ENG_empower_the_counties }
-		
-		available = {
-			
-		}
-		icon = GFX_goal_medicine
-		x = 0
-		y = 1
-		relative_position_id = ENG_empower_the_counties
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_nhs
-		}
-
-		
-	}
-	
-	
-	
-	
-	focus = {
-		id = ENG_threats-from_across_the_channel
-		prerequisite = { focus = ENG_Invest_In_The_North focus = ENG_Invest_In_The_South }
-		
-		available = {
-			
-		}
-		icon = GFX_goal_CAN_join_british
-		x = 1
-		y = 1
-		relative_position_id = ENG_Invest_In_The_North
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-		
-			add_ideas = ENG_home_army_idea
-		
-			123 = {
-				
-					add_extra_state_shared_building_slots = 5
-					add_building_construction = {
-					type = dockyard
-					level = 1
-					instant_build = yes
-					}
-			}
-		}
-	}
-	
-	focus = {
-		id = ENG_protect_our_coastline
-		prerequisite = { focus = ENG_threats-from_across_the_channel }
-		icon = GFX_focus_ENG_home_defense
-		x = 0
-		y = 1
-		offset = {
-			x = -1
-			y = 0
-			trigger = {
-				NOT = { has_dlc = "Man the Guns" }
-			}
-		}
-		relative_position_id = ENG_threats-from_across_the_channel
-		cost = 10
-		ai_will_do = {
-			factor = 8
-			modifier = {
-				factor = 10
-				is_historical_focus_on = no
-			}
-		}	
-		icon = GFX_goal_generic_construct_military
-		completion_reward = {
-			add_war_support = 0.10
-			# Ipswich
-			125 = {
-				if = {
-					
-					#Plymouth
-					add_building_construction = {
-						type = coastal_bunker
-						level = 5
-						province = 271
-						instant_build = yes
-					}
-				}
-			}
-			# Greater London Area
-			126 = {
-				if = {
-					
-					#London
-					add_building_construction = {
-						type = coastal_bunker
-						level = 5
-						province = 11374
-						instant_build = yes
-					}
-				}
-			}
-			# Sussex
-			127 = {
-				if = {
-					
-					#Dover
-					add_building_construction = {
-						type = coastal_bunker
-						level = 5
-						province = 3501
-						instant_build = yes
-					}
-					#Portsmouth
-					add_building_construction = {
-						type = coastal_bunker
-						level = 5
-						province = 9458
-						instant_build = yes
-					}
-				}								
-			}
-			# Cornwall
-			123 = {
-				if = {
-					
-					#Plymouth
-					add_building_construction = {
-						type = coastal_bunker
-						level = 5
-						province = 540
-						instant_build = yes
-					}
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
-	}
-	
-	focus = {
-		id = ENG_the_isolated_states
-		prerequisite = { focus = ENG_protect_our_coastline }
-		
-		available = {
-			
-		}
-		icon = GFX_goal_generic_trade
-		x = 0
-		y = 1
-		relative_position_id = ENG_protect_our_coastline
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			hidden_effect = { news_event = { id =  news.338 days = 1 } }
-			if = {
-					limit = { is_in_faction = yes }
-					leave_faction = yes
-			}
-			set_rule = { can_create_factions = yes }
-			set_rule = { can_join_factions = no }
-			create_faction = "British isles Defence Pact"
-			add_ideas = closed_economy
-			add_ideas = ENG_isolationalism 
-			every_other_country = {
-					limit = {
-						NOT = { is_puppet_of = ROOT }
-					}
-				
-				
-					send_embargo = ROOT
-					custom_effect_tooltip = embargo_relation_tt
-			}
-		
-		}
-	}
-	focus = {
-		id = ENG_the_legacy_of_the_empire
-		prerequisite = { focus = ENG_the_isolated_states }
-		
-		available = {
-			
-		}
-		icon = GFX_focus_eng_imperial_federation
-		x = 0
-		y = 1
-		relative_position_id = ENG_the_isolated_states
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-		
-			add_ideas = ENG_legacy_of_the_empire
-			add_doctrine_cost_reduction = {
-				name = uk_waves_focus
-				cost_reduction = 0.5
-				uses = 3
-				category = naval_doctrine
-			}
-			132 = {
-					
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = dockyard
-					level = 4
-					instant_build = yes
-				}
-				set_state_flag = kickstart_the_war_industry_2AF
-			}
-			130 = {
-				
-				add_extra_state_shared_building_slots = 4
-				add_building_construction = {
-					type = dockyard
-					level = 4
-					instant_build = yes
-				}
-				set_state_flag = kickstart_the_war_industry_2AF
-			}
-				
-				
-		
-		}
-	}
-	
-	focus = {
-		id = ENG_spread_the_revolution
-		prerequisite = { focus = ENG_the_legacy_of_the_empire}
-		mutually_exclusive = { focus = ENG_on_the_defensive }
-		
-		available = {
-			
-		}
-		icon = GFX_focus_SOV_proclaim_soviet_hegemony
-		x = -1
-		y = 1
-		relative_position_id = ENG_the_legacy_of_the_empire
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			
-			add_war_support = 0.1
-			add_stability =  -0.1
-			add_ideas = ENG_spread_the_revolution
-		
-		}
-	}
-	
-	
-	
-	focus = {
-		id = ENG_take_out_ireland
-		prerequisite = { focus = ENG_spread_the_revolution}
-		icon = GFX_goal_IRE_operation_kathleen
-		x = 0
-		y = 1
-		relative_position_id = ENG_spread_the_revolution
-		cost = 10
-		ai_will_do = {
-			factor = 1
-			}
-		
-		available = {
-			is_subject = no
-			country_exists = IRE
-			
-		}
-			
-		
-
-		
-		
-		completion_reward = {
-			create_wargoal = {
-				type = topple_government
-				target = IRE
-				expire = 0
-			}
-		}
-		
-	}
-	
-	focus = {
-		id = ENG_on_the_defensive
-		prerequisite = { focus = ENG_the_legacy_of_the_empire}
-		mutually_exclusive = { focus = ENG_spread_the_revolution}
-		available = {
-			
-		}
-		icon = GFX_goal_generic_fortify_city
-		x = 1
-		y = 1
-		relative_position_id = ENG_the_legacy_of_the_empire
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_war_support = -0.10
-			add_stability = 0.1
-			add_ideas = ENG_on_the_defensive
-		
-		}
-	}
-	
-	
-	
-	focus = {
-		id = ENG_prepare_for_defend_the_main_island
-		prerequisite = { focus = ENG_on_the_defensive}
-		
-		available = {
-			
-		}
-		icon = GFX_focus_ENG_home_defense
-		x = 0
-		y = 1
-		relative_position_id = ENG_on_the_defensive
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_defend_the_main_island
-		}
-	}
-	
-	
-	focus = {
-		id = ENG_limited_collectivization
-		prerequisite = { focus = ENG_the_british_communist_alternative}
-		
-		available = {
-			
-		}
-		icon = GFX_goal_sov_soviet_ind_upgrade
-		x = 0
-		y = 1
-		relative_position_id = ENG_the_british_communist_alternative
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_limited_collectivization
-		
-		}
-	}
-	
-	
-	
-	
-	
-	focus = {
-		id = ENG_give_back_to_the_working_class
-		prerequisite = { focus = ENG_limited_collectivization}
-		
-		available = {
-			
-		}
-		icon = GFX_social_welfare
-		x = 0
-		y = 1
-		relative_position_id = ENG_limited_collectivization
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			128 = {
-				
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
-				set_state_flag = kickstart_the_war_industry_2AF
-			}
-			132 = {
-				
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				
-				}
-				set_state_flag = kickstart_the_war_industry_2AF
-			}
-	
-		
-		
-		}
-	}
-	
-	
-	
-	focus = {
-		id = ENG_red_british_air_force
-		prerequisite = { focus = ENG_give_back_to_the_working_class}
-		mutually_exclusive = { focus = ENG_british_red_army }
-		
-		available = {
-			
-		}
-		icon = GFX_goal_generic_air_fighter
-		x = 1
-		y = 1
-		relative_position_id = ENG_give_back_to_the_working_class
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = { 
-			add_tech_bonus = {
-				name = fighter_command_focus
-				bonus = 1.0
-				uses = 1
-				technology = aa_cannon_1
-				technology = aa_cannon_2
-			}
-			
-					
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-					OR = {
-						region = 1
-						region = 2
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = air_rearmament_focus_2AirBase
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-					OR = {
-						region = 1
-						region = 2
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}			
-				set_state_flag = air_rearmament_focus_2AirBase
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-					OR = {
-						region = 1
-						region = 2
-						region = 3
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}			
-				set_state_flag = air_rearmament_focus_2AirBase
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-					OR = {
-						region = 1
-						region = 2
-						region = 3
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}			
-				set_state_flag = air_rearmament_focus_2AirBase
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-					OR = {
-						region = 1
-						region = 2
-						region = 3
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}			
-				set_state_flag = air_rearmament_focus_2AirBase
-			}
-
-			if = {
-				limit = {
-					NOT = {
-						any_owned_state = {
-							free_building_slots = {
-								building = air_base
-								size > 1
-							}
-							OR = {
-								region = 1
-								region = 2
-								region = 3
-							}
-						}			
-					}
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = air_base
-							size > 1
-						}
-					}
-					add_building_construction = {
-						type = air_base
-						level = 2
-						instant_build = yes
-					}			
-					set_state_flag = air_rearmament_focus_2AirBase
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = air_base
-							size > 1
-						}
-					}
-					add_building_construction = {
-						type = air_base
-						level = 2
-						instant_build = yes
-					}			
-					set_state_flag = air_rearmament_focus_2AirBase
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = air_base
-							size > 1
-						}
-					}
-					add_building_construction = {
-						type = air_base
-						level = 2
-						instant_build = yes
-					}			
-					set_state_flag = air_rearmament_focus_2AirBase
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = air_base
-							size > 1
-						}
-					}
-					add_building_construction = {
-						type = air_base
-						level = 2
-						instant_build = yes
-					}			
-					set_state_flag = air_rearmament_focus_2AirBase
-				}
-	
-		
-		
-			}
-		}
-	}
-	
-	focus = {
-		id = ENG_british_red_army
-		prerequisite = { focus = ENG_give_back_to_the_working_class}
-		mutually_exclusive = { focus = ENG_red_british_air_force }
-		
-		available = {
-			
-		}
-		icon = GFX_goal_red_army
-		x = -1
-		y = 1
-		relative_position_id = ENG_give_back_to_the_working_class
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_tech_bonus = {
-				name = armor_bonus
-				bonus = 1.0
-				uses = 2
-				category = artillery
-				category = support_tech
-			}				
-		}
-						
-
-	}
-		
-	
-		
-		
-	
-	focus = {
-		id = ENG_british_rubber
-		prerequisite = { focus = ENG_red_british_air_force}
-		
-		available = {
-			
-		}
-		icon = GFX_focus_generic_rubber
-		x = 0
-		y = 1
-		relative_position_id = ENG_red_british_air_force
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-	
-			add_resource = {
-				type = rubber
-				amount = 8
-				state = 128
-			}
-		
-		}
-	}
-	
-	
-	focus = {
-		id = ENG_british_steel
-		prerequisite = { focus = ENG_british_red_army}
-		
-		available = {
-			
-		}
-		icon = GFX_focus_generic_steel
-		x = 0
-		y = 1
-		relative_position_id = ENG_british_red_army
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_resource = {
-				type = steel
-				amount = 16
-				state = 128
-			}
-		
-		}
-	}
-	
-	
-	
-	
-	focus = {
-		id = ENG_spread_the_revolution_outside_of_europe
-		prerequisite = { focus = ENG_british_steel focus = ENG_british_rubber}
-		mutually_exclusive = { focus = ENG_focus_on_europe }
-		
-		available = {
-			
-		}
-		icon = GFX_focus_SOV_proclaim_soviet_hegemony
-		x = 1
-		y = 1
-		relative_position_id = ENG_british_steel
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			hidden_effect = { news_event = { id =  news.341 days = 1 } }
-			add_ideas = ENG_spread_the_revolution_outside_of_europe
-			every_other_country = {
-				limit = {
-					capital_scope = { is_on_continent = asia  }
-					has_government = communism
-					is_in_faction = no
-				}
-					
-					country_event = { id = generic.5_} 
-					
-			}	
-			every_other_country = {
-				limit = {
-					capital_scope = { is_on_continent = africa  }
-					has_government = communism
-					is_in_faction = no
-				}
-					
-				 country_event = { id = generic.5_} 
-			}
-					
-			every_other_country = {
-				limit = {
-					capital_scope = { is_on_continent = north_america }
-					has_government = communism
-					is_in_faction = no
-				}
-					
-					country_event = { id = generic.5_} 
-			}
-					
-					
-			every_other_country = {
-				limit = {
-					capital_scope = { is_on_continent = south_america }
-					has_government = communism
-					is_in_faction = no
-				}
-					
-					country_event = { id = generic.5_} 
-			}
-				
-			every_other_country = {
-				limit = {
-					capital_scope = { is_on_continent = australia } 
-					has_government = communism
-					is_in_faction = no
-				}
-					
-					country_event = { id = generic.5_} 
-			}
-			every_other_country = {
-				limit = {
-					capital_scope = { is_on_continent = middle_east }
-					has_government = communism
-					is_in_faction = no
-				}
-					
-					country_event = { id = generic.5_} 
-			}
-		}
-	}
-	
-				
-				
-				
-				
-				
-				
-				
-				
-		
-		
-		
-	
-		
-	
-	
-		
-	focus = {
-		id = ENG_focus_on_europe
-		mutually_exclusive = { focus = ENG_spread_the_revolution_outside_of_europe }
-		available = {
-			
-			has_government = communism
-		}
-		prerequisite = { focus = ENG_british_steel focus = ENG_british_rubber focus = ENG_soviet_industrial_aid focus = ENG_soviet_research_advisers  }
-		
-		
-		icon = GFX_goal_aus_international
-		x = 3
-		y = 1
-
-		relative_position_id = ENG_british_rubber
-		cost = 10
-		completion_reward = {
-			hidden_effect = { news_event = { id =  news.340 days = 1 } }
-			add_ideas = ENG_focus_on_europe
-			every_other_country = {
-				limit = {
-					capital_scope = { is_on_continent = europe }
-					has_government = communism
-					NOT = {original_tag = SOV }
-					is_in_faction = no 
-				}		
-					
-				country_event = { id = generic.5} 
-			}
-		}
-		
-			
-			
-	}
-	
-	
-	
-	focus = {
-		id = ENG_bermuda_invasion_launch_point
-		prerequisite = {focus = ENG_spread_the_revolution_outside_of_europe }
-		available = {
-			has_full_control_of_state = 696
-		}
-		icon = GFX_goal_generic_position_armies
-		x = -1
-		y = 1
-		relative_position_id = ENG_spread_the_revolution_outside_of_europe
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			# Bermuda
-			696 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 5
-						instant_build = yes
-					}
-					# Bermuda
-					add_building_construction = {
-						type = naval_base
-						level = 5
-						province = 13010
-						instant_build = yes
-					}
-				}								
-			}
-		}
-	}
-	
-	focus = {
-		id = ENG_crush_the_dream
-		prerequisite = { focus = ENG_bermuda_invasion_launch_point }
-		available = {
-			is_subject = no
-			NOT = { is_in_faction_with = USA }
-			
-		}
-		will_lead_to_war_with = USA
-		icon = GFX_focus_eng_crush_the_dream
-		x = 0
-		y = 1
-		relative_position_id = ENG_bermuda_invasion_launch_point
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-		add_ideas = ENG_tackle_capitalism_idea
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = USA
-				expire = 0
-			}
-		}
-	}
-	
-	
-	focus = {
-		id = ENG_falkland_islands_invasion_launch_point
-		prerequisite = { focus = ENG_spread_the_revolution_outside_of_europe }
-		available = {
-			is_subject = no
-			
-		}
-		
-		icon = GFX_goal_generic_position_armies
-		x = 1
-		y = 1
-		relative_position_id = ENG_spread_the_revolution_outside_of_europe
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			299 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 5
-						instant_build = yes
-					}
-					# Bermuda
-					add_building_construction = {
-						type = naval_base
-						level = 5
-						province = 13010
-						instant_build = yes
-					}
-				}								
-			}
-		}
-	}
-		
-		
-		
-		
-		
-										
-	focus = {
-		id = ENG_prevent_the_use_of_islas_malvinas
-		prerequisite = { focus = ENG_falkland_islands_invasion_launch_point }
-		available = {
-			is_subject = no
-			NOT = { is_in_faction_with = ARG }
-			
-		}
-		will_lead_to_war_with = ARG
-		icon = GFX_goal_generic_attack_argentina
-		x = 0
-		y = 1
-		relative_position_id = ENG_falkland_islands_invasion_launch_point
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = ARG
-				expire = 0
-			}
-		}
-	}	
-	
-	
-	focus = {
-		id = ENG_join_moscow
-		prerequisite = { focus = ENG_follow_moscow }
-		
-		available = {
-			is_subject = no
-			date > 1940.01.01
-			
-			
-		}
-		
-		icon =  GFX_goal_support_fourth_int
-		x = 3
-		y = 1
-		relative_position_id = ENG_follow_moscow
-		cost = 1
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			SOV = { country_event = { id = generic.2_}} 
-		}
-	}
-		
-	focus = {
-		id = ENG_socialist_science_pool
-		prerequisite = { focus = ENG_join_moscow }
-		available = {
-			is_in_faction_with = SOV
-		}
-		icon = GFX_focus_generic_socialist_science
-		x = 0
-		y = 1
-		relative_position_id = ENG_join_moscow
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_to_tech_sharing_group = socialist_science_pool
-			every_other_country = {
-				limit = {
-					is_in_faction_with = ENG
-				}
-				add_to_tech_sharing_group = socialist_science_pool
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	focus = {
-		id = ENG_total_centeralization
-		prerequisite = { focus = ENG_follow_moscow }
-		
-		available = {
-			is_subject = no
-			
-			
-		}
-		
-		icon = GFX_focus_SOV_the_supreme_soviet
-		x = 0
-		y = 1
-		relative_position_id = ENG_follow_moscow
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_total_centeralization
-		}
-	}
-		
-		
-	focus = {
-		id = ENG_clear_the_slums
-		prerequisite = { focus = ENG_total_centeralization }
-		
-		available = {
-			is_subject = no
-			
-			
-		}
-		
-		icon = GFX_goal_generic_construction
-		x = 0
-		y = 1
-		relative_position_id = ENG_total_centeralization
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_stability = -0.05
-			every_owned_state = {
-				limit = { 
-					is_core_of = ROOT 
-					is_fully_controlled_by = ROOT
-					set_temp_variable = { state_num_factory = industrial_complex_level }
-					add_to_temp_variable = { state_num_factory = arms_factory_level }
-					add_to_temp_variable = { state_num_factory = building_level@dockyard }
-					check_variable = { state_num_factory > 6 }
-				}
-				add_extra_state_shared_building_slots = 2
-			}
-		}
-			
-	}
-		
-	
-	
-	
-	focus = {
-		id = ENG_soviet_military_aid
-		prerequisite = { focus = ENG_clear_the_slums }
-		
-		available = {
-			is_subject = no
-			
-			
-		}
-		
-		icon = GFX_goal_FRA_industrial_decentralization
-		x = -1
-		y = 1
-		relative_position_id = ENG_clear_the_slums
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		
-		
-
-		completion_reward = {
-			add_popularity = {
-			    ideology = communism
-			    popularity = 0.05
-			}
-			
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-						}
-						is_core_of = ROOT
-					}
-					set_state_flag = SPR_soviet_equipment_shipments_1mil
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-						}
-						is_core_of = ROOT
-						NOT = { has_state_flag = SPR_soviet_equipment_shipments_1mil }
-					}
-					set_state_flag = SPR_soviet_equipment_shipments_1mil
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-						}
-						is_core_of = ROOT
-						NOT = { has_state_flag = SPR_soviet_equipment_shipments_1mil }
-					}
-					set_state_flag = SPR_soviet_equipment_shipments_1mil
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-		
-		}
-	}
-		
-		
-		
-	focus = {
-		id = ENG_soviet_industrial_aid
-		prerequisite = { focus = ENG_soviet_military_aid   }
-		
-		available = {
-			is_subject = no
-			
-			
-		}
-		will_lead_to_war_with = ARG
-		icon = GFX_goal_FRA_industrial_decentralization
-		x = 0
-		y = 1
-		relative_position_id = ENG_soviet_military_aid
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_tech_bonus = {
-				name = SPR_soviet_industrial_aid
-				bonus = 1.0
-				uses = 1
-				category = industry
-			}
-			add_timed_idea = { idea = SPR_soviet_industrial_aid days = 180 }
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-					}
-					is_core_of = ROOT
-				}
-				set_state_flag = SPR_soviet_industrial_aid_2civ
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-		
-		
-	focus = {
-		id = ENG_soviet_military_advisers
-		prerequisite = { focus = ENG_clear_the_slums}
-		
-		available = {
-			
-		}
-		will_lead_to_war_with = ARG
-		icon = GFX_focus_generic_socialist_science
-		x = 1
-		y = 1
-		relative_position_id = ENG_clear_the_slums
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			army_experience = 25
-			add_war_support = 0.1
-			add_ideas = SPR_soviet_military_advisors
-			
-		}
-	}
-		
-		
-		
-	focus = {
-		id = ENG_soviet_research_advisers
-		prerequisite = { focus = ENG_soviet_military_advisers}
-		
-		available = {
-		}
-		
-		icon = GFX_focus_generic_socialist_science
-		x = 0
-		y = 1
-		relative_position_id = ENG_soviet_military_advisers
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_popularity = {
-			    ideology = communism
-			    popularity = 0.05
-			}
-			
-			add_tech_bonus = {
-				name = SPR_soviet_technological_advancements
-				bonus = 1
-				uses = 1
-				category = infantry_weapons
-			}
-			add_tech_bonus = {
-				name = SPR_soviet_technological_advancements
-				bonus = 1
-				uses = 1
-				category = cat_anti_tank
-			}
-		}
-	}
-			
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	focus = {
-		id = ENG_secure_ireland_communist
-		icon = GFX_goal_IRE_operation_kathleen
-		x = 2
-		y = 1
-		cost = 5
-		prerequisite = { focus = ENG_focus_on_europe }
-		relative_position_id = ENG_focus_on_europe
-		
-
-		available = {
-			is_subject = no
-			country_exists = IRE
-		}
-			
-
-		bypass = {
-			
-		}
-		
-		completion_reward = {
-			create_wargoal = {
-				type = topple_government
-				target = IRE
-				expire = 0
-			}
-		}
-		search_filters = { FOCUS_FILTER_ALLIANCE }
-	}
-	
-	focus = {
-		id = ENG_spanish_civil_war
-		icon = GFX_goal_generic_spanish_civil_war_soldier
-		relative_position_id = ENG_for_the_good_of_the_revolution
-		prerequisite = { focus = ENG_for_the_good_of_the_revolution}
-		x = -3
-		y = 1
-		cost = 5
-		
-	
-		available = {
-			has_global_flag = spanish_civil_war
-			has_war = no
-			
-			}
-		
-
-		completion_reward = {
-			set_rule = { can_send_volunteers = yes }
-			add_timed_idea = {
-				idea = r56_CHL_spanish_civil_war_involvement
-				days = 1095
-			}
-						
-			
-		}
-	}
-		
-		
-		
-	focus = {
-		id = ENG_give_gibraltar_to_spain
-		icon = GFX_goal_generic_befriend_spain
-		relative_position_id = ENG_spanish_civil_war
-		prerequisite = { focus = ENG_spanish_civil_war }
-		x = 0
-		y = 1
-		cost = 5
-		
-	
-		available = {
-			
-			has_war = no
-			
-			
-			SPR = {
-				
-				NOT = {
-					has_government = fascism
-					has_government = neutrality
-					
-				}
-			}
-		}
-			
-			
-		
-
-		completion_reward = {
-		
-			add_ideas = ENG_gibraltar_sale 
-		
-
-			if = {
-				limit = {
-					has_full_control_of_state = 118
-				}
-				random_other_country = {
-					limit = {
-						original_tag = SPR
-						
-						if = {
-							limit = {
-								country_exists = SPD
-							}
-							tag = SPD
-						}
-						else_if = {
-							limit = {
-								country_exists = SPA
-							}
-							tag = SPA
-						}
-						else_if = {
-							limit = {
-								country_exists = SPB
-							}
-							tag = SPB
-						}
-						else_if = {
-							limit = {
-								country_exists = SPC
-							}
-							tag = SPC
-						}
-					}
-					transfer_state = 118
-					118 = { add_core_of = PREV }
-			
-				}
-						
-			
-			}
-		}
-	}
-		
-		
-	
-		
-	
-		
-		
-	focus = {
-		id = ENG_enforce_decolonization
-		prerequisite = { focus = ENG_focus_on_europe }
-		
-		available = {
-			is_subject = no
-			has_completed_focus = ENG_decolonization
-		}
-		icon = GFX_goal_generic_forceful_treaty
-		x = 0
-		y = 1
-		relative_position_id = ENG_focus_on_europe
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			every_other_country = {
-				limit = {
-					OR = {
-						AND = {
-							NOT = { original_tag = PUE }
-							owns_state = 686
-							has_full_control_of_state = 686
-						}
-						PUE = {
-							is_subject_of = PREV
-						}
-						"PHI" = {
-							is_subject_of = PREV
-						}
-						AND = {
-							NOT = { original_tag = GDL }
-							owns_state = 694
-							has_full_control_of_state = 694
-						}
-						AND = {
-							NOT = { original_tag = SYR }
-							owns_state = 677
-							has_full_control_of_state = 677
-							owns_state = 680
-							has_full_control_of_state = 680
-							owns_state = 554
-							has_full_control_of_state = 554
-						}
-						AND = {
-							NOT = { original_tag = LEB }
-							owns_state = 553
-							has_full_control_of_state = 553
-						}
-						AND = {
-							NOT = { original_tag = MAD }
-							owns_state = 543
-							has_full_control_of_state = 543
-						}
-						AND = {
-							owns_state = 670
-							has_full_control_of_state = 670
-						}
-						AND = {
-							owns_state = 741
-							has_full_control_of_state = 741
-						}
-						AND = {
-							owns_state = 671
-							has_full_control_of_state = 671
-							owns_state = 286
-							has_full_control_of_state = 286
-						}
-						AND = {
-							owns_state = 728
-							has_full_control_of_state = 728
-						}
-						AND = {
-							NOT = { original_tag = MOR }
-							owns_state = 461
-							has_full_control_of_state = 461
-							owns_state = 462
-							has_full_control_of_state = 462
-						}
-						AND = {
-							NOT = { original_tag = ALG }
-							owns_state = 459
-							has_full_control_of_state = 459
-							owns_state = 513
-							has_full_control_of_state = 513
-							owns_state = 460
-							has_full_control_of_state = 460
-							owns_state = 514
-							has_full_control_of_state = 514
-						}
-						AND = {
-							NOT = { original_tag = TUN }
-							owns_state = 458
-							has_full_control_of_state = 458
-							owns_state = 665
-							has_full_control_of_state = 665
-						}
-						AND = {
-							NOT = { original_tag = DJI }
-							owns_state = 268
-							has_full_control_of_state = 268
-						}
-						AND = {
-							NOT = { original_tag = RCG }
-							owns_state = 772
-							has_full_control_of_state = 772
-						}
-						AND = {
-							NOT = { original_tag = GAB }
-							owns_state = 539
-							has_full_control_of_state = 539
-						}
-						AND = {
-							NOT = { original_tag = CMR }
-							owns_state = 773
-							has_full_control_of_state = 773
-						}
-						AND = {
-							NOT = { original_tag = CAR }
-							owns_state = 660
-							has_full_control_of_state = 660
-						}
-						AND = {
-							NOT = { original_tag = CHA }
-							owns_state = 774
-							has_full_control_of_state = 774
-							owns_state = 775
-							has_full_control_of_state = 775
-						}
-						AND = {
-							NOT = { original_tag = NGR }
-							owns_state = 781
-							has_full_control_of_state = 781
-							owns_state = 515
-							has_full_control_of_state = 515
-						}
-						AND = {
-							NOT = { original_tag = DAH }
-							owns_state = 776
-							has_full_control_of_state = 776
-						}
-						AND = {
-							NOT = { original_tag = TOG }
-							owns_state = 777
-							has_full_control_of_state = 777
-						}
-						AND = {
-							NOT = { original_tag = VOL }
-							owns_state = 778
-							has_full_control_of_state = 778
-						}
-						AND = {
-							NOT = { original_tag = IVO }
-							owns_state = 779
-							has_full_control_of_state = 779
-						}
-						AND = {
-							NOT = { original_tag = GNA }
-							owns_state = 780
-							has_full_control_of_state = 780
-						}
-						AND = {
-							NOT = { original_tag = MLI }
-							owns_state = 556
-							has_full_control_of_state = 556
-							owns_state = 782
-							has_full_control_of_state = 782
-						}
-						AND = {
-							NOT = { original_tag = SEN }
-							owns_state = 272
-							has_full_control_of_state = 272
-						}
-						AND = {
-							NOT = { original_tag = CAY }
-							owns_state = 310
-							has_full_control_of_state = 310
-						}
-						GDL = {
-							is_subject_of = PREV
-						}
-						SYR = {
-							is_subject_of = PREV
-						}
-						LEB = {
-							is_subject_of = PREV
-						}
-						LAO = {
-							is_subject_of = PREV
-						}
-						CAM = {
-							is_subject_of = PREV
-						}
-						VIN = {
-							is_subject_of = PREV
-						}
-						MAD = {
-							is_subject_of = PREV
-						}
-						MOR = {
-							is_subject_of = PREV
-						}
-						ALG = {
-							is_subject_of = PREV
-						}
-						TUN = {
-							is_subject_of = PREV
-						}
-						DJI = {
-							is_subject_of = PREV
-						}
-						RCG = {
-							is_subject_of = PREV
-						}
-						GAB = {
-							is_subject_of = PREV
-						}
-						CMR = {
-							is_subject_of = PREV
-						}
-						CAR = {
-							is_subject_of = PREV
-						}
-						CHA = {
-							is_subject_of = PREV
-						}
-						NGR = {
-							is_subject_of = PREV
-						}
-						DAH = {
-							is_subject_of = PREV
-						}
-						TOG = {
-							is_subject_of = PREV
-						}
-						VOL = {
-							is_subject_of = PREV
-						}
-						IVO = {
-							is_subject_of = PREV
-						}
-						GNA = {
-							is_subject_of = PREV
-						}
-						MLI = {
-							is_subject_of = PREV
-						}
-						SEN = {
-							is_subject_of = PREV
-						}
-						CAY = {
-							is_subject_of = PREV
-						}
-						AND = {
-							NOT = { original_tag = LBA }
-							owns_state = 448
-							has_full_control_of_state = 448
-							owns_state = 661
-							has_full_control_of_state = 661
-							owns_state = 449
-							has_full_control_of_state = 449
-							owns_state = 662
-							has_full_control_of_state = 662
-							owns_state = 450
-							has_full_control_of_state = 450
-							owns_state = 451
-							has_full_control_of_state = 451
-							owns_state = 663
-							has_full_control_of_state = 663
-							owns_state = 273
-							has_full_control_of_state = 273
-						}
-						AND = {
-							NOT = { original_tag = ETH }
-							owns_state = 271
-							has_full_control_of_state = 271
-						}
-						AND = {
-							NOT = { original_tag = ERI }
-							owns_state = 550
-							has_full_control_of_state = 550
-						}
-						AND = {
-							NOT = { original_tag = SOM }
-							owns_state = 559
-							has_full_control_of_state = 559
-						}
-						LBA = {
-							is_subject_of = PREV
-						}
-						ETH = {
-							is_subject_of = PREV
-						}
-						ERI = {
-							is_subject_of = PREV
-						}
-						SOM = {
-							is_subject_of = PREV
-						}
-						AND = {
-							NOT = { original_tag = KOR }
-							owns_state = 527
-							has_full_control_of_state = 527
-							owns_state = 525
-							has_full_control_of_state = 525
-						}
-						AND = {
-							original_tag = JAP
-							owns_state = 609
-							has_full_control_of_state = 609
-						}
-						AND = {
-							original_tag = JAP
-							owns_state = 745
-							has_full_control_of_state = 745
-						}
-						AND = {
-							original_tag = JAP
-							owns_state = 524
-							has_full_control_of_state = 524
-						}
-						MAN = {
-							is_subject_of = PREV
-						}
-						MEN = {
-							is_subject_of = PREV
-						}
-						KOR = {
-							is_subject_of = PREV
-						}
-						AND = {
-							NOT = { original_tag = ANG }
-							owns_state = 540
-							has_full_control_of_state = 540
-							owns_state = 891
-							has_full_control_of_state = 891
-							owns_state = 892
-							has_full_control_of_state = 892
-						}
-						AND = {
-							NOT = { original_tag = MZB }
-							owns_state = 544
-							has_full_control_of_state = 544
-						}
-						AND = {
-							original_tag = POR
-							owns_state = 729
-							has_full_control_of_state = 729
-						}
-						AND = {
-							NOT = { original_tag = INS }
-							owns_state = 721
-							has_full_control_of_state = 721
-						}
-						AND = {
-							NOT = { original_tag = GNB }
-							owns_state = 296
-							has_full_control_of_state = 296
-						}
-						ANG = {
-							is_subject_of = PREV
-						}
-						MZB = {
-							is_subject_of = PREV
-						}
-						GNB = {
-							is_subject_of = PREV
-						}
-						AND = {
-							NOT = { original_tag = EQG }
-							owns_state = 297
-							has_full_control_of_state = 297
-						}
-						AND = {
-							NOT = { original_tag = WES }
-							owns_state = 699
-							has_full_control_of_state = 699
-						}
-						AND = {
-							NOT = { original_tag = MOR }
-							owns_state = 783
-							has_full_control_of_state = 783
-						}
-						AND = {
-							NOT = { original_tag = MOR }
-							owns_state = 290
-							has_full_control_of_state = 290
-						}
-						EQG = {
-							is_subject_of = PREV
-						}
-						WES = {
-							is_subject_of = PREV
-						}
-						AND = {
-							NOT = { original_tag = CRC }
-							owns_state = 695
-							has_full_control_of_state = 695
-						}
-						AND = {
-							NOT = { original_tag = SUR }
-							owns_state = 309
-							has_full_control_of_state = 309
-						}
-						CRC = {
-							is_subject_of = PREV
-						}
-						SUR = {
-							is_subject_of = PREV
-						}
-						INS = {
-							is_subject_of = PREV
-						}
-						AND = {
-							NOT = { original_tag = INS }
-							owns_state = 335
-							has_full_control_of_state = 335
-							owns_state = 672
-							has_full_control_of_state = 672
-							owns_state = 334
-							has_full_control_of_state = 334
-							owns_state = 673
-							has_full_control_of_state = 673
-							owns_state = 667
-							has_full_control_of_state = 667
-							owns_state = 309
-							has_full_control_of_state = 309
-							owns_state = 668
-							has_full_control_of_state = 668
-							owns_state = 738
-							has_full_control_of_state = 738
-							owns_state = 669
-							has_full_control_of_state = 669
-						}
-						AND = {
-							NOT = { original_tag = COG }
-							owns_state = 295
-							has_full_control_of_state = 295
-							owns_state = 538
-							has_full_control_of_state = 538
-							owns_state = 718
-							has_full_control_of_state = 718
-							owns_state = 888
-							has_full_control_of_state = 888
-							owns_state = 889
-							has_full_control_of_state = 889
-							owns_state = 890
-							has_full_control_of_state = 890
-						}
-						COG = {
-							is_subject_of = PREV
-						}
-					}
-				}
-				country_event = { id = mtg_britain.46 hours = 6 }
-			}
-			hidden_effect = { news_event = { id = mtg_news.37 days = 1 } }
-		}
-	}
-	focus = {
-		id = ENG_the_one_true_revolution
-		prerequisite = { focus = ENG_enforce_decolonization }
-		
-		available = {
-			is_subject = no
-			country_exists = SOU
-			NOT = { is_in_faction_with = SOU }
-			has_completed_focus = ENG_the_british_communist_alternative
-		}
-		bypass = {
-			has_war_with = SOU
-		}
-		will_lead_to_war_with = SOU
-		icon = GFX_focus_attack_soviet
-		x = -1
-		y = 1
-		relative_position_id = ENG_enforce_decolonization
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = SOU
-				expire = 0
-			}
-			hidden_effect = { news_event = { id = mtg_news.38 days = 1 } }
-		}
-	}
-	
-	focus = {
-		id = ENG_shatter_the_empires
-		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
-		x = 1
-		y = 1
-		prerequisite = { focus = ENG_enforce_decolonization }
-		relative_position_id = ENG_enforce_decolonization
-		cost = 15
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			OR = {
-				
-				ITA = {
-					exists = yes
-					NOT = { has_war_with = ROOT }
-					NOT = { is_in_faction_with = ROOT }
-					if = {
-						limit = {
-							has_dlc = "By Blood Alone"
-						}
-						NOT = {
-							has_completed_focus = ITA_abolish_the_colonies
-							has_completed_focus = ITA_new_colonial_policies
-						}
-					}
-					any_state = {
-						is_controlled_by = ITA
-						NOT = { is_core_of = ITA }
-					}
-				}
-				FRA = {
-					exists = yes
-					not = { has_war_with = ROOT }
-					not = { is_in_faction_with = ROOT }
-					not = { has_completed_focus = FRA_vienot_agreement }
-					any_state = {
-						is_controlled_by = FRA
-						not = { is_core_of = FRA }
-					}
-				}
-				GER = {
-					exists = yes
-					not = { has_war_with = ROOT }
-					not = { is_in_faction_with = ROOT }
-					any_state = {
-						is_controlled_by = GER
-						not = { is_core_of = GER }
-					}
-				}
-			}
-		}
-	
-
-		
-		
-		
-
-		completion_reward = {
-			if = {
-				limit = {
-					ITA = {
-						exists = yes
-						not = { has_war_with = ROOT }
-						not = { is_in_faction_with = ROOT }
-						any_state = {
-							is_controlled_by = ITA
-							not = { is_core_of = ITA }
-						}
-					}
-				}
-				every_country = {
-					limit = {
-						OR = {
-							original_tag = ITA
-							is_subject_of = ITA
-						}
-					}
-					ROOT = {
-						create_wargoal = {
-							target = PREV
-							type = puppet_wargoal_focus
-							expire = 0
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					FRA = {
-						exists = yes
-						not = { has_war_with = ROOT }
-						not = { is_in_faction_with = ROOT }
-						not = { has_completed_focus = FRA_vienot_agreement }
-						any_state = {
-							is_controlled_by = FRA
-							not = { is_core_of = FRA }
-						}
-					}
-				}
-				every_country = {
-					limit = {
-						OR = {
-							original_tag = FRA
-							is_subject_of = FRA
-						}
-					}
-					ROOT = {
-						create_wargoal = {
-							target = PREV
-							type = puppet_wargoal_focus
-							expire = 0
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					GER = {
-						exists = yes
-						not = { has_war_with = ROOT }
-						not = { is_in_faction_with = ROOT }
-						any_state = {
-							is_controlled_by = GER
-							not = { is_core_of = GER }
-						}
-					}
-				}
-				every_country = {
-					limit = {
-						OR = {
-							original_tag = GER
-							is_subject_of = GER
-						}
-					}
-					ROOT = {
-						create_wargoal = {
-							target = PREV
-							type = puppet_wargoal_focus
-							expire = 0
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = ENG_latin_american_communism
-		available = {
-			
-			has_government = communism
-			OR = {
-				country_exists = BRA country_exists = MEX
-				country_exists = COL country_exists = ARG
-				country_exists = PRU country_exists = VEN
-				country_exists = CHL country_exists = GUA
-				country_exists = ECU country_exists = CUB
-				country_exists = BOL country_exists = HAI
-				country_exists = DOM country_exists = HON
-				country_exists = PAR country_exists = ELS
-				country_exists = NIC country_exists = COS
-				country_exists = PAN country_exists = URG
-			}
-		}
-		prerequisite = { focus = ENG_prevent_the_use_of_islas_malvinas }
-		icon = GFX_focus_por_latin_american_communism
-		x = 0
-		y = 1
-
-		relative_position_id = ENG_prevent_the_use_of_islas_malvinas
-		cost = 5
-		completion_reward = {
-			every_other_country = {
-				limit = {
-					OR = {
-						TAG = BRA TAG = MEX
-						TAG = COL TAG = ARG
-						TAG = PRU TAG = VEN
-						TAG = CHL TAG = GUA
-						TAG = ECU TAG = CUB
-						TAG = BOL TAG = HAI
-						TAG = DOM TAG = HON
-						TAG = PAR TAG = ELS
-						TAG = NIC TAG = COS
-						TAG = PAN TAG = URG
-					}
-					has_government = communism
-				}
-				add_opinion_modifier = {
-					target = POR
-					modifier = POR_iberian_communism
-				}
-			}
-			every_other_country = {
-				limit = {
-					OR = {
-						TAG = BRA TAG = MEX
-						TAG = COL TAG = ARG
-						TAG = PRU TAG = VEN
-						TAG = CHL TAG = GUA
-						TAG = ECU TAG = CUB
-						TAG = BOL TAG = HAI
-						TAG = DOM TAG = HON
-						TAG = PAR TAG = ELS
-						TAG = NIC TAG = COS
-						TAG = PAN TAG = URG
-					}
-					NOT = { has_government = communism }
-				}
-				add_popularity = {
-				    ideology = communism
-				    popularity = 0.05
-				}
-				add_timed_idea = {
-					idea = communist_influence
-					days = 730
-				}
-			}
-			add_ideas = POR_spread_communism_overseas
-		}
-	}
-	
-
-	
-	
-	focus = {
-		id = ENG_the_scottish_army
-		available = {
-			
-			
-		}
-
-		available_if_capitulated = no
-
-		prerequisite = { focus = ENG_threats-from_across_the_channel }
-		icon = GFX_goal_class_a_reservists
-		x = -2
-		y = 1
-		relative_position_id = ENG_threats-from_across_the_channel
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_MILITARY_EQUIPMENT}
-		completion_reward = {
-			SCO = { custom_effect_tooltip = create_three_units_tt }
-			SCO = { 
-				add_ideas = ENG_militarism
-				army_experience = 20
-				
-				
-				division_template = {
-					name = "Scottish Guard"
-					
-			
-					regiments = {
-						militia = { x = 0 y = 0 }
-						militia = { x = 0 y = 1 }
-						militia = { x = 0 y = 2 }
-						militia = { x = 1 y = 0 }
-						militia = { x = 1 y = 1 }
-						militia = { x = 1 y = 2 }
-					}
-					support = {
-						engineer = { x = 0 y = 0 }
-					}
-					priority = 1
-				}
-			
-				
-				random_owned_controlled_state = {
-						limit = { PREV = { has_full_control_of_state = PREV } }
-						create_unit = {
-							division = "name = \"1st Scottish Guard\" division_template = \"Scottish Guard\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
-							owner = PREV
-						}
-						create_unit = {
-							division = "name = \"2nd Scottish Guard\" division_template = \"Scottish Guard\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
-							owner = PREV
-						
-						}
-						create_unit = {
-							division = "name = \"3rd Scottish Guard\" division_template = \"Scottish Guard\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
-							owner = PREV
-						
-						}
-				}		
-			
-			}	
-		
-		}
-	
-	}
-	
-	focus = {
-		id = ENG_the_welsh_army
-		available = {
-			
-			
-		}
-
-		available_if_capitulated = no
-
-		prerequisite = { focus = ENG_threats-from_across_the_channel }
-		icon = GFX_goal_class_a_reservists
-		x = 2
-		y = 1
-		relative_position_id = ENG_threats-from_across_the_channel
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}
-		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_MILITARY_EQUIPMENT}
-		completion_reward = {
-			WLS = { custom_effect_tooltip = create_two_units_tt }
-			WLS = { 
-				add_ideas = ENG_militarism
-				army_experience = 20
-				
-				division_template = {
-					name = "The Welsh Dragon"
-					
-			
-					regiments = {
-						militia = { x = 0 y = 0 }
-						militia = { x = 0 y = 1 }
-						militia = { x = 0 y = 2 }
-						militia = { x = 1 y = 0 }
-						militia = { x = 1 y = 1 }
-						militia = { x = 1 y = 2 }
-					}
-					support = {
-						engineer = { x = 0 y = 0 }
-					}
-					priority = 1
-				}
-			
-				
-				random_owned_controlled_state = {
-						limit = { PREV = { has_full_control_of_state = PREV } }
-						create_unit = {
-							division = "name = \"1st Welsh Guard\" division_template = \"The Welsh Dragon\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
-							owner = PREV
-						}
-						create_unit = {
-							division = "name = \"The Welsh dragon Divison\" division_template = \"The Welsh Dragon\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
-							owner = PREV
-						
-						}
-						
-				}		
-			
-			}	
-		
-		}
-	
-	}
-	
-	focus = {
-		id = ENG_Invest_in_scotland
-		prerequisite = { focus = ENG_the_scottish_army}
-		
-		available = { 
-			
-		}
-
-		
-
-		icon = GFX_goal_generic_expanded_production
-		x = 0
-		y = 1
-		relative_position_id = ENG_the_scottish_army
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		complete_tooltip = {
-			every_state = {
-				limit = { has_state_flag = kickstart_the_war_industry_2AF }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			
-		}
-		completion_reward = {
-			SCO = {
-				121 = {
-					
-					add_extra_state_shared_building_slots = 3
-					add_building_construction = {
-						type = arms_factory
-						level = 3
-						instant_build = yes
-					}
-					set_state_flag = kickstart_the_war_industry_2AF
-				}
-				133 = {
-					
-					add_extra_state_shared_building_slots = 3
-					add_building_construction = {
-						type = arms_factory
-						level = 3
-						instant_build = yes
-					}
-					set_state_flag = kickstart_the_war_industry_2AF
-				}
-			}
-		}
-	}
-	
-	
-	focus = {
-		id = ENG_Invest_in_wales
-		prerequisite = { focus = ENG_the_welsh_army}
-		
-		available = { 
-			
-		}
-
-		
-
-		icon = GFX_goal_generic_expanded_production
-		x = 0
-		y = 1
-		relative_position_id = ENG_the_welsh_army
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}	
-		complete_tooltip = {
-			every_state = {
-				limit = { has_state_flag = kickstart_the_war_industry_2AF }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			
-		}
-		completion_reward = {
-			WLS = {
-				122 = {
-					
-					add_extra_state_shared_building_slots = 3
-					add_building_construction = {
-						type = arms_factory
-						level = 3
-						instant_build = yes
-					}
-					set_state_flag = kickstart_the_war_industry_2AF
-				}
-				122 = {
-					
-					add_extra_state_shared_building_slots = 3
-					add_building_construction = {
-						type = industrial_complex
-						level = 3
-						instant_build = yes
-					}
-				}	
-			}
-		}
-	
-	
-	
-	
-	
-	}
 }
+
