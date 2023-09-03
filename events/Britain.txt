@@ -1108,3 +1108,108 @@ country_event = {
 		
 	}
 }
+###########
+## RP UK ##
+###########
+add_namespace = rt56rp_britain
+country_event = {
+	id = rt56rp_britain.1
+	title = rt56rp_britain.1.t
+	desc = rt56rp_britain.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	
+	option = { # Yes
+		name = rt56rp_britain.1.a
+		SPR = {
+			add_timed_idea = {
+				idea = ENG_gibraltar_purchase
+				days = 90
+			}
+		}
+		hidden_effect = {
+			ENG = {
+				add_timed_idea = {
+					idea = ENG_gibraltar_sale 
+					days = 90
+				}
+				country_event = {
+					id = rt56rp_britain.2
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 118
+				}
+				random_other_country = {
+					limit = {
+						original_tag = SPR
+						if = {
+							limit = {
+								country_exists = SPD
+							}
+							tag = SPD
+						}
+						else_if = {
+							limit = {
+								country_exists = SPA
+							}
+							tag = SPA
+						}
+						else_if = {
+							limit = {
+								country_exists = SPB
+							}
+							tag = SPB
+						}
+						else_if = {
+							limit = {
+								country_exists = SPC
+							}
+							tag = SPC
+						}
+					}
+					transfer_state = 118
+					118 = { add_core_of = PREV }
+			
+				}			
+			}
+		}
+	}
+
+	option = { # We have other plans
+		name = rt56rp_britain.1.b
+		ENG = {
+			country_event = {
+				id = rt56rp_britain.3
+			}
+		}
+	}
+}
+
+country_event = { #Return Event - Positive
+	id = rt56rp_britain.2
+	title = rt56rp_britain.2.t
+	desc = rt56rp_britain.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	
+	option = { # Great
+		name = rt56rp_britain.2.a
+	}
+}
+
+country_event = { # Return Event - Negative
+	id = rt56rp_britain.3
+	title = rt56rp_britain.3.t
+	desc = rt56rp_britain.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	
+	option = {  # Bad
+		name = rt56rp_britain.3.a
+	}
+}

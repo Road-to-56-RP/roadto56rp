@@ -16270,7 +16270,6 @@ focus_tree = {
 		available = { 
 			
 		}
-
 		continue_if_invalid = yes
 
 		icon = GFX_goal_generic_expanded_production
@@ -16295,21 +16294,20 @@ focus_tree = {
 		}
 		completion_reward = {
 			130 = {
-				
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 3
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = kickstart_the_war_industry_2AF
 			}
 			132 = {
 				
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 3
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = kickstart_the_war_industry_2AF
@@ -16412,23 +16410,12 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = ENG_Invest_In_The_North
-		cost = 10
+		cost = 7.2
 		ai_will_do = {
 			factor = 1
 		}	
 		completion_reward = {
-		
 			add_ideas = ENG_home_army_idea
-		
-			123 = {
-				
-					add_extra_state_shared_building_slots = 5
-					add_building_construction = {
-					type = dockyard
-					level = 1
-					instant_build = yes
-					}
-			}
 		}
 	}
 	
@@ -16456,15 +16443,14 @@ focus_tree = {
 		}	
 		icon = GFX_goal_generic_construct_military
 		completion_reward = {
-			add_war_support = 0.10
+			add_war_support = 0.05
 			# Ipswich
 			125 = {
 				if = {
-					
 					#Plymouth
 					add_building_construction = {
 						type = coastal_bunker
-						level = 5
+						level = 3
 						province = 271
 						instant_build = yes
 					}
@@ -16473,11 +16459,10 @@ focus_tree = {
 			# Greater London Area
 			126 = {
 				if = {
-					
 					#London
 					add_building_construction = {
 						type = coastal_bunker
-						level = 5
+						level = 3
 						province = 11374
 						instant_build = yes
 					}
@@ -16486,18 +16471,17 @@ focus_tree = {
 			# Sussex
 			127 = {
 				if = {
-					
 					#Dover
 					add_building_construction = {
 						type = coastal_bunker
-						level = 5
+						level = 2
 						province = 3501
 						instant_build = yes
 					}
 					#Portsmouth
 					add_building_construction = {
 						type = coastal_bunker
-						level = 5
+						level = 2
 						province = 9458
 						instant_build = yes
 					}
@@ -16506,11 +16490,10 @@ focus_tree = {
 			# Cornwall
 			123 = {
 				if = {
-					
 					#Plymouth
 					add_building_construction = {
 						type = coastal_bunker
-						level = 5
+						level = 2
 						province = 540
 						instant_build = yes
 					}
@@ -17774,10 +17757,8 @@ focus_tree = {
 			set_rule = { can_send_volunteers = yes }
 			add_timed_idea = {
 				idea = r56_CHL_spanish_civil_war_involvement
-				days = 1095
+				days = 730
 			}
-						
-			
 		}
 	}
 		
@@ -17794,67 +17775,20 @@ focus_tree = {
 		
 	
 		available = {
-			
 			has_war = no
-			
-			
 			SPR = {
-				
 				NOT = {
 					has_government = fascism
 					has_government = neutrality
-					
 				}
 			}
 		}
 			
-			
-		
-
 		completion_reward = {
-		
-			add_ideas = ENG_gibraltar_sale 
-		
-
-			if = {
-				limit = {
-					has_full_control_of_state = 118
+			SPR = {
+				country_event = {
+					id = rt56rp_britain.1
 				}
-				random_other_country = {
-					limit = {
-						original_tag = SPR
-						
-						if = {
-							limit = {
-								country_exists = SPD
-							}
-							tag = SPD
-						}
-						else_if = {
-							limit = {
-								country_exists = SPA
-							}
-							tag = SPA
-						}
-						else_if = {
-							limit = {
-								country_exists = SPB
-							}
-							tag = SPB
-						}
-						else_if = {
-							limit = {
-								country_exists = SPC
-							}
-							tag = SPC
-						}
-					}
-					transfer_state = 118
-					118 = { add_core_of = PREV }
-			
-				}
-						
-			
 			}
 		}
 	}
@@ -18604,18 +18538,11 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
-		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_MILITARY_EQUIPMENT}
 		completion_reward = {
 			SCO = { custom_effect_tooltip = create_three_units_tt }
 			SCO = { 
-				add_ideas = ENG_militarism
-				army_experience = 20
-				
-				
 				division_template = {
 					name = "Scottish Guard"
-					
-			
 					regiments = {
 						militia = { x = 0 y = 0 }
 						militia = { x = 0 y = 1 }
@@ -18630,8 +18557,8 @@ focus_tree = {
 					priority = 1
 				}
 			
-				
-				random_owned_controlled_state = {
+				hidden_effect = {
+					random_owned_controlled_state = {
 						limit = { PREV = { has_full_control_of_state = PREV } }
 						create_unit = {
 							division = "name = \"1st Scottish Guard\" division_template = \"Scottish Guard\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
@@ -18640,15 +18567,16 @@ focus_tree = {
 						create_unit = {
 							division = "name = \"2nd Scottish Guard\" division_template = \"Scottish Guard\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
 							owner = PREV
-						
 						}
 						create_unit = {
 							division = "name = \"3rd Scottish Guard\" division_template = \"Scottish Guard\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
 							owner = PREV
-						
 						}
-				}		
-			
+					}
+					SCO = {
+						add_ideas = ENG_militarism
+					}
+				}
 			}	
 		
 		}
@@ -18658,8 +18586,7 @@ focus_tree = {
 	focus = {
 		id = ENG_the_welsh_army
 		available = {
-			
-			
+	
 		}
 
 		available_if_capitulated = no
@@ -18677,13 +18604,8 @@ focus_tree = {
 		completion_reward = {
 			WLS = { custom_effect_tooltip = create_two_units_tt }
 			WLS = { 
-				add_ideas = ENG_militarism
-				army_experience = 20
-				
 				division_template = {
 					name = "The Welsh Dragon"
-					
-			
 					regiments = {
 						militia = { x = 0 y = 0 }
 						militia = { x = 0 y = 1 }
@@ -18698,8 +18620,9 @@ focus_tree = {
 					priority = 1
 				}
 			
-				
-				random_owned_controlled_state = {
+				hidden_effect = {
+					add_ideas = ENG_militarism
+					random_owned_controlled_state = {
 						limit = { PREV = { has_full_control_of_state = PREV } }
 						create_unit = {
 							division = "name = \"1st Welsh Guard\" division_template = \"The Welsh Dragon\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
@@ -18709,10 +18632,9 @@ focus_tree = {
 							division = "name = \"The Welsh dragon Divison\" division_template = \"The Welsh Dragon\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
 							owner = PREV
 						
-						}
-						
-				}		
-			
+						}	
+					}		
+				}
 			}	
 		
 		}
@@ -18726,8 +18648,6 @@ focus_tree = {
 		available = { 
 			
 		}
-
-		
 
 		icon = GFX_goal_generic_expanded_production
 		x = 0
