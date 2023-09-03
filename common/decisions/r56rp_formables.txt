@@ -92,7 +92,7 @@ formable_nations_africa_category  = {
 }
 
 formable_nations_south_america_category  = {
-	formable_nations_south_america  = {#continent
+	formable_nations_south_america  = {
 	
 		ai_will_do  = {
 			factor  = 1
@@ -105,7 +105,6 @@ formable_nations_south_america_category  = {
 			NOT  = { has_country_flag  = unform_available }
 			NOT  = { has_country_flag  = hide_formable_nations }
 			OR  = {
-				
 				capital_scope  = { is_on_continent  = south_america }
 			}
 		}
@@ -171,12 +170,10 @@ formable_nations_south_america_category  = {
 				}
 			}
 			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_SOU } } }
-			
 		}
 		icon  = formable_nations_south_america
 		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
 			set_cosmetic_tag  = FORM_SOU
-			
 			add_ideas  = generic_recent_political_unification
 			add_ideas  = generic_recent_army_unification
 			add_ideas  = generic_recent_economic_unification
@@ -27027,7 +27024,7 @@ formable_nations_italy_category  = {
 		visible  = {
 			NOT  = { 
 				has_country_flag  = unform_available 
-				has_country_flag  = hide_formable_nations 
+				has_country_flag  = hide_formable_nations
 			}
 			OR  = {
 				original_tag  = PAP
@@ -27040,6 +27037,11 @@ formable_nations_italy_category  = {
 		}
 		
 		available  = {
+			NOT = {
+				ITA = {
+					exists = yes
+				}
+			}
 			custom_trigger_tooltip  = {
 				tooltip  = pre_war_italy_requirement_tooltip
 				OR  = {
@@ -32896,6 +32898,84 @@ formable_nations_south_china_category = {
 			}
 			671 = { add_claim_by = ROOT }
 
+		}
+	}
+}
+formable_nations_rhine_category = {
+	formable_nations_rhine = {
+		ai_will_do  = {
+			factor  = 100
+		}
+		
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = { 
+				original_tag = LUX
+				original_tag = BEL
+				original_tag = SWI
+				original_tag = BAY
+			}
+		}
+		
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = rhine_requirement_tooltip2
+				OR  = {
+					AND  = {
+						923 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						42 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						922 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						989 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						51 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_RHINE } } }	
+		}
+		icon  = formable_nations_rhine
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_RHINE
+			add_ideas  = generic_recent_political_unification
+            add_ideas  = generic_recent_army_unification
+            add_ideas  = generic_recent_economic_unification
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available 
+			}
+			923 = { add_core_of = ROOT }
+			42 = { add_core_of = ROOT }
+			922 = { add_core_of = ROOT }
+			989 = { add_core_of = ROOT }
+			51 = { add_core_of = ROOT }
 		}
 	}
 }
