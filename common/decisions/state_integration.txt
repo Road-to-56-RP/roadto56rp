@@ -1,57 +1,46 @@
 GLO_state_integration_category = {
 	
 	#Toggle to hide all coring
-    hide_integration_decisions = {
+    r56rp_toggle_visibility_integration_decisions = {
         priority = 100
         visible = { 
-			always = yes 
+			is_ai = no
 		}
 		available = {
-			NOT = { has_country_flag = show_integration_decisions }
+			always = yes
 		}
-        complete_effect = { 
-			set_country_flag = show_integration_decisions
-        }
-    }
-
-	show_integration_decisions = {
-        priority = 99
-        visible = { 
-			always = yes 
-		}
-		available = {
-			has_country_flag = show_integration_decisions 
-		}
-        complete_effect = { 
-            clr_country_flag = show_integration_decisions  
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = show_integration_decisions
+				}
+				clr_country_flag = show_integration_decisions
+			}
+			else = {
+				set_country_flag = show_integration_decisions
+			}
         }
     }
 
 	#Toggle "Show only coring decisions with enough compliance"
-	hide_nonavialible_integration_decisions = {
+	r56rp_toggle_visibility_avalible_integration_decisions = {
         priority = 98
         visible = { 
-			always = yes 
+			is_ai = no
 		}
 		available = {
-			has_country_flag = show_unavialible_integration_decisions
+			always = yes
 		}
-        complete_effect = { 
-            clr_country_flag = show_unavialible_integration_decisions # Warlider can't spell for shit - im not even gonna change this.
-        }
-    }
-
-	show_nonavialible_integration_decisions = {
-        priority = 97
-        visible = { 
-			always = yes 
-		}
-		available = {
-			NOT = { has_country_flag = show_unavialible_integration_decisions }
-		}
-
-        complete_effect = { 
-            set_country_flag = show_unavialible_integration_decisions
+        complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = show_unavialible_integration_decisions
+				}
+				clr_country_flag = show_unavialible_integration_decisions
+			}
+			else = {
+				set_country_flag = show_unavialible_integration_decisions
+			}
         }
     }
 
@@ -76,26 +65,20 @@ GLO_state_integration_category = {
         available = {
 			IF = {
 				limit = {
-					FROM = {
-						has_state_flag = {
-							flag = r56rp_coring_discount
+					OR = {
+						is_major = yes
+						NOT = {
+							FROM = {
+								is_claimed_by = ROOT
+							}
 						}
 					}
 				}
-			}
-			ELSE_IF = {
-				limit = {
-					is_major = yes
-				}
-
 				FROM = {
 					compliance > 79
 					resistance < 11
 				}
 				has_manpower > coring_man
-				has_equipment = {
-					infantry_equipment > 499
-				}
 				
 			}
 			ELSE = {
@@ -103,11 +86,7 @@ GLO_state_integration_category = {
 					compliance > 69
 					resistance < 19
 				}
-				has_manpower > coring_man
-				has_equipment = {
-					infantry_equipment > 99
-				}
-				
+				has_manpower > coring_man				
 			}
         }
 
@@ -154,7 +133,6 @@ GLO_state_integration_category = {
 				has_political_power > GLO_p_pp_cost
 			}
         }
-
         custom_cost_text = GLO_35_pol_power
 
         days_remove = 50
@@ -162,16 +140,10 @@ GLO_state_integration_category = {
         complete_effect = {
 			set_temp_variable = { GLO_p_mp_cost_t = GLO_p_mp_cost }
 			set_temp_variable = { GLO_p_pp_cost_t = GLO_p_pp_cost }
-			set_temp_variable = { GLO_p_inf_cost_t = GLO_p_inf_cost }
 			multiply_temp_variable = { GLO_p_mp_cost_t = -1 }
 			multiply_temp_variable = { GLO_p_pp_cost_t = -1 }
-			multiply_temp_variable = { GLO_p_inf_cost_t = -1 }
             add_manpower = GLO_p_mp_cost_t
 			add_political_power = GLO_p_pp_cost_t
-            add_equipment_to_stockpile = {
-			    type = infantry_equipment
-			    amount = GLO_p_inf_cost_t
-			}
 			hidden_effect = {
 				FROM = { 
 					set_state_flag = being_cored
@@ -206,20 +178,48 @@ GLO_state_integration_category = {
         }
 
         available = {
-            NOT = {
+			NOT = {
 				OR = {
 					has_government = neutrality
 					has_government = democratic
 				}
 			}
-			FROM = {
-				compliance > 59
-				resistance < 31
+			hidden_trigger = {
+				FROM = {
+					NOT = { is_core_of = ROOT }
+					NOT = { has_state_flag = being_cored }
+				}
 			}
-
-            has_manpower > state_pop
-			has_equipment = {
-				infantry_equipment > 4999
+			IF = {
+				limit = {
+					OR = { #if not a major, or if a major has a claim, discounted coring.
+						NOT = { 
+							is_major = yes
+						}
+						FROM = {
+							is_claimed_by = ROOT
+						}
+					}
+				}
+				FROM = {
+					compliance > 59
+					resistance < 31
+				}
+				has_manpower > 12500
+				has_equipment = {
+					infantry_equipment > FROM.r56rp_core_cost_minor
+				}
+			}
+			ELSE = {
+				FROM = {
+					compliance > 59
+					resistance < 31
+				}
+				has_manpower > 12500
+				has_equipment = {
+					infantry_equipment > FROM.r56rp_core_cost
+				}
+				
 			}
         }
 
@@ -246,33 +246,45 @@ GLO_state_integration_category = {
 			}
         }
 
-        custom_cost_trigger = {
-            has_manpower > GLO_f_mp_cost
-
+		#tried making it display guns but failed miserably. so itll remain on manpower.
+        custom_cost_trigger = { 
+			has_manpower > 12500
         }
-
-        custom_cost_trigger = {
-            has_manpower > GLO_f_mp_cost
-        }
-
         custom_cost_text = GLO_1000_inf_eqmnt
 
         days_remove = 75
 
-		modifier = {
-			weekly_manpower = -150
-		}
-
         complete_effect = {
-			set_temp_variable = { GLO_f_mp_cost_t = GLO_f_mp_cost }
-			set_temp_variable = { GLO_f_inf_cost_t = GLO_f_inf_cost }
-			multiply_temp_variable = { GLO_f_mp_cost_t = -1 }
-			multiply_temp_variable = { GLO_f_inf_cost_t = -1 }
-            add_manpower = GLO_f_mp_cost_t
-            add_equipment_to_stockpile = {
-			    type = infantry_equipment
-			    amount = GLO_f_inf_cost_t
+			IF = {
+				limit = {
+					OR = { #if not a major, or if a major has a claim, discounted coring.
+					NOT = { 
+						is_major = yes
+					}
+					FROM = {
+						is_claimed_by = ROOT
+					}
+				}
+				}
+				set_temp_variable = { GLO_f_inf_cost_t = FROM.r56rp_core_cost_minor }
+				multiply_temp_variable = { GLO_f_inf_cost_t = -1 }
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = GLO_f_inf_cost_t
+				}
 			}
+			ELSE = {
+				set_temp_variable = { GLO_f_inf_cost_t = FROM.r56rp_core_cost }
+				multiply_temp_variable = { GLO_f_inf_cost_t = -1 }
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = GLO_f_inf_cost_t
+				}
+			}
+			set_temp_variable = { GLO_f_mp_cost_t = GLO_f_mp_cost }
+			multiply_temp_variable = { GLO_f_mp_cost_t = -1 }
+            add_manpower = GLO_f_mp_cost_t
+            
 			hidden_effect = {
 				FROM = { 
 					set_state_flag = being_cored

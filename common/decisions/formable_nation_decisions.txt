@@ -1,8 +1,7 @@
 form_scandinavia_category = {
-
 	form_scandinavia = {
 
-		icon = generic_form_nation
+		icon = formable_nations_kalmar
 
 		allowed = {
 			OR = {
@@ -173,7 +172,7 @@ form_nordic_league_category = {
 
 	form_nordic_league = {
 
-		icon = generic_form_nation
+		icon = formable_nations_nordic
 
 		allowed = {
 			OR = {
@@ -397,7 +396,7 @@ form_gran_colombia_category = {
 
 	form_gran_colombia = {
 
-		icon = generic_form_nation
+		icon = formable_nations_newgranada
 
 		allowed = {
 			OR = {
@@ -523,335 +522,6 @@ form_gran_colombia_category = {
 				set_global_flag = form_gran_colombia_flag
 				set_country_flag = has_formed_gran_colombia
 			}
-			add_ideas = generic_recent_political_unification
-			add_ideas = generic_recent_army_unification
-			add_ideas = generic_recent_economic_unification				
-		}
-
-		ai_will_do = {
-			factor = 200
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
-	}
-}
-
-form_austria_hungary_category = {
-
-	form_austria_hungary = {
-
-		icon = generic_form_nation
-
-		allowed = {
-			OR = {
-				original_tag = AUS
-				original_tag = CZE
-				original_tag = CRO
-				original_tag = HUN
-			}
-			has_dlc = "Waking the Tiger"
-		}
-
-		available = {
-			is_subject = no
-
-			# Austria
-			custom_trigger_tooltip = {
-				tooltip = form_country_austria_required_states_tt
-				controls_state = 153
-				controls_state = 152
-				controls_state = 4
-				controls_state = 848
-			}
-			# Czechoslovakia
-			custom_trigger_tooltip = {
-				tooltip = form_country_czechoslovakia_required_states_tt
-				controls_state = 69
-				controls_state = 9
-				controls_state = 75
-				controls_state = 74
-				controls_state = 72
-				controls_state = 70
-				controls_state = 664
-				controls_state = 71
-				controls_state = 73
-				controls_state = 996
-			}
-			# Hungary
-			custom_trigger_tooltip = {
-				tooltip = form_country_hungary_required_states_tt
-				controls_state = 155
-				controls_state = 43
-				controls_state = 154
-				controls_state = 913
-			}
-
-			# Slovenia
-			custom_trigger_tooltip = {
-				tooltip = form_country_slovenia_required_states_tt
-				controls_state = 956
-				controls_state = 853
-				controls_state = 102	
-			}
-			# Croatia
-			custom_trigger_tooltip = {
-				tooltip = form_country_croatia_required_states_tt
-				controls_state = 103
-				controls_state = 958
-				controls_state = 109
-				controls_state = 959
-				controls_state = 952	
-			}
-			# Bosnia
-			custom_trigger_tooltip = {
-				tooltip = form_country_bosnia_required_states_tt
-				controls_state = 961
-				controls_state = 962
-				controls_state = 804
-				controls_state = 104	
-			}
-			# Transylvania
-			custom_trigger_tooltip = {
-				tooltip = form_country_transylvania_required_states_tt
-				controls_state = 76
-				controls_state = 84
-				controls_state = 83
-				controls_state = 82	
-				controls_state = 764	
-			}
-			controls_state = 45
-		}
-
-		visible = {
-			OR = {
-				original_tag = AUS
-				original_tag = CZE
-				original_tag = CRO
-				AND = {
-					original_tag = HUN
-					NOT = {
-						has_dlc = "Death or Dishonor"
-					}
-				}
-			}
-			NOT = { has_global_flag = form_austria_hungary_flag }
-			NOT = {
-				has_country_flag = formed_european_union
-				has_country_flag  = hide_formable_nations
-			}
-		}
-
-		complete_effect = {
-			set_cosmetic_tag = HUN_EMPIRE
-			if = {
-				limit = {
-					NOT = { tag = AUS }
-				}
-				AUS = { set_cosmetic_tag = AUS_NOT_WHITE }
-			}	
-			# Austria
-			custom_effect_tooltip = form_country_austria_coring_states_tt
-			hidden_effect = {
-				153 = { add_core_of = ROOT }
-				152 = { add_core_of = ROOT }
-				4 = { add_core_of = ROOT }
-			}
-			# Czechoslovakia
-			custom_effect_tooltip = form_country_czechoslovakia_coring_states_tt
-			hidden_effect = {
-				69 = { add_core_of = ROOT }
-				9 = { add_core_of = ROOT }
-				75 = { add_core_of = ROOT }
-				74 = { add_core_of = ROOT }
-				72 = { add_core_of = ROOT }
-				70 = { add_core_of = ROOT }
-				664 = { add_core_of = ROOT }
-				71 = { add_core_of = ROOT }
-				73 = { add_core_of = ROOT }
-				996 = { add_core_of = ROOT }
-			}
-			# Hungary
-			custom_effect_tooltip = form_country_hungary_coring_states_tt
-			hidden_effect = {
-				155 = { add_core_of = ROOT }
-				43 = { add_core_of = ROOT }
-				154 = { add_core_of = ROOT }
-				913 = { add_core_of = ROOT }
-			}
-			# Slovenia
-			custom_effect_tooltip = form_country_slovenia_coring_states_tt
-			hidden_effect = {
-				956 = { add_core_of = ROOT }
-				853 = { add_core_of = ROOT }
-				102 = { add_core_of = ROOT }
-			}
-			# Croatia
-			custom_effect_tooltip = form_country_croatia_coring_states_tt
-			hidden_effect = {
-				952 = { add_core_of = ROOT }
-				959 = { add_core_of = ROOT }
-				109 = { add_core_of = ROOT }
-				958 = { add_core_of = ROOT }
-				103 = { add_core_of = ROOT }
-			}
-			# Bosnia
-			custom_effect_tooltip = form_country_bosnia_coring_states_tt
-			hidden_effect = {
-				961 = { add_core_of = ROOT }
-				804 = { add_core_of = ROOT }
-				962 = { add_core_of = ROOT }
-				104 = { add_core_of = ROOT }
-			}
-			# Transylvania
-			custom_effect_tooltip = form_country_transylvania_coring_states_tt
-			hidden_effect = {
-				76 = { add_core_of = ROOT }
-				84 = { add_core_of = ROOT }
-				83 = { add_core_of = ROOT }
-				82 = { add_core_of = ROOT }
-				764 = { add_core_of = ROOT }
-			}
-			45 = { add_core_of = ROOT }
-			39 = { add_core_of = ROOT }
-			163 = { add_core_of = ROOT }
-			#Istria/Litorale, not required
-			736 = { add_core_of = ROOT }
-			852 = { add_core_of = ROOT }
-			hidden_effect = {
-				news_event = { id = wtt_news.56 hours = 6 }
-				set_global_flag = form_austria_hungary_flag
-				set_country_flag = formed_austria_hungary
-			}
-			add_ideas = generic_recent_political_unification
-			add_ideas = generic_recent_army_unification
-			add_ideas = generic_recent_economic_unification				
-		}
-
-		ai_will_do = {
-			factor = 200
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
-	}
-
-	reintegrate_austro_hungarian_empire = {
-
-		icon = generic_form_nation
-
-		allowed = {
-			original_tag = HUN
-			has_dlc = "Waking the Tiger"
-		}
-
-		available = {
-			is_subject = no
-			# Hungary
-			custom_trigger_tooltip = {
-				tooltip = form_country_hungary_required_states_tt
-				controls_state = 155
-				controls_state = 43
-				controls_state = 154
-				controls_state = 913
-			}
-
-			# Slovenia
-			custom_trigger_tooltip = {
-				tooltip = form_country_slovenia_required_states_tt
-				controls_state = 956
-				controls_state = 853
-				controls_state = 102	
-			}
-			# Croatia
-			custom_trigger_tooltip = {
-				tooltip = form_country_croatia_required_states_tt
-				controls_state = 103
-				controls_state = 958
-				controls_state = 109
-				controls_state = 959
-				controls_state = 952	
-			}
-			# Bosnia
-			custom_trigger_tooltip = {
-				tooltip = form_country_bosnia_required_states_tt
-				controls_state = 961
-				controls_state = 962
-				controls_state = 804
-				controls_state = 104	
-			}
-			# Transylvania
-			custom_trigger_tooltip = {
-				tooltip = form_country_transylvania_required_states_tt
-				controls_state = 76
-				controls_state = 84
-				controls_state = 83
-				controls_state = 82	
-				controls_state = 764	
-			}
-			controls_state = 45
-		}
-
-		visible = {
-			tag = HUN
-			has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary
-			NOT = { 
-				has_global_flag = reintegrate_the_empire_flag 
-				has_country_flag  = hide_formable_nations
-			}
-		}
-
-		complete_effect = {
-			# Hungary
-			custom_effect_tooltip = form_country_hungary_coring_states_tt
-			hidden_effect = {
-				155 = { add_core_of = ROOT }
-				43 = { add_core_of = ROOT }
-				154 = { add_core_of = ROOT }
-				913 = { add_core_of = ROOT }
-			}
-			# Slovenia
-			custom_effect_tooltip = form_country_slovenia_coring_states_tt
-			hidden_effect = {
-				956 = { add_core_of = ROOT }
-				853 = { add_core_of = ROOT }
-				102 = { add_core_of = ROOT }
-			}
-			# Croatia
-			custom_effect_tooltip = form_country_croatia_coring_states_tt
-			hidden_effect = {
-				952 = { add_core_of = ROOT }
-				959 = { add_core_of = ROOT }
-				109 = { add_core_of = ROOT }
-				958 = { add_core_of = ROOT }
-				103 = { add_core_of = ROOT }
-			}
-			# Bosnia
-			custom_effect_tooltip = form_country_bosnia_coring_states_tt
-			hidden_effect = {
-				961 = { add_core_of = ROOT }
-				804 = { add_core_of = ROOT }
-				962 = { add_core_of = ROOT }
-				104 = { add_core_of = ROOT }
-			}
-			# Transylvania
-			custom_effect_tooltip = form_country_transylvania_coring_states_tt
-			hidden_effect = {
-				76 = { add_core_of = ROOT }
-				84 = { add_core_of = ROOT }
-				83 = { add_core_of = ROOT }
-				82 = { add_core_of = ROOT }
-				764 = { add_core_of = ROOT }
-			}
-			45 = { add_core_of = ROOT }
-			39 = { add_core_of = ROOT }
-			163 = { add_core_of = ROOT }
-			88 = { add_core_of = ROOT }
-			91 = { add_core_of = ROOT }
-			89 = { add_core_of = ROOT }
-			set_global_flag = reintegrate_the_empire_flag
 			add_ideas = generic_recent_political_unification
 			add_ideas = generic_recent_army_unification
 			add_ideas = generic_recent_economic_unification				
@@ -1041,7 +711,7 @@ form_united_central_america_category = {
 
 	form_united_central_america = {
 
-		icon = generic_form_nation
+		icon = formable_nations_federal_republic
 
 		allowed = {
 			OR = {
@@ -1051,6 +721,7 @@ form_united_central_america_category = {
 				original_tag = NIC
 				original_tag = COS
 				original_tag = BLZ
+				original_tag = PAN
 			}
 			has_dlc = "Waking the Tiger"
 		}
@@ -2208,7 +1879,7 @@ form_european_union_category = {
 
 	form_european_union = {
 
-		icon = generic_form_nation
+		icon = formable_nations_europe
 
 		allowed = {
 			OR = {
@@ -2236,7 +1907,7 @@ form_european_union_category = {
 				original_tag = BRI
 				original_tag = NAP
 				original_tag = SAD
-				original_tag = VNZ				
+				original_tag = VNZ			
 			}
 			OR = {
 				has_dlc = "Waking the Tiger"
@@ -2245,6 +1916,7 @@ form_european_union_category = {
 		}
 
 		available = {
+			has_government = democratic
 			is_subject = no
 			controls_state = 8
 			# Netherlands
@@ -2345,52 +2017,38 @@ form_european_union_category = {
 		}
 
 		visible = {
-			OR = { 
-				AND = {
-					OR = {
-						original_tag = HOL
-						original_tag = BEL
-						original_tag = LUX
-						original_tag = FRA
-						original_tag = ITA
-						original_tag = GER
-						original_tag = CZE
-						original_tag = HUN
-						original_tag = YUG
-						original_tag = SLV
-						original_tag = BAY
-						original_tag = FLA
-						original_tag = WLL
-						original_tag = IRE
-						original_tag = SCO
-						original_tag = WLS
-						original_tag = OCC
-						original_tag = AUS
-						original_tag = COR
-						original_tag = BRI
-						original_tag = NAP
-						original_tag = SAD
-						original_tag = VNZ						
-					}
-					has_government = democratic
-				}
-				AND = {
-					original_tag = ENG
-					has_country_leader = {
-						character = ENG_oswald_mosley
-						ruling_only = yes
-					}
-					has_completed_focus = ENG_imperial_federation
-				}
-			}  
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				original_tag = CZE
+				original_tag = HUN
+				original_tag = YUG
+				original_tag = SLV
+				original_tag = BAY
+				original_tag = FLA
+				original_tag = WLL
+				original_tag = IRE
+				original_tag = SCO
+				original_tag = WLS
+				original_tag = OCC
+				original_tag = AUS
+				original_tag = COR
+				original_tag = BRI
+				original_tag = NAP
+				original_tag = SAD
+				original_tag = VNZ				
+			}
 			NOT = { 
 				has_global_flag = form_european_union_flag 
 				has_country_flag  = hide_formable_nations
-			}
-			is_major = yes
-			NOT = {
 				has_country_flag = formed_austria_hungary
-			}			
+			}		
 		}
 
 		complete_effect = {
@@ -2712,6 +2370,7 @@ form_european_union_category = {
 			}
 		}
 	}
+
 	EUR_danish_membership = {
 
 		icon = generic_form_nation
@@ -2939,7 +2598,7 @@ form_mutapa_category = {
 
 	form_mutapa = {
 
-		icon = generic_form_nation
+		icon = formable_nations_mutapa
 
 		allowed = {
 			OR = {
@@ -2965,6 +2624,11 @@ form_mutapa_category = {
 			controls_state = 938
 			controls_state = 939
 			controls_state = 940
+			controls_state  = 893
+			controls_state  = 895
+			controls_state  = 894
+			controls_state  = 897
+			controls_state  = 896
 		}
 
 		visible = {
@@ -2994,6 +2658,11 @@ form_mutapa_category = {
 			938 = { add_core_of = ROOT }
 			939 = { add_core_of = ROOT }
 			940 = { add_core_of = ROOT }
+			893 = { add_core_of = ROOT }
+			895 = { add_core_of = ROOT }
+			894 = { add_core_of = ROOT }
+			897 = { add_core_of = ROOT }
+			896 = { add_core_of = ROOT }
 			hidden_effect = {
 				news_event = { id = wtt_news.63 hours = 6 }
 				set_global_flag = form_mutapa_flag
@@ -3017,14 +2686,10 @@ form_roman_empire_category = {
 
 	form_roman_empire = {
 
-		icon = generic_form_nation
+		icon = formable_nations_rome
 
 		allowed = {
 			original_tag = ITA
-		#	OR = { # giving players a focus about Roman ambitions and not letting them fulfill them is fundamentally wrong from a game design perspective.
-		#		has_dlc = "Waking the Tiger"
-		#		has_dlc = "By Blood Alone"
-		#	}
 		}
 
 		available = {
@@ -3326,7 +2991,7 @@ form_roman_empire_category = {
 
 	reintigrate_hispania = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -3454,7 +3119,7 @@ form_roman_empire_category = {
 
 	reintigrate_dacia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -3524,7 +3189,7 @@ form_roman_empire_category = {
 
 	reintigrate_moesia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -3647,7 +3312,7 @@ form_roman_empire_category = {
 
 	reintigrate_aegyptus = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 75
 
@@ -3704,7 +3369,7 @@ form_roman_empire_category = {
 
 	restore_mesopotamia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -3773,7 +3438,7 @@ form_roman_empire_category = {
 
 	reconquer_galatia_et_cappadocia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -3859,7 +3524,7 @@ form_roman_empire_category = {
 
 	integrate_armenian_lands = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -3921,7 +3586,7 @@ form_roman_empire_category = {
 
 	restore_order_in_arabia_petra = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 75
 
@@ -3983,7 +3648,7 @@ form_roman_empire_category = {
 
 	restore_order_in_mauretania = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 75
 
@@ -4048,7 +3713,7 @@ form_roman_empire_category = {
 
 	return_to_pannonia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4140,7 +3805,7 @@ form_roman_empire_category = {
 
 	restore_roman_rule_to_raetia_et_noricum = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4224,7 +3889,7 @@ form_roman_empire_category = {
 
 	restore_roman_rule_to_gaul = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4341,7 +4006,7 @@ form_roman_empire_category = {
 
 	restore_roman_rule_to_belgica = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4410,7 +4075,7 @@ form_roman_empire_category = {
 
 	occupy_iberia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4467,7 +4132,7 @@ form_roman_empire_category = {
 
 	return_to_britannia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4556,7 +4221,7 @@ form_roman_empire_category = {
 
 	conquer_hibernia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4617,7 +4282,7 @@ form_roman_empire_category = {
 
 	conquer_caledonia = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4681,7 +4346,7 @@ form_roman_empire_category = {
 
 	avenge_teutoburg = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 100
 
@@ -4784,7 +4449,7 @@ form_roman_empire_category = {
 
 	reestablish_the_bosporan_kingdom = {
 
-		icon = GFX_decision_generic_nationalism
+		icon = formable_nations_rome
 
 		cost = 120
 
@@ -5130,7 +4795,7 @@ form_byzantine_empire_category = {
 
 	form_byzantine_empire = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5201,7 +4866,7 @@ form_byzantine_empire_category = {
 	}
 	byz_restore_byzantium = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5374,7 +5039,7 @@ form_byzantine_empire_category = {
 	
 	byz_integrate_albania = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5425,7 +5090,7 @@ form_byzantine_empire_category = {
 
 	byz_integrate_wallachia = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5477,7 +5142,7 @@ form_byzantine_empire_category = {
 
 	byz_integrate_bulgaria = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5543,7 +5208,7 @@ form_byzantine_empire_category = {
 
 	byz_integrate_yugoslavia = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5645,7 +5310,7 @@ form_byzantine_empire_category = {
 
 	byz_integrate_turkey = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5748,7 +5413,7 @@ form_byzantine_empire_category = {
 
 	byz_triumph_for_italy = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5838,7 +5503,7 @@ form_byzantine_empire_category = {
 
 	byz_triumph_for_middle_east = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5912,7 +5577,7 @@ form_byzantine_empire_category = {
 
 	byz_triumph_for_egypt_and_tunis = {
 
-		icon = generic_form_nation
+		icon = formable_nations_byzantium
 
 		allowed = {
 			original_tag = GRE
@@ -5998,7 +5663,7 @@ form_arabia_category = {
 
 	form_arabia = {
 
-		icon = generic_form_nation
+		icon  = formable_nations_arabia
 
 		allowed = {
 			OR = {
@@ -6237,10 +5902,9 @@ form_arabia_category = {
 }
 
 form_majapahit_empire_category = {
-
 	form_majapahit_empire = {
 
-		icon = generic_form_nation
+		icon = formable_nations_majapahit
 
 		allowed = {
 			OR = {
@@ -6392,7 +6056,7 @@ form_rattanakosin_kingdom_category = {
 
 	form_rattanakosin_kingdom = {
 
-		icon = generic_form_nation
+		icon = formable_nations_rattanoskin_empire
 
 		allowed = {
 			original_tag = SIA
@@ -6506,7 +6170,7 @@ form_hre_category = {
 
 	form_hre = {
 
-		icon = generic_form_nation
+		icon = formable_nations_hre
 
 		allowed = {
 			original_tag = GER
@@ -6683,8 +6347,8 @@ form_greater_german_reich_category = {
 		icon = generic_form_nation
 
 		allowed = {
-			original_tag = GER
 			has_dlc = "Waking the Tiger"
+			always = no
 		}
 
 		available = {
@@ -6818,7 +6482,7 @@ form_andalusia_category = {
 	
 	form_andalusia = {
 
-		icon = generic_form_nation
+		icon  = formable_nations_al_andalus
 
 		allowed = {
 			OR = {
@@ -7363,10 +7027,9 @@ form_andalusia_category = {
 }
 
 form_polynesia_category = {
-	
 	form_polynesia = {
 
-		icon = generic_form_nation
+		icon = formable_nations_polynesia
 
 		allowed = {
 			OR = {
@@ -7634,11 +7297,11 @@ form_greater_greece_category = {
 
 	form_greater_greece = {
 
-		icon = generic_form_nation
+		icon = formable_nations_megali
 
 		allowed = {
 			original_tag = GRE
-			has_dlc = "Battle for the Bosporus"
+			#has_dlc = "Battle for the Bosporus"
 		}
 
 		available = {
@@ -7668,6 +7331,7 @@ form_greater_greece_category = {
 				controls_state = 340
 				controls_state = 339
 				controls_state = 347
+				controls_state = 342
 			}
 			# Dodecanese
 			if = {
@@ -7689,13 +7353,6 @@ form_greater_greece_category = {
 					controls_state = 183
 				}
 			}
-		}
-
-		visible = {
-			NOT = { 
-				has_global_flag = form_greater_greece_flag 
-				has_country_flag  = hide_formable_nations
-			}
 			OR = { 
 				AND = {
 					has_completed_focus = GRE_the_modern_movement
@@ -7714,6 +7371,13 @@ form_greater_greece_category = {
 					}
 				}
 				has_completed_focus = GRE_prepare_for_the_great_anti_fascist_war
+			}
+		}
+
+		visible = {
+			NOT = { 
+				has_global_flag = form_greater_greece_flag 
+				has_country_flag  = hide_formable_nations
 			}
 		}
 
@@ -8017,7 +7681,7 @@ form_macedonian_empire_category = {
 
 	form_macedonian_empire = {
 
-		icon = generic_form_nation
+		icon = formable_nations_macedonian_empire
 
 		allowed = {
 			original_tag = GRE
@@ -10389,7 +10053,7 @@ form_east_africa_category = {
 	
 	form_east_africa = { 
 
-		icon = generic_form_nation
+		icon  = formable_nations_east_africa
 
 		allowed = {
 			OR = {
@@ -10421,7 +10085,6 @@ form_east_africa_category = {
 				has_global_flag = form_east_africa_flag 
 				has_country_flag  = hide_formable_nations
 			}
-			# has_dlc = "No Step Back"
 		}
 
 		complete_effect = {
@@ -10793,7 +10456,7 @@ form_horn_of_africa_africa_category = {
 	
 	form_the_horn_of_africa = { 
 
-		icon = generic_form_nation
+		icon = formable_nations_horn_of_africa
 
 		allowed = {
 			OR = {
@@ -10885,29 +10548,13 @@ form_horn_of_africa_africa_category = {
 			}
 		}
 
-		visible = {
-			IF = {
-				limit = {
-					original_tag = ETH
-				}
-				has_completed_focus = ETH_develop_the_horn_of_africa
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+				has_global_flag = form_horn_of_africa_flag 
 			}
-			ELSE_IF = {
-				limit = {
-					OR = {
-						original_tag = AFA
-						original_tag = ORO
-						original_tag = QEM
-						original_tag = TIG
-						original_tag = BEG
-						original_tag = HAR
-						original_tag = SID
-						original_tag = GBA
-					}
-				}
-				has_completed_focus = HOA_proclaim_east-african_hegemony
-			}
-			OR = {
+			OR  = {
 				original_tag = ETH # Ethiopia
 				original_tag = ERI # Eritrea
 				original_tag = SOM # Somalia
@@ -10919,12 +10566,8 @@ form_horn_of_africa_africa_category = {
 				original_tag = SID # Sidamo
 				original_tag = GBA # Gambela
 				original_tag = BEG # Benishangul-Gumuz State
-			}
-			NOT = { 
-				has_global_flag = form_horn_of_africa_flag 
-				has_country_flag  = hide_formable_nations
-			}
 
+			}
 			has_dlc = "By Blood Alone"
 		}
 
@@ -11226,7 +10869,7 @@ greater_italy_category = {
 	
 	proclaim_greater_italy = { 
 
-		icon = generic_form_nation
+		icon = formable_nations_greater_italy
 
 		allowed = {
 			original_tag = ITA # Italy
