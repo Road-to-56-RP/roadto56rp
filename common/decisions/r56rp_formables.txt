@@ -92,7 +92,7 @@ formable_nations_africa_category  = {
 }
 
 formable_nations_south_america_category  = {
-	formable_nations_south_america  = {#continent
+	formable_nations_south_america  = {
 	
 		ai_will_do  = {
 			factor  = 1
@@ -105,7 +105,6 @@ formable_nations_south_america_category  = {
 			NOT  = { has_country_flag  = unform_available }
 			NOT  = { has_country_flag  = hide_formable_nations }
 			OR  = {
-				
 				capital_scope  = { is_on_continent  = south_america }
 			}
 		}
@@ -139,6 +138,8 @@ formable_nations_south_america_category  = {
 									state  = 299
 									state  = 720
 									state  = 649
+									state = 994
+									state = 972
 								}
 							}
 							NOT  = {
@@ -164,6 +165,8 @@ formable_nations_south_america_category  = {
 								state  = 299
 								state  = 720
 								state  = 649
+								state = 994
+								state = 972
 							}
 						}
 					}
@@ -171,12 +174,10 @@ formable_nations_south_america_category  = {
 				}
 			}
 			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_SOU } } }
-			
 		}
 		icon  = formable_nations_south_america
 		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
 			set_cosmetic_tag  = FORM_SOU
-			
 			add_ideas  = generic_recent_political_unification
 			add_ideas  = generic_recent_army_unification
 			add_ideas  = generic_recent_economic_unification
@@ -227,7 +228,6 @@ formable_nations_north_america_category  = {
 			NOT  = { has_country_flag  = hide_formable_nations }
 			NOT = {	original_tag = USA	}
 			OR  = {
-				
 				capital_scope  = { is_on_continent  = north_america }
 			}
 		}
@@ -3425,10 +3425,9 @@ formable_nations_chinese_empire_category  = {
 		visible  = {
 			NOT  = { 
 				has_country_flag  = unform_available 
-				has_country_flag  = hide_formable_nations 
+				has_country_flag  = hide_formable_nations
 			}
 			OR  = {
-				
 				original_tag  = CHI
 				original_tag  = YUN
 				original_tag  = GXC
@@ -3442,6 +3441,13 @@ formable_nations_chinese_empire_category  = {
 		}
 		
 		available  = {
+			NOT = {
+				has_country_leader = {
+					character = CHI_chiang_kai_shek
+					ruling_only = yes
+				}
+				has_ruling_party = democratic
+			}
 			custom_trigger_tooltip  = { 
 				tooltip  = china_requirement_tooltip
 				OR  = {
@@ -13573,7 +13579,6 @@ formable_nations_indochina_category  = {
 				670  = { add_core_of  = ROOT }
 				286  = { add_core_of  = ROOT }
 				671  = { add_core_of  = ROOT }
-				336  = { add_core_of  = ROOT }
 				925  = { add_core_of  = ROOT }
 				927  = { add_core_of  = ROOT }
 				928  = { add_core_of  = ROOT }
@@ -13581,7 +13586,6 @@ formable_nations_indochina_category  = {
 				869  = { add_core_of  = ROOT }
 				926  = { add_core_of  = ROOT }
 			}
-			
 			288  = { add_core_of  = ROOT }
 			640  = { add_core_of  = ROOT }
 			1018 = { add_core_of  = ROOT }
@@ -22683,7 +22687,6 @@ formable_nations_north_german_federation_category  = {
 				has_country_flag  = hide_formable_nations 
 			}
 			OR  = { 
-				
 				original_tag  = PRE
 				original_tag  = HAN
 				original_tag  = MEK
@@ -23174,9 +23177,7 @@ formable_nations_byzantium_category  = {
 				has_country_flag  = unform_available 
 				has_country_flag  = hide_formable_nations 
 			}
-
 			original_tag  = GRE
-			
 		}
 		
 		available  = {
@@ -27023,7 +27024,7 @@ formable_nations_italy_category  = {
 		visible  = {
 			NOT  = { 
 				has_country_flag  = unform_available 
-				has_country_flag  = hide_formable_nations 
+				has_country_flag  = hide_formable_nations
 			}
 			OR  = {
 				original_tag  = PAP
@@ -27036,6 +27037,11 @@ formable_nations_italy_category  = {
 		}
 		
 		available  = {
+			NOT = {
+				ITA = {
+					exists = yes
+				}
+			}
 			custom_trigger_tooltip  = {
 				tooltip  = pre_war_italy_requirement_tooltip
 				OR  = {
@@ -28810,7 +28816,6 @@ formable_nations_franco_british_union_category = {
 			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FRA_UK  } } }
 			
 		}
-
 		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
 			set_cosmetic_tag = FRA_UK 
 			set_global_flag = flag_franco_british_union
@@ -28819,6 +28824,8 @@ formable_nations_franco_british_union_category = {
 			add_ideas  = generic_recent_economic_unification
 			custom_effect_tooltip  = core_land
 			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
+				add_stability = -0.2
+				add_war_support = -0.15
 				if = {
 					limit = {
 						original_tag = ENG
@@ -28828,7 +28835,7 @@ formable_nations_franco_british_union_category = {
 							is_core_of = FRA
 						}
 						ENG = {
-							add_state_core = PREV
+							add_claim_by = PREV
 						}
 					}
 					FRA = {
@@ -28848,7 +28855,7 @@ formable_nations_franco_british_union_category = {
 								is_core_of = ENG
 							}
 							FRA = {
-								add_state_core = PREV
+								add_claim_by = PREV
 							}
 						}
 						ENG = {
@@ -32399,6 +32406,1642 @@ formable_nations_rising_sun_category = {
 				630 = { add_claim_by  = ROOT }
 				728 = { add_claim_by  = ROOT }
 			}
+		}
+	}
+}
+
+formable_nations_maphilindo_category = {
+	formable_nations_maphilindo = {
+		icon = formable_nations_maphilindo
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag  = INS
+				original_tag  = MAL
+				original_tag = PHI
+			}
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = philippines_requirement_tooltip
+				OR  = {
+					AND  = {
+						627 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						628 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						626 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						623 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						624 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						625 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+			custom_trigger_tooltip  = { 
+				tooltip  = east_indies_tt
+				OR  = {
+					AND  = {
+						974 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						672 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						976 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						335 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						446 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						667 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						977 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						334 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						978 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}
+			custom_trigger_tooltip  = { 
+				tooltip  = malaya_requirement_tooltip 
+				OR  = {
+					AND  = {
+						914 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						915 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						960 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						951 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						336 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_MALPHI } } }
+		}
+
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_MALPHI
+			custom_effect_tooltip  = claim_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
+				336 = { add_core_of = ROOT }
+				333 = { add_core_of = ROOT }
+				672 = { add_core_of = ROOT }
+				335 = { add_core_of = ROOT }
+				334 = { add_core_of = ROOT }
+				673 = { add_core_of = ROOT }
+				667 = { add_core_of = ROOT }
+				668 = { add_core_of = ROOT }
+				738 = { add_core_of = ROOT }
+				669 = { add_core_of = ROOT }
+				627 = { add_core_of = ROOT }
+				628 = { add_core_of = ROOT }
+				626 = { add_core_of = ROOT }
+				625 = { add_core_of = ROOT }
+				624 = { add_core_of = ROOT }
+				327 = { add_core_of = ROOT }
+				623 = { add_core_of = ROOT }
+				721 = { add_core_of = ROOT }
+				960 = { add_core_of = ROOT }
+				915 = { add_core_of = ROOT }
+				914 = { add_core_of = ROOT }
+				951 = { add_core_of = ROOT }
+				909 = { add_core_of = ROOT }
+				974 = { add_core_of = ROOT }
+				977 = { add_core_of = ROOT }
+				978 = { add_core_of = ROOT }
+				916 = { add_core_of = ROOT }
+				975 = { add_core_of = ROOT }
+				446 = { add_core_of = ROOT }
+				976 = { add_core_of = ROOT }
+			}
+		}
+	}
+}
+
+formable_nations_hanseatic_league_category = {
+	formable_nations_hanseatic_league  = {
+	
+		ai_will_do  = {
+			factor  = 100
+		}
+		
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = { 
+				original_tag  = PRE
+				original_tag  = HAN
+				original_tag  = MEK
+				original_tag  = SAX
+				original_tag  = SHL
+				original_tag  = SIL
+				original_tag  = DNZ
+				original_tag = BEL
+				original_tag = DEN
+				original_tag = LAT
+				original_tag = LIT
+				original_tag = EST
+				original_tag = HOL
+			}
+		}
+		
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = hanseatic_league_tt
+				OR  = {
+					AND  = {
+						56 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						998 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						58 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						59 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						61 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						62 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						63 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						36 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						7 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						35 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						6 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = {
+				tooltip  = hanseatic_league_tt2
+				OR  = {
+					AND  = {
+						763 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						5 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						85 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						807 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_HANZ } } }
+			
+		}
+		icon  = formable_nations_hanza
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_HANZ
+			add_ideas  = generic_recent_political_unification
+            add_ideas  = generic_recent_army_unification
+            add_ideas  = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available
+				5 = { add_core_of = ROOT }
+				59 = { add_core_of = ROOT }
+				63 = { add_core_of = ROOT }
+				763 = { add_core_of = ROOT }
+				61 = { add_core_of = ROOT }
+				58 = { add_core_of = ROOT }
+				62 = { add_core_of = ROOT }
+				56 = { add_core_of = ROOT }
+				188 = { add_core_of = ROOT }
+				85 = { add_core_of = ROOT }
+				807 = { add_core_of = ROOT }
+				998 = { add_core_of = ROOT }
+				36 = { add_core_of = ROOT }
+				7 = { add_core_of = ROOT }
+				35 = { add_core_of = ROOT }
+				6 = { add_core_of = ROOT }
+			}
+			64 = { add_claim_by = ROOT }
+			57 = { add_claim_by = ROOT }
+			55 = { add_claim_by = ROOT }
+			989 = { add_claim_by = ROOT }
+			922 = { add_claim_by = ROOT }
+			124 = { add_claim_by = ROOT }
+			190 = { add_claim_by = ROOT }
+			189 = { add_claim_by = ROOT }
+			811 = { add_claim_by = ROOT }
+			812 = { add_claim_by = ROOT }
+			12 = { add_claim_by = ROOT }
+			808 = { add_claim_by = ROOT }
+			809 = { add_claim_by = ROOT }
+			13 = { add_claim_by = ROOT }
+		}
+	}
+}
+
+formable_nations_south_china_category = {
+	formable_nations_south_china  = {
+	
+		ai_will_do  = {
+			factor  = 100
+		}
+		
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = { 
+				original_tag = GXC
+				original_tag = YUN
+			}
+		}
+		
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = southern_china_tt
+				OR  = {
+					AND  = {
+						747 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						325 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						599 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						593 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						592 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						594 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						728 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						729 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						326 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_SOUTHCHI } } }	
+		}
+		icon  = formable_nations_southern_china
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_SOUTHCHI
+			add_ideas  = generic_recent_political_unification
+            add_ideas  = generic_recent_army_unification
+            add_ideas  = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available 
+				747 = { add_core_of = ROOT }
+				325 = { add_core_of = ROOT }
+				599 = { add_core_of = ROOT }
+				593 = { add_core_of = ROOT }
+				592 = { add_core_of = ROOT }
+				594 = { add_core_of = ROOT }
+				728 = { add_core_of = ROOT }
+				729 = { add_core_of = ROOT }
+				326 = { add_core_of = ROOT }
+			}
+			671 = { add_claim_by = ROOT }
+
+		}
+	}
+}
+formable_nations_rhine_category = {
+	formable_nations_rhine = {
+		ai_will_do  = {
+			factor  = 100
+		}
+		
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { 
+				has_country_flag  = unform_available 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = { 
+				original_tag = LUX
+				original_tag = BEL
+				original_tag = SWI
+				original_tag = BAY
+			}
+		}
+		
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = rhine_requirement_tooltip2
+				OR  = {
+					AND  = {
+						923 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						42 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						922 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						989 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						51 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_RHINE } } }	
+		}
+		icon  = formable_nations_rhine
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_RHINE
+			add_ideas  = generic_recent_political_unification
+            add_ideas  = generic_recent_army_unification
+            add_ideas  = generic_recent_economic_unification
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = unform_available 
+			}
+			923 = { add_core_of = ROOT }
+			42 = { add_core_of = ROOT }
+			922 = { add_core_of = ROOT }
+			989 = { add_core_of = ROOT }
+			51 = { add_core_of = ROOT }
+		}
+	}
+}
+
+POR_expansionism_decision_category = {	#Portugal decisions to expand territorial reach
+	POR_integrate_galicia = { 		#Portugal core Galicia
+		icon = formable_nations_claim_galicia
+		fire_only_once = yes
+		cost = 60
+		
+		available = {
+			owns_state = 171	#Controls Galicia
+			has_completed_focus = POR_remember_olivenca
+		}	
+		
+		visible = {
+			original_tag = POR
+			NOT = {
+				171 = {	is_core_of = POR }
+			}
+		}
+		
+		highlight_states = {
+			highlight_state_targets = {
+				state = 171
+			}
+		}
+
+		complete_effect = {
+			add_stability = -0.02
+			add_war_support = 0.01
+			171 = {
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}	
+			}	
+		}
+		days_remove = 140
+		modifier = {
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.01
+		}	
+		
+		remove_effect = {		#Gain 2 Stability and gains core on Galicia.
+	 		add_stability = 0.015
+			171 = {	add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+
+	POR_integrate_zambia = { 		#Portugal, gain compliance and reduce resistance on Zambia
+		icon = formable_nations_zambia
+		fire_only_once = yes
+		cost = 30
+		
+		available = {
+			OR = {
+				771 = {	is_controlled_by = ROOT	}
+				771 = {	is_owned_by = ROOT	}
+				771 = {	is_claimed_by = POR	}
+			}	
+			has_completed_focus = POR_luso_tropicalism
+		}	
+		
+		visible = {
+			original_tag = POR
+		}
+
+				
+		highlight_states = {
+			highlight_state_targets = {
+				state = 771	
+			}
+		}
+
+		complete_effect = {		#Add state modifier 
+			771 = { add_claim_by = POR 	
+				add_dynamic_modifier = {
+					modifier = POR_colonial_integration
+				}
+			}
+		}
+		days_remove = 365
+		modifier = {
+     		political_power_gain = -0.1
+		}
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+
+	POR_integrate_malawi = { 		#Portugal, gain compliance and reduce resistance on Malawi
+		icon = formable_nations_malawi
+		fire_only_once = yes
+		cost = 25
+		
+		available = {
+			OR = {
+				770 = {	is_controlled_by = ROOT	}
+				770 = {	is_owned_by = ROOT	}
+				770 = {	is_claimed_by = POR	}
+			}
+			has_completed_focus = POR_luso_tropicalism
+		}	
+		
+		visible = {
+			original_tag = POR
+		
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 770
+			}
+		}
+		
+		complete_effect = {		#Add state modifier 
+			770 = { add_claim_by = POR 	
+				add_dynamic_modifier = {
+					modifier = POR_colonial_integration
+				}
+			}
+		}
+		days_remove = 365
+		modifier = {
+     		political_power_gain = -0.1
+		}
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+	
+	POR_integrate_rhodesia = { 		#Portugal, gain compliance and reduce resistance on Rhodesia
+		icon = formable_nations_zimbabwe
+		fire_only_once = yes
+		cost = 20
+		
+		available = {
+			OR = {
+				545 = {	is_controlled_by = ROOT	}
+				545 = {	is_owned_by = ROOT	}
+				545 = {	is_claimed_by = POR	}
+			}
+			has_completed_focus = POR_luso_tropicalism
+		}	
+		
+		visible = {
+			original_tag = POR
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 545
+			}
+		}
+		
+		complete_effect = {	#Add state modifier 
+			545 = { add_claim_by = POR 	
+				add_dynamic_modifier = {
+					modifier = POR_colonial_integration
+				}
+			}
+		}
+		
+		days_remove = 365
+		modifier = {
+     		political_power_gain = -0.1
+		}
+		
+		ai_will_do = {
+			factor = 100	
+		}
+	}
+}
+
+unify_iberia_decision_category = {
+	SPR_unify_iberia_decision = {
+		icon  = formable_nations_iberia
+		
+		visible = {
+			OR = {
+				original_tag = SPR
+				original_tag = SPA
+			}
+			NOT = {
+				has_completed_focus = SPR_regional_defense_council_of_aragon
+				has_cosmetic_tag  = FORM_IBE
+			}
+		}
+		
+		available = {
+			custom_trigger_tooltip  = { 
+				tooltip  = SPR_controls_all_iberian_states_tt
+				controls_state = 112
+				controls_state = 180
+				controls_state = 795
+				controls_state = 179		
+				controls_state = 181				
+			}
+			OR = {
+				has_completed_focus = SPR_stabilize_the_nation
+				has_completed_focus = SPR_all_must_do_their_part
+				has_completed_focus = SPA_unite_iberia
+				has_completed_focus = SPA_adopt_the_26_points
+				has_completed_focus = SPA_restore_the_iberian_union
+			}
+		}
+		
+		fire_only_once = yes	
+
+		complete_effect  = { 
+			add_political_power = -75
+			capital_scope  = { set_state_flag  = formable_nations_old_capital
+			}
+			set_cosmetic_tag  = FORM_IBE
+			hidden_effect =	{
+				180 = { add_claim_by = SPR }	
+				180 = { add_claim_by = SPA }
+				181 = { add_claim_by = SPR }					
+				181 = { add_claim_by = SPA }	
+				112 = { add_claim_by = SPR }					
+				112 = { add_claim_by = SPA }	
+				795 = { add_claim_by = SPR }					
+				795 = { add_claim_by = SPA }	
+				179 = { add_claim_by = SPR }					
+				179 = { add_claim_by = SPA }	
+				697 = { add_claim_by = SPA }	
+				697 = { add_claim_by = SPR }	
+				698 = { add_claim_by = SPA }		
+				698 = { add_claim_by = SPR }						
+			}
+		}
+		days_remove = 150
+		modifier = {
+     		political_power_gain = -0.5
+			consumer_goods_factor = 0.07	
+	 		stability_weekly = -0.004
+		}
+		remove_effect = {	#add 6% stability, and core all of Portugal
+	 		add_stability = 0.06
+			custom_effect_tooltip = SPR_cores_all_iberian_states_tt	
+			hidden_effect =	{
+				180 = { add_core_of = SPR }	
+				180 = { add_core_of = SPA }
+				181 = { add_core_of = SPR }					
+				181 = { add_core_of = SPA }	
+				112 = { add_core_of = SPR }					
+				112 = { add_core_of = SPA }	
+				795 = { add_core_of = SPR }					
+				795 = { add_core_of = SPA }	
+				179 = { add_core_of = SPR }					
+				179 = { add_core_of = SPA }
+				697 = { add_core_of = SPA }
+				697 = { add_core_of = SPR }
+				698 = { add_core_of = SPA }
+				698 = { add_core_of = SPR }
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	POR_unify_iberia_decision = {
+		icon  = formable_nations_iberia
+		cost = 40
+		visible = {
+			original_tag = POR
+			NOT = {
+				has_cosmetic_tag  = FORM_IBE
+			}
+		}
+
+		available = {
+			controls_state = 41
+			OR = {
+				has_completed_focus = POR_popular_front
+				has_completed_focus = POR_strengthen_the_regime
+				has_completed_focus = POR_national_syndicalism
+				has_completed_focus = POR_luso_monarchist_cooperation
+				has_completed_focus = POR_recover_brazil
+			}
+		}
+		
+		fire_only_once = yes	
+
+		complete_effect  = { 
+			capital_scope  = { set_state_flag  = formable_nations_old_capital
+			}
+			set_cosmetic_tag  = FORM_IBE
+			hidden_effect =	{
+				171 = { add_claim_by = POR }	
+				790 = { add_claim_by = POR }	
+				174 = { add_claim_by = POR }
+				788 = { add_claim_by = POR }
+				170 = { add_claim_by = POR }
+				169 = { add_claim_by = POR }
+				791 = { add_claim_by = POR }
+				41 = { add_claim_by = POR }
+				790 = { add_claim_by = POR }
+				175 = { add_claim_by = POR }
+				789 = { add_claim_by = POR }
+				173 = { add_claim_by = POR }
+				792 = { add_claim_by = POR }
+				176 = { add_claim_by = POR }
+				793 = { add_claim_by = POR }
+				790 = { add_claim_by = POR }
+				168 = { add_claim_by = POR }
+				167 = { add_claim_by = POR }
+				166 = { add_claim_by = POR }
+				794 = { add_claim_by = POR }
+				165 = { add_claim_by = POR }
+				177 = { add_claim_by = POR }
+				178 = { add_claim_by = POR }
+				172 = { add_claim_by = POR }
+			}
+				custom_effect_tooltip  = POR_claims_all_spanish_states_tt
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	POR_integrate_spaniards  = {
+        icon = formable_nations_spaniards
+		fire_only_once = yes
+		cost = 90
+		visible = {
+			original_tag = POR
+			has_cosmetic_tag  = FORM_IBE
+		}
+		available = {
+			custom_trigger_tooltip  = { 
+				tooltip  = POR_owns_most_iberian_states_tt
+				owns_state = 790
+				owns_state = 174
+				owns_state = 788
+				owns_state = 170
+				owns_state = 169
+				owns_state = 791
+				owns_state = 41
+				owns_state = 175
+				owns_state = 789
+				owns_state = 173
+				owns_state = 168
+				owns_state = 793
+				owns_state = 176
+				owns_state = 794
+			}
+		}
+
+		complete_effect = {
+
+		}
+
+		days_remove = 175
+		modifier = {
+     		political_power_gain = -0.55
+			consumer_goods_factor = 0.12	
+	 		stability_weekly = -0.002
+		}
+
+		remove_effect = {		#add 7% stability, and core all of Portugal
+	 		add_stability = 0.07
+			hidden_effect =	{
+				790 = { add_core_of = POR }
+				174 = { add_core_of = POR }
+				788 = { add_core_of = POR }
+				170 = { add_core_of = POR }
+				169 = { add_core_of = POR }
+				791 = { add_core_of = POR }
+				41 = { add_core_of = POR }
+				175 = { add_core_of = POR }
+				789 = { add_core_of = POR }
+				173 = { add_core_of = POR }
+				168 = { add_core_of = POR }
+				793 = { add_core_of = POR }
+				176 = { add_core_of = POR }
+				794 = { add_core_of = POR }
+				791 = { add_core_of = POR }
+				166 = { add_core_of = POR }
+				178 = { add_core_of = POR }
+			}
+			custom_effect_tooltip = POR_cores_most_spanish_states
+		}
+	}
+
+	POR_integrate_CAT  = {
+        icon = formable_nations_catalan
+		fire_only_once = yes
+		cost = 30
+		visible = {
+			has_cosmetic_tag  = FORM_IBE
+			original_tag = POR
+		}
+		available = {
+			owns_state = 165
+		}
+		complete_effect = {
+			add_stability = -0.01
+		}
+		days_remove = 90
+		modifier = {
+     		political_power_gain = -0.35
+			consumer_goods_factor = 0.035
+	 		stability_weekly = -0.002
+		}
+		remove_effect = {		#add 1% stability, and core all Catalan states
+	 		add_stability = 0.01
+				167 = { add_core_of = ROOT }
+				177 = { add_core_of = ROOT }
+			165 = { 
+				add_core_of = ROOT 
+				remove_dynamic_modifier = {
+					modifier = autonomous_state	
+				}
+			}
+		}
+	}
+
+	POR_integrate_BA  = {
+        icon = formable_nations_basque
+		fire_only_once = yes
+		cost = 30
+		visible = {
+			has_cosmetic_tag  = FORM_IBE
+			original_tag = POR
+		}
+		available = {
+			owns_state = 792
+		}
+
+		complete_effect = {
+			add_stability = -0.01
+		}
+		days_remove = 90
+		modifier = {
+     		political_power_gain = -0.2
+			consumer_goods_factor = 0.025
+	 		stability_weekly = -0.001
+		}
+		remove_effect = {		#add 3.5% stability, and core all of Portugal
+	 		add_stability = 0.01
+				792 = { add_core_of = ROOT }
+				172 = { 
+				add_core_of = ROOT 
+				remove_dynamic_modifier = {
+					modifier = autonomous_state	
+				}
+			}
+		}
+	}
+
+	IBERIA_integrate_PA  = {
+        icon = formable_nations_pyrenes
+		fire_only_once = yes
+		cost = 20
+		visible = {
+			OR = {
+				original_tag = SPR
+				original_tag = SPA
+				has_cosmetic_tag = FORM_IBE
+			}
+			OR = {
+				controls_state = 806
+				owns_state = 806				
+			}
+		}
+
+		available = {
+			owns_state = 806
+			792 = { is_core_of = ROOT } 
+		}
+
+		complete_effect = {
+			806 = { add_claim_by = SPR }
+			add_stability = -0.01
+		}
+
+		days_remove = 365
+		modifier = {
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.01
+		}
+
+		remove_effect = {	#add 3.5% stability, and core all of Portugal
+	 		add_stability = 0.005
+			806 = { add_core_of = ROOT }
+		}
+	}
+
+	IBERIA_integrate_ADR  = {
+        icon = formable_nations_andorra
+		fire_only_once = yes
+		cost = 15
+		visible = {
+			has_cosmetic_tag  = FORM_IBE
+			OR = {
+				controls_state = 973
+				owns_state = 973
+			}
+		}
+
+		available = {
+			owns_state = 973
+		}
+
+		complete_effect = {
+			973 = { add_claim_by = SPR }
+		}
+
+		days_remove = 110
+		modifier = {
+     		political_power_gain = -0.1
+
+		}
+		remove_effect = {		#Core Andorra
+			973 = { add_core_of = ROOT }
+		}
+	}
+	
+	SPR_connect_historic_por_colonies = {
+        icon = formable_nations_connectafrica
+		fire_only_once = yes
+		cost = 40
+		visible = {
+			has_cosmetic_tag  = FORM_IBE
+			OR = {
+				original_tag = SPR
+				original_tag = SPA	
+			}
+			controls_state = 891
+			controls_state = 896
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			771 = { add_claim_by = ROOT }
+			770 = { add_claim_by = ROOT }
+			545 = { add_claim_by = ROOT }
+		}
+	}
+}
+catalonia_decisions_category = {
+	ADR_integrate_valencia = { 		#Catalonia integrates Valencia
+		icon = formable_nations_valencia
+		fire_only_once = yes
+		cost = 65
+		
+		available = {
+			controls_state = 167		#Controls Cataluna
+		}	
+		
+		visible = {
+			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 167
+			}
+		}
+		
+		complete_effect = {	#gain 2 war support.
+			add_war_support = 0.02
+		}	
+		
+		days_remove = 45
+		modifier = {
+     		political_power_gain = -0.35
+			consumer_goods_factor = 0.035	
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
+	 		add_stability = 0.01
+			167 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+	ADR_integrate_balearic_islands = { 		#Catalonia integrates Valencia
+		icon = formable_nations_balearic
+		fire_only_once = yes
+		cost = 35
+		
+		available = {
+			controls_state = 177		#Controls Cataluna
+		}	
+		
+		visible = {
+			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 177
+			}
+		}
+		
+		complete_effect = {	
+			add_war_support = 0.015
+		}	
+		
+		days_remove = 45
+		modifier = {
+     		political_power_gain = -0.10
+			consumer_goods_factor = 0.020	
+		}		
+		
+		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
+	 		add_stability = 0.01
+			177 = { add_core_of = ROOT }	
+		}
+				
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+}
+
+FRA_expanisonism_category = {	#Category with options to core several linguistic/historically-French states.
+	FRA_core_wll = { 		#France core Wallonia
+		icon = formable_nations_wallonia
+		fire_only_once = yes
+		cost = 25
+		
+		available = {
+			controls_state = 34	#Controls Wallonie
+		}	
+		
+		visible = {
+			original_tag = FRA		#Is France
+			NOT = {
+				has_government = neutrality		#Not visible if France is monarchist, as they get their own decision to integrate it.
+			}	
+		}
+		complete_effect = {		#gain 2% war support upon clicking the decision.
+			add_stability = -0.04
+			add_war_support = 0.02
+		}			
+		
+		days_remove = 150
+		modifier = {
+     		political_power_gain = -0.35
+			consumer_goods_factor = 0.012
+		}		
+		
+		remove_effect = {		#add 3.5% stability, core Wallonie province, and claim Eupen-Malmedy province
+	 		add_stability = 0.025
+			34 = { add_core_of = ROOT }	
+			965 = { add_claim_by = FRA }	
+		}
+		
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+
+	FRA_core_lux = { #France core Luxembourg
+		icon = formable_nations_luxembourg
+		fire_only_once = yes
+		cost = 10
+		
+		available = {
+			controls_state = 8	#Controls Luxembourg
+		}	
+		
+		visible = {
+			original_tag = FRA		#Is France
+		}
+
+		complete_effect = {		#Lose 1 stability upon clicing decision, and gain 1.5 war support.
+			add_stability = -0.01
+			add_war_support = 0.0015
+		}			
+		
+		days_remove = 180
+		modifier = {		#Lose 1.05 Political Power and 0.1% stability per week for 180 days.
+     		political_power_gain = -0.1
+		}		
+		
+		remove_effect = {		#add 0.5% stability, and core Luxembourg
+	 		add_stability = 0.005
+			8 = { add_core_of = ROOT }	
+		}
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+
+	FRA_core_jura_mountains= { 		#France core Jura Mountains
+		icon = formable_nations_jura
+		fire_only_once = yes
+		cost = 25
+		
+		available = {
+			controls_state = 845		#Controls Jura Mountains
+		}	
+		
+		visible = {
+			original_tag = FRA		#Is France
+		}
+		
+		
+		complete_effect = {
+			add_stability = -0.025
+			add_war_support = 0.015
+			845 = {
+				add_dynamic_modifier = {
+					modifier = swiss_partisans
+				}		
+			}
+		}			
+		days_remove = 210
+		modifier = {		#Lose 1 Political Power, and gain 0.5% consumer goods for 210 days.
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.005
+		}		
+		remove_effect = {		#add 1.5% stability, remove funny modifier, and core Jura Mountains
+	 		add_stability = 0.015
+			845 = { add_core_of = ROOT 
+				remove_dynamic_modifier = {
+					modifier = swiss_partisans
+				}	
+			}	
+		}
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+
+	FRA_core_western_swiss_alps = { 		#France core Jura Mountains
+		icon = formable_nations_westernswiss
+		fire_only_once = yes
+		cost = 10
+		
+		available = {
+			controls_state = 847		#Controls Western Swiss Alps
+		}	
+		
+		visible = {
+			original_tag = FRA		#Is France
+		}
+		
+		complete_effect = {
+			add_stability = -0.0015
+			add_war_support = 0.005
+			847 = {
+				add_dynamic_modifier = {
+					modifier = swiss_partisans
+				}		
+			}
+		}			
+		days_remove = 365
+		modifier = {		#Lose 0.8 Political Power a day, and -0.001% stability per week for 365 days.
+     		political_power_gain = -0.08
+		}		
+		remove_effect = {		#add 1% stability, and core 847
+	 		add_stability = 0.01
+			847 = { add_core_of = ROOT }	
+		}
+
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+
+	FRA_claim_cataluna = { 		#France claim Catluña
+		icon = formable_nations_catalonian
+		fire_only_once = yes
+		cost = 20
+		
+		available = {
+			controls_state = 165		#Controls Cataluña
+		}	
+		visible = {
+			original_tag = FRA		#Is France
+			has_government = fascism		#Is Fascist
+		}
+		complete_effect = {		#gain 1 war support.
+			add_war_support = 0.01
+			165 = {
+				add_claim_by = FRA
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}	
+			}			
+		}
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+
+	FRA_core_cataluna = { 		#France core Catluña
+		icon = formable_nations_catalonian
+		fire_only_once = yes
+		cost = 50
+		
+		available = {
+			controls_state = 165		#Controls Cataluña
+			has_government = neutrality		#Is Authoritarian
+		}	
+		visible = {
+			original_tag = FRA		#Is France
+			NOT = { 165 = { is_core_of = ROOT }  }
+		}	
+		
+		complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
+			add_stability = -0.02
+			add_war_support = 0.01
+		}		
+		days_remove = 210
+		modifier = {		#Lose 0.1 Political Power a day, and gain 1% consumer goods for 210 days.
+     		political_power_gain = -0.1
+			consumer_goods_factor = 0.01
+	 		stability_weekly = -0.001
+		}	
+		remove_effect = {		#add 1.5% stability, and core Luxembourg
+	 		add_stability = 0.015
+			165 = { 
+				add_core_of = ROOT	
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_cat_autonomy
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100		
+			}
+	}
+
+	FRA_core_other_catalan_territories = { 		#France core Eastern Aragón, Balaeric Islands, and Valencia
+		icon = formable_nations_catalonian
+		fire_only_once = yes
+		cost = 0
+		
+			available = {
+				controls_state = 165		#Controls Cataluña
+				controls_state = 167		#Controls Valencia
+				controls_state = 177		#Controls BalaericIslands
+				has_government = neutrality		#Is Authoritarian
+			}	
+			visible = {
+				original_tag = FRA		#Is France
+				165 = { is_core_of = ROOT }		#Has core on Cataluña
+			}
+			complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
+				add_political_power = -60
+				add_war_support = 0.01
+			}			
+			days_remove = 365
+			modifier = {		#Lose 0.1 Political Power a day, gain 1.5% consumer goods, and -0.1% stability per week for 210 days.
+				political_power_gain = -0.2
+				consumer_goods_factor = 0.03	
+				stability_weekly = -0.002
+			}		
+			remove_effect = {		#add 4% stability, and core Eastern Aragón, Balaeric Islands, and Valencia
+				add_stability = 0.04
+				167 = { add_core_of = ROOT 	
+					remove_dynamic_modifier = {
+						modifier = autonomous_state
+					}
+					add_dynamic_modifier = {
+						modifier = FRA_cat_autonomy
+					}
+				}
+				177 = { add_core_of = ROOT 	
+					remove_dynamic_modifier = {
+						modifier = autonomous_state
+					}
+					add_dynamic_modifier = {
+						modifier = FRA_cat_autonomy
+					}
+				}
+			}
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+
+	FRA_push_germany_east = { 	#France claim both Rhinelad tiles
+		icon = formable_nations_rhineclaim
+		fire_only_once = yes
+		cost = 75
+		
+		available = {
+		}	
+		visible = {
+			original_tag = FRA		#Is France
+			OR = {	#Is at war with Germany, or controls one or both Rhineland states.
+				has_war_with = GER
+				controls_state = 42
+				controls_state = 51
+			}
+		}
+		complete_effect = {		#gain 5 war support, and adds claim on both Rhineland states.
+			add_war_support = 0.05
+			42 = {
+				add_claim_by = FRA
+			}	
+			51 = {
+				add_claim_by = FRA
+			}	
+		}			
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+
+	FRA_push_italy_east = { 		#France claim Piedmont
+		icon = formable_nations_piedmont
+		fire_only_once = yes
+		cost = 35
+		
+		available = {
+			original_tag = FRA		#Is France
+		}	
+
+		visible = {
+			original_tag = FRA		#Is France
+			OR = {	#Is at war with Italy, or controls Piedmont.
+				has_war_with = ITA
+				controls_state = 158
+				controls_state = 114
+			}
+		}
+		
+		complete_effect = {		#gain 2 war support, and adds claim on Piedmont and Sardinia.
+			add_war_support = 0.02
+			158 = {
+				add_claim_by = FRA
+			}	
+			114 = {
+				add_claim_by = FRA
+			}				
+		}
+
+		ai_will_do = {
+			factor = 100		
+		}
+	}
+}	
+
+bel_expansionism_decision_category = {
+	bel_unify_with_lux = {
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 20
+		highlight_states = {
+			highlight_state_targets = {
+				state = 8
+			}
+		}
+		visible = {
+			original_tag = BEL
+			NOT = {
+				has_global_flag = form_united_netherlands_flag 
+				has_global_flag = BEL_benelux_formed
+				has_cosmetic_tag = BEL_benelux_formed
+				has_cosmetic_tag = form_united_netherlands_flag 
+				8 = {	is_core_of = BEL	}
+			}
+		} 	
+		available = {
+			controls_state = 8	#Luxembourg
+		}
+
+		days_remove = 140
+		modifier = {
+            political_power_gain = -0.1
+			consumer_goods_factor = 0.005	
+		}	
+		complete_effect = {
+			add_war_support = 0.01
+				hidden_effect = {
+				8 = { add_claim_by = BEL }
+			}
+		}		
+		remove_effect = {
+			8 = { add_core_of = ROOT }
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	bel_unify_with_hol = {
+		icon  = formable_nations_benelux
+		fire_only_once = yes
+		cost = 55
+		highlight_states = {
+			highlight_state_targets = {
+				state = 7
+			}
+		}
+		visible = {
+			original_tag = BEL
+				NOT = {
+				has_global_flag = form_united_netherlands_flag 
+				has_global_flag = BEL_benelux_formed
+				has_cosmetic_tag = BEL_benelux_formed
+				has_cosmetic_tag = form_united_netherlands_flag 
+				has_completed_focus = BEL_unite_dietsland
+			}
+		} 	
+		available = {
+			controls_state = 35	#Noord-Brabant
+			controls_state = 7	#Holland
+			controls_state = 36	#Groningen
+		}
+
+		days_remove = 210
+		modifier = {
+     		political_power_gain = -0.25
+			consumer_goods_factor = 0.035
+		}	
+		complete_effect = {
+			add_stability = -0.05
+			add_war_support = 0.025
+			8 = { add_claim_by = BEL }
+		}		
+		remove_effect = {
+			add_stability = 0.03
+			35 = { add_core_of = ROOT }
+			7 = { add_core_of = ROOT }
+			36 = { add_core_of = ROOT }
+			
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	bel_claim_nordpaspdepcalais = {
+		icon = generic_form_nation
+		fire_only_once = yes
+		cost = 35
+		highlight_states = {
+			highlight_state_targets = {
+				state = 29
+			}
+		}
+		visible = {
+			original_tag = BEL
+				NOT = {
+				29 = {	is_core_of = BEL	}
+				29 = {	is_claimed_by = BEL	}
+			}
+		} 	
+		available = {
+			OR = {
+				controls_state = 29	#Noord Pas De Calais
+				has_war_with  = FRA
+			}
+		}
+		complete_effect = {
+			add_war_support = 0.01
+			29 = { add_claim_by = BEL }	
+		}		
+		ai_will_do = {
+			factor = 100
 		}
 	}
 }

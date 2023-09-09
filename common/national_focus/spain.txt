@@ -8351,6 +8351,7 @@ focus_tree = {
 					}
 				}
 			}
+			add_ideas = r56i_laws_gender_equality
 		}
 	}
 
@@ -8953,11 +8954,22 @@ focus_tree = {
 	focus = {
 		id = SPR_regional_defense_council_of_iberia
 		available = {
-			owns_state = 180
-			owns_state = 181
-			owns_state = 112
-			owns_state = 179
-			owns_state = 795
+			OR = {
+				AND = {
+					owns_state = 180
+					owns_state = 181
+					owns_state = 112
+					owns_state = 179
+					owns_state = 795					
+				}
+				any_country = {
+					original_tag = POR
+					has_cosmetic_tag = SPR_POR_anarchism
+					is_puppet_of = ROOT
+
+				}
+			}
+
 		}
 		prerequisite = { focus = SPR_portuguese_anarchism }
 		
@@ -8970,8 +8982,34 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+
+			if = {
+				limit = {
+					any_country = {
+						original_tag = POR
+						has_cosmetic_tag = SPR_POR_anarchism
+						is_puppet_of = ROOT
+	
+					}
+				}
+				every_other_country = {
+					limit = {
+						original_tag = POR
+						has_cosmetic_tag = SPR_POR_anarchism
+						is_puppet_of = ROOT
+					}
+					ROOT = {
+						annex_country = {
+							target = PREV
+							transfer_troops = yes
+						}
+					}
+				}					
+			}
+
 			custom_effect_tooltip = SPR_regional_defense_council_of_iberia_tt
 			hidden_effect = {
+
 				drop_cosmetic_tag = yes
 				set_cosmetic_tag = SPC_regional_defense_council_of_iberia
 			}
@@ -9034,6 +9072,53 @@ focus_tree = {
 			}
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = SPR_council_of_theorists
+
+			custom_effect_tooltip = gain_3_commanders_tt
+
+			hidden_effect = {
+				create_corps_commander = {
+					name = "Francisco Señer Martín"
+					traits = { infantry_officer }
+					portrait_path = "gfx/leaders/kr_generic/Portrait_Europe_Generic_land_new_10.dds"
+					skill = 1
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 1
+					logistics_skill = 1
+				}
+				create_corps_commander = {
+					name = "Miguel Yoldi"
+					portrait_path = "gfx/leaders/kr_generic/Portrait_Europe_Generic_land_new_8.dds"
+					traits = { militias_officer }
+					skill = 1
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 1
+					logistics_skill = 1
+				}
+				create_corps_commander = {
+					name = "Alfonso Arana Vivanco"
+					traits = { engineer_officer }
+					portrait_path = "gfx/leaders/kr_generic/Portrait_Europe_Generic_land_new_5.dds"
+					skill = 1
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 1
+					logistics_skill = 1
+				}
+				create_corps_commander = {
+					name = "Antonio Ortiz Ramírez"
+					traits = { infantry_officer }
+					portrait_path = "gfx/leaders/kr_generic/Portrait_Europe_Generic_land_new_2.dds"
+					skill = 1
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 1
+					logistics_skill = 1
+				}
+				
+			}
+
 		}
 	}
 
@@ -9093,6 +9178,14 @@ focus_tree = {
 				remove_idea = SPR_the_threats_abound_1
 				add_idea = SPR_the_threats_abound_2
 			}
+			create_operative_leader = {
+				name = "Ramón Rufat Llop"
+				portrait_path = gfx/leaders/r56_generic/r56_portrait_generic_operative_europe_12.dds 
+				traits = {  operative_infiltrator operative_escape_artist }
+				bypass_recruitment = no
+				available_to_spy_master = yes
+				nationalities = { SPR }
+			}				
 		}
 	}
 
@@ -9727,6 +9820,19 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+
+			
+			create_corps_commander = {
+				name = "Sail Mohamed"
+				traits = { infantry_officer }
+				portrait_path = "gfx/leaders/kr_generic/Portrait_Arabia_Generic_land_new_5.dds"
+				skill = 2
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 1
+				logistics_skill = 2
+			}
+
 			custom_effect_tooltip = SPR_global_defense_council_tt
 			hidden_effect = {
 				drop_cosmetic_tag = yes
@@ -11698,8 +11804,6 @@ focus_tree = {
 	focus = {
 		id = SPR_red_bulwark_in_the_west
 		available = {
-			is_in_faction_with = SOV
-			SOV = { has_government = communism }
 			has_full_control_of_state = 172
 			has_full_control_of_state = 166
 			has_full_control_of_state = 794
