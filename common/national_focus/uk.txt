@@ -14861,7 +14861,7 @@ focus_tree = {
 		}	
 		completion_reward = {
 			remove_ideas = ENG_the_war_to_end_all_wars
-			add_ideas = ENG_for_the_good_of_the_revolution_idea
+			add_timed_idea = { idea = ENG_for_the_good_of_the_revolution_idea days = 1395 }
 			set_power_balance = {
 
 						id = ENG_centralization_balance
@@ -16200,36 +16200,47 @@ focus_tree = {
 			factor = 1
 		}	
 		completion_reward = {
-			hidden_effect = { news_event = { id =  news.339 days = 1 } }
-			add_stability = -0.05
-			set_faction_name = "The British Isles Defense Pact"
-			release = SCO
-			release = WLS
-			release = NIR
-			set_autonomy = {
-				target = SCO
-				autonomy_state = autonomy_integrated_puppet
-			}
-			set_autonomy = {
-				target = WLS
-				autonomy_state = autonomy_integrated_puppet
-			}
-							
-			set_autonomy = { 
-				target = NIR
-				autonomy_state = autonomy_integrated_puppet
-			}
-			
 			hidden_effect = { 
+				news_event = { id =  news.339 days = 1 } 
+				country_event = { days = 10 id = mtg_britain.1001 }
+				release = SCO
+				release = WLS
+				release = NIR
 				WLS = { 
 					add_ideas = ENG_devolution_from_england
 				}
 				NIR = { 
 					add_ideas = ENG_devolution_from_england
+					country_event = { days = 10 id = mtg_britain.1001 }
 				}
 				SCO = { 
 					add_ideas = ENG_devolution_from_england
 				}
+				country_event = { days = 10 id = mtg_britain.1001 }
+				IRE = { 
+					country_event = { days = 10 id = mtg_britain.1001 }
+				}
+				
+				
+			}
+			add_stability = -0.05
+			set_faction_name = "The British Isles Defense Pact"
+			
+			set_autonomy = {
+				target = SCO
+				autonomy_state = autonomy_dominion
+			}
+			set_autonomy = {
+				target = WLS
+				autonomy_state = autonomy_dominion
+			}
+							
+			set_autonomy = { 
+				target = NIR
+				autonomy_state = autonomy_dominion
+			}
+			
+			
 			
 			
 			
@@ -16239,7 +16250,7 @@ focus_tree = {
 
 			
 			
-			}
+			
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
@@ -16527,8 +16538,7 @@ focus_tree = {
 			set_rule = { can_create_factions = yes }
 			set_rule = { can_join_factions = no }
 			create_faction = "British isles Defence Pact"
-			add_ideas = closed_economy
-			add_ideas = ENG_isolationalism 
+			add_ideas = closed_economy 
 			every_other_country = {
 					limit = {
 						NOT = { is_puppet_of = ROOT }
@@ -16538,7 +16548,43 @@ focus_tree = {
 					send_embargo = ROOT
 					custom_effect_tooltip = embargo_relation_tt
 			}
+			add_ideas = british_isolation_1
+			hidden_effect = {
+				if = { 
+					limit = {
+						SCO =  { is_puppet_of = ENG } 
+					}
+					
+						SCO = { 
+							add_ideas = closed_economy
+							add_ideas = british_isolation_1
+						}
+				
+				}
+				if = { 
+					limit = {
+						 WLS =  { is_puppet_of = ENG } 
+					}
+					
+						WLS = { 
+							add_ideas = closed_economy
+							add_ideas = british_isolation_1 
+						}
+				
+				}
+				if = { 
+					limit = {
+						 NIR =  { is_puppet_of = ENG } 
+					}
+					
+						NIR = { 
+							add_ideas = closed_economy
+							add_ideas = british_isolation_1 
+						}
+				
+				}
 		
+			}	
 		}
 	}
 	focus = {
@@ -16691,7 +16737,8 @@ focus_tree = {
 			factor = 1
 		}	
 		completion_reward = {
-			add_ideas = ENG_defend_the_main_island
+			
+			add_timed_idea = { idea = ENG_defend_the_main_island days = 180 }
 		}
 	}
 	
@@ -16712,7 +16759,7 @@ focus_tree = {
 			factor = 1
 		}	
 		completion_reward = {
-			add_ideas = ENG_limited_collectivization
+			add_ideas = limited_collectivization_law
 		
 		}
 	}
@@ -16722,7 +16769,7 @@ focus_tree = {
 	
 	
 	focus = {
-		id = ENG_give_back_to_the_working_class
+		id = ENG_give_back_to_the_working_class 
 		prerequisite = { focus = ENG_limited_collectivization}
 		
 		available = {
@@ -17293,11 +17340,12 @@ focus_tree = {
 			factor = 1
 		}	
 		completion_reward = {
-		add_ideas = ENG_tackle_capitalism_idea
+			
+			add_timed_idea = { idea = ENG_tackle_capitalism_idea days = 365 }
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = USA
-				expire = 0
+				expire = 365
 			}
 		}
 	}
@@ -17386,12 +17434,17 @@ focus_tree = {
 		available = {
 			is_subject = no
 			date > 1940.01.01
+			SOV = { is_faction_leader = yes }
+			SOV = { has_government = communism }
 			
-			
+
+		}
+		bypass = {
+			is_in_faction_with = SOV
 		}
 		
 		icon =  GFX_goal_support_fourth_int
-		x = 3
+		x = 2
 		y = 1
 		relative_position_id = ENG_follow_moscow
 		cost = 1
@@ -17447,7 +17500,8 @@ focus_tree = {
 			factor = 1
 		}	
 		completion_reward = {
-			add_ideas = ENG_total_centeralization
+			
+			add_ideas = total_centralisation_peace_law
 		}
 	}
 		
@@ -17496,8 +17550,17 @@ focus_tree = {
 		
 		available = {
 			is_subject = no
+			country_exists = SOV
+			NOT = { is_in_faction_with = SOV }
+			NOT = { has_war_with = SOV }
+			SOV = { has_government = communism }
 			
 			
+		}
+		bypass = {
+			has_war_with = SOV 
+			NOT = { SOV = { has_government = communism } }
+			country_exists = SOV
 		}
 		
 		icon = GFX_focus_SOV_the_glory_of_the_red_army_communism
@@ -17579,8 +17642,17 @@ focus_tree = {
 		
 		available = {
 			is_subject = no
+			country_exists = SOV
+			NOT = { is_in_faction_with = SOV }
+			has_war_with = SOV 
+			SOV = { has_government = communism }
 			
 			
+		}
+		bypass = {
+			NOT = { has_war_with = SOV }
+			NOT = { SOV = { has_government = communism } }
+			country_exists = SOV
 		}
 		will_lead_to_war_with = ARG
 		icon = GFX_goal_FRA_industrial_decentralization
@@ -17624,7 +17696,16 @@ focus_tree = {
 		prerequisite = { focus = ENG_clear_the_slums}
 		
 		available = {
-			
+			is_subject = no
+			country_exists = SOV
+			NOT = { is_in_faction_with = SOV }
+			NOT = { has_war_with = SOV }
+			SOV = { has_government = communism }
+		}
+		bypass = {
+			has_war_with = SOV 
+			NOT = { SOV = { has_government = communism } }
+			country_exists = SOV
 		}
 		
 		icon = GFX_goal_red_army
@@ -17650,6 +17731,16 @@ focus_tree = {
 		prerequisite = { focus = ENG_soviet_military_advisers}
 		
 		available = {
+			is_subject = no
+			country_exists = SOV
+			NOT = { is_in_faction_with = SOV }
+			NOT = { has_war_with = SOV }
+			SOV = { has_government = communism }
+		}
+		bypass = {
+			has_war_with = SOV 
+			NOT = { SOV = { has_government = communism } }
+			country_exists = SOV
 		}
 		
 		icon = GFX_focus_generic_socialist_science
@@ -17776,6 +17867,7 @@ focus_tree = {
 	
 		available = {
 			has_war = no
+			has_global_flag = scw_over
 			SPR = {
 				NOT = {
 					has_government = fascism
@@ -18748,6 +18840,35 @@ focus_tree = {
 					}
 				}	
 			}
+		}
+	
+	
+	
+	
+	
+	}
+	
+	focus = {
+		id = ENG_open_up_new_mines
+		prerequisite = { focus = ENG_follow_moscow focus = ENG_the_british_communist_alternative }
+		
+		available = { 
+			
+		}
+
+		
+
+		icon = GFX_goal_generic_expanded_production
+		x = 2
+		y = 1
+		relative_position_id = ENG_the_british_communist_alternative
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}	
+		
+		completion_reward = {
+		unlock_decision_category_tooltip = prospect_for_resources
 		}
 	
 	
