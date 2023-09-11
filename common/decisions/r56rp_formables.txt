@@ -27033,6 +27033,7 @@ formable_nations_italy_category  = {
 				original_tag  = SPM
 				original_tag  = LBV
 				original_tag = SIC
+				original_tag = SAD
 			}
 		}
 		
@@ -28541,14 +28542,7 @@ formable_nations_franco_british_union_category = {
 		cost  = 0  days_re_enable  = 0
 
 		visible  = {
-			NOT  = { 
-				has_country_flag  = nation_formed 
-				has_country_flag  = hide_formable_nations 
-			}
-			OR  = {
-				original_tag = ENG
-				original_tag = FRA
-			}
+			always = no
 		}
 
 		available  = {
@@ -37617,4 +37611,38 @@ formable_nations_west_africa_category = {
 			factor = 50
 		}
 	}	
+}
+
+formable_nations_sardinia_piedmont_category = {
+	form_sardinia_piedmont = {
+		icon = formable_nations_piedmont
+		fire_only_once = yes
+		available = {
+			is_subject = no
+			controls_state = 114
+			controls_state = 158
+		}
+	
+		visible = {
+			original_tag = SAD
+			NOT = {
+				has_cosmetic_tag = ITA_REBORN
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations
+			}
+		}
+	
+		complete_effect = {
+			158 = { add_core_of = ROOT }
+			set_cosmetic_tag = SAD_PIEDMONT
+
+			hidden_effect = {
+				set_country_flag = formed_sardinia_piedmont
+			}
+		}
+	
+		ai_will_do = {
+			factor = 200
+		}
+	}
 }
