@@ -164,3 +164,73 @@ DIPLOMACY_OFFER_JOIN_FACTION_ENABLE_TRIGGER = {
 		}
 	}
 }
+
+#sender ROOT
+#target FROM
+
+DIPLOMACY_WAR_ENABLE_TRIGGER = {
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
+			}
+		}
+		IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 5
+					compare = greater_than_or_equals
+				}
+			}
+			date > 1939.7.1
+			#FROM = { #depracated for now AKA cant be bothered
+			#	NOT = { has_idea = r56rp_anti_dogpile_rule }
+			#}
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 4
+					compare = equals
+				}
+			}
+			date > 1939.1.1
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 3
+					compare = equals
+				}
+			}
+			date > 1938.1.1
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 2
+					compare = equals
+				}
+			}
+			date > 1937.1.1
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 1
+					compare = equals
+				}
+			}
+			date > 1936.1.1
+		}
+		ELSE = {
+			date > 1937.1.1
+		}
+	}
+}
