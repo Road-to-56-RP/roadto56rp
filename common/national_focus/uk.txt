@@ -16202,7 +16202,7 @@ focus_tree = {
 		completion_reward = {
 			hidden_effect = { 
 				news_event = { id =  news.339 days = 1 } 
-				country_event = { days = 10 id = mtg_britain.1001 }
+				country_event = { days = 10 id = rt56rp_britain.4 }
 				release = SCO
 				release = WLS
 				release = NIR
@@ -16211,17 +16211,15 @@ focus_tree = {
 				}
 				NIR = { 
 					add_ideas = ENG_devolution_from_england
-					country_event = { days = 10 id = mtg_britain.1001 }
+					country_event = { 
+						days = 10 id = rt56rp_britain.4 
+					}
+						
+					
 				}
 				SCO = { 
 					add_ideas = ENG_devolution_from_england
 				}
-				country_event = { days = 10 id = mtg_britain.1001 }
-				IRE = { 
-					country_event = { days = 10 id = mtg_britain.1001 }
-				}
-				
-				
 			}
 			add_stability = -0.05
 			set_faction_name = "The British Isles Defense Pact"
@@ -16613,20 +16611,20 @@ focus_tree = {
 			}
 			132 = {
 					
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
-					level = 4
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = kickstart_the_war_industry_2AF
 			}
 			130 = {
 				
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
-					level = 4
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = kickstart_the_war_industry_2AF
@@ -16796,10 +16794,10 @@ focus_tree = {
 			}
 			132 = {
 				
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
-					level = 3
+					level = 1
 					instant_build = yes
 				
 				}
@@ -17302,18 +17300,18 @@ focus_tree = {
 					}
 					add_building_construction = {
 						type = infrastructure
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 					add_building_construction = {
 						type = air_base
-						level = 5
+						level = 3
 						instant_build = yes
 					}
 					# Bermuda
 					add_building_construction = {
 						type = naval_base
-						level = 5
+						level = 3
 						province = 13010
 						instant_build = yes
 					}
@@ -17375,18 +17373,18 @@ focus_tree = {
 					}
 					add_building_construction = {
 						type = infrastructure
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 					add_building_construction = {
 						type = air_base
-						level = 5
+						level = 3
 						instant_build = yes
 					}
 					# Bermuda
 					add_building_construction = {
 						type = naval_base
-						level = 5
+						level = 3
 						province = 13010
 						instant_build = yes
 					}
@@ -17533,10 +17531,12 @@ focus_tree = {
 					set_temp_variable = { state_num_factory = industrial_complex_level }
 					add_to_temp_variable = { state_num_factory = arms_factory_level }
 					add_to_temp_variable = { state_num_factory = building_level@dockyard }
-					check_variable = { state_num_factory > 6 }
+					check_variable = { state_num_factory > 5 }
+					
 				}
 				add_extra_state_shared_building_slots = 2
 			}
+			custom_effect_tooltip = 1_RT56RPUK_tt
 		}
 			
 	}
@@ -18615,6 +18615,11 @@ focus_tree = {
 	focus = {
 		id = ENG_the_scottish_army
 		available = {
+			country_exists = SCO
+				SCO = {
+					is_subject_of = ENG
+					is_in_faction_with = ENG
+				}
 			
 			
 		}
@@ -18678,6 +18683,11 @@ focus_tree = {
 	focus = {
 		id = ENG_the_welsh_army
 		available = {
+			country_exists = WLS
+				WLS = {
+					is_subject_of = ENG
+					is_in_faction_with = ENG
+				}
 	
 		}
 
@@ -18694,7 +18704,7 @@ focus_tree = {
 		}
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_MILITARY_EQUIPMENT}
 		completion_reward = {
-			WLS = { custom_effect_tooltip = create_two_units_tt }
+			WLS = { custom_effect_tooltip = create_three_units_tt }
 			WLS = { 
 				division_template = {
 					name = "The Welsh Dragon"
@@ -18724,7 +18734,12 @@ focus_tree = {
 							division = "name = \"The Welsh dragon Divison\" division_template = \"The Welsh Dragon\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
 							owner = PREV
 						
-						}	
+						}
+						create_unit = {
+							division = "name = \"The Welsh dragon Divison\" division_template = \"The Welsh Dragon\" start_experience_factor = 0.15 start_equipment_factor = 0.9"
+							owner = PREV
+						
+						}
 					}		
 				}
 			}	
@@ -18738,6 +18753,11 @@ focus_tree = {
 		prerequisite = { focus = ENG_the_scottish_army}
 		
 		available = { 
+			country_exists = SCO
+			SCO = {
+				is_subject_of = ENG
+				is_in_faction_with = ENG
+			}
 			
 		}
 
@@ -18765,20 +18785,20 @@ focus_tree = {
 			SCO = {
 				121 = {
 					
-					add_extra_state_shared_building_slots = 3
+					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = arms_factory
-						level = 3
+						level = 2
 						instant_build = yes
 					}
 					set_state_flag = kickstart_the_war_industry_2AF
 				}
 				133 = {
 					
-					add_extra_state_shared_building_slots = 3
+					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = arms_factory
-						level = 3
+						level = 2
 						instant_build = yes
 					}
 					set_state_flag = kickstart_the_war_industry_2AF
@@ -18793,6 +18813,11 @@ focus_tree = {
 		prerequisite = { focus = ENG_the_welsh_army}
 		
 		available = { 
+			country_exists = WLS
+			WLS = {
+				is_subject_of = ENG
+				is_in_faction_with = ENG
+			}
 			
 		}
 
@@ -18822,20 +18847,20 @@ focus_tree = {
 			WLS = {
 				122 = {
 					
-					add_extra_state_shared_building_slots = 3
+					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = arms_factory
-						level = 3
+						level = 2
 						instant_build = yes
 					}
 					set_state_flag = kickstart_the_war_industry_2AF
 				}
 				122 = {
 					
-					add_extra_state_shared_building_slots = 3
+					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = industrial_complex
-						level = 3
+						level = 2
 						instant_build = yes
 					}
 				}	
