@@ -23,7 +23,49 @@
 
 on_actions = {
 
-	
+	on_declare_war = {
+		effect = {
+			IF = {
+				limit = {
+					tag = CHI
+					FROM = {
+						OR = {
+							tag = GXC
+							tag = MEN
+							tag = SHX
+							tag = PRC
+							tag = XSM
+							tag = SIK
+							tag = TNG
+							tag = YUN
+						}
+					}
+					date < 1939.1.1
+				}
+				IF = {
+					limit = {
+						CHI = {
+							has_country_flag = r56rp_chi_declared_on_warlord_early_1
+						}
+					}
+					set_country_flag = r56rp_chi_declared_on_warlord_early_2
+				}
+				ELSE_IF = {
+					limit = {
+						CHI = {
+							NOT = {
+								AND = {
+									has_country_flag = r56rp_chi_declared_on_warlord_early_1
+									has_country_flag = r56rp_chi_declared_on_warlord_early_2
+								}
+							}
+						}
+					}
+					set_country_flag = r56rp_chi_declared_on_warlord_early_1
+				}
+			}
+		}
+	}
 
 	on_startup = {
 		effect = {
