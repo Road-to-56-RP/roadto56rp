@@ -6501,12 +6501,10 @@ focus_tree = {
 		}
 		
 		available = {
-			all_state = {
-				limit = {
-					is_core_of = HUN
-				}
-				controlled_by = THIS
-			}
+			154 = { is_controlled_by = ROOT }
+			155 = { is_controlled_by = ROOT }
+			43 = { is_controlled_by = ROOT }
+			913 = { is_controlled_by = ROOT }
 		}
 		
 		bypass = {
@@ -6514,7 +6512,6 @@ focus_tree = {
 			155 = { is_core_of = ROOT }
 			43 = { is_core_of = ROOT }
 			913 = { is_core_of = ROOT }
-				
 		}
 
 		completion_reward = {
@@ -7185,187 +7182,9 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL }
 	}
 	
-	focus = {
-		id = AUS_our_old_allies
-		icon = GFX_goal_AUS_befriend_bulgaria
-		prerequisite = { focus = AUS_our_fate_is_our_own focus = AUS_germanic_brotherhood }
-		relative_position_id = AUS_germanic_brotherhood
-		x = 0
-		y = 1
-		cost = 10
-		ai_will_do = {
-			factor = 2
-		}
-		
-		available = {
-			is_in_faction = yes
-			is_faction_leader = yes
-			OR = {
-				controls_state = 46
-				controls_state = 108
-			}
-			country_exists = BUL
-			BUL = { is_in_faction = no }
-		}
-		
-		bypass = {
-			OR = {
-				NOT = { country_exists = BUL }
-				has_war_with = BUL
-				is_in_faction_with = BUL
-			}
-		}
-		
-		
-		
-		
-		
-		completion_reward = {
-			BUL = {
-				country_event = { days = 1 id = austria.1149 }
-			}
-		}
-	}
+
 	
-	focus = {
-		id = AUS_control_the_balkan_peninsula
-		icon = GFX_goal_generic_attack_greece
-		prerequisite = { focus = AUS_our_fate_is_our_own focus = AUS_germanic_brotherhood }
-		relative_position_id = AUS_germanic_brotherhood
-		x = 2
-		y = 1
-		cost = 10
-		ai_will_do = {
-			factor = 2
-		}
-		
-		available = {
-			GRE = {
-				NOT = { is_in_faction_with = AUS }
-			}
-			OR = {
-				controls_state = 106
-				any_country = {
-					is_subject_of = ROOT
-					controls_state = 106					
-				}
-			}
-		}
-		
-		bypass = {
-			OR = {
-				NOT = { country_exists = GRE }
-				GRE = {
-					is_subject = yes
-				}
-				has_war_with = GRE
-			}
-		}
-		
-		
-		
-		
-		
-		completion_reward = {
-			GRE = {
-				country_event = { days = 1 id = austria.1150 }
-			}
-		}
-	}
-	
-	focus = {
-		id = AUS_alliance_with_turkey
-		icon = GFX_goal_generic_befriend_turkey
-		prerequisite = { focus = AUS_our_old_allies focus = AUS_control_the_balkan_peninsula }
-		relative_position_id = AUS_germanic_brotherhood
-		x = 0
-		y = 2
-		cost = 10
-		ai_will_do = {
-			factor = 2
-		}
-		
-		available = {
-			is_in_faction = yes
-			is_faction_leader = yes
-			NOT = { has_war_with = TUR }
-			OR = {
-				controls_state = 211
-				controls_state = 184
-				any_other_country = {
-					OR = {
-						AND = {
-							is_in_faction_with = AUS
-							controls_state = 211
-						}
-						AND = {
-							is_in_faction_with = AUS
-							controls_state = 184
-						}
-					}
-				}
-			}
-			TUR = {
-				NOT = { has_government = communism }
-				is_in_faction = no
-			}
-		}
-		
-		
-		
-		
-		
-		completion_reward = {
-			TUR = {
-				country_event = { days = 1 id = austria.1153 }
-			}
-		}
-	}
-	
-	focus = {
-		id = AUS_the_ottoman_menace
-		icon = GFX_goal_generic_attack_turkey
-		prerequisite = { focus = AUS_our_old_allies focus = AUS_control_the_balkan_peninsula }
-		mutually_exclusive = { focus = AUS_alliance_with_turkey }
-		relative_position_id = AUS_germanic_brotherhood
-		x = 2
-		y = 2
-		cost = 5
-		ai_will_do = {
-			factor = 0.4
-		}
-		
-		available = {
-			NOT = { has_war_with = TUR }
-			OR = {
-				controls_state = 211
-				controls_state = 184
-				any_other_country = {
-					OR = {
-						AND = {
-							is_in_faction_with = AUS
-							controls_state = 211
-						}
-						AND = {
-							is_in_faction_with = AUS
-							controls_state = 184
-						}
-					}
-				}
-			}
-			TUR = {
-				is_in_faction = no
-				controls_state = 797
-			}
-		}
-		
-		
-		completion_reward = {
-			create_wargoal = { type = annex_everything target = TUR 
-				expire = 0}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
+
 	
 	focus = {
 		id = AUS_friends_beneath_the_bear
@@ -7589,6 +7408,184 @@ focus_tree = {
 			add_research_slot = 1
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = AUS_our_old_allies
+		icon = GFX_goal_AUS_befriend_bulgaria
+		prerequisite = { focus = AUS_our_fate_is_our_own focus = AUS_germanic_brotherhood }
+		relative_position_id = AUS_germanic_brotherhood
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 2
+		}
+		
+		available = {
+			is_in_faction = yes
+			is_faction_leader = yes
+			OR = {
+				controls_state = 46
+				controls_state = 108
+			}
+			country_exists = BUL
+			BUL = { is_in_faction = no }
+		}
+		
+		bypass = {
+			OR = {
+				NOT = { country_exists = BUL }
+				has_war_with = BUL
+				is_in_faction_with = BUL
+			}
+		}
+		
+		completion_reward = {
+			BUL = {
+				country_event = { days = 1 id = austria.1149 }
+			}
+		}
+	}
+
+	focus = {
+		id = AUS_control_the_balkan_peninsula
+		icon = GFX_goal_generic_attack_greece
+		prerequisite = { focus = AUS_our_fate_is_our_own focus = AUS_germanic_brotherhood }
+		relative_position_id = AUS_germanic_brotherhood
+		x = 2
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 2
+		}
+		
+		available = {
+			GRE = {
+				NOT = { is_in_faction_with = AUS }
+			}
+			OR = {
+				controls_state = 106
+				any_country = {
+					is_subject_of = ROOT
+					controls_state = 106					
+				}
+			}
+		}
+		
+		bypass = {
+			OR = {
+				NOT = { country_exists = GRE }
+				GRE = {
+					is_subject = yes
+				}
+				has_war_with = GRE
+			}
+		}
+		
+		
+		
+		
+		
+		completion_reward = {
+			GRE = {
+				country_event = { days = 1 id = austria.1150 }
+			}
+		}
+	}
+	
+	focus = {
+		id = AUS_alliance_with_turkey
+		icon = GFX_goal_generic_befriend_turkey
+		prerequisite = { focus = AUS_our_old_allies focus = AUS_control_the_balkan_peninsula }
+		relative_position_id = AUS_germanic_brotherhood
+		x = 0
+		y = 2
+		cost = 10
+		ai_will_do = {
+			factor = 2
+		}
+		
+		available = {
+			is_in_faction = yes
+			is_faction_leader = yes
+			NOT = { has_war_with = TUR }
+			OR = {
+				controls_state = 211
+				controls_state = 184
+				any_other_country = {
+					OR = {
+						AND = {
+							is_in_faction_with = AUS
+							controls_state = 211
+						}
+						AND = {
+							is_in_faction_with = AUS
+							controls_state = 184
+						}
+					}
+				}
+			}
+			TUR = {
+				NOT = { has_government = communism }
+				is_in_faction = no
+			}
+		}
+		
+		
+		
+		
+		
+		completion_reward = {
+			TUR = {
+				country_event = { days = 1 id = austria.1153 }
+			}
+		}
+	}
+	
+	focus = {
+		id = AUS_the_ottoman_menace
+		icon = GFX_goal_generic_attack_turkey
+		prerequisite = { focus = AUS_our_old_allies focus = AUS_control_the_balkan_peninsula }
+		mutually_exclusive = { focus = AUS_alliance_with_turkey }
+		relative_position_id = AUS_germanic_brotherhood
+		x = 2
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 0.4
+		}
+		
+		available = {
+			NOT = { has_war_with = TUR }
+			OR = {
+				controls_state = 211
+				controls_state = 184
+				any_other_country = {
+					OR = {
+						AND = {
+							is_in_faction_with = AUS
+							controls_state = 211
+						}
+						AND = {
+							is_in_faction_with = AUS
+							controls_state = 184
+						}
+					}
+				}
+			}
+			TUR = {
+				is_in_faction = no
+				controls_state = 797
+			}
+		}
+		
+		
+		completion_reward = {
+			create_wargoal = { type = annex_everything target = TUR 
+				expire = 0}
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
 	
 	focus = {
