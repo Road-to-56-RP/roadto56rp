@@ -42588,7 +42588,17 @@ formable_nations_maya_kingdom_category = {
 			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_MAY } } }
 			
 		}
-		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+		complete_effect  = { 
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			capital_scope  = { set_state_flag  = formable_nations_old_capital }
 			set_cosmetic_tag  = FORM_MAY
 			add_ideas  = generic_recent_political_unification
             add_ideas  = generic_recent_army_unification
