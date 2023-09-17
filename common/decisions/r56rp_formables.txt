@@ -345,7 +345,6 @@ formable_nations_americas_category  = {
 			NOT  = { has_country_flag  = nation_formed }
 			NOT  = { has_country_flag  = hide_formable_nations }
 			OR  = {
-				
 				capital_scope  = {OR  = { is_on_continent  = north_america  is_on_continent  = south_america } }
 			}
 		}
@@ -41328,6 +41327,76 @@ formable_nations_northwestern_china_category = {
 				759 = { add_core_of = ROOT }
 			}
 			custom_effect_tooltip  = core_land
+		}
+	}
+}
+formable_nations_maya_kingdom_category = {
+	formable_nations_maya_kingdom = {
+		icon = formable_nations_maya
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			NOT  = { 
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag = BLZ
+				original_tag = GUA
+				original_tag = ELS
+			}
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = kingdom_of_heaven_tooltip
+				OR  = {
+					AND  = {
+						474 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						475 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						313 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						311 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_MAY } } }
+			
+		}
+		complete_effect  = { capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_MAY
+			add_ideas  = generic_recent_political_unification
+            add_ideas  = generic_recent_army_unification
+            add_ideas  = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
+				474 = { add_core_of = ROOT }
+				475 = { add_core_of = ROOT }
+				313 = { add_core_of = ROOT }
+				311 = { add_core_of = ROOT }
+			}
 		}
 	}
 }
