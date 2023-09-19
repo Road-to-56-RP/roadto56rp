@@ -8180,9 +8180,10 @@ formable_nations_bulgarian_empire_category  = {
 				has_country_flag  = nation_formed 
 				has_country_flag  = hide_formable_nations 
 			}
-			original_tag  = MAC
-				
-			#
+			OR = {
+				original_tag  = MAC
+				original_tag = BUL
+			}
 		}
 		
 		available  = {
@@ -25212,7 +25213,6 @@ formable_nations_west_rome_category  = {
 							} 
 						} 
 					}
-
 				}
 			}
 			custom_trigger_tooltip  = {
@@ -27855,6 +27855,8 @@ formable_nations_italy_category  = {
 				original_tag  = LBV
 				original_tag = SIC
 				original_tag = SAD
+				original_tag = MNC
+				original_tag = SAN
 			}
 		}
 		
@@ -28527,12 +28529,6 @@ formable_nations_kingdom_of_heaven_category = {
 				tooltip  = kingdom_of_heaven_tooltip
 				OR  = {
 					AND  = {
-						553 = {
-							OR  = { 
-								is_controlled_by  = ROOT 
-								controller  = { is_subject_of  = ROOT } 
-							} 
-						} 
 						454 = {
 							OR  = { 
 								is_controlled_by  = ROOT 
@@ -28585,10 +28581,10 @@ formable_nations_kingdom_of_heaven_category = {
 			add_ideas  = generic_recent_political_unification
             add_ideas  = generic_recent_army_unification
             add_ideas  = generic_recent_economic_unification
+			add_ideas = r56rp_deus_vult
+			set_capital = { state = 1016 }
 			custom_effect_tooltip  = core_land
-
 			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
-				553  = { add_core_of  = ROOT }
 				811  = { add_core_of  = ROOT }
 				454  = { add_core_of  = ROOT }
 				966  = { add_core_of  = ROOT }
@@ -28596,6 +28592,273 @@ formable_nations_kingdom_of_heaven_category = {
 				1016  = { add_core_of  = ROOT }
 				1017  = { add_core_of  = ROOT }
 			}
+		}
+	}
+}
+formable_nations_crusade_category = {
+	reclaim_tripoli = {
+		icon = formable_nations_jerusalem_claims
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			has_cosmetic_tag = FORM_KOH 
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = kingdom_of_heaven_tripoli_tooltip
+				OR  = {
+					AND  = {
+						553 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}	
+		}
+		fire_only_once = yes
+		complete_effect  = {
+			553 = { add_core_of = ROOT }
+		}
+	}
+
+	reclaim_antioch = {
+		icon = formable_nations_jerusalem_claims
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			has_cosmetic_tag = FORM_KOH 
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = kingdom_of_heaven_antioch_tooltip
+				OR  = {
+					AND  = {
+						677 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}	
+		}
+		fire_only_once = yes
+		complete_effect  = {
+			677 = { add_core_of = ROOT }
+		}
+	}
+
+	claim_cyprus = {
+		icon = formable_nations_jerusalem_claims
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			has_cosmetic_tag = FORM_KOH 
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = kingdom_of_heaven_cyprus_tooltip
+				OR  = {
+					AND  = {
+						183 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}	
+		}
+		fire_only_once = yes
+		complete_effect  = {
+			183 = { add_core_of = ROOT }
+			hidden_effect = {
+				set_country_flag = cyprus_retaken
+			}
+		}
+	}
+
+	reclaim_cyprian_antalya = {
+		icon = formable_nations_jerusalem_claims
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_country_flag = cyprus_retaken
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = kingdom_of_heaven_cyprus_antalya_tooltip
+				OR  = {
+					AND  = {
+						342 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}	
+		}
+		fire_only_once = yes
+		complete_effect  = {
+			342 = { add_core_of = ROOT }
+			hidden_effect = {
+				clr_country_flag = cyprus_retaken
+			}
+			345 = { add_claim_by = ROOT }
+		}
+	}
+
+	reclaim_edessa = {
+		icon = formable_nations_jerusalem_claims
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			has_cosmetic_tag = FORM_KOH 
+		}
+		fire_only_once = yes
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = kingdom_of_heaven_edessa_tooltip
+				OR  = {
+					AND  = {
+						680 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						350 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}	
+		}
+
+		complete_effect  = {
+			680 = { add_core_of = ROOT }
+			350 = { add_core_of = ROOT }
+			hidden_effect = {
+				set_country_flag = edessa_established
+			}
+		}
+	}
+
+	expand_edessa = {
+		icon = formable_nations_jerusalem_claims
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			has_country_flag = edessa_established
+		}
+		fire_only_once = yes
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = kingdom_of_heaven_edessa_extra_tooltip
+				OR  = {
+					AND  = {
+						344 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						799 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}	
+		}
+
+		complete_effect  = {
+			344 = { add_core_of = ROOT }
+			799 = { add_core_of = ROOT }
+			hidden_effect = {
+				clr_country_flag = edessa_established
+			}
+		}
+	}
+
+	push_christianity_east = {
+		icon = formable_nations_jerusalem_claims
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			has_cosmetic_tag = FORM_KOH 
+		}
+		fire_only_once = yes
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  =  kingdom_of_heaven_extra_tooltip
+				OR  = {
+					AND  = {
+						455 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						1021 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						1022 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						554 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}	
+		}
+
+		complete_effect  = {
+			455 = { add_core_of = ROOT }
+			1022 = { add_core_of = ROOT }
+			1021 = { add_core_of = ROOT }
+			554 = { add_core_of = ROOT }
 		}
 	}
 }
@@ -32864,12 +33127,6 @@ formable_nations_rising_sun_category = {
 							} 
 						}
 						289 = {
-							OR  = { 
-								is_controlled_by  = ROOT 
-								controller  = { is_subject_of  = ROOT } 
-							} 
-						}
-						686 = {
 							OR  = { 
 								is_controlled_by  = ROOT 
 								controller  = { is_subject_of  = ROOT } 
@@ -42609,6 +42866,1592 @@ formable_nations_maya_kingdom_category = {
 				475 = { add_core_of = ROOT }
 				313 = { add_core_of = ROOT }
 				311 = { add_core_of = ROOT }
+			}
+		}
+	}
+}
+
+formable_nations_teutonic_category = {
+	formable_nations_teutonic = {
+		icon = formable_nations_teutonic
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			NOT  = { 
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag = DNZ
+				has_cosmetic_tag = PRS
+			}
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = kingdom_of_heaven_tooltip
+				OR  = {
+					AND  = {
+						85 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						5 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						763 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_TUT } } }
+			
+		}
+		complete_effect  = { 
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_TUT
+			add_ideas = generic_recent_political_unification
+            add_ideas = generic_recent_army_unification
+            add_ideas = generic_recent_economic_unification
+			add_ideas = r56rp_deus_vult
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
+				85 = { add_core_of = ROOT }
+				5 = { add_core_of = ROOT }
+				763 = { add_core_of = ROOT }
+			}
+		}
+	}
+}
+
+formable_nations_teutonic_extras_category = {
+	reclaim_livonia = {
+		icon = formable_nations_livonian_order
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_cosmetic_tag = FORM_TUT
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = latvia_requirement_tooltip
+				OR  = {
+					AND  = {
+						12 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						190 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						808 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						809 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						810 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = {
+				tooltip  = estonia_requirement_tooltip_2
+				OR  = {
+					AND  = {
+						13 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						191 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						811 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+
+				}
+			}		
+		}
+		complete_effect  = {
+			13  = { add_core_of  = ROOT }
+			191  = { add_core_of  = ROOT }
+			811  = { add_core_of  = ROOT }
+			190  = { add_core_of  = ROOT }
+			12  = { add_core_of  = ROOT }
+			808  = { add_core_of  = ROOT }
+			809  = { add_core_of  = ROOT }
+			810  = { add_core_of  = ROOT }
+		}
+	}
+
+	TUT_connect_our_possesions = {
+		icon = formable_nations_teutonic
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_cosmetic_tag = FORM_TUT
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = lithuania_requirement_tooltip2
+				OR  = {
+					AND  = {
+						188 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						189 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						814 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						11 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						815 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}
+		}
+		complete_effect  = {
+			188 = { add_core_of  = ROOT }
+			189 = { add_core_of  = ROOT }
+			814 = { add_core_of  = ROOT }
+			11 = { add_core_of  = ROOT }
+			815 = { add_core_of  = ROOT }
+		}
+	}
+
+	TUT_push_out_the_grand_duchy = {
+		icon = formable_nations_greater_lithuania
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_cosmetic_tag = FORM_TUT
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = lithuania_requirement_tooltip3
+				OR  = {
+					AND  = {
+						934 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						784 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						936 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						96 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						935 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}
+		}
+		complete_effect  = {
+			934 = { add_core_of  = ROOT }
+			784 = { add_core_of  = ROOT }
+			936 = { add_core_of  = ROOT }
+			96 = { add_core_of  = ROOT }
+			935 = { add_core_of  = ROOT }
+		}
+	}
+}
+
+formable_nations_numidia_category = {
+	formable_nations_numidia = {
+		icon = formable_nations_numidia
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			NOT  = { 
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag = ALG
+				original_tag = ALB
+				original_tag = TUN
+				original_tag = MOR
+			}
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = kingdom_of_heaven_tooltip
+				OR  = {
+					AND  = {
+						665 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						661 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						448 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						933 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						460 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						459 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						513 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						514 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_NUM} } }
+			
+		}
+		complete_effect  = { 
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_NUM
+			add_ideas = r56rp_numidian_cavalry
+			add_ideas = generic_recent_political_unification
+            add_ideas = generic_recent_army_unification
+            add_ideas = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
+				665 = { add_core_of = ROOT }
+				661 = { add_core_of = ROOT }
+				448 = { add_core_of = ROOT }
+				933 = { add_core_of = ROOT }
+				460 = { add_core_of = ROOT }
+				459 = { add_core_of = ROOT }
+				513 = { add_core_of = ROOT }
+				514 = { add_core_of = ROOT }
+				set_country_flag = numidia_reformed1
+			}
+		}
+	}
+}
+
+formable_nations_numidia_category_extra = {
+	push_former_carthage = {
+		icon = formable_nations_carthage
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			OR = {
+				has_country_flag = numidia_reformed1
+				NOT = {
+					original_tag = TUN
+				}
+			}
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = tunisia_numidia_tooltip
+				OR  = {
+					AND  = {
+						458 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+		}
+
+		complete_effect  = { 
+			458 = { add_core_of = ROOT }
+			hidden_effect = {
+				clr_country_flag = numidia_reformed1
+				set_country_flag = numidia_reformed2
+			}
+		}
+	}
+
+	claim_morrocan_posessions = {
+		icon = formable_nations_greater_morocco
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			OR = {
+				has_country_flag = numidia_reformed2
+				NOT = {
+					original_tag = MOR
+				}
+			}
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = morroco_numidia_tooltip
+				OR  = {
+					AND  = {
+						458 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						461 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						462 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						290 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						783 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+		}
+
+		complete_effect  = { 
+			hidden_effect  = {
+				clr_country_flag = numidia_reformed2
+			}
+			461 = { add_core_of = ROOT }
+			462 = { add_core_of = ROOT }
+			290 = { add_core_of = ROOT }
+			783 = { add_core_of = ROOT }
+		}
+	}
+}
+
+formable_nations_gaul_category = {
+	formable_nations_gaul = {
+		icon = formable_nations_gaul
+		ai_will_do  = {
+			factor  = 100
+		}
+		
+		cost  = 0  days_re_enable  = 0
+		
+		visible  = {
+			NOT  = { 
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag = BRI
+				original_tag = IRE
+				original_tag = WLS
+				original_tag = MNC # Ligurians were the first settlers of Monaco Rock
+			}
+		}
+	
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = france_requirement_tooltip
+				OR  = {
+					AND  = {
+						1 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						14 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						15 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						16 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						17 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						18 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						19 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						806 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						20 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						21 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						851 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						22 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						23 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						24 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						25 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						26 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						27 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						28 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						29 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						30 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						31 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						32 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						33 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						735 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						785 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+				custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_GAL_FRA } } }
+			}
+		}
+
+		complete_effect  = { 
+			if = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_GAL_FRA
+			add_ideas = generic_recent_political_unification
+			add_ideas = generic_recent_army_unification
+			add_ideas = generic_recent_economic_unification
+			add_ideas = r56rp_ancestors_of_brennus
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
+				16 = { add_core_of = ROOT }
+				15 = { add_core_of = ROOT }
+				29 = { add_core_of = ROOT }
+				785 = { add_core_of = ROOT }
+				18 = { add_core_of = ROOT }
+				17 = { add_core_of = ROOT }
+				28 = { add_core_of = ROOT }
+				24 = { add_core_of = ROOT }
+				30 = { add_core_of = ROOT }
+				23 = { add_core_of = ROOT }
+				33 = { add_core_of = ROOT }
+				26 = { add_core_of = ROOT }
+				20 = { add_core_of = ROOT }
+				32 = { add_core_of = ROOT }
+				735 = { add_core_of = ROOT }
+				806 = { add_core_of = ROOT }
+				31 = { add_core_of = ROOT }
+				22 = { add_core_of = ROOT }
+				21 = { add_core_of = ROOT }
+				851 = { add_core_of = ROOT }
+				14 = { add_core_of = ROOT }
+				19 = { add_core_of = ROOT }
+				25 = { add_core_of = ROOT }
+				27 = { add_core_of = ROOT }
+
+			}
+		}
+	}
+}
+
+formable_nations_gaul_category_extra = {
+	claim_the_lands_of_the_belgae = {
+		icon = formable_nations_gaul
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_cosmetic_tag = FORM_GAL_FRA
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = belgium_requirement_tooltip
+				OR  = {
+					AND  = {
+						6 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						34 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						965  = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+		}
+
+		complete_effect  = { 
+			6 = { add_core_of = ROOT }
+			34 = { add_core_of = ROOT }
+			965 = { add_core_of = ROOT }
+		}
+	}
+
+	claim_the_lands_of_the_adriatic_veneti = {
+		icon = formable_nations_gaul
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_cosmetic_tag = FORM_GAL_FRA
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = north_hre_italy_requirement_tooltip
+				OR  = {
+					AND  = {
+						39 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						912 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						736 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						852 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						160 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						159 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						850 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+		}
+
+		complete_effect  = { 
+			39 = { add_core_of = ROOT }
+			912 = { add_core_of = ROOT }
+			736 = { add_core_of = ROOT }
+			852 = { add_core_of = ROOT }
+			160 = { add_core_of = ROOT }
+			159 = { add_core_of = ROOT }
+			850 = { add_core_of = ROOT }
+		}
+	}
+
+
+	claim_liguria = {
+		icon = formable_nations_gaul
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_cosmetic_tag = FORM_GAL_FRA
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = liguria_tooltip
+				OR  = {
+					AND  = {
+						158 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}
+		}
+
+		complete_effect  = { 
+			158 = { add_core_of = ROOT }
+		}
+	}
+}
+
+formable_nations_latin_empire_category = {
+	formable_nations_latin_empire = {
+		icon = formable_nations_latin_empire
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			NOT  = { 
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag = VNZ
+				original_tag = PAP
+				original_tag = TOS
+				original_tag = TTS
+				original_tag = SIC
+				original_tag = SAD
+			}
+		}
+	
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = kingdom_of_heaven_tooltip
+				OR  = {
+					AND  = {
+						341 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						797 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						340 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						184 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						731 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						47 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						187 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						347 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+	
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_LATEM } } }
+		}
+		complete_effect  = {
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_LATEM
+			add_ideas  = generic_recent_political_unification
+			add_ideas  = generic_recent_army_unification
+			add_ideas  = generic_recent_economic_unification
+			add_ideas = r56rp_deus_vult
+			hidden_effect = { 797 = { set_state_name = "Constantinople" } }
+			set_province_name = { id = 9833 name = "Constantinople" }
+			set_capital = { state = 797 }
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
+				341 = { add_core_of  = ROOT }
+				797 = { add_core_of  = ROOT }
+				340 = { add_core_of  = ROOT }
+				184 = { add_core_of  = ROOT }
+				731 = { add_core_of  = ROOT }
+				47 = { add_core_of  = ROOT }
+				187 = { add_core_of  = ROOT }
+				347 = { add_core_of  = ROOT }
+			}
+		}
+	}
+}
+
+formable_nations_latin_empire_extras_category = {
+	formable_nations_latin_empire_extras = {
+		icon = formable_nations_nicea
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_cosmetic_tag = FORM_LATEM
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = push_claim_latin_empire_tooltip
+				OR  = {
+					AND  = {
+						341 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						797 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						340 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+		}
+
+		complete_effect  = {
+			339 = { add_core_of  = ROOT }
+			343 = { add_core_of  = ROOT }
+			49 = { add_core_of  = ROOT }
+		}
+	}
+
+	formable_nations_achaea = {
+		icon = formable_nations_achaea
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+
+		visible  = {
+			has_cosmetic_tag = FORM_LATEM
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = push_claim_latin_empire_tooltip2
+				OR  = {
+					AND  = {
+						185 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						186 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						182 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+		}
+
+		complete_effect  = {
+			185 = { add_core_of  = ROOT }
+			186 = { add_core_of  = ROOT }
+			182 = { add_core_of  = ROOT }
+		}
+	}
+}
+
+formable_nations_north_africa_category = {
+	formable_nations_north_africa = {
+		icon = formable_nations_north_africa
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			NOT  = { 
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag = LBA
+				original_tag = EGY
+				original_tag = MOR
+				original_tag = TUN
+				original_tag = ALG
+			}
+		}
+	
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = north_africa_west_rome_requirement_tooltip
+				OR  = {
+					AND  = {
+						459 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						458 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						460 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						458 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						448 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						449 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						665 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						661 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						662 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						290 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						461 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+					}
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_NAF } } }
+		}
+
+		complete_effect  = {
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_NAF
+			add_ideas  = generic_recent_political_unification
+			add_ideas  = generic_recent_army_unification
+			add_ideas  = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
+				459 = { add_core_of = ROOT }
+				460 = { add_core_of = ROOT }
+				513 = { add_core_of = ROOT }
+				461 = { add_core_of = ROOT }
+				290 = { add_core_of = ROOT }
+				448 = { add_core_of = ROOT }
+				661 = { add_core_of = ROOT }
+				449 = { add_core_of = ROOT }
+				662 = { add_core_of = ROOT }
+				663 = { add_core_of = ROOT }
+				450 = { add_core_of = ROOT }
+				451 = { add_core_of = ROOT }
+				458 = { add_core_of = ROOT }
+				665 = { add_core_of = ROOT }
+				453 = { add_core_of = ROOT }
+				907 = { add_core_of = ROOT }
+				446 = { add_core_of = ROOT }
+				447 = { add_core_of = ROOT }
+				452 = { add_core_of = ROOT }
+				456 = { add_core_of = ROOT }
+				457 = { add_core_of = ROOT }
+				462 = { add_core_of = ROOT }
+				933 = { add_core_of = ROOT }
+				911 = { add_core_of = ROOT }
+				995 = { add_core_of = ROOT }
+				552 = { add_core_of = ROOT }
+			}
+		}
+	}
+}
+
+formable_nations_visigothic_kingdom_of_spain_category = {
+	formable_nations_visigothic_kingdom_of_spain = {
+		icon = formable_nations_visigothic
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			NOT  = { 
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag = IRE
+				original_tag = WLS
+				original_tag = ADR
+			}
+		}
+	
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = visigoth_tt
+				OR  = {
+					AND  = {
+						41 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						165 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						166 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						167 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						168 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						169 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						170 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						172 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						173 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						175 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						176 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						788 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						789 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						791 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						792 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						793 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						794 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						112 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						179 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						181 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						177 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+
+					}
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_VISI } } }
+		}
+
+		complete_effect  = {
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_VISI
+			add_ideas  = generic_recent_political_unification
+			add_ideas  = generic_recent_army_unification
+			add_ideas  = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
+				41 = { add_core_of = ROOT }
+				165 = { add_core_of = ROOT }
+				166 = { add_core_of = ROOT }
+				167 = { add_core_of = ROOT }
+				168 = { add_core_of = ROOT }
+				169 = { add_core_of = ROOT }
+				170 = { add_core_of = ROOT }
+				172 = { add_core_of = ROOT }
+				173 = { add_core_of = ROOT }
+				175 = { add_core_of = ROOT }
+				176 = { add_core_of = ROOT }
+				788 = { add_core_of = ROOT }
+				789 = { add_core_of = ROOT }
+				791 = { add_core_of = ROOT }
+				792 = { add_core_of = ROOT }
+				793 = { add_core_of = ROOT }
+				794 = { add_core_of = ROOT }
+				112 = { add_core_of = ROOT }
+				179 = { add_core_of = ROOT }
+				181 = { add_core_of = ROOT }
+				177 = { add_core_of = ROOT }
+			}
+		}
+	}
+}
+
+formable_nations_visigothic_kingdom_of_spain_extras_category = {
+	claim_the_suebi = {
+		icon = formable_nations_suebi
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			has_cosmetic_tag = FORM_VISI
+		}
+	
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip  = suebi_tt
+				OR  = {
+					AND  = {
+						171 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						790 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						} 
+						174 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						180 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+		}
+
+		complete_effect  = {
+			171 = { add_core_of = ROOT }
+			790 = { add_core_of = ROOT }
+			174 = { add_core_of = ROOT }
+			180 = { add_core_of = ROOT }
+		}
+	}
+}
+
+formable_nations_armenian_kingdom_category = {
+	formable_nations_armenian_kingdom = {
+		icon = formable_nations_armenian_kingdom
+		cost  = 0  days_re_enable  = 0
+		ai_will_do  = {
+			factor  = 100
+		}
+		visible  = {
+			NOT  = { 
+				has_country_flag  = nation_formed 
+				has_country_flag  = hide_formable_nations 
+			}
+			OR  = {
+				original_tag = ARM
+			}
+		}
+
+		available  = {
+			custom_trigger_tooltip  = {
+				tooltip = kingdom_of_heaven_tooltip
+				OR  = {
+					AND  = {
+						230 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						800 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						354 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						229 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						231 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+
+				}
+			}
+			custom_trigger_tooltip  = { tooltip  = not_already_existing_tt NOT  = { any_country  = { has_cosmetic_tag  = FORM_ARM } } }
+			
+		}
+		complete_effect  = { 
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			capital_scope  = { set_state_flag  = formable_nations_old_capital }
+			set_cosmetic_tag  = FORM_ARM
+			add_ideas = generic_recent_political_unification
+            add_ideas = generic_recent_army_unification
+            add_ideas = generic_recent_economic_unification
+			custom_effect_tooltip  = core_land
+			hidden_effect  = { sound_effect  = complete_focus  set_country_flag  = nation_formed
+				230 = { add_core_of = ROOT }
+				800 = { add_core_of = ROOT }
+				354 = { add_core_of = ROOT }
+				229 = { add_core_of = ROOT }
+				231 = { add_core_of = ROOT }
 			}
 		}
 	}
