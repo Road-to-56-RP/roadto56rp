@@ -2772,15 +2772,15 @@ focus = {
 		
 
     completion_reward = {
-		  if = {
-			  limit = { has_idea = GRE_strikes_2 }
-			  remove_ideas = GRE_strikes_2
-		  }
+			if = {
+				limit = { has_idea = GRE_strikes_2 }
+				remove_ideas = GRE_strikes_2
+			}
 			else = {
-		    swap_ideas = {
-				  remove_idea = GRE_strikes
-				  add_idea = GRE_strikes_3
-		    }
+				swap_ideas = {
+					remove_idea = GRE_strikes
+					add_idea = GRE_strikes_3
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -6351,6 +6351,7 @@ focus = {
 		}
 
       	completion_reward = {
+			add_ideas = GRE_r56rp_royal_rearmament
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -6371,6 +6372,48 @@ focus = {
 		}
 
       	completion_reward = {
+			IF = {
+				limit = {
+					has_idea = GRE_r56rp_royal_rearmament
+				}
+				swap_ideas = {
+					remove_idea = GRE_r56rp_royal_rearmament
+					add_idea = GRE_r56rp_royal_rearmament_1
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = GRE_r56rp_royal_rearmament_2
+				}
+				swap_ideas = {
+					remove_idea = GRE_r56rp_royal_rearmament_2
+					add_idea = GRE_r56rp_royal_rearmament_3
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = GRE_r56rp_royal_rearmament
+						add_idea = GRE_r56rp_royal_rearmament_1
+					}
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_in_home_area = yes
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -6379,10 +6422,10 @@ focus = {
 		id = GRE_r56rp_royal_rearm_conscription
 		icon = GFX_focus_GRE_royal
 		prerequisite = { 
-			focus = GRE_r56rp_royal_rearm_arsenal
+			focus = GRE_r56rp_royal_rearmament
 		}
-		x = -1
-		y = 3
+		x = 0
+		y = 2
 		relative_position_id = GRE_r56rp_royal_rearmament
 		cost = 5
 		
@@ -6391,6 +6434,32 @@ focus = {
 		}
 
       	completion_reward = {
+			IF = {
+				limit = {
+					has_idea = GRE_r56rp_royal_rearmament
+				}
+				swap_ideas = {
+					remove_idea = GRE_r56rp_royal_rearmament
+					add_idea = GRE_r56rp_royal_rearmament_2
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = GRE_r56rp_royal_rearmament_1
+				}
+				swap_ideas = {
+					remove_idea = GRE_r56rp_royal_rearmament_1
+					add_idea = GRE_r56rp_royal_rearmament_3
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = GRE_r56rp_royal_rearmament
+						add_idea = GRE_r56rp_royal_rearmament_2
+					}
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -6411,6 +6480,26 @@ focus = {
 		}
 
       	completion_reward = {
+			custom_effect_tooltip = GRE_r56rp_royal_constantin_line.tt
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 184
+						state = 185
+						state = 731
+					}
+					is_controlled_by = ROOT
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -6439,10 +6528,13 @@ focus = {
 		id = GRE_r56rp_royal_rearm_academy_investment
 		icon = GFX_focus_GRE_royal
 		prerequisite = { 
-			focus = GRE_r56rp_royal_rearmament
+			focus = GRE_r56rp_royal_rearm_arsenal
 		}
-		x = 0
-		y = 2
+		prerequisite = { 
+			focus = GRE_r56rp_royal_rearm_conscription
+		}
+		x = -1
+		y = 3
 		relative_position_id = GRE_r56rp_royal_rearmament
 		cost = 5
 		
@@ -6451,6 +6543,11 @@ focus = {
 		}
 
       	completion_reward = {
+			swap_ideas = {
+				remove_idea = GRE_r56rp_royal_rearmament_3
+				add_idea = GRE_r56rp_royal_rearmament_4
+			}
+			
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -6460,9 +6557,6 @@ focus = {
 		icon = GFX_focus_GRE_royal
 		prerequisite = { 
 			focus = GRE_r56rp_royal_rearm_improve_mil_routes
-		}
-		prerequisite = { 
-			focus = GRE_r56rp_royal_rearm_conscription
 		}
 		prerequisite = { 
 			focus = GRE_r56rp_royal_rearm_academy_investment
@@ -6477,13 +6571,18 @@ focus = {
 		}
 
       	completion_reward = {
+			add_war_support = 0.05
+			swap_ideas = {
+				remove_idea = GRE_r56rp_royal_rearmament_4
+				add_idea = GRE_r56rp_royal_rearmament_5
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = {
 		id = GRE_r56rp_rightfuly_ours
-		icon = GFX_focus_GRE_royal
+		icon = GFX_focus_GRE_megali_idea
 		prerequisite = { 
 			focus = GRE_r56rp_royal_rearm_finish
 		}
@@ -6497,6 +6596,21 @@ focus = {
 		}
 
       	completion_reward = {
+		    add_state_claim = 339
+		    add_state_claim = 340
+			add_state_claim = 341
+			add_state_claim = 797
+			every_country = {
+				limit = {
+					OR = {
+						controls_state = 339
+						controls_state = 340
+						controls_state = 341
+						controls_state = 797
+					}
+				}
+				country_event = r56rp_greece.2
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
