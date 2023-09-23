@@ -1871,7 +1871,8 @@ focus_tree = {
 					}
 				}
 				NOT = {
-					has_completed_focus = PRC_government_reshuffle
+					has_completed_focus = PRC_destroy_mao_and_his_clique
+					has_completed_focus = PRC_the_second_northeast_flag_replacement
 				}
 			}
 		}
@@ -1918,7 +1919,7 @@ focus_tree = {
 						rule = obsolete_focus_branches_visibility
 						option = HIDE
 					}
-					has_completed_focus = PRC_government_reshuffle
+					has_completed_focus = PRC_destroy_mao_and_his_clique
 				}
 			}
 		}
@@ -2062,20 +2063,6 @@ focus_tree = {
 		relative_position_id = PRC_found_our_nation
 		cost = 10
 
-		offset = {
-			x = -20
-			y = 0
-			trigger = {
-				AND = {
-					has_game_rule = {
-						rule = obsolete_focus_branches_visibility
-						option = HIDE
-					}
-					has_completed_focus = PRC_government_reshuffle
-				}
-			}
-		}
-
 		available = {
 			OR = {
 				num_of_factories > 40
@@ -2112,10 +2099,27 @@ focus_tree = {
 		id = PRC_industrialization_NW
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = PRC_the_first_five_year_plan  focus = PRC_industrial_developement }
-		x = 1
-		y = 1
-		relative_position_id = PRC_the_first_five_year_plan
+		x = 31
+		y = 3
+		#relative_position_id = PRC_the_first_five_year_plan #easier to move around
 		cost = 10
+
+		offset = {
+			x = -20
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					OR = {
+						has_completed_focus = PRC_destroy_mao_and_his_clique
+						has_completed_focus = PRC_the_second_northeast_flag_replacement
+					}
+				}
+			}
+		}
 
 		available = {
 			OR = {
@@ -2192,9 +2196,9 @@ focus_tree = {
 		id = PRC_industrialization_S
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = PRC_the_first_five_year_plan  focus = PRC_industrial_developement }
-		x = 3
-		y = 1
-		relative_position_id = PRC_the_first_five_year_plan
+		x = 2
+		y = 0
+		relative_position_id = PRC_industrialization_NW
 		cost = 10
 		available = {
 			OR = {
@@ -2276,9 +2280,9 @@ focus_tree = {
 		id = PRC_pioneering_the_north_east
 		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = PRC_the_first_five_year_plan  focus = PRC_industrial_developement }
-		x = 5
-		y = 1
-		relative_position_id = PRC_the_first_five_year_plan
+		x = 4
+		y = 0
+		relative_position_id = PRC_industrialization_NW
 		cost = 15
 		available = {
 			OR = {
@@ -6174,11 +6178,8 @@ focus_tree = {
 				}
 				NOT = {
 					OR = {
-						has_completed_focus = PRC_boost_the_morale
-						#AND = {
-						#	has_completed_focus = PRC_urge_zhang
-						#	date < 1936.11.1
-						#}
+						has_completed_focus = PRC_trust_in_communism
+						has_completed_focus = PRC_rectification
 					}
 				}
 			}
@@ -6192,7 +6193,10 @@ focus_tree = {
 						rule = obsolete_focus_branches_visibility
 						option = HIDE
 					}
-					has_completed_focus = PRC_government_reshuffle
+					OR = {
+						has_completed_focus = PRC_destroy_mao_and_his_clique
+						has_completed_focus = PRC_the_second_northeast_flag_replacement
+					}
 				}
 			}
 		}
@@ -6266,7 +6270,9 @@ focus_tree = {
 				}
 				NOT = {
 					OR = {
-						has_completed_focus = PRC_boost_the_morale
+						has_completed_focus = PRC_rectification
+						has_completed_focus = PRC_the_second_northeast_flag_replacement
+						has_completed_focus = PRC_trust_in_communism
 						#AND = {
 						#	has_completed_focus = PRC_urge_zhang
 						#	date < 1936.11.1
