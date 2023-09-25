@@ -36411,6 +36411,7 @@ pol_initial_zapadoslavia_formable = { 		#Czechoslovakia become Zapadoslavia
 		}
 	}
 }
+
 austrian_expansion = {
 	reunify_with_hungary_dem = {
 		icon = formable_nations_danubian_hungary
@@ -36429,9 +36430,8 @@ austrian_expansion = {
 			OR = {
 				has_government = democratic
 				has_government = communism
-				}
+			}
 			NOT = { has_global_flag = form_austria_hungary_flag }	
-			
 		}
 
 		complete_effect = {
@@ -36484,7 +36484,7 @@ austrian_expansion = {
 		}
 	}
 
-	reunify_austria_sudetenland_dem = {
+	reunify_austria_sudetenland_dem = { # Not Democratic - All Ideologies
 		icon = formable_nations_danubian_bohemia
 		fire_only_once = yes
 		cost = 25
@@ -36492,12 +36492,15 @@ austrian_expansion = {
 			# Austria
 			controls_state = 69
 		}
+
 		visible = {
 			OR = {
-				has_global_flag = form_austria_hungary_flag
-				controls_state = 69	
+				has_government = democratic
+				has_government = communism
 			}	
+			controls_state = 69	
 		}
+
 		complete_effect = {
 			add_stability = -0.02
 			add_war_support = 0.01	
@@ -36508,6 +36511,7 @@ austrian_expansion = {
      		political_power_gain = -0.40
 			consumer_goods_factor = 0.045	
 		}
+
 		remove_effect = {
 			add_stability = 0.025
 			custom_effect_tooltip = aus_cores_on_sudetenland_tt
@@ -49853,5 +49857,45 @@ formable_nations_spanish_philiphines_category = {
 			}
 			custom_effect_tooltip  = core_land
 		}
+	}
+}
+
+formable_nations_german_austria_category = {
+	reunify_austria_sudetenland = {
+		icon = formable_nations_danubian_bohemia
+		fire_only_once = yes
+		cost = 25
+		available = {
+			# Austria
+			controls_state = 69
+		}
+
+		visible = {
+			OR = {
+				has_global_flag = form_austria_hungary_flag
+				controls_state = 69	
+			}	
+		}
+
+		complete_effect = {
+			add_stability = -0.02
+			add_war_support = 0.01	
+		}
+		
+		days_remove = 45
+		modifier = {
+     		political_power_gain = -0.40
+			consumer_goods_factor = 0.045	
+		}
+
+		remove_effect = {
+			add_stability = 0.025
+			custom_effect_tooltip = aus_cores_on_sudetenland_tt
+			hidden_effect = {
+				69 = { add_core_of = ROOT }
+				74 = { add_core_of = ROOT }
+				72 = { add_core_of = ROOT }	
+			}	
+		}	
 	}
 }
