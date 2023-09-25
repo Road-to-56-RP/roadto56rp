@@ -49861,23 +49861,31 @@ formable_nations_spanish_philiphines_category = {
 }
 
 formable_nations_german_austria_category = {
-	reunify_austria_sudetenland = {
-		icon = formable_nations_danubian_bohemia
+	formable_nations_german_austria = {
+		icon = formable_nations_german_austria
 		fire_only_once = yes
 		cost = 25
 		available = {
 			# Austria
 			controls_state = 69
+			controls_state = 74
+			controls_state = 72
 		}
 
 		visible = {
-			OR = {
-				has_global_flag = form_austria_hungary_flag
-				controls_state = 69	
-			}	
+			original_tag = AUS
 		}
 
 		complete_effect = {
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
 			add_stability = -0.02
 			add_war_support = 0.01	
 		}
@@ -49885,7 +49893,7 @@ formable_nations_german_austria_category = {
 		days_remove = 45
 		modifier = {
      		political_power_gain = -0.40
-			consumer_goods_factor = 0.045	
+			consumer_goods_factor = 0.01	
 		}
 
 		remove_effect = {
@@ -49895,7 +49903,186 @@ formable_nations_german_austria_category = {
 				69 = { add_core_of = ROOT }
 				74 = { add_core_of = ROOT }
 				72 = { add_core_of = ROOT }	
-			}	
+			}
+			set_cosmetic_tag = FORM_GERM_AUS_BRR
 		}	
+	}
+}
+
+formable_nations_greek_colonial_empire_category = {
+	formable_nations_reclaim_greek_colonies = {
+		icon = formable_nations_greek_colony
+		fire_only_once = yes
+		cost = 25
+		available = {
+			has_completed_focus = GRE_a_long_and_proud_tradition
+			has_navy_size = {
+				size > 14
+				type = capital_ship
+				archetype = ship_hull_heavy
+			}
+			custom_trigger_tooltip  = { 
+				tooltip  = kingdom_of_heaven_tooltip
+				OR  = {
+					AND  = {
+						115 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						156 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						851 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						21 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						22 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						31 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						451 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						663 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						345 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						799 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						137 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						234 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						233 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						826 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						231 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						347 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						356 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						355 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+						797 = {
+							OR  = { 
+								is_controlled_by  = ROOT 
+								controller  = { is_subject_of  = ROOT } 
+							} 
+						}
+					}
+				}
+			}
+		}
+
+		visible = {
+			original_tag = GRE
+		}
+
+		complete_effect = {
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+			set_cosmetic_tag = FORM_GRE_COLONIAL
+			add_war_support = 0.05
+			custom_effect_tooltip  = core_land
+			hidden_effect = {
+				sound_effect  = complete_focus  set_country_flag  = nation_formed
+				115 = { add_core_of = ROOT }
+				156 = { add_core_of = ROOT }
+				851 = { add_core_of = ROOT }
+				21 = { add_core_of = ROOT }
+				22 = { add_core_of = ROOT }
+				31 = { add_core_of = ROOT }
+				451 = { add_core_of = ROOT }
+				663 = { add_core_of = ROOT }
+				345 = { add_core_of = ROOT }
+				799 = { add_core_of = ROOT }
+				137 = { add_core_of = ROOT }
+				234 = { add_core_of = ROOT }
+				233 = { add_core_of = ROOT }
+				826 = { add_core_of = ROOT }
+				231 = { add_core_of = ROOT }
+				347 = { add_core_of = ROOT }
+				356 = { add_core_of = ROOT }
+				355 = { add_core_of = ROOT }
+				797 = { add_core_of = ROOT }
+			}
+		}
 	}
 }
