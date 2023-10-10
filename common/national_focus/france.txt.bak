@@ -623,31 +623,7 @@ focus_tree = {
 			factor = 2
 		}
 		available = {
-			NOT = {
-				has_government = communism
-			}
 			OR = {
-				ROOT = {
-					controls_state = 677
-					controls_state = 554
-					controls_state = 553
-				}
-				any_other_country = {
-					OR = {
-						original_tag = LEB
-						original_tag = SYR
-					}
-					is_subject_of = ROOT
-					OR = {
-						controls_state = 677
-						controls_state = 554
-						controls_state = 553
-					}
-				}
-			}
-		}
-		bypass = {
-			NOT = {
 				ROOT = {
 					controls_state = 677
 					controls_state = 554
@@ -1582,9 +1558,8 @@ focus_tree = {
 		available = {
 			is_subject = no
 			OR = {
-				has_government = communism
 				has_government = democratic
-				
+				has_government = fascism
 			}
 		}
 		bypass = {
@@ -11365,6 +11340,12 @@ focus_tree = {
 		relative_position_id = FRA_carrier_focus
 		cost = 10
 
+		allow_branch  = {
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
+		}
+
 		available_if_capitulated = yes
 
 		completion_reward = {
@@ -11923,25 +11904,24 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
-					technology = photo_reconnaisance
+					technology =  photo_reconnaisance
 					bonus = 0.75
 					uses = 1
-				}	
-			}
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-					NOT = {
-						has_dlc = "By Blood Alone"
-					}
 				}
-				add_tech_bonus = {
-					name = scout_plane
-					bonus = 1.0
-					uses = 1
-					category = cat_scout_plane
-				}				
 			}
+			else_if = {
+				if = {
+					limit = {
+						has_dlc = "La Resistance"
+					}
+					add_tech_bonus = {
+						name = scout_plane
+						bonus = 1.0
+						uses = 1
+						category = cat_scout_plane
+					}				
+				}			
+			}		
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -12197,35 +12177,18 @@ focus_tree = {
 			
 		}
 		
-completion_reward = {
+		completion_reward = {
 			air_experience = 15
 			if = {
 				limit = {
-					has_dlc = "By Blood Alone"
+					NOT = { has_dlc = "By Blood Alone" }
 				}
+				custom_effect_tooltip = FRA_finalize_the_potez_630_tt
 				add_tech_bonus = {
 					name = FRA_modernisation_program
 					bonus = 1
 					uses = 1
-					category = light_air
-				}
-			}
-			else = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech = heavy_fighter1
-						}
-					}
-					custom_effect_tooltip = FRA_finalize_the_potez_630_tt
-				}
-				else = {
-					add_tech_bonus = {
-						name = FRA_modernisation_program
-						bonus = 1
-						uses = 1
-						category = cat_heavy_fighter
-					}
+					category = cat_heavy_fighter
 				}
 				hidden_effect = {
 					if = {
@@ -12237,11 +12200,23 @@ completion_reward = {
 						set_technology = { heavy_fighter1 = 1 }
 					}
 				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
 				add_tech_bonus = {
-					name = FRA_modernisation_program
-					bonus = 1
+					name = fighter_command_focus
+					bonus = 1.0
 					uses = 1
-					category = light_fighter
+					category = light_air
+					category  = medium_air
+				}
+				add_tech_bonus = {
+					name = fighter_command_focus
+					bonus = 0.75
+					uses = 1
+					technology = range_improvements
 				}
 			}
 		}
@@ -12292,23 +12267,26 @@ completion_reward = {
 		completion_reward = {
 			if = {
 				limit = {
-					has_dlc = "By Blood Alone"
+					NOT = { has_dlc = "By Blood Alone" }
 				}
-				add_tech_bonus = {
-					ahead_reduction = 1
-					bonus = 1
-					uses = 1
-					category = medium_air
-					category = heavy_air
-				}
-			}
-			else = {
+				custom_effect_tooltip = FRA_finalize_the_potez_630_tt
 				add_tech_bonus = {
 					name = FRA_develop_bomber_fleet
 					ahead_reduction = 1
 					bonus = 1
 					uses = 1
 					category = tactical_bomber
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = fighter_command_focus
+					bonus = 1.0
+					uses = 1
+					category  = medium_air
 				}
 			}
 		}
@@ -12322,6 +12300,14 @@ completion_reward = {
 		prerequisite = {
 			focus = FRA_develop_bomber_fleet
 		}
+		# lazy simpy fixing
+
+		allow_branch  = {
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
+		}
+
 		x = 0
 		y = 1
 		relative_position_id = FRA_develop_bomber_fleet
@@ -12330,29 +12316,11 @@ completion_reward = {
 		}
 		
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				add_tech_bonus = {
-					name = FRA_follow_up_on_the_potez
-					bonus = 0.75
-					uses = 1
-					category = medium_air
-				}
-				add_tech_bonus = {
-					category = radar_tech
-					bonus = 0.5
-					uses = 1
-				}
-			}
-			else = {
-				add_tech_bonus = {
-					name = FRA_follow_up_on_the_potez
-					bonus = 1
-					uses = 1
-					category = cat_heavy_fighter
-				}
+			add_tech_bonus = {
+				name = FRA_follow_up_on_the_potez
+				bonus = 1
+				uses = 1
+				category = cat_heavy_fighter
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -12372,33 +12340,19 @@ completion_reward = {
 			factor = 0.5
 		}
 
+		allow_branch  = {
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
+		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				add_tech_bonus = {
-					technology = aa_cannon_2
-					ahead_reduction = 0.5
-					bonus = 0.75
-					uses = 1
-				}
-				add_tech_bonus = {
-					bonus = 0.5
-					uses = 1
-					category = medium_air
-				}
+			add_tech_bonus = {
+				name = FRA_provide_aerial_support
+				ahead_reduction = 0.5
+				bonus = 1
+				uses = 1
+				category = cas_bomber
 			}
-			else = {
-				add_tech_bonus = {
-					name = FRA_provide_aerial_support
-					ahead_reduction = 1
-					bonus = 1
-					uses = 1
-					category = cas_bomber
-				}
-			}
-
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12418,26 +12372,12 @@ completion_reward = {
 		}
 		
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				add_tech_bonus = {
-					technology  = improved_small_airframe
-					technology = advanced_small_airframe
-					ahead_reduction = 0.5
-					bonus = 1
-					uses = 1
-				}
-			}
-			else = {
-				add_tech_bonus = {
-					name = FRA_new_french_fighter
-					ahead_reduction = 0.5
-					bonus = 1
-					uses = 1
-					category = light_fighter
-				}
+			add_tech_bonus = {
+				name = FRA_new_french_fighter
+				ahead_reduction = 0.5
+				bonus = 1
+				uses = 1
+				category = light_fighter
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -12508,6 +12448,12 @@ completion_reward = {
 			focus = FRA_naval_construction_program
 		}
 
+		allow_branch  = {
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
+		}
+
 		x = -3
 		y = 2
 		relative_position_id = FRA_enact_plan_v
@@ -12516,35 +12462,18 @@ completion_reward = {
 		}
 		
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				add_tech_bonus = {
-					bonus = 1
-					uses = 2
-					category = medium_air
-					category = heavy_air
-				}
-				add_tech_bonus = {
-					category = torpedo_equipment
-					bonus = 1
-					uses = 1
-				}
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1
+				uses = 2
+				category = maritime
 			}
-			else = {
-				add_tech_bonus = {
-					name = air_bonus
-					bonus = 1
-					uses = 2
-					category = maritime
-				}
-				add_tech_bonus = {
-					name = air_bonus
-					bonus = 1
-					uses = 1
-					category = naval_bomber
-				}
+
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1
+				uses = 1
+				category = naval_bomber
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
