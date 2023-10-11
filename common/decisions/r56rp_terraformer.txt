@@ -30,7 +30,11 @@ economy_decisions = {
 	r56rp_terraformer_pastoral_rural = {  #pastoral to rural terraform
 
 		icon = generic_construction
-		cost = 25
+		#cost = 25
+		custom_cost_text = r56rp_terraformer_pastoral_rural_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 2
+        }
 
 		on_map_mode = map_only
 		state_target = yes 
@@ -44,15 +48,14 @@ economy_decisions = {
 			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
 				is_fully_controlled_by = ROOT
 				is_core_of = ROOT
-				state_population_k > 50 #juuuust to not have a massive megapolis in bumfuck nowhere syberia.
 				NOT = { has_state_flag = r56rp_being_terraformed }
 				has_state_category = pastoral
 			}
 		}
 
 		available = {
-			num_of_civilian_factories_available_for_projects > 3
-			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+			num_of_civilian_factories_available_for_projects > 2
+			FROM = {
 				infrastructure > 1
 			}
 			has_tech = construction1
@@ -75,7 +78,13 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = rural
+				custom_effect_tooltip = r56rp_terraformer_pastoral_rural_effect_tt
+				set_temp_variable = { r56rp_temp_math_terraformer_1 = state_population_k }
+				divide_variable = { r56rp_temp_math_terraformer_1 = 4 }
+				round_variable = r56rp_temp_math_terraformer_1
+				add_manpower = r56rp_temp_math_terraformer_1
 			}
+			#
 			#clr_state_flag = r56rp_being_terraformed
 		}
 
@@ -84,7 +93,11 @@ economy_decisions = {
 	r56rp_terraformer_rural_town = {  #pastoral to rural terraform
 
 		icon = generic_construction
-		cost = 25
+		#cost = 25
+		custom_cost_text = r56rp_terraformer_rural_town_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 2
+        }
 
 		on_map_mode = map_only
 		state_target = yes 
@@ -129,6 +142,7 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = town
+				custom_effect_tooltip = r56rp_terraformer_rural_town_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
@@ -138,7 +152,11 @@ economy_decisions = {
 	r56rp_terraformer_town_largetown = {  #pastoral to rural terraform
 
 		icon = generic_construction
-		cost = 50
+		#cost = 50
+		custom_cost_text = r56rp_terraformer_town_largetown_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
 
 		on_map_mode = map_only
 		state_target = yes 
@@ -183,6 +201,7 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = large_town
+				custom_effect_tooltip = r56rp_terraformer_town_largetown_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
@@ -192,7 +211,11 @@ economy_decisions = {
 	r56rp_terraformer_largetown_city = {  #pastoral to rural terraform
 
 		icon = generic_construction
-		cost = 75
+		#cost = 75
+		custom_cost_text = r56rp_terraformer_largetown_city_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
 
 		on_map_mode = map_only
 		state_target = yes 
@@ -237,6 +260,7 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = city
+				custom_effect_tooltip = r56rp_terraformer_largetown_city_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
@@ -246,7 +270,11 @@ economy_decisions = {
 	r56rp_terraformer_city_largecity = {  #pastoral to rural terraform
 
 		icon = generic_construction
-		cost = 75
+		#cost = 75
+		custom_cost_text = r56rp_terraformer_city_largecity_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
 
 		on_map_mode = map_only
 		state_target = yes 
@@ -291,6 +319,7 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = large_city
+				custom_effect_tooltip = r56rp_terraformer_city_largecity_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
@@ -300,7 +329,11 @@ economy_decisions = {
 	r56rp_terraformer_largecity_metropolis = {  #pastoral to rural terraform
 
 		icon = generic_construction
-		cost = 100
+		#cost = 100
+		custom_cost_text = r56rp_terraformer_largecity_metropolis_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 10
+        }
 
 		on_map_mode = map_only
 		state_target = yes 
@@ -345,6 +378,7 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = metropolis
+				custom_effect_tooltip = r56rp_terraformer_largecity_metropolis_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
@@ -354,7 +388,11 @@ economy_decisions = {
 	r56rp_terraformer_metropolis_megalopolis = {  #pastoral to rural terraform
 
 		icon = generic_construction
-		cost = 150
+		#cost = 150
+		custom_cost_text = r56rp_terraformer_metropolis_megalopolis_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 15
+        }
 
 		on_map_mode = map_only
 		state_target = yes 
@@ -399,6 +437,7 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = megalopolis
+				custom_effect_tooltip = r56rp_terraformer_metropolis_megalopolis_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}

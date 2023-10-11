@@ -1,0 +1,54 @@
+add_namespace = r56rp_great_power_event
+
+news_event = { # Great Power Conference
+	id = r56rp_great_power_event.1
+	title = r56rp_great_power_event.1.t
+	desc = r56rp_great_power_event.1.desc
+	picture = GFX_r56w_news_event_12angrymen
+	is_triggered_only = yes
+
+	option = {
+		name = r56rp_great_power_events.1.a
+	}
+}
+
+add_namespace = r56rp_capitulation_fight_on
+
+country_event ={
+	id = r56rp_capitulation_fight_on.1
+	title = r56rp_capitulation_fight_on.1.t
+	desc = r56rp_capitulation_fight_on.1.desc
+	picture = GFX_r56w_report_event_fight_on
+
+	trigger = {
+		ROOT = {
+			is_major = no
+			is_faction_leader = no
+			any_allied_country = {
+				is_faction_leader = yes
+				surrender_progress > 0.3
+			}
+		}
+	}
+
+	option = { #Fight On! / Take over Faction instantly.
+		name = r56rp_capitulation_fight_on.1.a
+		hidden_effect = {
+			ROOT = {
+				set_major = yes
+				set_faction_leader = yes
+			}
+		}
+		custom_effect_tooltip = fight_on_tt1
+	}
+
+	option = { # Oh Well? Offer Peace? / Leave Faction
+		name = r56rp_capitulation_fight_on.1.b
+		hidden_effect = {
+			ROOT = {
+				leave_faction = yes
+			}
+		}
+		custom_effect_tooltip = fight_on_tt2
+	}
+}

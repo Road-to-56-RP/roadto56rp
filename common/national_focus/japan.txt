@@ -3044,10 +3044,12 @@ focus_tree = {
 				PHI = {
 					is_subject_of = ROOT
 				}
-				any_state = {
-					is_core_of = PHI
-					is_controlled_by = ROOT
-				}
+				controls_state = 623
+				controls_state = 327
+				controls_state = 624
+				controls_state = 625
+				controls_state = 628
+				controls_state = 627
 			}
 		}
 		
@@ -4127,7 +4129,6 @@ focus_tree = {
 			MAN = {
 				mark_focus_tree_layout_dirty = yes
 			}
-			mark_focus_tree_layout_dirty = yes
 			add_political_power = 100
 			country_event = { id = wtt_japan.108 }
 			set_party_name = {
@@ -4135,7 +4136,7 @@ focus_tree = {
 			    long_name = JAP_neutrality_party_kodoha_long
 			    name = JAP_neutrality_party_kodoha
 			}
-
+			mark_focus_tree_layout_dirty = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -7207,6 +7208,30 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_POLITICAL }
 	}
+	focus = {
+		id = JAP_island_investment
+		icon = GFX_goal_generic_industrial_planning
+		prerequisite = { focus = JAP_conciliatory_foreign_policy focus = JAP_the_bastion }
+		x = 0
+		y = 1
+		relative_position_id = JAP_the_bastion
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			is_subject = no
+		}
+
+		completion_reward = {
+			add_political_power = 50
+			custom_effect_tooltip = JAP_island_colonization_tt
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
 
 	focus = {
 		id = JAP_pacific_guardian
@@ -8294,7 +8319,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			#add_ideas = JAP_pack_guns
+			#add_ideas = JAP_pack_guns #because road pack guns are stupid.
 			custom_effect_tooltip = JAP_pack_guns_tt
 			hidden_effect = { 
 				set_technology = { JAP_pack_guns = 1 }
@@ -9832,7 +9857,16 @@ focus_tree = {
 						all_provinces = yes
 						limit_to_coastal = yes
 					}
-					level = 3
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					province = {
+						all_provinces = yes
+						limit_to_naval_base = yes
+					}
+					level = 1
 					instant_build = yes
 				}
 			}

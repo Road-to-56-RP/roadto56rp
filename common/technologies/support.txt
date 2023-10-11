@@ -158,56 +158,14 @@ technologies = {
 		}
 	}
 
-	flamethrower = {
-		xp_research_type = army
-		xp_boost_cost = 50
-		xp_research_bonus = 0.75
-		research_cost = 1.5
-		start_year = 1938
 
-		folder = {
-			name = support_folder
-			position = { x = 1  y = @1938 }
-		}
-
-		enable_equipment_modules = {
-			flamethrower
-		}
-
-		categories = {
-			support_tech
-			engineers_tech
-		}
-
-		enable_subunits = {
-			light_flame_tank
-			medium_flame_tank
-			heavy_flame_tank
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-
-		category_all_infantry = {
-			hard_attack = 0.2
-			breakthrough = 0.1
-		}
-
-		engineer = {
-			breakthrough = 1.5
-		}
-
-	}
 	
 	tech_engineers2 = {
 		xp_research_type = army
 		xp_boost_cost = 25
 		xp_research_bonus = 0.25
-		engineer = {
-
-			entrenchment = 2
-			
+		engineer = {	
+			entrenchment = 0.50
 			fort = {
 				defence = 0.10
 				attack = 0.10
@@ -259,7 +217,7 @@ technologies = {
 	tech_engineers3 = {
 
 		engineer = {
-			entrenchment  = 2
+			entrenchment = 0.50
 			river = {
 				attack = 0.1	
 				defence = 0.10
@@ -308,7 +266,7 @@ technologies = {
 	tech_engineers4 = {
 
 		engineer = {
-			entrenchment  = 2
+			entrenchment = 0.25
 			urban = {
 				attack = 0.1	
 				defence = 0.1
@@ -460,44 +418,7 @@ technologies = {
 		}
 	}
 
-	sniper_rifle = {
 
-		category_all_infantry = {
-			soft_attack = 0.3
-		}
-			
-		recon = {
-			soft_attack = 1
-		}
-		mot_recon = {
-			soft_attack = 1
-		}
-		armored_car_recon = {
-			soft_attack = 0.5
-		}
-
-		category_special_forces = {
-			hard_attack = 0.1
-		}
-		xp_research_type = army
-		xp_boost_cost = 25
-		xp_research_bonus = 0.25
-		research_cost = 1.5
-		start_year = 1938
-		folder = {
-			name = support_folder
-			position = { x = 3 y = 4 }
-		}
-		
-		categories = {
-			support_tech
-			recon_tech
-		}
-		
-		ai_will_do = {
-			factor = 15
-		}
-	}
 	
 	tech_recon3 = {
 
@@ -931,6 +852,12 @@ technologies = {
 			reliability_factor = 0.05
 			equipment_capture_factor = 0.05
 
+			battalion_mult = {
+				category = category_all_armor
+				equipment_capture_factor = 0.01
+				add = yes
+			}
+
 			forest = {
 				movement = 0.05
 			}
@@ -1244,6 +1171,15 @@ technologies = {
 		}
 	}
 
+	NORDIC_supportCollaboration_tech = { # For the Army Capston in the Nordic JFT
+		allow = { always = no } #Only obtained through Focus
+		category_support_battalions = {
+			max_organisation = 10
+			soft_attack = 0.25
+			experience_loss_factor = 0.05
+		}
+	}
+
 	tech_logistics_company = {
 
 		enable_subunits = {
@@ -1307,7 +1243,7 @@ technologies = {
 
 		logistics_company = {
 			supply_consumption_factor = -0.1
-			fuel_consumption_factor = -0.01
+			fuel_consumption_factor = -0.05
 		}
 
 		no_supply_grace = 1
@@ -1360,7 +1296,7 @@ technologies = {
 
 		logistics_company = {
 			supply_consumption_factor = -0.1
-			fuel_consumption_factor = -0.01
+			fuel_consumption_factor = -0.05
 		}
 
 		no_supply_grace = 1
@@ -1417,7 +1353,7 @@ technologies = {
 
 		logistics_company = {
 			supply_consumption_factor = -0.1
-			fuel_consumption_factor = -0.01
+			fuel_consumption_factor = -0.05
 		}
 
 		no_supply_grace = 1
@@ -1745,7 +1681,7 @@ technologies = {
 	tech_engineers_a = {
 
 		engineer = {
-			entrenchment  = 2
+			entrenchment = 0.25
 			urban = {
 				attack = 0.1	
 				defence = 0.1
@@ -1780,7 +1716,7 @@ technologies = {
 	tech_engineers_b = {
 
 		engineer = {
-			entrenchment  = 2
+			entrenchment = 0.25
 			urban = {
 				attack = 0.1	
 				defence = 0.1
@@ -1815,7 +1751,7 @@ technologies = {
 	tech_engineers_c = {
 
 		engineer = {
-			entrenchment  = 2
+			entrenchment  = 0.25
 			urban = {
 				attack = 0.1	
 				defence = 0.1
@@ -2375,6 +2311,86 @@ technologies = {
 				factor = 3
 				num_of_military_factories > 15
 			}			
+		}
+	}
+
+	flamethrower = {
+		xp_research_type = army
+		xp_boost_cost = 50
+		xp_research_bonus = 0.75
+		research_cost = 1.5
+		start_year = 1938
+
+		folder = {
+			name = support_folder
+			position = { x = 1  y = @1938 }
+		}
+
+		enable_equipment_modules = {
+			flamethrower
+		}
+
+		categories = {
+			support_tech
+			engineers_tech
+		}
+
+		enable_subunits = {
+			light_flame_tank
+			medium_flame_tank
+			heavy_flame_tank
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+
+		category_all_infantry = {
+			hard_attack = 0.2
+			breakthrough = 0.1
+		}
+
+		engineer = {
+			breakthrough = 1.5
+		}
+	}
+
+	sniper_rifle = {
+
+		category_all_infantry = {
+			soft_attack = 0.3
+		}
+			
+		recon = {
+			soft_attack = 1
+		}
+		mot_recon = {
+			soft_attack = 1
+		}
+		armored_car_recon = {
+			soft_attack = 0.5
+		}
+
+		category_special_forces = {
+			hard_attack = 0.1
+		}
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 0.25
+		research_cost = 1.5
+		start_year = 1938
+		folder = {
+			name = support_folder
+			position = { x = 3 y = 4 }
+		}
+		
+		categories = {
+			support_tech
+			recon_tech
+		}
+		
+		ai_will_do = {
+			factor = 15
 		}
 	}
  #Trains are in r56_vechicles 
