@@ -427,6 +427,14 @@ leader_traits = {
 				FROM = { has_idea = SOV_purged_junior_army_officers_3 }
 				factor = 0
 			}
+			
+			modifier = {
+				FROM = { 
+					has_dlc = "By Blood Alone"
+				}
+				factor = 0
+			}
+			
 		}
 		defense_skill_factor = 1
 		planning_skill_factor = 1
@@ -435,6 +443,12 @@ leader_traits = {
 	cavalry_officer = { 
 		type = land
 		trait_type = personality_trait
+		unit_type = {
+			type = cavalry
+			type = camelry
+			type = motorized
+			type = mechanized
+		}
 		
 		trait_xp_factor = {
 			cavalry_leader = 1     #+100%
@@ -830,6 +844,36 @@ leader_traits = {
 		planning_skill_factor = 1
 	}
 
+	jaeger = { 
+		type = land
+		trait_type = personality_trait 
+
+		allowed = {
+			FROM = { original_tag = FIN }
+		}
+				
+		trait_xp_factor = {
+			trickster = 1     #+100%
+			winter_specialist = 1     #+100%
+			commando = 1     #+100%
+			swamp_fox = 1     #+100%
+			ranger = 1     #+100%
+			hill_fighter = 1     #+100%
+			urban_assault_specialist = 1     #+100%
+			naval_invader = 1     #+100%
+		}
+
+		modifier = {
+			equipment_capture = 0.03
+		}
+		
+		new_commander_weight = {
+			factor = 0			
+		}
+
+		attack_skill_factor = 1
+		logistics_skill_factor = 1
+	}
 
 	
 ##################################
@@ -1167,10 +1211,16 @@ leader_traits = {
 	}
 	skilled_staffer = { 
 		type = corps_commander
-		gain_xp = {
-			check_variable = { num_units > 23 }
+		gain_xp_leader = {
+			if = {
+				limit = { is_leading_army_group = yes }
+				check_variable = { num_units > 99 }
+			}
+			else = {
+				check_variable = { num_units > 23 }
+			}
 		}
-		custom_gain_xp_trigger_tooltip = fighting_with_at_least_23_units
+		custom_gain_xp_trigger_tooltip = fighting_with_enough_units
 		
 		cost = 2000
 		
@@ -2537,6 +2587,10 @@ leader_traits = {
 				air_attack_factor = 0.1
 				air_mission_efficiency = 0.1
 			}
+			cv_nav_bomber = {
+				air_attack_factor = 0.1
+				air_mission_efficiency = 0.1
+			}
 		}	
 
 		slot = high_command
@@ -3605,6 +3659,20 @@ leader_traits = {
 			boost_resistance_factor = 0.25
 		}
 	}
+	
+	promoted_from_the_ranks = {  
+		type = land
+		trait_type = personality_trait
+		
+		modifier = {
+			promote_cost_factor = 0.5
+			planning_speed = 0.1
+			recon_factor = 0.05
+		}
 
+		new_commander_weight = {
+			factor = 0
+		}
+	}
 
 }
