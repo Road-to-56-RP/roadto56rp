@@ -3034,7 +3034,7 @@ SOV_propaganda_campaigns = {
 		cost = SOV_propaganda_high_yield_cost
 
 		modifier = {
-			consumer_goods_factor = -0.05
+			consumer_goods_factor = -0.15
 		}
 
 		complete_effect = {
@@ -4548,7 +4548,7 @@ SOV_propaganda_campaigns = {
 
 		modifier = {
 			stability_weekly = 0.005
-			consumer_goods_factor = -0.03
+			consumer_goods_factor = -0.10
 			opinion_gain_monthly_factor = 0.25
 			enemy_justify_war_goal_time = 0.50
 			war_support_weekly = -0.005
@@ -4642,7 +4642,7 @@ SOV_propaganda_campaigns = {
 			compliance_growth = 0.05
 			resistance_decay = 0.05
 			resistance_damage_to_garrison = 0.15
-			consumer_goods_factor = 0.03
+			consumer_goods_factor = 0.10
 		}
 
 		complete_effect = {
@@ -5935,8 +5935,18 @@ SOV_diplomacy_nordic_decision_category = {
 				}
 				#SOV_is_valid_subject = yes # The Soviet Union might not give a sh*t about their petty overlord ;) # -> THE USSR does indeed not care about their petty overlord, for now.
 				NOT = { has_war_with = ROOT }
+				if = {
+					limit = {
+						original_tag = FIN
+					}
+					#Lone Wolf Finland can't join any factions
+					NOT = {	has_idea = FIN_the_lone_wolf }
+				}
 			}
 			NOT = { has_country_flag = SOV_pressure_government_active_flag }
+		}
+
+		visible = {
 		}
 
 		days_remove = SOV_pressure_government_days
@@ -5997,6 +6007,9 @@ SOV_diplomacy_nordic_decision_category = {
 				#SOV_is_valid_subject = yes # The Soviet Union might not give a sh*t about their petty overlord ;) # -> THE USSR does indeed not care about their petty overlord, for now.
 				NOT = { has_war_with = ROOT }
 			}
+		}
+
+		visible = {
 		}
 
 		days_remove = SOV_ideological_rallies_days
@@ -6072,6 +6085,9 @@ SOV_diplomacy_nordic_decision_category = {
 			has_war_support > 0.15
 			has_stability > 0.25
 			NOT = { has_war_with = FROM }
+		}
+
+		visible = {
 		}
 
 		complete_effect = {
@@ -6164,6 +6180,9 @@ SOV_diplomacy_balkan_decision_category = {
 			NOT = { has_country_flag = SOV_pressure_government_active_flag }
 		}
 
+		visible = {
+		}
+
 		days_remove = SOV_pressure_government_days
 
 		days_re_enable = SOV_pressure_government_cd
@@ -6221,6 +6240,9 @@ SOV_diplomacy_balkan_decision_category = {
 				SOV_is_valid_subject = yes # The Soviet Union might not give a sh*t about their petty overlord ;)
 				NOT = { has_war_with = ROOT }
 			}
+		}
+
+		visible = {
 		}
 
 		days_remove = SOV_ideological_rallies_days
@@ -6288,6 +6310,9 @@ SOV_diplomacy_balkan_decision_category = {
 			}
 		}
 
+		visible = {
+		}
+
 		cost = SOV_send_ultimatum_to_country_cost
 
 		days_remove = SOV_ultimatum_days
@@ -6353,6 +6378,9 @@ SOV_diplomacy_balkan_decision_category = {
 			has_war_support > 0.15
 			has_stability > 0.25
 			NOT = { has_war_with = FROM }
+		}
+
+		visible = {
 		}
 
 		complete_effect = {
@@ -6456,6 +6484,9 @@ SOV_diplomacy_middle_east_decision_category = {
 				NOT = { has_war_with = ROOT }
 			}
 			NOT = { has_country_flag = SOV_pressure_government_active_flag }
+		}
+
+		visible = {
 		}
 
 		days_remove = SOV_pressure_government_days
@@ -6803,24 +6834,21 @@ SOV_diplomacy_middle_east_decision_category = {
 		}
 
 		available =  {
-			#PER = { has_capitulated = yes }	#Doesnt seem to work
-			custom_trigger_tooltip = {
-				tooltip = "All starting Iranian states controlled by [SOV.GetNameDef] or her allies."
-				all_of_scopes = {
-					array = SOV_iranian_initial_states
-					OR = {
-						is_controlled_by = SOV
-						any_allied_country = {
-							controls_state = PREV
-						}
-						AND = {
-							has_global_flag = SOV_agreed_anglo_soviet_invasion_of_iran_flag
-							OR = {
-								is_controlled_by = ENG
-								ENG = {
-									any_allied_country = {
-										controls_state = PREV
-									}
+			PER = { has_capitulated = yes }
+			all_of_scopes = {
+				array = SOV_iranian_initial_states
+				OR = {
+					is_controlled_by = SOV
+					any_allied_country = {
+						controls_state = PREV
+					}
+					AND = {
+						has_global_flag = SOV_agreed_anglo_soviet_invasion_of_iran_flag
+						OR = {
+							is_controlled_by = ENG
+							ENG = {
+								any_allied_country = {
+									controls_state = PREV
 								}
 							}
 						}
@@ -7483,7 +7511,7 @@ SOV_diplomacy_asia_decision_category = {
 				has_full_control_of_state = 618 #DZUNGARIA
 			}
 			num_of_civilian_factories_available_for_projects > 0
-			has_equipment = { fighter_equipment > 39 }
+			has_equipment = { small_plane_airframe > 39 }
 			has_equipment = { infantry_equipment > 499 }
 			NOT = { has_country_flag = SOV_sinkiang_investment_ongoing_flag }
 		}
@@ -7550,7 +7578,7 @@ SOV_diplomacy_asia_decision_category = {
 				custom_effect_tooltip = SOV_sinikiang_influence_cg_tt_sov
 
 				send_equipment = {
-					type = fighter_equipment
+					type = small_plane_airframe
 					amount = 40
 					target = SIK
 				}
@@ -9519,7 +9547,7 @@ SOV_merge_designers_dec_cat = {
 		}
 
 		available = {
-			has_full_control_of_state = 195 #LENINGRAD
+			has_full_control_of_state = 227 #STALINO
 			num_of_civilian_factories_available_for_projects > 0
 			SOV_has_active_ship_designer_any_black_sea = yes
 			NOT = { has_country_flag = SOV_merge_ship_decision_ongoing_flag }
@@ -9534,7 +9562,7 @@ SOV_merge_designers_dec_cat = {
 		cancel_trigger = {
 			OR = {
 				SOV_has_active_ship_designer_any_black_sea = no
-				NOT = { has_full_control_of_state = 195 } #LENINGRAD
+				NOT = { has_full_control_of_state = 227 } #STALINO
 			}
 		}
 
@@ -9826,7 +9854,7 @@ SOV_merge_designers_dec_cat = {
 		}
 
 		available = {
-			has_full_control_of_state = 399 #IZHEVSK
+			has_full_control_of_state = 399 #UDMURTIA (Izhevsk)
 			num_of_civilian_factories_available_for_projects > 0
 			SOV_has_active_materiel_designer_tula = yes
 			NOT = { has_country_flag = SOV_merge_materiel_decision_ongoing_flag }
@@ -9842,7 +9870,7 @@ SOV_merge_designers_dec_cat = {
 		cancel_trigger = {
 			OR = {
 				SOV_has_active_materiel_designer_tula = no
-				NOT = { has_full_control_of_state = 399 } #IZHEVSK
+				NOT = { has_full_control_of_state = 399 } #UDMURTIA (Izhevsk)
 			}
 		}
 
@@ -11135,6 +11163,7 @@ SOV_kill_trotsky_dec_cat = {
 					FROM = {
 						controls_state = 110 #OSTLANDET (Oslo) -> Trotsky not accepted in Mexico (or Soviets being super fast to kill him, which should be impossible btw)
 					}
+					has_global_flag = NOR_trotsky_in_norway
 					NOT = {
 						has_global_flag = trotsky_exile_mexico
 						has_global_flag = flag_mexico_invited_trotsky_to_government
@@ -15250,7 +15279,14 @@ SOV_soviet_civil_war_dec_cat = {
 				OR = {
 					#region = 155 # Manchuria
 					region = 151
+					region = 261 
+					region = 262 
 					region = 149
+					region = 256
+					region = 257
+					region = 258
+					region = 259
+					region = 260
 					region = 152
 				}
 			}
@@ -15745,7 +15781,7 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 
 		targets = {
-			state = 566  # Irkutsk
+			state = 566  # Chita
 		}
 		target_trigger = {
 			FROM = { state = 566  }
