@@ -350,6 +350,20 @@ focus_tree = {
 				}
 				set_state_flag = GER_naval_effort2_2dockyards
 			}
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_blohm_und_voss_organization
+				mio:GER_blohm_und_voss_organization = {
+					add_mio_funds= 250
+				}
+				show_mio_tooltip = GER_germaniawerft_organization
+				mio:GER_germaniawerft_organization = {
+					add_mio_funds= 250
+				}
+			}
 		}
 	}
 
@@ -437,6 +451,16 @@ focus_tree = {
 				bonus = 1.0
 				uses = 1
 				category = cv_tech
+			}
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_germaniawerft_organization
+				mio:GER_blohm_und_voss_organization = {
+					add_mio_size = 2
+				}
 			}
 		}
 	}
@@ -1338,6 +1362,16 @@ focus_tree = {
 					bonus = 2
 					uses = 1
 					category = torpedo_equipment
+				}
+			}
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_blohm_und_voss_organization
+				mio:GER_blohm_und_voss_organization = {
+					add_mio_size = 1
 				}
 			}
 		}
@@ -3810,8 +3844,8 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = GER_deutsche_arbeitsfront
-		icon = GFX_goal_GER_deutsche_arbeitsfront
+		id = GER_volkswagen
+		icon = GFX_goal_GER_volkswagen
 		cost = 5.00
 		prerequisite = {
 			focus = GER_volksgemeinschaft
@@ -3823,27 +3857,10 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			add_ideas = deutsche_arbeitsfront_idea
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY #FOCUS_FILTER_MANPOWER #idea no longer negatively impacts manpower
-		}
-	}
-	focus = {
-		id = GER_volkswagen
-		icon = GFX_goal_GER_volkswagen
-		cost = 5.00
-		prerequisite = {
-			focus = GER_deutsche_arbeitsfront
-		}
-		x = 0
-		y = 1
-		relative_position_id = GER_deutsche_arbeitsfront
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_ideas = volkswagen_idea
+			swap_ideas = {
+				remove_idea = volksgemeinschaft_idea
+				add_idea = volkswagen_idea
+			}
 			hidden_effect = {
 				if = {
 					limit = {
@@ -3862,11 +3879,44 @@ focus_tree = {
 					}
 				}
 			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_opel_organization
+				mio:GER_opel_organization = {
+					add_mio_funds = 1000
+				}
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY
 		}
 	}
+	focus = {
+		id = GER_deutsche_arbeitsfront
+		icon = GFX_goal_GER_deutsche_arbeitsfront
+		cost = 5.00
+		prerequisite = {
+			focus = GER_volkswagen
+		}
+		x = 0
+		y = 1
+		relative_position_id = GER_volkswagen
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = volkswagen_idea
+				add_idea = deutsche_arbeitsfront_idea
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY #FOCUS_FILTER_MANPOWER #idea no longer negatively impacts manpower
+		}
+	}
+
 	focus = {
 		id = GER_autobahn
 		icon = GFX_goal_ger_Organisation_Todt
@@ -4002,8 +4052,9 @@ focus_tree = {
 		cost = 10.00
 		prerequisite = {
 			focus = GER_privatize_reichsbahn
+			focus = GER_nationalize_resource_industries
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = GER_privatize_reichsbahn
 		ai_will_do = {
@@ -4158,34 +4209,7 @@ focus_tree = {
 		}
 
 	}
-	focus = {
-		id = GER_nationalize_aviation_industry
-		icon = GFX_goal_GER_nationalize_aviation_industry
-		cost = 10.00
-		prerequisite = {
-			focus = GER_nationalize_resource_industries
-		}
-		x = 0
-		y = 1
-		relative_position_id = GER_nationalize_resource_industries
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = air_plane_models
-				bonus = 1
-				uses = 2
-				category = light_air
-				category = medium_air
-				category = heavy_air
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
 
-	}
 	# focus = {
 	# 	id = GER_enigma
 	# 	icon = GFX_focus_generic_cryptologic_bomb
@@ -4673,6 +4697,15 @@ focus_tree = {
 			hidden_effect = { #Prepares ai for Weserubung
 				set_country_flag = r56_GER_prepare_weserubung_strat_is_a_go
 			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_rheinmetall_organization
+				mio:GER_rheinmetall_organization = {
+					add_mio_size = 1
+				}
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_RESEARCH FOCUS_FILTER_MILITARY_EQUIPMENT
@@ -4817,6 +4850,15 @@ focus_tree = {
 				uses = 1
 				technology = super_heavy_tank_chassis
 			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_porsche_organization
+				mio:GER_porsche_organization = {
+					add_mio_funds = 1000
+				}
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_RESEARCH FOCUS_FILTER_MILITARY_EQUIPMENT
@@ -4846,6 +4888,15 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = cat_production
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_man_organization
+				mio:GER_man_organization = {
+					add_mio_funds = 1000
+				}
 			}
 		}
 		search_filters = {
@@ -5191,6 +5242,15 @@ focus_tree = {
                 uses = 1
 				category = cat_anti_air
 			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_rheinmetall_organization
+				mio:GER_rheinmetall_organization = {
+					add_mio_funds = 400
+				}
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_RESEARCH FOCUS_FILTER_MILITARY_EQUIPMENT
@@ -5212,6 +5272,15 @@ focus_tree = {
 				bonus = 0.5
 				uses = 2
 				category = cat_anti_tank
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_rheinmetall_organization
+				mio:GER_rheinmetall_organization = {
+					add_mio_funds = 200
+				}
 			}
 		}
 		search_filters = {
@@ -5250,6 +5319,15 @@ focus_tree = {
 					category = cat_heavy_armor
 				}
 			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_daimler_benz_organization
+				mio:GER_daimler_benz_organization = {
+					add_mio_funds = 1000
+				}
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_RESEARCH FOCUS_FILTER_MILITARY_EQUIPMENT
@@ -5277,6 +5355,15 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = artillery
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_rheinmetall_organization
+				mio:GER_rheinmetall_organization = {
+					add_mio_funds = 200
+				}
 			}
 		}
 		search_filters = {
@@ -6232,6 +6319,19 @@ focus_tree = {
 			}
 			custom_effect_tooltip = available_military_high_command
 			show_ideas_tooltip = hugo_sperrle
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_junkers_organization
+				mio:GER_junkers_organization = {
+					add_mio_funds = 750
+				}
+				show_mio_tooltip = GER_heinkel_organization
+				mio:GER_heinkel_organization = {
+					add_mio_funds = 600
+				}
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_RESEARCH
@@ -6267,6 +6367,46 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH
 		}
 
+	}
+	focus = {
+		id = GER_nationalize_aviation_industry
+		icon = GFX_goal_GER_nationalize_aviation_industry
+		cost = 10.00
+		prerequisite = {
+			focus = GER_air_superiority_english_channel
+		}
+		x = 1
+		y = 1
+		relative_position_id = GER_air_superiority_english_channel
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_plane_models
+				bonus = 1
+				uses = 2
+				category = light_air
+				category = medium_air
+				category = heavy_air
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = GER_focke_wulf_organization
+				mio:GER_focke_wulf_organization = {
+					add_mio_funds = 850
+				}
+				show_mio_tooltip = GER_messerschmitt_organization
+				mio:GER_messerschmitt_organization = {
+					add_mio_funds = 750
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
 	}
 	focus = {
 		id = GER_train_paratroopers
@@ -13471,12 +13611,13 @@ focus_tree = {
 		icon = GFX_goal_italy_autarky
 		cost = 10.00
 		prerequisite = {
-			focus = GER_volkswagen
+			focus = GER_deutsche_arbeitsfront
+		}
+		prerequisite = {
 			focus = GER_finish_reinhardt
-			focus = GER_nationalize_aviation_industry
 		}
 		relative_position_id = GER_finish_reinhardt
-		x = 0
+		x = -1.50
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -13673,7 +13814,10 @@ focus_tree = {
 			num_occupied_states > 5
 		}
 		completion_reward = {
-			add_ideas = GER_aux_police_SS_idea
+			swap_ideas = {
+				remove_idea = r56i_laws_security_order
+				add_idea = GER_aux_police_SS_idea
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_STABILITY

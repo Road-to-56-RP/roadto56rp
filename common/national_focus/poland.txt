@@ -1926,8 +1926,20 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = POL_fb
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				show_mio_tooltip = POL_fb_organization
+				mio:POL_fb_organization = {
+					add_mio_size = 2
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = POL_fb
+			}
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
@@ -2389,13 +2401,16 @@ focus_tree = {
 				}				
 			}
 
-			#add_tech_bonus = {
-			#	name = POL_study_foreign_tanks
-			#	bonus = 1.0
-			#	uses = 1
-			#	category = armor
-			#}
-			#50% armor research
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_pzinz_organization
+				mio:POL_pzinz_organization = {
+					add_mio_size = 1
+					add_mio_funds = 250
+				}
+			}
 		}
 	}
 	
@@ -2418,6 +2433,15 @@ focus_tree = {
 			custom_effect_tooltip = Reversible_Periscope_tt
 			custom_effect_tooltip = available_theorist
 			show_ideas_tooltip = POL_Rudolf_Gundlach
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_pzinz_organization
+				mio:POL_pzinz_organization = {
+					add_mio_size = 1
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -2465,7 +2489,7 @@ focus_tree = {
 					technology = basic_medium_tank
 				}				
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_dlc = "No Step Back"
 				}
@@ -2505,6 +2529,16 @@ focus_tree = {
 					country_event = poland.188
 				}
 			}
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_pzinz_organization
+				mio:POL_pzinz_organization = {
+					add_mio_funds = 500
+				}
+			}
 		}
 	}
 
@@ -2536,7 +2570,16 @@ focus_tree = {
 				amount = 200
 				producer = ITA
 			}
-			#1 x 50% for Artillery Equipment
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_lrl_organization
+				mio:POL_lrl_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
@@ -2549,7 +2592,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = POL_Artillery_Motorization
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -2578,8 +2621,20 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = POL_H_Cegielski
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_smpa_organization
+				mio:POL_smpa_organization = {
+					add_mio_size = 1
+					add_mio_funds = 250
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = POL_H_Cegielski
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -2592,7 +2647,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = POL_Artillery_Motorization
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -2621,8 +2676,20 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = POL_Starachowice_Works
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_smpa_organization
+				mio:POL_smpa_organization = {
+					add_mio_size = 1
+					add_mio_funds = 250
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = POL_Starachowice_Works
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -2742,6 +2809,20 @@ focus_tree = {
 			}
 			else = {
 				custom_effect_tooltip = POL_motors_become_free_tt
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = POL_vauxhall
+						add_idea = POL_vauxhall_free
+					}
+					swap_ideas = {
+						remove_idea = POL_somua
+						add_idea = POL_somua_free
+					}
+					swap_ideas = {
+						remove_idea = POL_ford
+						add_idea = POL_ford_free
+					}
+				}
 			}
 		}
 	}
@@ -2900,6 +2981,16 @@ focus_tree = {
 				}
 			}
 
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_pzl_organization
+				mio:POL_pzl_organization = {
+					add_mio_size = 1
+					add_mio_funds = 250
+				}
+			}
 		}
 	}
 
@@ -2930,6 +3021,15 @@ focus_tree = {
 			}
 			#1x50% research bonus to Air Doctrine Research
 			add_ideas = POL_Advanced_Pilot_Training_Program
+		}
+		IF = {
+			limit = {
+				has_dlc = "Arms Against Tyranny"
+			}
+			show_mio_tooltip = POL_pws_organization
+			mio:POL_pws_organization = {
+				add_mio_size = 1
+			}
 		}
 	}
 
@@ -3222,6 +3322,15 @@ focus_tree = {
 				}
 			}
 			add_ideas = POL_Modern_Aircraft_Production
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_pzl_organization
+				mio:POL_pzl_organization = {
+					add_mio_size = 2
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -3273,6 +3382,16 @@ focus_tree = {
 				}
 				country_event = poland.89
 			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_pws_organization
+				mio:POL_pws_organization = {
+					add_mio_size = 2
+				}
+			}
+			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -3629,7 +3748,7 @@ focus_tree = {
 		x = 4
 		y = 1
 		relative_position_id = POL_consolidate_sanation_government
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -3924,7 +4043,7 @@ focus_tree = {
 		x = -4
 		y = 1
 		relative_position_id = POL_consolidate_sanation_government
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -4374,7 +4493,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = POL_consolidate_sanation_government
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -14114,6 +14233,16 @@ focus_tree = {
 			#Add 2 Dockyards at Gdynia
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = POL_huta_zgoda
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_stocznia_gdynia_organization
+				mio:POL_stocznia_gdynia_organization = {
+					add_mio_funds = 500
+				}
+			}
 		}
 	}
 
@@ -14664,7 +14793,15 @@ focus_tree = {
 				uses = 2
 				category = dd_tech
 			}
-			#2x 50% research bonus for Destroyers
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_pzinz_organization
+				mio:POL_pzinz_organization = {
+					add_mio_funds = 500
+				}
+			}
 		}
 	}
 
@@ -14784,6 +14921,16 @@ focus_tree = {
 					type = dockyard
 					level = 2
 					instant_build = yes
+				}
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = POL_stocznia_gdynia_organization
+				mio:POL_stocznia_gdynia_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
 				}
 			}
 		}

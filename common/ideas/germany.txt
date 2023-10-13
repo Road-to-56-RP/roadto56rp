@@ -1,8 +1,40 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 ideas = {
+	r56i_laws_category_security = {
+
+		law = yes
+		use_list_view = yes
+
+		GER_aux_police_SS_idea = { #warlider modding go brr i guess
+			cost = 150
+			cancel_if_invalid = no
+			allowed = {
+				OR = {
+					always = no				# Added via focus
+					has_completed_focus = GER_strengthen_german_state
+				}
+			}
+			allowed_civil_war = {
+				has_government = fascism
+			}
+			picture = generic_fascism_rising
+			modifier = {
+				stability_factor = -0.05
+				drift_defence_factor = 0.10
+				resistance_damage_to_garrison = -0.35 #was 30
+				required_garrison_factor = 0.1
+				civilian_intel_to_others = 2
+			}
+		}
+	}
 
 	war_bonds = {
 
 		law = yes
+		use_list_view = yes
 
 		GER_mefo_bills_1 = {
 			name = GER_mefo_bills
@@ -997,11 +1029,16 @@ ideas = {
 			removal_cost = -1
 			picture = generic_goods_red_bonus
 			modifier = {
-				#conscription = -0.005
 				industrial_capacity_factory = 0.05
-				stability_factor = -0.05
-				#production_factory_start_efficiency_factor = 0.1
-				#conversion_cost_civ_to_mil_factor = -0.25
+				production_speed_buildings_factor = 0.05
+				conversion_cost_civ_to_mil_factor = -0.05
+				mobilization_speed = 0.05
+			}
+			equipment_bonus = {
+				motorized_equipment = {
+					build_cost_ic = -0.15
+					instant = yes
+				}
 			}
 		}
 		volkswagen_idea = {
@@ -1011,9 +1048,10 @@ ideas = {
 			removal_cost = -1
 			picture = FRA_motorized_focus
 			modifier = {
-				#stability_factor = 0.05
-				#consumer_goods_factor = 0.02
-				#production_speed_industrial_complex_factor = 0.1
+				production_speed_buildings_factor = 0.05
+				conversion_cost_civ_to_mil_factor = -0.05
+				mobilization_speed = 0.05
+				stability_factor = 0.05
 			}
 			equipment_bonus = {
 				motorized_equipment = {
@@ -1165,22 +1203,6 @@ ideas = {
 			}
 			research_bonus = {
 				synth_resources = 0.1
-			}
-		}
-
-		GER_aux_police_SS_idea = {
-			removal_cost = -1
-			allowed = {
-				always = no				# Added via focus
-			}
-			allowed_civil_war = {
-				has_government = fascism
-			}
-			picture = generic_spy_intel
-			modifier = {
-				resistance_damage_to_garrison = -0.25 #was 30
-				required_garrison_factor = 0.1
-				civilian_intel_to_others = 2
 			}
 		}
 		

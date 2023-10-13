@@ -3,10 +3,12 @@ ideas = {
 	equality = { 
 	
 		law = yes
-		
+		use_list_view = yes
 
 		# Equality for all
 		equality_all = {
+			cost = 150
+
 		    available = {
 				NOT = {
 					has_government = fascism
@@ -21,9 +23,7 @@ ideas = {
 			    resistance_damage_to_garrison = 0.10
 				resistance_growth = -0.15
 			}
-	
-			cost = 150
-			
+
 			cancel_if_invalid = yes
 			
 			ai_will_do = {
@@ -39,10 +39,39 @@ ideas = {
 			}		
 			
 		}
-		
+
+		# Minority Rights
+		equality_minority = {
+			cost = 100
+			available = {
+				NOT = { 
+					has_government = fascism
+				}
+			}
+			
+			modifier = {
+				resistance_damage_to_garrison = 0.05
+				resistance_growth = -0.05
+				conscription = 0.01
+				non_core_manpower = 0.15
+				political_power_factor = -0.05
+				stability_factor = 0.05
+			}
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+					factor = 0.5
+
+					modifier = {
+					has_government = neutrality
+					factor = 0.5
+				}
+				}
+		}
 		
 		# Race Segregation
 		equality_segregation = {
+			cost = 100
 
 			available = {
 		       NOT = { 
@@ -58,9 +87,6 @@ ideas = {
 				non_core_manpower = -0.10
 				political_power_factor = 0.05
 			}
-			
-			cost = 100
-
 			
 			cancel_if_invalid = yes
 
@@ -80,8 +106,9 @@ ideas = {
 		
 		# Harsh Repressions
 		equality_genocide = {
+			cost = 150
 
-		available = {
+			available = {
 				NOT = { 
 					has_government = communism
 					has_government = democratic
@@ -108,39 +135,13 @@ ideas = {
    			}
 		}
 		
-		# Minority Rights
-		equality_minority = {
-			cost = 100
-			available = {
-				NOT = { 
-					has_government = fascism
-				}
-			}
-			
-			modifier = {
-				resistance_damage_to_garrison = 0.05
-				resistance_growth = -0.05
-				conscription = 0.01
-				non_core_manpower = 0.15
-				political_power_factor = -0.05
-				stability_factor = 0.05
-			}
-			cancel_if_invalid = yes
 
-			ai_will_do = {
-   				factor = 0.5
-
-   				modifier = {
-					has_government = neutrality
-					factor = 0.5
-				}
-   			}
-		}
 	}
 
 	finances = { 
 	
 		law = yes
+		use_list_view = yes
 		
 		#Army Financing
 		finances_army = {
@@ -299,37 +300,40 @@ ideas = {
 	nationalization = { 
 	
 		law = yes
-		
-		#State Property
-		nationalization_full = {
-		    available = {
+		use_list_view = yes
+
+		#Capitalization
+		nationalization_capital = {
+			available = {
 				NOT = {
-						has_government = democratic
-				  }
+					has_government = communism
+					has_government = fascism
 				}
-			
+			}
 			modifier = {
-				production_factory_max_efficiency_factor = 0.1
-				production_speed_buildings_factor = 0.05
-				production_factory_efficiency_gain_factor = -0.05
-				consumer_goods_factor = 0.15
-				local_resources_factor = 0.15
-				min_export = -0.25
-				war_support_factor = 0.10
+				consumer_goods_factor = -0.40
+				stability_factor = -0.1
+				research_speed_factor = 0.15
+				local_resources_factor = 0.175
+				local_building_slots_factor = 0.10
+				production_lack_of_resource_penalty_factor = 1 
+				min_export = 0.70
 			}
 			
 			cost = 150
 			
 			cancel_if_invalid = yes
-			
+
 			ai_will_do = {
-   				factor = 0.5
+					factor = 0.5
 				modifier = {
-					has_government = communism
+					has_government = democratic
 					factor = 10
 				}
-   			}
+				}
 		}
+		
+
 		
 		#State Capitalism
 		nationalization_partial = {
@@ -365,44 +369,43 @@ ideas = {
 
    			}
 		}
-		
-		#Capitalization
-		nationalization_capital = {
+
+		#State Property
+		nationalization_full = {
 			available = {
 				NOT = {
-					has_government = communism
-					has_government = fascism
+						has_government = democratic
+					}
 				}
-			}
+			
 			modifier = {
-				consumer_goods_factor = -0.40
-				stability_factor = -0.1
-				research_speed_factor = 0.15
-				local_resources_factor = 0.175
-				local_building_slots_factor = 0.10
-				production_lack_of_resource_penalty_factor = 1 
-				min_export = 0.70
+				production_factory_max_efficiency_factor = 0.1
+				production_speed_buildings_factor = 0.05
+				production_factory_efficiency_gain_factor = -0.05
+				consumer_goods_factor = 0.15
+				local_resources_factor = 0.15
+				min_export = -0.25
+				war_support_factor = 0.10
 			}
 			
 			cost = 150
 			
 			cancel_if_invalid = yes
-
+			
 			ai_will_do = {
-   				factor = 0.5
+					factor = 0.5
 				modifier = {
-					has_government = democratic
+					has_government = communism
 					factor = 10
 				}
-   			}
+			}
 		}
-		
-		
 	}
 
 	war_bonds = { 
 	
 		law = yes
+		use_list_view = yes
 		
 		#Force Bonds
 		war_bonds_force = {
@@ -512,71 +515,7 @@ ideas = {
 	mass_media = { 
 	
 		law = yes
-		
-		# Government Propaganda
-		mass_media_propaganda = {
-		available = {
-				NOT = {
-					has_government = democratic
-				}
-			}
-			
-			modifier = {
-				conscription_factor = 0.10
-				consumer_goods_factor = 0.15
-				political_power_factor = -0.10
-				war_support_factor = 0.1
-				stability_factor = -0.1
-				drift_defence_factor = 0.25
-				compliance_gain = 0.05
-			}
-
-			cost = 150
-			
-			cancel_if_invalid = yes
-			
-			ai_will_do = {
-   				factor = 0.5
-				modifier = {
-					OR = {
-					has_government = communism
-					has_government = fascism
-				    }
-					factor = 10
-				}
-   			}
-			
-		}
-		
-		# Censorship
-		mass_media_censorship = {
-			
-			modifier = {
-				consumer_goods_factor = 0.075
-				stability_factor = -0.05
-				war_support_factor = -0.05
-				political_power_factor = -0.05
-				compliance_gain = 0.1
-				drift_defence_factor = 0.05
-			}
-			
-			cost = 175 
-			
-			cancel_if_invalid = yes
-
-			ai_will_do = {
-   				factor = 0.5
-
-   				modifier = {
-					OR = {
-					has_government = communism
-					has_government = fascism
-					has_government = neutrality
-				    }
-					factor = 1
-				}
-   			}
-		}
+		use_list_view = yes
 		
 		# Free Press
 		mass_media_free = {
@@ -613,10 +552,74 @@ ideas = {
    			}
 		}
 		
+		# Censorship
+		mass_media_censorship = {
+			
+			modifier = {
+				consumer_goods_factor = 0.075
+				stability_factor = -0.05
+				war_support_factor = -0.05
+				political_power_factor = -0.05
+				compliance_gain = 0.1
+				drift_defence_factor = 0.05
+			}
+			
+			cost = 175 
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+   				factor = 0.5
+
+   				modifier = {
+					OR = {
+					has_government = communism
+					has_government = fascism
+					has_government = neutrality
+				    }
+					factor = 1
+				}
+   			}
+		}
+
+		# Government Propaganda
+		mass_media_propaganda = {
+			available = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+			
+			modifier = {
+				conscription_factor = 0.10
+				consumer_goods_factor = 0.15
+				political_power_factor = -0.10
+				war_support_factor = 0.1
+				stability_factor = -0.1
+				drift_defence_factor = 0.25
+				compliance_gain = 0.05
+			}
+
+			cost = 150
+			
+			cancel_if_invalid = yes
+			
+			ai_will_do = {
+					factor = 0.5
+				modifier = {
+					OR = {
+					has_government = communism
+					has_government = fascism
+					}
+					factor = 10
+				}
+			}
+		}
 	}
 
 	maximum_age_laws = { 
 		law = yes
+		use_list_view = yes
 
 		age_40 = {
 						
@@ -726,6 +729,7 @@ ideas = {
 
 	minimum_age_laws = { 
 		law = yes
+		use_list_view = yes
 
 		age_19 = {
 						
@@ -909,6 +913,39 @@ ideas = {
 	population = {
 	
 		law = yes
+		use_list_view = yes
+
+			#Open Borders
+			population_open = {
+
+				available = {
+					NOT = {
+						has_government = communism
+						has_government = fascism
+					}
+				}
+
+				modifier = {
+					political_power_factor = 0.15
+					conscription = 0.005
+					conscription_factor = 0.2
+					consumer_goods_factor = 0.10
+					stability_factor = 0.05
+				}
+
+				cost = 100
+				
+				cancel_if_invalid = yes
+
+				ai_will_do = {
+						factor = 0.5
+
+						modifier = {
+						has_government = democratic
+						factor = 1
+					}
+				}
+			}
 		
 		#Encourage Growth
 		population_encourage = {
@@ -928,69 +965,6 @@ ideas = {
 			
 			ai_will_do = {
    				factor = 0.5
-   			}
-		}
-		
-		#Open Borders
-		population_open = {
-
-            available = {
-				NOT = {
-					has_government = communism
-					has_government = fascism
-				}
-			}
-
-			modifier = {
-				political_power_factor = 0.15
-				conscription = 0.005
-				conscription_factor = 0.2
-				consumer_goods_factor = 0.10
-				stability_factor = 0.05
-			}
-
-			cost = 100
-			
-			cancel_if_invalid = yes
-
-			ai_will_do = {
-   				factor = 0.5
-
-   				modifier = {
-					has_government = democratic
-					factor = 1
-				}
-   			}
-		}
-		
-		#National Purity
-		population_pure = {
-		    available = {
-				NOT = {
-					has_government = communism
-					has_government = democratic
-				}
-			}
-			
-			modifier = {
-				political_power_factor = -0.05
-				war_support_factor = 0.075
-				stability_factor = -0.05
-				conscription = 0.02
-				conscription_factor = -0.1
-			}
-
-			cost = 100
-			
-			cancel_if_invalid = yes
-
-			ai_will_do = {
-   				factor = 0.5
-
-   				modifier = {
-					has_government = fascism
-					factor = 10
-				}
    			}
 		}
 		
@@ -1019,11 +993,43 @@ ideas = {
    				factor = 0.5
    			}
 		}
+
+		#National Purity
+		population_pure = {
+			available = {
+				NOT = {
+					has_government = communism
+					has_government = democratic
+				}
+			}
+			
+			modifier = {
+				political_power_factor = -0.05
+				war_support_factor = 0.075
+				stability_factor = -0.05
+				conscription = 0.02
+				conscription_factor = -0.1
+			}
+
+			cost = 100
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+					factor = 0.5
+
+					modifier = {
+					has_government = fascism
+					factor = 10
+				}
+			}
+		}
 		
 	}
 
 	role_of_women_laws = { 
 		law = yes
+		use_list_view = yes
 
 		stay_at_home = {
 						
@@ -1160,6 +1166,7 @@ ideas = {
 
 	recruitment_standard_laws = { 
 		law = yes
+		use_list_view = yes
 
 		healthy_standard = {
 						
