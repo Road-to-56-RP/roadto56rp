@@ -969,6 +969,83 @@ focus_tree = {
 	#}
 
 	focus = {
+		id = POL_modernize_congressional_factories
+		icon = GFX_focus_generic_industry_3
+		prerequisite = { focus = POL_invest_in_the_old_polish_region }
+		x = 0
+		y = 1
+		relative_position_id = POL_invest_in_the_old_polish_region
+		cost = 10
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			add_to_variable = {
+				var = POL_investments_var
+				value = 1
+			}
+			random_owned_controlled_state = {
+				prioritize = { 10 }
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 90 }
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 98 }
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
 		id = POL_additional_research_slot2
 		icon = GFX_goal_generic_education
 		prerequisite = { focus = POL_modernize_congressional_factories }
@@ -1185,13 +1262,11 @@ focus_tree = {
 			random_owned_controlled_state = {
 				prioritize = { 88 }
 				limit = {
-					limit = {
-						steel_mill < 2
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
+					steel_mill < 2
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -1463,82 +1538,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = POL_modernize_congressional_factories
-		icon = GFX_focus_generic_industry_3
-		prerequisite = { focus = POL_invest_in_the_old_polish_region }
-		x = 0
-		y = 1
-		relative_position_id = POL_invest_in_the_old_polish_region
-		cost = 10
 
-		ai_will_do = {
-			factor = 10
-		}
-
-		
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-
-		completion_reward = {
-			add_to_variable = {
-				var = POL_investments_var
-				value = 1
-			}
-			random_owned_controlled_state = {
-				prioritize = { 10 }
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				prioritize = { 90 }
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				prioritize = { 98 }
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
 
 	focus = {
 		id = POL_warsaw_main_railway_station
@@ -9521,6 +9521,45 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = POL_soldier_king
+		icon = GFX_focus_ger_return_of_the_kaiser
+		prerequisite = { focus = POL_habsburg }
+		relative_position_id = POL_habsburg
+
+		x = 1
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 2.5
+		}
+		
+		available = {
+		}
+		
+		bypass = {
+		}
+
+		available_if_capitulated = yes
+
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			POL_karl_albrecht = {
+				add_country_leader_trait = POL_soldier_king
+			}
+			add_field_marshal_role = {
+				character = "POL_karl_albrecht"
+				traits={ infantry_officer war_hero }
+				skill=3
+				attack_skill=4
+				defense_skill=3
+				planning_skill=2
+				logistics_skill=2
+				legacy_id=-1
+			}
+		}
+	}
+	focus = {
 		id = POL_royal_hussars
 		icon = GFX_goal_generic_cavalry
 		#prerequisite = { focus = POL_restore_the_diet_of_galicia }
@@ -9867,45 +9906,7 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = POL_soldier_king
-		icon = GFX_focus_ger_return_of_the_kaiser
-		prerequisite = { focus = POL_habsburg }
-		relative_position_id = POL_habsburg
 
-		x = 1
-		y = 1
-		cost = 10
-
-		ai_will_do = {
-			factor = 2.5
-		}
-		
-		available = {
-		}
-		
-		bypass = {
-		}
-
-		available_if_capitulated = yes
-
-		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			POL_karl_albrecht = {
-				add_country_leader_trait = POL_soldier_king
-			}
-			add_field_marshal_role = {
-				character = "POL_karl_albrecht"
-				traits={ infantry_officer war_hero }
-				skill=3
-				attack_skill=4
-				defense_skill=3
-				planning_skill=2
-				logistics_skill=2
-				legacy_id=-1
-			}
-		}
-	}
 
 	focus = {
 		id = POL_kings_guard

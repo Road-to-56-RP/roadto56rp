@@ -4110,54 +4110,32 @@ focus_tree = {
 		}
 
 		available = {
-			any_state = {
-				is_core_of = ROOT
-				
+			CHI = {
 				OR = {
-					is_controlled_by = ROOT
-					controller = {
-						is_subject_of = ROOT
-					}
-					state = 729
-					state = 326
-					state = 728
-					state = 524
-					state = 434
-					state = 329
-					state = 330
-
-					state = 817
-					state = 818
-					state = 819
-					state = 820					
+					exists = no
+					has_capitulated = yes
+					is_subject_of = ROOT
 				}
 			}
-		#	all_state = { 
-		#		OR = {
-		#			is_core_of = ROOT
-		#			state = 729
-		#			state = 326
-		#			state = 728
-		#			state = 524
-		#			state = 434
-		#			state = 329
-		#			state = 330
-#
-		#			state = 817
-		#			state = 818
-		#			state = 819
-		#			state = 820
-		#			
-
-		#		}
-		#		
-		#	}
+			PRC = {
+				OR = {
+					exists = no
+					has_capitulated = yes
+					is_subject_of = ROOT
+				}
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			MAN_low_legitimacy_clear_all = yes	
 			set_cosmetic_tag = MAN_restored
+
+			every_state = {
+				limit = { is_core_of = CHI }
+				add_core_of = MAN
+			}
+
 			hidden_effect = {
 				news_event = { id = wtt_news.44 days = 2 }
 				if = {
@@ -4204,9 +4182,14 @@ focus_tree = {
 		completion_reward = {
 			add_war_support = 0.1
 			set_rule = { can_create_factions = yes }
+			create_wargoal = {
+				target = CHI
+				type = take_state_focus
+				generator = { 123 }
+			}
 			every_state = {
 				limit = { is_core_of = CHI }
-				add_core_of = ROOT
+				add_claim_by = MAN
 			}
 		}
 	}
@@ -4298,6 +4281,9 @@ focus_tree = {
 			every_country = {
 				limit = {
 					is_independent_china_or_warlord = yes
+					NOT = {
+						TAG = CHI
+					}
 				}
 				ROOT = {
 					create_wargoal = {
