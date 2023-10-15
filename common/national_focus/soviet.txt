@@ -5592,9 +5592,35 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			USA = { country_event = lar_arms_purchases.1 }
-			custom_effect_tooltip = if_they_accept_tt
-			unlock_decision_category_tooltip = SOV_weapons_purchases_category
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				display_individual_scopes = yes
+				ROOT = {
+					add_equipment_subsidy = {
+						cic = 10000
+						equipment_type = infantry_equipment
+						seller_tags = { USA } 
+					}
+					add_equipment_subsidy = {
+						cic = 5000
+						equipment_type = artillery_equipment
+						seller_tags = { USA } 
+					}
+					add_equipment_subsidy = {
+						cic = 3000
+						equipment_type = anti_air_equipment
+						seller_tags = { USA } 
+					}
+				}
+			}
+			ELSE = {
+				USA = { country_event = lar_arms_purchases.1 }
+				custom_effect_tooltip = if_they_accept_tt
+				unlock_decision_category_tooltip = SOV_weapons_purchases_category
+			}
+
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}

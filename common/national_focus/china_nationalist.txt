@@ -2450,10 +2450,35 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			custom_effect_tooltip = r56rp_KMT_buy_guns_abroad.tt
-			add_political_power = 25
-			hidden_effect = {
-				set_country_flag = r56rp_KMT_foreign_arms_purchases_1
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				display_individual_scopes = yes
+				ROOT = {
+					add_equipment_subsidy = {
+						cic = 10000
+						equipment_type = infantry_equipment
+						seller_tags = { SOV USA GER ENG ITA FRA } 
+					}
+					add_equipment_subsidy = {
+						cic = 5000
+						equipment_type = artillery_equipment
+						seller_tags = { SOV USA GER ENG ITA FRA } 
+					}
+					add_equipment_subsidy = {
+						cic = 3000
+						equipment_type = anti_air_equipment
+						seller_tags = { SOV USA GER ENG ITA FRA } 
+					}
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_KMT_buy_guns_abroad.tt
+				add_political_power = 25
+				hidden_effect = {
+					set_country_flag = r56rp_KMT_foreign_arms_purchases_1
+				}
 			}
 		}
 	}
@@ -3561,8 +3586,6 @@ focus_tree = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = CHI_camco_fighter_organization
 				mio:CHI_camco_fighter_organization = {
 					add_mio_size = 1
 					add_mio_funds = 500
@@ -3611,8 +3634,6 @@ focus_tree = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = CHI_camco_bomber_organization
 				mio:CHI_camco_bomber_organization = {
 					add_mio_size = 1
 					add_mio_funds = 500
@@ -5512,8 +5533,20 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = jiangnan_shipyard_group
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = CHI_jiangnan_shipyard_group_organization
+				mio:CHI_jiangnan_shipyard_group_organization = {
+					add_mio_size = 1
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = jiangnan_shipyard_group
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -5633,8 +5666,22 @@ focus_tree = {
 					}
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = CHI_hanyang_arsenal
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = CHI_hanyan_arsenal_organization
+				mio:CHI_hanyan_arsenal_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = CHI_hanyang_arsenal
+			}
+
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -5676,6 +5723,27 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
+	focus = {
+		id = KMT_r56rp_anti_corruption_measures
+		icon = GFX_focus_mex_privatisation
+		allow_branch = { 
+			is_debug = yes 
+		}
+		prerequisite = { focus = KMT_political_effort }
+		relative_position_id = KMT_political_effort
+		x = 8
+		y = 1
+		cost = 5
+		#cost = 50
+
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		
+		completion_reward = {
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
 	
 	focus = {
 		id = KMT_the_big_rear_concept
@@ -5708,9 +5776,23 @@ focus_tree = {
 				custom_effect_tooltip = KMT_r56_the_rear_tt_2
 				add_dynamic_modifier = { modifier = r56_the_rear } 
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = CHI_taiyuan_arsenal		
-			show_ideas_tooltip = KMT_chongqing_steel
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = CHI_taiyuan_arsenal_organization
+				mio:CHI_taiyuan_arsenal_organization = {
+					add_mio_size = 3
+				}
+				custom_effect_tooltip = available_designer		
+				show_ideas_tooltip = KMT_chongqing_steel
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = CHI_taiyuan_arsenal
+				show_ideas_tooltip = KMT_chongqing_steel
+			}
 			if = { #Rewritten to be more dynamic and work. #Only does a 2 for 1 on civs once in some states. Don't want to make industrial evac totally useless. 
 				limit = { #Beijing
 					608 = {
