@@ -40,7 +40,7 @@ focus_tree = {
 		
 		x = 2
 		y = 0
-		cost = 15
+		cost = 10
 		
 		ai_will_do = {
 			factor = 1
@@ -86,7 +86,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_political_power = 250
+			add_political_power = 125
 			add_war_support = 0.10
 			custom_effect_tooltip = KMT_no_united_front_unless_xian_incident_agreed_tt																			 
 		}
@@ -5445,25 +5445,7 @@ focus_tree = {
 		}
 		continue_if_invalid = yes
 		completion_reward = {
-			if = {
-				limit = { 
-					NOT = {
-							has_dynamic_modifier = {
-								modifier = KMT_combined_army_modifier
-								scope = ROOT
-							}
-						} 
-					}
-				hidden_effect = {
-					add_dynamic_modifier = {
-						modifier = KMT_combined_army_modifier
-					}
-				}
-				custom_effect_tooltip = KMT_r56rp_add_nra_tt
-			}
-			add_to_variable = { KMT_combined_army_modifier_land_night_attack = 0.1 }
-			add_to_variable = { KMT_combined_army_modifier_resistance_growth_on_our_occupied_states = 0.2 }
-			custom_effect_tooltip = KMT_dare_to_die_corps_tt
+			add_ideas = kmt_dare_to_die_corps_idea
 			custom_effect_tooltip = kmt_dtdc_tt
 			hidden_effect = {
 				set_technology = { dare_to_die_corps = 1 }
@@ -5486,9 +5468,10 @@ focus_tree = {
 		}
 		continue_if_invalid = yes
 		completion_reward = {
-			add_to_variable = { KMT_combined_army_modifier_equipment_conversion_speed = 0.2 }
-			add_to_variable = { KMT_combined_army_modifier_equipment_capture_factor = 0.3 }
-			custom_effect_tooltip = KMT_dare_to_die_corps_2_tt
+			swap_ideas = {
+				remove_idea = kmt_dare_to_die_corps_idea
+				add_idea = kmt_dare_to_die_corps_idea_2
+			}
 			add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 producer = ROOT }
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
@@ -7556,32 +7539,7 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			if = {
-				limit = { 
-					NOT = {
-							has_dynamic_modifier = {
-								modifier = KMT_combined_army_modifier
-								scope = ROOT
-							}
-						} 
-					}
-				hidden_effect = {
-					add_dynamic_modifier = {
-						modifier = KMT_combined_army_modifier
-					}
-				}
-				custom_effect_tooltip = KMT_r56rp_add_nra_tt
-			}
-			add_to_variable = { KMT_combined_army_modifier_conscription_factor = -0.25 }
-			add_to_variable = { KMT_combined_army_modifier_army_morale_factor = 0.05 }
-			add_to_variable = { KMT_combined_army_modifier_army_attack_factor = 0.05 }
-			add_to_variable = { KMT_combined_army_modifier_army_defence_factor = 0.05 }
-			add_to_variable = { KMT_combined_army_modifier_army_org_factor = 0.05 }
-			add_to_variable = { KMT_combined_army_modifier_training_time_factor = 0.15 }
-			add_to_variable = { KMT_combined_army_modifier_political_power_cost = 0.1 }
-			#add_to_variable = { KMT_combined_army_modifier_planning_speed = -0.2 }
-			custom_effect_tooltip = KMT_focus_on_our_own_army_tt
-			#custom_effect_tooltip = kmt_no_remove_warlord_army_tt
+			add_ideas = KMT_focus_on_own_army
 		}	
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}			
@@ -7592,14 +7550,43 @@ focus_tree = {
 		available = {
 			OR = {
 				has_idea = KMT_warlord_cliques_war
-				NOT = {
+			}
+			count_triggers = {
+				amount = 4
+				SHX = {
 					OR = {
-						country_exists = SHX
-						country_exists = XSM
-						country_exists = YUN
-						country_exists = GXC
-						country_exists = SIK
-						country_exists = TNG
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				XSM = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				YUN = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				GXC = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				SIK = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				TNG = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
 					}
 				}
 			}
@@ -7660,26 +7647,7 @@ focus_tree = {
 				}
 				remove_ideas = KMT_warlord_cliques_pre_war
 			}
-			if = {
-				limit = { 
-					NOT = {
-							has_dynamic_modifier = {
-								modifier = KMT_combined_army_modifier
-								scope = ROOT
-							}
-						} 
-					}
-				hidden_effect = {
-					add_dynamic_modifier = {
-						modifier = KMT_combined_army_modifier
-					}
-				}
-				custom_effect_tooltip = KMT_r56rp_add_nra_tt
-			}
-			add_to_variable = { KMT_combined_army_modifier_max_planning = 0.2 }
-			add_to_variable = { KMT_combined_army_modifier_planning_speed = 0.1 }
-			add_to_variable = { KMT_combined_army_modifier_training_time_factor = -0.15 }
-			custom_effect_tooltip = KMT_incorporate_warlord_forces_tt
+			add_ideas = KMT_effective_integration
 		}	
 	}
 	focus = {

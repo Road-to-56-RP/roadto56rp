@@ -4052,7 +4052,7 @@ focus_tree = {
 		id = MAN_imperial_university
 		icon = GFX_focus_research
 		prerequisite = { focus = MAN_imperial_divinity }
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = MAN_imperial_divinity
 
@@ -4086,10 +4086,18 @@ focus_tree = {
 		}
 
 		available = {
-			608 = { is_fully_controlled_by = ROOT }
+			OR = {
+				any_allied_country = {
+					controls_state = 608
+				}
+				ROOT = {
+					controls_state = 608
+				}
+			}
 		}
 
 		completion_reward = {
+			608 = { transfer_state_to = ROOT }
 			set_capital = { state = 608 }
 			MAN_low_legitimacy_level_down = yes
 		}
@@ -4134,6 +4142,28 @@ focus_tree = {
 			every_state = {
 				limit = { is_core_of = CHI }
 				add_core_of = MAN
+			}
+
+			custom_effect_tooltip = r56rp_MAN_annex_subjects
+			every_subject_country = {
+				limit = {
+					OR = {
+						tag = TNG
+						tag = SHX
+						tag = PRC
+						tag = CHI
+						tag = GXC
+						tag = XSM
+						tag = YUN
+						tag = SIK
+					}
+				}
+				ROOT = {
+					annex_country = {
+						target = PREV
+						transfer_troops = yes
+					}
+				}
 			}
 
 			hidden_effect = {
@@ -4261,50 +4291,50 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
-	focus = {
-		id = MAN_assert_our_authority
-		icon = GFX_goal_CHI_defeat_the_warlords
-		mutually_exclusive = { focus = MAN_offer_vassalization }
-		prerequisite = { focus = MAN_reclaim_the_empire }
-		x = -1
-		y = 1
-		relative_position_id = MAN_reclaim_the_empire
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-		completion_reward = {
-			every_country = {
-				limit = {
-					is_independent_china_or_warlord = yes
-					NOT = {
-						TAG = CHI
-					}
-				}
-				ROOT = {
-					create_wargoal = {
-						type = annex_everything
-						target = PREV
-					}
-				}
-			}
-		}
-	}
+	#focus = { #depracated. vasalisation gives you wargoals anyways so a waste of time.
+	#	id = MAN_assert_our_authority
+	#	icon = GFX_goal_CHI_defeat_the_warlords
+	#	mutually_exclusive = { focus = MAN_offer_vassalization }
+	#	prerequisite = { focus = MAN_reclaim_the_empire }
+	#	x = -1
+	#	y = 1
+	#	relative_position_id = MAN_reclaim_the_empire
+	#
+	#	cost = 5
+	#
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#
+	#	search_filters = { FOCUS_FILTER_ANNEXATION }
+	#	completion_reward = {
+	#		every_country = {
+	#			limit = {
+	#				is_independent_china_or_warlord = yes
+	#				NOT = {
+	#					TAG = CHI
+	#				}
+	#			}
+	#			ROOT = {
+	#				create_wargoal = {
+	#					type = annex_everything
+	#					target = PREV
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
 
 	focus = {
 		id = MAN_offer_vassalization
 		icon = GFX_goal_CHI_focus_on_external_threats
-		mutually_exclusive = { focus = MAN_assert_our_authority }
+		#mutually_exclusive = { focus = MAN_assert_our_authority }
 		prerequisite = { focus = MAN_reclaim_the_empire }
 		x = 1
 		y = 1
 		relative_position_id = MAN_reclaim_the_empire
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -4319,17 +4349,48 @@ focus_tree = {
 				}
 				country_event = { id = wtt_manchukou.1 }
 			}
+			# indicator of what the event does.
+			custom_effect_tooltip = r56rp_if_accept_ultimatum
+			effect_tooltip = {
+				every_country = {
+					limit = {
+						is_chinese_warlord = yes
+						not = { tag = event_target:WTT_current_china_leader }
+					}
+					ROOT = {
+						puppet = {
+							target = PREV
+							end_wars = no
+						}
+					}
+				}
+			}
+			custom_effect_tooltip = r56rp_if_deny_ultimatum
+			effect_tooltip = {
+				every_country = {
+					limit = {
+						is_chinese_warlord = yes
+						not = { tag = event_target:WTT_current_china_leader }
+					}
+					ROOT = {
+						create_wargoal = {
+							type = puppet_wargoal_focus
+							target = PREV
+						}
+					}
+				}
+			}
 		}
 	}
 	focus = {
 		id = MAN_reclaim_the_entierty_of_manchuria
 		icon = GFX_goal_generic_occupy_states_ongoing_war
-		prerequisite = {  focus = MAN_offer_vassalization focus = MAN_assert_our_authority }
+		prerequisite = {  focus = MAN_offer_vassalization }
 		mutually_exclusive = {
 			focus = MAN_qing_romanov_alliance
 		}
 		relative_position_id = MAN_offer_vassalization
-		x = -1
+		x = 0
 		y = 1
 		cost = 10
 

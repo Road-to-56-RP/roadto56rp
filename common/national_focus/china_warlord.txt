@@ -290,7 +290,15 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			remove_ideas = CHI_ineffective_bureaucracy_warlord
+			IF = {
+				limit = {
+					has_idea = CHI_ineffective_bureaucracy_warlord
+				}
+				remove_ideas = CHI_ineffective_bureaucracy_warlord
+			}
+			ELSE = {
+				add_political_power = 150
+			}
 		}
 	}
 
@@ -309,6 +317,12 @@ focus_tree = {
 		}
 
 		available = {
+			CHI = {
+				OR = {
+					exists = no
+					is_ai = yes
+				}
+			}
 			custom_trigger_tooltip = {
 				tooltip = is_not_supporting_someone_in_political_struggle
 				NOT = {
@@ -548,7 +562,17 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			remove_ideas = CHI_ineffective_bureaucracy_warlord
+			completion_reward = {
+				IF = {
+					limit = {
+						has_idea = CHI_ineffective_bureaucracy_warlord
+					}
+					remove_ideas = CHI_ineffective_bureaucracy_warlord
+				}
+				ELSE = {
+					add_political_power = 150
+				}
+			}
 		}
 	}
 
@@ -641,10 +665,15 @@ focus_tree = {
 		}
 
 		available = {
-			is_ai = no
+			PRC = {
+				OR = {
+					exists = no
+					is_ai = yes
+				}
+			}
 			has_opinion = {
 				target = SOV
-				value > 50
+				value > 20
 			}
 			is_subject = no
 			NOT = { has_war_with = PRC }
