@@ -11843,6 +11843,11 @@ on_actions = {
 				}
 
 				set_global_flag = game_rule_flag_germany_fragmented
+				42 = { set_demilitarized_zone = no }
+				51 = { set_demilitarized_zone = no }
+				989 = { set_demilitarized_zone = no }
+				922 = { set_demilitarized_zone = no }
+				923 = { set_demilitarized_zone = no }
 				BAD = {
 					add_state_core = 923
 					transfer_state = 923
@@ -16184,12 +16189,6 @@ on_actions = {
 					random_days = 20
 					random_hours = 24
 				}
-				set_variable_to_random = {
-					var = MPL_path_selection
-					min = 1
-					max = 101
-					integer = yes
-				}
 				if = {
 					limit = {
 						is_historical_focus_on = yes
@@ -16251,6 +16250,24 @@ on_actions = {
 						}
 					}
 					set_variable = { MPL_path_selection = 60 }
+				}
+				else_if = {
+					limit = {
+						OR = {
+							is_historical_focus_on = no
+							has_game_rule = {
+								rule = MPL_AI_BEHAVIOR
+								option = RANDOM
+							}
+						}
+					}
+					random_list = { #remains of an old system i cba to change, sorry its done this way
+						30 = { set_variable = { MPL_path_selection = 1 } }
+						20 = { set_variable = { MPL_path_selection = 53 } }
+						25 = { set_variable = { MPL_path_selection = 80 } }
+						10 = { set_variable = { MPL_path_selection = 95 } }
+						15 = { set_variable = { MPL_path_selection = 60 } }
+					}
 				}
 				if = {
 					limit = {
@@ -17957,6 +17974,10 @@ on_actions = {
 						}
 						news_event = { id = cityfall.103 }
 					}
+				}	
+				else_if = { #Jerusalem
+					limit = { FROM.FROM = { state = 1016 } }
+					news_event = { id = cityfall.105 }
 				}				
 			}
 
@@ -18548,9 +18569,17 @@ on_actions = {
 				limit = {
 					TAG = ISR
 					has_cosmetic_tag = ISR_couped
-					NOT = {
-						has_government = fascism
-						has_government = neutrality
+					OR = {
+						has_government = democratic
+						AND = {
+							has_government = communism
+							NOT = {
+								has_country_leader = {
+									character = ISR_lehi_triumvirate
+									ruling_only = yes
+								}
+							}
+						}
 					}
 				}
 				log = "trust"
@@ -19959,6 +19988,17 @@ on_actions = {
 					controls_state = 454
 				}
 				country_event = palestine.61
+			}
+			if = {
+				limit = {
+					tag = ISR
+					FROM = { tag = PAL }
+				}
+				country_event = {
+					id = mandate_palestine.208
+					days = 1 
+					random_hours = 12
+				}
 			}
 		}
 	}
