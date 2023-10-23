@@ -4308,18 +4308,18 @@ focus_tree = {
 
 
 		completion_reward = {
-            add_doctrine_cost_reduction = {
-                name = JAP_prepare_for_war_with_the_soviet_union
-                cost_reduction = 0.5
-                uses = 1
-				category = land_doctrine
-			}
             add_tech_bonus = {
                 name = infantry_artillery_bonus
-                bonus = 3
-                uses = 1
+                bonus = 1
+                uses = 2
                 category = winter_clothing_tech
-            }				
+            }
+			add_tech_bonus = {
+				name = support_bonus
+				bonus = 1
+				uses = 1
+				category = support_tech
+			}		
 			every_owned_state = {
 				limit = {
 					is_fully_controlled_by = ROOT
@@ -4546,22 +4546,38 @@ focus_tree = {
 		completion_reward = {
 			air_experience = 25
 			MAN = {
-				add_tech_bonus = {
-					name = JAP_create_a_manchurian_imperial_air_force
-					bonus = 1
-					uses = 1
-					category = tactical_bomber
-					category = cat_strategic_bomber
-					category = naval_bomber
-					category = cas_bomber
+				if = {
+					limit = {
+						has_dlc = "By Blood Alone"
+					}
+					add_tech_bonus = {
+						technology = basic_medium_airframe
+						technology = improved_medium_airframe
+						technology = advanced_large_airframe
+						bonus = 1
+						uses = 1
+					}
+					add_tech_bonus = {
+						technology = decimetric_radar
+						bonus = 0.75
+						uses = 1
+					}			
 				}
-				add_tech_bonus = {
-					name = JAP_create_a_manchurian_imperial_air_force
-					bonus = 1
-					uses = 1
-					category = light_fighter
-					category = cat_heavy_fighter
-				}
+				else = {
+					add_tech_bonus = {
+						name = JAP_bomber_modernization
+						bonus = 1
+						uses = 1
+						category = cas_bomber
+						category = tactical_bomber
+					}
+					add_tech_bonus = {
+						name = JAP_bomber_modernization
+						bonus = 1
+						uses = 1
+						category = maritime
+					}			
+				}		
 				every_owned_state = {
 					limit = {
 						is_fully_controlled_by = MAN
@@ -4581,6 +4597,62 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_IMPROVEMENT FOCUS_FILTER_RESEARCH FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = JAP_train_for_the_northern_campaign
+		icon = GFX_goal_generic_forest_warfare
+		
+		prerequisite = { focus = JAP_non_aggression_pact_with_china }
+		prerequisite = { focus = JAP_create_a_manchurian_imperial_air_force }
+		
+		x = 1
+		y = 1
+		relative_position_id = JAP_non_aggression_pact_with_china
+
+		
+		cost = 7.2
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		available = {
+			OR = {
+				has_non_aggression_pact_with = CHI
+				has_non_aggression_pact_with = PRC
+			}
+		}
+		
+		available_if_capitulated = yes
+		
+		completion_reward = {
+			add_timed_idea = { idea = SOV_siberian_forest_soldiers_idea  days = 700 }
+			if = {
+				limit = {
+					NOT = {
+						has_tech = jaegers
+					}
+				}
+				set_technology = {
+					jaegers = 1
+					winter_clothes_gw = 1
+				}
+			}
+			add_tech_bonus = {
+				name = SOV_siberian_forest_soldiers_focus
+				bonus = 0.6
+				uses = 2
+				category = r56_jaeger_infantry_tech
+				category = winter_clothing_tech
+			}
+			hidden_effect = {
+				SOV = {
+					country_event = { id = r56rp_northern_doctrine_event }
+				}
+			}
+		}
+		
 	}
 
 	focus = {
@@ -4688,10 +4760,9 @@ focus_tree = {
 	focus = {
 		id = JAP_seek_alliances
 		icon = GFX_goal_tfv_generic_tech_sharing
-		prerequisite = { focus = JAP_non_aggression_pact_with_china }
-		prerequisite = { focus = JAP_create_a_manchurian_imperial_air_force }
+		prerequisite = { focus = JAP_train_for_the_northern_campaign}
 		x = 1
-		y = 1
+		y = 2
 		relative_position_id = JAP_non_aggression_pact_with_china
 
 		cost = 5
@@ -4709,7 +4780,7 @@ focus_tree = {
 		}
 
 		available = {
-			is_subject = no
+			is_subject = no	
 			is_in_faction = no
 			has_capitulated = no
 		}
@@ -4736,7 +4807,7 @@ focus_tree = {
 		id = JAP_obtain_polish_cryptological_data
 		icon = GFX_focus_generic_cryptologic_bomb
 		prerequisite = { focus = JAP_seek_alliances } #focus = JAP_west_pacific_treaty_organization focus = JAP_rekindle_the_old_alliance }
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = JAP_seek_alliances
 		offset = {
@@ -4843,13 +4914,14 @@ focus_tree = {
             }			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
-	}	
+	}
+
 	focus = {
 		id = JAP_obtain_polish_cryptological_data2
 		text = JAP_obtain_polish_cryptological_data
 		icon = GFX_focus_generic_cryptologic_bomb
 		relative_position_id = JAP_seek_alliances
-		x = 2
+		x = 1
 		y = 1
 		cost = 10
 		ai_will_do = {
@@ -4968,7 +5040,7 @@ focus_tree = {
 		id = JAP_preemptive_war
 		icon = GFX_goal_attack_communists
 		prerequisite = { focus = JAP_seek_alliances }
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = JAP_seek_alliances
 
@@ -5002,6 +5074,11 @@ focus_tree = {
 				expire = 0
 				type = annex_everything
 			}
+
+			add_timed_idea = {
+				idea = r56rp_hokushin_ron
+				days = 120
+			}
 			unlock_decision_tooltip = JAP_war_with_soviet_union
 			if = {
 				limit = {
@@ -5019,7 +5096,7 @@ focus_tree = {
 			#has_dlc = "La Resistance"
 		}
 		x = 1
-		y = 2
+		y = 1
 		relative_position_id = JAP_preemptive_war
 		offset = {
 			x = -25
@@ -5032,7 +5109,7 @@ focus_tree = {
 				has_completed_focus = JAP_strengthen_civilian_government
 			}
 		}
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = JAP_preemptive_war
 			#focus = JAP_preemptive_strike_soviet
@@ -5105,10 +5182,10 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = JAP_establish_the_northern_resource_area
 		icon = GFX_goal_generic_construction2
-		prerequisite = { focus = JAP_preemptive_war }
 		prerequisite = { focus = JAP_imperial_arsenals }
 		x = 0
 		y = 4
@@ -5197,12 +5274,49 @@ focus_tree = {
 	}
 
 	focus = {
+		id = JAP_exploit_north_sakhalin_oil
+		icon = GFX_goal_generic_oil_refinery
+		cost = 10.00
+		prerequisite = {
+			focus = JAP_establish_the_northern_resource_area
+		}
+		prerequisite = {
+			focus = JAP_preemptive_war
+		}
+		x = 1
+		y = 1
+		relative_position_id = JAP_establish_the_northern_resource_area
+		ai_will_do = {
+			factor = 10
+		}
+
+		available = {
+			has_tech = excavation3
+			has_war_with = SOV
+			has_full_control_of_state = 655
+		}
+
+		completion_reward = {
+			655 = {
+				add_resource = {
+					type = oil
+					amount = 8
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_OIL FOCUS_FILTER_RUBBER
+		}
+
+	}
+
+	focus = {
 		id = JAP_german_rocketry
 		icon = GFX_focus_rocketry
-		prerequisite = { focus = JAP_preemptive_war }
-		x = 0
+		prerequisite = { focus = JAP_strengthen_the_divine_wind focus = JAP_nishina_okochi_directive }
+		x = 1
 		y = 1
-		relative_position_id = JAP_preemptive_war
+		relative_position_id = JAP_strengthen_the_divine_wind
 
 		cost = 10
 
@@ -7650,8 +7764,7 @@ focus_tree = {
 
 		completion_reward = {
 			MAN = {
-				add_stability = 0.1
-				add_war_support = 0.1
+				MAN_low_legitimacy_level_down = yes
 				add_political_power = 150
 			}
 		}
