@@ -34720,11 +34720,12 @@ unify_iberia_decision_category = {
 		}
 	}
 
-	POR_unify_iberia_decision = {
+	POR_unify_iberia_decision_DLCtree = {
 		icon = formable_nations_iberia
 		cost = 40
 		visible = {
 			original_tag = POR
+			has_focus_tree = portuguese_focus
 			NOT = {
 				has_cosmetic_tag = FORM_IBE
 			}
@@ -34739,6 +34740,69 @@ unify_iberia_decision_category = {
 				has_completed_focus = POR_luso_monarchist_cooperation
 				has_completed_focus = POR_recover_brazil
 			}
+		}
+		
+		fire_only_once = yes	
+
+		complete_effect = {
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			} 
+			capital_scope = { set_state_flag = formable_nations_old_capital
+			}
+			set_cosmetic_tag = FORM_IBE
+			hidden_effect =	{
+				171 = { add_claim_by = POR }	
+				790 = { add_claim_by = POR }	
+				174 = { add_claim_by = POR }
+				788 = { add_claim_by = POR }
+				170 = { add_claim_by = POR }
+				169 = { add_claim_by = POR }
+				791 = { add_claim_by = POR }
+				41 = { add_claim_by = POR }
+				790 = { add_claim_by = POR }
+				175 = { add_claim_by = POR }
+				789 = { add_claim_by = POR }
+				173 = { add_claim_by = POR }
+				792 = { add_claim_by = POR }
+				176 = { add_claim_by = POR }
+				793 = { add_claim_by = POR }
+				790 = { add_claim_by = POR }
+				168 = { add_claim_by = POR }
+				167 = { add_claim_by = POR }
+				166 = { add_claim_by = POR }
+				794 = { add_claim_by = POR }
+				165 = { add_claim_by = POR }
+				177 = { add_claim_by = POR }
+				178 = { add_claim_by = POR }
+				172 = { add_claim_by = POR }
+			}
+				custom_effect_tooltip = POR_claims_all_spanish_states_tt
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	POR_unify_iberia_decision_r56tree = {
+		icon = formable_nations_iberia
+		cost = 40
+		visible = {
+			original_tag = POR
+			has_focus_tree = r56_portuguese_focus
+			NOT = {
+				has_cosmetic_tag = FORM_IBE
+			}
+		}
+
+		available = {
+			controls_state = 41
 		}
 		
 		fire_only_once = yes	
