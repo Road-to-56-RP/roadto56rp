@@ -1,33 +1,56 @@
 scripted_gui = {
 
-	rt_button_topbar = {
+	r56rp_tools_container_button = {
 		context_type = player_context
 
-		window_name = "rt_topbar"
-
+		window_name = "r56rp_tools_container_button"
 		parent_window_token = top_bar
 
 		visible = {
-			
-			has_game_rule = {
-				rule = use_new_tool 
-				option = NO
-			}
+			always = yes
 		}
 
 		effects = {
+			r56rp_tolcon_showhide_click = {
+				ROOT = { 
+					IF = {
+						limit = {
+							has_variable = show_combined_rptools_list
+						}
+						clear_variable = show_combined_rptools_list
+					}
+					ELSE = {
+						set_variable = { show_combined_rptools_list = 1 } 
+					}
+				}
+			}
+		}
+		triggers = {
+			r56rp_tolcon_showhide_click_enabled = {
+				always = yes
+			}
+		}
+	}
+	
+	r56rp_tools_container = {
+		context_type = player_context
+		window_name = "r56rp_tools_container"
+		visible = {
+			ROOT = {
+				check_variable = { show_combined_rptools_list = 1 }
+			}
+		}
+		effects = {
 			rt_button_topbar_click = {
-				ROOT = {
-					if = {
-						limit = { check_variable = { rt_status = 0 } }
-						set_variable = { rt_status = 1 }
+				ROOT = { 
+					IF = {
+						limit = {
+							has_variable = rt_status
+						}
+						clear_variable = rt_status
 					}
-					else_if = {
-						limit = { check_variable = { rt_status = 1 } }
-						set_variable = { rt_status = 0 }
-					}
-					else = {
-						set_variable = { rt_status = 1 }
+					ELSE = {
+						set_variable = { rt_status = 1 } 
 					}
 				}
 			}
@@ -39,13 +62,13 @@ scripted_gui = {
 		}
 	}
 
-	rt_menu = {
+	rt_menu_container = {
 		context_type = selected_state_context
 
+		parent_window_name = r56rp_tools_container
 		window_name = "rt_menu_container"
 
 		visible = {
-			
 			ROOT = {
 				check_variable = { rt_status = 1 }
 			}
@@ -63,80 +86,6 @@ scripted_gui = {
 					THIS.owner = {
 						country_event = rt.1
 					}
-					#resources adder
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.aluminium_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		give_resource_rights = {
-						#			receiver = ROOT
-						#			state = ROOT.state_lock_id
-						#			resources = { aluminium }
-						#		}
-						#	}
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.steel_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		give_resource_rights = {
-						#			receiver = ROOT
-						#			state = ROOT.state_lock_id
-						#			resources = { steel }
-						#		}
-						#	}
-						#	
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.oil_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		give_resource_rights = {
-						#			receiver = ROOT
-						#			state = ROOT.state_lock_id
-						#			resources = { oil }
-						#		}
-						#	}
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.chromium_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		give_resource_rights = {
-						#			receiver = ROOT
-						#			state = ROOT.state_lock_id
-						#			resources = { chromium }
-						#		}
-						#	}
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.rubber_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		give_resource_rights = {
-						#			receiver = ROOT
-						#			state = ROOT.state_lock_id
-						#			resources = { rubber }
-						#		}
-						#	}
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.tungsten_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		give_resource_rights = {
-						#			receiver = ROOT
-						#			state = ROOT.state_lock_id
-						#			resources = { tungsten }
-						#		}
-						#	}
-						#}
 				}
 				else_if = {
 					limit = {
@@ -145,93 +94,6 @@ scripted_gui = {
 					THIS.owner = {
 						country_event = rt.2
 					}
-					#res adder
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.aluminium_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		ROOT = {
-						#			give_resource_rights = {
-						#				receiver = PREV
-						#				state = ROOT.state_lock_id
-						#				resources = { aluminium }
-						#			}
-						#		}
-						#	}
-						#	
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.steel_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		ROOT = {
-						#			give_resource_rights = {
-						#				receiver = PREV
-						#				state = ROOT.state_lock_id
-						#				resources = { steel }
-						#			}
-						#		}
-						#	}
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.oil_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		ROOT = {
-						#			give_resource_rights = {
-						#				receiver = PREV
-						#				state = ROOT.state_lock_id
-						#				resources = { oil }
-						#			}
-						#		}
-						#	}
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.chromium_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		ROOT = {
-						#			give_resource_rights = {
-						#				receiver = PREV
-						#				state = ROOT.state_lock_id
-						#				resources = { chromium }
-						#			}
-						#		}
-						#	}
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.rubber_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		ROOT = {
-						#			give_resource_rights = {
-						#				receiver = PREV
-						#				state = ROOT.state_lock_id
-						#				resources = { rubber }
-						#			}
-						#		}
-						#	}
-						#}
-						#if = {
-						#	limit = {
-						#		check_variable = { ROOT.tungsten_selected = 2}
-						#	}
-						#	THIS.owner = {
-						#		ROOT = {
-						#			give_resource_rights = {
-						#				receiver = PREV
-						#				state = ROOT.state_lock_id
-						#				resources = { tungsten }
-						#			}
-						#		}
-						#	}
-						#	
-						#}
 				}
 			}
 			swap_sides_click = {
