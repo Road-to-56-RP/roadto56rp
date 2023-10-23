@@ -4308,18 +4308,18 @@ focus_tree = {
 
 
 		completion_reward = {
-            add_doctrine_cost_reduction = {
-                name = JAP_prepare_for_war_with_the_soviet_union
-                cost_reduction = 0.5
-                uses = 1
-				category = land_doctrine
-			}
             add_tech_bonus = {
                 name = infantry_artillery_bonus
-                bonus = 3
-                uses = 1
+                bonus = 1
+                uses = 2
                 category = winter_clothing_tech
-            }				
+            }
+			add_tech_bonus = {
+				name = support_bonus
+				bonus = 1
+				uses = 1
+				category = support_tech
+			}		
 			every_owned_state = {
 				limit = {
 					is_fully_controlled_by = ROOT
@@ -4546,22 +4546,38 @@ focus_tree = {
 		completion_reward = {
 			air_experience = 25
 			MAN = {
-				add_tech_bonus = {
-					name = JAP_create_a_manchurian_imperial_air_force
-					bonus = 1
-					uses = 1
-					category = tactical_bomber
-					category = cat_strategic_bomber
-					category = naval_bomber
-					category = cas_bomber
+				if = {
+					limit = {
+						has_dlc = "By Blood Alone"
+					}
+					add_tech_bonus = {
+						technology = basic_medium_airframe
+						technology = improved_medium_airframe
+						technology = advanced_large_airframe
+						bonus = 1
+						uses = 1
+					}
+					add_tech_bonus = {
+						technology = decimetric_radar
+						bonus = 0.75
+						uses = 1
+					}			
 				}
-				add_tech_bonus = {
-					name = JAP_create_a_manchurian_imperial_air_force
-					bonus = 1
-					uses = 1
-					category = light_fighter
-					category = cat_heavy_fighter
-				}
+				else = {
+					add_tech_bonus = {
+						name = JAP_bomber_modernization
+						bonus = 1
+						uses = 1
+						category = cas_bomber
+						category = tactical_bomber
+					}
+					add_tech_bonus = {
+						name = JAP_bomber_modernization
+						bonus = 1
+						uses = 1
+						category = maritime
+					}			
+				}		
 				every_owned_state = {
 					limit = {
 						is_fully_controlled_by = MAN
@@ -4736,7 +4752,7 @@ focus_tree = {
 		id = JAP_obtain_polish_cryptological_data
 		icon = GFX_focus_generic_cryptologic_bomb
 		prerequisite = { focus = JAP_seek_alliances } #focus = JAP_west_pacific_treaty_organization focus = JAP_rekindle_the_old_alliance }
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = JAP_seek_alliances
 		offset = {
@@ -4843,13 +4859,14 @@ focus_tree = {
             }			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
-	}	
+	}
+
 	focus = {
 		id = JAP_obtain_polish_cryptological_data2
 		text = JAP_obtain_polish_cryptological_data
 		icon = GFX_focus_generic_cryptologic_bomb
 		relative_position_id = JAP_seek_alliances
-		x = 2
+		x = 1
 		y = 1
 		cost = 10
 		ai_will_do = {
@@ -4968,7 +4985,7 @@ focus_tree = {
 		id = JAP_preemptive_war
 		icon = GFX_goal_attack_communists
 		prerequisite = { focus = JAP_seek_alliances }
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = JAP_seek_alliances
 
@@ -5019,7 +5036,7 @@ focus_tree = {
 			#has_dlc = "La Resistance"
 		}
 		x = 1
-		y = 2
+		y = 1
 		relative_position_id = JAP_preemptive_war
 		offset = {
 			x = -25
@@ -5110,7 +5127,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construction2
 		prerequisite = { focus = JAP_preemptive_war }
 		prerequisite = { focus = JAP_imperial_arsenals }
-		x = 0
+		x = 1
 		y = 4
 		relative_position_id = JAP_imperial_arsenals
 
@@ -5199,10 +5216,10 @@ focus_tree = {
 	focus = {
 		id = JAP_german_rocketry
 		icon = GFX_focus_rocketry
-		prerequisite = { focus = JAP_preemptive_war }
-		x = 0
+		prerequisite = { focus = JAP_strengthen_the_divine_wind focus = JAP_nishina_okochi_directive }
+		x = 1
 		y = 1
-		relative_position_id = JAP_preemptive_war
+		relative_position_id = JAP_strengthen_the_divine_wind
 
 		cost = 10
 
