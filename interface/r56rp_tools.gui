@@ -1,15 +1,18 @@
 guiTypes = {
 
+	# RP Tools toggle button
 	containerWindowType = {
 		name = "r56rp_tools_container_button"
 		position = { x = 1070 y = 5 }
+		#orientation = RIGHT
 
 		buttonType = {
 			name = "r56rp_tolcon_showhide"
 			quadTextureSprite = "GFX_generic_text_bg_88" 
 			position = { x = 0 y = 0 }
-			shortcut = "ctrl+shift+t"
-			pdx_tooltip = "[RT_TOOLTIP]"
+			shortcut = "ctrl+shift+e"
+			#pdx_tooltip = r56rp_tolcon_tooltip
+			#pdx_tooltip = "[RT_TOOLTIP]"
 			clicksound = click_ok
 			oversound = ui_menu_over
 		}
@@ -22,12 +25,14 @@ guiTypes = {
 			maxWidth = 60
 			maxHeight = 23
 			format = left
+			alwaystransparent = yes
 		}
 	}
 
+	# container in which all the tools show the buttons
 	containerWindowType = {
 		name = "r56rp_tools_container"
-		position = { x = 1500 y = 50 }
+		position = { x = 40% y = 100 }
 		
 		moveable = yes
 		size = {
@@ -39,6 +44,7 @@ guiTypes = {
 			spriteType = "GFX_army_insignia_selection_bg"
 		}
 
+		# Resource Rights Tool toggle button
 		containerWindowType = {
 			name = "rt_topbar"
 			position = { x = 15 y = 5 }
@@ -47,23 +53,25 @@ guiTypes = {
 				name = "rt_button_topbar"
 				quadTextureSprite = "GFX_generic_text_bg_88" 
 				position = { x = 0 y = 0 }
-				shortcut = "ctrl+shift+t"
+				shortcut = "ctrl+shift+r"
 				pdx_tooltip = "[RT_TOOLTIP]"
 				clicksound = click_ok
 				oversound = ui_menu_over
 			}
 			
 			instantTextboxType = {
-				name = "title"
-				position = {x=16 y=5}
+				name = "rrt_title"
+				position = {x=22 y=5}
 				font = "hoi_18mbs"
 				text = "[rt_button_topbar_text]"
 				maxWidth = 60
 				maxHeight = 23
 				format = left
+				alwaystransparent = yes
 			}
 		}
 
+		# State Transfer Tool toggle button
 		containerWindowType = {
 			name = "st_open_container"	
 			position = { x = 115 y = 5 }
@@ -79,15 +87,42 @@ guiTypes = {
 			}
 			
 			instantTextboxType = {
-				name = "title"
+				name = "stt_title"
 				position = {x=22 y=5}
 				font = "hoi_18mbs"
 				text = "[transfer_states_tooltip]"
 				maxWidth = 60
 				maxHeight = 23
 				format = left
+				alwaystransparent = yes
 			}
 	
+		}
+
+		# Host Tool toggle button
+		containerWindowType = {
+			name = "hosttool_open_container"
+			position = { x = 215 y = 5 }
+
+			buttonType = {
+				name = "tool_open"
+				quadTextureSprite = "GFX_generic_text_bg_88"
+				position = { x = 0 y = 0 }
+				pdx_tooltip = "[ST_TOOLTIP]"
+				clicksound = click_ok
+				oversound = ui_menu_over
+			}
+			
+			instantTextboxType = {
+				name = "ht_title"
+				position = {x=22 y=5}
+				font = "hoi_18mbs"
+				text = "[host_transfer_states_tooltip]"
+				maxWidth = 60
+				maxHeight = 23
+				format = left
+				alwaystransparent = yes
+			}
 		}
 		
 	}
@@ -310,7 +345,6 @@ guiTypes = {
 			name = "add_rights_container"
 			position = { x = 18 y = 393 }
 
-			
 			buttonType = {
 				name = "add_rights_button"
 				spriteType = "GFX_save_load_entry_bg"
@@ -381,6 +415,8 @@ guiTypes = {
 			maxHeight = 100
 		}
 	}
+
+
 	
 	containerWindowType = {
 		name = "st_subject_powers_container"
@@ -397,12 +433,12 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "title"
-			position = {x=14 y=8}
-			font = "hoi_18mbs"
-			text = "[This.GetName]"
-			maxWidth = 200
+			position = {x=5 y=8}
+			font = "hoi_26mbs"
+			text = "[This.GetFlag][This.GetNonIdeologyName]"
+			maxWidth = 150
 			maxHeight = 23
-			format = left
+			format = centre
 		}
 		
 		buttonType = {
@@ -559,7 +595,6 @@ guiTypes = {
 		}
 	}
 	
-	
 	containerWindowType = {
 		name = "st_take_state"
 		size = { width = 527 height = 400 }
@@ -663,5 +698,326 @@ guiTypes = {
 		}
 	}
 
+	# Host Tool
+	containerWindowType = {
+		name = "hosttool_container"
+		position = {x= 0 y= 0}
+		size = {
+			width = 320
+			height = 450
+		}
+		
+		instantTextboxType = {
+			name = "state_owner"
+			position = {x=60 y=40}
+			font = "hoi_24header"
+			text = "[This.Owner.GetName]"
+			maxWidth = 200
+			maxHeight = 23
+			format = centre
+		}
+		
+		buttonType = {
+			name = "add_cheat" 
+			position = {x=190 y=90}
+			spriteType = "GFX_add_pol_idea_button"
+            pdx_tooltip = "ADD_CHEAT"
+			pdx_tooltip_delayed = "ADD_CHEAT_DELAYED"
+		}
+		buttonType = {
+			name = "observer" 
+			position = {x=40 y=200}
+			spriteType = "GFX_observer_button"
+         		pdx_tooltip = "OBSERVER"
+			pdx_tooltip_delayed = "OBSERVER_DELAYED"
+			scale = 0.70
+		}
+		buttonType = {
+			name = "whitepeace"	
+			position = {x=110 y=200}
+			spriteType = "GFX_relation_truce"
+            		scale=1.8
+			pdx_tooltip = "WHITEPEACE"
+			pdx_tooltip_delayed = "WHITEPEACE_DELAYED"
+			#scale = 0.95
+		}
+	
 
+		buttonType = {
+			name = "award_states" 
+			position = {x=190 y=190}	
+			spriteType = "GFX_global_diplorequest_icons"
+            		frame = 13
+			pdx_tooltip = "TRANSFER_STATES"
+			pdx_tooltip_delayed = "TRANSFER_STATES_DELAYED"
+		}
+		buttonType = {
+			name = "add_cores" 
+			position = {x=250 y=190}	
+			spriteType = "GFX_global_diplorequest_icons"
+            		frame = 6
+			pdx_tooltip = "ADD_CORES"
+			pdx_tooltip_delayed = "ADD_CORES_DELAYED"
+		}
+		buttonType = {
+			name = "annex_country" 
+			position = {x=310 y=190}	
+			spriteType = "GFX_global_diplorequest_icons"
+            		frame = 2
+			pdx_tooltip = "ANNEX_COUNTRY"
+			pdx_tooltip_delayed = "ANNEX_COUNTRY_DELAYED"
+		}
+		buttonType = {
+			name = "puppet_country" 
+			position = {x=370 y=190}	
+			spriteType = "GFX_global_diplorequest_icons"
+            		frame = 1
+			pdx_tooltip = "PUPPET_COUNTRY"
+			pdx_tooltip_delayed = "PUPPET_COUNTRY_DELAYED"
+		}
+		buttonType = {
+			name = "free_country" 
+			position = {x=430 y=190}	
+			spriteType = "GFX_global_diplorequest_icons"
+            		frame = 6
+			pdx_tooltip = "FREE_COUNTRY"
+			pdx_tooltip_delayed = "FREE_COUNTRY_DELAYED"
+		}
+		####################################################################
+
+		############################################################
+		containerWindowType = {
+			name = "ht_cheat_list_container"
+			position = {x=50 y=50}
+			size = { width=124 height=26 } 
+			Orientation = upper_left
+			clipping = no
+			background = {
+				spriteType = "GFX_generic_box_125"
+			}
+	
+			smoothListBoxType = {
+				name = "ht_cheat_list_entries"
+				position = {x=0 y=0}
+				size = { x=580 y=0 } #Height set in code
+				scrollbartype = "standardlistbox_slider"
+			}
+		}
+
+		containerWindowType = {
+			name = "cheat1_cont"
+			position = {x=150 y=240}
+			size = { width=580 height=1000 }
+			Orientation = upper_left
+			clipping = no
+
+			buttonType = {
+				name = "cheat1"
+				position = {x=0 y=0}
+				spriteType = "GFX_generic_box_125"
+			}
+			instantTextboxType = {
+				name = "cheat1_text"
+				position = {x=0 y=3}
+				font = "hoi_18mbs"
+				text = "[cheat_selected]"
+				maxWidth = 124
+				maxHeight = 24
+				format = centre
+				alwaystransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "cheat2_cont"
+			position = {x=150 y=240}
+			size = { width=580 height=1000 }
+			Orientation = upper_left
+			clipping = no
+
+			buttonType = {
+				name = "cheat2"
+				position = {x=0 y=0}
+				spriteType = "GFX_generic_box_125"
+			}
+			instantTextboxType = {
+				name = "cheat2_text"
+				position = {x=0 y=3}
+				font = "hoi_18mbs"
+				text = "CHEAT2"
+				maxWidth = 124
+				maxHeight = 24
+				format = centre
+				alwaystransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "cheat3_cont"
+			position = {x=150 y=240}
+			size = { width=580 height=1000 }
+			Orientation = upper_left
+			clipping = no
+
+			buttonType = {
+				name = "cheat3"
+				position = {x=0 y=0}
+				spriteType = "GFX_generic_box_125"
+			}
+			instantTextboxType = {
+				name = "cheat3_text"
+				position = {x=0 y=3}
+				font = "hoi_18mbs"
+				text = "CHEAT3"
+				maxWidth = 124
+				maxHeight = 24
+				format = centre
+				alwaystransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "cheat4_cont"
+			position = {x=150 y=240}
+			size = { width=580 height=1000 }
+			Orientation = upper_left
+			clipping = no
+
+			buttonType = {
+				name = "cheat4"
+				position = {x=0 y=0}
+				spriteType = "GFX_generic_box_125"
+			}
+			instantTextboxType = {
+				name = "cheat4_text"
+				position = {x=0 y=3}
+				font = "hoi_18mbs"
+				text = "CHEAT4"
+				maxWidth = 124
+				maxHeight = 24
+				format = centre
+				alwaystransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "cheat5_cont"
+			position = {x=150 y=240}
+			size = { width=580 height=1000 }
+			Orientation = upper_left
+			clipping = no
+
+			buttonType = {
+				name = "cheat5"
+				position = {x=0 y=0}
+				spriteType = "GFX_generic_box_125"
+			}
+			instantTextboxType = {
+				name = "cheat5_text"
+				position = {x=0 y=3}
+				font = "hoi_18mbs"
+				text = "CHEAT5"
+				maxWidth = 124
+				maxHeight = 24
+				format = centre
+				alwaystransparent = yes
+			}
+		}
+
+			containerWindowType = {
+				name = "cheat6_cont"
+				position = {x=150 y=240}
+				size = { width=580 height=1000 }
+				Orientation = upper_left
+				clipping = no
+
+				buttonType = {
+					name = "cheat6"
+					position = {x=0 y=0}
+					spriteType = "GFX_generic_box_125"
+				}
+				instantTextboxType = {
+					name = "cheat6_text"
+					position = {x=0 y=3}
+					font = "hoi_18mbs"
+					text = "CHEAT6"
+					maxWidth = 124
+					maxHeight = 24
+					format = centre
+					alwaystransparent = yes
+				}
+			}
+
+			containerWindowType = {
+				name = "cheat6_cont"
+				position = {x=150 y=240}
+				size = { width=580 height=1000 }
+				Orientation = upper_left
+				clipping = no
+
+				buttonType = {
+					name = "cheat6"
+					position = {x=0 y=0}
+					spriteType = "GFX_generic_box_125"
+				}
+				instantTextboxType = {
+					name = "cheat6_text"
+					position = {x=0 y=3}
+					font = "hoi_18mbs"
+					text = "[cheat_selected]"
+					maxWidth = 124
+					maxHeight = 24
+					format = centre
+					alwaystransparent = yes
+				}
+			}
+
+			buttonType = {
+				name = "toogle_mark" 
+				position = {x=203 y=35}
+				#spriteType = "GFX_global_alert_icons"
+						#frame = 38
+				spriteType = "GFX_button_123x34"
+				frame = 0
+				pdx_tooltip = "ST_STATE_MARK_FOR_TRANSFER"
+			}
+			containerWindowType = {
+				name = "st_state_manager_powers_container"
+				position = {x=25 y=300}
+				size = { width=600 height=300}
+				background = {
+					name = "Background"
+					spriteType = "GFX_BPT_areadef_conf_bg"
+				}
+
+			instantTextboxType = {
+				name = "title"
+				position = {x=14 y=6}
+				Orientation = "Centre"
+				font = "hoi_24header"
+				text = "[This.GetName]"
+				maxWidth = 200
+				maxHeight = 23
+				format = centre
+			}
+			
+			buttonType = {
+				name = "toogle_mark" 
+				position = {x=40 y=35}
+				text = "Mark"
+				font = "hoi_24header"
+				spriteType = "GFX_sort_button_100x29"
+				pdx_tooltip = "ST_STATE_MARK_FOR_TRANSFER"
+			}
+			buttonType = {
+				name = "clear_all_markings" 
+				position = {x=180 y=30}
+				spriteType = "GFX_global_alert_icons"
+						frame = 38
+				pdx_tooltip = "CLEAR_ALL_MARKINGS"
+				pdx_tooltip_delayed = "CLEAR_ALL_MARKINGS_DELAYED"
+				scale = .85
+			}
+		}
+	}
 }
