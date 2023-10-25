@@ -1,6 +1,6 @@
 -- THUNDERDOME speed defines by PIZZA DO NOT MOVE ANYWHERE ELSE FUCKS WITH EVERYTHING
--- NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 1000 -- Lag days
--- NDefines.NGame.LAG_DAYS_FOR_PAUSE = 1000 -- pause days
+NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 30 -- Lag days
+NDefines.NGame.LAG_DAYS_FOR_PAUSE = 90 -- pause days
 -- NDefines.NGame.GAME_SPEED_SECONDS = { 2.0, 0.10, 0.05, 0.035, 0 } -- game secs
 
 NDefines.NCountry.ARMY_COUNT_DAILY_DECREASE_FOR_TRAINING_XP = 0.05 -- number of armies that is used in training xp calculates daily linearly approaches this number (if real number is lower)
