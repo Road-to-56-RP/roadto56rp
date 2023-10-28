@@ -1078,20 +1078,52 @@ focus_tree = {
 				custom_trigger_tooltip = {
 					tooltip = state_is_western_china_tt
 					OR = {
-						region = 145
+						AND = {
+							region = 145
+							NOT = {
+								state = 287 # ah yes 1k people, impassable terrain, but 2 factories.
+							}
+						}
 						state = 756
 						state = 755
 						state = 604
+					}
+					NOT = {
+						state = 287
 					}
 				}
 				is_controlled_by = ROOT
 			}
 		}
 		completion_reward = {
+			custom_effect_tooltip = KMT_r56rp_industrialization_NW.tt
+			effect_tooltip = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
 			every_controlled_state = {
 				limit = {
 					OR = {
-						region = 145
+						AND = {
+							region = 145
+							NOT = {
+								state = 287 # ah yes 1k people, impassable terrain, but 2 factories.
+							}
+						}
 						state = 756
 						state = 755
 						state = 604
@@ -5410,6 +5442,19 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM FOCUS_FILTER_STEEL FOCUS_FILTER_TUNGSTEN }
 	}
+
+	focus = {
+		id = KMT_r56rp_found_tank_plant
+		icon = GFX_goal_defensive_position2
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = { focus = KMT_industrialization_NW focus = KMT_industrialization_S focus = KMT_pioneering_the_north_east }
+		relative_position_id = KMT_industrialization_NW
+		completion_reward = {
+			custom_effect_tooltip = KMT_r56rp_found_tank_plant.tt
+		}
+	}
 	
 	focus = {
 		id = KMT_national_defense_council
@@ -5423,10 +5468,21 @@ focus_tree = {
 			air_experience = 5
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = CHI_zhang_qun
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = CHI_army_ordnance_department
-			show_ideas_tooltip = KMT_rheinmetall
-			show_ideas_tooltip = KMT_mauser
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = CHI_hanyan_arsenal_organization
+				mio:CHI_hanyan_arsenal_organization = {
+					add_mio_size = 1
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = CHI_army_ordnance_department
+				show_ideas_tooltip = KMT_rheinmetall
+				show_ideas_tooltip = KMT_mauser
+			}
 		}
 	}
 
@@ -5595,58 +5651,21 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					620 = {
-						OR = {
-							NOT = {
-								is_owned_and_controlled_by = ROOT
-							}
-							AND = {
-								is_owned_by = ROOT
-								free_building_slots = {
-									building = arms_factory
-									size < 0
-									include_locked = yes
-								}
-							}
-						}
+			random_owned_controlled_state = {
+				prioritize = { 620 }
+				limit = { 
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
 					}
 				}
-				random_owned_controlled_state = {
-					limit = { 
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}							
-				}
-			}
-			620 = {
-				if = {
-					limit = { 
-						is_owned_by = ROOT
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
-						}
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}							
 			}
 			IF = {
 				limit = {
