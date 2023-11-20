@@ -355,11 +355,9 @@ focus_tree = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
-				show_mio_tooltip = GER_blohm_und_voss_organization
 				mio:GER_blohm_und_voss_organization = {
 					add_mio_funds= 250
 				}
-				show_mio_tooltip = GER_germaniawerft_organization
 				mio:GER_germaniawerft_organization = {
 					add_mio_funds= 250
 				}
@@ -800,7 +798,7 @@ focus_tree = {
 			focus = GER_kill_hitler
 			focus = GER_denounce_versailles
 		}
-		x = 40
+		x = 44
 		y = 0
 		#relative_position_id = GER_political_sphere
 		ai_will_do = {
@@ -1828,7 +1826,7 @@ focus_tree = {
 			focus = GER_kill_hitler
 			focus = GER_rally_the_monarchists
 		}
-		x = 66
+		x = 70
 		y = 0
 		offset = {
 			x = -17
@@ -3616,6 +3614,34 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
 		}
 	}
+	focus = {
+		id = GER_exploit_trade_dependence
+		icon = GFX_focus_GRE_Combat_depression
+		cost = 10.00
+		prerequisite = {
+			focus = GER_support_technocrats_I
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = WIP_flag
+				is_debug = yes
+			}
+		}
+		x = -2
+		y = 1
+		relative_position_id = GER_support_technocrats_I
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			unlock_decision_category_tooltip = GER_trade_influence_decisions
+			custom_effect_tooltip = GER_trade_influence_decisions_explain_tt
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ANNEXATION
+		}
+
+	}
 
 	focus = {
 		id = GER_support_autarks_I
@@ -3718,6 +3744,36 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_RESEARCH
 		}
 	}
+	focus = {	#restored since its less OP now
+	id = GER_enigma
+	icon = GFX_focus_generic_cryptologic_bomb
+	cost = 5.00
+	prerequisite = {
+		focus = GER_support_technocrats_II
+	}
+	x = -2
+	y = 1
+	relative_position_id = GER_support_technocrats_II
+	ai_will_do = {
+		factor = 8
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GER_enigma_machine0
+			add_idea = GER_enigma_machine1
+		}
+		add_tech_bonus = {
+			name = enigma
+			bonus = 0.5
+			uses = 1
+			category = computing_tech
+		}
+	}
+	search_filters = {
+		FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE
+	}
+
+}
 	focus = {
 		id = GER_reform_uranprojekt
 		icon = GFX_focus_research
@@ -3863,7 +3919,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_appoint_economic_positions
 		}
-		x = 2
+		x = 4
 		y = 1
 		relative_position_id = GER_appoint_economic_positions
 		ai_will_do = {
@@ -3956,7 +4012,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_appoint_economic_positions
 		}
-		x = 4
+		x = 6
 		y = 1
 		relative_position_id = GER_appoint_economic_positions
 		available = {
@@ -4084,9 +4140,8 @@ focus_tree = {
 		cost = 10.00
 		prerequisite = {
 			focus = GER_privatize_reichsbahn
-			focus = GER_nationalize_resource_industries
 		}
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = GER_privatize_reichsbahn
 		ai_will_do = {
@@ -4140,7 +4195,7 @@ focus_tree = {
 		available = {
 			has_full_control_of_state = 60
 		}
-		x = 6
+		x = 2
 		y = 1
 		relative_position_id = GER_appoint_economic_positions
 		ai_will_do = {
@@ -4199,6 +4254,9 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_steelworks_issues
 		}
+		prerequisite = {
+			focus = GER_support_autarks_I
+		}
 		x = 0
 		y = 1
 		relative_position_id = GER_steelworks_issues
@@ -4240,6 +4298,37 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_OIL FOCUS_FILTER_RUBBER
 		}
 
+	}
+
+	focus = {
+		id = GER_synthetic_rubber_r56
+		text = GER_synthetic_rubber
+		icon = GFX_focus_generic_rubber
+		prerequisite = { focus = GER_nationalize_resource_industries }
+		x = 0
+		y = 1
+		relative_position_id = GER_nationalize_resource_industries
+		cost = 10
+		ai_will_do = {
+			factor = 4
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RUBBER}
+		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = { 60 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = rubber_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+        	modify_building_resources = {
+        	   building = rubber_refinery
+        	   resource = rubber
+        	   amount = 2
+        	}
+		}
 	}
 
 	# focus = {
@@ -11929,7 +12018,7 @@ focus_tree = {
 			focus = GER_rally_the_monarchists
 		}
 		#relative_position_id = GER_political_sphere
-		x = 88
+		x = 92
 		y = 0
 		offset = {
 			x = -46
@@ -13649,7 +13738,7 @@ focus_tree = {
 			focus = GER_finish_reinhardt
 		}
 		relative_position_id = GER_finish_reinhardt
-		x = -1.50
+		x = -1
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -13865,7 +13954,7 @@ focus_tree = {
 			focus = GER_restore_the_empire
 		}
 		relative_position_id = GER_restore_the_empire
-		x = -2
+		x = -6
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -14839,16 +14928,19 @@ focus_tree = {
 			}
 		}
 	}
+
+
 	focus = {
 		id = GER_establish_imperial_german_army
-		icon = GFX_goal_rhineland
-		cost = 10.00
+		icon = GFX_goal_GER_deutsches_heer
+		cost = 5
 		prerequisite = {
 			focus = GER_restore_the_empire
+			#focus = GER_mon_peaceful
 		}
 		relative_position_id = GER_restore_the_empire
-		x = 0
-		y = 3
+		x = -3
+		y = 1
 		ai_will_do = {
 			factor = 10
 		}
@@ -14862,11 +14954,11 @@ focus_tree = {
 		icon = GFX_goal_generic_small_arms
 		cost = 10.00
 		prerequisite = {
-			focus = GER_establish_imperial_german_army
+			focus = GER_restore_the_empire
 		}
 		relative_position_id = GER_establish_imperial_german_army
-		x = 0
-		y = 1
+		x = 2
+		y = 0
 		ai_will_do = {
 			factor = 10
 		}
@@ -14896,216 +14988,155 @@ focus_tree = {
 	# 	}
 
 	# }
-	# focus = {
-	# 	id = GER_prioritize_infrastructure
-	# 	icon = GFX_goal_generic_construct_infrastructure
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = -3
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_infrastructure_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	focus = {
+		id = GER_prioritize_civilian_industry
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 10.00
+		prerequisite = {
+			focus = GER_establish_imperial_german_army
+		}
+		prerequisite = {
+			focus = GER_support_landwehr
+		}
+		mutually_exclusive = {
+			focus = GER_prioritize_military_industry
+		}
+		relative_position_id = GER_support_landwehr
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			#add_ideas = GER_prioritize_civilian_industry_idea # replaced with bop effect
+			unlock_decision_tooltip = GER_bop_prioritize_civilian_industry
+			random_owned_controlled_state = {
+				prioritize = { 64 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 59 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_civilian_industry
-	# 	icon = GFX_goal_generic_construct_civ_factory
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = -1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_civilian_industry_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	}
+	focus = {
+		id = GER_prioritize_military_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 10.00
+		prerequisite = {
+			focus = GER_establish_imperial_german_army
+		}
+		prerequisite = {
+			focus = GER_support_landwehr
+		}
+		mutually_exclusive = {
+			focus = GER_prioritize_civilian_industry
+		}
+		relative_position_id = GER_establish_imperial_german_army
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			#add_ideas = GER_prioritize_military_industry_idea # replaced with bop effect
+			unlock_decision_tooltip = GER_bop_prioritize_military_industry
+			random_owned_controlled_state = {
+				prioritize = { 64 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 59 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_military_industry
-	# 	icon = GFX_goal_generic_construct_mil_factory
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_military_industry_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	}
+	focus = {
+		id = GER_galvanize_german_militarism
+		icon = GFX_goal_GER_support_the_freikorps
+		cost = 10.00
+		prerequisite = {
+			focus = GER_prioritize_military_industry
+		}
+		relative_position_id = GER_prioritize_military_industry
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			unlock_decision_tooltip = GER_bop_nationalistic_military_parade
+			swap_ideas = {
+				remove_idea = GER_imperial_army_idea
+				add_idea = GER_imperial_army_idea_2
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_defensive_construction
-	# 	icon = GFX_focus_generic_coastal_fort
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_military_industry
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 3
-	# 	y = 1
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_defensive_construction_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
-
-	# }
-	# focus = {
-	# 	id = GER_kaiser_wilhelm_society
-	# 	icon = GFX_goal_research_silver
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 0
-	# 	y = 2
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_research_slot = 1
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH
-	# 	}
-
-	# }
-	# focus = {
-	# 	id = GER_return_scientists
-	# 	icon = GFX_goal_tfv_generic_tech_sharing
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_kaiser_wilhelm_society
-	# 	}
-	# 	relative_position_id = GER_kaiser_wilhelm_society
-	# 	x = 0
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_return_scientists_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER
-	# 	}
-
-	# }
-	# focus = {
-	# 	id = GER_5_factor
-	# 	icon = GFX_focus_generic_cryptologic_bomb
-	# 	cost = 5.00
-	# 	prerequisite = {
-	# 		focus = GER_enigma
-	# 	}
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = GER_enigma
-	# 	available = {
-	# 		date > 1941.1.31
-	# 	}
-	# 	ai_will_do = {
-	# 		factor = 1
-	# 	}
-	# 	completion_reward = {
-	# 		swap_ideas = {
-	# 			add_idea = GER_enigma_machine2
-	# 			remove_idea = GER_enigma_machine1
-	# 		}
-	# 		add_tech_bonus = {
-	# 			name = enigma
-	# 			bonus = 0.5
-	# 			uses = 1
-	# 			category = computing_tech
-	# 		}
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE
-	# 	}
-	# }
-	# focus = {
-	# 	id = GER_8_factor
-	# 	icon = GFX_focus_generic_cryptologic_bomb
-	# 	cost = 5.00
-	# 	prerequisite = {
-	# 		focus = GER_5_factor
-	# 	}
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = GER_5_factor
-	# 	available = {
-	# 		date > 1942.1.1
-	# 	}
-	# 	ai_will_do = {
-	# 		factor = 1
-	# 	}
-	# 	completion_reward = {
-	# 		swap_ideas = {
-	# 			add_idea = GER_enigma_machine3
-	# 			remove_idea = GER_enigma_machine2
-	# 		}
-	# 		add_tech_bonus = {
-	# 			name = enigma
-	# 			bonus = 1
-	# 			uses = 1
-	# 			category = computing_tech
-	# 		}
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE
-	# 	}
-	# }
+	}
 
 	focus = {
 		id = GER_finland_friend
@@ -15924,9 +15955,9 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_restore_the_empire
 		}
-		relative_position_id = GER_restore_the_empire
-		x = 1
-		y = 1
+		relative_position_id = GER_our_place_in_the_sun_r56
+		x = -2
+		y = 0
 		available = {
 			is_subject = no
 		}
@@ -15988,18 +16019,20 @@ focus_tree = {
 
 	focus = {
 		id = GER_gott_mit_uns
-		icon = GFX_FRA_VIC_goal_STO
+		icon = GFX_goal_GER_wilhelm_ii
 		cost = 10.00
 		prerequisite = {
-			focus = GER_support_landwehr
+			#focus = GER_support_freikorps
+			focus = GER_prioritize_civilian_industry
 		}
-		relative_position_id = GER_establish_imperial_german_army
+		relative_position_id = GER_prioritize_civilian_industry
 		x = 0
-		y = 2
+		y = 1
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
+			unlock_decision_tooltip = GER_bop_rally_in_honour_of_the_kaiser
 			add_ideas = GER_gott_idea
 		}
 		search_filters = {
@@ -17650,7 +17683,7 @@ focus_tree = {
 								original_tag = LIE
 							}
 						}
-						add_ideas = GER_european_army_1
+						add_ideas = GER_r56rp_european_army_1
 					}
 				}
 			}

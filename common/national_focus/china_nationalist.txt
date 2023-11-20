@@ -23,70 +23,20 @@ focus_tree = {
 		icon = GFX_goal_kmt_china
 		mutually_exclusive = { focus = KMT_external_defense }
 		available = {
-			NOT = { has_war_with = JAP }
-			OR = {
-				country_exists = SHX
-				country_exists = YUN
-				country_exists = XSM
-				country_exists = GXC
-				country_exists = TNG
-				country_exists = SIK
-				country_exists = PRC
-			}
-		}
-		cancel = {
-			has_war_with = JAP
+
 		}
 		
-		x = 2
+		x = 8
 		y = 0
 		cost = 10
 		
 		ai_will_do = {
 			factor = 1
-			modifier = {
-				JAP = {
-					OR = {
-						focus_progress = {
-							focus = JAP_support_the_kodoha_faction
-							progress > 0.6
-						}
-						focus_progress = {
-							focus = JAP_the_unthinkable_option
-							progress > 0.4
-						}						
-						focus_progress = {
-							focus = JAP_strengthen_civilian_government
-							progress > 0.4
-						}
-					}
-				
-				}
-				factor = 25
-			}			
-			modifier = {
-				is_historical_focus_on = yes
-				NOT = {
-					JAP = {
-						OR = {
-							focus_progress = {
-								focus = JAP_support_the_kodoha_faction
-								progress > 0.6
-							}
-							focus_progress = {
-								focus = JAP_the_unthinkable_option
-								progress > 0.4
-							}
-						}
-										
-					}					
-				}
-				factor = 0
-			}
+			
 		}
 		
 		completion_reward = {
-			add_political_power = 125
+			add_political_power = 100
 			add_war_support = 0.10
 			custom_effect_tooltip = KMT_no_united_front_unless_xian_incident_agreed_tt																			 
 		}
@@ -97,6 +47,11 @@ focus_tree = {
 		id = KMT_SHX_offer
 		icon = GFX_goal_CHI_the_shanxi_offer
 		prerequisite = { focus = KMT_internal_stability }
+		relative_position_id = KMT_internal_stability
+		x = -3
+		y = 1
+		cost = 5
+
 		available = {
 			is_subject = no
 			SHX = {
@@ -128,9 +83,6 @@ focus_tree = {
 			}
 		}
 		
-		x = 2
-		y = 1
-		cost = 5
 		completion_reward = {
 			SHX = { country_event = { id = kmt.1  hours = 8 }}
 		}
@@ -147,7 +99,8 @@ focus_tree = {
 		bypass = {
 			PRC = { exists = no }
 		}
-		x = 0
+		relative_position_id = KMT_internal_stability
+		x = -1
 		y = 1
 		cost = 10
 		completion_reward = {
@@ -198,9 +151,11 @@ focus_tree = {
 		id = KMT_strike_PRC
 		icon = GFX_Goal_USA_HUAC
 		prerequisite = { focus = KMT_preparation }
+		prerequisite = { focus = KMT_SHX_offer}
 		
-		x = 0
-		y = 2
+		relative_position_id = KMT_preparation
+		x = -1
+		y = 1
 		cost = 5
 		
 		available = { 
@@ -267,7 +222,13 @@ focus_tree = {
 	focus = {
 		id = KMT_warlord
 		icon = GFX_goal_CHI_defeat_the_warlords
-		prerequisite = { focus = KMT_strike_PRC focus = KMT_SHX_offer }
+		prerequisite = { focus = KMT_strike_PRC }
+	
+		relative_position_id = KMT_internal_stability
+		x = -2
+		y = 3
+		cost = 10
+
 		available = {
 			is_subject = no
 			OR = {
@@ -278,7 +239,7 @@ focus_tree = {
 				country_exists = TNG
 			}
 			OR = {
-				has_global_flag = PRC_yes_truce
+				#has_global_flag = PRC_yes_truce #pointless as it fucking bypasses.
 				NOT = {
 					country_exists = PRC
 				}
@@ -296,9 +257,7 @@ focus_tree = {
 				has_global_flag = PRC_yes_truce
 			}
 		}
-		x = 2
-		y = 3
-		cost = 10
+
 		
 		completion_reward = {
 			every_other_country = {
@@ -327,63 +286,70 @@ focus_tree = {
 		}
 	}	
 	
-	focus = {
-		id = KMT_external_defense
-		icon = GFX_goal_CHI_focus_on_external_threats
-		mutually_exclusive = { focus = KMT_internal_stability }
-		available = {
-			NOT = {
-				has_war_with = PRC
-				has_war_with = SHX
-				has_war_with = XSM
-				has_war_with = YUN
-				has_war_with = GXC
-				has_war_with = TNG
-				is_in_faction_with = JAP
-				is_subject_of = JAP
-			}
-		}
-		cancel = {
-			OR = {
-				has_war_with = SHX
-				has_war_with = YUN
-				has_war_with = XSM
-				has_war_with = GXC
-				has_war_with = SHX
-				has_war_with = TNG
-				is_in_faction_with = JAP
-				is_subject_of = JAP				  
-			}
-		}
-		
-		bypass = {
-			has_war_with = JAP
-		}
-		x = 4
-		y = 0
-		cost = 5
-		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 1
-			}
-		}
-		
-		completion_reward = {
-			add_stability = 0.05
-			add_political_power = 100
-			set_global_flag = KMT_united_front_enabled
-			custom_effect_tooltip = KMT_enables_united_front_tt			 
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}
-	
+	#focus = {
+	#	id = KMT_external_defense
+	#	icon = GFX_goal_CHI_focus_on_external_threats
+	#	mutually_exclusive = { focus = KMT_internal_stability }
+	#	available = {
+	#		NOT = {
+	#			has_war_with = PRC
+	#			has_war_with = SHX
+	#			has_war_with = XSM
+	#			has_war_with = YUN
+	#			has_war_with = GXC
+	#			has_war_with = TNG
+	#			is_in_faction_with = JAP
+	#			is_subject_of = JAP
+	#		}
+	#	}
+	#	cancel = {
+	#		OR = {
+	#			has_war_with = SHX
+	#			has_war_with = YUN
+	#			has_war_with = XSM
+	#			has_war_with = GXC
+	#			has_war_with = SHX
+	#			has_war_with = TNG
+	#			is_in_faction_with = JAP
+	#			is_subject_of = JAP				  
+	#		}
+	#	}
+	#	
+	#	bypass = {
+	#		has_war_with = JAP
+	#	}
+	#	x = 4
+	#	y = 0
+	#	cost = 5
+	#	
+	#	ai_will_do = {
+	#		factor = 2
+	#		modifier = {
+	#			is_historical_focus_on = yes
+	#			factor = 1
+	#		}
+	#	}
+	#	
+	#	completion_reward = {
+	#		add_stability = 0.05
+	#		add_political_power = 100
+	#		set_global_flag = KMT_united_front_enabled
+	#		custom_effect_tooltip = KMT_enables_united_front_tt			 
+	#	}
+	#	search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+	#}
+	#
 	focus = {
 		id = KMT_fortify_land
 		icon = GFX_goal_generic_fortify_city
-		prerequisite = { focus = KMT_external_defense }
+		prerequisite = { focus = KMT_internal_stability }
+		
+		relative_position_id = KMT_internal_stability
+		x = 1
+		y = 1
+		cost = 10
+		
+		
 		available = {
 			NOT = {
 				has_war_with = PRC
@@ -409,9 +375,7 @@ focus_tree = {
 			}
 		}
 		
-		x = 4
-		y = 1
-		cost = 10
+
 		
 		completion_reward = {
 			army_experience = 10
@@ -559,7 +523,12 @@ focus_tree = {
 	focus = {
 		id = KMT_fortify_coast
 		icon = GFX_focus_generic_coastal_fort
-		prerequisite = { focus = KMT_external_defense }
+		prerequisite = { focus = KMT_internal_stability }
+		relative_position_id = KMT_fortify_land
+		x = 2
+		y = 0
+		cost = 10
+		
 		available = {
 			NOT = {
 				has_war_with = PRC
@@ -591,10 +560,6 @@ focus_tree = {
 			}
 			is_in_faction_with = JAP
 		}
-		
-		x = 6
-		y = 1
-		cost = 10
 		
 		completion_reward = {
 			army_experience = 10
@@ -708,53 +673,58 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
-	focus = {
-		id = KMT_national_def_propaganda
-		icon = GFX_goal_CHI_national_defence_propaganda
-		prerequisite = { focus = KMT_fortify_coast focus = KMT_fortify_land }
-		available = {
-			NOT = {
-				has_war_with = PRC
-				has_war_with = SHX
-				has_war_with = GXC
-				has_war_with = XSM
-				has_war_with = YUN
-				has_war_with = TNG
-				is_in_faction_with = JAP
-			}
-		}
-		x = 4
-		y = 3
-		cost = 10
-		
-		ai_will_do = {
-			factor = 20
-		}
-
-		completion_reward = {
-			add_political_power = 100
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = PRC
-						has_war_with = SHX
-						has_war_with = GXC
-						has_war_with = YUN
-						has_war_with = XSM
-						has_war_with = TNG
-					}
-				}
-				add_ideas = KMT_propaganda
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
-	}
+#	focus = { #should move into chinese united front decisions
+#		id = KMT_national_def_propaganda
+#		icon = GFX_goal_CHI_national_defence_propaganda
+#		prerequisite = { focus = KMT_fortify_coast focus = KMT_fortify_land }
+#		available = {
+#			NOT = {
+#				has_war_with = PRC
+#				has_war_with = SHX
+#				has_war_with = GXC
+#				has_war_with = XSM
+#				has_war_with = YUN
+#				has_war_with = TNG
+#				is_in_faction_with = JAP
+#			}
+#		}
+#		relative_position_id = KMT_fortify_land
+#		x = 1
+#		y = 1
+#		cost = 10
+#		
+#		ai_will_do = {
+#			factor = 20
+#		}
+#
+#		completion_reward = {
+#			add_political_power = 100
+#			if = {
+#				limit = {
+#					NOT = {
+#						has_war_with = PRC
+#						has_war_with = SHX
+#						has_war_with = GXC
+#						has_war_with = YUN
+#						has_war_with = XSM
+#						has_war_with = TNG
+#					}
+#				}
+#				add_ideas = KMT_propaganda
+#			}
+#		}
+#		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
+#	}
 	
 	focus = {
 		id = KMT_tibet_march
 		icon = GFX_goal_PRC_liberate_tibet
-		prerequisite = { focus = KMT_national_def_propaganda focus = KMT_warlord }
+		prerequisite = { focus = KMT_warlord focus = KMT_warlord_after_civil_war }
 		mutually_exclusive = { focus = KMT_tibet_friend }
+		relative_position_id = KMT_warlord
+		x = -1
+		y = 2
+		cost = 10
 		available = {
 			is_subject = no
 			TIB = {
@@ -788,9 +758,7 @@ focus_tree = {
 				add = 0.1
 			}
 		}
-		x = 2
-		y = 5
-		cost = 10
+
 		
 		completion_reward = {
 			every_state = {
@@ -810,8 +778,12 @@ focus_tree = {
 	focus = {
 		id = KMT_tibet_friend
 		icon = GFX_goal_TIB_fair_treatment_dalai_lama
-		prerequisite = { focus = KMT_national_def_propaganda focus = KMT_warlord }
+		prerequisite = { focus = KMT_warlord focus = KMT_warlord_after_civil_war }
 		mutually_exclusive = { focus = KMT_tibet_march }
+		relative_position_id = KMT_warlord
+		x = 1
+		y = 2
+		cost = 10
 		available = { 
 			is_subject = no
 			TIB = {
@@ -833,9 +805,6 @@ focus_tree = {
 				has_war_with = TIB
 			}
 		}
-		x = 4
-		y = 5
-		cost = 10
 		ai_will_do = {
 			factor = 0.1
 		}	
@@ -895,6 +864,12 @@ focus_tree = {
 		id = KMT_redraw_mcmahon
 		icon = GFX_focus_RAJ_british_investors
 		prerequisite = { focus = KMT_tibet_friend focus = KMT_tibet_march }
+		
+		relative_position_id = KMT_warlord
+		x = 0
+		y = 3
+		cost = 10
+
 		available = {
 			has_army_manpower = { size > 1999999 }				 
 			434 = { is_owned_by = RAJ }
@@ -982,9 +957,6 @@ focus_tree = {
 				}
 			}
 		}
-		x = 3
-		y = 6
-		cost = 10
 		
 		completion_reward = {
 			add_state_core = 434
@@ -996,7 +968,8 @@ focus_tree = {
 	focus = {
 		id = KMT_industrial_effort 
 		icon = GFX_focus_generic_industry_1
-		x = 17
+		relative_position_id = KMT_national_defense_council
+		x = 6
 		y = 0
 		cost = 10
 
@@ -1033,7 +1006,8 @@ focus_tree = {
 		id = KMT_improve_our_railways
 		text = BUL_national_railway_lines
 		icon = GFX_goal_generic_railroad
-		x = 21
+		relative_position_id = KMT_industrial_effort
+		x = 0
 		y = 1
 		cost = 5
 		prerequisite = { focus = KMT_industrial_effort }
@@ -1062,10 +1036,11 @@ focus_tree = {
 	focus = {
 		id = KMT_industrialization_NW
 		icon = GFX_goal_generic_construct_infrastructure
-		x = 15
+		relative_position_id = KMT_improve_our_railways
+		x = -2
 		y = 1
 		cost = 14.3
-		prerequisite = { focus = KMT_industrial_effort }
+		prerequisite = { focus = KMT_improve_our_railways }
 		available = {
 			OR = {
 				num_of_factories > 100
@@ -1078,20 +1053,52 @@ focus_tree = {
 				custom_trigger_tooltip = {
 					tooltip = state_is_western_china_tt
 					OR = {
-						region = 145
+						AND = {
+							region = 145
+							NOT = {
+								state = 287 # ah yes 1k people, impassable terrain, but 2 factories.
+							}
+						}
 						state = 756
 						state = 755
 						state = 604
+					}
+					NOT = {
+						state = 287
 					}
 				}
 				is_controlled_by = ROOT
 			}
 		}
 		completion_reward = {
+			custom_effect_tooltip = KMT_r56rp_industrialization_NW.tt
+			effect_tooltip = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
 			every_controlled_state = {
 				limit = {
 					OR = {
-						region = 145
+						AND = {
+							region = 145
+							NOT = {
+								state = 287 # ah yes 1k people, impassable terrain, but 2 factories.
+							}
+						}
 						state = 756
 						state = 755
 						state = 604
@@ -1152,8 +1159,9 @@ focus_tree = {
 	focus = {
 		id = KMT_excavation_NW
 		icon = GFX_goal_generic_construction2
-		x = 15
-		y = 3
+		relative_position_id = KMT_national_resources_commission
+		x = -1
+		y = 1
 		cost = 10
 		prerequisite = { focus = KMT_national_resources_commission }
 		available = {
@@ -1686,10 +1694,11 @@ focus_tree = {
 	focus = {
 		id = KMT_industrialization_S
 		icon = GFX_focus_generic_industry_2
-		x = 17
+		relative_position_id = KMT_improve_our_railways
+		x = 0
 		y = 1
 		cost = 14.4
-		prerequisite = { focus = KMT_industrial_effort }
+		prerequisite = { focus = KMT_improve_our_railways }
 		available = {
 			OR = {
 				num_of_factories > 100
@@ -1769,8 +1778,9 @@ focus_tree = {
 	focus = {
 		id = KMT_excavation_S
 		icon = GFX_goal_COG_Rubber_Farming
-		x = 17
-		y = 3
+		relative_position_id = KMT_national_resources_commission
+		x = 0
+		y = 2
 		cost = 10
 		prerequisite = { focus = KMT_national_resources_commission }
 		available = {
@@ -1838,10 +1848,10 @@ focus_tree = {
 	focus = {
 		id = CHI_industrial_evacuations
 		icon = GFX_goal_generic_industrial_planning
-		prerequisite = { focus = KMT_national_defense_council }
 		prerequisite = { focus = KMT_industrial_effort }
-
-		x = 12
+		
+		relative_position_id = KMT_industrial_effort
+		x = 2
 		y = 1
 
 		cost = 5
@@ -1875,8 +1885,9 @@ focus_tree = {
 	focus = {
 		id = KMT_excavation_NE
 		icon = GFX_goal_excavation
-		x = 19
-		y = 3
+		relative_position_id = KMT_national_resources_commission
+		x = 1
+		y = 1
 		cost = 10
 		prerequisite = { focus = KMT_national_resources_commission }
 		available = {
@@ -2362,8 +2373,9 @@ focus_tree = {
 		icon = GFX_goal_ammunitions
 		prerequisite = { focus = KMT_national_defense_council }
 		prerequisite = { focus = KMT_industrial_effort }
-		x = 13
-		y = 2
+		relative_position_id = KMT_national_defense_council
+		x = 2
+		y = 3
 		cost = 10
 		ai_will_do = {
 			factor = 5
@@ -2434,12 +2446,12 @@ focus_tree = {
 	focus = {
 		id = KMT_arms_purchases_abroad
 		icon = GFX_goal_generic_arms_export
-		x = -2
+
+		prerequisite = { focus = KMT_national_defense_council }
+		prerequisite = { focus = KMT_industrial_effort }
+		relative_position_id = KMT_national_defense_council
+		x = 3
 		y = 1
-		prerequisite = {
-			focus = KMT_armament_effort
-		}
-		relative_position_id = KMT_armament_effort
 		cost = 5
 
 		ai_will_do = {
@@ -2486,8 +2498,9 @@ focus_tree = {
 		id = KMT_gain_control_of_the_sea 
 		icon = GFX_goal_CHI_coa_navy
 		prerequisite = { focus = KMT_fortify_coast focus = KMT_revive_jiangnan_shipyard }
-		x = 7
-		y = 4
+		relative_position_id = KMT_revive_jiangnan_shipyard
+		x = -2
+		y = 1
 		cost = 10
 
 		ai_will_do = {
@@ -2568,8 +2581,9 @@ focus_tree = {
 		id = KMT_increase_funding_of_german_weaponary
 		icon = GFX_goal_generic_combined_arms_artillery_antiair_antitank
 		prerequisite = { focus = KMT_revive_hanyang_armory }
-		x = 13
-		y = 4
+		relative_position_id = KMT_revive_hanyang_armory
+		x = 0
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -2595,8 +2609,9 @@ focus_tree = {
 		id = KMT_air_effort
 		icon = GFX_goal_CHI_coa_air_force
 		prerequisite = { focus = KMT_revive_hanyang_armory }
-		x = 11
-		y = 4
+		relative_position_id = KMT_revive_hanyang_armory
+		x = -2
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -2642,8 +2657,9 @@ focus_tree = {
 				has_government = fascism
 			}
 		}
-		x = 10
-		y = 5
+		relative_position_id = KMT_air_effort
+		x = -1
+		y = 1
 		cost = 5
 		
 		completion_reward = {
@@ -2683,8 +2699,9 @@ focus_tree = {
 		id = KMT_study_foreign_ship
 		icon = GFX_focus_generic_shipbuilding
 		prerequisite = { focus = KMT_gain_control_of_the_sea }
-		x = 6
-		y = 5
+		relative_position_id = KMT_gain_control_of_the_sea
+		x = -1
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -2709,8 +2726,9 @@ focus_tree = {
 		id = KMT_demand_taiwan
 		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = KMT_gain_control_of_the_sea }
-		x = 8
-		y = 5
+		relative_position_id = KMT_gain_control_of_the_sea
+		x = 1
+		y = 1
 		cost = 5
         ai_will_do = {
 			factor = 8
@@ -2810,9 +2828,13 @@ focus_tree = {
 		id = KMT_continental_shipbuilding
 		icon = GFX_focus_generic_refit_civilian_ships
 		mutually_exclusive = { focus = KMT_taiwan_fleet_hub }
-		prerequisite = { focus = KMT_demand_taiwan }
+		prerequisite = { 
+			focus = KMT_demand_taiwan 
+			focus = KMT_study_foreign_ship 
+		}
 		available = {
 		}
+		relative_position_id = KMT_demand_taiwan
 		x = -1
 		y = 1
 		relative_position_id = KMT_demand_taiwan
@@ -2876,8 +2898,9 @@ focus_tree = {
 		icon = GFX_goal_generic_navy_carrier
 		prerequisite = { focus = KMT_taiwan_fleet_hub focus = KMT_continental_shipbuilding }
 		mutually_exclusive = { focus = KMT_sea_fleet }
-		x = 9
-		y = 7
+		relative_position_id = KMT_demand_taiwan
+		x = 1
+		y = 2
 		cost = 10
 		
 		completion_reward = {
@@ -2910,8 +2933,9 @@ focus_tree = {
 		icon = GFX_goal_generic_navy_submarine
 		prerequisite = { focus = KMT_taiwan_fleet_hub focus = KMT_continental_shipbuilding }
 		mutually_exclusive = { focus = KMT_pacific_fleet }
-		x = 7
-		y = 7
+		relative_position_id = KMT_demand_taiwan
+		x = -1
+		y = 2
 		cost = 10
 		
 		completion_reward = {
@@ -2998,8 +3022,9 @@ focus_tree = {
 		id = KMT_pacific_expansion
 		icon = GFX_goal_generic_navy_doctrines_tactics
 		prerequisite = { focus = KMT_pacific_fleet }
-		x = 9
-		y = 8
+		relative_position_id = KMT_demand_taiwan
+		x = 1
+		y = 3
 		cost = 10
 		available = {
 			is_subject = no
@@ -3048,8 +3073,9 @@ focus_tree = {
 		id = KMT_sea_expansion
 		icon = GFX_goal_generic_navy_anti_submarine
 		prerequisite = { focus = KMT_sea_fleet }
-		x = 7
-		y = 8
+		relative_position_id = KMT_demand_taiwan
+		x = -1
+		y = 3
 		cost = 10
 		available = {
 			is_subject = no
@@ -3098,8 +3124,9 @@ focus_tree = {
 		id = KMT_modernize_army
 		icon = GFX_goal_generic_army_tanks
 		prerequisite = { focus = KMT_revive_hanyang_armory }
-		x = 15
-		y = 4
+		relative_position_id = KMT_revive_hanyang_armory
+		x = 2
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -3119,7 +3146,11 @@ focus_tree = {
 	focus = {
 		id = KMT_north_plan
 		icon = GFX_goal_CHI_retake_manchuria
-		prerequisite = { focus = KMT_fortify_land focus = KMT_SHX_offer }
+		prerequisite = { focus = KMT_warlord focus = KMT_warlord_after_civil_war }
+		relative_position_id = KMT_warlord
+		x = 2
+		y = 1
+		cost = 10
 		available = {
 			is_puppet = no
 			any_state = {
@@ -3181,9 +3212,6 @@ focus_tree = {
 				}
 			}
 		}
-		x = 3
-		y = 2
-		cost = 10
 		bypass = {
 			all_state = {
 				OR = {
@@ -3238,7 +3266,12 @@ focus_tree = {
 	focus = {
 		id = KMT_pioneering_the_north_east
 		icon = GFX_goal_generic_construct_civilian
-		prerequisite = { focus = KMT_industrial_effort }
+		prerequisite = { focus = KMT_improve_our_railways }
+
+		relative_position_id = KMT_improve_our_railways
+		x = 2
+		y = 1
+
 		available = {
 			OR = {
 				num_of_factories > 100
@@ -3259,8 +3292,7 @@ focus_tree = {
 				is_controlled_by = ROOT
 			}
 		}
-		x = 19
-		y = 1
+
 		cost = 14.4
 		
 		completion_reward = {
@@ -3315,7 +3347,8 @@ focus_tree = {
 	focus = {
 		id = KMT_science_effort
 		icon = GFX_goal_CHI_academia_sinica
-		x = 22
+		relative_position_id = KMT_industrial_effort
+		x = 5
 		y = 0
 		cost = 10
 		
@@ -3421,8 +3454,9 @@ focus_tree = {
 		icon = GFX_focus_chi_whampoa_military_academy
 		prerequisite = { focus = KMT_national_institute focus = KMT_create_national_institute }
 		prerequisite = { focus = KMT_modernize_army }
-		x = 17
-		y = 7
+		relative_position_id = KMT_modernize_army
+		x = 3
+		y = 2
 		cost = 10
 
 		completion_reward = {
@@ -3446,8 +3480,9 @@ focus_tree = {
 		icon = GFX_focus_rocketry
 		prerequisite = { focus = KMT_extra_research_slot_2 }
 		prerequisite = { focus = KMT_military_science }
-		x = 23
-		y = 8
+		relative_position_id = KMT_extra_research_slot_2
+		x = 1
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -3470,8 +3505,9 @@ focus_tree = {
 		available = {
 			num_of_factories > 100
 		}
-		x = 22
-		y = 7
+		relative_position_id = KMT_extra_research_slot
+		x = 0
+		y = 4
 		cost = 10
 		
 		completion_reward = {
@@ -3512,8 +3548,9 @@ focus_tree = {
 		icon = GFX_goal_generic_nuclear_energy
 		prerequisite = { focus = KMT_extra_research_slot_2 }
 		prerequisite = { focus = KMT_military_science }
-		x = 22
-		y = 9
+		relative_position_id = KMT_extra_research_slot_2
+		x = 0
+		y = 2
 		cost = 10
 		
 		completion_reward = {
@@ -3533,8 +3570,9 @@ focus_tree = {
 		icon = GFX_goal_generic_air_jet_new
 		prerequisite = { focus = KMT_extra_research_slot_2 }
 		prerequisite = { focus = KMT_military_science }
-		x = 21
-		y = 8
+		relative_position_id = KMT_extra_research_slot_2
+		x = -1
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -3554,8 +3592,9 @@ focus_tree = {
 		icon = GFX_goal_generic_air_fighter
 		prerequisite = { focus = KMT_air_base_expansion }
 		mutually_exclusive = { focus = KMT_bomber_focus }
-		x = 13
-		y = 7
+		relative_position_id = KMT_air_base_expansion
+		x = 2
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -3603,8 +3642,9 @@ focus_tree = {
 		icon = GFX_goal_generic_air_bomber
 		prerequisite = { focus = KMT_air_base_expansion }
 		mutually_exclusive = { focus = KMT_fighter_focus }
-		x = 11
-		y = 7
+		relative_position_id = KMT_air_base_expansion
+		x = 0
+		y = 1
 		cost = 10
 		completion_reward = {
 			air_experience = 5
@@ -3646,8 +3686,9 @@ focus_tree = {
 		id = KMT_cas_effort
 		icon = GFX_goal_generic_CAS
 		prerequisite = { focus = KMT_fighter_focus }
-		x = 13
-		y = 8
+		relative_position_id = KMT_air_base_expansion
+		x = 2
+		y = 2
 		cost = 10
 		
 		completion_reward = {
@@ -3680,8 +3721,9 @@ focus_tree = {
 		id = KMT_nav_effort
 		icon = GFX_goal_generic_air_naval_bomber
 		prerequisite = { focus = KMT_bomber_focus }
-		x = 11
-		y = 8
+		relative_position_id = KMT_air_base_expansion
+		x = 0
+		y = 2
 		cost = 10
 		
 		completion_reward = {
@@ -3712,7 +3754,7 @@ focus_tree = {
 	focus = {
 		id = KMT_political_effort
 		icon = GFX_focus_chi_legislative_yuan
-		x = 33
+		x = 36
 		y = 0
 		cost = 10
 		
@@ -3821,8 +3863,9 @@ focus_tree = {
 		id = KMT_cbis
 		icon = GFX_goal_generic_secret_police
 		prerequisite = { focus = KMT_unitary_semi_presidential_republic }
-		x = 25
-		y = 2
+		relative_position_id = KMT_unitary_semi_presidential_republic
+		x = 0
+		y = 1
 		cost = 10
 		completion_reward = {
 			if = {
@@ -3855,8 +3898,9 @@ focus_tree = {
 		id = KMT_cement_control_on_the_economy
 		icon = GFX_goal_generic_state_economy
 		prerequisite = { focus = KMT_cbis }
-		x = 26
-		y = 3
+		relative_position_id = KMT_cbis
+		x = 1
+		y = 1
 		cost = 10
 		completion_reward = {
 			IF = {
@@ -3882,8 +3926,9 @@ focus_tree = {
 		id = KMT_zhonghua_minzu
 		icon = GFX_goal_generic_multinational_army
 		prerequisite = { focus = KMT_cbis }
-		x = 24
-		y = 3
+		relative_position_id = KMT_cbis
+		x = -1
+		y = 1
 		cost = 10
 		completion_reward = {
 			IF = {
@@ -3913,8 +3958,9 @@ focus_tree = {
 		available = {
 			has_government = neutrality
 		}
-		x = 25
-		y = 4
+		relative_position_id = KMT_cbis
+		x = 0
+		y = 2
 		cost = 10
 		completion_reward = {
 			#add_ideas = KMT_central_power
@@ -3930,8 +3976,9 @@ focus_tree = {
 		available = {
 			has_government = neutrality
 		}
-		x = 25
-		y = 5
+		relative_position_id = KMT_cbis
+		x = 0
+		y = 3
 		cost = 10
 		completion_reward = {
 			set_rule = { 
@@ -3978,8 +4025,9 @@ focus_tree = {
 				has_government = democratic
 			}
 		}
-		x = 26
-		y = 6
+		relative_position_id = KMT_cbis
+		x = 1
+		y = 4
 		cost = 10
 		completion_reward = {
 			add_research_slot = 1
@@ -3994,8 +4042,9 @@ focus_tree = {
 		available = {
 			has_government = democratic
 		}
-		x = 32
-		y = 3
+		relative_position_id = KMT_democratic_republic
+		x = 1
+		y = 2
 		cost = 10
 		completion_reward = {
 			set_rule = {
@@ -4017,8 +4066,9 @@ focus_tree = {
 				has_government = fascism
 			}
 		}
-		x = 30
-		y = 3
+		relative_position_id = KMT_democratic_republic
+		x = -1
+		y = 2
 		cost = 10
 		completion_reward = {
 			add_to_variable = { KMT_combined_democracy_modifier_production_speed_industrial_complex_factor = 0.1 }
@@ -4037,8 +4087,9 @@ focus_tree = {
 				has_government = fascism
 			}
 		}
-		x = 31
-		y = 2
+		relative_position_id = KMT_democratic_republic
+		x = 0
+		y = 1
 		cost = 10
 		completion_reward = {
 			remove_ideas = CHI_communist_uprisings
@@ -4057,8 +4108,9 @@ focus_tree = {
 		available = {
 			has_government = democratic
 		}
-		x = 31
-		y = 4
+		relative_position_id = KMT_democratic_republic
+		x = 0
+		y = 3
 		cost = 10
 		completion_reward = {
 			add_to_variable = { KMT_combined_democracy_modifier_stability_factor = 0.1 }
@@ -4081,8 +4133,9 @@ focus_tree = {
 		icon = GFX_allies
 		prerequisite = { focus = KMT_universal_sufferage }
 		mutually_exclusive = { focus = KMT_alone_in_the_east }
-		x = 30
-		y = 5
+		relative_position_id = KMT_democratic_republic
+		x = -1
+		y = 4
 		cost = 10
 		available = {
 			is_puppet = no
@@ -4156,8 +4209,9 @@ focus_tree = {
 		available = {
 			has_government = democratic
 		}
-		x = 32
-		y = 5
+		relative_position_id = KMT_democratic_republic
+		x = 1
+		y = 4
 		cost = 10
 		
 		completion_reward = {
@@ -4175,8 +4229,9 @@ focus_tree = {
 		available = {
 			has_government = democratic
 		}
-		x = 32
-		y = 6
+		relative_position_id = KMT_democratic_republic
+		x = 1
+		y = 5
 		cost = 10
 		
 		completion_reward = {
@@ -4194,8 +4249,9 @@ focus_tree = {
 		available = {
 			has_government = democratic
 		}
-		x = 30
-		y = 6
+		relative_position_id = KMT_democratic_republic
+		x = -1
+		y = 5
 		cost = 10
 		
 		completion_reward = {
@@ -4757,9 +4813,10 @@ focus_tree = {
 		id = KMT_improve_burma_road
 		icon = GFX_goal_generic_road
 		prerequisite = { focus = KMT_national_defense_council }
-		x = 10
+		relative_position_id = KMT_national_defense_council
+		x = 1
 		y = 1
-		cost = 10
+		cost = 5
 		
 		available = {
 			ENG = {
@@ -4888,6 +4945,10 @@ focus_tree = {
 		id = KMT_trade_port_neutral
 		icon = GFX_focus_renounce_the_treaty_of_trianon
 		prerequisite = { focus = KMT_into_despotism }
+		relative_position_id = KMT_cbis
+		x = -1
+		y = 4
+		cost = 10
 		ai_will_do = {
 			factor = 0
 		}
@@ -4930,9 +4991,7 @@ focus_tree = {
 				}
 			}
 		}
-		x = 24
-		y = 6
-		cost = 10
+
 		bypass = {
 			728 = {
 				OR = {
@@ -5010,6 +5069,10 @@ focus_tree = {
 		id = KMT_trade_port_demo
 		icon = GFX_goal_naval_treaty
 		prerequisite = { focus = KMT_european_friend focus = KMT_alone_in_the_east }
+		relative_position_id = KMT_democratic_republic
+		x = 0
+		y = 6
+		cost = 10
 		available = {
 			has_government = democratic
 			OR = {
@@ -5051,9 +5114,7 @@ focus_tree = {
 				}
 			}
 		}
-		x = 31
-		y = 7
-		cost = 10
+
 		bypass = {
 			728 = {
 				OR = {
@@ -5195,6 +5256,10 @@ focus_tree = {
 		id = KMT_ledo_road
 		icon = GFX_goal_generic_road2
 		prerequisite = { focus = KMT_improve_burma_road }
+		cost = 5
+		relative_position_id = KMT_national_defense_council
+		x = 1
+		y = 2
 		available = {
 			has_war = yes
 			432 = {
@@ -5216,9 +5281,7 @@ focus_tree = {
 				has_war_with = RAJ
 			}
 		}
-		cost = 10
-		x = 10
-		y = 2
+
 		
 		completion_reward = {
 			432 = {
@@ -5260,8 +5323,9 @@ focus_tree = {
 		id = KMT_air_base_expansion
 		icon = GFX_goal_generic_airport
 		prerequisite = { focus = KMT_air_effort }
-		x = 11 
-		y = 6
+		relative_position_id = KMT_air_effort
+		x = 0 
+		y = 2
 		cost = 5
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -5340,8 +5404,9 @@ focus_tree = {
 		available = {
 			num_of_factories > 100
 		}
-		x = 17
-		y = 2
+		relative_position_id = KMT_industrialization_S
+		x = 0
+		y = 1
 		cost = 10
 		completion_reward = {
 			if = {
@@ -5410,11 +5475,27 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM FOCUS_FILTER_STEEL FOCUS_FILTER_TUNGSTEN }
 	}
+
+	focus = {
+		id = KMT_r56rp_found_tank_plant
+		icon = GFX_goal_defensive_position2
+		x = 0
+		y = 1
+		cost = 5
+		allow_branch = {
+			is_debug = yes
+		}
+		prerequisite = { focus = KMT_industrialization_NW focus = KMT_industrialization_S focus = KMT_pioneering_the_north_east }
+		relative_position_id = KMT_industrialization_NW
+		completion_reward = {
+			custom_effect_tooltip = KMT_r56rp_found_tank_plant.tt
+		}
+	}
 	
 	focus = {
 		id = KMT_national_defense_council
 		icon = GFX_goal_defensive_position2
-		x = 10
+		x = 14
 		y = 0
 		cost = 10
 		completion_reward = {
@@ -5423,10 +5504,21 @@ focus_tree = {
 			air_experience = 5
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = CHI_zhang_qun
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = CHI_army_ordnance_department
-			show_ideas_tooltip = KMT_rheinmetall
-			show_ideas_tooltip = KMT_mauser
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				show_mio_tooltip = CHI_hanyan_arsenal_organization
+				mio:CHI_hanyan_arsenal_organization = {
+					add_mio_size = 1
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = CHI_army_ordnance_department
+				show_ideas_tooltip = KMT_rheinmetall
+				show_ideas_tooltip = KMT_mauser
+			}
 		}
 	}
 
@@ -5436,7 +5528,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_national_defense_council }
 		available = { has_war = yes }
 		relative_position_id = KMT_national_defense_council
-		x = -2
+		x = -1
 		y = 1
 		cost = 10
 		ai_will_do = {
@@ -5479,8 +5571,9 @@ focus_tree = {
 	focus = {
 		id = KMT_revive_jiangnan_shipyard
 		icon = GFX_goal_generic_expand_the_naval_industry
-		x = 9
-		y = 3
+		relative_position_id = KMT_armament_effort
+		x = -4
+		y = 1
 		cost = 10
 		prerequisite = { focus = KMT_armament_effort }
 		bypass = {
@@ -5578,8 +5671,9 @@ focus_tree = {
 	focus = {
 		id = KMT_revive_hanyang_armory
 		icon = GFX_goal_generic_war_factory
-		x = 13
-		y = 3
+		relative_position_id = KMT_armament_effort
+		x = 0
+		y = 1
 		cost = 10
 		prerequisite = { focus = KMT_armament_effort }
 		bypass = {
@@ -5588,65 +5682,28 @@ focus_tree = {
 				all_owned_state = {
 					free_building_slots = {
 						building = arms_factory
-						size < 0
+						size < 1
 						include_locked = yes
 					}
 				}
 			}
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					620 = {
-						OR = {
-							NOT = {
-								is_owned_and_controlled_by = ROOT
-							}
-							AND = {
-								is_owned_by = ROOT
-								free_building_slots = {
-									building = arms_factory
-									size < 0
-									include_locked = yes
-								}
-							}
-						}
+			random_owned_controlled_state = {
+				prioritize = { 620 }
+				limit = { 
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
 					}
 				}
-				random_owned_controlled_state = {
-					limit = { 
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}							
-				}
-			}
-			620 = {
-				if = {
-					limit = { 
-						is_owned_by = ROOT
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
-						}
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}							
 			}
 			IF = {
 				limit = {
@@ -5722,6 +5779,7 @@ focus_tree = {
 		continue_if_invalid = yes
 		
 		completion_reward = {
+			activate_mission = r56rp_CHI_anti_corruption_measures_mission
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -5729,7 +5787,8 @@ focus_tree = {
 	focus = {
 		id = KMT_the_big_rear_concept
 		icon = GFX_goal_CHI_big_rear
-		x = 47
+		relative_position_id = KMT_internal_stability
+		x = -6
 		y = 0
 		cost = 14.3
 		
@@ -6376,96 +6435,34 @@ focus_tree = {
 			}
 
 			
-			hidden_effect = {
-				if = {
+			hidden_effect = { #does exactly the same thing as before, but is much shorter.
+				every_controlled_state = {
 					limit = {
-						605 = {
-							is_fully_controlled_by = ROOT
+						OR = {
+							state = 605
+							state = 752
+							state = 750
+							state = 751
+							state = 748
+							state = 603
+							state = 744
 						}
 					}
-					605 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
+					add_dynamic_modifier = { 
+						modifier = r56_the_big_rear 
+						scope = ROOT 
 					}
 				}
-				if = {
+				every_controlled_state = {
 					limit = {
-						752 = {
-							is_fully_controlled_by = ROOT
+						OR = {
+							state = 620
+							state = 602
 						}
 					}
-					752 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
-					}
-				}
-				if = {
-					limit = {
-						750 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					750 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
-					}
-				}
-				if = {
-					limit = {
-						751 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					751 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
-					}
-				}
-				if = {
-					limit = {
-						748 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					748 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
-					}
-				
-				}
-				if = {
-					limit = {
-						603 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					603 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
-					}
-				}
-				if = {
-					limit = {
-						744 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					744 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
-					}
-				}
-				if = {
-					limit = {
-						620 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					620 = {
-						add_dynamic_modifier = { modifier = r56_the_rear scope = ROOT } 
-					}
-				}
-				if = {
-					limit = {
-						602 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					602 = {
-						add_dynamic_modifier = { modifier = r56_the_rear scope = ROOT } 
+					add_dynamic_modifier = { 
+						modifier = r56_the_rear 
+						scope = ROOT 
 					}
 				}
 			}
@@ -6479,7 +6476,7 @@ focus_tree = {
 		icon = GFX_goal_generic_fortify_city
 		prerequisite = { focus = KMT_the_big_rear_concept }
 		relative_position_id = KMT_the_big_rear_concept
-		x = 2
+		x = -2
 		y = 1
 		available = {
 			has_war = yes
@@ -6991,39 +6988,27 @@ focus_tree = {
 				add_dynamic_modifier = { modifier = r56_lure_them_in } 
 			}
 			hidden_effect = {
-				614 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				every_state = { # exact same effect, not plastered in 50 separate lines
+					limit = {
+						OR = {
+							state = 614
+							state = 607
+							state = 597
+							state = 743
+							state = 598
+							state = 596
+							state = 595
+							state = 749
+							state = 600
+							state = 606
+							state = 613
+						}
+					}
+					add_dynamic_modifier = { 
+						modifier = r56_lure_them_in 
+					}
 				}
-				607 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				597 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				743 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				598 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				596 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				595 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				749 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				600 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				606 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
-				613 = {
-					add_dynamic_modifier = { modifier = r56_lure_them_in } 
-				}
+
 				country_event = { id = lti.5 }
 			}
 		}
@@ -7044,7 +7029,7 @@ focus_tree = {
 		}
 		mutually_exclusive = { focus = KMT_placate_former_puppet_government }
 		relative_position_id = KMT_lure_them_in_strategy
-		x = 0
+		x = -1
 		y = 1
 		cost = 10
 		
@@ -7157,6 +7142,12 @@ focus_tree = {
 		id = KMT_warlord_after_civil_war
 		icon = GFX_focus_chi_one_china_policy
 		prerequisite = { focus = KMT_harsh_takeover_focus focus = KMT_placate_former_puppet_government }
+
+		relative_position_id = KMT_warlord
+		x = -2
+		y = 0
+		cost = 10
+
 		available = {
 			is_subject = no
 			OR = {
@@ -7179,10 +7170,7 @@ focus_tree = {
 				country_exists = TNG
 			}
 		}
-		relative_position_id = KMT_harsh_takeover_focus
-		x = -1
-		y = 1
-		cost = 10
+
 		
 		completion_reward = {
 			every_other_country = {
@@ -7507,7 +7495,6 @@ focus_tree = {
 		
 		completion_reward = {
 			524 = {
-				add_extra_state_shared_building_slots = 20
 				add_building_construction = {
 					type = infrastructure
 					level = 1
@@ -7523,6 +7510,8 @@ focus_tree = {
 					level = 2
 					instant_build = yes
 				}
+				set_state_category = megalopolis
+				custom_effect_tooltip = r56rp_terraformer_metropolis_megalopolis_effect_tt
 			}
 		}	
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -7533,8 +7522,9 @@ focus_tree = {
 		icon = GFX_goal_CHI_coa_army
 		prerequisite = { focus = KMT_modernize_army focus = KMT_increase_funding_of_german_weaponary }
 		mutually_exclusive = { focus = KMT_incorporate_warlord_forces }
-		x = 13
-		y = 5
+		relative_position_id = KMT_revive_hanyang_armory
+		x = 0
+		y = 2
 		cost = 10
 		
 		completion_reward = {
@@ -7546,6 +7536,12 @@ focus_tree = {
 	focus = {
 		id = KMT_incorporate_warlord_forces
 		icon = GFX_focus_chi_proclaim_rival_government
+		prerequisite = { focus = KMT_modernize_army focus = KMT_increase_funding_of_german_weaponary }
+		mutually_exclusive = { focus = KMT_focus_on_our_own_army }
+		relative_position_id = KMT_revive_hanyang_armory
+		x = 2
+		y = 2
+		cost = 10
 		available = {
 			OR = {
 				has_idea = KMT_warlord_cliques_war
@@ -7591,12 +7587,7 @@ focus_tree = {
 			}
 			
 		}
-		prerequisite = { focus = KMT_modernize_army focus = KMT_increase_funding_of_german_weaponary }
-		mutually_exclusive = { focus = KMT_focus_on_our_own_army }
-		x = 15
-		y = 5
-		cost = 10
-		
+
 		completion_reward = {
 			if = {
 				limit = {
@@ -8377,8 +8368,9 @@ focus_tree = {
 			ENG = { has_war_with = JAP }
 		}
 		prerequisite = { focus = KMT_draw_closer_to_the_empire  }
-		x = 28
-		y = 3
+		relative_position_id = KMT_democratic_republic
+		x = -3
+		y = 2
 		cost = 5
 		
 		completion_reward = {
@@ -8390,8 +8382,9 @@ focus_tree = {
 		id = KMT_introduce_shipbuilding_technology_usa
 		icon = GFX_goal_generic_construct_naval_dockyard
 		prerequisite = { focus = KMT_trans_pacific_friendship_focus }
-		x = 34
-		y = 3
+		relative_position_id = KMT_democratic_republic
+		x = 3
+		y = 2
 		cost = 10
 		available = {
 			is_puppet = no
@@ -8620,10 +8613,11 @@ focus_tree = {
 	focus = {
 		id = KMT_deal_with_SIK
 		icon = GFX_goal_CHI_sinkiang
-		x = 3
-		y = 4
+		relative_position_id = KMT_warlord
+		x = 0
+		y = 1
 		cost = 10
-		prerequisite = { focus = KMT_warlord focus = KMT_national_def_propaganda }
+		prerequisite = { focus = KMT_warlord focus = KMT_warlord_after_civil_war }
 		ai_will_do = {
 			factor = 0
 		}

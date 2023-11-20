@@ -13,6 +13,8 @@ NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 5 --VANILLA - 2.5
 NDefines.NSupply.FLOATING_HARBOR_BASE_SUPPLY = 10.0
 NDefines.NSupply.FLOATING_HARBOR_BASE_DURATION = 14
 
+NDefines.NMilitary.BASE_CAPTURE_EQUIPMENT_RATIO = 0.025
+
 NDefines.NAir.MISSION_COMMAND_POWER_COSTS = { -- command power cost per plane to create a mission
 	0.0, -- AIR_SUPERIORITY
 	0.0, -- CAS
