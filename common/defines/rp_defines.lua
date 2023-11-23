@@ -15,6 +15,12 @@ NDefines.NSupply.FLOATING_HARBOR_BASE_DURATION = 14
 
 NDefines.NMilitary.BASE_CAPTURE_EQUIPMENT_RATIO = 0.025
 
+NDefines.NNavy.GUN_HIT_PROFILES = { -- hit profiles for guns, if target ih profile is lower the gun will have lower accuracy
+	75.0,	-- big guns
+	100.0,	-- torpedoes
+	60.0,	-- small guns -- hehehe warlider was here
+}
+
 NDefines.NAir.MISSION_COMMAND_POWER_COSTS = { -- command power cost per plane to create a mission
 	0.0, -- AIR_SUPERIORITY
 	0.0, -- CAS
@@ -33,6 +39,8 @@ NDefines.NAir.MISSION_COMMAND_POWER_COSTS = { -- command power cost per plane to
 	0.0, -- MISSION_RECON
 	0.0, -- NAVAL_PATROL
 }
+
+
 
 NDefines.NDiplomacy.GUARANTEE_COST = 75 
 NDefines.NDiplomacy.EMBARGO_COST = 50
