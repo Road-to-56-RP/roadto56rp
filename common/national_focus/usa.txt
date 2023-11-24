@@ -1377,7 +1377,7 @@ focus_tree = {
 					GER = {
 						OR = {
 							has_completed_focus = GER_a_new_reich
-							has_completed_focus = GER_consolidate_new_reich
+							has_completed_focus = GER_restore_the_empire
 						}
 						not = { is_in_faction_with = ROOT }
 					}
@@ -8343,6 +8343,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_intervention_in_the_americas }
+		mutually_exclusive = { focus = r56rp_USA_abandon_monroe }
 		relative_position_id = USA_intervention_in_the_americas
 		cost = 10
 		ai_will_do = {
@@ -8393,6 +8394,40 @@ focus_tree = {
 				ARG = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
 				CHL = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
 				PAN = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
+			}
+		}
+	}
+
+	focus = {
+		id = r56rp_USA_abandon_monroe
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		x = 2
+		y = 2
+		prerequisite = { focus = USA_intervention_in_the_americas }
+		mutually_exclusive = { focus = USA_reinforce_monroe_doctrine }
+		relative_position_id = USA_intervention_in_the_americas
+		cost = 5
+		ai_will_do = {
+			factor = 0
+		}
+		completion_reward = {
+			add_stability = -0.1
+			add_political_power = -100
+			custom_effect_tooltip = r56rp_USA_abandon_monroe_tt
+			every_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							is_on_continent = north_america
+							is_on_continent = south_america
+						}
+					}
+				}
+				diplomatic_relation = {
+					country = THIS
+					relation = guarantee
+					active = no
+				}
 			}
 		}
 	}
@@ -11821,7 +11856,7 @@ focus_tree = {
 					obsolete = yes
 					icon = "GFX_USA_CAS1_medium"
 				}
-				add_ideas = r56rp_escort_fighters_focus
+				add_ideas = r56rp_escort_fighters_idea
 			}
 			else = {
 				add_tech_bonus = {
@@ -11836,7 +11871,7 @@ focus_tree = {
 					uses = 1
 					category = cat_heavy_fighter
 				}
-				add_ideas = escort_fighters_focus
+				add_ideas = r56rp_escort_fighters_legacy_idea
 			}
 		}
 	}
