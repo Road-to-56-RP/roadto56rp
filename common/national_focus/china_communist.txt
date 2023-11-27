@@ -262,8 +262,21 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = CHI_taiyuan_arsenal
+			
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = CHI_taiyuan_arsenal_organization
+				mio:CHI_taiyuan_arsenal_organization = {
+					add_mio_size = 2
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = CHI_taiyuan_arsenal
+			}
 			IF = {
 				limit = {
 					NOT = {  
@@ -273,6 +286,7 @@ focus_tree = {
 								materiel_manufacturer
 							}
 						}
+						has_dlc = "Arms Against Tyranny"
 					}
 				}
 				add_ideas = CHI_taiyuan_arsenal
@@ -1858,7 +1872,7 @@ focus_tree = {
 			focus = PRC_submit_to_central_government
 
 		}
-		x = 24
+		x = 25
 		y = 0
 		cost = 5
 
@@ -2058,7 +2072,7 @@ focus_tree = {
 		id = PRC_the_first_five_year_plan
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = PRC_found_our_nation }
-		x = 6
+		x = 7
 		y = 1
 		relative_position_id = PRC_found_our_nation
 		cost = 10
@@ -2088,9 +2102,25 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = PRC_faw_group
-			show_ideas_tooltip = PRC_wuhan_ins_corp
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_wuhan_ins_corp
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_faw_group_organization
+				mio:PRC_r56rp_faw_group_organization = {
+					add_mio_size = 1
+				}
+
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_faw_group
+				show_ideas_tooltip = PRC_wuhan_ins_corp
+			}
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -2102,7 +2132,7 @@ focus_tree = {
 			focus = PRC_the_first_five_year_plan
 			focus = PRC_industrial_developement 
 		}
-		x = 31
+		x = 33
 		y = 3
 		#relative_position_id = PRC_the_first_five_year_plan #easier to move around
 		cost = 10
@@ -2453,7 +2483,7 @@ focus_tree = {
 		id = PRC_suppress_counterrevolutionaries
 		icon = GFX_goal_crush_resistance2
 		prerequisite = { focus = PRC_found_our_nation }
-		x = -11
+		x = -12
 		y = 1
 		relative_position_id = PRC_found_our_nation
 		cost = 10
@@ -2485,9 +2515,9 @@ focus_tree = {
 		id = PRC_land_reform
 		icon = GFX_goal_agrarian_reform
 		prerequisite = { focus = PRC_found_our_nation }
-		x = -9
-		y = 1
-		relative_position_id = PRC_found_our_nation
+		x = 2
+		y = 0
+		relative_position_id = PRC_suppress_counterrevolutionaries
 		cost = 10
 		
 		available = {
@@ -2766,7 +2796,7 @@ focus_tree = {
 		icon = GFX_focus_prc_maoism
 		prerequisite = { focus = PRC_found_our_nation}
 		mutually_exclusive = { focus = PRC_sov_cooperation }
-		x = -3
+		x = -4
 		y = 1
 		relative_position_id = PRC_found_our_nation
 		cost = 10
@@ -2854,7 +2884,7 @@ focus_tree = {
 		id = PRC_exert_influence_in_sea
 		icon = GFX_focus_jap_strike_south
 		prerequisite = { focus = PRC_the_new_communism_beacon }
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = PRC_the_new_communism_beacon
 		cost = 10
@@ -3012,6 +3042,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
+			custom_effect_tooltip = PRC_r56rp_permament_revolution_tt
 			every_other_country = {
 				limit = {
 					has_idea = PRC_influence
@@ -3063,6 +3094,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			custom_effect_tooltip = PRC_r56rp_aid_workers_tt
 			every_other_country = {
 				limit = {
 					has_idea = PRC_influence
@@ -3093,7 +3125,7 @@ focus_tree = {
 		id = PRC_mongolia_issue
 		icon = GFX_focus_generic_attack_mongolia
 		prerequisite = { focus = PRC_the_new_communism_beacon }
-		x = 1
+		x = -2
 		y = 1
 		relative_position_id = PRC_the_new_communism_beacon
 		cost = 10
@@ -3177,10 +3209,14 @@ focus_tree = {
 		id = PRC_institution_reorganization
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = PRC_sov_cooperation focus = PRC_the_new_communism_beacon}
-		x = 3
+		x = 4
 		y = 1
 		relative_position_id = PRC_the_new_communism_beacon
 		cost = 10
+
+		available = {
+			num_of_factories > 50
+		}
 
 		completion_reward = {
 			add_research_slot = 1
@@ -3192,9 +3228,16 @@ focus_tree = {
 		id = PRC_eliminate_iliteracy
 		icon = GFX_goal_research_silver_cooperation
 		prerequisite = { focus = PRC_institution_reorganization}
+		prerequisite = { 
+			focus = PRC_state_controlled_education
+			focus = PRC_adopt_soviet_education_system
+		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = PRC_institution_reorganization
+		available = {
+			num_of_factories > 100
+		}
 		cost = 10
 
 		completion_reward = {
@@ -3210,9 +3253,13 @@ focus_tree = {
 		prerequisite = { focus = PRC_the_new_communism_beacon }
 		prerequisite = { focus = PRC_institution_reorganization }
 		x = -1
-		y = 2
+		y = 1
 		relative_position_id = PRC_institution_reorganization
 		cost = 10
+
+		available = {
+			num_of_factories > 60
+		}
 
 		completion_reward = {
 			add_ideas = PRC_good_good_study_idea
@@ -3226,9 +3273,13 @@ focus_tree = {
 		prerequisite = { focus = PRC_institution_reorganization}
 		prerequisite = { focus = PRC_sov_cooperation }
 		x = 1
-		y = 2
+		y = 1
 		relative_position_id = PRC_institution_reorganization
 		cost = 10
+
+		available = {
+			num_of_factories > 60
+		}
 
 		completion_reward = {
 			add_ideas = PRC_soviet_style_education
@@ -3244,7 +3295,7 @@ focus_tree = {
 		icon = GFX_focus_SOV_stalins_cult_of_personality
 		prerequisite = { focus = PRC_found_our_nation}
 		mutually_exclusive = { focus = PRC_the_new_communism_beacon }
-		x = 3
+		x = 4
 		y = 1
 		relative_position_id = PRC_found_our_nation
 		cost = 5
@@ -3710,10 +3761,33 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = PRC_yto
-			show_ideas_tooltip = PRC_shenyang_air
-			show_ideas_tooltip = PRC_guizhou_air
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_yto_organization
+				mio:PRC_r56rp_yto_organization = {
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_shenyang_air_organization
+				mio:PRC_r56rp_shenyang_air_organization = {
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_guizhou_air_organization
+				mio:PRC_r56rp_guizhou_air_organization = {
+					add_mio_size = 1
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_yto
+				show_ideas_tooltip = PRC_shenyang_air
+				show_ideas_tooltip = PRC_guizhou_air
+			}
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -3746,7 +3820,7 @@ focus_tree = {
 		icon = GFX_goal_PRC_coa_army
 		prerequisite = { focus = PRC_eliminate_iliteracy }
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = PRC_eliminate_iliteracy
 		cost = 10
 
@@ -3755,14 +3829,55 @@ focus_tree = {
 			air_experience = 10
 			navy_experience = 5
 			add_ideas = PRC_ndcprc_idea
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = PRC_harbin_1machine_group
-			show_ideas_tooltip = PRC_first_ministry_of_machine_building_armor
-			show_ideas_tooltip = PRC_first_ministry_of_machine_building_navy
-			show_ideas_tooltip = PRC_bohai_shipyard_group
-			show_ideas_tooltip = PRC_chengdu_air
-			show_ideas_tooltip = PRC_first_ministry_of_machine_building_air
-			show_ideas_tooltip = PRC_first_ministry_of_machine_building_material
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_first_ministry_of_machine_building_material
+				
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_first_ministry_of_machine_building_air_organization
+				mio:PRC_r56rp_first_ministry_of_machine_building_air_organization = {
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_chengdu_air_organization
+				mio:PRC_r56rp_chengdu_air_organization = {
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_first_ministry_of_machine_building_armor_organization
+				mio:PRC_r56rp_first_ministry_of_machine_building_armor_organization = {
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_harbin_1machine_group_organization
+				mio:PRC_r56rp_harbin_1machine_group_organization = {
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_first_ministry_of_machine_building_navy_organization
+				mio:PRC_r56rp_first_ministry_of_machine_building_navy_organization = {
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_bohai_shipyard_group_organization
+				mio:PRC_r56rp_bohai_shipyard_group_organization = {
+					add_mio_size = 1
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_harbin_1machine_group
+				show_ideas_tooltip = PRC_bohai_shipyard_group
+				show_ideas_tooltip = PRC_chengdu_air
+				show_ideas_tooltip = PRC_first_ministry_of_machine_building_armor
+				show_ideas_tooltip = PRC_first_ministry_of_machine_building_navy
+				show_ideas_tooltip = PRC_first_ministry_of_machine_building_air
+				show_ideas_tooltip = PRC_first_ministry_of_machine_building_material
+			}
+			
 		}
 	}
 
@@ -5039,7 +5154,7 @@ focus_tree = {
 			focus = PRC_submit_to_central_government
 			focus = PRC_rectification
 	 	}
-		x = 17
+		x = 19
 		y = 0
 		relative_position_id = PRC_rectification
 		cost = 10
@@ -5274,7 +5389,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_research_slot = 1
-			custom_effect_tooltip = available_designer
+			custom_effect_tooltip = r56rp_newline_available_des_tt
 			show_ideas_tooltip = PRC_mukden_university			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -5301,19 +5416,36 @@ focus_tree = {
 				limit = {
 					has_completed_focus = PRC_pact_with_jap
 				}
+				add_ideas = PRC_former_glory
 				add_stability = 0.05
 				add_political_power = 50
-				else = {
+			}
+			else = {
+				add_stability = 0.05
+				add_political_power = 50
+					
+				custom_effect_tooltip = PRC_if_completed_pact_focus_tt
+				effect_tooltip = {
 					add_ideas = PRC_former_glory
-					custom_effect_tooltip = PRC_if_completed_pact_focus_tt
-					effect_tooltip = {
-						add_stability = 0.05
-						add_political_power = 50
-					}
+					add_stability = 0.05
+					add_political_power = 50
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = PRC_border_defense_department
+			
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:PRC_r56rp_first_ministry_of_machine_building_armor_organization = {
+					set_mio_name_key = PRC_r56rp_border_defence_department
+					add_mio_size = 1
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_border_defense_department
+			}
+			
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
@@ -5369,27 +5501,27 @@ focus_tree = {
 					uses = 1
 					category = land_doctrine
 				}
-				else = {
-					if = {
-						limit = {
-							has_idea = PRC_our_general_staff
-						}
-						swap_ideas = {
-							remove_idea = PRC_our_general_staff
-							add_idea = PRC_general_staff
-						}
-						else = {
-							add_ideas = PRC_our_general_staff
-						}
+			}
+			else = {
+				if = {
+					limit = {
+						has_idea = PRC_our_general_staff
 					}
-					custom_effect_tooltip = PRC_if_completed_pact_focus_tt
-					effect_tooltip = {
-						add_doctrine_cost_reduction = {
-							name = land_doc_bonus
-							cost_reduction = 0.5
-							uses = 1
-							category = land_doctrine
-						}
+					swap_ideas = {
+						remove_idea = PRC_our_general_staff
+						add_idea = PRC_general_staff
+					}
+					else = {
+						add_ideas = PRC_our_general_staff
+					}
+				}
+				custom_effect_tooltip = PRC_if_completed_pact_focus_tt
+				effect_tooltip = {
+					add_doctrine_cost_reduction = {
+						name = land_doc_bonus
+						cost_reduction = 0.5
+						uses = 1
+						category = land_doctrine
 					}
 				}
 			}
@@ -5732,10 +5864,32 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = PRC_mukden_arsenal_tank
-			show_ideas_tooltip = CHI_mukden_arsenal
-			show_ideas_tooltip = PRC_harbin_machinery
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_yto_organization
+				mio:PRC_r56rp_yto_organization = {
+					set_mio_name_key = PRC_r56rp_mukden_arsenal_tank
+					set_mio_icon = GFX_idea_generic_tank_manufacturer_2
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_yto_organization
+				mio:PRC_r56rp_faw_group_organization = {
+					set_mio_name_key = PRC_harbin_machinery
+					set_mio_icon = GFX_idea_generic_tank_manufacturer_2
+					add_mio_size = 1
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_mukden_arsenal_tank
+				show_ideas_tooltip = CHI_mukden_arsenal
+				show_ideas_tooltip = PRC_harbin_machinery
+			}
+
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -5812,12 +5966,48 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = PRC_bohai_shipyard_group
-			show_ideas_tooltip = PRC_dbj_heavy_air
-			show_ideas_tooltip = PRC_dbj_med_air
-			show_ideas_tooltip = PRC_dbj_nav_air
-			show_ideas_tooltip = PRC_dbj_light_air
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_bohai_shipyard_group_organization
+				mio:PRC_r56rp_bohai_shipyard_group_organization = {
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_shenyang_air_organization
+				mio:PRC_r56rp_shenyang_air_organization = {
+					set_mio_name_key = PRC_dbj_heavy_air
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_chengdu_air_organization
+				mio:PRC_r56rp_chengdu_air_organization = {
+					set_mio_name_key = PRC_dbj_med_air
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_guizhou_air_organization
+				mio:PRC_r56rp_guizhou_air_organization = {
+					set_mio_name_key = PRC_dbj_nav_air
+					add_mio_size = 1
+				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_first_ministry_of_machine_building_air_organization
+				mio:PRC_r56rp_first_ministry_of_machine_building_air_organization = {
+					set_mio_name_key = PRC_dbj_light_air
+					add_mio_size = 1
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_bohai_shipyard_group
+				show_ideas_tooltip = PRC_dbj_heavy_air
+				show_ideas_tooltip = PRC_dbj_med_air
+				show_ideas_tooltip = PRC_dbj_nav_air
+				show_ideas_tooltip = PRC_dbj_light_air
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
