@@ -1,0 +1,32 @@
+on_actions={
+	on_startup = {
+		effect = { #slaps the default fuel debuff on everything
+			every_country = {
+				IF = {
+					limit = {
+						NOT = { has_idea = r56rp_fully_fueled }
+					}
+					add_ideas = r56rp_fully_fueled
+				}
+			}
+		}
+	}
+	on_weekly = {
+		effect = { #checks weekly how good/bad the fuel situation is then lowers or increases the penality.
+			every_country = {
+				IF = {
+					limit = {
+						fuel_ratio < 0.05
+					}
+					r56rp_oil_situation_worsens = yes
+				}
+				ELSE_IF = {
+					limit = {
+						fuel_ratio > 0.10
+					}
+					r56rp_oil_situation_improves = yes
+				}
+			}
+		}
+	}
+}
