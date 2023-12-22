@@ -4,6 +4,11 @@ NDefines.NGame.LAG_DAYS_FOR_PAUSE = 90 -- pause days
 -- NDefines.NGame.GAME_SPEED_SECONDS = { 2.0, 0.10, 0.05, 0.035, 0 } -- game secs
 
 NDefines.NCountry.ARMY_COUNT_DAILY_DECREASE_FOR_TRAINING_XP = 0.05 -- number of armies that is used in training xp calculates daily linearly approaches this number (if real number is lower)
+NDefines.NCountry.STARTING_FUEL_RATIO = 1	-- starting fuel ratio compared to max fuel for countries, set to 1 to avoid countries stockpiling day 0 then the entire oil trade dying soon after.
+NDefines.NCountry.BASE_FUEL_GAIN = 10.0 -- upped to 10, for industrial oil use. allows for 12 "free" factories before having to import foreign oil.
+NDefines.NCountry.BASE_FUEL_GAIN_PER_OIL = 2 -- (vanilla = 2)
+NDefines.NCountry.BASE_FUEL_CAPACITY = 150000
+
 NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 20 --This much progress can be saved while not having a focus selected
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 45 --BASE_RESEARCH_POINTS_SAVED
 NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 6.0 --It always takes atleast 10 days to justify a wargoal
