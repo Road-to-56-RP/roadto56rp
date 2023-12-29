@@ -122,12 +122,7 @@ technologies = {
 			leads_to_tech = decimetric_radar 
 			research_cost_coeff = 1
 		}
-		
-		path = {
-			leads_to_tech = rdf1 
-			research_cost_coeff = 1
-		}
-		
+
 		research_cost = 1.75
 		
 		folder = {
@@ -168,7 +163,7 @@ technologies = {
 		}
 		folder = {
 			name = electronics_folder
-			position = { x = -2 y = 6 }
+			position = { x = -1 y = 6 }
 		}
 		
 		ai_will_do = {
@@ -215,12 +210,17 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
+		path = {
+			leads_to_tech = rdf1 
+			research_cost_coeff = 1
+		}
+		
 		research_cost = 1.25
 		start_year = 1939
 		
 		folder = {
 			name = electronics_folder
-			position = { x = -2 y = 8 }
+			position = { x = -1 y = 8 }
 		}
 		
 		ai_will_do = {
@@ -269,7 +269,7 @@ technologies = {
 		
 		folder = {
 			name = electronics_folder
-			position = { x = -2 y = 10 }
+			position = { x = -1 y = 10 }
 		}
 		
 		ai_will_do = {
@@ -312,12 +312,17 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
+		path = {
+			leads_to_tech = rdf2 
+			research_cost_coeff = 1
+		}
+		
 		research_cost = 1.25
 		start_year = 1941
 		
 		folder = {
 			name = electronics_folder
-			position = { x = -2 y = 12 }
+			position = { x = -1 y = 12 }
 		}
 		
 		ai_will_do = {
@@ -351,10 +356,16 @@ technologies = {
 			level = 6
 		}	
 		coordination_bonus = 0.01
+
 		path = {
 			leads_to_tech = future_radar
 			research_cost_coeff = 1
-		}		
+		}
+
+		path = {
+			leads_to_tech = rdf3 
+			research_cost_coeff = 1
+		}
 		
 		enable_equipment_modules = { 
 			ship_radar_4
@@ -370,7 +381,7 @@ technologies = {
 		
 		folder = {
 			name = electronics_folder
-			position = { x = -2 y = 14 }
+			position = { x = -1 y = 14 }
 		}
 		
 		ai_will_do = {
@@ -456,8 +467,13 @@ technologies = {
 			leads_to_tech = improved_fire_control_system
 			research_cost_coeff = 1
 		}
+		path = {
+			leads_to_tech = r56rp_gyro_gunsights
+			research_cost_coeff = 1
+		} 
+
 		research_cost = 2.5
-		start_year = 1938
+		start_year = 1939
 		
 		folder = {
 			name = electronics_folder
@@ -483,6 +499,45 @@ technologies = {
 			encryption_tech
 			decryption_tech
 			computing_tech
+		}
+	}
+
+	r56rp_gyro_gunsights = {
+		
+		research_cost = 0.8
+
+		enable_equipment_modules = { 
+			r56rp_gyro_gunsight
+		}
+		
+		folder = {
+			name = electronics_folder
+			position = { x = 5 y = 8 }
+		}
+		
+		ai_will_do = {
+			factor = 6
+			
+			modifier = {
+				factor = 3
+				date > "1938.1.6"
+			}
+			
+			modifier = {
+				factor = 3
+				date > "1939.1.1"
+			}
+		}
+		
+		categories = {
+			electronics
+			computing_tech
+			air_equipment
+			plane_modules_tech
+			mio_cat_all_light_fighter_and_modules
+			mio_cat_all_medium_aircraft_and_modules
+			mio_cat_all_heavy_aircraft_and_modules
+			mio_cat_all_light_aircraft_and_modules
 		}
 	}
 	
@@ -860,7 +915,7 @@ technologies = {
 		
 		folder = {
 			name = electronics_folder
-			position = { x = 2 y = 4 }
+			position = { x = 3 y = 4 }
 		}
 		
 		ai_will_do = {
@@ -901,7 +956,7 @@ technologies = {
 		}
 		folder = {
 			name = electronics_folder
-			position = { x = 2 y = 8 }
+			position = { x = 3 y = 8 }
 		}
 		
 		ai_will_do = {
@@ -943,7 +998,7 @@ technologies = {
 		
 		folder = {
 			name = electronics_folder
-			position = { x = 2 y = 12 }
+			position = { x = 3 y = 12 }
 		}
 		
 		ai_will_do = {
@@ -1240,7 +1295,8 @@ technologies = {
 		start_year = 1951
 		research_cost = 2
 
-		enable_equipment_modules = { 
+		enable_equipment_modules = {
+			r56rp_tank_gasturbine_powerpack_engine
 			jet_engine_1x_2
 			jet_engine_2x_2
 			jet_engine_3x_2
@@ -1448,6 +1504,7 @@ technologies = {
 		
 		categories = {
 			nuclear
+			naval_equipment
 		}
 	}
 	
@@ -1492,6 +1549,39 @@ technologies = {
 			position = { x = 9 y = 30 }
 		}
 		
+		path = {
+			leads_to_tech = r56rp_air_to_air_nukes 
+		 	research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = r56rp_nucular_depth_charge 
+		 	research_cost_coeff = 1
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			nuclear
+		}
+	}
+
+	r56rp_air_to_air_nukes = {
+	
+		start_year = 1957
+		research_cost = 5
+
+		enable_equipment_modules = {
+			r56rp_aircraft_aa_nuclear
+		}
+
+		folder = {
+			name = electronics_folder
+			position = { x = 8 y = 32 }
+		}
+		
 		# path = {
 		# 	leads_to_tech = nuke_rocket_engines 
 		# 	research_cost_coeff = 1
@@ -1503,6 +1593,45 @@ technologies = {
 		
 		categories = {
 			nuclear
+			air_equipment
+			plane_modules_tech
+			mio_cat_all_light_fighter_and_modules
+			mio_cat_all_medium_aircraft_and_modules
+			mio_cat_all_heavy_aircraft_and_modules
+			mio_cat_all_light_aircraft_and_modules
+		}
+	}
+
+	r56rp_nucular_depth_charge = {
+	
+		start_year = 1957
+		research_cost = 5
+
+		enable_equipment_modules = {
+			r56rp_depth_charge_nuke
+		}
+
+		folder = {
+			name = electronics_folder
+			position = { x = 10 y = 32 }
+		}
+		
+		# path = {
+		# 	leads_to_tech = nuke_rocket_engines 
+		# 	research_cost_coeff = 1
+		# }
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			nuclear
+			naval_equipment
+			ship_modules_tech
+			cat_ship_light_battery
+			cat_ship_medium_battery
+			cat_ship_heavy_battery
 		}
 	}
 	
@@ -1519,13 +1648,23 @@ technologies = {
 			research_cost_coeff = 1
 		}
 
+		path = {
+			leads_to_tech = r56rp_radar_gunsights
+			research_cost_coeff = 1
+		}
+
 		static_anti_air_hit_chance_factor = 0.15
 		research_cost = 2.5
 		start_year = 1945
 		
 		folder = {
 			name = electronics_folder
-			position = { x = -2 y = 20 }
+			position = { x = -1 y = 20 }
+		}
+
+		path = {
+			leads_to_tech = rdf4 
+			research_cost_coeff = 1
 		}
 		
 		ai_will_do = {
@@ -1535,6 +1674,36 @@ technologies = {
 		categories = {
 			electronics
 			radar_tech
+		}
+	}
+
+	r56rp_radar_gunsights = {
+
+		research_cost = 1.5
+		start_year = 1947
+
+		enable_equipment_modules = { 
+			r56rp_radar_gunsight
+		}
+		
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 22 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			electronics
+			radar_tech
+			air_equipment
+			plane_modules_tech
+			mio_cat_all_light_fighter_and_modules
+			mio_cat_all_medium_aircraft_and_modules
+			mio_cat_all_heavy_aircraft_and_modules
+			mio_cat_all_light_aircraft_and_modules
 		}
 	}
 	
@@ -1550,6 +1719,11 @@ technologies = {
 			building = radar_station
 			level = 7
 		}
+
+		enable_equipment_modules = { 
+			r56rp_air_air_radar_3
+		}
+
 		static_anti_air_hit_chance_factor = 0.1
 		
 		research_cost = 2.5
@@ -1557,7 +1731,12 @@ technologies = {
 		
 		folder = {
 			name = electronics_folder
-			position = { x = -2 y = 24 }
+			position = { x = -1 y = 24 }
+		}
+
+		path = {
+			leads_to_tech = rdf5
+			research_cost_coeff = 1
 		}
 		
 		ai_will_do = {
@@ -1579,7 +1758,12 @@ technologies = {
 		
 		folder = {
 			name = electronics_folder
-			position = { x = -2 y = 28 }
+			position = { x = -1 y = 28 }
+		}
+				
+		path = {
+			leads_to_tech = rdf6 
+			research_cost_coeff = 1
 		}
 
 		static_anti_air_hit_chance_factor = 0.15
@@ -1676,7 +1860,7 @@ technologies = {
 		}
 	}
 	
-	future_computing_machine_3 = {
+	future_computing_machine_3 = { #r56rp_tank_ballistic_computer
 
 		# small boost to research speed
 		research_speed_factor = 0.1
@@ -1693,6 +1877,11 @@ technologies = {
 		
 		path = {
 			leads_to_tech = future_computing_machine_4 
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = r56rp_modern_rangefinder 
 			research_cost_coeff = 1
 		}
 		
@@ -1717,6 +1906,31 @@ technologies = {
 			encryption_tech
 			decryption_tech
 			computing_tech
+		}
+	}
+
+	r56rp_modern_rangefinder = {
+
+		research_cost = 1
+
+		enable_equipment_modules = { 
+			r56rp_ship_fcs_4
+			r56rp_tank_ballistic_computer
+		}
+
+		folder = {
+			name = electronics_folder
+			position = { x = 3 y = 28 }
+		}
+
+		ai_will_do = {
+			factor = 3
+		}
+
+		categories = {
+			electronics
+			computing_tech
+			naval_equipment
 		}
 	}
 	
@@ -2036,18 +2250,13 @@ technologies = {
 		military_police = {
 			suppression_factor = 0.01
 		}
-		
-		path = {
-			leads_to_tech = rdf2 
-			research_cost_coeff = 1
-		}
-		
+
 		research_cost = 0.75
 		start_year = 1939
 		
 		folder = {
 			name = electronics_folder
-			position = { x = 0 y = 8 }
+			position = { x = -3 y = 8 }
 		}
 		
 		ai_will_do = {
@@ -2079,17 +2288,12 @@ technologies = {
 			suppression_factor = 0.01
 		}
 		
-		path = {
-			leads_to_tech = rdf3 
-			research_cost_coeff = 1
-		}
-		
 		research_cost = 1
 		start_year = 1941
 		
 		folder = {
 			name = electronics_folder
-			position = { x = 0 y = 12 }
+			position = { x = -3 y = 12 }
 		}
 		
 		ai_will_do = {
@@ -2127,17 +2331,12 @@ technologies = {
 			suppression_factor = 0.01
 		}
 		
-		path = {
-			leads_to_tech = rdf4 
-			research_cost_coeff = 1
-		}
-		
 		research_cost = 1.25
 		start_year = 1943
 		
 		folder = {
 			name = electronics_folder
-			position = { x = 0 y = 16 }
+			position = { x = -3 y = 16 }
 		}
 		
 		ai_will_do = {
@@ -2169,18 +2368,13 @@ technologies = {
 		military_police = {
 			suppression_factor = 0.01
 		}
-		
-		path = {
-			leads_to_tech = rdf5
-			research_cost_coeff = 1
-		}
-		
+
      	research_cost = 1.25
 		start_year = 1945
 	
 		folder = {
 			name = electronics_folder
-			position = { x = 0 y = 20 }
+			position = { x = -3 y = 20 }
 		}
 		
 		ai_will_do = {
@@ -2213,17 +2407,12 @@ technologies = {
 			suppression_factor = 0.01
 		}
 		
-		path = {
-			leads_to_tech = rdf6 
-			research_cost_coeff = 1
-		}
-		
      	research_cost = 1.5
 		start_year = 1949
 	
 		folder = {
 			name = electronics_folder
-			position = { x = 0 y = 24 }
+			position = { x = -3 y = 24 }
 		}
 		
 		ai_will_do = {
@@ -2261,7 +2450,7 @@ technologies = {
 	
 		folder = {
 			name = electronics_folder
-			position = { x = 0 y = 28 }
+			position = { x = -3 y = 28 }
 		}
 		
 		ai_will_do = {
