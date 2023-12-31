@@ -1,9 +1,14 @@
 -- THUNDERDOME speed defines by PIZZA DO NOT MOVE ANYWHERE ELSE FUCKS WITH EVERYTHING
--- NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 1000 -- Lag days
--- NDefines.NGame.LAG_DAYS_FOR_PAUSE = 1000 -- pause days
+NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 30 -- Lag days
+NDefines.NGame.LAG_DAYS_FOR_PAUSE = 90 -- pause days
 -- NDefines.NGame.GAME_SPEED_SECONDS = { 2.0, 0.10, 0.05, 0.035, 0 } -- game secs
 
 NDefines.NCountry.ARMY_COUNT_DAILY_DECREASE_FOR_TRAINING_XP = 0.05 -- number of armies that is used in training xp calculates daily linearly approaches this number (if real number is lower)
+NDefines.NCountry.STARTING_FUEL_RATIO = 1	-- starting fuel ratio compared to max fuel for countries, set to 1 to avoid countries stockpiling day 0 then the entire oil trade dying soon after.
+NDefines.NCountry.BASE_FUEL_GAIN = 10.0 -- upped to 10, for industrial oil use. allows for 12 "free" factories before having to import foreign oil.
+NDefines.NCountry.BASE_FUEL_GAIN_PER_OIL = 2 -- (vanilla = 2)
+NDefines.NCountry.BASE_FUEL_CAPACITY = 150000
+
 NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 20 --This much progress can be saved while not having a focus selected
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 45 --BASE_RESEARCH_POINTS_SAVED
 NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 6.0 --It always takes atleast 10 days to justify a wargoal
@@ -12,6 +17,14 @@ NDefines.NDiplomacy.VOLUNTEERS_PER_TARGET_PROVINCE = 0.025 --Each army unit owne
 NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 5 --VANILLA - 2.5
 NDefines.NSupply.FLOATING_HARBOR_BASE_SUPPLY = 10.0
 NDefines.NSupply.FLOATING_HARBOR_BASE_DURATION = 14
+
+NDefines.NMilitary.BASE_CAPTURE_EQUIPMENT_RATIO = 0.025
+
+NDefines.NNavy.GUN_HIT_PROFILES = { -- hit profiles for guns, if target ih profile is lower the gun will have lower accuracy
+	75.0,	-- big guns
+	100.0,	-- torpedoes
+	60.0,	-- small guns -- hehehe warlider was here
+}
 
 NDefines.NAir.MISSION_COMMAND_POWER_COSTS = { -- command power cost per plane to create a mission
 	0.0, -- AIR_SUPERIORITY
@@ -31,6 +44,8 @@ NDefines.NAir.MISSION_COMMAND_POWER_COSTS = { -- command power cost per plane to
 	0.0, -- MISSION_RECON
 	0.0, -- NAVAL_PATROL
 }
+
+
 
 NDefines.NDiplomacy.GUARANTEE_COST = 75 
 NDefines.NDiplomacy.EMBARGO_COST = 50

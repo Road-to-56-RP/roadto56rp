@@ -1377,7 +1377,7 @@ focus_tree = {
 					GER = {
 						OR = {
 							has_completed_focus = GER_a_new_reich
-							has_completed_focus = GER_consolidate_new_reich
+							has_completed_focus = GER_restore_the_empire
 						}
 						not = { is_in_faction_with = ROOT }
 					}
@@ -7755,70 +7755,34 @@ focus_tree = {
 			}
 		}
 
-		
-		
-		
-
 		completion_reward = {
-			if = {
+			every_country = {
 				limit = {
-					AST = {
-						is_subject = yes
-						OVERLORD = {
-							not = { tag = NZL }
-							not = { tag = ROOT }
+					any_state = {
+						OR = {
+							region = 195
+							region = 194
+							region = 156
+							region = 157
 						}
+						is_controlled_by = PREV
 					}
-					NZL = {
-						is_subject = no
-					}
+					#is_subject = yes
 				}
-				AST = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
-				NZL = { country_event = mtg_usa_pacific_pacification.1 }
-			}
-			else_if = {
-				limit = {
-					AST = {
-						is_subject = no
-					}
-					NZL = {
-						is_subject = yes
-						OVERLORD = {
-							not = { tag = AST }
-							not = { tag = ROOT }
-						}
-					}
-				}
-				NZL = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
-				AST = { country_event = mtg_usa_pacific_pacification.1 }
-			}
-			else_if = {
-				limit = {
-					AST = {
-						is_subject = yes
-						OVERLORD = {
-							not = { tag = ROOT }
-						}
-					}
-					NZL = {
-						is_subject = yes
-						OVERLORD = {
-							not = { tag = ROOT }
-						}
-					}
-				}
-				AST = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
-				if = {
+				IF = {
 					limit = {
-						AST = { OVERLORD = { NZL = { OVERLORD = { not = { tag = PREV.PREV } } } } } #NZL and AST both subjects but of different people
+						is_subject = yes
 					}
-					NZL = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
+					
+					OVERLORD = {
+						country_event = mtg_usa_pacific_pacification.1
+					}
 				}
+				ELSE = {
+					country_event = mtg_usa_pacific_pacification.1
+				}
+				
 			}
-			else = {
-				AST = { country_event = mtg_usa_pacific_pacification.1 }
-				NZL = { country_event = mtg_usa_pacific_pacification.1 }
-			}	
 		}
 	}
 	focus = {
@@ -8343,6 +8307,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_intervention_in_the_americas }
+		mutually_exclusive = { focus = r56rp_USA_abandon_monroe }
 		relative_position_id = USA_intervention_in_the_americas
 		cost = 10
 		ai_will_do = {
@@ -8393,6 +8358,40 @@ focus_tree = {
 				ARG = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
 				CHL = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
 				PAN = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
+			}
+		}
+	}
+
+	focus = {
+		id = r56rp_USA_abandon_monroe
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		x = 2
+		y = 2
+		prerequisite = { focus = USA_intervention_in_the_americas }
+		mutually_exclusive = { focus = USA_reinforce_monroe_doctrine }
+		relative_position_id = USA_intervention_in_the_americas
+		cost = 5
+		ai_will_do = {
+			factor = 0
+		}
+		completion_reward = {
+			add_stability = -0.1
+			add_political_power = -100
+			custom_effect_tooltip = r56rp_USA_abandon_monroe_tt
+			every_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							is_on_continent = north_america
+							is_on_continent = south_america
+						}
+					}
+				}
+				diplomatic_relation = {
+					country = THIS
+					relation = guarantee
+					active = no
+				}
 			}
 		}
 	}
@@ -11456,6 +11455,7 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 	
 		completion_reward = {
+			country_event = r56_usa.2
 			air_experience = 25
 			if = {
 				limit = {
@@ -11475,7 +11475,6 @@ focus_tree = {
 				category = air_doctrine
 			} # REVISIT May use modifier?
 			add_ideas = air_war_plans_division_focus
-			country_event = r56_usa.2
 		}
 	}
 
@@ -11536,8 +11535,24 @@ focus_tree = {
 
 		available_if_capitulated = yes
 		completion_reward = {
-			air_experience = 25
-			add_ideas = air_support_focus
+			IF = {
+				limit = {
+					has_country_flag =  r56rp_USA_us_army_airforce
+				}
+				custom_effect_tooltip = r56rp_USA_us_army_airforce_tt
+				add_political_power = 25
+			}
+			ELSE_IF = {
+				limit = {
+					has_country_flag = r56rp_USA_us_airforce
+				}
+				custom_effect_tooltip = r56rp_USA_us_airforce_tt
+				add_political_power = -50
+			}
+			swap_ideas = {
+				remove_idea = air_war_plans_division_focus
+				add_idea = r56rp_air_support_idea
+			}
 		}
 	}
 	focus = {
@@ -11588,6 +11603,7 @@ focus_tree = {
 					category = cas_bomber
 				}
 			}
+			air_experience = 10
 			
 		}
 	}
@@ -11626,7 +11642,7 @@ focus_tree = {
 					category = tactical_bomber
 				}
 			}
-			air_experience = 25
+			air_experience = 15
 		}
 	}
 	focus = {
@@ -11651,7 +11667,10 @@ focus_tree = {
 				cost_reduction = 0.5
 				category = air_doctrine
 			}
-			add_ideas = r56_USA_us_army_airforce
+			swap_ideas = {
+				remove_idea = r56rp_air_support_idea
+				add_idea = r56_USA_us_army_airforce
+			}
 		}
 	}
 	focus = {
@@ -11670,8 +11689,24 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			air_experience = 25
-			add_ideas = strategic_bombing_focus
+			IF = {
+				limit = {
+					has_country_flag = r56rp_USA_us_airforce
+				}
+				custom_effect_tooltip = r56rp_USA_us_airforce_tt
+				add_political_power = 25
+			}
+			ELSE_IF = {
+				limit = {
+					has_country_flag = r56rp_USA_us_army_airforce
+				}
+				custom_effect_tooltip =  r56rp_USA_us_army_airforce_tt
+				add_political_power = -50
+			}
+			swap_ideas = {
+				remove_idea = air_war_plans_division_focus
+				add_idea = r56rp_strategic_bombing_idea
+			}
 		}
 	}
 	focus = {
@@ -11708,7 +11743,42 @@ focus_tree = {
 				uses = 1
 				category = heavy_air
 			}
-			add_ideas = combined_bomber_offensive
+			IF = {
+				limit = {
+					has_idea = r56rp_strategic_bombing_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_strategic_bombing_idea
+					add_idea = r56rp_combined_bomber_offensive_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_flying_fortress_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_flying_fortress_idea
+					add_idea = r56rp_USA_flying_fortress_combomboff_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_us_air_force_fortress
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_us_air_force_fortress
+					add_idea = r56rp_USA_us_air_force_full
+				}
+			}
+
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = r56rp_strategic_bombing_idea
+						add_idea = r56rp_combined_bomber_offensive_idea
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -11749,7 +11819,41 @@ focus_tree = {
 					category = cat_strategic_bomber
 				}
 			}
-			add_ideas = r56_USA_flying_fortress
+			IF = {
+				limit = {
+					has_idea = r56rp_strategic_bombing_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_strategic_bombing_idea
+					add_idea = r56rp_USA_flying_fortress_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_combined_bomber_offensive_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_combined_bomber_offensive_idea
+					add_idea = r56rp_USA_flying_fortress_combomboff_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_us_air_force_combomoff_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_us_air_force_combomoff_idea
+					add_idea = r56rp_USA_us_air_force_full
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = r56rp_strategic_bombing_idea
+						add_idea = r56rp_USA_flying_fortress_idea
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -11774,7 +11878,41 @@ focus_tree = {
 				cost_reduction = 0.5
 				category = air_doctrine
 			}
-			add_ideas = USA_us_air_force
+			IF = {
+				limit = {
+					has_idea = r56rp_USA_flying_fortress_combomboff_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_flying_fortress_combomboff_idea
+					add_idea = r56rp_USA_us_air_force_full
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_flying_fortress_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_flying_fortress_idea
+					add_idea = r56rp_USA_us_air_force_fortress
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_combined_bomber_offensive_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_combined_bomber_offensive_idea
+					add_idea = r56rp_USA_us_air_force_combomoff_idea
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = r56rp_USA_flying_fortress_combomboff_idea
+						add_idea = r56rp_USA_us_air_force_full
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -11821,7 +11959,7 @@ focus_tree = {
 					obsolete = yes
 					icon = "GFX_USA_CAS1_medium"
 				}
-				add_ideas = r56rp_escort_fighters_focus
+				add_ideas = r56rp_escort_fighters_idea
 			}
 			else = {
 				add_tech_bonus = {
@@ -11836,7 +11974,7 @@ focus_tree = {
 					uses = 1
 					category = cat_heavy_fighter
 				}
-				add_ideas = escort_fighters_focus
+				add_ideas = r56rp_escort_fighters_legacy_idea
 			}
 		}
 	}
@@ -12026,7 +12164,32 @@ focus_tree = {
 		}	
 
 		completion_reward = {
-			add_ideas = USA_maritime_commission
+			IF = {
+				limit = {
+					has_idea = bureau_of_ships_focus
+				}
+				swap_ideas = {
+					remove_idea = bureau_of_ships_focus
+					add_idea = r56rp_USA_maritime_commission_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_escort_effort_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_escort_effort_idea
+					add_idea = r56rp_USA_maritime_commission_plus_escort_idea
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = bureau_of_ships_focus
+						add_idea = r56rp_USA_maritime_commission_idea
+					}
+				}
+			}
 		}
 	}
 	
@@ -12055,7 +12218,32 @@ focus_tree = {
 
 		completion_reward = {
 			navy_experience = 25
-			add_ideas = liberty_ships_focus
+			IF = {
+				limit = {
+					has_idea = r56rp_USA_maritime_commission_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_maritime_commission_idea
+					add_idea = r56rp_liberty_ships_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_maritime_commission_plus_escort_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_maritime_commission_plus_escort_idea
+					add_idea = r56rp_USA_maritime_commission_liberty_plus_escort_idea
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = bureau_of_ships_focus
+						add_idea = r56rp_liberty_ships_idea
+					}
+				}
+			}
 		}
 	}
 	
@@ -12410,8 +12598,41 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_ideas = escort_effort_focus
-			
+			IF = {
+				limit = {
+					has_idea = bureau_of_ships_focus
+				}
+				swap_ideas = {
+					remove_idea = bureau_of_ships_focus
+					add_idea = r56rp_USA_escort_effort_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_maritime_commission_idea
+				}
+				swap_ideas = {
+					remove_idea = bureau_of_ships_focus
+					add_idea = r56rp_USA_maritime_commission_plus_escort_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_liberty_ships_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_liberty_ships_idea
+					add_idea = r56rp_USA_maritime_commission_liberty_plus_escort_idea
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = bureau_of_ships_focus
+						add_idea = r56rp_USA_escort_effort_idea
+					}
+				}
+			}
 		}
 	}
 

@@ -182,7 +182,7 @@ focus_tree = {
 			focus = GER_naval_rearmament_r56
 		}
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = GER_naval_rearmament_r56
 		cost = 10
 		ai_will_do = {
@@ -355,11 +355,9 @@ focus_tree = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
-				show_mio_tooltip = GER_blohm_und_voss_organization
 				mio:GER_blohm_und_voss_organization = {
 					add_mio_funds= 250
 				}
-				show_mio_tooltip = GER_germaniawerft_organization
 				mio:GER_germaniawerft_organization = {
 					add_mio_funds= 250
 				}
@@ -780,7 +778,6 @@ focus_tree = {
 		icon = GFX_focus_ger_return_of_the_kaiser
 		cost = 5.00
 		allow_branch = {
-			has_dlc = "Waking the Tiger"
 			if = {
 				limit = {
 					has_game_rule = {
@@ -801,7 +798,7 @@ focus_tree = {
 			focus = GER_kill_hitler
 			focus = GER_denounce_versailles
 		}
-		x = 40
+		x = 44
 		y = 0
 		#relative_position_id = GER_political_sphere
 		ai_will_do = {
@@ -821,19 +818,111 @@ focus_tree = {
 			}
 			mark_focus_tree_layout_dirty = yes
 		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
 
 	}
-
-
 	focus = {
-		id = GER_a_new_reich
+		id = GER_contact_ludendorff
+		icon = GFX_goal_GER_contact_ludendorff
+		cost = 5.00
+		available = {
+			date < 1937.12.20
+			NOT = {
+				has_completed_focus = GER_a_new_reich
+			}
+		}
+		prerequisite = {
+			focus = GER_rally_the_monarchists
+		}
+		x = 3
+		y = 1
+		relative_position_id = GER_rally_the_monarchists
+		ai_will_do = {
+			factor = 100
+		}
+
+		completion_reward = {
+			country_event = r56.ger.30
+		}
+	}
+	focus = {
+		id = GER_support_freikorps
+		icon = GFX_goal_GER_support_the_freikorps
+		cost = 10.00
+		prerequisite = {
+			focus = GER_rally_the_monarchists
+		}
+		relative_position_id = GER_rally_the_monarchists
+		x = -1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = GER_support_freikorps_tt
+			add_ideas = GER_freikorps_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER FOCUS_FILTER_MILITARY_EQUIPMENT
+		}
+
+	}
+	focus = {
+		id = GER_return_of_conservative_exiles
 		icon = GFX_focus_ger_oppose_hitler
 		cost = 5.00
 		prerequisite = {
 			focus = GER_rally_the_monarchists
 		}
-		x = 0
+		x = 1
 		y = 1
+		relative_position_id = GER_rally_the_monarchists
+		ai_will_do = {
+			factor = 16
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			add_political_power = 100
+			custom_effect_tooltip = GER_return_of_conservative_exiles_tt
+			show_unit_leaders_tooltip = GER_wilhelm_iii
+			show_unit_leaders_tooltip = GER_eitel_friedrich_von_prussia
+			show_unit_leaders_tooltip = GER_rupprecht_i
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = GER_carl_friedrich_goerdeler
+			show_ideas_tooltip = GER_Wilhelm_von_Gayl
+			show_ideas_tooltip = GER_Paul_Lejeune_Jung
+			show_ideas_tooltip = GER_theodor_duesterberg
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+
+	}
+	focus = {
+		id = GER_a_new_reich
+		icon = GFX_goal_GER_monarchist_revival
+		cost = 5.00
+		prerequisite = {
+			focus = GER_support_freikorps
+		}
+		prerequisite = {
+			focus = GER_return_of_conservative_exiles
+		}
+		available = {
+			neutrality > 0.2
+		}
+		x = 0
+		y = 2
 		relative_position_id = GER_rally_the_monarchists
 		ai_will_do = {
 			factor = 75
@@ -842,72 +931,33 @@ focus_tree = {
 			has_government = neutrality
 		}
 		completion_reward = {
-			if = { #that change wasn't supposed to be pushed lol
-				limit = {
-					neutrality < 0.4
-				}
-				custom_effect_tooltip = GER_r56rp_a_new_reich_1_tt
-				random_list = {
-					70 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					30 = {
-						country_event = {
-							id = erwache.4
-						}
-					}
-				}
+			custom_effect_tooltip = GER_oppose_hitler_civil_war
+			effect_tooltip = {
+				GER_remove_mefo_bills = yes
 			}
-			else_if = {
+			every_state = {
 				limit = {
-					neutrality < 0.55
-					neutrality > 0.4
-				}
-				custom_effect_tooltip = GER_r56rp_a_new_reich_2_tt
-				random_list = {
-					50 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					50 = {
-						country_event = {
-							id = erwache.4
-						}
+					OR = {
+						state = 42
+						state = 51
+						state = 989
+						state = 922
+						state = 923
 					}
 				}
+				set_demilitarized_zone = no
 			}
-			else_if = {
-				limit = {
-					neutrality > 0.55
-				}
-				custom_effect_tooltip = GER_r56rp_a_new_reich_3_tt
-				random_list = {
-					10 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					90 = {
-						country_event = {
-							id = erwache.4
-						}
-					}
-				}
-			}
-			unlock_decision_tooltip = GER_remilitarize_rhineland #only relavent for no cv but doesnt display right in random_list
-			add_ideas = GER_unstable_government
+			add_named_threat = { threat = 5 name = GER_oppose_hitler }
+			country_event = { id = wtt_germany.1 }
 		}
 		search_filters = {
-			FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY
 		}
 	}
 
 	focus = {
-		id = GER_consolidate_new_reich
-		icon = GFX_focus_ger_revive_kaiserreich
+		id = GER_restore_the_empire
+		icon = GFX_goal_GER_flag_german_empire
 		cost = 10.00
 		prerequisite = {
 			focus = GER_a_new_reich
@@ -925,8 +975,8 @@ focus_tree = {
 			has_government = neutrality
 		}
 		completion_reward = {
-			remove_ideas = GER_unstable_government
-			#add_ideas = GER_fourth_reich
+			country_event = { id = wtt_germany.4 }
+			add_ideas = GER_imperial_restoration #restored so this is not empty
 			if = {
 				limit = {
 					is_in_faction = no
@@ -969,30 +1019,6 @@ focus_tree = {
 		}
 	}
 
-	focus = { #restore the empire
-		id = GER_restore_the_empire
-		icon = GFX_goal_GER_flag_german_empire
-		cost = 5.00
-		prerequisite = {
-			focus = GER_consolidate_new_reich
-		}
-		prerequisite = {
-			#focus = GER_naval_effort2_r56
-		}
-		relative_position_id = GER_consolidate_new_reich
-		x = 6
-		y = 1
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_ideas = GER_imperial_restoration
-		}
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION FOCUS_FILTER_MANPOWER
-		}
-	}
-
 	focus = { #our place in the sun
 		id = GER_our_place_in_the_sun_r56
 		text = GER_our_place_in_the_sun
@@ -1017,7 +1043,7 @@ focus_tree = {
 			focus = GER_restore_the_empire
 		}
 		relative_position_id = GER_restore_the_empire
-		x = -3
+		x = 3
 		y = 1
 		available = {
 			is_subject = no
@@ -1086,7 +1112,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
-		search_filters = { FOCUS_FILTER_STABILITY }
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY
+		}
 		completion_reward = {
 			add_stability = 0.05
 			add_ideas = GER_r56rp_prepare_for_the_next_blockade_idea
@@ -1114,6 +1142,9 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 50
 			custom_effect_tooltip = GER_r56rp_colonial_administration_tt
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
 		}
 	}
 
@@ -1795,7 +1826,7 @@ focus_tree = {
 			focus = GER_kill_hitler
 			focus = GER_rally_the_monarchists
 		}
-		x = 66
+		x = 70
 		y = 0
 		offset = {
 			x = -17
@@ -1934,7 +1965,7 @@ focus_tree = {
 		}
 		relative_position_id = GER_denounce_versailles
 		x = 0
-		y = 1
+		y = 2
 		ai_will_do = {
 			factor = 100
 			modifier = {
@@ -2473,7 +2504,7 @@ focus_tree = {
 			}
 		}
 		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
 		}
 	}
 	focus = {
@@ -3583,6 +3614,34 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
 		}
 	}
+	focus = {
+		id = GER_exploit_trade_dependence
+		icon = GFX_focus_GRE_Combat_depression
+		cost = 10.00
+		prerequisite = {
+			focus = GER_support_technocrats_I
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = WIP_flag
+				is_debug = yes
+			}
+		}
+		x = -2
+		y = 1
+		relative_position_id = GER_support_technocrats_I
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			unlock_decision_category_tooltip = GER_trade_influence_decisions
+			custom_effect_tooltip = GER_trade_influence_decisions_explain_tt
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ANNEXATION
+		}
+
+	}
 
 	focus = {
 		id = GER_support_autarks_I
@@ -3654,7 +3713,7 @@ focus_tree = {
 			}
 		}
 		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER
 		}
 	}
 	
@@ -3682,9 +3741,39 @@ focus_tree = {
 			}
 		}
 		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_RESEARCH
 		}
 	}
+	focus = {	#restored since its less OP now
+	id = GER_enigma
+	icon = GFX_focus_generic_cryptologic_bomb
+	cost = 5.00
+	prerequisite = {
+		focus = GER_support_technocrats_II
+	}
+	x = -2
+	y = 1
+	relative_position_id = GER_support_technocrats_II
+	ai_will_do = {
+		factor = 8
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GER_enigma_machine0
+			add_idea = GER_enigma_machine1
+		}
+		add_tech_bonus = {
+			name = enigma
+			bonus = 0.5
+			uses = 1
+			category = computing_tech
+		}
+	}
+	search_filters = {
+		FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE
+	}
+
+}
 	focus = {
 		id = GER_reform_uranprojekt
 		icon = GFX_focus_research
@@ -3830,7 +3919,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_appoint_economic_positions
 		}
-		x = 2
+		x = 4
 		y = 1
 		relative_position_id = GER_appoint_economic_positions
 		ai_will_do = {
@@ -3840,7 +3929,7 @@ focus_tree = {
 			add_ideas = volksgemeinschaft_idea
 		}
 		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY
 		}
 	}
 	focus = {
@@ -3885,11 +3974,11 @@ focus_tree = {
 				}
 			}
 			ELSE = {
-				add_idea = volkswagen_idea
+				add_ideas = volkswagen_idea
 			}
 		}
 		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY
+			FOCUS_FILTER_INDUSTRY
 		}
 	}
 	focus = {
@@ -3912,7 +4001,7 @@ focus_tree = {
 			}
 		}
 		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY #FOCUS_FILTER_MANPOWER #idea no longer negatively impacts manpower
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY
 		}
 	}
 
@@ -3923,7 +4012,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_appoint_economic_positions
 		}
-		x = 4
+		x = 6
 		y = 1
 		relative_position_id = GER_appoint_economic_positions
 		available = {
@@ -4051,9 +4140,8 @@ focus_tree = {
 		cost = 10.00
 		prerequisite = {
 			focus = GER_privatize_reichsbahn
-			focus = GER_nationalize_resource_industries
 		}
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = GER_privatize_reichsbahn
 		ai_will_do = {
@@ -4107,7 +4195,7 @@ focus_tree = {
 		available = {
 			has_full_control_of_state = 60
 		}
-		x = 6
+		x = 2
 		y = 1
 		relative_position_id = GER_appoint_economic_positions
 		ai_will_do = {
@@ -4166,6 +4254,9 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_steelworks_issues
 		}
+		prerequisite = {
+			focus = GER_support_autarks_I
+		}
 		x = 0
 		y = 1
 		relative_position_id = GER_steelworks_issues
@@ -4207,6 +4298,37 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_OIL FOCUS_FILTER_RUBBER
 		}
 
+	}
+
+	focus = {
+		id = GER_synthetic_rubber_r56
+		text = GER_synthetic_rubber
+		icon = GFX_focus_generic_rubber
+		prerequisite = { focus = GER_nationalize_resource_industries }
+		x = 0
+		y = 1
+		relative_position_id = GER_nationalize_resource_industries
+		cost = 10
+		ai_will_do = {
+			factor = 4
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RUBBER}
+		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = { 60 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = rubber_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+        	modify_building_resources = {
+        	   building = rubber_refinery
+        	   resource = rubber
+        	   amount = 2
+        	}
+		}
 	}
 
 	# focus = {
@@ -6240,7 +6362,7 @@ focus_tree = {
 		available = {
 			OR = {
 			   has_completed_focus = GER_denounce_versailles
-			   has_completed_focus = GER_consolidate_new_reich
+			   has_completed_focus = GER_restore_the_empire
 			   has_completed_focus = GER_repeal_reichstag_fire_decree 
 			   has_completed_focus = GER_restore_weimar
 		   }
@@ -11896,7 +12018,7 @@ focus_tree = {
 			focus = GER_rally_the_monarchists
 		}
 		#relative_position_id = GER_political_sphere
-		x = 88
+		x = 92
 		y = 0
 		offset = {
 			x = -46
@@ -13616,7 +13738,7 @@ focus_tree = {
 			focus = GER_finish_reinhardt
 		}
 		relative_position_id = GER_finish_reinhardt
-		x = -1.50
+		x = -1
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -13829,10 +13951,10 @@ focus_tree = {
 		icon = GFX_goal_GER_central_powers
 		cost = 5.00
 		prerequisite = {
-			focus = GER_consolidate_new_reich
+			focus = GER_restore_the_empire
 		}
-		relative_position_id = GER_consolidate_new_reich
-		x = -2
+		relative_position_id = GER_restore_the_empire
+		x = -6
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -13999,7 +14121,7 @@ focus_tree = {
 	# 	icon = GFX_goal_constitution
 	# 	cost = 5.00
 	# 	prerequisite = {
-	# 		focus = GER_consolidate_new_reich
+	# 		focus = GER_restore_the_empire
 	# 	}
 	# 	mutually_exclusive = {
 	# 		focus = GER_restore_the_empire
@@ -14007,7 +14129,7 @@ focus_tree = {
 	# 	available = {
 	# 		is_subject = no
 	# 	}
-	# 	relative_position_id = GER_consolidate_new_reich
+	# 	relative_position_id = GER_restore_the_empire
 	# 	x = -13
 	# 	y = 1
 	# 	ai_will_do = {
@@ -14086,7 +14208,7 @@ focus_tree = {
 		#	focus = GER_naval_effort_r56
 		#}
 		prerequisite = {
-			focus = GER_consolidate_new_reich
+			focus = GER_restore_the_empire
 		}
 		allow_branch = {
 			has_dlc = "Waking the Tiger"
@@ -14176,7 +14298,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			custom_effect_tooltip =  GER_faction_noeffects_tt
+			
 			if = {
 				limit = {
 					ENG = {
@@ -14295,7 +14417,6 @@ focus_tree = {
 				type = take_state_focus
 				target = USA
 			}
-			custom_effect_tooltip = GER_unlock_decision_category_tt
 		}
 		# Unlocks Decision Category if victorious to release the CSA as a subject.
 	}
@@ -14423,7 +14544,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			custom_effect_tooltip =  GER_faction_noeffects_tt
 			if = {
 				limit = {
 					is_faction_leader = yes
@@ -14506,7 +14626,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			custom_effect_tooltip =  GER_faction_noeffects_tt
 			if = {
 				limit = {
 					is_faction_leader = yes
@@ -14554,9 +14673,9 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_restore_the_empire
 		}
-		relative_position_id = GER_consolidate_new_reich
+		relative_position_id = GER_restore_the_empire
 		x = 7
-		y = 2
+		y = 1
 		available = {
 			is_subject = no
 		}
@@ -14806,16 +14925,19 @@ focus_tree = {
 			}
 		}
 	}
+
+
 	focus = {
 		id = GER_establish_imperial_german_army
-		icon = GFX_goal_rhineland
-		cost = 10.00
+		icon = GFX_goal_GER_deutsches_heer
+		cost = 5
 		prerequisite = {
-			focus = GER_consolidate_new_reich
+			focus = GER_restore_the_empire
+			#focus = GER_mon_peaceful
 		}
-		relative_position_id = GER_consolidate_new_reich
-		x = 0
-		y = 6
+		relative_position_id = GER_restore_the_empire
+		x = -3
+		y = 1
 		ai_will_do = {
 			factor = 10
 		}
@@ -14829,14 +14951,11 @@ focus_tree = {
 		icon = GFX_goal_generic_small_arms
 		cost = 10.00
 		prerequisite = {
-			focus = GER_establish_imperial_german_army
-		}
-		mutually_exclusive = {
-			focus = GER_support_freikorps
+			focus = GER_restore_the_empire
 		}
 		relative_position_id = GER_establish_imperial_german_army
-		x = 1
-		y = 1
+		x = 2
+		y = 0
 		ai_will_do = {
 			factor = 10
 		}
@@ -14845,38 +14964,14 @@ focus_tree = {
 		}
 
 	}
-	focus = {
-		id = GER_support_freikorps
-		icon = GFX_focus_generic_little_entente
-		cost = 10.00
-		prerequisite = {
-			focus = GER_establish_imperial_german_army
-		}
-		mutually_exclusive = {
-			focus = GER_support_landwehr
-		}
-		relative_position_id = GER_establish_imperial_german_army
-		x = -1
-		y = 1
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_ideas = GER_freikorps_idea
-		}
-		search_filters = {
-			FOCUS_FILTER_MANPOWER
-		}
-
-	}
 	# focus = {
 	# 	id = GER_draft_new_constitution
 	# 	icon = GFX_goal_generic_forceful_treaty
 	# 	cost = 10.00
 	# 	prerequisite = {
-	# 		focus = GER_consolidate_new_reich
+	# 		focus = GER_restore_the_empire
 	# 	}
-	# 	relative_position_id = GER_consolidate_new_reich
+	# 	relative_position_id = GER_restore_the_empire
 	# 	x = 6
 	# 	y = 1
 	# 	ai_will_do = {
@@ -14890,216 +14985,155 @@ focus_tree = {
 	# 	}
 
 	# }
-	# focus = {
-	# 	id = GER_prioritize_infrastructure
-	# 	icon = GFX_goal_generic_construct_infrastructure
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = -3
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_infrastructure_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	focus = {
+		id = GER_prioritize_civilian_industry
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 10.00
+		prerequisite = {
+			focus = GER_establish_imperial_german_army
+		}
+		prerequisite = {
+			focus = GER_support_landwehr
+		}
+		mutually_exclusive = {
+			focus = GER_prioritize_military_industry
+		}
+		relative_position_id = GER_support_landwehr
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			#add_ideas = GER_prioritize_civilian_industry_idea # replaced with bop effect
+			unlock_decision_tooltip = GER_bop_prioritize_civilian_industry
+			random_owned_controlled_state = {
+				prioritize = { 64 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 59 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_civilian_industry
-	# 	icon = GFX_goal_generic_construct_civ_factory
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = -1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_civilian_industry_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	}
+	focus = {
+		id = GER_prioritize_military_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 10.00
+		prerequisite = {
+			focus = GER_establish_imperial_german_army
+		}
+		prerequisite = {
+			focus = GER_support_landwehr
+		}
+		mutually_exclusive = {
+			focus = GER_prioritize_civilian_industry
+		}
+		relative_position_id = GER_establish_imperial_german_army
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			#add_ideas = GER_prioritize_military_industry_idea # replaced with bop effect
+			unlock_decision_tooltip = GER_bop_prioritize_military_industry
+			random_owned_controlled_state = {
+				prioritize = { 64 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 59 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_military_industry
-	# 	icon = GFX_goal_generic_construct_mil_factory
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_military_industry_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	}
+	focus = {
+		id = GER_galvanize_german_militarism
+		icon = GFX_goal_GER_support_the_freikorps
+		cost = 10.00
+		prerequisite = {
+			focus = GER_prioritize_military_industry
+		}
+		relative_position_id = GER_prioritize_military_industry
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			unlock_decision_tooltip = GER_bop_nationalistic_military_parade
+			swap_ideas = {
+				remove_idea = GER_imperial_army_idea
+				add_idea = GER_imperial_army_idea_2
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_defensive_construction
-	# 	icon = GFX_focus_generic_coastal_fort
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_military_industry
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 3
-	# 	y = 1
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_defensive_construction_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
-
-	# }
-	# focus = {
-	# 	id = GER_kaiser_wilhelm_society
-	# 	icon = GFX_goal_research_silver
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 0
-	# 	y = 2
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_research_slot = 1
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH
-	# 	}
-
-	# }
-	# focus = {
-	# 	id = GER_return_scientists
-	# 	icon = GFX_goal_tfv_generic_tech_sharing
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_kaiser_wilhelm_society
-	# 	}
-	# 	relative_position_id = GER_kaiser_wilhelm_society
-	# 	x = 0
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_return_scientists_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER
-	# 	}
-
-	# }
-	# focus = {
-	# 	id = GER_5_factor
-	# 	icon = GFX_focus_generic_cryptologic_bomb
-	# 	cost = 5.00
-	# 	prerequisite = {
-	# 		focus = GER_enigma
-	# 	}
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = GER_enigma
-	# 	available = {
-	# 		date > 1941.1.31
-	# 	}
-	# 	ai_will_do = {
-	# 		factor = 1
-	# 	}
-	# 	completion_reward = {
-	# 		swap_ideas = {
-	# 			add_idea = GER_enigma_machine2
-	# 			remove_idea = GER_enigma_machine1
-	# 		}
-	# 		add_tech_bonus = {
-	# 			name = enigma
-	# 			bonus = 0.5
-	# 			uses = 1
-	# 			category = computing_tech
-	# 		}
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE
-	# 	}
-	# }
-	# focus = {
-	# 	id = GER_8_factor
-	# 	icon = GFX_focus_generic_cryptologic_bomb
-	# 	cost = 5.00
-	# 	prerequisite = {
-	# 		focus = GER_5_factor
-	# 	}
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = GER_5_factor
-	# 	available = {
-	# 		date > 1942.1.1
-	# 	}
-	# 	ai_will_do = {
-	# 		factor = 1
-	# 	}
-	# 	completion_reward = {
-	# 		swap_ideas = {
-	# 			add_idea = GER_enigma_machine3
-	# 			remove_idea = GER_enigma_machine2
-	# 		}
-	# 		add_tech_bonus = {
-	# 			name = enigma
-	# 			bonus = 1
-	# 			uses = 1
-	# 			category = computing_tech
-	# 		}
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE
-	# 	}
-	# }
+	}
 
 	focus = {
 		id = GER_finland_friend
@@ -15631,8 +15665,16 @@ focus_tree = {
 		will_lead_to_war_with = HOL
 		will_lead_to_war_with = LUX
 		will_lead_to_war_with = FLA
-		will_lead_to_war_with = WLL #no france here unlike base game version
+		will_lead_to_war_with = WLL
+		will_lead_to_war_with = FRA
+
 		completion_reward = {
+			ROOT = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = FRA
+				}
+			}
 			if = {
 				limit = {
 					BEL = {
@@ -15778,6 +15820,12 @@ focus_tree = {
 		}
 		will_lead_to_war_with = FRA
 		completion_reward = {
+			ROOT = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = FRA
+				}
+			}
 			if = {
 				limit = {
 					has_dlc = "No Step Back"
@@ -15880,7 +15928,7 @@ focus_tree = {
 		}
 		relative_position_id = GER_soviet_invasion
 		x = -1
-		y = 2
+		y = 1
 		ai_will_do = {
 			factor = 10
 		}
@@ -15904,9 +15952,9 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_restore_the_empire
 		}
-		relative_position_id = GER_restore_the_empire
-		x = -5
-		y = 1
+		relative_position_id = GER_our_place_in_the_sun_r56
+		x = -2
+		y = 0
 		available = {
 			is_subject = no
 		}
@@ -15968,19 +16016,20 @@ focus_tree = {
 
 	focus = {
 		id = GER_gott_mit_uns
-		icon = GFX_FRA_VIC_goal_STO
+		icon = GFX_goal_GER_wilhelm_ii
 		cost = 10.00
 		prerequisite = {
-			focus = GER_support_freikorps
-			focus = GER_support_landwehr
+			#focus = GER_support_freikorps
+			focus = GER_prioritize_civilian_industry
 		}
-		relative_position_id = GER_establish_imperial_german_army
+		relative_position_id = GER_prioritize_civilian_industry
 		x = 0
-		y = 2
+		y = 1
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
+			unlock_decision_tooltip = GER_bop_rally_in_honour_of_the_kaiser
 			add_ideas = GER_gott_idea
 		}
 		search_filters = {
@@ -16549,6 +16598,59 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = GER_r56rp_form_zollverein
+		icon = GFX_focus_usa_focus_on_europe
+		cost = 10
+		prerequisite = {
+			focus = GER_replace_reichsmark
+		}
+		prerequisite = {
+			focus = GER_defense_and_deterence
+		}
+		available = {
+			is_subject = no
+			is_in_faction = yes
+		}
+		x = 22
+		y = 1
+		relative_position_id = GER_replace_reichsmark
+		ai_will_do = {
+			factor = 10
+		}	
+		completion_reward = {
+			custom_effect_tooltip = GER_r56rp_zollverein_tt
+			add_ideas = GER_r56rp_new_zollverein_1
+			every_other_country = {
+				limit = {
+					is_in_faction_with = GER
+					OR = {
+						original_tag = EST
+						original_tag = LAT
+						original_tag = POL
+						original_tag = ROM
+						original_tag = BUL
+						original_tag = GRE
+						original_tag = ALB
+						original_tag = YUG
+						original_tag = HUN
+						original_tag = AUS
+						original_tag = SWI
+						original_tag = LUX
+						original_tag = BEL
+						original_tag = HOL
+						original_tag = DEN
+						original_tag = SWE
+						original_tag = NOR
+						original_tag = FIN
+						original_tag = LIE
+						original_tag = LIT
+					}
+				}
+				add_ideas = GER_new_zollverein_1
+			}
+		}
+	}	
+	focus = {
 		id = GER_join_allies
 		icon = GFX_focus_chi_british_cooperation
 		cost = 5
@@ -16770,6 +16872,1021 @@ focus_tree = {
 			}
 		}
 		search_filters = {
+
+		}
+	}
+			focus = {
+				id = GER_r56rp_create_the_euromark
+				icon = GFX_goal_generic_economics_reform
+				cost = 10
+				prerequisite = {
+					focus = GER_r56rp_form_zollverein
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = 0
+				y = 1
+				relative_position_id = GER_r56rp_form_zollverein
+				ai_will_do ={
+					factor = 10
+				}	
+				completion_reward = {
+					effect_tooltip = {
+						swap_ideas = {
+							remove_idea = GER_r56rp_new_zollverein_1
+							add_idea = GER_r56rp_new_zollverein_2
+						}
+					}
+					hidden_effect = {
+						if = {
+							limit = {
+								has_idea = GER_r56rp_new_zollverein_1
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_new_zollverein_1
+								add_idea = GER_r56rp_new_zollverein_2
+							}
+						}
+						every_other_country = {
+							limit = {
+								is_in_faction_with = GER
+								OR = {
+									original_tag = EST
+									original_tag = LAT
+									original_tag = POL
+									original_tag = ROM
+									original_tag = BUL
+									original_tag = GRE
+									original_tag = ALB
+									original_tag = YUG
+									original_tag = HUN
+									original_tag = AUS
+									original_tag = SWI
+									original_tag = LUX
+									original_tag = BEL
+									original_tag = HOL
+									original_tag = DEN
+									original_tag = SWE
+									original_tag = NOR
+									original_tag = FIN
+									original_tag = LIE
+								}
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_new_zollverein_1
+								add_idea = GER_r56rp_new_zollverein_2
+							}
+						}
+					}
+				}
+			}
+			focus= {
+				id = GER_r56rp_joint_research_intiatives
+				icon = GFX_goal_research_silver_cooperation
+				cost = 5
+				prerequisite = {
+					focus = GER_r56rp_create_the_euromark
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = -1
+				y = 1
+				relative_position_id = GER_r56rp_create_the_euromark
+				ai_will_do ={
+					factor = 10
+				}	
+				completion_reward = {
+					add_ideas = GER_r56rp_cooperative_resource_advancedments_1
+					every_other_country = {
+						limit = {
+							is_in_faction_with = GER
+							OR = {
+								original_tag = EST
+								original_tag = LAT
+								original_tag = POL
+								original_tag = ROM
+								original_tag = BUL
+								original_tag = GRE
+								original_tag = ALB
+								original_tag = YUG
+								original_tag = HUN
+								original_tag = AUS
+								original_tag = SWI
+								original_tag = LUX
+								original_tag = BEL
+								original_tag = HOL
+								original_tag = DEN
+								original_tag = SWE
+								original_tag = NOR
+								original_tag = FIN
+								original_tag = LIE
+							}
+						}
+						add_ideas = GER_r56rp_r56rp_cooperative_resource_advancedments_1
+					}
+				}
+			}	
+			focus = {
+				id = GER_r56rp_cooperative_resource_extraction
+				icon = GFX_goal_excavation
+				cost = 5
+				prerequisite = {
+					focus = GER_r56rp_joint_research_intiatives
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = 0
+				y = 1
+				relative_position_id = GER_r56rp_joint_research_intiatives
+				ai_will_do ={
+					factor = 10
+				}	
+				completion_reward = {
+					effect_tooltip = {
+						swap_ideas = {
+							remove_idea = GER_r56rp_cooperative_resource_advancedments_1
+							add_idea = 	GER_r56rp_cooperative_resource_advancedments_2
+						}
+					}
+					hidden_effect = {
+						if = {
+							limit = {
+								has_idea = GER_r56rp_cooperative_resource_advancedments_1
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_cooperative_resource_advancedments_1
+								add_idea = GER_r56rp_cooperative_resource_advancedments_2
+							}
+						}
+						every_other_country = {
+							limit = {
+								is_in_faction_with = GER
+								OR = {
+									original_tag = EST
+									original_tag = LAT
+									original_tag = POL
+									original_tag = ROM
+									original_tag = BUL
+									original_tag = GRE
+									original_tag = ALB
+									original_tag = YUG
+									original_tag = HUN
+									original_tag = AUS
+									original_tag = SWI
+									original_tag = LUX
+									original_tag = BEL
+									original_tag = HOL
+									original_tag = DEN
+									original_tag = SWE
+									original_tag = NOR
+									original_tag = FIN
+									original_tag = LIE
+								}
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_cooperative_resource_advancedments_1
+								add_idea = GER_r56rp_cooperative_resource_advancedments_2
+							}
+						}
+					}
+				}
+			}
+			focus = {
+				id = GER_r56rp_decentralized_economic_planning
+				icon = GFX_focus_generic_steel
+				cost = 5
+				prerequisite = {
+					focus = GER_r56rp_create_the_euromark
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = 1
+				y = 1
+				relative_position_id = GER_r56rp_create_the_euromark
+				ai_will_do ={
+					factor = 10
+				}	
+				completion_reward = {
+					add_ideas = GER_joint_industrial_planning_1
+					if = {
+						limit = {
+							GER = {
+								controls_state = 64
+							}
+						}
+						64 = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = industrial_complex
+								level = 2
+								instant_build = yes
+							}
+						}
+						every_other_country = {
+							limit = {
+								is_in_faction_with = GER
+								OR = {
+									original_tag = EST
+									original_tag = LAT
+									original_tag = POL
+									original_tag = ROM
+									original_tag = BUL
+									original_tag = GRE
+									original_tag = ALB
+									original_tag = YUG
+									original_tag = HUN
+									original_tag = AUS
+									original_tag = SWI
+									original_tag = LUX
+									original_tag = BEL
+									original_tag = HOL
+									original_tag = DEN
+									original_tag = SWE
+									original_tag = NOR
+									original_tag = FIN
+									original_tag = LIE
+								}	
+							}
+							add_ideas = GER_joint_industrial_planning_1
+						}
+					}
+				}
+			}
+			focus = {
+				id = GER_r56rp_shared_industrial_expertise
+				icon = GFX_goal_generic_industrial_planning
+				cost = 5
+				prerequisite = {
+					focus = GER_r56rp_decentralized_economic_planning
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = 0
+				y = 1
+				relative_position_id = GER_r56rp_decentralized_economic_planning
+				ai_will_do = {
+					factor = 10
+				}	
+				completion_reward = {
+					#JACKISAMADSCIENTIST
+					custom_effect_tooltip = GER_r56rp_joint_industrial_planning_tt
+					if = {
+						limit = {
+							EST = {
+								is_in_faction_with = GER
+								controls_state = 812
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						812 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							LAT = {
+								is_in_faction_with = GER
+								controls_state = 808
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						808 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							LIT = {
+								is_in_faction_with = GER
+								controls_state = 11
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						11 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							POL = {
+								is_in_faction_with = GER
+								controls_state = 10
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						10 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							ROM = {
+								is_in_faction_with = GER
+								controls_state = 46
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						46 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							BUL = {
+								is_in_faction_with = GER
+								controls_state = 48
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						48 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							GRE = {
+								is_in_faction_with = GER
+								controls_state = 47
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						47 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							ALB = {
+								is_in_faction_with = GER
+								controls_state = 44
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						44 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							YUG = {
+								is_in_faction_with = GER
+								controls_state = 107
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						107 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							HUN = {
+								is_in_faction_with = GER
+								controls_state = 43
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						43 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							AUS = {
+								is_in_faction_with = GER
+								controls_state = 4
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						4 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							SWI = {
+								is_in_faction_with = GER
+								controls_state = 3
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						3 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							LUX = {
+								is_in_faction_with = GER
+								controls_state = 8
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						8 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							BEL = {
+								is_in_faction_with = GER
+								controls_state = 6
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						6 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							HOL = {
+								is_in_faction_with = GER
+								controls_state = 7
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						7 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							DEN = {
+								is_in_faction_with = GER
+								controls_state = 37
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						37 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							SWE = {
+								is_in_faction_with = GER
+								controls_state = 141
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						141 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							NOR = {
+								is_in_faction_with = GER
+								controls_state = 110
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						110 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+					if = {
+						limit = {
+							FIN = {
+								is_in_faction_with = GER
+								controls_state = 111
+							}
+						}
+						add_tech_bonus = {
+							name = secret_bonus
+							bonus = 1
+							uses = 1
+							category = industry
+						}
+						111 = {
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}
+						}
+					}
+				}
+			}				
+			focus = {
+				id = GER_r56rp_a_united_european_industry
+				icon = GFX_focus_generic_the_giant_wakes
+				cost = 10
+				prerequisite = {
+					focus = GER_r56rp_shared_industrial_expertise
+				}
+				prerequisite = {
+					focus = GER_r56rp_cooperative_resource_extraction
+				}
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = -1
+				y = 2
+				relative_position_id = GER_r56rp_decentralized_economic_planning
+				ai_will_do ={
+					factor = 10
+				}	
+				completion_reward = {
+					effect_tooltip = {
+						swap_ideas = {
+							remove_idea = GER_r56rp_new_zollverein_2
+							add_idea = GER_r56rp_new_zollverein_3
+						}
+					}
+					hidden_effect = {
+						if = {
+							limit = {
+								has_idea = GER_r56rp_new_zollverein_2
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_new_zollverein_2
+								add_idea = GER_r56rp_new_zollverein_3
+							}
+						}
+						every_other_country = {
+							limit = {
+								is_in_faction_with = GER
+								OR = {
+									original_tag = EST
+									original_tag = LAT
+									original_tag = POL
+									original_tag = ROM
+									original_tag = BUL
+									original_tag = GRE
+									original_tag = ALB
+									original_tag = YUG
+									original_tag = HUN
+									original_tag = AUS
+									original_tag = SWI
+									original_tag = LUX
+									original_tag = BEL
+									original_tag = HOL
+									original_tag = DEN
+									original_tag = SWE
+									original_tag = NOR
+									original_tag = FIN
+									original_tag = LIE
+								}
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_new_zollverein_2
+								add_idea = GER_r56rp_new_zollverein_3
+							}
+						}
+					}
+				}
+			}
+			focus = {
+				id = GER_r56rp_a_common_european_army
+				icon = GFX_goal_generic_multinational_army
+				cost = 10
+				prerequisite = {
+					focus = GER_r56rp_create_the_euromark
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = 3
+				y = 1
+				relative_position_id = GER_r56rp_create_the_euromark
+				ai_will_do ={
+					factor = 10
+				}	
+				completion_reward = {
+					add_ideas = GER_r56rp_european_army_1
+					every_other_country = {
+						limit = {
+							is_in_faction_with = GER
+							OR = {
+								original_tag = EST
+								original_tag = LAT
+								original_tag = POL
+								original_tag = ROM
+								original_tag = BUL
+								original_tag = GRE
+								original_tag = ALB
+								original_tag = YUG
+								original_tag = HUN
+								original_tag = AUS
+								original_tag = SWI
+								original_tag = LUX
+								original_tag = BEL
+								original_tag = HOL
+								original_tag = DEN
+								original_tag = SWE
+								original_tag = NOR
+								original_tag = FIN
+								original_tag = LIE
+							}
+						}
+						add_ideas = GER_r56rp_european_army_1
+					}
+				}
+			}
+			focus = {
+				id = GER_r56rp_internation_recruitment
+				icon = GFX_goal_class_a_reservists
+				cost = 10
+				prerequisite = {
+					focus = GER_r56rp_a_common_european_army
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = 0
+				y = 1
+				relative_position_id = GER_r56rp_a_common_european_army
+				ai_will_do ={
+					factor = 10
+				}	
+				completion_reward = {
+					effect_tooltip= {
+						swap_ideas = {
+							remove_idea = GER_r56rp_european_army_1
+							add_idea = GER_r56rp_european_army_2
+						}
+					}
+					hidden_effect = {
+						if = {
+							limit = {
+								has_idea = GER_r56rp_european_army_1
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_european_army_1
+								add_idea = GER_r56rp_european_army_2
+							}
+						}
+						every_other_country = {
+							limit = {
+								is_in_faction_with = GER
+								OR = {
+									original_tag = EST
+									original_tag = LAT
+									original_tag = POL
+									original_tag = ROM
+									original_tag = BUL
+									original_tag = GRE
+									original_tag = ALB
+									original_tag = YUG
+									original_tag = HUN
+									original_tag = AUS
+									original_tag = SWI
+									original_tag = LUX
+									original_tag = BEL
+									original_tag = HOL
+									original_tag = DEN
+									original_tag = SWE
+									original_tag = NOR
+									original_tag = FIN
+									original_tag = LIE
+								}
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_european_army_1
+								add_idea = GER_r56rp_european_army_2
+							}
+						}
+					}
+				}
+			}
+			focus = {
+				id = GER_r56rp_joint_military_drills
+				icon = GFX_goal_wargaming
+				cost = 10
+				prerequisite = {
+					focus = GER_r56rp_internation_recruitment
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = 0
+				y = 1
+				relative_position_id = GER_r56rp_internation_recruitment
+				ai_will_do ={
+					factor = 10
+				}	
+				completion_reward = {
+					effect_tooltip= {
+						swap_ideas = {
+							remove_idea = GER_r56rp_european_army_2
+							add_idea = GER_r56rp_european_army_3
+						}
+					}
+					hidden_effect = {
+						if = {
+							limit = {
+								has_idea = GER_r56rp_european_army_2
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_european_army_2
+								add_idea = GER_r56rp_european_army_3
+							}
+						}
+						every_other_country = {
+							limit = {
+								is_in_faction_with = GER
+								OR = {
+									original_tag = EST
+									original_tag = LAT
+									original_tag = POL
+									original_tag = ROM
+									original_tag = BUL
+									original_tag = GRE
+									original_tag = ALB
+									original_tag = YUG
+									original_tag = HUN
+									original_tag = AUS
+									original_tag = SWI
+									original_tag = LUX
+									original_tag = BEL
+									original_tag = HOL
+									original_tag = DEN
+									original_tag = SWE
+									original_tag = NOR
+									original_tag = FIN
+									original_tag = LIE
+								}
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_european_army_2
+								add_idea = GER_r56rp_european_army_3
+							}
+						}
+					}
+				}
+			}
+										
+			focus = {
+				id = GER_r56rp_for_a_united_europe
+				icon = GFX_focus_hol_liberation
+				cost = 10
+				prerequisite = {
+					focus = GER_r56rp_joint_military_drills
+				}
+				
+				available = {
+					is_subject = no
+					is_in_faction = yes
+				}
+				x = 0
+				y = 1
+				relative_position_id = GER_r56rp_joint_military_drills
+				ai_will_do = {
+					factor = 10
+				}	
+				completion_reward = {
+					effect_tooltip= {
+						swap_ideas = {
+							remove_idea = GER_r56rp_european_army_3
+							add_idea = GER_r56rp_european_army_4
+						}
+					}
+					hidden_effect = {
+						if = {
+							limit = {
+								has_idea = GER_r56rp_european_army_3
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_european_army_3
+								add_idea = GER_r56rp_european_army_4
+							}
+						}
+						every_other_country = {
+							limit = {
+								is_in_faction_with = GER
+								OR = {
+									original_tag = EST
+									original_tag = LAT
+									original_tag = POL
+									original_tag = ROM
+									original_tag = BUL
+									original_tag = GRE
+									original_tag = ALB
+									original_tag = YUG
+									original_tag = HUN
+									original_tag = AUS
+									original_tag = SWI
+									original_tag = LUX
+									original_tag = BEL
+									original_tag = HOL
+									original_tag = DEN
+									original_tag = SWE
+									original_tag = NOR
+									original_tag = FIN
+									original_tag = LIE
+								}
+							}
+							swap_ideas = {
+								remove_idea = GER_r56rp_european_army_3
+								add_idea = GER_r56rp_european_army_4
+							}
+						}
+					}
 			
 		}
 	}
