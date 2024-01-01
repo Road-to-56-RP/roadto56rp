@@ -11,9 +11,12 @@ technologies = {
 	@1939 = 8
 	@1940 = 9
 	@1942 = 12
-	@1944 = 16
+	@1943 = 14
+	@1944 = 15
 	@1945 = 17
 	@1948 = 20
+	@1950 = 23
+	@1954 = 26
 
 	#New 1.13 Tech ported to prevent CTD's and other issues
 	tech_trucks = { 
@@ -419,7 +422,7 @@ technologies = {
 		
 
 		research_cost = 1.5
-		start_year = 1939
+		start_year = 1940
 		
 		ai_will_do = {
 			factor = 1
@@ -442,7 +445,6 @@ technologies = {
 			motorized_equipment
 		}
 	}
-
 
 	mechanised_infantry = {
 
@@ -552,7 +554,7 @@ technologies = {
 		start_year = 1941
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -4 y = 10 }
+			position = { x = -5 y = 10 }
 		}
 		
 		categories = {
@@ -602,7 +604,7 @@ technologies = {
 		start_year = 1943
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -4 y = 14 }
+			position = { x = -5 y = 14 }
 		}
 		
 		categories = {
@@ -1034,6 +1036,11 @@ technologies = {
 			name = r56_vechicles_folder
 			position = { x = 4 y = @1940 }
 		}
+
+		path = {
+			leads_to_tech = r56rp_railway_gun_2
+			research_cost_coeff = 1
+		}
 		
 		categories = {
 			train_tech
@@ -1057,6 +1064,7 @@ technologies = {
 			}
 		}
 	}
+
 	###------> New R56 Railways Guns <><> <><> <><> <><> <><>
 	r56_gw_railway_gun = {
 
@@ -1111,6 +1119,41 @@ technologies = {
 
 		ai_will_do = {
 			factor = 0
+		}
+	}
+
+	r56rp_railway_gun_2 = {
+		enable_equipments = {
+			r56rp_railway_gun_equipment_2 #same ingame usage as railway cannons so meh.
+		}
+
+		research_cost = 1.5
+		start_year = 1954 #MGM-18 lacrosse produced in 1959, design finalized in 56.
+		folder = {
+			name = r56_vechicles_folder
+			position = { x = 4 y = @1954 }
+		}
+		
+		categories = {
+			train_tech
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				is_major = yes
+				factor = 2
+			}
+
+			modifier = {
+				OR = {
+					TAG = GER
+					tag = SOV
+				}
+				factor = 1.5
+			}
 		}
 	}
 
@@ -1269,10 +1312,10 @@ technologies = {
 		}
 
 		research_cost = 1.5
-		start_year = 1942
+		start_year = 1943
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = 0 y = 12 }
+			position = { x = 0 y = @1943 }
 		}
 
 		path = {
@@ -1438,7 +1481,7 @@ technologies = {
 		start_year = 1950
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -1 y = 24 }
+			position = { x = -1 y = 23 }
 		}
 
 		production_speed_supply_node_factor = 0.15
@@ -1469,6 +1512,33 @@ technologies = {
 			}
 		}
 	}
+	
+	r56rp_heli_1 = {
+		research_cost = 2
+		start_year = 1944
+
+		enable_equipments = {
+			r56rp_heli_eq_1
+		}
+
+		folder = {
+			name = r56_vechicles_folder
+			position = { x = 0 y = @1944 }
+		}
+
+		dependencies = {
+			engines_4 = 1
+		}
+
+		categories = {
+			#tbd
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
 }
 
 #####-----------------------------------------------------------> End
