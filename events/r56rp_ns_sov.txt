@@ -3,7 +3,6 @@
 ###########################
 
 add_namespace = r56rp_sov
-#add_namespace = r56rp_usa_news
 
 # SOV Planned Economy, added options for communist allies to accept.
 country_event = {
@@ -13,8 +12,10 @@ country_event = {
 	picture = GFX_report_event_SOV_national_academy_of_sciences
 
 	is_triggered_only = yes
+			
+	option = { # Accept NEP, if puppet you dont get a choice.
+		name = r56rp_sov.1.a
 
-	immediate = {
 		hidden_effect = {
 			FROM = {
 				if = {
@@ -30,34 +31,26 @@ country_event = {
 					add_to_variable = { SOV_planned_economy_production_lack_of_resource_penalty_factor_initial = -0.01 }
 				}
 			}
-			add_tech_bonus = {
-				name = NSB_soviet_planned_economy.1.t
-				bonus = 1.0
-				uses = 2
-				category = industry
-			}
-
-			add_ideas = new_economic_policy
 		}
-	}
-			
-	option = { # Accept NEP, if puppet you dont get a choice.
-		name = r56rp_sov.1.a
-
-		effect_tooltip = {
-			add_tech_bonus = {
-				name = r56rp_sov.1.t
-				bonus = 1.0
-				uses = 2
-				category = industry
-			}
-
-			add_ideas = new_economic_policy
+		add_tech_bonus = {
+			name = NSB_soviet_planned_economy.1.t
+			bonus = 1.0
+			uses = 2
+			category = industry
 		}
+
+		add_ideas = new_economic_policy
 	}
 
-	option = { # Good
+	option = { # "thanks im good" - refuse nep if not a puppet or player.
 		name = r56rp_sov.1.b
+
+		trigger = {
+			OR = {
+				is_ai = no
+				is_subject_of = SOV
+			}
+		}
 
 		effect_tooltip = {
 			add_tech_bonus = {

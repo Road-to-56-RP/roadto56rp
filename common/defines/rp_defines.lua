@@ -1,3 +1,4 @@
+-- crap sorted the same way as vanilla's define categories.
 -- ## NGame ##
 NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 30 -- Lag days
 NDefines.NGame.LAG_DAYS_FOR_PAUSE = 90 -- pause days
@@ -90,12 +91,12 @@ NDefines.NNavy.SUBMARINE_ESCAPE_RATIOS = { -- subs will escape battle in convoy 
 	500,    -- do not engage (vanilla 1000)
 	15,    -- low
 	3.0,   -- medium
-	2.0,   -- high (vanilla 1)
+	1.5,   -- high (vanilla 1)
 	1.0,   -- I am death incarnate! (vanilla 0.1)
 }
 NDefines.NNavy.CARRIER_ONLY_COMBAT_ACTIVATE_TIME = 0 -- vanilla 0
-NDefines.NNavy.CARRIER_ONLY_COMBAT_ACTIVATE_TIME = 6 -- vanilla 6
-NDefines.NNavy.ALL_SHIPS_ACTIVATE_TIME = 12 -- vanilla 8. This gives capital ships more time to fire increasing thier importance.
+NDefines.NNavy.CAPITAL_ONLY_COMBAT_ACTIVATE_TIME = 6 -- vanilla 6
+NDefines.NNavy.ALL_SHIPS_ACTIVATE_TIME = 10 -- vanilla 8. This gives capital ships more time to fire increasing thier importance.
 
 -- ## NAI ##
 NDefines.NAI.GARRISON_FRACTION = 0.2 -- 20% of the troops will NOT push the enemy while advancing. will make it harder to punch trough ai lines
