@@ -3554,18 +3554,18 @@ focus_tree = {
 			}
 			POL_april_constitution_up = yes
 			add_political_power = 100
-			swap_ideas = {
-				add_idea = POL_sanation_right_opposition_2
-				remove_idea = POL_sanation_right_opposition_1
-			}
-			swap_ideas = {
-				add_idea = POL_sanation_left_opposition_2
-				remove_idea = POL_sanation_left_opposition_1
-			}
-			activate_mission = POL_sanation_left_irritation
-			activate_mission = POL_sanation_right_irritation
-			unlock_decision_tooltip = POL_sideline_the_left
-			unlock_decision_tooltip = POL_sideline_the_right
+#			swap_ideas = {
+#				add_idea = POL_sanation_right_opposition_2
+#				remove_idea = POL_sanation_right_opposition_1
+#			}
+#			swap_ideas = {
+#				add_idea = POL_sanation_left_opposition_2
+#				remove_idea = POL_sanation_left_opposition_1
+#			}
+#			activate_mission = POL_sanation_left_irritation
+#			activate_mission = POL_sanation_right_irritation
+#			unlock_decision_tooltip = POL_sideline_the_left
+#			unlock_decision_tooltip = POL_sideline_the_right
 			hidden_effect = {
 				country_event = poland.91
 			}
@@ -3612,6 +3612,10 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
+			set_power_balance = {
+				id = POL_power_balance
+				set_default = yes
+			}
 			POL_april_constitution_up = yes
 			add_political_power = 25
 			add_popularity = {
@@ -3768,6 +3772,7 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
+			custom_effect_tooltip = POL_castle_small_bal_tt
 			add_political_power = 75
 			if = {
 				limit = {
@@ -3782,10 +3787,38 @@ focus_tree = {
 				ideology = neutrality
 				popularity = 0.1
 			}
-			POL_sanation_left_opposition_down = yes
-			POL_sanation_right_opposition_down = yes
+#			POL_sanation_left_opposition_down = yes
+#			POL_sanation_right_opposition_down = yes
 
 			hidden_effect = {
+			if = {
+				limit = {
+					power_balance_value = {
+						id = POL_power_balance
+						value > 0
+					}
+				}
+				add_power_balance_value = {
+					id= POL_power_balance
+					value = -0.05
+				}
+			}
+			else_if = {
+				limit = {
+					power_balance_value = {
+						id = POL_power_balance
+						value < 0
+					}
+				}
+				add_power_balance_value = {
+					id= POL_power_balance
+					value = 0.05
+				}
+			}
+			else = {
+				add_political_power = 50
+			}
+				
 				set_politics = {
 					ruling_party = neutrality
 					elections_allowed = no
@@ -4038,25 +4071,9 @@ focus_tree = {
 		}
 
 		available = {
-			NOT = {
 				OR = {
-				custom_trigger_tooltip = {
-					tooltip = POL_bop_status_quo_tt
-					and = {
-						power_balance_value = {
-							id = POL_power_balance
-							value > -0.11
-						}
-						power_balance_value = {
-							id = POL_power_balance
-							value < 0.11
-						}
-					}
-				}
-				AND = {
-					has_completed_focus = POL_second_man_of_the_state
 					custom_trigger_tooltip = {
-						tooltip = POL_bop_limited_right_influence_tt
+						tooltip = POL_bop_status_quo_tt
 						and = {
 							power_balance_value = {
 								id = POL_power_balance
@@ -4064,12 +4081,27 @@ focus_tree = {
 							}
 							power_balance_value = {
 								id = POL_power_balance
-								value < 0.50
+								value < 0.11
+							}
+						}
+					}
+					AND = {
+						has_completed_focus = POL_second_man_of_the_state
+						custom_trigger_tooltip = {
+							tooltip = POL_bop_limited_right_influence_tt
+							and = {
+								power_balance_value = {
+									id = POL_power_balance
+									value > -0.11
+								}
+								power_balance_value = {
+									id = POL_power_balance
+									value < 0.50
+								}
 							}
 						}
 					}
 				}
-			}
 			neutrality > 0.5
 		}
 
@@ -4081,8 +4113,8 @@ focus_tree = {
 			}
 			set_party_name = { ideology = neutrality long_name = POL_Castle_party_long name = POL_Castle_party }
 			add_country_leader_trait = stern_imperialist
-#			POL_sanation_left_opposition_remove = yes
-#			POL_sanation_right_opposition_remove = yes
+			#POL_sanation_left_opposition_remove = yes
+			#POL_sanation_right_opposition_remove = yes
 			custom_effect_tooltip = no_more_san_right_tt
 			custom_effect_tooltip = no_more_san_left_tt
 			unlock_decision_category_tooltip = POL_industrial_projects_category
@@ -16156,6 +16188,38 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
+###TODO, alternative for silesia or war	
+#	focus = {
+#		id = POL_silesian_question
+#		icon = GFX_focus_generic_court
+#		prerequisite = { focus = POL_Third_Europe }
+#		mutually_exclusive = { focus = POL_Silesia_Or_War }
+#		available = {
+#			is_subject = no
+#		}
+#	bypass = {
+#		SIL = {
+#		exists = yes
+#		}
+#	}
+#	x = -1
+#	y = 1
+#	relative_position_id = POL_Third_Europe
+#	cost = 5
+#	ai_will_do = {
+#		factor = 2
+#	}
+#	completion_reward = {
+#		66 = {
+#			add_claim_by = POL
+#		}
+#		67 = {
+#			add_claim_by = POL
+#		}
+#	}
+#	search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
+#	}
+	
 	focus = {
 		id = POL_The_Baltic_Alliance
 		icon = GFX_goal_SOV_baltic_aggression
@@ -17754,6 +17818,7 @@ focus_tree = {
 		icon = GFX_focus_attack_germany
 		prerequisite = { focus = POL_Third_Europe focus = POL_Universalism }
 		will_lead_to_war_with = GER
+###		mutually_exclusive = { focus = POL_silesian_question }
 		available = {
 			is_subject = no
 			OR = {
@@ -19906,4 +19971,4 @@ focus_tree = {
 			add_ideas = ROM_exploit_the_baita_mines
 		}
 	}
-}		
+}
