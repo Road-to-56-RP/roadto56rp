@@ -7774,10 +7774,60 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 	}
+
+	focus = {
+		id = JAP_the_forgotten_realms
+		icon = GFX_goal_southern_colonies_jap
+		x = 7
+		y = 0
+		relative_position_id = JAP_the_manchurian_project
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		available = {
+			has_full_control_of_state = 633
+			has_full_control_of_state = 646
+			has_full_control_of_state = 647
+			has_full_control_of_state = 684
+			has_full_control_of_state = 527
+			has_full_control_of_state =  918
+			has_full_control_of_state =  917
+			has_full_control_of_state =  525
+			has_full_control_of_state =  919		 
+		}
+
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 633
+						state = 646
+						state = 647
+						state = 684
+						state = 527
+						state =  918
+						state =  917
+						state =  525
+						state =  919	
+					}
+					NOT = { is_core_of = ROOT }
+				}
+				add_compliance = 5
+			}
+			919 = { add_extra_state_shared_building_slots = 1 }
+			684 = { add_extra_state_shared_building_slots = 2 }
+			527 = { add_extra_state_shared_building_slots = 1 }
+		}
+	}
+
 	focus = {
 		id = JAP_develop_mengjiang
 		icon = GFX_goal_generic_light_industry
-		prerequisite = { focus = JAP_the_manchurian_project }
+		prerequisite = { focus = JAP_the_forgotten_realms }
 		x = 4
 		y = 1
 		relative_position_id = JAP_the_manchurian_project
@@ -7858,6 +7908,158 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
+	focus = {
+		id = JAP_develop_korea
+		icon = GFX_goal_KOR_empire
+		x = -1
+		y = 1
+		prerequisite = { focus = JAP_the_forgotten_realms }
+		relative_position_id = JAP_the_forgotten_realms
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		available = {
+		
+		}
+
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 527
+						state = 918
+						state = 917
+						state = 525
+						state = 919
+						state = 920
+					}
+					NOT = { is_core_of = ROOT }
+				}
+				add_resistance = 5
+				add_compliance = 5
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				prioritize = { 527 }
+			}
+
+			random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				prioritize = { 525 }
+			}
+		}	
+	}
+
+	focus = {
+		id = JAP_oriental_development_company
+		icon =  GFX_goal_FRA_class_collaboration
+		x = -2
+		y = 2
+		prerequisite = { focus = JAP_develop_korea }
+		prerequisite = { focus = JAP_develop_mengjiang }
+		prerequisite = { focus = JAP_resource_manchu }
+		relative_position_id = JAP_the_forgotten_realms
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		available = {
+			
+		}
+
+		completion_reward = {
+			add_timed_idea = {
+    			idea = r56rp_oriental_company_investment
+  				days = 180
+			}
+		}
+	}
+	
+	focus = {
+		id = JAP_push_for_japanese_pacific_states
+		icon = GFX_goal_generic_light_industry
+		x = 2
+		y = 1
+		prerequisite = { focus = JAP_oriental_development_company }
+		prerequisite = { focus = JAP_island_fortifications }
+		relative_position_id = JAP_oriental_development_company 
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		available = {
+			has_war_with = USA
+			has_full_control_of_state = 629
+			has_full_control_of_state = 630
+			has_full_control_of_state = 631
+			has_full_control_of_state = 650
+			has_full_control_of_state = 727
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				create_dynamic_country = {
+					reserve_dynamic_country = yes
+					original_tag = HAW
+					transfer_state = 629
+					transfer_state = 630
+					transfer_state = 631
+					transfer_state = 650
+					transfer_state = 727
+					629 = { add_core_of = PREV }
+					630 = { add_core_of = PREV }
+					631 = { add_core_of = PREV }
+					650 = { add_core_of = PREV }
+					727 = { add_core_of = PREV }
+					378 = { add_claim_by = PREV }
+					385 = { add_claim_by = PREV }
+					379 = { add_claim_by = PREV }
+					386 = { add_claim_by = PREV }
+					463 = { add_claim_by = PREV }
+					740 = { add_claim_by = PREV }
+					473 = { add_claim_by = PREV }
+					471 = { add_claim_by = PREV }
+					864 = { add_claim_by = PREV }
+					JAP = {
+						puppet = {
+							target = PREV
+							end_wars = no
+						}
+					}
+					set_cosmetic_tag = R56RP_JAP_PAC
+					set_party_name = { 
+						ideology = fascism 
+						long_name = "The Occupation Regime" 
+						name = "Occupation Regime"
+					}
+					load_focus_tree = generic
+				}
+			}
+			custom_effect_tooltip = JAP_establish_pacific_states_tt
+		}
+	}
+
 	focus = {
 		id = JAP_fortify_the_border
 		icon = GFX_goal_generic_construct_military
@@ -8313,10 +8515,200 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
+	
+	focus = {
+		id = JAP_ease_native_restrictions
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = JAP_the_forgotten_realms }
+		x = 3
+		y = 1
+		relative_position_id = JAP_the_forgotten_realms 
+		
+		cost = 8
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			has_full_control_of_state = 524
+			has_full_control_of_state = 633
+			has_full_control_of_state = 647
+			has_full_control_of_state = 648
+			has_full_control_of_state = 684
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 524
+						state = 633
+						state = 647
+						state = 648
+						state = 684
+					}
+					NOT = { is_core_of = ROOT }
+				}
+				add_compliance = 10
+			}
+		}
+	}
+
+	focus = {
+		id = JAP_restrict_natives
+		icon = GFX_focus_generic_japanese_imperial_glory
+		prerequisite = { focus = JAP_the_forgotten_realms }
+		mutually_exclusive = { focus = JAP_ease_native_restrictions }
+		x = 1
+		y = 1
+		relative_position_id = JAP_the_forgotten_realms 
+		
+		cost = 8
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			has_full_control_of_state = 524
+			has_full_control_of_state = 633
+			has_full_control_of_state = 647
+			has_full_control_of_state = 648
+			has_full_control_of_state = 684
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 524
+						state = 633
+						state = 647
+						state = 648
+						state = 684
+					}
+					NOT = { is_core_of = ROOT }
+				}
+				add_compliance = 15
+				add_resistance = 20
+			}
+		}
+	}
+	
+	focus = {
+		id = JAP_island_fortifications
+		icon = GFX_goal_generic_build_navy
+		prerequisite = { focus = JAP_restrict_natives focus = JAP_ease_native_restrictions }
+		x = 2
+		y = 2
+		relative_position_id = JAP_the_forgotten_realms 
+		
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			has_full_control_of_state = 633
+			has_full_control_of_state = 646
+			has_full_control_of_state = 647
+			has_full_control_of_state = 684
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+		
+		completion_reward = {
+			#Kwajalein
+			633 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes	
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 13041
+					instant_build = yes	
+				}
+			}
+			#Saipan
+			646 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes	
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 3995
+					instant_build = yes	
+				}
+			}
+			#Palau
+			647 = {	
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes	
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 4357
+					instant_build = yes	
+				}	
+			}
+			#Yap
+			684 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes	
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 13028
+					instant_build = yes	
+				}
+			}
+		}
+	}
+	
+
 	focus = {
 		id = JAP_army_expansion_law
 		icon = GFX_goal_JAP_flag_army
-		x = 10
+		x = 16
 		y = 0
 		relative_position_id = JAP_the_manchurian_project
 
@@ -10557,9 +10949,9 @@ focus_tree = {
 					has_dlc = "Arms Against Tyranny"
 				}	
 				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = JAP_kure_naval_arsenal_organization
+				show_mio_tooltip = JAP_r56rp_mitsubishi_tank
 				mio:JAP_kure_naval_arsenal_organization = {
-					add_mio_size = 2
+					add_mio_size = 1
 				}
 			}
 			ELSE = {
@@ -10604,7 +10996,7 @@ focus_tree = {
 	focus = {
 		id = JAP_first_air_fleet
 		icon = GFX_goal_generic_navy_carrier
-		prerequisite = { focus = JAP_carrier_warfare_experiments }
+		prerequisite = { focus = JAP_carrier_warfare_experiments focus = JAP_supremacy_of_the_battlefleet }
 		x = 0
 		y = 2
 		relative_position_id = JAP_carrier_warfare_experiments
@@ -10621,11 +11013,21 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = JAP_first_air_fleet
-			add_tech_bonus = {
-				name = JAP_supremacy_of_the_battlefleet
-				bonus = 1
-				uses = 2
-				category = naval_air
+			custom_effect_tooltip = r56rp_JAP_choice_tt
+			if = {
+				limit = {
+					has_completed_focus = JAP_carrier_warfare_experiments
+				}
+				IF = {
+					limit = {
+						has_dlc = "Arms Against Tyranny"
+					}	
+					custom_effect_tooltip = available_mio_tt
+					show_mio_tooltip = JAP_yokosuka_naval_arsenal_organization
+					mio:JAP_yokosuka_naval_arsenal_organization = {
+						add_mio_size = 2
+					}
+				}
 			}
 		}
 	}
@@ -10720,20 +11122,6 @@ focus_tree = {
 				}				
 										
 			}			
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}	
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = JAP_kure_naval_arsenal_organization
-				mio:JAP_kure_naval_arsenal_organization = {
-					add_mio_size = 2
-				}
-			}
-			ELSE = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = kure_naval_arsenal
-			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -10741,7 +11129,7 @@ focus_tree = {
 	focus = {
 		id = JAP_the_ultimate_battleship
 		icon = GFX_focus_ETH_an_ethiopian_navy_in_exile
-		prerequisite = { focus = JAP_supremacy_of_the_battlefleet }
+		prerequisite = { focus = JAP_supremacy_of_the_battlefleet focus = JAP_carrier_warfare_experiments }
 		x = 0
 		y = 2
 		relative_position_id = JAP_supremacy_of_the_battlefleet
@@ -10760,13 +11148,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}	
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = JAP_kure_naval_arsenal_organization
-			}
 			if = {
 				limit = {
 					not = { has_dlc = "Man the Guns" }
@@ -10854,7 +11235,23 @@ focus_tree = {
 					technology = basic_heavy_shell
 					technology = improved_heavy_shell
 				}				
-			}			
+			}
+			custom_effect_tooltip = r56rp_JAP_choice_2_tt
+			if = {
+				limit = {
+					has_completed_focus = JAP_supremacy_of_the_battlefleet
+				}
+				if = {
+					limit = {
+						has_dlc = "Arms Against Tyranny"
+					}	
+					show_mio_tooltip = JAP_kure_naval_arsenal_organization
+					mio:JAP_kure_naval_arsenal_organization = {
+						add_mio_size = 2
+					}
+				}
+			}
+
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -11133,10 +11530,12 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = naval_shell_tech
-			}						
+			}
+			JAP_interservice_rivalry_towards_navy = yes					
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
+
 	focus = {
 		id = JAP_divert_naval_guns_to_the_army
 		prerequisite = { focus = JAP_supremacy_of_the_battlefleet focus = JAP_cruiser_modernization }
@@ -11185,17 +11584,6 @@ focus_tree = {
 				progress = 0.7
 				amount = 1
 			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = industrial_bonus
-					bonus = 1
-					uses = 1
-					category = naval_gunnery_tech
-				}				
-			}	
 			JAP_interservice_rivalry_towards_army = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
