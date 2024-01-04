@@ -5,8 +5,20 @@
 
 technologies = { 
 
-	@1918 = 1
-	@1936 = 4
+	@1910 = 1
+	@1918 = 4
+	@1936 = 6
+	@1939 = 8
+	@1940 = 9
+	@1942 = 12
+	@1943 = 14
+	@1944 = 15
+	@1945 = 17
+	@1948 = 20
+	@1950 = 23
+	@1951 = 24
+	@1952 = 25
+	@1954 = 26
 
 	#New 1.13 Tech ported to prevent CTD's and other issues
 	tech_trucks = { 
@@ -40,7 +52,7 @@ technologies = {
 		start_year = 1910
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -7 y = 1 }
+			position = { x = -7 y = @1910 }
 		}
 		
 		categories = {
@@ -113,7 +125,7 @@ technologies = {
 
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -7 y = 4 }
+			position = { x = -7 y = @1918 }
 		}
 
 		folder = {
@@ -158,7 +170,7 @@ technologies = {
 		start_year = 1936
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -8 y = 6 }
+			position = { x = -8 y = @1936 }
 		}
 
 		path = {
@@ -412,7 +424,7 @@ technologies = {
 		
 
 		research_cost = 1.5
-		start_year = 1939
+		start_year = 1940
 		
 		ai_will_do = {
 			factor = 1
@@ -435,7 +447,6 @@ technologies = {
 			motorized_equipment
 		}
 	}
-
 
 	mechanised_infantry = {
 
@@ -545,7 +556,7 @@ technologies = {
 		start_year = 1941
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -4 y = 10 }
+			position = { x = -5 y = 10 }
 		}
 		
 		categories = {
@@ -595,7 +606,7 @@ technologies = {
 		start_year = 1943
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -4 y = 14 }
+			position = { x = -5 y = 14 }
 		}
 		
 		categories = {
@@ -781,7 +792,7 @@ technologies = {
 
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -2 y = @1936 }
+			position = { x = -2 y = @1918 }
 		}
 		
 		categories = {
@@ -1022,10 +1033,15 @@ technologies = {
 		}
 
 		research_cost = 1.5
-		start_year = 1936
+		start_year = 1940
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = 4 y = 8 }
+			position = { x = 4 y = @1940 }
+		}
+
+		path = {
+			leads_to_tech = r56rp_railway_gun_2
+			research_cost_coeff = 1
 		}
 		
 		categories = {
@@ -1050,6 +1066,7 @@ technologies = {
 			}
 		}
 	}
+
 	###------> New R56 Railways Guns <><> <><> <><> <><> <><>
 	r56_gw_railway_gun = {
 
@@ -1071,10 +1088,10 @@ technologies = {
 		}
 
 		research_cost = 1.5
-		start_year = 1917
+		start_year = 1918
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = 4 y = 4 }
+			position = { x = 4 y = @1918 }
 		}
 		
 		categories = {
@@ -1104,6 +1121,41 @@ technologies = {
 
 		ai_will_do = {
 			factor = 0
+		}
+	}
+
+	r56rp_railway_gun_2 = {
+		enable_equipments = {
+			r56rp_railway_gun_equipment_2 #same ingame usage as railway cannons so meh.
+		}
+
+		research_cost = 1.5
+		start_year = 1954 #MGM-18 lacrosse produced in 1959, design finalized in 56.
+		folder = {
+			name = r56_vechicles_folder
+			position = { x = 4 y = @1954 }
+		}
+		
+		categories = {
+			train_tech
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				is_major = yes
+				factor = 2
+			}
+
+			modifier = {
+				OR = {
+					TAG = GER
+					tag = SOV
+				}
+				factor = 1.5
+			}
 		}
 	}
 
@@ -1164,7 +1216,7 @@ technologies = {
 		}
 
 		path = {
-			leads_to_tech = railway_gun
+			leads_to_tech = r56rp_armored_train_2
 			research_cost_coeff = 1
 		}
 		
@@ -1172,7 +1224,7 @@ technologies = {
 		start_year = 1936
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = 2 y = 6 }
+			position = { x = 2 y = @1936 }
 		}
 		
 		categories = {
@@ -1207,6 +1259,54 @@ technologies = {
 		}
 	}
 
+	r56rp_armored_train_2 = {
+		enable_equipments = {
+			r56rp_armored_train_equipment_2
+		}
+
+		allow_branch = {
+			has_dlc = "No Step Back"
+		}
+		
+		research_cost = 1.5
+		start_year = 1942
+		folder = {
+			name = r56_vechicles_folder
+			position = { x = 2 y = @1942 }
+		}
+		
+		categories = {
+			train_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				has_war = yes
+				factor = 20
+			}
+			modifier = {
+				tag = GER
+				factor = 5
+			}
+			modifier = {
+				factor = 1.2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+		}
+	}
+
 	###------> New R56 Trains <><> <><> <><> <><> <><>
 	r56_mid_wartime_train = {
 		enable_equipments = {
@@ -1214,10 +1314,10 @@ technologies = {
 		}
 
 		research_cost = 1.5
-		start_year = 1942
+		start_year = 1943
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = 0 y = 12 }
+			position = { x = 0 y = @1943 }
 		}
 
 		path = {
@@ -1263,7 +1363,7 @@ technologies = {
 		start_year = 1948
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = 0 y = 20 }
+			position = { x = 0 y = @1948 }
 		}
 		
 		categories = {
@@ -1383,7 +1483,7 @@ technologies = {
 		start_year = 1950
 		folder = {
 			name = r56_vechicles_folder
-			position = { x = -1 y = 24 }
+			position = { x = -1 y = 23 }
 		}
 
 		production_speed_supply_node_factor = 0.15
@@ -1414,6 +1514,110 @@ technologies = {
 			}
 		}
 	}
+	
+	r56rp_heli_1 = {
+		# early powered choppers, used light radial engines
+		# hence the lock to engine_4 tech.
+		research_cost = 2
+		start_year = 1944
+
+		enable_equipments = {
+			r56rp_heli_eq_1
+		}
+
+		enable_subunits = {
+			r56rp_helo_recon_company
+		}
+		
+		path = {
+			leads_to_tech = r56rp_heli_2
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = r56rp_heli_cargo_1
+			research_cost_coeff = 1
+		}
+
+		folder = {
+			name = r56_vechicles_folder
+			position = { x = 0 y = @1944 }
+		}
+
+		dependencies = {
+			engines_4 = 1
+		}
+
+		categories = {
+			#tbd
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	r56rp_heli_2 = {
+		# this is turboshaft chopper tech.
+		# earliest modification using this was 1951, 
+		# 1955 was the first serialy produced turboshaft chopper, alouette II.
+		research_cost = 1.5
+		start_year = 1951
+
+		enable_equipments = {
+			r56rp_heli_eq_2
+		}
+
+		folder = {
+			name = r56_vechicles_folder
+			position = { x = 0 y = @1951 }
+		}
+
+		dependencies = {
+			jet_engines = 1
+		}
+
+		categories = {
+			#tbd
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	r56rp_heli_cargo_1 = {
+		# cargo version
+		# 
+		research_cost = 2
+		start_year = 1945
+
+		enable_equipments = {
+			r56rp_heli_c_eq_1
+		}
+
+		enable_subunits = {
+			r56rp_helo_logistics_company
+		}
+
+		folder = {
+			name = r56_vechicles_folder
+			position = { x = 2 y = @1945 }
+		}
+
+		#dependencies = {
+		#	engines_4 = 1
+		#}
+
+		categories = {
+			#tbd
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
 }
 
 #####-----------------------------------------------------------> End

@@ -36,10 +36,11 @@ on_actions = {
 
 				# sets fuel stockpiles for every nation to full, to avoid game start stockpile buying.
 				set_fuel_ratio = 1
-
 			}
 		}
 	}
+
+
 	#########################################
 	## State Integration Dynamic Core Cost ##
 	#########################################
@@ -513,6 +514,24 @@ on_actions = {
 				hidden_effect = {
 					set_technology = {
 						tech_special_forces = 1
+						popup = no
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					OR = {
+						has_tech = basic_naval_mines
+						has_tech = submarine_mine_laying
+					}
+				}
+				hidden_effect = {
+					set_technology = {
+						basic_naval_mines = 0
+						popup = no
+					}
+					set_technology = {
+						submarine_mine_laying = 0
 						popup = no
 					}
 				}
