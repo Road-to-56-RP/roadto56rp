@@ -12061,7 +12061,7 @@ focus_tree = {
 		prerequisite = { 
 			focus = GER_begin_civilwar_communist focus = GER_begin_civilwar_democratic
 		}
-		x = 0
+		x = 2
 		y = 2
 		relative_position_id = GER_kill_hitler
 		cost = 5
@@ -12094,6 +12094,29 @@ focus_tree = {
 					division_template = "Fascist Millitias"
 					disband = no
 				}
+			}
+		}
+	}
+	focus = {
+		id = GER_r56rp_destroy_the_pretenders
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = {
+			focus = GER_begin_civilwar_communist focus = GER_begin_civilwar_democratic
+		}
+		relative_position_id = GER_kill_hitler
+		x = -2
+		y = 2
+		cost = 1
+		ai_will_do = {
+			factor = 9
+		}
+		available = {
+			has_civil_war = yes
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = GER_r56rp_destroy_the_pretenders
+				days = 120
 			}
 		}
 	}
@@ -12619,7 +12642,7 @@ focus_tree = {
 	focus = {
 		id = GER_repeal_reichstag_fire_decree
 		icon = GFX_goal_ger_kpd
-		cost = 10.00
+		cost = 5.00
 		prerequisite = {
 			focus = GER_begin_civilwar_communist
 		}
@@ -12643,7 +12666,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = GER_world_revolution
+		id = GER_r56rp_world_revolution
 		icon = GFX_goal_support_fourth_int
 		cost = 10.00
 		prerequisite = {
@@ -12652,10 +12675,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_r56rp_rebuild_the_nation
 		}
-		mutually_exclusive = {
-			focus = GER_alliance_with_soviets
-		}
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = GER_repeal_reichstag_fire_decree
 		ai_will_do = {
@@ -12673,10 +12693,6 @@ focus_tree = {
 							}
 						}
 					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = not_too_much_soviet_influence_tt
-					check_variable = { GER_commie_soviet_influence < 4 }
 				}
 			}
 		}
@@ -12708,86 +12724,11 @@ focus_tree = {
 
 	}
 	focus = {
-		id = GER_alliance_with_soviets
-		icon = GFX_focus_chi_mission_to_the_soviet_union
-		cost = 10.00
-		prerequisite = {
-			focus = GER_repeal_reichstag_fire_decree
-		}
-		prerequisite = {
-			focus = GER_r56rp_rebuild_the_nation
-		}
-		mutually_exclusive = {
-			focus = GER_world_revolution
-		}
-		x = 1
-		y = 1
-		relative_position_id = GER_repeal_reichstag_fire_decree
-		ai_will_do = {
-			factor = 10
-		}
-		available = {
-			is_puppet = no
-			has_civil_war = no
-			SOV = {
-				NOT = {
-					has_war_with = GER
-				}
-				is_puppet = no
-			}
-		}
-		# bypass = { #free, locked units need to be removed and cant be done during cw
-		# 	has_civil_war = no
-		# 	SOV = {
-		# 		r56_script_standard_bypass = yes
-		# 	}
-		# }
-		completion_reward = {
-			set_cosmetic_tag = GER_civil_war
-			if = {
-				limit = {
-					is_faction_leader = yes
-				}
-				custom_effect_tooltip = ger_sov_buddies_tooltip_2
-			}
-			#custom_effect_tooltip = ger_sov_buddies_tooltip
-			add_ideas = soviet_german_friendship
-			SOV = {
-				add_opinion_modifier = {
-					target = GER
-					modifier = ger_sov_alliance_focus
-				}
-				add_ideas = soviet_german_friendship
-				country_event = germany.89
-			}
-			# set_politics = { #unnecessary with cw
-			# 	ruling_party = communism
-			# 	elections_allowed = no
-			# }
-			GER_ernst_thalmann = {
-				set_portraits = { #revert to fancy uniform which he doesnt use during the civil war
-					civilian = {
-						large="gfx/leaders/GER/r56_portrait_GER_ernst_thalmann.dds"
-					}
-				}
-			}
-			delete_unit_template_and_units = {
-				division_template = "Rotesregiment"
-				disband = yes
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-
-	}
-	focus = {
 		id = GER_rehabilitate_military
 		icon = GFX_goal_generic_small_arms
-		cost = 10.00
+		cost = 5.00
 		prerequisite = {
-			focus = GER_world_revolution
-			focus = GER_alliance_with_soviets
+			focus = GER_r56rp_world_revolution
 		}
 		x = 0
 		y = 2
@@ -15463,6 +15404,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = GER_recruit_grenztruppen_idea
+			set_rule = { can_send_volunteers = yes }
 		}
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
@@ -15470,7 +15412,7 @@ focus_tree = {
 
 	}
 	focus = {
-		id = GER_establish_NVA
+		id = GER_r56rp_establish_NVA
 		icon = GFX_goal_ger_nva
 		cost = 10.00
 		prerequisite = {
@@ -15483,29 +15425,46 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			add_ideas = GER_establish_NVA_idea
+			add_ideas = GER_r56rp_establish_NVA_idea_1
+			unlock_decision_tooltip = GER_rehabilitate_lower_officer_corp
+			custom_effect_tooltip = GER_r56rp_national_volks_armee_tt
 		}
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 		}
-
 	}
 	focus = {
-		id = GER_collectivize_industry
+			id = GER_r56rp_reform_the_roterfrontkampferbund
+			icon = GFX_goal_generic_communist_loyalty
+			cost = 5.00
+			prerequisite = {
+				focus = GER_r56rp_establish_NVA
+			}
+			relative_position_id = GER_r56rp_establish_NVA
+			x = 0
+			y = 1
+			ai_wil_do = {
+				factor = 5
+			}
+			completion_reward = {
+				add_ideas = GER_r56rp_roterfrontkampferbund
+			}
+		}
+	focus = {
+		id = GER_r56rp_collectivize_industry
 		icon = GFX_goal_generic_commie_investments
 		cost = 10.00
 		prerequisite = {
-			focus = GER_alliance_with_soviets
-			focus = GER_world_revolution
+			focus = GER_r56rp_world_revolution
 		}
-		relative_position_id = GER_alliance_with_soviets
-		x = 1
-		y = 2
+		relative_position_id = GER_r56rp_world_revolution
+		x = 4
+		y = 1
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			add_ideas = GER_collectivize_industry_idea
+			add_ideas = GER_r56rp_collectivize_industry_idea
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = GER_Walter_Ulbricht
 		}
@@ -15514,19 +15473,66 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = GER_progress_cult
+		id = GER_r56rp_impliment_a_consumer_market
+		icon = GFX_generic_goal_communist_reforms
+		cost = 10
+		prerequisite = {
+			focus = GER_r56rp_collectivize_industry
+		}
+		mutually_exclusive = {
+			focus = GER_r56rp_enact_war_communism
+		}
+		relative_position_id = GER_r56rp_collectivize_industry
+		x = 1
+		y = 1
+		ai_will_do = {
+			factor 5
+		}
+		completion_reward = {
+			add_ideas = GER_r56rp_socialist_consumer_market
+		}
+	}
+	focus = {
+		id = GER_r56rp_enact_war_communism
+		icon = GFX_focus_generic_army_tanks2
+		cost = 10
+		prerequisite = {
+			focus = GER_r56rp_collectivize_industry
+		}
+		mutually_exclusive = {
+			focus = GER_r56rp_impliment_a_consumer_market
+		}
+		relative_position_id = GER_r56rp_collectivize_industry
+		x = -1
+		y = 1
+		ai_will_do = {
+			factor 5
+		}
+		completion_reward = {
+		if = {
+				limit = {
+					NOT = {
+						has_idea = war_economy
+					}
+					NOT = {
+						has_idea = tot_economic_mobilisation
+					}
+				}
+				add_ideas = tot_economic_mobilisation
+			}
+		}
+	}
+	focus = {
+		id = GER_r56rp_progress_cult
 		icon = GFX_socialist_science
 		cost = 10.00
 		prerequisite = {
 			focus = GER_recruit_grenztruppen
 		}
 		prerequisite = {
-			focus = GER_establish_NVA
+			focus = GER_r56rp_establish_NVA
 		}
-		prerequisite = {
-			focus = GER_collectivize_industry
-		}
-		relative_position_id = GER_establish_NVA
+		relative_position_id = GER_r56rp_establish_NVA
 		x = -5
 		y = 1
 		ai_will_do = {
@@ -15545,9 +15551,9 @@ focus_tree = {
 		icon = GFX_goal_research_silver_cooperation
 		cost = 10.00
 		prerequisite = {
-			focus = GER_progress_cult
+			focus = GER_r56rp_progress_cult
 		}
-		relative_position_id = GER_progress_cult
+		relative_position_id = GER_r56rp_progress_cult
 		x = 0
 		y = 1
 		ai_will_do = {
@@ -16044,18 +16050,15 @@ focus_tree = {
 		id = GER_spread_the_revolution_r56
 		text = GER_spread_the_revolution
 		icon = GFX_goal_generic_communist_pride
-		prerequisite = { focus = GER_establish_NVA }
+		prerequisite = { focus = GER_r56rp_establish_NVA }
 		available = {
 			is_puppet = no
 			has_government = communism
 		}
-		# mutually_exclusive = {
-		# 	focus = GER_focus_on_fascist_threat_r56
-		# }
 		x = -2
 		y = 1
-		relative_position_id = GER_establish_NVA
-		cost = 5
+		relative_position_id = GER_r56rp_establish_NVA
+		cost = 5.00
 		ai_will_do = {
 			factor = 3
 		}
@@ -16100,7 +16103,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = GER_spread_the_revolution_r56
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 3
 		}
@@ -16192,7 +16195,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = GER_spread_the_revolution_r56
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 3
 		}
@@ -16275,7 +16278,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = GER_spread_the_revolution_r56
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 3
 		}
@@ -16330,67 +16333,141 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = GER_old_nemensis_r56
-		text = GER_old_nemensis
-		icon = GFX_focus_attack_france
-		prerequisite = { focus = GER_increase_influence_over_benelux_r56 }
-		available = {
-			is_subject = no
-			NOT = {
-				is_in_faction_with = FRA
-			}
+		id = GER_r56rp_claim_old_german_territory
+		icon = GFX_goal_GER_great_black_menace
+		cost = 5
+		prerequisite = {
+			focus = GER_increase_influence_over_benelux_r56
 		}
+		relative_position_id = GER_increase_influence_over_benelux_r56
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor 5
+		}
+		completion_reward = {
+			add_ideas = GER_r56rp_german_revanchism
+			add_state_claim = 807
+			add_state_claim = 86
+			add_state_claim = 762
+			add_state_claim = 964
+			add_state_core = 69
+			add_state_core = 74
+			add_state_core = 85
+		}
+		
+	}
+	focus = {
+		id = GER_r56rp_force_benelux_submission
+		icon = GFX_goal_plan
+		cost = 10
+		prerequisite = {
+			focus = GER_r56rp_claim_old_german_territory
+		}
+		relative_position_id = GER_increase_influence_over_benelux_r56
 		x = -1
-		y = 3
-		relative_position_id = GER_spread_the_revolution_r56
-		cost = 10
+		y = 2
 		ai_will_do = {
-			factor = 3
+			factor 5
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			add_state_claim = 28
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = FRA
-			}
 		}
 	}
-
 	focus = {
-		id = GER_end_british_imperial_hegemony_r56
-		text = GER_end_british_imperial_hegemony
-		icon = GFX_focus_attack_britain
-		prerequisite = { focus = GER_increase_influence_over_benelux_r56 }
-		available = {
-			is_subject = no
-			NOT = {
-				is_in_faction_with = ENG
-			}
+		id = GER_r56rp_demand_alsace_lorraine
+		icon = GFX_goal_spr_stab_the_french_in_the_back
+		cost = 10
+		prerequisite = {
+			focus = GER_r56rp_claim_old_german_territory
 		}
+		relative_position_id = GER_r56rp_claim_old_german_territory
 		x = 1
-		y = 3
-		relative_position_id = GER_spread_the_revolution_r56
-		cost = 10
+		y = 1
 		ai_will_do = {
-			factor = 3
+			factor 5
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = ENG
+		}
+	}
+	focus = {
+		id = GER_r56rp_unite_western_europe_under_socalism #NEED FORMABLE/
+		icon = GFX_goal_aus_international
+		cost = 10
+		prerequisite = {
+			focus = GER_r56rp_demand_alsace_lorraine
+		}
+		prerequisite = {
+			focus = GER_r56rp_force_benelux_submission
+		}
+		relative_position_id = GER_r56rp_demand_alsace_lorraine
+		x = -1
+		y = 1
+		ai_will_do = {
+			factor 5
+		}
+		available = {
+			has_government = communism
+			OR = {
+				GER = { controls_state = 29 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 29
+				}
+			}
+			OR = {
+				GER = { controls_state = 785 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 785
+				}
+			}
+			OR = {
+				GER = { controls_state = 18 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 18
+				}
+			}
+			OR = {
+				GER = { controls_state = 17 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 17
+				}
+			}
+			OR = {
+				GER = { controls_state = 28 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 28
+				}
+			}
+
+		}
+		completion_reward = {
+			add_country_leader_trait = united_leader_of_western_socialism
+			hidden_effect = { #just in case something goes wrong
+				add_state_claim = 36
+				add_state_claim = 7
+				add_state_claim = 35
+				add_state_claim = 6
+				add_state_claim = 34
+				add_state_claim = 29
+				add_state_claim = 785
+				add_state_claim = 18
+				add_state_claim = 17
+				add_state_core = 28
+				add_state_core = 965
+				add_state_core = 8
 			}
 		}
 	}
-
 	focus = {
-		id = GER_focus_on_fascist_threat_r56
+		id = GER_r56rp_focus_on_fascist_threat_r56
 		text = GER_focus_on_fascist_threat
 		icon = GFX_goal_fascism_banned
-		prerequisite = { focus = GER_establish_NVA }
+		prerequisite = { focus = GER_r56rp_establish_NVA }
 		# mutually_exclusive = {
 		# 	focus = GER_spread_the_revolution_r56
 		# }
@@ -16399,8 +16476,8 @@ focus_tree = {
 		}
 		x = 2
 		y = 1
-		relative_position_id = GER_establish_NVA
-		cost = 5
+		relative_position_id = GER_r56rp_establish_NVA
+		cost = 2.00
 		ai_will_do = {
 			factor = 3
 		}
@@ -16410,12 +16487,11 @@ focus_tree = {
 			
 		}
 	}
-
 	focus = {
-		id = GER_pressure_austria_r56
+		id = GER_r56rp_pressure_austria_r56
 		text = GER_pressure_austria
 		icon = GFX_goal_AUS_rearm
-		prerequisite = { focus = GER_focus_on_fascist_threat_r56 }
+		prerequisite = { focus = GER_r56rp_focus_on_fascist_threat_r56 }
 		available = {
 			is_puppet = no
 			has_government = communism
@@ -16432,7 +16508,7 @@ focus_tree = {
 		}
 		x = -1
 		y = 1
-		relative_position_id = GER_focus_on_fascist_threat_r56
+		relative_position_id = GER_r56rp_focus_on_fascist_threat_r56
 		cost = 10
 		ai_will_do = {
 			factor = 3
@@ -16443,23 +16519,25 @@ focus_tree = {
 					id = r56.ger.7
 					hours = 12
 				}
+				add_state_core = 848
+				add_state_core = 153
+				add_state_core = 152
+				add_state_core = 4	
 			}
-			
 		}
 	}
-
 	focus = {
-		id = GER_decrease_fascist_influence_r56
+		id = GER_r56rp_decrease_fascist_influence_r56
 		text = GER_decrease_fascist_influence
 		icon = GFX_focus_generic_support_the_left_right
-		prerequisite = { focus = GER_focus_on_fascist_threat_r56 }
+		prerequisite = { focus = GER_r56rp_focus_on_fascist_threat_r56 }
 		available = {
 			is_puppet = no
 		}
 		x = 1
 		y = 1
-		relative_position_id = GER_focus_on_fascist_threat_r56
-		cost = 10
+		relative_position_id = GER_r56rp_focus_on_fascist_threat_r56
+		cost = 5
 		ai_will_do = {
 			factor = 3
 		}
@@ -16480,70 +16558,118 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
-		id = GER_deal_with_the_devil_r56
-		text = GER_deal_with_the_devil
-		icon = GFX_focus_chi_reach_out_to_france
-		prerequisite = { focus = GER_pressure_austria_r56 }
-		prerequisite = { focus = GER_decrease_fascist_influence_r56 }
-		mutually_exclusive = {
-			focus = GER_increase_influence_over_benelux_r56
+		id = GER_r56rp_secure_the_alpine_mountains
+		icon = GFX_focus_attack_switzerland
+		prerequisite = {
+			focus = GER_r56rp_pressure_austria_r56
 		}
 		available = {
 			is_puppet = no
-			NOT = {
-				has_war_with = FRA
-			}
 		}
 		x = 0
-		y = 2
-		relative_position_id = GER_focus_on_fascist_threat_r56
+		y = 1
+		relative_position_id = GER_r56rp_pressure_austria_r56
 		cost = 10
 		ai_will_do = {
-			factor = 3
-		}
-		completion_reward = {
-			FRA = {
-				country_event = {
-					id = r56.ger.6
-					hours = 12
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = GER_the_source_of_fascism_r56
-		text = GER_the_source_of_fascism
-		icon = GFX_focus_attack_italy
-		prerequisite = { focus = GER_deal_with_the_devil_r56 }
-		available = {
-			is_puppet = no
-			ITA = {
-				OR = {
-					has_government = fascism
-					has_government = neutrality
-				}
-			}
-			NOT = {
-				is_in_faction_with = ITA
-			}
-		}
-		x = 0
-		y = 3
-		relative_position_id = GER_focus_on_fascist_threat_r56
-		cost = 10
-		ai_will_do = {
-			factor = 3
+			factor = 0
 		}
 		completion_reward = {
 			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = ITA
+				type = take_state_focus
+				target = SWI
+				expire = 0
+				generator = {
+					3
+				}
 			}
+			add_state_core = 3
+			add_state_core = 151
+			add_state_claim = 846
+			add_state_claim = 845
+			add_state_claim = 847
 		}
 	}
+	focus = {
+		id = GER_r56rp_secure_the_yugoslavian_flank
+		icon = GFX_focus_generic_balkan_diplomacy
+		prerequisite = {
+			focus = GER_r56rp_decrease_fascist_influence_r56
+		}
+		available = {
+			is_puppet = no
+		}
+		x = 0
+		y = 1
+		relative_position_id = GER_r56rp_decrease_fascist_influence_r56
+		cost = 10
+		ai_will_do = {
+			factor = 0
+		}
+		available = {
+			has_government = communism
+			OR = {
+				GER = { controls_state = 4 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 4
+				}
+			}
+			OR = {
+				GER = { controls_state = 152 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 152
+				}
+			}
+			OR = {
+				GER = { controls_state = 153 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 153
+				}
+			}
+			OR = {
+				GER = { controls_state = 848 }
+				any_other_country = {
+					is_subject_of = GER
+					controls_state = 848
+				}
+			}
+		}
+		completion_reward = {
+		}
+	}
+	focus = {
+		id = GER_r56rp_destroy_the_home_of_fascism
+		icon = GFX_focus_ger_assassinate_mussolini
+		prerequisite = {
+			focus = GER_r56rp_secure_the_yugoslavian_flank
+			focus = GER_r56rp_secure_the_alpine_mountains
+		}
+		x = 1
+		y = 1
+		relative_position_id = GER_r56rp_secure_the_alpine_mountains
+		cost = 10
+		ai_will_do = {
+			factor = 0
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = ITA
+				expire = 0
+				generator = {
+					2
+				}
+			}
+			add_state_core = 39
+			add_state_core = 850
+			add_state_claim = 912
+			add_state_claim = 736
+			add_state_claim = 852
+		}
+	}	
 	focus = {
 		id = GER_anti_expansionism
 		icon = GFX_focus_generic_diplomatic_treaty
@@ -16649,7 +16775,7 @@ focus_tree = {
 						original_tag = LIT
 					}
 				}
-				add_ideas = GER_new_zollverein_1
+				add_ideas = GER_r56rp_new_zollverein_1
 			}
 		}
 	}	
@@ -17082,7 +17208,7 @@ focus_tree = {
 					factor = 10
 				}	
 				completion_reward = {
-					add_ideas = GER_joint_industrial_planning_1
+					add_ideas = GER_r56rp_joint_industrial_planning_1
 					if = {
 						limit = {
 							GER = {
@@ -18234,37 +18360,37 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = GER_lead_communists
-		icon = GFX_focus_ger_great_red_menace
-		cost = 5.00
+		id = GER_r56rp_karl_marx
+		icon = GFX_focus_spr_unify_the_london_bureau
+		cost = 0.25
 		prerequisite = {
-			focus = GER_spread_the_revolution_r56
-			focus = GER_focus_on_fascist_threat_r56
+			focus = GER_r56rp_spread_the_revolution_r56
+			focus = GER_r56rp_focus_on_fascist_threat_r56
 		}
 		bypass = {
 			is_in_faction = yes #ideally make own faction, but should allow some focuses if impossible anyway
 		}
-		relative_position_id = GER_focus_on_fascist_threat_r56
+		relative_position_id = GER_r56rp_focus_on_fascist_threat_r56
 		x = 3
 		y = 1
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			create_faction = "Leninist Pact"
+			create_faction = "Karl Marx is Cool Club"
 		}
 		search_filters = {
 			FOCUS_FILTER_ALLIANCE
 		}
 	}
 	focus = {
-		id = GER_inter_communist_fighting
+		id = GER_r56rp_inter_communist_fighting
 		icon = GFX_goal_attack_communists
 		cost = 10.00
 		prerequisite = {
-			focus = GER_lead_communists
+			focus = GER_r56rp_karl_marx
 		}
-		relative_position_id = GER_lead_communists
+		relative_position_id = GER_r56rp_karl_marx
 		available = {
 			any_other_country = {
 				capital_scope = {
@@ -18288,6 +18414,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			custom_effect_tooltip = GER_r56rp_destroy_fake_communists_tt
 			every_other_country = {
 				limit = {
 					capital_scope = {
