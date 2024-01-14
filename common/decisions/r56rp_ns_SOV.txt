@@ -4,22 +4,13 @@ economy_decisions = {
 
 		cost = 25
 
-		fire_only_once = yes
+		fire_only_once = no
 
 		icon = GFX_decision_hol_exchange_intelligence_data
 
 		visible = {
 			SOV = {
-				OR = {
-					has_idea = new_economic_policy
-					has_idea = new_economic_policy_2
-				}
-			}
-			ROOT = {
-				NOT = {
-					has_idea = new_economic_policy
-					has_idea = new_economic_policy_2
-				}
+				has_completed_focus = SOV_planned_economy
 			}
 		}
 
@@ -42,6 +33,12 @@ economy_decisions = {
 		}
 
 		complete_effect = {
+			SOV = {
+				add_opinion_modifier = { 
+					target = ROOT 
+					modifier = r56rp_SOV_adopted_NEP 
+				}
+			}
 			IF = {
 				limit = {
 					SOV = {
