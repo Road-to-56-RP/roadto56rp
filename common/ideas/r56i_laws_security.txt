@@ -69,6 +69,20 @@ ideas = {
 			
 			ai_will_do = {
 				factor = 0
+
+				modifier = {
+					tag = AFG
+					AFG = {
+						has_completed_focus = AFG_first_loya_jirga
+					}
+					NOT = {
+						power_balance_value = {
+							id = AFG_power_balance
+							value > 0.4
+						}
+					}
+					add = 9999
+				}
 			}
 			
 		}
@@ -114,6 +128,38 @@ ideas = {
 				factor = 0
 			}
 		}
+		# Individual Rights
+		r56i_laws_security_rights = {
+
+			available = {
+				OR = {
+					has_government = democratic
+					has_country_leader = {
+						name = "Anarchist Commune"
+						ruling_only = yes
+					}						
+				}
+				NOT = {					
+					hidden_trigger = {
+						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+					}
+				}
+			}
+			
+			#Cost = 125
+
+			modifier = {
+				compliance_gain = 0.05
+				stability_factor = 0.05
+				resistance_damage_to_garrison = 0.10
+				drift_defence_factor = -0.10
+			}
+			cancel_if_invalid = no
+
+			ai_will_do = {
+   				factor = 0
+   			}
+		}	
 	}
 }
 
