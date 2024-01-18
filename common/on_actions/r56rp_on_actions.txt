@@ -36,7 +36,36 @@ on_actions = {
 
 				# sets fuel stockpiles for every nation to full, to avoid game start stockpile buying.
 				set_fuel_ratio = 1
+
+				## prints out game start factories for stat tracking.
+				IF = {
+					limit = {
+						num_of_factories > 25
+					}
+					log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
+				}
 			}
+		}
+	}
+
+	on_monthly = {
+		effect = {
+			## Logging, outputs text into game.txt log file next to saves.
+			## for every nation with more than 25 factories, outputs industry amount to a text file, can make a chart out of it later for aftergame.
+			THIS = {
+				IF = {
+					limit = {
+						num_of_factories > 25
+					}
+					log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
+				}
+			}
+			## outputs date monthly, and since its inside of an error log, itll append the ingame date to hosts local time.
+			## easy way to track time passage.
+			#random_country = {
+			#	log = "<R56RP_LOG> CD"
+			#}
+
 		}
 	}
 
