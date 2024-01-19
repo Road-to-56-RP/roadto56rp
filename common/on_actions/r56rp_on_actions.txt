@@ -42,7 +42,7 @@ on_actions = {
 					limit = {
 						num_of_factories > 25
 					}
-					log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
+					log = "<R56RP_LOG_ET> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
 				}
 			}
 		}
@@ -57,7 +57,7 @@ on_actions = {
 					limit = {
 						num_of_factories > 25
 					}
-					log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
+					log = "<R56RP_LOG_ET> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
 				}
 			}
 			## outputs date monthly, and since its inside of an error log, itll append the ingame date to hosts local time.
@@ -68,6 +68,126 @@ on_actions = {
 
 		}
 	}
+	on_send_volunteers = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-V-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-V-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_war_relation_added = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-WR-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-WR-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_create_faction = {
+		effect = {
+			log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-FC-0;[ROOT.GetTag];[FROM.GetTag];[SOV.GetFactionName]"
+		}
+	}
+	on_join_faction = {
+		effect = {
+			log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-FJ-0;[ROOT.GetTag];[FROM.GetTag];[SOV.GetFactionName]"
+		}
+	}
+	on_leave_faction = {
+		effect = {
+			log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-FL-0;[ROOT.GetTag];[FROM.GetTag];[SOV.GetFactionName]"
+		}
+	}
+	on_capitulation = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-C-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-C-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_puppet = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-P-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-P-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_release_as_free = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RF-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RF-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_release_as_puppet = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RP-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RP-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_liberate = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RL-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RL-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_annex = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-A-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-A-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+
 
 
 	#########################################
