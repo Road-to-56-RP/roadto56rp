@@ -1859,9 +1859,18 @@ focus_tree = {
 					country_event = china.1
 				}
 			}
+			custom_effect_tooltip = r56rp_newline
 			add_named_threat = { threat = 1 name = JAP_intervene_in_china }
-			add_ideas = JAP_intervene_in_china_5
 			unlock_decision_tooltip = JAP_china_step_up_war_effort
+			custom_effect_tooltip = r56rp_newline
+			add_ideas = JAP_intervene_in_china_5
+			if = {
+				limit = {
+					has_idea = JAP_r56rp_uncertain_military_direction_idea
+				}
+				custom_effect_tooltip = r56rp_newline
+				remove_ideas = JAP_r56rp_uncertain_military_direction_idea
+			}
 		}
 	}
 
@@ -1983,23 +1992,6 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = JAP_liaison_conference
-		allow_branch = {
-			if = {
-				limit = {
-					has_game_rule = {
-						rule = obsolete_focus_branches_visibility
-						option = HIDE
-					}
-				}
-				NOT = {
-					OR = {
-						has_completed_focus = JAP_prepare_for_war_with_the_soviet_union
-						has_completed_focus = JAP_the_unthinkable_option
-						has_completed_focus = JAP_strengthen_civilian_government
-					}
-				}
-			}
-		}
 
 		cost = 5
 
@@ -2014,14 +2006,20 @@ focus_tree = {
 		completion_reward = {
 			IF = {
 				limit = {
-					has_completed_focus = JAP_purge_the_kodoha_faction
+					has_completed_focus = JAP_support_the_kodoha_faction
 				}
-				custom_tooltip = JAP_r56rp_backed_kodoha
+				custom_effect_tooltip = JAP_r56rp_backed_tosehia
 				add_stability = -0.10
+				add_war_support = -0.10
+				add_popularity = {
+					ideology = fascism
+					popularity = 0.1
+				}
 			}
 			ELSE = {
-				custom_tooltip = JAP_r56rp_backed_kodoha
+				custom_effect_tooltip = JAP_r56rp_backed_kodoha
 			}
+
 			add_doctrine_cost_reduction = {
 				name = JAP_strike_south_doctrine
 				cost_reduction = 0.5
@@ -2119,6 +2117,12 @@ focus_tree = {
 		completion_reward = {
 			SOV = { country_event = { id = wtt_japan.11 } }
 			unlock_decision_tooltip = develop_north_sakhalin_oil_deposits
+			if = {
+				limit = {
+					has_idea = JAP_r56rp_uncertain_military_direction_idea
+				}
+				remove_ideas = JAP_r56rp_uncertain_military_direction_idea
+			}
 		}
 		search_filters = { FOCUS_FILTER_OIL FOCUS_FILTER_POLITICAL }
 	}
@@ -3946,7 +3950,7 @@ focus_tree = {
 	focus = {
 		id = JAP_black_dragon_society
 		icon = GFX_goal_CAN_CAMP_X
-		cost = 7
+		cost = 7.2
 		prerequisite = {
 			focus = JAP_support_the_kodoha_faction
 			focus = JAP_purge_the_kodoha_faction
@@ -4317,23 +4321,6 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = JAP_modern_shogunate
-		allow_branch = {
-			if = {
-				limit = {
-					has_game_rule = {
-						rule = obsolete_focus_branches_visibility
-						option = HIDE
-					}
-				}
-				NOT = {
-					OR = {
-						has_completed_focus = JAP_strike_south_doctrine
-						has_completed_focus = JAP_the_unthinkable_option
-						has_completed_focus = JAP_strengthen_civilian_government
-					}
-				}
-			}
-		}
 		text = r56_JAP_prepare_for_war_with_the_soviet_union
 
 		cost = 10
@@ -4348,12 +4335,18 @@ focus_tree = {
 				limit = {
 					has_completed_focus = JAP_purge_the_kodoha_faction
 				}
-				custom_tooltip = JAP_r56rp_backed_tosehia
+				custom_effect_tooltip = JAP_r56rp_backed_kodoha
 				add_stability = -0.10
+				add_war_support = -0.10
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.1
+				}
 			}
 			ELSE = {
-				custom_tooltip = JAP_r56rp_backed_kodoha
+				custom_effect_tooltip = JAP_r56rp_backed_kodoha
 			}
+			
             add_tech_bonus = {
                 name = infantry_artillery_bonus
                 bonus = 1
@@ -4798,6 +4791,13 @@ focus_tree = {
 						}
 					}
 				}
+			}
+			if = {
+				limit = {
+					has_idea = JAP_r56rp_uncertain_military_direction_idea
+				}
+				custom_effect_tooltip = r56rp_newline
+				remove_ideas = JAP_r56rp_uncertain_military_direction_idea
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -5366,31 +5366,35 @@ focus_tree = {
 		y = 1
 		relative_position_id = JAP_strengthen_the_divine_wind
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
 		}
 
 		available = {
-			is_in_faction_with = GER
 			NOT = { has_war_with = GER }
 		}
 
 
 		completion_reward = {
+			# Note to self, move to an event that germany has to accept.
+			
 			add_tech_bonus = {
 				name = JAP_german_rocketry
+				ahead_reduction = 1
 				bonus = 1
 				uses = 1
 				category = rocketry
 			}
+
 			add_ideas = JAP_german_rocketry
+
 			random_country = {
 				limit = {
 					original_tag = GER
 					has_government = fascism
-					is_faction_leader = yes
+					#is_faction_leader = yes
 				}
 				if = {
 					limit = {
@@ -7870,6 +7874,79 @@ focus_tree = {
 	}
 
 	focus = {
+		id = JAP_r56rp_develop_taiwan
+		icon = GFX_goal_generic_construction_tools
+		prerequisite = { focus = JAP_the_forgotten_realms }
+		#mutually_exclusive = { focus = JAP_ease_native_restrictions }
+		x = 0
+		y = 2
+		relative_position_id = JAP_the_forgotten_realms 
+		
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			OR = {
+				has_full_control_of_state = 524 #fucking taiwan is not micronesia.
+				524 = {
+					controller = {
+						OR = {
+							is_subject_of = ROOT
+							is_in_faction_with  = ROOT
+						}
+					}
+				}
+			}
+		}
+		
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			524 = {
+				IF = {
+					limit = {
+						NOT = {
+							is_core_of = CONTROLLER
+						}
+					}
+					add_compliance = 10
+					add_resistance = 10
+				}
+				
+				IF = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+	
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
 		id = JAP_develop_mengjiang
 		icon = GFX_goal_generic_light_industry
 		prerequisite = { focus = JAP_the_forgotten_realms }
@@ -7997,7 +8074,28 @@ focus_tree = {
 		available = {
 			OR = {
 				KOR = {
-					is_subject_of = ROOT
+					OR = {
+						is_in_faction_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				527 = {
+					is_controlled_by = ROOT
+				}
+				918 = {
+					is_controlled_by = ROOT
+				}
+				917 = {
+					is_controlled_by = ROOT
+				}
+				525 = {
+					is_controlled_by = ROOT
+				}
+				919 = {
+					is_controlled_by = ROOT
+				}
+				920 = {
+					is_controlled_by = ROOT
 				}
 			}
 			
@@ -8019,24 +8117,53 @@ focus_tree = {
 				add_resistance = 5
 				add_compliance = 5
 			}
-			random_owned_controlled_state = {
+			random_state = {
+				limit = {
+					region = 186
+					is_controlled_by_ROOT_or_ally = yes
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				prioritize = { 525 }
+
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
-				prioritize = { 527 }
-			}
-
-			random_owned_controlled_state = {
-					add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 1
 					instant_build = yes
 				}
+			}
+			random_state = {
+				limit = {
+					region = 186
+					is_controlled_by_ROOT_or_ally = yes
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
 				prioritize = { 525 }
+
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
 			}
 		}	
 	}
@@ -8536,11 +8663,11 @@ focus_tree = {
 			MAN = {
 				random_owned_controlled_state = {
 					add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
 				}
 				random_owned_controlled_state = {
 					add_extra_state_shared_building_slots = 1
@@ -9437,6 +9564,13 @@ focus_tree = {
 				limit = {
 					has_dlc = "No Step Back"
 				}
+				add_tech_bonus = {
+					name = JAP_rethink_armor_design
+					ahead_reduction = 1
+					bonus = 1
+					uses = 1
+					category = armor
+				}
 				if = {
 					limit = {
 						has_tech = centimetric_radar
@@ -9918,7 +10052,7 @@ focus_tree = {
 		
 		available = {
 			has_war = yes
-			surrender_progress > 0.39
+			surrender_progress > 0.25
 		}
 
 		completion_reward = {
@@ -9931,7 +10065,8 @@ focus_tree = {
 					load_oob = "r56_unlock_militia"
 				}
 			}
-			custom_tooltip = JAP_r56rp_raise_the_boeitai
+			custom_effect_tooltip = JAP_r56rp_raise_the_boeitai_tt
+
 			division_template = {
 				name = "Kokumin Giyū Sentōtai"
 				is_locked = no
@@ -9946,7 +10081,6 @@ focus_tree = {
 					militia = { x = 1 y = 0 }
 				}
 			}
-			
 			for_loop_effect = {
 				end = 40
     			value = temp
@@ -9979,7 +10113,7 @@ focus_tree = {
 		}
 
 		available = {
-			has_army_experience > 49.99
+			has_army_experience > 50
 			if = {
 				limit = {
 					has_dlc = "No Step Back"
@@ -10225,7 +10359,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = JAP_supremacy_of_technology
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -10252,7 +10386,7 @@ focus_tree = {
 		id = JAP_protect_our_islands_skies
 		icon = GFX_focus_generic_air_defense
 		prerequisite = { focus = JAP_army_expansion_law }
-		x = 6
+		x = 5
 		y = 1
 		relative_position_id = JAP_army_expansion_law
 
@@ -10424,10 +10558,13 @@ focus_tree = {
 			has_war = yes
 			any_enemy_country = {
 				is_major = yes
-				stockpile_ratio = { 
-					archetype = large_plane_airframe
-					ratio > 1
+				OR = {
+					NOT = {
+						tag = CHI
+						tag = PRC
+					}
 				}
+				
 			}
 		}
 
@@ -10453,17 +10590,23 @@ focus_tree = {
 		
 		available = {
 			has_war_with_major = yes
+			alliance_naval_strength_ratio < 0.5
 			OR = {
 				surrender_progress > 0.05
-				casualties_k > 1000
+				casualties_k > 750
 			}
 		}
 
-		completion_reward = {
+		continue_if_invalid = yes
+
+		select_effect = {
 			add_timed_idea = {
 				idea = JAP_prepare_for_an_invasion
 				days = 360
 			}
+		}
+
+		completion_reward = {
 			every_owned_state = {
 				limit = {
 					is_fully_controlled_by = ROOT
