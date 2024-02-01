@@ -1617,7 +1617,6 @@ focus_tree = {
 				NOT = {
 					OR = {
 						has_completed_focus = JAP_the_unthinkable_option
-						has_completed_focus = JAP_support_the_kodoha_faction
 						has_completed_focus = JAP_strengthen_civilian_government
 					}
 				}
@@ -1627,7 +1626,7 @@ focus_tree = {
 		y = 0
 		relative_position_id = JAP_the_unthinkable_option
 		offset = {
-			x = -8
+			x = -18
 			y = 0
 			trigger = {
 				OR = {
@@ -1637,7 +1636,10 @@ focus_tree = {
 							rule = obsolete_focus_branches_visibility
 							option = HIDE
 						}
-						has_completed_focus = JAP_purge_the_kodoha_faction
+						OR = {
+							has_completed_focus = JAP_the_unthinkable_option
+							has_completed_focus = JAP_purge_the_kodoha_faction
+						}
 					}
 				}
 			}
@@ -1981,6 +1983,23 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = JAP_liaison_conference
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = JAP_prepare_for_war_with_the_soviet_union
+						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_strengthen_civilian_government
+					}
+				}
+			}
+		}
 
 		cost = 5
 
@@ -1993,6 +2012,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			IF = {
+				limit = {
+					has_completed_focus = JAP_purge_the_kodoha_faction
+				}
+				custom_tooltip = JAP_r56rp_backed_kodoha
+				add_stability = -0.10
+			}
+			ELSE = {
+				custom_tooltip = JAP_r56rp_backed_kodoha
+			}
 			add_doctrine_cost_reduction = {
 				name = JAP_strike_south_doctrine
 				cost_reduction = 0.5
@@ -3675,17 +3704,6 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = JAP_guide_the_zaibatsus
-		offset = {
-			x = -18
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = JAP_support_the_kodoha_faction
-			}
-		}
 		cost = 10
 
 		ai_will_do = {
@@ -3951,17 +3969,7 @@ focus_tree = {
 		relative_position_id = JAP_purge_the_kodoha_faction
 		x = 5
 		y = 1
-		offset = {
-			x = -18
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = JAP_support_the_kodoha_faction
-			}
-		}
+
 		ai_will_do = {
 			factor = 10
 			modifier = {
@@ -4116,7 +4124,6 @@ focus_tree = {
 				NOT = {
 					OR = {
 						has_completed_focus = JAP_the_unthinkable_option
-						has_completed_focus = JAP_purge_the_kodoha_faction
 						has_completed_focus = JAP_strengthen_civilian_government
 					}
 				}
@@ -4126,17 +4133,6 @@ focus_tree = {
 		x = 10
 		y = 0
 		relative_position_id = JAP_purge_the_kodoha_faction
-		offset = {
-			x = -18
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = JAP_support_the_kodoha_faction
-			}
-		}
 		cost = 5
 
 		ai_will_do = {
@@ -4321,6 +4317,23 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = JAP_modern_shogunate
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = JAP_strike_south_doctrine
+						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_strengthen_civilian_government
+					}
+				}
+			}
+		}
 		text = r56_JAP_prepare_for_war_with_the_soviet_union
 
 		cost = 10
@@ -4331,6 +4344,16 @@ focus_tree = {
 
 
 		completion_reward = {
+			IF = {
+				limit = {
+					has_completed_focus = JAP_purge_the_kodoha_faction
+				}
+				custom_tooltip = JAP_r56rp_backed_tosehia
+				add_stability = -0.10
+			}
+			ELSE = {
+				custom_tooltip = JAP_r56rp_backed_kodoha
+			}
             add_tech_bonus = {
                 name = infantry_artillery_bonus
                 bonus = 1
@@ -7745,7 +7768,7 @@ focus_tree = {
 			}
 		}
 		offset = {
-			x = -25
+			x = -30
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -7756,7 +7779,7 @@ focus_tree = {
 			}
 		}
 		offset = {
-			x = -30
+			x = -12
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -7972,7 +7995,12 @@ focus_tree = {
 		}
 
 		available = {
-		
+			OR = {
+				KOR = {
+					is_subject_of = ROOT
+				}
+			}
+			
 		}
 
 		completion_reward = {
@@ -8805,7 +8833,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = JAP_army_expansion_law
 
-		cost = 10
+		cost = 7.2
 
 		ai_will_do = {
 			factor = 2
@@ -8819,7 +8847,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = JAP_small_arms_modernization
 				bonus = 1
-				uses = 3
+				uses = 2
 				category = infantry_weapons
 			}
 			add_tech_bonus = {
@@ -8901,7 +8929,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = JAP_armored_divisions
 				bonus = 1
-				uses = 2
+				uses = 1
 				category = armor
 			}
 			if = {
@@ -8955,7 +8983,7 @@ focus_tree = {
 				}
 				add_tech_bonus = {
 					name = armor_bonus
-					bonus = 1
+					bonus = 2
 					uses = 1
 					category = armor
 				}
@@ -9277,24 +9305,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = JAP_supremacy_of_technology
-				bonus = 1
-				uses = 2
-				category = cat_mechanized_equipment
-			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = JAP_supremacy_of_technology
-					bonus = 1
-					uses = 1
-					technology = amphibious_mechanized_infantry
-					technology = amphibious_mechanized_infantry_2
-				}
-			}
+
 			add_ideas = JAP_supremacy_of_technology
 		}
 	}
@@ -9316,8 +9327,9 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = JAP_support_the_railways_and_shipping_section
+				ahead_reduction = 1
 				bonus = 1
-				uses = 2
+				uses = 1
 				category = train_tech
 			}
 			add_tech_bonus = {
@@ -9334,7 +9346,7 @@ focus_tree = {
 		id = JAP_rocket_artillery
 		icon = GFX_goal_CAN_land_mattress
 		prerequisite = { focus = JAP_supremacy_of_technology }
-		x = -1
+		x = -3
 		y = 1
 		relative_position_id = JAP_supremacy_of_technology
 		cost = 10
@@ -9347,9 +9359,49 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = JAP_rocket_artillery
+				ahead_reduction = 1
 				bonus = 1
-				uses = 2
+				uses = 1
 				category = rocketry
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = JAP_r56rp_mechanization_effort
+		icon = GFX_goal_generic_mechanized
+		prerequisite = { focus = JAP_supremacy_of_technology }
+		x = -1
+		y = 1
+		relative_position_id = JAP_supremacy_of_technology
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = JAP_supremacy_of_technology
+				ahead_reduction = 1
+				bonus = 1
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = JAP_supremacy_of_technology
+					ahead_reduction = 1
+					bonus = 1
+					uses = 1
+					category = amphibious_mechanized_infantry
+					technology = amphibious_mechanized_infantry_2
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -9858,7 +9910,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = JAP_supremacy_of_will
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -9879,8 +9931,36 @@ focus_tree = {
 					load_oob = "r56_unlock_militia"
 				}
 			}
-			add_manpower = 7500
-			add_ideas = JAP_the_boeitai
+			custom_tooltip = JAP_r56rp_raise_the_boeitai
+			division_template = {
+				name = "Kokumin Giyū Sentōtai"
+				is_locked = no
+				division_names_group = JAP_GAR_02
+				priority = 0
+				template_counter = 0
+				regiments = {
+					militia = { x = 0 y = 0 }
+					militia = { x = 0 y = 1 }
+					militia = { x = 0 y = 2 }
+					militia = { x = 0 y = 3 }
+					militia = { x = 1 y = 0 }
+				}
+			}
+			
+			for_loop_effect = {
+				end = 40
+    			value = temp
+				random_core_state = {
+					limit = {
+						is_controlled_by = JAP
+						is_in_home_area = yes
+					}
+					create_unit = {
+						division = "name = \"Kokumin Giyū Sentōtai\" division_template = \"Kokumin Giyū Sentōtai\" start_experience_factor = 0.1 start_equipment_factor = 0.8"
+						owner = JAP
+					}
+				}
+			}
 		}
 	}
 	
@@ -9912,8 +9992,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			army_experience = -50
-			army_experience = 15
+			army_experience = -35
 			add_doctrine_cost_reduction = {
 				cost_reduction = 0.5
 				uses = 1
@@ -9925,6 +10004,7 @@ focus_tree = {
 				}
 				add_tech_bonus = {
 					name = JAP_rethink_armor_design
+					ahead_reduction = 1
 					bonus = 1
 					uses = 1
 					category = armor
@@ -10823,8 +10903,9 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = JAP_jet_prototypes
+				ahead_reduction = 1
 				bonus = 1
-				uses = 2
+				uses = 1
 				category = jet_technology
 			}
 		}
@@ -11386,7 +11467,6 @@ focus_tree = {
 					bonus = 1
 					uses = 2
 					category = cl_tech
-	
 				}
 				add_tech_bonus = {
 					name = ENG_anti_non_contact_committee
