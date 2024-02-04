@@ -3404,6 +3404,7 @@ country_event = {
 
 		if = {
 			limit = {
+				72 = { is_owned_by = CZE }	#r56
 				88 = { is_owned_by = POL }
 			}
 			POL = {
@@ -8629,6 +8630,10 @@ country_event = {
 		POL = {
 			if = {
 				limit = {
+					OR = {	#new 11/2023, feel free to remove if theres edge cases where this isnt the case
+						has_war_with = GER
+						is_subject_of = SOV #even if not called in by player (AI always does afaik), give cores for their subject
+					}
 					NOT = {
 						has_completed_focus = POL_accept_border_realignment
 					}
@@ -8638,6 +8643,23 @@ country_event = {
 				add_state_core = 68
 				add_state_core = 63
 				add_state_core = 5
+			}
+			else_if = {	#new 11/2023, feel free to remove if theres problems
+				limit = {
+					NOT = {
+						has_war_with = GER
+					}
+				}
+				DDR = { #east Germany except Prussia cores for DDR
+					add_state_core = 66
+					add_state_core = 67
+					add_state_core = 68
+					add_state_core = 63
+					#add_state_core = 5	#Prussia - Ermland-Masuren
+				}
+				SOV = {
+					add_state_claim = 5	#try get them to not create bordergore one-state Germany
+				}
 			}
 		}
 		hidden_effect = {
@@ -8856,8 +8878,13 @@ country_event = {
 			#Give WGR their cores
 			every_state = {
 				limit = {
-					is_owned_and_controlled_by = GER
 					is_core_of = WGR
+					#is_owned_and_controlled_by = GER
+					any_country_with_original_tag = {	#stupid new peace deals
+						original_tag_to_check = GER
+						owns_state = PREV
+						controls_state = PREV
+					}
 				}
 				WGR = {
 					transfer_state = PREV
@@ -8871,8 +8898,13 @@ country_event = {
 			#Give East Germany their cores
 			every_state = {
 				limit = {
-					is_owned_and_controlled_by = GER
 					is_core_of = DDR
+					#is_owned_and_controlled_by = GER
+					any_country_with_original_tag = {		#stupid new peace deals
+						original_tag_to_check = GER
+						owns_state = PREV
+						controls_state = PREV
+					}
 				}
 				DDR = {
 					transfer_state = PREV
@@ -10766,6 +10798,9 @@ country_event = { #Resolves Europe Post Yalta
 							is_owned_and_controlled_by = SOV
 							is_owned_and_controlled_by = ITA
 							is_owned_and_controlled_by = YUG
+							is_owned_and_controlled_by = ROM #new 11/2023 - please dont bordergore Hungary
+							is_owned_and_controlled_by = CZE #new 11/2023 - please dont bordergore Hungary
+							is_owned_and_controlled_by = AUS #new 11/2023 - please dont bordergore Hungary
 						}
 						NOT = {
 							is_core_of = ROM
@@ -13515,6 +13550,12 @@ country_event = { #Germany civil war
 						}
 					}
 				}
+				every_unit_leader = {
+					limit = {
+						has_id = 19 #Johannes Blaskowitz
+					}
+					remove_unit_leader_trait = unpopular #Should be less controversial if Germany is being good
+				}
 				division_template = {
 					name = "Landsturmregiment"
 					is_locked = yes
@@ -14639,6 +14680,9 @@ country_event = { #Ludendorff's health worsens
 		GER_erich_ludendorff = {
 			remove_unit_leader = yes
 		}
+		custom_effect_tooltip = available_political_advisor
+		show_ideas_tooltip = GER_erich_ludendorff
+		set_country_flag = GER_ludendorff_political_advisor
 	}
 	option = { # Give him all the healthcare he needs - he lives longer
 		name = r56.ger.31.b
@@ -14853,13 +14897,14 @@ country_event = { #The military seizes power from Kaiser
 			}
 			add_ideas = GER_wilhelm_iv_idea
 		}
+		GER_kurt_von_hammerstein_equord = {
 		add_country_leader_role = {
-			character = GER_kurt_von_hammerstein_equord
 			promote_leader = yes
 			country_leader = {
 				ideology = oligarchism
-				expire = "1965.1.1.1"
+					expire = "1965.1.1"
 				traits = { SWE_conservatist }
+				}
 			}
 		}
 	}
@@ -14953,6 +14998,264 @@ country_event = { #Kaiser takes power back
 	}
 }
 
+country_event = { #Germany succeeds coup attempt on us
+	id = r56.ger.39
+	title = r56.ger.39.t
+	desc = r56.ger.39.desc
+	picture = GFX_report_event_generic_italian_fascists
+
+	option = {
+		name = r56.ger.39.a
+		ai_chance = {
+			factor = 9
+		}
+		if = {
+			limit = {
+				OR = {	#neutrality coup, take priority
+					has_government = fascism
+					AND = {
+						NOT = {
+							has_government = neutrality
+						}
+						neutrality > 0.3
+					}
+				}
+			}
+			GER = {
+				puppet = PREV
+				if = {
+					limit = {
+						has_dlc = "Death or Dishonor"
+						has_government = fascism
+					}
+					set_autonomy = {
+						target = PREV
+						autonomy_state = autonomy_satellite
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+				else_if = {
+					limit = {
+						has_dlc = "Together for Victory"
+					}
+					set_autonomy = {
+						target = PREV
+						autonomy_state = autonomy_dominion
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+			}
+			set_politics = {	#after puppeting or ideology taken from Germany
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+		}
+		else = {	#fascist coup
+			GER = {
+				puppet = PREV
+				if = {
+					limit = {
+						has_dlc = "Death or Dishonor"
+						has_government = fascism
+					}
+					set_autonomy = {
+						target = PREV
+						autonomy_state = autonomy_satellite
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+				else_if = {
+					limit = {
+						has_dlc = "Together for Victory"
+					}
+					set_autonomy = {
+						target = PREV
+						autonomy_state = autonomy_dominion
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+			}
+			set_politics = {	#after puppeting or ideology taken from Germany
+				ruling_party = fascism
+				elections_allowed = no
+			}
+		}
+	}
+
+	option = {	#civil war
+		name = r56.ger.39.b
+		ai_chance = {
+			factor = 1
+		}
+		if = {
+			limit = {
+				OR = {	#neutrality coup, take priority
+					has_government = fascism
+					AND = {
+						NOT = {
+							has_government = neutrality
+						}
+						neutrality > 0.3
+					}
+				}
+			}
+			start_civil_war = {
+				ideology = neutrality
+				size = 0.4
+				GER = {
+					puppet = PREV
+					if = {
+						limit = {
+							has_dlc = "Together for Victory"
+						}
+						set_autonomy = {
+							target = PREV
+							autonomy_state = autonomy_dominion
+							end_wars = no
+							end_civil_wars = no
+						}
+					}
+				}
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+			}
+		}
+		else = {	#fascist coup
+			start_civil_war = {
+				ideology = fascism
+				size = 0.4
+				GER = {
+					puppet = PREV
+					if = {
+						limit = {
+							has_dlc = "Together for Victory"
+						}
+						set_autonomy = {
+							target = PREV
+							autonomy_state = autonomy_dominion
+							end_wars = no
+							end_civil_wars = no
+						}
+					}
+				}
+				set_politics = {
+					ruling_party = fascism
+					elections_allowed = no
+				}
+			}
+		}
+	}
+
+	is_triggered_only = yes
+}
+
+country_event = { #Germany botches coup attempt on us
+	id = r56.ger.40
+	title = r56.ger.40.t
+	desc = r56.ger.40.desc
+	picture = GFX_report_event_generic_soldiers_surrendering
+
+	is_triggered_only = yes
+
+	option = {
+		name = r56.ger.40.a
+		if = {
+			limit = {
+				is_ai = yes
+			}
+			if = {
+				limit = {
+					is_in_faction_with = GER
+					NOT = {
+						has_war_together_with = GER
+					}
+				}
+				leave_faction = yes
+			}
+		}
+		add_opinion_modifier = {
+			target = GER
+			modifier = hostile_status
+		}
+	}
+}
+
+country_event = { #We succeeded in a coup
+	id = r56.ger.41
+	title = r56.ger.41.t
+	desc = r56.ger.41.desc
+	picture = GFX_report_event_generic_italian_fascists
+
+	is_triggered_only = yes
+	
+	option = {
+		name = r56.ger.41.a
+
+	}
+}
+
+country_event = { #We botched a coup
+	id = r56.ger.42
+	title = r56.ger.42.t
+	desc = r56.ger.42.desc
+	picture = GFX_report_event_generic_soldiers_surrendering
+
+	is_triggered_only = yes
+
+	option = {
+		name = r56.ger.42.a
+
+	}
+}
+
+country_event = { #Germany sends military advisors
+	id = r56.ger.43
+	title = r56.ger.43.t
+	desc = r56.ger.43.d
+	picture = GFX_report_event_soviet_german_soldier_handshake
+
+	is_triggered_only = yes
+
+	option = { # Weclome them
+		name = r56.ger.43.a
+		add_ideas = GER_military_advisors
+		ai_chance = { 
+			base = 2
+		}
+	}
+
+	option = { # Sorry, no
+		name = r56.ger.43.b
+		GER = {
+			country_event = { id = r56.ger.44 days = 1 random_hours = 12 }
+		}
+		ai_chance = { 
+			base = 1
+		}
+	}
+}
+
+country_event = { #Germany sends military advisors
+	id = r56.ger.44
+	title = r56.ger.44.t
+	desc = r56.ger.44.d
+	picture = GFX_report_event_PER_foreign_ministry
+
+	is_triggered_only = yes
+
+	option = { # Alright, their loss
+		name = r56.ger.44.a
+		ai_chance = { 
+			base = 2
+		}
+	}
+}
 
 add_namespace = ger.civil_war
 
@@ -15088,315 +15391,5 @@ country_event = { #
 		}
 		name = ger.renegotiate_versailles.3.a
 		add_political_power = 10
-	}
-}
-
-### RT56RP ###
-add_namespace = rpgermany
-country_event = { # 
-	id = rpgermany.1
-	title = rpgermany.1.t
-	desc =  rpgermany.1.d
-	picture = GFX_report_event_generic_sign_treaty2
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = { # Send the Ultimatum!
-		name = rpgermany.1.b
-		DEN = {
-			country_event = {
-				id = rpgermany.2
-			}
-		}
-	}
-}
-
-country_event = { # Denmark Return Event Y/N
-	id = rpgermany.2
-	title = rpgermany.2.t
-	desc =  rpgermany.2.d
-	picture = GFX_report_event_generic_sign_treaty2
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = { # Oh No, we accept our fate is sealed.
-		ai_chance = { 
-			factor = 50
-		}
-
-		name = rpgermany.2.a
-		GER = {
-			annex_country = {
-				target = DEN
-				transfer_troops = no # Disbandment of the Danish Armed Forces.
-			}
-			country_event = {
-				id = rpgermany.3
-			}
-		}
-	}
-	option = { # Go away! We shall fight till the last man!
-		name = rpgermany.2.b
-		ai_chance = { 
-			factor = 50
-		}
-		GER = {
-			create_wargoal = {
-				type = take_state_focus
-				target = DEN
-				generator = { 99 37 964 }
-			}
-			country_event = {
-				id = rpgermany.3
-			}
-		}
-	}
-}
-
-country_event = { # German Return Event
-	id = rpgermany.3
-	title = rpgermany.3.t
-	desc =  rpgermany.3.d
-	picture = GFX_report_event_generic_sign_treaty2
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-	option = { # Alright! Your choice is made.
-		name = rpgermany.3.a
-	}
-
-}
-
-# Germany US-War Inviting Mexico into faction before war with the US/during.
-country_event = { #Legacy of the Zimmerman Telegram
-	id = rpgermany.4
-	title = rpgermany.4.t
-	desc = rpgermany.4.d
-	picture = GFX_report_event_generic_sign_treaty2
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = { # 
-		name = rpgermany.4.a
-		ai_chance = {
-			factor = 25
-			modifier = { # If Original Canada has fallen increases chance small
-				CAN = { exists = no }
-				factor = 0.5
-			}
-			modifier = { # If they stand a chance to hold the line they will fight
-				factor = 0.1
-				strength_ratio = {
-					tag = USA
-					ratio > 0.70
-				}
-			}
-			modifier = { #decrease if in faction
-				factor = 0.5
-				is_in_faction = yes
-			}
-			modifier = { # Decreases it again if other bordering nations are in Axis
-				any_neighbor_country = {
-					NOT = { tag = USA }
-					is_in_faction_with = USA
-				}
-				factor = -15
-			}
-		}
-		if = {
-			limit ={
-				is_faction_leader = yes
-			}
-			MEX = {
-				country_event = generic.5
-			}
-		}
-		else_if = {
-			limit = {
-				MEX = {
-					is_faction_leader = yes
-				}
-			}
-			MEX = {
-				country_event = generic.2
-			}
-		}
-		else = {
-			create_faction = "Mexican-German Pact"
-			MEX = {
-				country_event = generic.5
-			}
-		}
-		MEX = {
-			add_state_claim = 375
-			add_state_claim = 376
-			add_state_claim = 377
-			add_state_claim = 378
-		}
-	}
-
-	option = { # No Go away.
-		name = rpgermany.4.b
-		ai_chance = {
-			factor = 65
-		}
-	}
-}
-
-country_event = { # Carte Blanche for France
-	id = rpgermany.5
-	title = rpgermany.5.t
-	desc = rpgermany.5.d
-	picture = GFX_report_event_french_resistance_01
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = { # Yes
-		name = rpgermany.5.a
-		ai_chance = {
-			factor = 15
-			modifier = { # If they stand a chance to hold the line they will fight
-				factor = 10
-				strength_ratio = {
-					tag = GER
-					ratio > 0.70
-				}
-			}
-			modifier = { #decrease if in faction
-				factor = 0.5
-				is_in_faction = yes
-			}
-			modifier = { # Decreases it again if other bordering nations are in Axis
-				any_neighbor_country = {
-					NOT = { tag = GER }
-					is_in_faction_with = GER
-				}
-				factor = -15
-			}
-			modifier = {
-				any_neighbor_country = {
-					NOT = { tag = FRA }
-					has_war_with = GER
-				}
-				factor = -10
-			}
-		}
-		GER = {
-			transfer_state = 773
-			transfer_state = 777
-			transfer_state = 28
-		}
-	}
-
-	option = { #  Go Away
-		name = rpgermany.5.b
-		ai_chance = {
-			factor = 75
-		}
-		GER = {
-			create_wargoal = {
-				type = annex_everything
-				target = FRA
-				expire = 0
-			}
-		}
-	}
-}
-
-country_event = { # Peace Offer to USA.
-	id = rpgermany.6
-	title = rpgermany.6.t
-	desc = rpgermany.6.d
-	picture = GFX_report_event_french_resistance_01
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = { # Yes
-		name = rpgermany.6.a
-		ai_chance = {
-			factor = 15
-			modifier = { # If they stand a chance to hold the line they will fight
-				factor = 10
-				strength_ratio = {
-					tag = GER
-					ratio > 0.70
-				}
-			}
-			modifier = { #decrease if in faction
-				factor = 0.5
-				is_in_faction = yes
-			}
-			modifier = { # Decreases it again if other bordering nations are in Axis
-				any_neighbor_country = {
-					NOT = { tag = GER }
-					is_in_faction_with = GER
-				}
-				factor = -15
-			}
-			modifier = {
-				any_neighbor_country = {
-					NOT = { tag = FRA }
-					has_war_with = GER
-				}
-				factor = -10
-			}
-		}
-		GER = {
-			transfer_state = 366
-			transfer_state = 365
-			transfer_state = 364
-			transfer_state = 363
-			transfer_state = 367
-			transfer_state = 370
-			transfer_state = 371
-			transfer_state = 375
-			transfer_state = 368
-			transfer_state = 362
-			transfer_state = 372
-			transfer_state = 374
-			white_peace = USA
-			GER = { country_event = { id = rpgermany.8 } }
-		}
-	}
-
-	option = { # Damn you!
-		name = rpgermany.6.b
-		ai_chance = {
-			factor = 75
-		}
-		GER = { country_event = { id = rpgermany.7 } }
-	}
-}
-
-country_event = { # Response Event #1 - Negative Chief war it will be and we shall fight to the bitter end!
-	id = rpgermany.7
-	title = rpgermany.7.t
-	desc = rpgermany.7.d
-	picture = GFX_report_event_french_resistance_01
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = { # Damn YOU!
-		name = rpgermany.7.a
-	
-	}
-}
-
-country_event = { # Response Event #2 Peace and conquest achieved.
-	id = rpgermany.8
-	title = rpgermany.8.t
-	desc = rpgermany.8.d
-	picture = GFX_report_event_french_resistance_01
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	option = { # Thank God they saw reason! End this Bloodshed
-		name = rpgermany.8.a
-	
 	}
 }

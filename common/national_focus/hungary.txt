@@ -328,6 +328,8 @@ focus_tree = {
 				}
 				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
 				set_variable = { r56rp_rules_fp_controlled = 4 }
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
 			}
 			
 			set_cosmetic_tag = HUN_EMPIRE
@@ -889,11 +891,12 @@ focus_tree = {
 			is_subject = no
 			has_army_manpower = { size > 300000 }
 			any_state = {
-				OR = {
+				OR = {	#made to match bypass - which had one more state excluding the one I replaced here that was the Suez
 					state = 736
 					state = 160
 					state = 39
-					state = 911
+					state = 850
+					state = 852
 					state = 912
 				}
 				custom_trigger_tooltip = {
@@ -6047,8 +6050,23 @@ focus_tree = {
 				}
 				set_state_flag = HUN_boost_hungarian_aviation_industry_AF1
 			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = HUN_ikarus_organization
+				mio:HUN_ikarus_organization = {
+					add_mio_size = 2
+
+				}
+			}			
+			else = {
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = HUN_ikarus	
+		}
+
+
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -7532,17 +7550,6 @@ focus_tree = {
 				mio:HUN_ganz_danubius_organization = {
 					add_mio_funds = 2500
 				}
-#					unlock_mio_trait_tooltip  = {
-#						department = HUN_mio_department_design_ship_capital_screen_weapons
-#						trait = HUN_mio_trait_naval_warfare
-#					}
-#				}
-
-			}
-
-			else = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = HUN_ganz_danubius
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }

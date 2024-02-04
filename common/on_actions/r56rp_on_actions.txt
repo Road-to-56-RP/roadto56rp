@@ -1,4 +1,4 @@
-on_actions={
+on_actions = {
 	on_startup = {
 		effect = {
 			every_country = {
@@ -32,11 +32,164 @@ on_actions={
 				set_global_flag = hard_difficulty
 
 				#hidden idea to make garrisons militia and irregurals free
-				add_ideas = r56rp_unit_design 
+				add_ideas = r56rp_unit_design
 
+				# sets fuel stockpiles for every nation to full, to avoid game start stockpile buying.
+				set_fuel_ratio = 1
+
+				## prints out game start factories for stat tracking.
+				IF = {
+					limit = {
+						num_of_factories > 25
+					}
+					log = "<R56RP_LOG_ET> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_controlled_factories];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
+				}
 			}
 		}
 	}
+
+	on_monthly = {
+		effect = {
+			## Logging, outputs text into game.txt log file next to saves.
+			## for every nation with more than 25 factories, outputs industry amount to a text file, can make a chart out of it later for aftergame.
+			THIS = {
+				IF = {
+					limit = {
+						num_of_factories > 25
+					}
+					log = "<R56RP_LOG_ET> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_controlled_factories];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
+				}
+			}
+			## outputs date monthly, and since its inside of an error log, itll append the ingame date to hosts local time.
+			## easy way to track time passage.
+			#random_country = {
+			#	log = "<R56RP_LOG> CD"
+			#}
+
+		}
+	}
+	on_send_volunteers = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-V-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-V-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_war_relation_added = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-WR-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-WR-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_create_faction = {
+		effect = {
+			log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-FC-0;[ROOT.GetTag];[FROM.GetTag];[ROOT.GetFactionName]"
+		}
+	}
+	on_join_faction = {
+		effect = {
+			log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-FJ-0;[ROOT.GetTag];[FROM.GetTag];[ROOT.GetFactionName]"
+		}
+	}
+	on_leave_faction = {
+		effect = {
+			log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-FL-0;[ROOT.GetTag];[FROM.GetTag];[ROOT.GetFactionName]"
+		}
+	}
+	on_capitulation = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-C-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-C-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_puppet = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-P-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-P-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_release_as_free = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RF-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RF-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_release_as_puppet = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RP-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RP-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_liberate = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RL-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-RL-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+	on_annex = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+				}
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-A-P;[ROOT.GetTag];[FROM.GetTag]"
+			}
+			ELSE = {
+				log = "<R56RP_LOG_FT> ;[?global.date.GetDateStringNoHour];N-A-A;[ROOT.GetTag];[FROM.GetTag]"
+			}
+		}
+	}
+
+
+
 	#########################################
 	## State Integration Dynamic Core Cost ##
 	#########################################
@@ -459,73 +612,6 @@ on_actions={
 		}
 	}
 
-	######################
-	## Civilian Oil Use ##
-	######################
-
-#	on_startup = { 
-#		effect = {
-#			every_country = {
-#				#limit = {
-#				#	is_ai = no
-#				#}
-#				add_dynamic_modifier = {
-#					modifier = r56rp_civoil_modifier
-#				}
-#			}
-#			every_country = {
-#				limit = {
-#					num_of_civilian_factories < 10
-#				}
-#				set_variable = { r56rp_civoil_base_fuel_gain_modifier = 0 }
-#			}
-#			every_country = {
-#				limit = {
-#					num_of_civilian_factories > 10
-#				}
-#				add_to_temp_variable = { r56rp_factory_oil = num_of_factories }
-#				divide_temp_variable = { r56rp_factory_oil = 30 }
-#
-#				add_to_temp_variable = { r56rp_manpower_oil = max_manpower_k }
-#				divide_temp_variable = { r56rp_manpower_oil = 15000 }
-#
-#				multiply_temp_variable = { r56rp_factory_oil = -1 }
-#				multiply_temp_variable = { r56rp_manpower_oil = -1 }
-#
-#				set_variable = { r56rp_civoil_base_fuel_gain_modifier = r56rp_factory_oil }
-#				add_to_variable = { r56rp_civoil_base_fuel_gain_modifier = r56rp_manpower_oil }
-#			}
-#		}
-#	}
-#	on_weekly = {
-#		effect = {
-#			every_country = {
-#				limit = {
-#					num_of_controlled_factories < 15
-#				}
-#				set_variable = { r56rp_civoil_base_fuel_gain_modifier = 0 }
-#			}
-#			every_country = {
-#				limit = {
-#					num_of_controlled_factories > 15
-#				}
-#				add_to_temp_variable = { r56rp_factory_oil = num_of_factories }
-#				divide_temp_variable = { r56rp_factory_oil = 15 }
-#
-#				add_to_temp_variable = { r56rp_manpower_oil = max_manpower_k }
-#				divide_temp_variable = { r56rp_manpower_oil = 2500 }
-#
-#				multiply_temp_variable = { r56rp_factory_oil = -1 }
-#				multiply_temp_variable = { r56rp_manpower_oil = -1 }
-#
-#				set_variable = { r56rp_civoil_base_fuel_gain_modifier = r56rp_factory_oil }
-#				add_to_variable = { r56rp_civoil_base_fuel_gain_modifier = r56rp_manpower_oil }
-#				#round_variable = r56rp_civoil_base_fuel_gain_modifier
-#				#log = "Current fuel consumption: [?THIS.r56rp_civoil_base_fuel_gain_modifier]"
-#			}
-#		}
-#	}
-
 	########################
 	## Axis Pack Reminder ##
 	########################
@@ -577,6 +663,24 @@ on_actions={
 				hidden_effect = {
 					set_technology = {
 						tech_special_forces = 1
+						popup = no
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					OR = {
+						has_tech = basic_naval_mines
+						has_tech = submarine_mine_laying
+					}
+				}
+				hidden_effect = {
+					set_technology = {
+						basic_naval_mines = 0
+						popup = no
+					}
+					set_technology = {
+						submarine_mine_laying = 0
 						popup = no
 					}
 				}
