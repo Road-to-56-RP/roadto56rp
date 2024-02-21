@@ -525,6 +525,7 @@ focus_tree = {
 				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_2 }
 			}
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -619,6 +620,7 @@ focus_tree = {
 				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_3 }
 			}
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -709,6 +711,7 @@ focus_tree = {
 				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_4 }
 			}
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -741,6 +744,7 @@ focus_tree = {
 		available = {
 			SOV_third_five_year_plan_available = yes
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
@@ -845,6 +849,7 @@ focus_tree = {
 				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_3 }
 			}
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -912,6 +917,7 @@ focus_tree = {
 				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_4 }
 			}
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -979,6 +985,7 @@ focus_tree = {
 			}
 			SOV_third_five_year_plan_available = yes
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STEEL }
@@ -1095,6 +1102,7 @@ focus_tree = {
 			has_tech = rubber_plant_a
 			SOV_third_five_year_plan_available = yes
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 			has_full_control_of_state = 219 #MOSCOW
 			OR = {
 				has_full_control_of_state = 260 #VORONEZH
@@ -1168,6 +1176,7 @@ focus_tree = {
 		available = {
 			SOV_third_five_year_plan_available = yes
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL }
@@ -1328,6 +1337,7 @@ focus_tree = {
 		available = {
 			SOV_fourth_five_year_plan_available = yes
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_PROPAGANDA}
@@ -1367,6 +1377,7 @@ focus_tree = {
 				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_5 }
 			}
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
+			NOT = { has_completed_focus = SOV_russian_corporate_state }
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
@@ -18944,6 +18955,20 @@ focus_tree = {
 			#has_idea = SOV_consolidate_power
 		}
 
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+                NOT = {
+                    has_completed_focus = SOV_romanov_reconstruction
+                    has_completed_focus = SOV_dismantle_the_zemsky_sobor
+                }
+            }
+		}
 		completion_reward = {
 			custom_effect_tooltip = SOV_solidify_the_provisional_government_tt
 			SOV_aleksandr_kerensky = {
@@ -25219,7 +25244,34 @@ focus = {
 		}
 		
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY}
+		
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+                NOT = {
+                    has_completed_focus = SOV_romanov_reconstruction
+                    has_completed_focus = SOV_solidify_the_provisional_government
+                }
+            }
+		} 
 
+		offset = {
+			x = -5
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = SOV_dismantle_the_zemsky_sobor
+			}
+		}
+		
 		completion_reward = {
 			hidden_effect = {
 				set_temp_variable = {
@@ -25258,10 +25310,146 @@ focus = {
 	}
 
 	focus = {
+		id = r56rp_SOV_leader1
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = SOV_dismantle_the_zemsky_sobor }
+		mutually_exclusive = { focus = r56rp_SOV_leader2 }
+		relative_position_id = SOV_dismantle_the_zemsky_sobor
+		x = 1
+		y = 1
+		cost = 5
+
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+            }
+			has_completed_focus = SOV_dismantle_the_zemsky_sobor
+		}
+		completion_reward = {
+			set_popularities = {
+				democratic = 0
+				neutrality = 50
+				fascism = 50
+				communism = 0
+			}
+		}
+
+	}
+	focus = {
+		id = r56rp_SOV_leader2
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = SOV_dismantle_the_zemsky_sobor }
+		relative_position_id = SOV_dismantle_the_zemsky_sobor
+		mutually_exclusive = { focus = r56rp_SOV_leader1 }
+		x = -1
+		y = 1
+		cost = 5
+
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+            }
+			has_completed_focus = SOV_dismantle_the_zemsky_sobor
+		}
+
+		completion_reward = {
+			set_popularities = {
+				democratic = 0
+				neutrality = 50
+				fascism = 50
+				communism = 0
+			}
+		}
+
+	}
+	focus = {
+		id = r56rp_SOV_leader3
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_leader1 }
+		relative_position_id = r56rp_SOV_leader1
+		x = 2
+		y = 1
+		cost = 5
+
+	}
+	focus = {
+		id = r56rp_SOV_leader4
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_leader2 }
+		relative_position_id = r56rp_SOV_leader2
+		x = -2
+		y = 1
+		cost = 5
+
+	}
+	focus = {
+		id = r56rp_SOV_leader5
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_leader1 }
+		relative_position_id = r56rp_SOV_leader1
+		x = 0
+		y = 1
+		cost = 5
+
+	}
+	focus = {
+		id = r56rp_SOV_leader6
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_leader2 }
+		relative_position_id = r56rp_SOV_leader2
+		x = 0
+		y = 1
+		cost = 5
+
+	}
+	focus = {
+		id = r56rp_SOV_leader7
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_leader3 }
+		prerequisite = { focus = r56rp_SOV_leader5 }
+		relative_position_id = r56rp_SOV_leader5
+		x = 1
+		y = 1
+		cost = 5
+
+	}
+	focus = {
+		id = r56rp_SOV_leader8
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_leader4 }
+		prerequisite = { focus = r56rp_SOV_leader6 }
+		relative_position_id = r56rp_SOV_leader6
+		x = -1
+		y = 1
+		cost = 5
+
+	}
+	focus = {
+		id = r56rp_SOV_leader9
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_leader8  focus = r56rp_SOV_leader7 }
+		relative_position_id = r56rp_SOV_leader8
+		x = 2
+		y = 1
+		cost = 5
+
+	}
+
+	focus = {
 		id = SOV_russian_corporate_state
 		icon = GFX_goal_FRA_class_collaboration
 		prerequisite = { focus = SOV_dismantle_the_zemsky_sobor }
-		x = 2
+		x = 18
 		y = 1
 		relative_position_id = SOV_dismantle_the_zemsky_sobor
 		cost = 10
@@ -25284,6 +25472,18 @@ focus = {
 			add_ideas = SOV_russian_corporate_state
 		}
 
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+            }
+			has_completed_focus = SOV_dismantle_the_zemsky_sobor
+		}
+		
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -25321,7 +25521,208 @@ focus = {
 				set_state_flag = SOV_russian_corporate_state_2IC
 			}
 			add_ideas = SOV_russian_corporate_state
+			custom_effect_tooltip = SOV_curtailment_of_the_collective_farms_tt
 		}
+	}
+	
+	focus = {
+		id = r56rp_SOV_eco1
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = SOV_russian_corporate_state }
+		relative_position_id = SOV_russian_corporate_state
+		x = 1
+		y = 1
+		cost = 10
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+
+	}
+	
+	focus = {
+		id = r56rp_SOV_fascist_trade_syndicate
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = SOV_russian_corporate_state }
+		relative_position_id = SOV_russian_corporate_state
+		x = -1
+		y = 1
+		cost = 10
+		
+		completion_reward = {
+			add_ideas = r56rp_SOV_russian_corporate_state_1
+			hidden_effect= {
+				remove_ideas = SOV_russian_corporate_state
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+		
+	focus = {
+		id = r56rp_SOV_kamo_detachment
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_fascist_trade_syndicate  }
+		relative_position_id = r56rp_SOV_fascist_trade_syndicate
+		x = 0
+		y = 1
+		cost = 5
+		
+		completion_reward = {
+			add_ideas = r56rp_SOV_kamo_detachment
+		}
+	}
+	focus = {
+		id = r56rp_SOV_invite_manchurian_industrialists
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco1  }
+		relative_position_id = r56rp_SOV_eco1
+		x = 0
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco4
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco3 }
+		relative_position_id = r56rp_SOV_eco3
+		mutually_exclusive = { focus = r56rp_SOV_eco5}
+		x = -1
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco5
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco3  }
+		relative_position_id = r56rp_SOV_eco3
+		mutually_exclusive = { focus = r56rp_SOV_eco4}
+		x = 1
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco3
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_kamo_detachment  }
+		prerequisite = { focus = r56rp_SOV_invite_manchurian_industrialists  }
+		relative_position_id = r56rp_SOV_invite_manchurian_industrialists
+		x = -1
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco6
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco4  }
+		relative_position_id = r56rp_SOV_eco4
+		x = -2
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco7
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco4  }
+		relative_position_id = r56rp_SOV_eco4
+		x = 0
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco8
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco5 }
+		relative_position_id = r56rp_SOV_eco5
+		x = 0
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco9
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco5 }
+		relative_position_id = r56rp_SOV_eco5
+		x = 2
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco10
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco6 }
+		prerequisite = { focus = r56rp_SOV_eco7 }
+		relative_position_id = r56rp_SOV_eco6
+		x = 1
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco11
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco8 }
+		prerequisite = { focus = r56rp_SOV_eco9 }
+		relative_position_id = r56rp_SOV_eco9
+		x = -1
+		y = 1
+		cost = 5
+		
+	}
+	focus = {
+		id = r56rp_SOV_eco12
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = r56rp_SOV_eco10 focus = r56rp_SOV_eco11 }
+		relative_position_id = r56rp_SOV_eco10
+		x = 2
+		y = 1
+		cost = 5
+		
 	}
 
 	focus = {
@@ -25338,6 +25739,21 @@ focus = {
 		}
 
 		search_filters = {FOCUS_FILTER_POLITICAL}
+
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+                NOT = {
+                    has_completed_focus = SOV_dismantle_the_zemsky_sobor
+                    has_completed_focus = SOV_solidify_the_provisional_government
+                }
+            }
+		}
 
 		completion_reward = {
 			add_timed_idea = {
@@ -25480,6 +25896,18 @@ focus = {
 		available_if_capitulated = yes
 		
 		search_filters = {FOCUS_FILTER_POLITICAL}
+
+		offset = {
+			x = -11
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = SOV_dismantle_the_zemsky_sobor
+			}
+		}
 
 		completion_reward = {
 			hidden_effect = {
@@ -25740,6 +26168,12 @@ focus = {
 		
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
 
+		available = {
+			NOT = {
+				has_completed_focus = SOV_dismantle_the_zemsky_sobor
+			}
+		}
+
 		completion_reward = {
 			add_ideas = SOV_legacy_of_rome
    			set_cosmetic_tag = SOV_ROME
@@ -25790,6 +26224,18 @@ focus = {
 			}
 		}
 
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = SOV_dismantle_the_zemsky_sobor
+			}
+		}
+		
 		completion_reward = {
 			create_wargoal = { type = annex_everything target = MON }		
 		}
@@ -25814,6 +26260,18 @@ focus = {
 			has_full_control_of_state = 213
 			has_full_control_of_state = 214
 			has_full_control_of_state = 208
+		}
+
+		offset = {
+			x = -3
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = SOV_dismantle_the_zemsky_sobor
+			}
 		}
 
 		completion_reward = {
@@ -26375,6 +26833,18 @@ focus = {
 			}
 		}
 
+		offset = {
+			x = 2
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = SOV_dismantle_the_zemsky_sobor
+			}
+		}
+
 		completion_reward = {
 			create_wargoal = { type = annex_everything target = ROM }
 		}
@@ -26398,6 +26868,18 @@ focus = {
 			has_full_control_of_state = 408
 			has_full_control_of_state = 409
 			has_full_control_of_state = 657
+		}
+
+		offset = {
+			x = 10
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = SOV_dismantle_the_zemsky_sobor
+			}
 		}
 
 		completion_reward = {
@@ -26534,7 +27016,6 @@ focus = {
 		x = 1
 		y = 1
 		relative_position_id = SOV_eastern_expansion
-		mutually_exclusive = { focus = SOV_into_central_asia }
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -26644,7 +27125,6 @@ focus = {
 		x = -1
 		y = 1
 		relative_position_id = SOV_eastern_expansion
-		mutually_exclusive = { focus = SOV_intervention_in_the_americas }
 		cost = 5
 		ai_will_do = {
 			factor = 1
@@ -26731,6 +27211,17 @@ focus = {
 			}
 		}
 	}
+	focus = {
+		id = r56rp_SOV_funny1
+		icon = GFX_goal_FRA_class_collaboration
+		prerequisite = { focus = SOV_the_last_break_southward  }
+		prerequisite = { focus = SOV_restore_the_old_eastern_empire }
+		relative_position_id = SOV_the_last_break_southward
+		x = 1
+		y = 1
+		cost = 5
+		
+	}
 
 	focus = {
 		id = SOV_rebuild_the_far_eastern_fleet
@@ -26806,7 +27297,7 @@ focus = {
 		id = SOV_modernize_the_far_eastern_fleet
 		icon = GFX_focus_generic_navy_battleship2
 		prerequisite = { focus = SOV_rebuild_the_far_eastern_fleet }
-		x = -2
+		x = -4
 		y = 1
 		relative_position_id = SOV_rebuild_the_far_eastern_fleet
 		cost = 10
@@ -26815,6 +27306,20 @@ focus = {
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP}
+
+		
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+            }
+			has_completed_focus = SOV_dismantle_the_zemsky_sobor
+		}
+
 
 		completion_reward = {
 			navy_experience = 25
@@ -26833,6 +27338,96 @@ focus = {
 				idea = SOV_modernize_the_far_eastern_fleet
 				days = 730
 			}
+		}
+	}
+	focus = {
+		id = r56rp_SOV_tsushima_never_again
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = { focus = SOV_modernize_the_far_eastern_fleet }
+		x = 0
+		y = 1
+		relative_position_id = SOV_modernize_the_far_eastern_fleet
+		cost = 15
+		ai_will_do = {
+			factor = 1
+		}
+		
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP}
+		
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+            }
+			has_completed_focus = SOV_dismantle_the_zemsky_sobor
+		}
+		
+		completion_reward = {
+			add_ideas = r56rp_SOV_revenge_for_tsushima
+		}
+	}
+	focus = {
+		id = r56rp_SOV_navy1
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = { focus = r56rp_SOV_tsushima_never_again }
+		x = 1
+		y = 1
+		relative_position_id = r56rp_SOV_tsushima_never_again
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP}
+		
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+            }
+			has_completed_focus = SOV_dismantle_the_zemsky_sobor
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = r56rp_SOV_navy2
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = { focus = r56rp_SOV_tsushima_never_again }
+		x = -1
+		y = 1
+		relative_position_id = r56rp_SOV_tsushima_never_again
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP}
+		
+		allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+            }
+			has_completed_focus = SOV_dismantle_the_zemsky_sobor
+		}
+		
+		completion_reward = {
+			add_political_power = 100
 		}
 	}
 
@@ -26877,6 +27472,30 @@ focus = {
 				idea = SOV_memories_of_1905_idea
 				days = 365
 			}
+		}
+	}
+	focus = {
+		id = r56rp_SOV_zheltrossiya
+		icon = GFX_goal_war_infrastructure
+		prerequisite = { focus = SOV_the_lonely_island }
+		x = 1
+		y = 1
+		relative_position_id = SOV_the_lonely_island
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = {
+				is_puppet_of = JAP
+			}
+		}
+
+		
+		search_filters = {FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP}
+
+		completion_reward = {
+			add_political_power = 100
 		}
 	}
 
@@ -26943,7 +27562,7 @@ focus = {
 		id = SOV_an_empire_in_the_pacific
 		icon = GFX_focus_SOV_pacific_empire
 		prerequisite = { focus = SOV_the_lonely_island }
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = SOV_the_lonely_island
 		cost = 10
