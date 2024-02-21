@@ -2001,19 +2001,11 @@ focus_tree = {
 				threat = 3
 				name = GER_rhineland
 			}
-			42 = {
-				set_demilitarized_zone = no
-			}
-			51 = {
-				set_demilitarized_zone = no
-			}
-			989 = {
-				set_demilitarized_zone = no
-			}
-			922 = {
-				set_demilitarized_zone = no
-			}
-			923 = {
+			every_core_state = {
+				limit = {
+					is_demilitarized_zone = yes
+					region = 7
+				}
 				set_demilitarized_zone = no
 			}
 			if = {
@@ -15502,7 +15494,10 @@ focus_tree = {
 			has_government = communism
 		}
 		completion_reward = {
-			add_ideas = GER_r56rp_socialist_consumer_market
+			swap_ideas = {
+				remove_idea = GER_r56rp_collectivize_industry_idea
+				add_idea = GER_r56rp_socialist_consumer_market
+			}
 		}
 	}
 	focus = {
@@ -15525,16 +15520,15 @@ focus_tree = {
 			has_government = communism
 		}
 		completion_reward = {
-		if = {
-				limit = {
-					NOT = {
-						has_idea = tot_economic_mobilisation
-					}
-				}
-				add_ideas = tot_economic_mobilisation
-				add_ideas = GER_r56rp_war_communism_enacted
+			r56rp_swap_to_tot_mob = yes
+
+			swap_ideas = {
+				remove_idea = GER_r56rp_collectivize_industry_idea
+				add_idea = GER_r56rp_war_communism_enacted
 			}
 		}
+			
+		
 	}
 	focus = {
 		id = GER_r56rp_progress_cult
