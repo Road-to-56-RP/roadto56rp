@@ -10461,7 +10461,7 @@ focus_tree = {
 		prerequisite = { focus = SOV_left_opposition_coup }
 	
 		x = 2
-		y = 1
+		y = 1.5
 		relative_position_id = SOV_left_opposition_coup
 		cost = 10
 
@@ -11095,7 +11095,7 @@ focus_tree = {
 		mutually_exclusive = { focus = SOV_strengthen_the_trade_unions }
 		offset = {
 			x = -1
-			y = 0
+			y = -1
 			trigger = {
 				NOT = { has_dlc = "No Step Back"}
 			}
@@ -11733,7 +11733,7 @@ focus_tree = {
 		icon = GFX_goal_FRA_help_the_spanish_republicans
 		prerequisite = { focus = SOV_covert_support_for_spanish_poum }
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = SOV_covert_support_for_spanish_poum
 		cost = 5
 		available = {
@@ -11844,27 +11844,7 @@ focus_tree = {
 				custom_effect_tooltip = SOV_coup_detat_success_tt
 				hidden_effect = {
 					set_global_flag = SOV_soviet_civil_war_over
-					SOV_remove_paranoia_effect = yes 
-					country_event = {
-						id = NSB_soviet_communist_civil_war.002
-						hours = 1
-					}
-					# Renaming of cities
-					country_event = {
-						id = NSB_soviet_civil_war_common.010
-						days = 14
-						random_days = 7
-					}
-					# Bring Exiled Characters back
-					hidden_effect = {
-						every_character = {
-							limit = {
-								has_character_flag = SOV_exiled_flag
-								has_character_flag = SOV_aligned_right_opposition_flag
-							}
-							clr_character_flag = SOV_exiled_flag
-						}
-					}
+					SOV_remove_paranoia_effect = yes
 				}
 			}
 			
@@ -11894,7 +11874,7 @@ focus_tree = {
 		icon = GFX_focus_SOV_the_last_purge
 		prerequisite = { focus = SOV_coup_detat }
 		mutually_exclusive = { focus = SOV_return_democracy_to_the_party }
-		x = -4
+		x = -5
 		y = 1
 		relative_position_id = SOV_coup_detat
 		cost = 5
@@ -11921,28 +11901,40 @@ focus_tree = {
 	}
 
 	focus = {
-		id = SOV_the_power_of_the_peasantry
+		id = SOV_r56rp_the_final_moscow_trial
 		icon = GFX_focus_SOV_breadbasket_of_the_union
 		prerequisite = { focus = SOV_coup_detat }
 		x = -2
 		y = 1
 		relative_position_id = SOV_coup_detat
-		cost = 5
-		available = {
-			NOT = { has_global_flag = SOV_soviet_civil_war_over }
+		cost = 1
+		available = {  has_global_flag = SOV_soviet_civil_war_over 
 		}
 		                
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER}
 
 		completion_reward = {
-			add_popularity = {
-				ideology = communism
-				popularity = 0.05
-			}
-			add_timed_idea = {
-				idea = SOV_support_of_the_peasants_idea
-				days = 365
-			}
+
+					country_event = {
+						id = NSB_soviet_communist_civil_war.002
+						hours = 1
+					}
+					# Renaming of cities
+					country_event = {
+						id = NSB_soviet_civil_war_common.010
+						days = 14
+						random_days = 7
+					}
+					# Bring Exiled Characters back
+					hidden_effect = {
+						every_character = {
+							limit = {
+								has_character_flag = SOV_exiled_flag
+								has_character_flag = SOV_aligned_right_opposition_flag
+							}
+							clr_character_flag = SOV_exiled_flag
+						}
+					}
 		}
 	}
 
@@ -11950,7 +11942,7 @@ focus_tree = {
 		id = SOV_curtailment_of_the_collective_farms
 		icon = GFX_focus_renounce_the_treaty_of_trianon
 		prerequisite = { focus = SOV_coup_detat }
-		x = 2
+		x = 4
 		y = 1
 		relative_position_id = SOV_coup_detat
 		cost = 10
@@ -11968,11 +11960,11 @@ focus_tree = {
 	focus = {
 		id = SOV_administrative_reforms
 		icon = GFX_generic_goal_communist_reforms
-		prerequisite = { focus = SOV_curtailment_of_the_collective_farms }
-		mutually_exclusive = { focus = SOV_a_new_theory_of_revolution }
-		x = -4
+		prerequisite = { focus = SOV_r56rp_the_final_moscow_trial }
+		mutually_exclusive = { focus = SOV_a_new_theory_of_revolution focus = SOV_r56rp_a_star_Reborn focus = SOV_r56rp_great_agitator }
+		x = -1
 		y = 1
-		relative_position_id = SOV_curtailment_of_the_collective_farms
+		relative_position_id = SOV_r56rp_the_final_moscow_trial
 		cost = 10
 		available = {
 			has_character = SOV_aleksey_rykov
@@ -11985,15 +11977,76 @@ focus_tree = {
 			add_ideas = SOV_administrative_reforms_idea
 		}
 	}
+	focus = {
+		id = SOV_r56rp_great_agitator
+		icon = GFX_postive_heroism
+		prerequisite = { focus = SOV_r56rp_the_final_moscow_trial }
+		mutually_exclusive = { focus = SOV_a_new_theory_of_revolution focus = SOV_r56rp_a_star_Reborn focus = SOV_administrative_reforms }
+		x = 3
+		y = 1
+		relative_position_id = SOV_r56rp_the_final_moscow_trial
+		cost = 10
+		available = {
+			has_character = SOV_grigory_zinovyev
+		}
+		                
+		search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY}
+
+		completion_reward = {
+			add_war_support = 0.05
+			add_ideas = SOV_r56rp_great_agitators
+		}
+	}
+	focus = {
+		id = SOV_r56rp_a_star_Reborn
+		icon = GFX_fifth_column
+		prerequisite = { focus = SOV_r56rp_the_final_moscow_trial }
+		mutually_exclusive = { focus = SOV_administrative_reforms focus = SOV_a_new_theory_of_revolution focus = SOV_r56rp_great_agitator }
+		x = -3
+		y = 1
+		relative_position_id = SOV_r56rp_the_final_moscow_trial
+		cost = 10
+		available = {
+			SOV_lev_kamenev = { is_country_leader = yes }
+		}
+		                
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_RESEARCH}
+
+		completion_reward = {
+			add_political_power = 75
+			IF = {
+				limit = { has_character = SOV_lev_kamenev }
+				if = {
+					limit = {
+						SOV_lev_kamenev = { is_country_leader = yes }
+					}
+					swap_ruler_traits = {
+						remove = the_faded_star
+						add = the_star_reborn
+					}
+				}
+				else = {
+					effect_tooltip = {
+						add_trait = {
+							character = SOV_lev_kamenev
+							slot = country_leader
+							trait = the_star_reborn
+						}
+					}
+				}
+			}
+		}
+	}
+
 
 	focus = {
 		id = SOV_a_new_theory_of_revolution
 		icon = GFX_goal_generic_farming
-		prerequisite = { focus = SOV_curtailment_of_the_collective_farms }
-		mutually_exclusive = { focus = SOV_administrative_reforms }
-		x = -2
+		prerequisite = { focus = SOV_r56rp_the_final_moscow_trial }
+		mutually_exclusive = { focus = SOV_administrative_reforms focus = SOV_r56rp_a_star_Reborn focus = SOV_r56rp_great_agitator }
+		x = 1
 		y = 1
-		relative_position_id = SOV_curtailment_of_the_collective_farms
+		relative_position_id = SOV_r56rp_the_final_moscow_trial
 		cost = 10
 		available = {
 			SOV_nikolay_bukharin = { is_country_leader = yes }
@@ -12031,7 +12084,7 @@ focus_tree = {
 		id = SOV_back_to_the_nep
 		icon = GFX_goal_generic_major_diplo
 		prerequisite = { focus = SOV_curtailment_of_the_collective_farms }
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = SOV_curtailment_of_the_collective_farms
 		cost = 10
@@ -12184,8 +12237,8 @@ focus_tree = {
 	focus = {
 		id = SOV_incorporate_local_organizations
 		icon = GFX_goal_generic_major_alliance
-		prerequisite = { focus = SOV_administrative_reforms focus = SOV_a_new_theory_of_revolution }
-		x = 0
+		prerequisite = { focus = SOV_administrative_reforms focus = SOV_a_new_theory_of_revolution focus = SOV_r56rp_a_star_Reborn focus = SOV_r56rp_great_agitator }
+		x = 1
 		y = 2
 		relative_position_id = SOV_administrative_reforms
 		cost = 5
@@ -12350,9 +12403,9 @@ focus_tree = {
 	focus = {
 		id = SOV_international_revolutionary_marxist_centre
 		icon = GFX_focus_spr_unify_the_london_bureau
-		prerequisite = { focus = SOV_a_new_theory_of_revolution focus = SOV_administrative_reforms }
+		prerequisite = { focus = SOV_a_new_theory_of_revolution focus = SOV_administrative_reforms focus = SOV_r56rp_a_star_Reborn focus = SOV_r56rp_great_agitator}
 		prerequisite = { focus = SOV_planned_economy }
-		x = 0
+		x = 2
 		y = 2
 		relative_position_id = SOV_a_new_theory_of_revolution
 		cost = 5
@@ -19016,10 +19069,6 @@ focus_tree = {
 			add_popularity = {
 				ideology = democratic 
 				popularity = -0.1
-			}
-			custom_effect_tooltip = SOV_r56rp_USR_tt
-			hidden_effect = {
-			set_cosmetic_tag = R56RP_SOV_GORB
 			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
