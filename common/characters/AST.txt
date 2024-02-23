@@ -95,17 +95,33 @@ characters = {
 			id = -1
 		}
 	}
-	AST_alexander_hore_ruthven= {
+        AST_alexander_hore_ruthven= {
 		name = "Alexander Hore-Ruthven"
 		portraits = {
 			civilian = {
 				large = "gfx/leaders/AST/r56_portrait_AST_Alexander_Hore_Ruthven.dds"
 			}
+			army = {
+				small = "GFX_idea_AST_alexander_hore_ruthven"            #small="GFX_idea_generic_political_advisor_europe_1"
+			}
 		}
 		country_leader = {
-			ideology = centrism
+			ideology = Oligarchism
 			expire = "1965.1.1"
 			id = -1
+		}
+			advisor = {
+			slot = political_advisor
+			idea_token = AST_alexander_hore_ruthven
+			allowed = {
+				#original_tag = AST
+			}
+			traits = {
+				staunch_monarchist
+			}
+			available = {
+				has_completed_focus = AST_R56_royalist_propoganda
+			}
 		}
 	}
 	AST_rod_hull = {
@@ -214,41 +230,6 @@ characters = {
 					military_theorist
 				}
 			}
-		}
-	}
-		ENG_bernard_montgomery={
-		name=ENG_bernard_montgomery
-		portraits={
-			army={
-				small="GFX_idea_bernard_montgomery"
-			}
-			army={
-				large="gfx/leaders/ENG/Portrait_Britain_Bernard_Montgomery.dds"
-			}
-		}
-		advisor = {
-			cost = 150
-			slot = theorist
-			idea_token = bernard_montgomery
-			ledger = army
-			
-
-			visible = {
-				has_completed_focus = AST_r56rp_invite_british_upper_class_generals
-			}
-			
-			traits = {
-				grand_battle_plan_expert
-			}
-		}
-		field_marshal={
-			traits={ inflexible_strategist trait_cautious media_personality organizer logistics_wizard offensive_doctrine }
-			skill=4
-			attack_skill=2
-			defense_skill=4
-			planning_skill=3
-			logistics_skill=4
-			legacy_id=996
 		}
 	}
 	AST_henry_wynter = {
@@ -938,89 +919,6 @@ characters = {
 		}
 	}
 	### POLITICAL ADVISORS ###
-	AST_alexander_hore_ruthven = {
-		name = "AST_alexander_hore_ruthven" 
-		portraits = {
-			army = {
-				small = "GFX_idea_AST_alexander_hore_ruthven"            #small="GFX_idea_generic_political_advisor_europe_1"
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AST_alexander_hore_ruthvenL
-			allowed = {
-				original_tag = AST
-			}
-			traits = {
-				staunch_monarchist
-			}
-			available = {
-				has_completed_focus = AST_R56_royalist_propoganda
-		}
-	}
-	}
-	ENG_winston_churchill={
-		name=ENG_winston_churchill
-		portraits={
-			civilian={
-				large="gfx/leaders/ENG/r56_portrait_ENG_Winston_Churchill.dds"
-				small="GFX_idea_ENG_winston_churchill"
-			}
-			army={
-				small="GFX_idea_ENG_winston_churchill_army"
-			}
-		}
-		advisor={
-			slot = political_advisor
-			idea_token = ENG_winston_churchill
-			available  = {
-				has_government  = neutrality 
-				has_completed_focus  = ENG_the_kings_party 
-				if  = {
-					limit  = {
-						has_dlc = "Man the Guns"
-					}
-					NOT = {
-						has_autonomy_state  = autonomy_supervised_state
-					}
-				}
-			}
-			allowed  = {
-				original_tag  = AST
-				has_dlc = "Man the Guns"
-			}
-			traits  = {
-				royalist_bulldog 
-			}
-			ai_will_do  = {
-				factor  = 1.000
-			}
-		}
-		advisor={ # He was first lord of the admiralty, after all
-			slot = navy_chief
-			idea_token = ENG_winston_churchill_navy
-			allowed = {
-				original_tag = AST
-			}
-			available = {
-				NOT = {
-					has_completed_focus = ENG_eliminate_the_upper_class
-					has_country_leader = {
-						character = ENG_winston_churchill
-						ruling_only = yes
-					}
-				}
-			}
-			traits = {
-				navy_chief_reform_3
-			}
-			cost = 150
-			ai_will_do = {
-				factor = 0.500
-			}
-		}
-	}
-
 	AST_robert_g_menzies = {
 		instance = {
 			allowed = {

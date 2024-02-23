@@ -8016,7 +8016,7 @@ OR = {
 	 }
  
 	
-	  focus = {
+	  focus = { 
 	 	id = AST_R56_the_dismissal
 	 	icon = GFX_goal_generic_army_elite
 	 	prerequisite = { focus = AST_R56_royalist_propoganda }
@@ -8055,7 +8055,7 @@ OR = {
 	 	}
 	  }
 	  focus = {
-	 	id = AST_r56rp_purge_oppisition
+	 	id = AST_r56rp_purge_opposition
 	 	icon = GFX_goal_generic_army_purges
 	 	prerequisite = {focus = AST_R56_the_dismissal }
 	 	x = -2
@@ -8083,7 +8083,28 @@ OR = {
 			}
 			add_stability = -0.05
 		}
-}
+	}
+		 focus = {
+	 	id = AST_r56rp_southern_bastion
+	 	icon = GFX_goal_generic_defence
+	 	prerequisite = { focus = AST_r56rp_purge_opposition }
+		available = {
+		not = { has_completed_focus = AST_r56p_ideas_of_a_southern_empire }
+		}
+	 	x = -1
+	 	y = 1
+	 	relative_position_id = AST_r56rp_purge_opposition
+
+	 	cost = 10
+
+	 	ai_will_do = {
+	 		factor = 5
+	 	}
+		completion_reward = {
+			remove_ideas = AST_R56_memories_of_gallipoli
+			custom_effect_tooltip = AST_R56_unlock_mobilisation_tt
+		}
+	}
 focus = {
 		id = AST_R56_unite_the_imperial_loyalists
 	 	icon = GFX_goal_generic_national_unity
@@ -8525,7 +8546,11 @@ completion_reward = {
  	    cancel_if_invalid = yes
 	 	continue_if_invalid = no
 	 	available_if_capitulated = no
-		completion_reward = { }
+		completion_reward = { 
+			USA = {
+				country_event = r56rp_ast.35
+			}
+		}
 		 }
 		 focus = {
 		id = AST_r56rp_imperial_managment
@@ -8667,36 +8692,15 @@ completion_reward = {
 				}
 				}
 		}
-		 
-	 focus = {
-	 	id = AST_r56rp_southern_bastion
-	 	icon = GFX_goal_generic_defence
-	 	prerequisite = { focus = AST_r56rp_purge_oppisition }
-		available = {
-		not = { has_completed_focus = AST_r56p_ideas_of_a_southern_empire }
-		}
-	 	x = -1
-	 	y = 1
-	 	relative_position_id = AST_r56rp_purge_oppisition
 
-	 	cost = 10
-
-	 	ai_will_do = {
-	 		factor = 5
-	 	}
-		completion_reward = {
-			remove_ideas = AST_R56_memories_of_gallipoli
-			custom_effect_tooltip = AST_R56_unlock_mobilisation_tt
-		}
-}
  focus = {
 	 	id = AST_r56rp_increase_trade_with_commonwealth
 	 	icon = GFX_focus_chi_british_cooperation
-	 	prerequisite = { focus = AST_r56rp_purge_oppisition }
+	 	prerequisite = { focus = AST_r56rp_purge_opposition }
 		prerequisite = {focus =  AST_R56_unite_the_imperial_loyalists }
 	 	x = 2
 	 	y = 1
-	 	relative_position_id = AST_r56rp_purge_oppisition
+	 	relative_position_id = AST_r56rp_purge_opposition
 
 	 	cost = 10
 
@@ -8709,7 +8713,7 @@ completion_reward = {
 		}
 }
  focus = {
-	 	id = AST_r56rp_research_better_equipment
+	 	id = AST_r56rp_research_better_equipment 
 	 	icon = GFX_goal_generic_production2
 	 	prerequisite = { focus = AST_r56rp_increase_trade_with_commonwealth}
 		mutually_exclusive = { 
@@ -8919,7 +8923,7 @@ focus = {
 	 	ai_will_do = {
 	 		factor = 5
 	 	}
-					completion_reward = {
+			completion_reward = {
 			random_owned_controlled_state = {
 				prioritize = { 285 }
 				limit = {
@@ -8938,10 +8942,29 @@ focus = {
 				}
 			}
 		}
-		
-}       
+}  
 focus = {
-	 	id = AST_r56rp_moderate_policies
+	 	id = AST_r56rp_secure_trade_routes
+	 	icon = GFX_goal_generic_construct_civilian
+	 	prerequisite = { focus = AST_r56rp_investors_from_new_markets }
+	 	x = 1
+	 	y = 2
+	 	relative_position_id = AST_r56rp_full_reliance_on_trade
+		 available = {
+		not = { has_completed_focus = AST_r56rp_moderate_policies }
+		}
+
+	 	cost = 10
+
+	 	ai_will_do = {
+	 		factor = 5
+		}
+		completion_reward = {
+		add_ideas = AST_R56_secure_trade
+		}
+}         
+focus = {
+	 	id = AST_r56rp_moderate_policies 
 	 	icon = GFX_goal_generic_dangerous_deal
 	 	prerequisite = { focus = AST_r56rp_the_freer_the_market_freer_the_economy focus = AST_r56rp_exports_to_the_empire }
 	 	x = -1
@@ -8978,7 +9001,7 @@ focus = {
     }
 }    
  focus = { #COME BACK TO THIS RETARD
-	 	id = AST_r56rp_purchase_sheild_islands
+	 	id = AST_r56rp_purchase_shield_islands
 	 	icon = GFX_dutch_east_indies
 	 	prerequisite = { focus = AST_R56_intergrate_new_zealand }
 	 	x = 1
@@ -9005,7 +9028,7 @@ focus = {
   focus = { 
 	 	id = AST_r56rp_develop_shield_islands
 	 	icon = GFX_dutch_east_indies
-	 	prerequisite = { focus = AST_r56rp_purchase_sheild_islands }
+	 	prerequisite = { focus = AST_r56rp_purchase_shield_islands }
 		 available = {
         has_full_control_of_state = 669
 		has_full_control_of_state = 738
@@ -9013,7 +9036,7 @@ focus = {
 		}
 	 	x = 0
 	 	y = 1
-	 	relative_position_id = AST_r56rp_purchase_sheild_islands
+	 	relative_position_id = AST_r56rp_purchase_shield_islands
 		cost = 10
  completion_reward = {
 				add_resource = {
@@ -9024,7 +9047,7 @@ focus = {
  }
  }
  	 focus = {
-	 	id = AST_r56rp_southern_bastion_realized
+	 	id = AST_r56rp_southern_bastion_realized 
 	 	icon = GFX_goal_generic_defence
 	 	prerequisite = { focus = AST_r56rp_develop_shield_islands focus =  AST_r56rp_develop_oil_in_malaya }
 	 	x = 1
@@ -9043,7 +9066,7 @@ focus = {
 		}
 }
   focus = { 
-	 	id = AST_r56rp_develop_oil_in_malaya
+	 	id = AST_r56rp_develop_oil_in_malaya 
 	 	icon = GFX_goal_generic_oil_refinery
 	 	prerequisite = { focus = AST_R56_australian_singapore }
 		 available = {
@@ -9084,9 +9107,22 @@ focus = {
  	    cancel_if_invalid = yes
 	 	continue_if_invalid = no
 	 	available_if_capitulated = no
-		completion_reward = { }
-		 }
-        focus = {
+					completion_reward = {
+			if = {
+				limit = {
+					NZL = {
+						exists = yes
+					}
+					
+					NOT = {
+						has_war_with = NZL
+					}
+				}
+				NZL = { country_event = { id = r56_australia.19 hours = 4 } }
+			}
+		}
+ }
+        focus = { 
 	 	id = AST_r56rp_the_kings_exile
 	 	icon = GFX_focus_eng_god_save_the_king
 	 	prerequisite = { focus = AST_R56_royalist_propoganda }
@@ -9117,7 +9153,7 @@ focus = {
 		}
 		}
 }
- focus = {
+ focus = { 
 	 	id = AST_r56rp_invite_british_upper_class
 	 	icon = GFX_focus_ENG_home_defense
 	 	prerequisite = {focus = AST_r56rp_the_kings_exile }
@@ -9339,6 +9375,36 @@ focus = {
 					set_nationality = AST
                 }
             }
+				CAN = {
+                random_character = {
+					limit = { 
+						or= {
+							is_character = ENG_bernard_montgomery 
+						}
+					}
+					set_nationality = AST
+                }
+            }
+				NZL = {
+                random_character = {
+					limit = { 
+						or= {
+							is_character = ENG_bernard_montgomery 
+						}
+					}
+					set_nationality = AST
+                }
+            }
+				SAF = {
+                random_character = {
+					limit = { 
+						or= {
+							is_character = ENG_bernard_montgomery 
+						}
+					}
+					set_nationality = AST
+                }
+            }
 		}
 }
 focus = {
@@ -9536,7 +9602,7 @@ focus = {
 }
 }	
 focus = {
-	 	id = AST_r56rp_invite_british_upper_politicians
+	 	id = AST_r56rp_invite_british_upper_politicians 
 	 	icon = GFX_goal_tfv_strengthen_commonwealth_ties
 	 	prerequisite = {focus = AST_r56rp_invite_british_upper_class }
 	 	x = -3
@@ -9583,7 +9649,7 @@ focus = {
 		
 	}
 	focus = {
-	 	id = AST_r56rp_austarlians_only
+	 	id = AST_r56rp_austarlians_only 
 	 	icon = GFX_focus_rom_parties_end
 	 	prerequisite = {focus = AST_r56rp_invite_british_upper_politicians}
 	 	x = -1

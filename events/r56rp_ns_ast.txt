@@ -1,4 +1,4 @@
-# Chinese-Japanese Events
+# Royalist Events
  add_namespace = r56rp_ast
 
 # The Kings Return To Power 
@@ -16,7 +16,6 @@ country_event = {
 			name = "Edward VIII"
 			picture = gfx/leaders/AST/Portrait_Britain_Edward_VIII.dds
 			ideology = centrism
-			ruling_party = neutrality
 		}
 	}
 	option = {
@@ -25,7 +24,6 @@ country_event = {
 			name = "George VI"
 			picture = gfx/leaders/AST/Portrait_Britain_George_VI.dds
 			ideology = centrism
-			ruling_party = neutrality
 		}
 	}
 }
@@ -39,15 +37,24 @@ country_event = {
 
     is_triggered_only = yes
 
-    option = { # Yeah I'm like really drunk or something
+    option = { # 
         name =r56rp_ast.34.a
         ai_chance = {
 			base = 10
         }
+		every_controlled_state = {
+			limit ={
+				or={
+			  		transfer_state = 667 
+					transfer_state = 669
+					transfer_state = 738
+			 		transfer_state = 721
+				}
+			}
+			transfer_state_to = AST
+
+		}
         AST= {
-            transfer_state = 667 
-			transfer_state = 669
-			transfer_state = 738
             country_event = { id = liechtenstein.16 hours = 12 }
         }
         add_timed_idea = {
@@ -55,7 +62,7 @@ country_event = {
             days = 365
         }
     }
-    option = { # How absurd!
+    option = { 
         name = r56rp_ast.34.b
         ai_chance = {
 			base = 10
@@ -64,4 +71,40 @@ country_event = {
             country_event = { id = liechtenstein.17 hours = 6 }
         }
     }
+}
+# Australia asks for Phillippines
+country_event = {
+	id = r56rp_ast.35
+	title = r56_australia.35.t
+	desc = r56_australia.35.d
+	picture = GFX_report_event_ast_navy
+	
+	is_triggered_only = yes
+
+	option = {
+		name = r56_ast.35.a
+			ai_chance = {
+			factor = 10
+		}
+		effect_tooltip = {
+			AST = {
+				annex_country = PHI
+			}
+		}
+		hidden_effect = {
+			AST = {
+				country_event = {
+					id = r56rp_ast.36
+					hours = 4
+				}
+			}
+		}
+	}
+
+	option = {
+		name = r56_ast.35.b
+		ai_chance = {
+			factor = 10
+		}
+	}
 }
