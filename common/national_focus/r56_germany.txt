@@ -2001,19 +2001,11 @@ focus_tree = {
 				threat = 3
 				name = GER_rhineland
 			}
-			42 = {
-				set_demilitarized_zone = no
-			}
-			51 = {
-				set_demilitarized_zone = no
-			}
-			989 = {
-				set_demilitarized_zone = no
-			}
-			922 = {
-				set_demilitarized_zone = no
-			}
-			923 = {
+			every_core_state = {
+				limit = {
+					is_demilitarized_zone = yes
+					region = 7
+				}
 				set_demilitarized_zone = no
 			}
 			if = {
@@ -12112,6 +12104,7 @@ focus_tree = {
 		}
 		available = {
 			has_civil_war = yes
+			is_ai = no
 		}
 		completion_reward = {
 			add_timed_idea = {
@@ -12695,6 +12688,9 @@ focus_tree = {
 					}
 				}
 			}
+		}
+		available = {
+			has_government = communism
 		}
 		completion_reward = {
 			set_cosmetic_tag = GER_civil_war
@@ -15399,6 +15395,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
+		available = {
+			has_government = communism
+		}
 		completion_reward = {
 			add_ideas = GER_recruit_grenztruppen_idea
 			set_rule = { can_send_volunteers = yes }
@@ -15420,6 +15419,9 @@ focus_tree = {
 		y = 1
 		ai_will_do = {
 			factor = 10
+		}
+		available = {
+			has_government = communism
 		}
 		completion_reward = {
 			add_ideas = GER_r56rp_establish_NVA_idea_1
@@ -15460,6 +15462,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
+		available = {
+			has_government = communism
+		}
 		completion_reward = {
 			add_ideas = GER_r56rp_collectivize_industry_idea
 			custom_effect_tooltip = available_political_advisor
@@ -15485,37 +15490,13 @@ focus_tree = {
 		ai_will_do = {
 			factor 5
 		}
-		completion_reward = {
-			add_ideas = GER_r56rp_socialist_consumer_market
-		}
-	}	
-	focus = {
-		id = GER_r56rp_union_leader_as_labor_organizer
-		icon = GFX_goal_generic_consumer_goods
-		cost = 5
-		prerequisite = { 
-			focus = GER_r56rp_impliment_a_consumer_market
-			focus = GER_r56rp_enact_war_communism
-		}
-		relative_position_id = GER_r56rp_impliment_a_consumer_market
-		x = -1
-		y = 1
-		ai_will_do= {
-			factor 5
-		}
 		available = {
-			has_idea = GER_Franz_Dahlem
+			has_government = communism
 		}
 		completion_reward = {
-			remove_trait = {
-				character = GER_Franz_Dahlem
-				slot = political_advisor
-				trait = POL_Union_Boss
-			}
-			add_trait = {
-				character = GER_Franz_Dahlem
-				slot = political_advisor
-				trait = GER_r56rp_labor_organizer
+			swap_ideas = {
+				remove_idea = GER_r56rp_collectivize_industry_idea
+				add_idea = GER_r56rp_socialist_consumer_market
 			}
 		}
 	}
@@ -15535,19 +15516,19 @@ focus_tree = {
 		ai_will_do = {
 			factor 5
 		}
+		available = {
+			has_government = communism
+		}
 		completion_reward = {
-		if = {
-				limit = {
-					NOT = {
-						has_idea = war_economy
-					}
-					NOT = {
-						has_idea = tot_economic_mobilisation
-					}
-				}
-				add_ideas = tot_economic_mobilisation
+			r56rp_swap_to_tot_mob = yes
+
+			swap_ideas = {
+				remove_idea = GER_r56rp_collectivize_industry_idea
+				add_idea = GER_r56rp_war_communism_enacted
 			}
 		}
+			
+		
 	}
 	focus = {
 		id = GER_r56rp_progress_cult
@@ -15564,6 +15545,9 @@ focus_tree = {
 		y = 1
 		ai_will_do = {
 			factor = 10
+		}
+		available = {
+			has_government = communism
 		}
 		completion_reward = {
 			add_ideas = GER_progress_cult_idea
@@ -15585,6 +15569,9 @@ focus_tree = {
 		y = 1
 		ai_will_do = {
 			factor = 10
+		}
+		available = {
+			has_government = communism
 		}
 		completion_reward = {
 			add_research_slot = 1
@@ -16089,6 +16076,9 @@ focus_tree = {
 		ai_will_do = {
 			factor = 3
 		}
+		available = {
+			has_government = communism
+		}
 		completion_reward = {
 			add_named_threat = { threat = 1 name = GER_spread_the_revolution }
 			#add_country_leader_trait = r56_trait_opposed_to_democracy
@@ -16373,6 +16363,9 @@ focus_tree = {
 		ai_will_do = {
 			factor 5
 		}
+		available = {
+			has_government = communism
+		}
 		completion_reward = {
 			add_ideas = GER_r56rp_german_revanchism
 			add_state_claim = 807
@@ -16398,6 +16391,9 @@ focus_tree = {
 		ai_will_do = {
 			factor 5
 		}
+		available = {
+			has_government = communism
+		}
 		completion_reward = {
 			LUX = {
 				country_event = r56rp_germany_communist.3
@@ -16422,6 +16418,9 @@ focus_tree = {
 		y = 1
 		ai_will_do = {
 			factor 5
+		}
+		available = {
+			has_government = communism
 		}
 		completion_reward = {
 			FRA = {
@@ -16557,11 +16556,13 @@ focus_tree = {
 				country_event = {
 					id = r56.ger.7
 					hours = 12
+				}	
+			}
+			every_state = {
+				limit = {
+					is_core_of = AUS
 				}
-				add_state_core = 848
-				add_state_core = 153
-				add_state_core = 152
-				add_state_core = 4	
+				add_core_of = GER
 			}
 		}
 	}
@@ -16579,6 +16580,9 @@ focus_tree = {
 		cost = 5
 		ai_will_do = {
 			factor = 3
+		}
+		available = {
+			has_government = communism
 		}
 		completion_reward = {
 			every_other_country = {
@@ -16612,6 +16616,9 @@ focus_tree = {
 		cost = 10
 		ai_will_do = {
 			factor = 0
+		}
+		available = {
+			has_government = communism
 		}
 		completion_reward = {
 			create_wargoal = {
@@ -16695,6 +16702,9 @@ focus_tree = {
 		cost = 10
 		ai_will_do = {
 			factor = 0
+		}
+		available = {
+			has_government = communism
 		}
 		completion_reward = {
 			create_wargoal = {
@@ -18401,7 +18411,7 @@ focus_tree = {
 			FOCUS_FILTER_ANNEXATION
 		}
 	}
-	 focus= {
+	focus = {
 		id = GER_r56rp_karl_marx
 		icon = GFX_focus_spr_unify_the_london_bureau
 		cost = 0.25

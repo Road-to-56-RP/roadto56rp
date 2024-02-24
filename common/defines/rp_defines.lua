@@ -103,4 +103,3 @@ NDefines.NAI.GARRISON_FRACTION = 0.2 -- 20% of the troops will NOT push the enem
 
 -- ## NFocus ##
 NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 30 --This much progress can be saved while not having a focus selected
-

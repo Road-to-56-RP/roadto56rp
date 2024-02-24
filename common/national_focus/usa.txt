@@ -86,10 +86,13 @@ focus_tree = {
 	focus = {
 		id = USA_double_victory
 		icon = GFX_Goal_USA_double_victory
-		x = -6
-		y = 4
-		prerequisite = { focus = USA_agricultural_adjustment_act focus = USA_accumulated_wealth_tax_act }
-		relative_position_id = USA_continue_the_new_deal
+		x = -2
+		y = 1
+		prerequisite = { 
+			focus = USA_suspend_the_presecution 
+			focus = USA_wpa
+		}
+		relative_position_id = USA_wpa
 		cost = 5
 
 		ai_will_do = {
@@ -150,7 +153,6 @@ focus_tree = {
 		}
 
 		allow_branch = {
-			has_government = democratic
 			if = {
 				limit = {
 					has_game_rule = {
@@ -898,12 +900,97 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = USA_accumulated_wealth_tax_act
-		icon = GFX_focus_rom_parties_end
+		id = USA_worker_management_act
+		icon = GFX_goal_FRA_work_with_the_cgt
 		x = 0
 		y = 1
 		prerequisite = { focus = USA_union_representation_act }
 		relative_position_id = USA_union_representation_act
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			congress_high_support_trigger = yes
+			OR = {
+				has_idea_with_trait = communist_revolutionary
+				has_government = communism
+			}
+			has_country_flag = {
+				flag = USA_new_legislation_drafed_flag
+				days > 230
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56_USA_legislation_drafted_days_tt
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
+			}
+		}
+
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
+		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
+			add_ideas = USA_worker_management_act
+			if = {
+				limit = {
+					communism > 0.3
+					not = { has_government = communism }
+				}
+				USA_congress_medium_opposition = yes
+			}
+			else_if = {
+				limit = {
+					communism < 0.3
+					not = { has_government = communism }
+				}
+				USA_congress_large_opposition = yes
+				add_popularity = {
+					ideology = communism
+					popularity = 0.05
+				}
+			}
+			USA_great_depression_level_down = yes
+			set_country_flag = USA_new_legislation_drafed_flag
+		}
+	}
+	
+	focus = {
+		id = USA_guarantee_the_american_dream
+		icon = GFX_focus_usa_guarantee_the_american_dream
+		x = 0
+		y = 2
+		#prerequisite = { focus = USA_democratic_socialism_focus }
+		prerequisite = { focus = USA_old_age_pension_act }
+		prerequisite = { focus = USA_worker_management_act }
+		relative_position_id = USA_union_representation_act
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			add_war_support = 0.1
+		}
+	}
+
+	## Previously USA_worker_management_act
+	focus = {
+		id = USA_accumulated_wealth_tax_act
+		icon = GFX_focus_rom_parties_end
+		x = 0
+		y = 1
+		prerequisite = { focus = USA_guarantee_the_american_dream }
+		mutually_exclusive = { focus = USA_fair_labour_standards_act }
+		relative_position_id = USA_guarantee_the_american_dream
 		cost = 10
 
 		ai_will_do = {
@@ -963,87 +1050,7 @@ focus_tree = {
 			set_country_flag = USA_new_legislation_drafed_flag
 		}
 	}
-	focus = {
-		id = USA_guarantee_the_american_dream
-		icon = GFX_focus_usa_guarantee_the_american_dream
-		x = 0
-		y = 2
-		#prerequisite = { focus = USA_democratic_socialism_focus }
-		prerequisite = { focus = USA_old_age_pension_act }
-		prerequisite = { focus = USA_accumulated_wealth_tax_act }
-		relative_position_id = USA_union_representation_act
-		cost = 5
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
-		completion_reward = {
-			add_war_support = 0.1
-		}
-	}
-	focus = {
-		id = USA_worker_management_act
-		icon = GFX_goal_FRA_work_with_the_cgt
-		x = 0
-		y = 1
-		prerequisite = { focus = USA_guarantee_the_american_dream }
-		relative_position_id = USA_guarantee_the_american_dream
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			congress_high_support_trigger = yes
-			OR = {
-				has_idea_with_trait = communist_revolutionary
-				has_government = communism
-			}
-			has_country_flag = {
-				flag = USA_new_legislation_drafed_flag
-				days > 230
-			}
-			custom_trigger_tooltip = {
-				tooltip = r56_USA_legislation_drafted_days_tt
-				has_country_flag = {
-					flag = USA_new_legislation_drafed_flag
-					days > 230
-				}
-			}
-		}
-
-		cancel_if_invalid = no
-		continue_if_invalid = yes
-		
-		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
-		completion_reward = {
-			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
-			add_ideas = USA_worker_management_act
-			if = {
-				limit = {
-					communism > 0.3
-					not = { has_government = communism }
-				}
-				USA_congress_medium_opposition = yes
-			}
-			else_if = {
-				limit = {
-					communism < 0.3
-					not = { has_government = communism }
-				}
-				USA_congress_large_opposition = yes
-				add_popularity = {
-					ideology = communism
-					popularity = 0.05
-				}
-			}
-			USA_great_depression_level_down = yes
-			set_country_flag = USA_new_legislation_drafed_flag
-		}
-	}
+	
 	focus = {
 		id = USA_militia_organization_act
 		icon = GFX_focus_secret_rearmament
@@ -1075,7 +1082,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_civ_factory
 		x = 0
 		y = 2
-		prerequisite = { focus = USA_worker_management_act }
+		prerequisite = { focus = USA_accumulated_wealth_tax_act }
 		prerequisite = { focus = USA_militia_organization_act }
 		relative_position_id = USA_guarantee_the_american_dream
 		cost = 10
@@ -1129,7 +1136,10 @@ focus_tree = {
 		icon = GFX_goal_generic_intelligence_exchange
 		x = 0
 		y = 3
-		prerequisite = { focus = USA_communal_property_act }
+		prerequisite = { 
+			focus = USA_communal_property_act
+			focus = USA_federal_housing_act
+		}
 		relative_position_id = USA_guarantee_the_american_dream
 		cost = 10
 
@@ -1728,6 +1738,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_agricultural_adjustment_act }
+		mutually_exclusive = { focus = USA_accumulated_wealth_tax_act }
 		relative_position_id = USA_agricultural_adjustment_act
 		cost = 10
 
