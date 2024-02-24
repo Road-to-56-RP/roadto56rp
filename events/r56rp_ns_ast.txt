@@ -7,6 +7,7 @@ country_event = {
 	title = r56rp_ast.33.t
 	desc =  r56rp_ast.33.d 
 	picture = GFX_report_event_ast_parliament_house
+	fire_only_once = yes
 
 	is_triggered_only = yes
 	
@@ -37,39 +38,81 @@ country_event = {
 
     is_triggered_only = yes
 
-    option = { # 
+    option = { 
         name =r56rp_ast.34.a
-        ai_chance = {
+				if = {
+			limit = {
+				FROM = {
+					controls_state = 667 #Lesser Sunda Islands
+				}
+				
+			}
+			AST = { 
+				transfer_state = 667
+			}
+			}
+							if = {
+			limit = {
+				FROM = {
+					controls_state = 669 # West Papua
+				}
+				
+			}
+			AST = { 
+				transfer_state = 669
+			}
+			}
+							if = {
+			limit = {
+				FROM = {
+					controls_state = 738	#Aru Islands
+				}
+				
+			}
+			AST = { 
+				transfer_state = 738
+			}
+			}
+							if = {
+			limit = {
+				FROM = {
+					controls_state = 721	#Timor-Leste
+				}
+				
+			}
+			AST = { 
+				transfer_state = 721
+			}
+			}
+				add_timed_idea = {
+                idea = AST_r56rp_shield_islands_payments_1
+                days = 365
+            }
+        ai_chance = { 
 			base = 10
-        }
-		every_controlled_state = {
-			limit ={
-				or={
-			  		transfer_state = 667 
-					transfer_state = 669
-					transfer_state = 738
-			 		transfer_state = 721
+        	}
+			hidden_effect = {
+			AST = {
+				country_event = {
+					id = r56rp_ast.38
+					hours = 4
 				}
 			}
-			transfer_state_to = AST
-
 		}
-        AST= {
-            country_event = { id = liechtenstein.16 hours = 12 }
-        }
-        add_timed_idea = {
-            idea = LIE_alaska_payments_alt
-            days = 365
-        }
-    }
+	}
     option = { 
         name = r56rp_ast.34.b
         ai_chance = {
 			base = 10
         }
-        AST = {
-            country_event = { id = liechtenstein.17 hours = 6 }
-        }
+			hidden_effect = {
+			AST = {
+				country_event = {
+					id = r56rp_ast.39
+					hours = 4
+				}
+			}
+		}
     }
 }
 # Australia asks for Phillippines
@@ -78,6 +121,7 @@ country_event = {
 	title = r56rp_ast.35.t
 	desc = r56rp_ast.35.d
 	picture = GFX_report_event_ast_navy
+	fire_only_once = yes
 	
 	is_triggered_only = yes
 
@@ -85,11 +129,6 @@ country_event = {
 		name = r56rp_ast.35.a
 			ai_chance = {
 			factor = 10
-		}
-		effect_tooltip = {
-			AST = {
-				annex_country = PHI
-			}
 		}
 		hidden_effect = {
 			AST = {
@@ -102,20 +141,89 @@ country_event = {
 	}
 
 	option = {
-		name = r56_ast.35.b
+		name = r56rp_ast.35.b
 		ai_chance = {
 			factor = 10
 		}
 	}
+			hidden_effect = {
+			AST = {
+				country_event = {
+					id = r56rp_ast.37
+					hours = 4
+				}
+			}
+		}
 }
-# Australia asks for Phillippines Yes
+ # Australia Purchases Phillippines - Yes
 country_event = {
 	id = r56rp_ast.36
 	title = r56rp_ast.36.t
 	desc = r56rp_ast.36.d
-	picture = GFX_report_event_ast_navy
+	picture = GFX_report_event_ast_troops_landing
+	fire_only_once = yes
 	
 	is_triggered_only = yes
+
+	option = { 
+		name = r56rp_ast.36.a
+		annex_country = {
+			target = PHI
+		}
+	}
 }
+# Australia Purchases Phillippines - No
+country_event = {
+	id = r56rp_ast.37
+	title = r56rp_ast.37.t
+	desc = r56rp_ast.37.d
+	picture = GFX_report_event_ast_troops_landing
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+		option = {
+		name = r56rp_ast.37.a
+		create_wargoal = {
+			type = annex_everything
+			target = PHI
+		}
+	}
+		option = {
+		name = r56rp_ast.37.b
+		add_stability = -0.05
+		add_political_power = -100
+		}
+	}
+ # Purchase Sheild Islands- Yes
+country_event = {
+    id =  r56rp_ast.38
+    picture = GFX_report_event_bank_of_indochina
+	title = r56rp_ast.38.t
+	desc = r56rp_ast.38.d
+    fire_only_once = yes
+
+    is_triggered_only = yes
+	option = {
+		name = r56rp_ast.38.a
+		        add_timed_idea = {
+                idea = AST_r56rp_shield_islands_payments
+                days = 365
+            }
+		}
+	}
+#	Purchase Sheild Islands- No
+	country_event = {
+	id =  r56rp_ast.39
+    picture = GFX_report_event_bank_of_indochina
+	title = r56rp_ast.39.t
+	desc = r56rp_ast.39.d
+	fire_only_once = yes
+	
+	is_triggered_only = yes
+		option = {
+		name = r56rp_ast.39.a
+		add_political_power = -25
+            }
+		}
 
 
