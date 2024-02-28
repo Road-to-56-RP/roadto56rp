@@ -127,7 +127,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			country_event = { id = r56.ger.45 }
+			ENG = {
+				country_event = { id = rpgermany.9 }
+			}
+			
 		}
 	}
 	focus = { # The Historical way.
@@ -141,7 +144,6 @@ focus_tree = {
 		cost = 1
 
 		available = {
-			has_country_flag = GER_denounced_the_agreement
 		}
 
 		bypass = {
@@ -149,6 +151,22 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_flag = GER_r56rp_not_allowed_ships
+				}
+				reverse_add_opinion_modifier = {
+					target = ENG
+					modifier = r56rp_GER_ENG_defied_navy
+				}
+			}
+			else = {
+				add_political_power = 25
+			}
+			reverse_add_opinion_modifier = {
+				target = FRA
+				modifier = r56rp_GER_naval_buildup
+			}
 			if = {
 				limit = {
 					has_idea = r56_ger_naval_treaty
@@ -188,7 +206,6 @@ focus_tree = {
 		cost = 1
 
 		available = {
-			has_country_flag = GER_adhered_to_the_agreement
 		}
 
 		bypass = {
@@ -578,7 +595,7 @@ focus_tree = {
 		icon = GFX_goal_generic_multiple_ships
 		prerequisite = { focus = GER_naval_plan_z }
 		relative_position_id = GER_naval_plan_z
-		x = 0
+		x = 1
 		y = 2
 		cost = 10
 		
@@ -704,7 +721,7 @@ focus_tree = {
 		prerequisite = { focus = GER_the_bismarck_class }
 		mutually_exclusive = { focus = GER_abandon_plan_z }
 		relative_position_id = GER_the_bismarck_class
-		x = -2
+		x = -3
 		y = 1
 		cost = 10
 
@@ -1173,7 +1190,7 @@ focus_tree = {
 				}
 			}
 		}
-	}				
+	}
 	focus = {
 		id = GER_abandon_plan_z
 		icon = GFX_goal_generic_submarine
@@ -1335,6 +1352,38 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = GER_wolfpack_tactics_idea
+		}
+	}
+	focus = {
+		id = GER_r56rp_dustoff_old_manuals
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { 
+			focus = GER_the_o_class
+			focus = GER_abandon_plan_z
+		}
+		
+		available = {
+			is_subject = no
+		}
+		x = 3
+		y = 2
+		relative_position_id = GER_the_o_class
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				name = ti_bonus
+				cost_reduction = 0.5
+				uses = 4
+				category = fleet_in_being_tree
+			}
 		}
 	}
 	focus = {
@@ -12152,7 +12201,7 @@ focus_tree = {
 			focus = GER_rally_the_monarchists
 		}
 		#relative_position_id = GER_political_sphere
-		x = 98
+		x = 100
 		y = 0
 		offset = {
 			x = -46
@@ -12195,7 +12244,7 @@ focus_tree = {
 		prerequisite = { 
 			focus = GER_begin_civilwar_communist focus = GER_begin_civilwar_democratic
 		}
-		x = 2
+		x = 0
 		y = 2
 		relative_position_id = GER_kill_hitler
 		cost = 5
@@ -13825,31 +13874,21 @@ focus_tree = {
 		available = {
 			has_war_support > 0.49
 		}
-		complete_tooltip = {
-			every_state = {
-				limit = {
-					has_state_flag = GER_german_war_economy
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
+		#complete_tooltip = {
+		#	every_state = {
+		#		limit = {
+		#			has_state_flag = GER_german_war_economy
+		#		}
+		#		add_extra_state_shared_building_slots = 2
+		#		add_building_construction = {
+		#			type = arms_factory
+		#			level = 2
+		#			instant_build = yes
+		#		}
+		#	}
+		#}
 		completion_reward = {
-			if = {
-				limit = {
-					NOT = {
-						has_idea = war_economy
-					}
-					NOT = {
-						has_idea = tot_economic_mobilisation
-					}
-				}
-				add_ideas = war_economy
-			}
+			r56rp_swap_to_war_eco = yes
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
