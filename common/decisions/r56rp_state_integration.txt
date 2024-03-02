@@ -48,12 +48,14 @@ GLO_state_integration_category = {
         icon = GFX_decision_generic_nationalism
 
         on_map_mode = map_only
-        state_target = yes 
-        target_array = controlled_states
+        state_target = any_controlled_state
+        target_array = ROOT.controlled_states
 		
 		ai_will_do = {
 			base = 0
 		}
+		# unless you use cost = , ai cannot tell how much a decision actually costs.
+		ai_hint_pp_cost = 50
 
         target_trigger = {
             FROM = {
@@ -66,71 +68,74 @@ GLO_state_integration_category = {
 			IF = {
 				limit = {
 					OR = {
-						is_major = yes
-						NOT = {
-							FROM = {
-								is_claimed_by = ROOT
-							}
+						is_major = no
+						FROM = {
+							is_claimed_by = ROOT
 						}
 					}
 				}
 				FROM = {
-					compliance > 79
-					resistance < 11
+					compliance > 64
+					resistance < 19
 				}
-				has_manpower > coring_man
-				
+				has_manpower > 10000
 			}
 			ELSE = {
 				FROM = {
-					compliance > 69
-					resistance < 19
+					compliance > 79
+					resistance < 11
 				}
-				has_manpower > coring_man				
+				has_manpower > 10000				
 			}
         }
 
         visible = {
             NOT = { has_country_flag = show_integration_decisions }
-			FROM = { 
-				NOT = { is_core_of = ROOT } 
+			FROM = {
+				NOT = { is_core_of = ROOT }
 				NOT = { has_state_flag = being_cored } 
 			}
 			IF = {
 				limit = {
-					is_major = no
-				}
-				OR = {
-					has_country_flag = show_unavialible_integration_decisions
-					FROM = {
-						compliance > 69
-						resistance < 19
+					OR = {
+						is_major = no
+						FROM = {
+							is_claimed_by = ROOT
+						}
 					}
+					has_country_flag = show_unavialible_integration_decisions
+				}
+				FROM = {
+					compliance > 64
+					resistance < 19
 				}
 			}
-			ELSE = {
-				OR = {
+			ELSE_IF = {
+				limit = {
 					has_country_flag = show_unavialible_integration_decisions
-					FROM = {
-						compliance > 79
-						resistance < 11
-					}
+				}	
+				FROM = {
+					compliance > 79
+					resistance < 11
 				}
 			}
         }
 
         custom_cost_trigger = {
 			IF = {
-				limit = {
+				OR = {
 					is_major = no
+					FROM = {
+						is_claimed_by = ROOT
+					}
 				}
-				has_political_power > GLO_p_pp_cost
+				has_political_power > 20
 			}
 			ELSE_IF = {
 				limit = {
 					is_major = yes
 				}
-				has_political_power > GLO_p_pp_cost
+				has_political_power > 50
 			}
         }
         custom_cost_text = GLO_35_pol_power
@@ -138,12 +143,24 @@ GLO_state_integration_category = {
         days_remove = 50
 
         complete_effect = {
-			set_temp_variable = { GLO_p_mp_cost_t = GLO_p_mp_cost }
-			set_temp_variable = { GLO_p_pp_cost_t = GLO_p_pp_cost }
-			multiply_temp_variable = { GLO_p_mp_cost_t = -1 }
-			multiply_temp_variable = { GLO_p_pp_cost_t = -1 }
-            add_manpower = GLO_p_mp_cost_t
-			add_political_power = GLO_p_pp_cost_t
+			IF = {
+				limit = {
+					OR = {
+						is_major = no
+						FROM = {
+							is_claimed_by = ROOT
+						}
+					}
+				}
+				ROOT = {
+					add_political_power = -20
+				}
+			}
+			ELSE = {	
+				ROOT = {
+					add_political_power = -50
+				}
+			}
 			hidden_effect = {
 				FROM = { 
 					set_state_flag = being_cored
@@ -163,7 +180,7 @@ GLO_state_integration_category = {
         icon = GFX_decision_oppression
 
 		on_map_mode = map_only
-        state_target = yes 
+        state_target = any_controlled_state 
         target_array = controlled_states
 
 		ai_will_do = {
@@ -192,27 +209,39 @@ GLO_state_integration_category = {
 			}
 			IF = {
 				limit = {
-					OR = { #if not a major, or if a major has a claim, discounted coring.
-						NOT = { 
-							is_major = yes
-						}
+					OR = {
+						is_major = no
 						FROM = {
 							is_claimed_by = ROOT
 						}
 					}
 				}
 				FROM = {
-					compliance > 59
-					resistance < 31
+					compliance > 69
+					resistance < 19
 				}
-				has_manpower > 12500
-				has_equipment = {
-					infantry_equipment > FROM.r56rp_core_cost_minor
-				}
+				has_manpower > coring_man
+				
 			}
 			ELSE = {
 				FROM = {
-					compliance > 59
+					compliance > 79
+					resistance < 11
+				}
+				has_manpower > coring_man				
+			}
+
+			IF = {
+				limit = {
+					OR = { #if not a major, or if a major has a claim, discounted coring.
+						is_major = no
+						FROM = {
+							is_claimed_by = ROOT
+						}
+					}
+				}
+				FROM = {
+					compliance > 49
 					resistance < 31
 				}
 				has_manpower > 12500
@@ -221,14 +250,25 @@ GLO_state_integration_category = {
 				}
 				
 			}
+			ELSE = {
+				FROM = {
+					compliance > 59
+					resistance < 21
+				}
+				has_equipment = {
+					infantry_equipment > FROM.r56rp_core_cost_minor
+				}
+			}
         }
 
         visible = {
             NOT = { 
 				has_country_flag = show_integration_decisions 
 			}
-			OR = {
-				has_country_flag = show_unavialible_integration_decisions
+			IF = {
+				limit = {
+					has_country_flag = show_unavialible_integration_decisions
+				}
 				FROM = {
 					compliance > 59
 					resistance < 31
