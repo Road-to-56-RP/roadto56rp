@@ -4656,62 +4656,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = JAP_train_for_the_northern_campaign
-		icon = GFX_goal_generic_forest_warfare
-		
-		prerequisite = { focus = JAP_non_aggression_pact_with_china }
-		prerequisite = { focus = JAP_create_a_manchurian_imperial_air_force }
-		
-		x = 1
-		y = 1
-		relative_position_id = JAP_non_aggression_pact_with_china
-
-		
-		cost = 7.2
-		
-		ai_will_do = {
-			factor = 1
-		}
-		
-		available = {
-			OR = {
-				has_non_aggression_pact_with = CHI
-				has_non_aggression_pact_with = PRC
-			}
-		}
-		
-		available_if_capitulated = yes
-		
-		completion_reward = {
-			add_timed_idea = { idea = SOV_siberian_forest_soldiers_idea  days = 700 }
-			if = {
-				limit = {
-					NOT = {
-						has_tech = jaegers
-					}
-				}
-				set_technology = {
-					jaegers = 1
-					winter_clothes_gw = 1
-				}
-			}
-			add_tech_bonus = {
-				name = SOV_siberian_forest_soldiers_focus
-				bonus = 0.6
-				uses = 2
-				category = r56_jaeger_infantry_tech
-				category = winter_clothing_tech
-			}
-			hidden_effect = {
-				SOV = {
-					country_event = { id = r56rp_northern_doctrine_event }
-				}
-			}
-		}
-		
-	}
-
-	focus = {
 		id = JAP_non_aggression_pact_with_china
 		icon = GFX_focus_chi_cooperation_with_the_nationalists
 		prerequisite = { focus = JAP_join_the_london_naval_treaty }
@@ -4818,6 +4762,62 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = JAP_train_for_the_northern_campaign
+		icon = GFX_goal_generic_forest_warfare
+		
+		prerequisite = { focus = JAP_non_aggression_pact_with_china }
+		prerequisite = { focus = JAP_create_a_manchurian_imperial_air_force }
+		
+		x = 1
+		y = 1
+		relative_position_id = JAP_non_aggression_pact_with_china
+
+		
+		cost = 7.2
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		available = {
+			OR = {
+				has_non_aggression_pact_with = CHI
+				has_non_aggression_pact_with = PRC
+			}
+		}
+		
+		available_if_capitulated = yes
+		
+		completion_reward = {
+			add_timed_idea = { idea = SOV_siberian_forest_soldiers_idea  days = 700 }
+			if = {
+				limit = {
+					NOT = {
+						has_tech = jaegers
+					}
+				}
+				set_technology = {
+					jaegers = 1
+					winter_clothes_gw = 1
+				}
+			}
+			add_tech_bonus = {
+				name = SOV_siberian_forest_soldiers_focus
+				bonus = 0.6
+				uses = 2
+				category = r56_jaeger_infantry_tech
+				category = winter_clothing_tech
+			}
+			hidden_effect = {
+				SOV = {
+					country_event = { id = r56rp_northern_doctrine_event }
+				}
+			}
+		}
+		
 	}
 
 	focus = {
@@ -8770,8 +8770,8 @@ focus_tree = {
 			has_full_control_of_state = 684
 		}
 		
-		bypass = {
-
+		mutually_exclusive = { 
+			focus = JAP_restrict_natives
 		}
 
 		cancel_if_invalid = yes
@@ -9551,11 +9551,11 @@ focus_tree = {
 					has_dlc = "Man the Guns"
 				}
 				add_tech_bonus = {
-					name = JAP_supremacy_of_technology
-					ahead_reduction = 1
+					name = JAP_r56rp_mechanization_effort
 					bonus = 1
+					ahead_reduction = 1
 					uses = 1
-					category = amphibious_mechanized_infantry
+					technology = amphibious_mechanized_infantry
 					technology = amphibious_mechanized_infantry_2
 				}
 			}
@@ -11189,29 +11189,6 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
-	focus = {
-		id = r56rp_JAP_night_time_naval_combat
-		icon = GFX_focus_japan_naval_night_fighting_icon
-		prerequisite = { focus = JAP_supply_disruption focus = JAP_torpedo_cruisers  }
-		x = -1
-		y = 1
-		relative_position_id = JAP_supply_disruption
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 1
-				has_completed_focus = JAP_purge_the_kodoha_faction
-			}
-		}
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = the_long_lance
-				add_idea = r56rp_JAP_night_time_naval_tactics
-			}
-		}
-	}
 
 	focus = {
 		id = JAP_carrier_warfare_experiments
@@ -11812,7 +11789,30 @@ focus_tree = {
 			}												
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
-	}		
+	}	
+	focus = {
+		id = r56rp_JAP_night_time_naval_combat
+		icon = GFX_focus_japan_naval_night_fighting_icon
+		prerequisite = { focus = JAP_supply_disruption focus = JAP_torpedo_cruisers  }
+		x = -1
+		y = 1
+		relative_position_id = JAP_supply_disruption
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 1
+				has_completed_focus = JAP_purge_the_kodoha_faction
+			}
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = the_long_lance
+				add_idea = r56rp_JAP_night_time_naval_tactics
+			}
+		}
+	}	
 	focus = {
 		id = JAP_redesign_the_naval_guns
 		prerequisite = { focus = JAP_supremacy_of_the_battlefleet focus = JAP_cruiser_modernization }
