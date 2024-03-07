@@ -1,69 +1,146 @@
 #Category allowed for JAP
 JAP_intervene_in_china = {
-
-	JAP_china_step_up_war_effort = {
-
+	JAP_r56rp_secure_beijing = {
 		icon = jap_conquer_china
 
+		available = {
+			CHI = {
+				OR = {
+					has_capitulated = yes
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+		}
+
 		visible = {
-			JAP_has_idea_JAP_intervene_in_china = yes
 			any_enemy_country = {
 				is_literally_china = yes
 			}
 		}
 
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 25
-			modifier = {
-				has_war_with = USA
-				factor = 10 #screw it, kill everything
-			}
-		}
-		modifier = {
-			command_power_gain = -0.25
+		activation = {
+			has_country_flag = JAP_conquer_china_activate
 		}
 
-		days_remove = 14
-		days_re_enable = 30
-	
-		cost = 25
+		is_good = no
+
+		days_mission_timeout = 45
+
+		timeout_effect = {
+
+		}
 
 		complete_effect = {
-			if = {
-				limit = {
-					USA = {
-						has_war = no
+
+		}
+
+	}
+
+	JAP_r56rp_conquer_shanghai = {
+		icon = jap_conquer_china
+
+		available = {
+			CHI = {
+				OR = {
+					has_capitulated = yes
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+		}
+
+		visible = {
+			any_enemy_country = {
+				is_literally_china = yes
+			}
+		}
+
+		activation = {
+			has_country_flag = JAP_conquer_china_activate
+		}
+
+		is_good = no
+
+		days_mission_timeout = 45
+
+		timeout_effect = {
+
+		}
+
+		complete_effect = {
+
+		}
+
+	}
+
+	JAP_conquer_china = {
+		icon = jap_conquer_china
+
+		available = {
+			OR = {
+				CHI = {
+					OR = {
+						has_capitulated = yes
+						exists = no
+						is_subject_of = ROOT
 					}
 				}
-				USA = { add_war_support = 0.025 }
 			}
-			JAP_intervene_in_china_level_down = yes
+		}
+
+		selectable_mission = no
+		visible = {
+			any_enemy_country = {
+				is_literally_china = yes
+			}
+		}
+
+		activation = {
+			JAP = {
+				any_enemy_country = {
+					is_literally_china = yes
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		is_good = no
+
+		days_mission_timeout = 720
+		
+		timeout_effect = {
+			add_stability = -0.05
+			add_war_support = -0.15
+		}
+
+		complete_effect = {
+			add_stability = 0.03
+			add_war_support = 0.07
 		}
 	}
 
 	JAP_ichi_go = {
-
 		icon = jap_conquer_china
 
-		available = {	
-			event_target:WTT_current_china_leader = {
-				has_capitulated = no
-				exists = yes
-			}
-		}
-
-		visible = {
-			has_completed_focus = JAP_secure_china
-			any_enemy_country = {
-				is_literally_china = yes
-			}
-			event_target:WTT_current_china_leader = {
-				NOT = { is_puppet_of = JAP }
-			}
-		}
-
+		available = {
+            event_target:WTT_current_china_leader = {
+                has_capitulated = no
+                exists = yes
+				at_war_with = ROOT
+            }
+        }
+		activation= {
+            has_completed_focus = JAP_secure_china
+            any_enemy_country = {
+                is_literally_china = yes
+            }
+            event_target:WTT_current_china_leader = {
+                NOT = { is_puppet_of = JAP }
+            }
+        }
+		
 		fire_only_once = yes
 
 		ai_will_do = {
@@ -77,6 +154,16 @@ JAP_intervene_in_china = {
 		}
 
 		cost = 50
+		selectable_mission = yes
+		days_mission_timeout = 360
+		
+		timeout_effect = {
+			add_stability = -0.25
+			add_war_support = -0.25
+			CHI = {
+				add_timed_idea = { idea = r56rp_JAP_blunder_in_china days = 120 }
+			}
+		}
 
 		complete_effect = {
 			if = {
@@ -87,54 +174,9 @@ JAP_intervene_in_china = {
 				}
 				USA = { add_war_support = 0.1 }
 			}
-			add_ideas = JAP_ichi_go
-			activate_mission_tooltip = JAP_conquer_china
-			set_country_flag = JAP_conquer_china_activate
+			add_timed_idea = { idea = JAP_ichi_go  days = 120 }
 		}
 	}
-
-	JAP_conquer_china = {
-
-		icon = jap_conquer_china
-
-		available = {
-			event_target:WTT_current_china_leader = {
-				OR = {
-					has_capitulated = yes
-					exists = no
-					is_subject_of = ROOT
-				}
-			}
-		}
-
-		visible = {
-			JAP_has_idea_JAP_intervene_in_china = yes
-			any_enemy_country = {
-				is_literally_china = yes
-			}
-		}
-
-		activation = {
-			has_country_flag = JAP_conquer_china_activate
-		}
-
-		fire_only_once = yes
-
-		is_good = no
-
-		days_mission_timeout = 360
-		
-		timeout_effect = {
-			add_stability = -0.05
-			add_war_support = -0.15
-		}
-
-		complete_effect = {
-			add_stability = 0.03
-			add_war_support = 0.07
-		}
-	}
-
 	
 }
 
