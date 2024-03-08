@@ -329,4 +329,127 @@ scripted_diplomatic_actions = {
 			}
 		}
 	}
+
+	r56rp_give_1_civ = {
+		icon = 1
+		cost = 0
+		requires_acceptance = no
+		send_description =  R56RP_GIVE_1_CIV_DESC
+		receive_description = R56RP_GIVE_1_CIV_RECIEVE_DESC
+
+		allowed = {
+			
+		}
+
+		visible = {
+			FROM = {
+				is_ai = no
+			}
+		}
+
+		selectable = {
+			num_of_civilian_factories > 10
+		}
+
+		complete_effect = {
+
+			FROM = {
+				random_core_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+
+			ROOT = {
+				random_core_state = {
+					limit = {
+						industrial_complex > 1
+					}
+					remove_building = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			
+		}
+	}
+
+	r56rp_give_5_civ = {
+		icon = 1
+		cost = 0
+
+		requires_acceptance = no
+		send_description =  R56RP_GIVE_5_ACTION
+		receive_description = R56RP_GIVE_5_RECIEVE_DESC
+
+		allowed = {
+
+		}
+
+		visible = {
+			FROM = {
+				is_ai = no
+			}
+		}
+
+		selectable = {
+			num_of_civilian_factories > 10
+		}
+
+
+		complete_effect = {
+
+			FROM = {
+				for_loop_effect = {
+					end = 4
+					value = temp
+					random_core_state = {
+						limit = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+
+			ROOT = {
+				for_loop_effect = {
+					end = 4
+					value = temp
+					random_core_state = {
+						limit = {
+							industrial_complex > 1
+						}
+						remove_building = {
+							type = industrial_complex
+							level = 1
+						}
+					}
+				}
+			}
+
+		}
+	}
+
 }
