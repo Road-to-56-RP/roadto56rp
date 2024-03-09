@@ -12,8 +12,6 @@ equipment_modules = {
 #    #  #  # #  #  #      #  # #  #  #   #  #   #  #   #   
 ### ###  ##  #  #  #      ###  #  #  #   #  ### #  #   #   
 
-
-
 	ship_light_battery_1 = {
 		abbreviation = "saa"
 		category = ship_light_battery
@@ -411,7 +409,7 @@ equipment_modules = {
 			naval_speed = -0.025
 		}
 		add_average_stats = {
-			hg_armor_piercing = 45
+			hg_armor_piercing = 50
 		}
 		critical_parts = { damaged_heavy_guns }
 	}
@@ -1483,6 +1481,30 @@ equipment_modules = {
 			convert_cost_ic = 230
 		}
 	}
+
+	sub_ship_engine_nuclear_1 = {
+		category = sub_ship_engine
+		parent = sub_ship_engine_4
+		sfx = sfx_ui_sd_module_engine
+
+		add_stats = {
+			naval_speed = 5
+			naval_range = 2500
+			fuel_consumption = -1
+			build_cost_ic = 1000
+		}
+		
+		multiply_stats = {
+			naval_speed = 0.2
+			reliability = -0.2
+			sub_visibility = -0.15
+		}
+		
+		can_convert_from = {
+			module = sub_ship_engine_4
+			convert_cost_ic = 750
+		}
+	}	
 	cruiser_ship_engine_1 = {
 		abbreviation = "sbv"
 		category = cruiser_ship_engine
@@ -1653,7 +1675,7 @@ equipment_modules = {
 		add_stats = {
 			#naval_speed = 11
 			fuel_consumption = 30
-			build_cost_ic = 2800
+			build_cost_ic = 2600
 		}
 		
 		multiply_stats = {
@@ -1682,7 +1704,7 @@ equipment_modules = {
 		add_stats = {
 			#naval_speed = 12
 			fuel_consumption = 35
-			build_cost_ic = 3200
+			build_cost_ic = 3000
 		}
 		
 		multiply_stats = {
@@ -1701,6 +1723,34 @@ equipment_modules = {
 			convert_cost_ic = 4800
 		}
 	}
+	heavy_ship_engine_nuclear_1 = {
+		category = heavy_ship_engine
+		parent = heavy_ship_engine_4
+		sfx = sfx_ui_sd_module_engine
+
+		
+		add_stats = {
+			naval_speed = 12
+			naval_range = 1500
+			fuel_consumption = -50
+			build_cost_ic = 4500
+		}
+		
+		multiply_stats = {
+			naval_speed = 0.45
+			reliability = -0.2
+		}
+		
+		can_convert_from = {
+			module_category = heavy_ship_engine
+			convert_cost_ic = 4500
+		}
+		
+		can_convert_from = {
+			module = heavy_ship_engine_4
+			convert_cost_ic = 4000
+		}
+	}	
 	carrier_ship_engine_1 = {
 		abbreviation = "scd"
 		category = carrier_ship_engine
@@ -1809,62 +1859,6 @@ equipment_modules = {
 			convert_cost_ic = 2300
 		}
 	}
-
-	# nuclear naval engines
-
-	sub_ship_engine_nuclear_1 = {
-		category = sub_ship_engine
-		parent = sub_ship_engine_4
-		sfx = sfx_ui_sd_module_engine
-
-		add_stats = {
-			naval_speed = 5
-			naval_range = 1500
-			fuel_consumption = -1
-			build_cost_ic = 1000
-		}
-		
-		multiply_stats = {
-			naval_speed = 0.2
-			reliability = -0.2
-			sub_visibility = -0.15
-		}
-		
-		can_convert_from = {
-			module = sub_ship_engine_4
-			convert_cost_ic = 750
-		}
-	}
-
-	heavy_ship_engine_nuclear_1 = {
-		category = heavy_ship_engine
-		parent = heavy_ship_engine_4
-		sfx = sfx_ui_sd_module_engine
-
-		
-		add_stats = {
-			naval_speed = 12
-			naval_range = 1500
-			fuel_consumption = -50
-			build_cost_ic = 4500
-		}
-		
-		multiply_stats = {
-			naval_speed = 0.45
-			reliability = -0.2
-		}
-		
-		can_convert_from = {
-			module_category = heavy_ship_engine
-			convert_cost_ic = 4500
-		}
-		
-		can_convert_from = {
-			module = heavy_ship_engine_4
-			convert_cost_ic = 4000
-		}
-	}
-
 	carrier_ship_engine_nuclear_1 = {
 		category = carrier_ship_engine
 		parent = carrier_ship_engine_4
@@ -2118,7 +2112,7 @@ equipment_modules = {
 		gfx = ship_mine_layer
 		
 		add_stats = {
-			mines_planting = 1
+			mines_planting = 0
 			build_cost_ic = 90
 		}
 		multiply_stats = {
@@ -2132,7 +2126,7 @@ equipment_modules = {
 		gfx = ship_mine_layer_sub
 		
 		add_stats = {
-			mines_planting = 1
+			mines_planting = 0
 			build_cost_ic = 90
 			naval_speed = -0.02
 		}
@@ -2153,7 +2147,7 @@ equipment_modules = {
 		gfx = ship_mine_sweeper
 		
 		add_stats = {
-			mines_sweeping = 1
+			mines_sweeping = 0
 			build_cost_ic = 30
 		}
 
@@ -2437,8 +2431,11 @@ equipment_modules = {
 			naval_torpedo_enemy_critical_chance_factor = -0.1
 			naval_torpedo_damage_reduction_factor = 0.1
 		}
-		dismantle_cost_ic = 5500
-		
+		dismantle_cost_ic = 2500
+		can_convert_from = {
+			module_category = ship_heavy_armor
+			convert_cost_ic = 5500
+		}
 	}
 	ship_armor_bc_1 = {
 		abbreviation = "sdf"
@@ -2455,7 +2452,10 @@ equipment_modules = {
 			armor_value = 22
 			naval_torpedo_damage_reduction_factor = 0.1
 		}
-		dismantle_cost_ic = 4500
+		can_convert_from = {
+			module_category = ship_heavy_armor
+			convert_cost_ic = 4500
+		}
 		
 	}
 	ship_armor_bb_2 = {
@@ -2476,7 +2476,10 @@ equipment_modules = {
 			naval_torpedo_enemy_critical_chance_factor = -0.15
 			naval_torpedo_damage_reduction_factor = 0.15
 		}
-		dismantle_cost_ic = 6000
+		can_convert_from = {
+			module_category = ship_heavy_armor
+			convert_cost_ic = 6000
+		}
 		
 	}
 	ship_armor_bc_2 = {
@@ -2497,7 +2500,10 @@ equipment_modules = {
 			naval_torpedo_enemy_critical_chance_factor = -0.1
 			naval_torpedo_damage_reduction_factor = 0.15
 		}
-		dismantle_cost_ic = 5500
+		can_convert_from = {
+			module_category = ship_heavy_armor
+			convert_cost_ic = 5500
+		}
 	}
 	ship_armor_bb_3 = {
 		abbreviation = "sdi"
@@ -2519,6 +2525,10 @@ equipment_modules = {
 			naval_torpedo_damage_reduction_factor = 0.2
 		}
 		dismantle_cost_ic = 7500
+		can_convert_from = {
+			module_category = ship_heavy_armor
+			convert_cost_ic = 7500
+		}
 		
 	}
 	ship_armor_bc_3 = {
@@ -2541,6 +2551,10 @@ equipment_modules = {
 			naval_torpedo_damage_reduction_factor = 0.2
 		}
 		dismantle_cost_ic = 6200
+		can_convert_from = {
+			module_category = ship_heavy_armor
+			convert_cost_ic = 6200
+		}
 		
 	}
 	ship_armor_shbb = {
@@ -2564,6 +2578,10 @@ equipment_modules = {
 			naval_torpedo_damage_reduction_factor = 0.25
 		}
 		dismantle_cost_ic = 8200
+		can_convert_from = {
+			module_category = ship_heavy_armor
+			convert_cost_ic = 8200
+		}
 		
 	}
 	ship_armor_cruiser_1 = {

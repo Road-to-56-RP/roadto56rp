@@ -423,10 +423,24 @@ on_actions = {
 				limit = {has_game_rule = {rule = select_host_country option = YUN}}
 				set_variable={host = YUN.id}
 			}
+
+			else = {
+				# so the compiler doesent bitch at invalid shite
+			}
 	
-			var:host = {
-				set_variable = { host_marked_states = 0 }
-				set_country_flag = host
+			if = { # executes the lower block only if you actualy have a target to execute it on. fucking chost tool.
+				limit = {
+					NOT = {
+						has_game_rule = {
+							rule = select_host_country 
+							option = NONE
+						}
+					}
+				}
+				var:host = {
+					set_variable = { host_marked_states = 0 }
+					set_country_flag = host
+				}
 			}
 		}
 	}

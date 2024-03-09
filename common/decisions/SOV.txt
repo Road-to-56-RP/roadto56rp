@@ -192,7 +192,7 @@ SOV_paranoia_system = {
 		days_remove = 90
 
 		modifier = {
-			consumer_goods_factor = 0.02
+			consumer_goods_factor = 0.04
 		}
 
 		complete_effect = {
@@ -953,7 +953,7 @@ SOV_paranoia_system = {
 
 		modifier = {
 			communism_drift = -0.02
-			consumer_goods_factor = 0.03
+			consumer_goods_factor = 0.06
 		}
 
 		remove_effect = {
@@ -1045,7 +1045,7 @@ SOV_paranoia_system = {
 		days_remove = 60
 
 		modifier = {
-			consumer_goods_factor = 0.05
+			consumer_goods_factor = 0.1
 			weekly_manpower = 20
 		}
 
@@ -1098,7 +1098,7 @@ SOV_paranoia_system = {
 		days_remove = 7
 
 		modifier = {
-			consumer_goods_factor = 0.1
+			consumer_goods_factor = 0.2
 		}
 
 		remove_effect = {
@@ -3034,7 +3034,7 @@ SOV_propaganda_campaigns = {
 		cost = SOV_propaganda_high_yield_cost
 
 		modifier = {
-			consumer_goods_factor = -0.05
+			consumer_goods_factor = -0.15
 		}
 
 		complete_effect = {
@@ -4548,7 +4548,7 @@ SOV_propaganda_campaigns = {
 
 		modifier = {
 			stability_weekly = 0.005
-			consumer_goods_factor = -0.03
+			consumer_goods_factor = -0.12
 			opinion_gain_monthly_factor = 0.25
 			enemy_justify_war_goal_time = 0.50
 			war_support_weekly = -0.005
@@ -4642,7 +4642,7 @@ SOV_propaganda_campaigns = {
 			compliance_growth = 0.05
 			resistance_decay = 0.05
 			resistance_damage_to_garrison = 0.15
-			consumer_goods_factor = 0.03
+			consumer_goods_factor = 0.06
 		}
 
 		complete_effect = {
@@ -5935,6 +5935,13 @@ SOV_diplomacy_nordic_decision_category = {
 				}
 				#SOV_is_valid_subject = yes # The Soviet Union might not give a sh*t about their petty overlord ;) # -> THE USSR does indeed not care about their petty overlord, for now.
 				NOT = { has_war_with = ROOT }
+				if = {
+					limit = {
+						original_tag = FIN
+					}
+					#Lone Wolf Finland can't join any factions
+					NOT = {	has_idea = FIN_the_lone_wolf }
+				}
 			}
 			NOT = { has_country_flag = SOV_pressure_government_active_flag }
 		}
@@ -6803,16 +6810,16 @@ SOV_diplomacy_middle_east_decision_category = {
 		}
 
 		available =  {
-			#PER = { has_capitulated = yes }	#Doesnt seem to work
 			custom_trigger_tooltip = {
 				tooltip = "All starting Iranian states controlled by [SOV.GetNameDef] or her allies."
+
 				all_of_scopes = {
-					array = SOV_iranian_initial_states
-					OR = {
-						is_controlled_by = SOV
-						any_allied_country = {
-							controls_state = PREV
-						}
+				array = SOV_iranian_initial_states
+				OR = {
+					is_controlled_by = SOV
+					any_allied_country = {
+						controls_state = PREV
+					}
 						AND = {
 							has_global_flag = SOV_agreed_anglo_soviet_invasion_of_iran_flag
 							OR = {
@@ -7483,7 +7490,7 @@ SOV_diplomacy_asia_decision_category = {
 				has_full_control_of_state = 618 #DZUNGARIA
 			}
 			num_of_civilian_factories_available_for_projects > 0
-			has_equipment = { fighter_equipment > 39 }
+			has_equipment = { small_plane_airframe > 39 }
 			has_equipment = { infantry_equipment > 499 }
 			NOT = { has_country_flag = SOV_sinkiang_investment_ongoing_flag }
 		}
@@ -7550,7 +7557,7 @@ SOV_diplomacy_asia_decision_category = {
 				custom_effect_tooltip = SOV_sinikiang_influence_cg_tt_sov
 
 				send_equipment = {
-					type = fighter_equipment
+					type = small_plane_airframe
 					amount = 40
 					target = SIK
 				}
@@ -8912,6 +8919,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -8970,6 +8980,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9028,6 +9041,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9091,6 +9107,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9152,6 +9171,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9213,6 +9235,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9274,6 +9299,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9333,6 +9361,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9394,6 +9425,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9455,6 +9489,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9516,10 +9553,13 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
-			has_full_control_of_state = 195 #LENINGRAD
+			has_full_control_of_state = 227 #STALINO
 			num_of_civilian_factories_available_for_projects > 0
 			SOV_has_active_ship_designer_any_black_sea = yes
 			NOT = { has_country_flag = SOV_merge_ship_decision_ongoing_flag }
@@ -9534,7 +9574,7 @@ SOV_merge_designers_dec_cat = {
 		cancel_trigger = {
 			OR = {
 				SOV_has_active_ship_designer_any_black_sea = no
-				NOT = { has_full_control_of_state = 195 } #LENINGRAD
+				NOT = { has_full_control_of_state = 227 } #STALINO
 			}
 		}
 
@@ -9579,6 +9619,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9637,6 +9680,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9701,6 +9747,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9763,6 +9812,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9823,10 +9875,13 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
-			has_full_control_of_state = 399 #IZHEVSK
+			has_full_control_of_state = 399 #UDMURTIA (Izhevsk)
 			num_of_civilian_factories_available_for_projects > 0
 			SOV_has_active_materiel_designer_tula = yes
 			NOT = { has_country_flag = SOV_merge_materiel_decision_ongoing_flag }
@@ -9842,7 +9897,7 @@ SOV_merge_designers_dec_cat = {
 		cancel_trigger = {
 			OR = {
 				SOV_has_active_materiel_designer_tula = no
-				NOT = { has_full_control_of_state = 399 } #IZHEVSK
+				NOT = { has_full_control_of_state = 399 } #UDMURTIA (Izhevsk)
 			}
 		}
 
@@ -9883,6 +9938,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -9943,6 +10001,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -10001,6 +10062,9 @@ SOV_merge_designers_dec_cat = {
 
 		allowed = {
 			original_tag = SOV
+			NOT = {
+				has_dlc = "By Blood Alone"
+			}
 		}
 
 		available = {
@@ -11135,6 +11199,7 @@ SOV_kill_trotsky_dec_cat = {
 					FROM = {
 						controls_state = 110 #OSTLANDET (Oslo) -> Trotsky not accepted in Mexico (or Soviets being super fast to kill him, which should be impossible btw)
 					}
+					has_global_flag = NOR_trotsky_in_norway
 					NOT = {
 						has_global_flag = trotsky_exile_mexico
 						has_global_flag = flag_mexico_invited_trotsky_to_government
@@ -15250,7 +15315,14 @@ SOV_soviet_civil_war_dec_cat = {
 				OR = {
 					#region = 155 # Manchuria
 					region = 151
+					region = 261 
+					region = 262 
 					region = 149
+					region = 256
+					region = 257
+					region = 258
+					region = 259
+					region = 260
 					region = 152
 				}
 			}
@@ -15745,7 +15817,7 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 
 		targets = {
-			state = 566  # Irkutsk
+			state = 566  # Chita
 		}
 		target_trigger = {
 			FROM = { state = 566  }
@@ -18571,6 +18643,11 @@ SOV_panslavic_nationalism = {
 			has_full_control_of_state = 784
 			has_full_control_of_state = 93
 			has_full_control_of_state = 87
+			#r56 - seems bugged in vanilla, missing Gdynia making Danzig city unconnected
+			has_full_control_of_state = 807
+			has_full_control_of_state = 934
+			has_full_control_of_state = 935
+			has_full_control_of_state = 936
 		}
 
 		visible = {
@@ -18605,6 +18682,11 @@ SOV_panslavic_nationalism = {
 			add_state_core = 784
 			add_state_core = 93
 			add_state_core = 87
+			#r56
+			add_state_core = 807
+			add_state_core = 934
+			add_state_core = 935
+			add_state_core = 936
 			set_country_flag = SOV_integrated_poland_flag
 		}
 
@@ -18630,6 +18712,17 @@ SOV_panslavic_nationalism = {
 			has_full_control_of_state = 803
 			has_full_control_of_state = 45
 			has_full_control_of_state = 764
+			#r56
+			has_full_control_of_state = 853 #Ljubljana
+			has_full_control_of_state = 952 #Syrmia
+			has_full_control_of_state = 953 #Mitrovica
+			has_full_control_of_state = 950 #Debar
+			has_full_control_of_state = 956 #Prekmurje
+			has_full_control_of_state = 958 #Kvarner
+			has_full_control_of_state = 959 #Slavonia
+			has_full_control_of_state = 961 #Banja Luka
+			has_full_control_of_state = 962 #Posavina
+			has_full_control_of_state = 963 #West Sandzak
 		}
 
 		visible = {
@@ -18660,6 +18753,17 @@ SOV_panslavic_nationalism = {
 			add_state_core = 803
 			add_state_core = 45
 			add_state_core = 764
+			#r56
+			add_state_core = 853 #Ljubljana
+			add_state_core = 952 #Syrmia
+			add_state_core = 953 #Mitrovica
+			add_state_core = 950 #Debar
+			add_state_core = 956 #Prekmurje
+			add_state_core = 958 #Kvarner
+			add_state_core = 959 #Slavonia
+			add_state_core = 961 #Banja Luka
+			add_state_core = 962 #Posavina
+			add_state_core = 963 #West Sandzak
 			set_country_flag = SOV_integrated_yugoslavia_flag
 		}
 

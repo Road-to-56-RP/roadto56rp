@@ -228,6 +228,7 @@ GER_mefo_bills_category = {
 		icon = ger_mefo_bills
 
 		available = {
+			is_ai = no
 			hidden_trigger = { 
 				NOT = { has_country_flag = ger_has_cancelled_mefo } 
 				NOT = {
@@ -239,7 +240,7 @@ GER_mefo_bills_category = {
 			}
 		}
 
-		cost = 50
+		cost = 0
 
 		fire_only_once = no
 
@@ -282,7 +283,7 @@ GER_mefo_bills_category = {
 			}
 		}
 
-		cost = 50
+		cost = 0
 
 		fire_only_once = no
 
@@ -309,7 +310,116 @@ GER_mefo_bills_category = {
 		}
 	}
 }
-
+formation_of_the_nva_category = {
+	GER_rehabilitate_lower_officer_corp = {
+		picture = chi_war_of_resistance2
+		cost = 100
+		visible = {
+			has_completed_focus = GER_r56rp_establish_NVA
+		}
+		complete_effect = {
+			If = {		
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_1
+				}
+				swap_ideas = {
+					add_idea = GER_r56rp_establish_NVA_idea_2
+					remove_idea = GER_r56rp_establish_NVA_idea_1
+				}
+			}
+		}
+	}
+	GER_ideological_teaching_of_karl_marxs = {
+		picture = chi_war_of_resistance2
+		cost = 100
+		visible = {
+			has_idea = GER_r56rp_establish_NVA_idea_2
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_2
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_3
+				remove_idea = GER_r56rp_establish_NVA_idea_2
+				}
+			}
+		}
+	}
+	GER_impliment_schwerepunkt_tatics = {
+		picture = chi_war_of_resistance2
+		cost = 100
+		visible = {
+			has_idea = GER_r56rp_establish_NVA_idea_3
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_3
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_4
+				remove_idea = GER_r56rp_establish_NVA_idea_3
+				}
+			}
+		}
+	}
+	GER_night_battle_tatics = {
+		picture = chi_war_of_resistance2
+		cost = 100
+		visible = {
+			has_idea = GER_r56rp_establish_NVA_idea_4
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_4
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_5
+				remove_idea = GER_r56rp_establish_NVA_idea_4
+				}
+			}
+		}
+	}
+	GER_mandatory_civilian_training = {
+		picture = chi_war_of_resistance2
+		cost = 100
+		visible = {
+			has_idea = GER_r56rp_establish_NVA_idea_5
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_5
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_6
+				remove_idea = GER_r56rp_establish_NVA_idea_5
+				}
+			}
+		}
+	}
+	GER_revive_karl_marx_from_the_dead = {
+		picture = chi_war_of_resistance2
+		cost = 3000
+		visible = {
+			has_idea = GER_r56rp_establish_NVA_idea_6
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_6
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_7
+				remove_idea = GER_r56rp_establish_NVA_idea_6
+				}
+			}
+		}
+	}
+}
 operations = {
 
 	GER_barbarossa_mission = {
@@ -5430,6 +5540,44 @@ GER_civil_war_category = {
 
 political_actions = {
 
+WGR_establish_a_provisional_capital = {
+		priority = 119
+		icon = GFX_decision_SOV_place_hq
+
+		allowed = {
+			original_tag = WGR
+		}
+
+		visible = {
+			NOT = {
+				owns_state = 64
+			}
+			has_full_control_of_state = 51
+		}
+
+		available = {}
+
+		cost = 10
+
+		days_re_enable = 90
+
+		complete_effect = {
+			add_stability = 0.01
+			set_victory_points = {
+				province = 3547
+				value = 10
+			}
+			set_capital = {
+				state = 51
+				remember_old_capital = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1000
+		}
+	}
+
 	# Reinstate Wilhelm IV into the line of succession
 	reinstate_wilhelm_iv_succession_rights = {
 
@@ -6372,6 +6520,393 @@ GER_austro_hungarian_empire = {
 				HUN = { country_event = { id = wtt_germany.68 hours = 1 } }
 				AUS = { country_event = { id = wtt_germany.68 hours = 3 } }
 			}
+		}
+	}
+}
+
+GER_monarchist_balance_of_power_category = {
+	GER_bop_bolster_the_army = {
+		priority = 118
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_restore_the_empire
+		}
+
+		available = {}
+
+		ai_hint_pp_cost = 15
+		custom_cost_trigger = {
+			has_political_power > 14
+			has_army_experience > 9
+		}
+		custom_cost_text = decision_cost_pp_15_ArmXP_10
+
+		days_re_enable = 30
+
+		complete_effect = {
+			GER_monarchist_bop_very_low_increase_effect = yes
+			custom_effect_tooltip = AFG_reactivates_in_30_days
+			hidden_effect = {
+				add_political_power = -15
+				army_experience = -10
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	GER_bop_bolster_the_airforce = {
+		priority = 118
+		icon = GFX_decision_generic_air
+
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_restore_the_empire
+		}
+
+		available = {}
+
+		ai_hint_pp_cost = 15
+		custom_cost_trigger = {
+			has_political_power > 14
+			has_air_experience > 9
+		}
+		custom_cost_text = decision_cost_pp_15_AirXP_10
+
+		days_re_enable = 30
+
+		complete_effect = {
+			GER_monarchist_bop_very_low_increase_effect = yes
+			custom_effect_tooltip = AFG_reactivates_in_30_days
+			hidden_effect = {
+				add_political_power = -15
+				air_experience = -10
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	GER_bop_bolster_the_navy = {
+		priority = 118
+		icon = GFX_decision_generic_naval
+
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_restore_the_empire
+		}
+
+		available = {}
+
+		ai_hint_pp_cost = 15
+		custom_cost_trigger = {
+			has_political_power > 14
+			has_navy_experience > 9
+		}
+		custom_cost_text = decision_cost_pp_15_NavXP_10
+
+		days_re_enable = 30
+
+		complete_effect = {
+			GER_monarchist_bop_very_low_increase_effect = yes
+			custom_effect_tooltip = AFG_reactivates_in_30_days
+			hidden_effect = {
+				add_political_power = -15
+				navy_experience = -10
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	GER_bop_inspect_army = {
+		priority = 117
+		icon = GFX_decision_eng_trade_unions_support
+
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_restore_the_empire
+		}
+
+		available = {}
+
+		cost = 50
+
+		days_re_enable = 30
+
+		complete_effect = {
+			GER_monarchist_bop_very_low_decrease_effect = yes
+			custom_effect_tooltip = AFG_reactivates_in_30_days
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	GER_bop_inspect_airforce = {
+		priority = 117
+		icon = GFX_decision_eng_trade_unions_support
+
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_restore_the_empire
+		}
+
+		available = {}
+
+		cost = 50
+
+		days_re_enable = 30
+
+		complete_effect = {
+			GER_monarchist_bop_very_low_decrease_effect = yes
+			custom_effect_tooltip = AFG_reactivates_in_30_days
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	GER_bop_inspect_navy = {
+		priority = 117
+		icon = GFX_decision_eng_trade_unions_support
+
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_restore_the_empire
+		}
+
+		available = {}
+
+		cost = 50
+
+		days_re_enable = 30
+
+		complete_effect = {
+			GER_monarchist_bop_very_low_decrease_effect = yes
+			custom_effect_tooltip = AFG_reactivates_in_30_days
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	GER_bop_prioritize_military_industry = {
+
+		icon = GFX_decision_ger_military_buildup
+
+		priority = 116
+
+		allowed = {
+			original_tag = GER
+		}
+
+		cost = 50
+
+		available = {
+			
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_prioritize_military_industry
+		}
+
+		fire_only_once = no
+
+		days_re_enable = 180
+
+		days_remove = 60
+
+		ai_will_do = {
+			base = 5
+			modifier = {
+				add = 15
+				has_political_power > 100
+			}
+		}
+
+		modifier = {
+			production_speed_arms_factory_factor = 0.1
+			production_speed_dockyard_factor = 0.1
+		}
+
+		remove_effect = {
+			remove_power_balance_modifier = {
+				id = GER_monarchist_power_balance
+				modifier = GER_monarchist_bop_prioritize_military_industry
+			}
+			custom_effect_tooltip = AFG_reactivates_in_180_days
+		}
+
+		complete_effect = {
+			add_power_balance_modifier = {
+				id = GER_monarchist_power_balance
+				modifier = GER_monarchist_bop_prioritize_military_industry
+			}
+		}
+	}
+	GER_bop_prioritize_civilian_industry = {
+
+		icon = GFX_decision_generic_consumer_goods
+
+		priority = 116
+
+		allowed = {
+			original_tag = GER
+		}
+
+		cost = 50
+
+		available = {
+			
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_prioritize_civilian_industry
+		}
+
+		fire_only_once = no
+
+		days_re_enable = 180
+
+		days_remove = 60
+
+		ai_will_do = {
+			base = 5
+			modifier = {
+				add = 15
+				has_political_power > 100
+			}
+		}
+
+		modifier = {
+			production_speed_industrial_complex_factor = 0.1
+			production_speed_infrastructure_factor = 0.1
+			production_speed_rail_way_factor = 0.1
+		}
+
+		remove_effect = {
+			remove_power_balance_modifier = {
+				id = GER_monarchist_power_balance
+				modifier = GER_monarchist_bop_prioritize_civilian_industry
+			}
+			custom_effect_tooltip = AFG_reactivates_in_180_days
+		}
+
+		complete_effect = {
+			add_power_balance_modifier = {
+				id = GER_monarchist_power_balance
+				modifier = GER_monarchist_bop_prioritize_civilian_industry
+			}
+		}
+	}
+
+	GER_bop_nationalistic_military_parade = {
+		priority = 119
+		icon = GFX_decision_generic_nationalism
+
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_galvanize_german_militarism
+		}
+
+		available = {}
+
+		cost = 50
+
+		custom_cost_trigger = {
+			has_political_power > 49
+			command_power > 9
+		}
+
+		custom_cost_text = EGY_decision_cost_command_power_4
+
+		days_re_enable = 30
+
+		complete_effect = {
+			add_war_support = 0.01
+			hidden_effect = {
+				add_command_power = -10
+			}
+			GER_monarchist_bop_low_increase_effect = yes
+			custom_effect_tooltip = AFG_reactivates_in_90_days
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	GER_bop_rally_in_honour_of_the_kaiser = {
+		priority = 119
+		icon = GFX_decision_generic_monarchy
+
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+			has_government = neutrality
+			has_completed_focus = GER_gott_mit_uns
+		}
+
+		available = {}
+
+		cost = 75
+
+		days_re_enable = 90
+
+		complete_effect = {
+			add_stability = 0.01
+			hidden_effect = {
+				add_command_power = -10
+			}
+			GER_monarchist_bop_low_decrease_effect = yes
+			custom_effect_tooltip = AFG_reactivates_in_90_days
+		}
+
+		ai_will_do = {
+			base = 1
 		}
 	}
 }

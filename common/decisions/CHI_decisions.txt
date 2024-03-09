@@ -55,7 +55,7 @@ CHI_anti_imperialism = {
 
 # NEW CATEGORY TO WORK WITH THE CHINESE NATIONAL FOCUS MOD
 
-CHI_improve_the_army_situation = {
+r56rp_officer_training = {
 	CHI_improve_the_NRA = {
 
 		icon = GFX_decision_icon_kuomintang
@@ -188,7 +188,6 @@ CHI_war_of_resistance = {
 
 		available = {
 			has_defensive_war_with = JAP
-			has_completed_focus = KMT_external_defense
 			NOT = { has_global_flag = CHI_unite }
 			NOT = { has_global_flag = CHI_no_national_front_flag }
 		}
@@ -469,6 +468,16 @@ CHI_war_of_resistance = {
 				damage_building = {
 					type = arms_factory
 					damage = 1
+				}
+				damage_units = {
+					state = THIS
+					limit = { 
+						has_war_with = CHI
+					}
+					damage = 0.2
+					ratio = yes
+					army = yes
+					navy = no
 				}
 				set_state_flag = scorched
 			}
@@ -1002,7 +1011,7 @@ CHI_liberation_of_asia = {
 
 #Category allowed for all potential nationalist china
 #Category visible when CHI_army_reform focus is completed
-CHI_army_reform = {
+r56rp_officer_training = {
 
 	CHI_army_reform = {
 
@@ -1179,27 +1188,30 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_navy
 					}
 				}
-				has_tech = basic_machine_tools
-				OR = {
+				count_triggers = {
+					amount = 4
+					has_tech = basic_machine_tools
 					has_tech = concentrated_industry
 					has_tech = dispersed_industry
+					has_tech = construction1
+					has_tech = excavation1
+					has_tech = electronic_mechanical_engineering
+					OR = {
+						AND = {
+							num_of_factories > 40 #was 50
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 50 #was 65
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 65 #was 75
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction1
-				OR = {
-					AND = {
-						num_of_factories > 40 #was 50
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 50 #was 65
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 65 #was 75
-						has_offensive_war = yes
-					}
-				}
-				amount_research_slots > 2
+				
 			}
 			if = {
 				limit = {
@@ -1208,27 +1220,30 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_2_navy
 					}
 				}
-				has_tech = improved_machine_tools
-				OR = {
+				count_triggers = {
+					amount = 4
+					has_tech = improved_machine_tools
 					has_tech = concentrated_industry2
 					has_tech = dispersed_industry2
+					has_tech = construction2
+					has_tech = excavation2
+					has_tech = mechanical_computing
+					OR = {
+						AND = {
+							num_of_factories > 70
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 80
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 90
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction2
-				OR = {
-					AND = {
-						num_of_factories > 70
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 80
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 90
-						has_offensive_war = yes
-					}
-				}
-				amount_research_slots > 3
+				
 			}
 			if = {
 				limit = {
@@ -1237,28 +1252,30 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_3_navy
 					}
 				}
-				has_tech = advanced_machine_tools
-				OR = {
+				count_triggers = {
+					amount = 4
+					has_tech = advanced_machine_tools
 					has_tech = concentrated_industry3
 					has_tech = dispersed_industry3
+					has_tech = construction3
+					has_tech = excavation3
+					has_tech = computing_machine
+					OR = {
+						AND = {
+							num_of_factories > 90
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 115
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 125
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction3
-				OR = {
-					AND = {
-						num_of_factories > 90
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 115
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 125
-						has_offensive_war = yes
-					}
-				}
-				has_idea = incompetent_industry_real_3
-				amount_research_slots > 3
+				
 			}
 			if = {
 				limit = {
@@ -1267,28 +1284,29 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_4_navy
 					}
 				}
-				has_tech = assembly_line_production
-				OR = {
+				count_triggers = {
+					amount = 4
+					has_tech = assembly_line_production
 					has_tech = concentrated_industry4
 					has_tech = dispersed_industry4
+					has_tech = construction4
+					has_tech = excavation4
+					has_tech = improved_computing_machine
+					OR = {
+						AND = {
+							num_of_factories > 110
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 140
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 150
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction4
-				OR = {
-					AND = {
-						num_of_factories > 110
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 140
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 150
-						has_offensive_war = yes
-					}
-				}
-				has_idea = incompetent_industry_real_4
-				amount_research_slots > 4
 			}
 			if = {
 				limit = {
@@ -1297,31 +1315,30 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_5_navy
 					}
 				}
-				OR = {
+				count_triggers = {
+					amount = 4
 					has_tech = flexible_line
 					has_tech = streamlined_line
-				}
-				OR = {
 					has_tech = concentrated_industry5
 					has_tech = dispersed_industry5
+					has_tech = construction5
+					has_tech = excavation5
+					has_tech = advanced_computing_machine
+					OR = {
+						AND = {
+							num_of_factories > 130
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 170
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 190
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction5
-				OR = {
-					AND = {
-						num_of_factories > 130
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 170
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 190
-						has_offensive_war = yes
-					}
-				}
-				has_idea = incompetent_industry_real_5
-				amount_research_slots > 4
 			}
 		}
 
@@ -1352,16 +1369,28 @@ economy_decisions = {
 		days_remove = 30
 
 		modifier = {
-			consumer_goods_factor = 0.05
-			political_power_gain = 0.15
+			consumer_goods_factor = 0.25
+			political_power_gain = 1
 		}
 
 		complete_effect = {
 			every_controlled_state = {
 				limit = {
 					is_core_of = ROOT
+					NOT = {
+						has_state_flag = CHI_r56rp_added_slots_once
+					}
 				}
-				add_extra_state_shared_building_slots = 1
+				set_state_flag = CHI_r56rp_added_slots_once
+				if = {
+					limit = {
+						num_of_factories > 5
+					}
+					add_extra_state_shared_building_slots = 2
+				}
+				else = {
+					add_extra_state_shared_building_slots = 1
+				}
 			}
 		}
 
@@ -1474,6 +1503,14 @@ CHI_industrial_evacuations = {
 	#Originally available for 283 591 592 593 594 595 596 597 598 599 600 602 606 607 608 613 614 616 620 743
 	CHI_industrial_evacuations_from_FROM = { #redone by warlider, cause SHIT WASNT WORKING BEFORE.
 		icon = GFX_decision_generic_industry
+
+		on_map_mode = map_and_decisions_view
+		state_target = any_controlled_state
+
+		target_root_trigger = {
+			has_completed_focus = CHI_industrial_evacuations
+		}
+
 		available = {
 			#should kinda ensure there are civs to move with before moving
 			num_of_civilian_factories_available_for_projects > 5
@@ -1535,9 +1572,7 @@ CHI_industrial_evacuations = {
 				state = 743			
 			}
 		}
-		on_map_mode = map_and_decisions_view
-
-		state_target = yes
+		
 		target_trigger = {	#originally were 283 591 592 593 594 595 596 597 598 599 600 602 606 607 608 613 614 616 620 743
 			FROM = {
 				OR = {
@@ -1576,7 +1611,6 @@ CHI_industrial_evacuations = {
 			}
 		}
 		visible = {
-			has_completed_focus = CHI_industrial_evacuations
 			FROM = {
 				OR = {
 					arms_factory > 0

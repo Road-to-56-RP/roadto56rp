@@ -86,10 +86,13 @@ focus_tree = {
 	focus = {
 		id = USA_double_victory
 		icon = GFX_Goal_USA_double_victory
-		x = -6
-		y = 4
-		prerequisite = { focus = USA_agricultural_adjustment_act focus = USA_accumulated_wealth_tax_act }
-		relative_position_id = USA_continue_the_new_deal
+		x = -2
+		y = 1
+		prerequisite = { 
+			focus = USA_suspend_the_presecution 
+			focus = USA_wpa
+		}
+		relative_position_id = USA_wpa
 		cost = 5
 
 		ai_will_do = {
@@ -150,7 +153,6 @@ focus_tree = {
 		}
 
 		allow_branch = {
-			has_government = democratic
 			if = {
 				limit = {
 					has_game_rule = {
@@ -326,7 +328,7 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = USA_democratic_socialism
+		id = USA_democratic_socialism_focus
 		icon = GFX_goal_generic_red_freedom
 		x = 1
 		y = 1
@@ -377,14 +379,14 @@ focus_tree = {
 		cost = 10
 		text = POR_communist_secret_police
 		prerequisite = {
-			focus = USA_democratic_socialism
+			focus = USA_democratic_socialism_focus
 		}
 		available = {
 			NOT = {
 				has_completed_focus = USA_office_of_strategic_services
 			}
 		}
-		relative_position_id = USA_democratic_socialism
+		relative_position_id = USA_democratic_socialism_focus
 		x = -2
 		y = 1
 		ai_will_do = {
@@ -464,7 +466,7 @@ focus_tree = {
 	focus = {
 		id = r56_USA_join_the_mexican_revolutionaries
 		icon = GFX_goal_mexico_mexico_for_mexicans
-		prerequisite = { focus = USA_democratic_socialism }
+		prerequisite = { focus = USA_democratic_socialism_focus }
 		available = {
 			has_government = communism
 			is_puppet = no
@@ -498,7 +500,7 @@ focus_tree = {
 		
 		x = -1
 		y = 3
-		relative_position_id = USA_democratic_socialism
+		relative_position_id = USA_democratic_socialism_focus
 		cost = 5
 		ai_will_do = {
 			factor = 1
@@ -697,7 +699,7 @@ focus_tree = {
 		icon = GFX_goal_philippines_post_independence_stabilization
 		x = 1
 		y = 2
-		prerequisite = { focus = USA_democratic_socialism }
+		prerequisite = { focus = USA_democratic_socialism_focus }
 		#prerequisite = { focus = USA_full_desegregation }
 		relative_position_id = USA_desegregate_the_armed_forces
 		cost = 10
@@ -818,7 +820,7 @@ focus_tree = {
 		}
 
 		available = {
-			congress_high_support_trigger = yes
+			congress_medium_support_trigger = yes
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_government = communism
@@ -836,7 +838,11 @@ focus_tree = {
 				limit = {
 					not = { congress_high_support_trigger = yes }
 				}
+				custom_effect_tooltip =  r56rp_USA_union_rep_cong_2_tt
 				add_stability = -0.1
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_USA_union_rep_cong_tt
 			}
 			USA_return_majority = yes
 			if = {
@@ -894,12 +900,97 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = USA_accumulated_wealth_tax_act
-		icon = GFX_focus_rom_parties_end
+		id = USA_worker_management_act
+		icon = GFX_goal_FRA_work_with_the_cgt
 		x = 0
 		y = 1
 		prerequisite = { focus = USA_union_representation_act }
 		relative_position_id = USA_union_representation_act
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			congress_high_support_trigger = yes
+			OR = {
+				has_idea_with_trait = communist_revolutionary
+				has_government = communism
+			}
+			has_country_flag = {
+				flag = USA_new_legislation_drafed_flag
+				days > 230
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56_USA_legislation_drafted_days_tt
+				has_country_flag = {
+					flag = USA_new_legislation_drafed_flag
+					days > 230
+				}
+			}
+		}
+
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
+		completion_reward = {
+			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
+			add_ideas = USA_worker_management_act
+			if = {
+				limit = {
+					communism > 0.3
+					not = { has_government = communism }
+				}
+				USA_congress_medium_opposition = yes
+			}
+			else_if = {
+				limit = {
+					communism < 0.3
+					not = { has_government = communism }
+				}
+				USA_congress_large_opposition = yes
+				add_popularity = {
+					ideology = communism
+					popularity = 0.05
+				}
+			}
+			USA_great_depression_level_down = yes
+			set_country_flag = USA_new_legislation_drafed_flag
+		}
+	}
+	
+	focus = {
+		id = USA_guarantee_the_american_dream
+		icon = GFX_focus_usa_guarantee_the_american_dream
+		x = 0
+		y = 2
+		#prerequisite = { focus = USA_democratic_socialism_focus }
+		prerequisite = { focus = USA_old_age_pension_act }
+		prerequisite = { focus = USA_worker_management_act }
+		relative_position_id = USA_union_representation_act
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			add_war_support = 0.1
+		}
+	}
+
+	## Previously USA_worker_management_act
+	focus = {
+		id = USA_accumulated_wealth_tax_act
+		icon = GFX_focus_rom_parties_end
+		x = 0
+		y = 1
+		prerequisite = { focus = USA_guarantee_the_american_dream }
+		mutually_exclusive = { focus = USA_fair_labour_standards_act }
+		relative_position_id = USA_guarantee_the_american_dream
 		cost = 10
 
 		ai_will_do = {
@@ -959,87 +1050,7 @@ focus_tree = {
 			set_country_flag = USA_new_legislation_drafed_flag
 		}
 	}
-	focus = {
-		id = USA_guarantee_the_american_dream
-		icon = GFX_focus_usa_guarantee_the_american_dream
-		x = 0
-		y = 2
-		#prerequisite = { focus = USA_democratic_socialism }
-		prerequisite = { focus = USA_old_age_pension_act }
-		prerequisite = { focus = USA_accumulated_wealth_tax_act }
-		relative_position_id = USA_union_representation_act
-		cost = 5
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
-		completion_reward = {
-			add_war_support = 0.1
-		}
-	}
-	focus = {
-		id = USA_worker_management_act
-		icon = GFX_goal_FRA_work_with_the_cgt
-		x = 0
-		y = 1
-		prerequisite = { focus = USA_guarantee_the_american_dream }
-		relative_position_id = USA_guarantee_the_american_dream
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			congress_high_support_trigger = yes
-			OR = {
-				has_idea_with_trait = communist_revolutionary
-				has_government = communism
-			}
-			has_country_flag = {
-				flag = USA_new_legislation_drafed_flag
-				days > 230
-			}
-			custom_trigger_tooltip = {
-				tooltip = r56_USA_legislation_drafted_days_tt
-				has_country_flag = {
-					flag = USA_new_legislation_drafed_flag
-					days > 230
-				}
-			}
-		}
-
-		cancel_if_invalid = no
-		continue_if_invalid = yes
-		
-		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
-		completion_reward = {
-			clr_country_flag = USA_new_legislation_drafed_flag #cleared for the next counter
-			add_ideas = USA_worker_management_act
-			if = {
-				limit = {
-					communism > 0.3
-					not = { has_government = communism }
-				}
-				USA_congress_medium_opposition = yes
-			}
-			else_if = {
-				limit = {
-					communism < 0.3
-					not = { has_government = communism }
-				}
-				USA_congress_large_opposition = yes
-				add_popularity = {
-					ideology = communism
-					popularity = 0.05
-				}
-			}
-			USA_great_depression_level_down = yes
-			set_country_flag = USA_new_legislation_drafed_flag
-		}
-	}
+	
 	focus = {
 		id = USA_militia_organization_act
 		icon = GFX_focus_secret_rearmament
@@ -1071,7 +1082,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_civ_factory
 		x = 0
 		y = 2
-		prerequisite = { focus = USA_worker_management_act }
+		prerequisite = { focus = USA_accumulated_wealth_tax_act }
 		prerequisite = { focus = USA_militia_organization_act }
 		relative_position_id = USA_guarantee_the_american_dream
 		cost = 10
@@ -1125,7 +1136,10 @@ focus_tree = {
 		icon = GFX_goal_generic_intelligence_exchange
 		x = 0
 		y = 3
-		prerequisite = { focus = USA_communal_property_act }
+		prerequisite = { 
+			focus = USA_communal_property_act
+			focus = USA_federal_housing_act
+		}
 		relative_position_id = USA_guarantee_the_american_dream
 		cost = 10
 
@@ -1334,7 +1348,7 @@ focus_tree = {
 		icon = GFX_focus_rom_abdicate
 		x = -2
 		y = 2
-		prerequisite = { focus = USA_reach_out_to_the_ware_group focus = USA_democratic_socialism }
+		prerequisite = { focus = USA_reach_out_to_the_ware_group focus = USA_democratic_socialism_focus }
 		relative_position_id = USA_reach_out_to_the_ware_group
 		cost = 10
 
@@ -1373,7 +1387,7 @@ focus_tree = {
 					GER = {
 						OR = {
 							has_completed_focus = GER_a_new_reich
-							has_completed_focus = GER_consolidate_new_reich
+							has_completed_focus = GER_restore_the_empire
 						}
 						not = { is_in_faction_with = ROOT }
 					}
@@ -1724,6 +1738,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_agricultural_adjustment_act }
+		mutually_exclusive = { focus = USA_accumulated_wealth_tax_act }
 		relative_position_id = USA_agricultural_adjustment_act
 		cost = 10
 
@@ -2013,13 +2028,20 @@ focus_tree = {
 					has_war_support < 0.4
 					has_war_support > 0.2
 				}
+				custom_effect_tooltip = r56rp_USA_lim_int_focus_2_tt
 				add_stability = -0.1
+				
 			}
 			else_if = {
 				limit = {
 					has_war_support < 0.2
 				}
+				custom_effect_tooltip = r56rp_USA_lim_int_focus_tt
 				add_stability = -0.25
+				
+			}
+			else = {
+				custom_effect_tooltip = r56rp_USA_lim_int_focus_3_tt
 			}
 			custom_effect_tooltip = USA_limited_intervention_tt
 			hidden_effect = {
@@ -2038,7 +2060,16 @@ focus_tree = {
 				limit = {
 					has_war = no
 				}
-				congress_high_support_trigger = yes 
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_war_prop_trigger_tt
+					congress_high_support_trigger = yes
+				}
+			}
+			ELSE = {
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_war_prop_trigger_1_tt
+					always = yes
+				}
 			}
 		}
 
@@ -2069,6 +2100,7 @@ focus_tree = {
 				limit = {
 					has_war_support < 0.4
 				}
+				custom_effect_tooltip = r56rp_USA_war_prop_focus_tt
 				USA_congress_small_opposition = yes
 			}
 		}
@@ -2166,16 +2198,24 @@ focus_tree = {
 		available = {
 			if = {
 				limit = {
+					OR = {
+						has_war_support > 0.3
+						has_war = yes
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_def_con_trigger_1_tt
+					congress_low_support_trigger = yes
+				}
+			}
+			else_if = {
+				limit = {
 					has_war = no
 				}
-				congress_high_support_trigger = yes 
-			}
-			else = {
-				congress_low_support_trigger = yes
-			}
-			OR = {
-				has_war = yes
-				has_war_support > 0.3
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_def_con_trigger_tt
+					congress_high_support_trigger = yes
+				}
 			}
 		}
 
@@ -2210,16 +2250,25 @@ focus_tree = {
 			date > 1938.6.1
 			if = {
 				limit = {
+					OR = {
+						has_war_support > 0.5
+						has_war = yes
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_us_war_eco_trigger_1_tt
+					congress_low_support_trigger = yes
+				}
+
+			}
+			else_if = {
+				limit = {
 					has_war = no
 				}
-				congress_high_support_trigger = yes 
-			}
-			else = {
-				congress_low_support_trigger = yes
-			}
-			OR = {
-				has_war = yes
-				has_war_support > 0.5
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_us_war_eco_trigger_tt
+					congress_high_support_trigger = yes
+				}
 			}
 		}
 
@@ -2230,6 +2279,7 @@ focus_tree = {
 					NOT = { has_idea = tot_economic_mobilisation }
 				}
 				add_ideas = war_economy
+				log = "<R56RP_LOG_E> [THIS.GetTag] - removed Undistrubed Isolation via $USA_us_war_economy$"
 			}
 			custom_effect_tooltip = available_industrial_concern
 			show_ideas_tooltip = USA_general_motors
@@ -2400,10 +2450,17 @@ focus_tree = {
 				limit = {
 					has_war = no
 				}
-				congress_high_support_trigger = yes 
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_over_there_trigger_tt
+					congress_high_support_trigger = yes
+				}
 			}
 			else = {
-				congress_low_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_over_there_trigger_1_tt
+					congress_low_support_trigger = yes
+				}
+			
 			}
 		}
 
@@ -2609,6 +2666,7 @@ focus_tree = {
 				limit = {
 					has_war_support < 0.4
 				}
+				custom_effect_tooltip = r56rp_USA_neut_act_focus_tt
 				USA_congress_small_support = yes
 			}
 			custom_effect_tooltip = USA_lend_lease_act_neutrality_tt
@@ -2669,10 +2727,16 @@ focus_tree = {
 				limit = {
 					has_war_support > 0.4
 				}
-				congress_low_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_OEW_trigger_1_tt
+					congress_low_support_trigger = yes
+				}
 			}
 			else = {
-				congress_medium_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_OEW_trigger_tt
+					congress_medium_support_trigger = yes
+				}
 			}
 			any_other_country = {
 				is_major = yes
@@ -2784,10 +2848,11 @@ focus_tree = {
 					has_war_support < 0.4
 					has_war = no
 				}
+				custom_effect_tooltip = r56rp_USA_OEW_focus_tt
 				USA_congress_medium_opposition = yes
 			}
 			else = {
-				USA_congress_medium_opposition = yes
+				USA_congress_small_opposition = yes
 			}
 		}
 	}	
@@ -3350,6 +3415,7 @@ focus_tree = {
 				}
 				add_ideas = civilian_economy
 				set_country_flag = USA_the_giant_wakes_added_civ_eco
+				log = "<R56RP_LOG_E> [THIS.GetTag] - removed Undistrubed Isolation via USA_the_giant_wakes"
 			}
 			#Only Democratic USA should have the op timed idea
 			if = { 
@@ -6469,7 +6535,19 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
 			USA_congress_large_support = yes
-			event_target:WTT_current_china_leader = {
+			every_country = {
+				limit = {
+					OR = {
+						tag = CHI
+						tag = PRC
+						tag = GXC
+						tag = TNG
+						tag = SIK
+						tag = SHX
+						tag = XSM
+						tag = YUN
+					}
+				}
 				add_opinion_modifier = { modifier = USA_extend_the_chinese_exclusion_acts target = ROOT }
 			}
 		}
@@ -6488,9 +6566,6 @@ focus_tree = {
 			factor = 1
 		}
 
-		
-		
-		
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
 			custom_effect_tooltip = available_political_advisor
@@ -6532,7 +6607,11 @@ focus_tree = {
 				limit = {
 					democratic > 0.75
 				}
+				custom_effect_tooltip = r56rp_USA_vot_reg_demo_tt
 				add_stability = -0.1
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_USA_vot_reg_demo_2_tt
 			}
 			if = {
 				limit = {
@@ -6949,7 +7028,18 @@ focus_tree = {
 			unlock_decision_category_tooltip = USA_honor_the_confederacy
 			custom_effect_tooltip = USA_honor_the_confederacy_tt
 			every_state = {
+				limit = {
+					is_core_of = CSA
+				}
 				remove_core_of = CSA
+				IF = {
+					limit = {
+						NOT = {
+							is_core_of = USA
+						}
+					}
+					add_core_of = USA
+				}
 			}
 		}
 	}
@@ -7678,70 +7768,34 @@ focus_tree = {
 			}
 		}
 
-		
-		
-		
-
 		completion_reward = {
-			if = {
+			every_country = {
 				limit = {
-					AST = {
-						is_subject = yes
-						OVERLORD = {
-							not = { tag = NZL }
-							not = { tag = ROOT }
+					any_state = {
+						OR = {
+							region = 195
+							region = 194
+							region = 156
+							region = 157
 						}
+						is_controlled_by = PREV
 					}
-					NZL = {
-						is_subject = no
-					}
+					#is_subject = yes
 				}
-				AST = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
-				NZL = { country_event = mtg_usa_pacific_pacification.1 }
-			}
-			else_if = {
-				limit = {
-					AST = {
-						is_subject = no
-					}
-					NZL = {
-						is_subject = yes
-						OVERLORD = {
-							not = { tag = AST }
-							not = { tag = ROOT }
-						}
-					}
-				}
-				NZL = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
-				AST = { country_event = mtg_usa_pacific_pacification.1 }
-			}
-			else_if = {
-				limit = {
-					AST = {
-						is_subject = yes
-						OVERLORD = {
-							not = { tag = ROOT }
-						}
-					}
-					NZL = {
-						is_subject = yes
-						OVERLORD = {
-							not = { tag = ROOT }
-						}
-					}
-				}
-				AST = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
-				if = {
+				IF = {
 					limit = {
-						AST = { OVERLORD = { NZL = { OVERLORD = { not = { tag = PREV.PREV } } } } } #NZL and AST both subjects but of different people
+						is_subject = yes
 					}
-					NZL = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
+					
+					OVERLORD = {
+						country_event = mtg_usa_pacific_pacification.1
+					}
 				}
+				ELSE = {
+					country_event = mtg_usa_pacific_pacification.1
+				}
+				
 			}
-			else = {
-				AST = { country_event = mtg_usa_pacific_pacification.1 }
-				NZL = { country_event = mtg_usa_pacific_pacification.1 }
-			}	
 		}
 	}
 	focus = {
@@ -8266,6 +8320,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = USA_intervention_in_the_americas }
+		mutually_exclusive = { focus = r56rp_USA_abandon_monroe }
 		relative_position_id = USA_intervention_in_the_americas
 		cost = 10
 		ai_will_do = {
@@ -8316,6 +8371,40 @@ focus_tree = {
 				ARG = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
 				CHL = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
 				PAN = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
+			}
+		}
+	}
+
+	focus = {
+		id = r56rp_USA_abandon_monroe
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		x = 2
+		y = 2
+		prerequisite = { focus = USA_intervention_in_the_americas }
+		mutually_exclusive = { focus = USA_reinforce_monroe_doctrine }
+		relative_position_id = USA_intervention_in_the_americas
+		cost = 5
+		ai_will_do = {
+			factor = 0
+		}
+		completion_reward = {
+			add_stability = -0.1
+			add_political_power = -100
+			custom_effect_tooltip = r56rp_USA_abandon_monroe_tt
+			every_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							is_on_continent = north_america
+							is_on_continent = south_america
+						}
+					}
+				}
+				diplomatic_relation = {
+					country = THIS
+					relation = guarantee
+					active = no
+				}
 			}
 		}
 	}
@@ -9474,10 +9563,16 @@ focus_tree = {
 					threat < 0.5
 					has_war = no
 				}
-				congress_high_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_victory_program_trigger_tt
+					congress_high_support_trigger = yes
+				}
 			}
 			else = {
-				congress_low_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_victory_program_trigger_1_tt
+					congress_low_support_trigger = yes
+				}
 			}
 		}
 
@@ -9500,18 +9595,30 @@ focus_tree = {
 			else = {
 				add_political_power = 150
 			}
+
 			if = {
 				limit = {
 					has_war_support < 0.1
 				}
+				custom_effect_tooltip = r56rp_USA_sel_train_act_focus_3_tt
 				set_war_support = 0.1
 			}
+			else = {
+				custom_effect_tooltip = r56rp_USA_sel_train_act_focus_4_tt
+				add_war_support = 0.05
+			}
+
 			if = {
 				limit = {
 					has_war_support < 0.4 
 				}
+				custom_effect_tooltip = r56rp_USA_war_prop_focus_tt
 				USA_congress_medium_opposition = yes
 			}
+			else = {
+				custom_effect_tooltip = r56rp_USA_war_prop_focus_2_tt
+			}
+
 			if = {
 				limit = {
 					has_idea = rt56_naval_first_funding
@@ -10418,8 +10525,20 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = tank_destroyer_board
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = USA_tank_destroyer_board_organization
+				mio:USA_tank_destroyer_board_organization = {
+					add_mio_size = 2
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = tank_destroyer_board
+			}
 			
 			if = {
 				limit = {
@@ -10874,8 +10993,21 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = detroit_arsenal
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = USA_detroit_arsenal_organization
+				mio:USA_detroit_arsenal_organization = {
+					add_mio_size = 2
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = detroit_arsenal
+			}
+			
 			
 			if = {
 				limit = {
@@ -11152,10 +11284,16 @@ focus_tree = {
 					threat < 0.5
 					has_war = no
 				}
-				congress_high_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_victory_program_trigger_tt
+					congress_high_support_trigger = yes
+				}
 			}
 			else = {
-				congress_low_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_victory_program_trigger_1_tt
+					congress_low_support_trigger = yes
+				}
 			}
 		}
 
@@ -11167,7 +11305,7 @@ focus_tree = {
 					has_war_support > 0.2
 					has_war = no
 				}
-				custom_effect_tooltip = USA_victory_program_focus_2_tt
+				custom_effect_tooltip = r56rp_USA_victory_program_focus_2_tt
 				add_stability = -0.1
 				
 			}
@@ -11176,12 +11314,22 @@ focus_tree = {
 					has_war_support < 0.2
 					has_war = no
 				}
-				custom_effect_tooltip = USA_victory_program_focus_tt
+				custom_effect_tooltip = r56rp_USA_victory_program_focus_tt
 				add_stability = -0.25
 				
 			}
-			else = {
-				custom_effect_tooltip = USA_victory_program_focus_3_tt
+			else_if = {
+				limit = {
+					has_war = yes
+				}
+				custom_effect_tooltip = r56rp_USA_victory_program_focus_4_tt
+			}
+			else_if = {
+				limit = {
+					has_war_support < 0.4
+					has_war = no
+				}
+				custom_effect_tooltip = r56rp_USA_victory_program_focus_3_tt
 			}
 			USA_congress_small_opposition = yes
 		}
@@ -11207,38 +11355,53 @@ focus_tree = {
 					threat < 0.5
 					has_war = no
 				}
-				congress_high_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_victory_program_trigger_tt
+					congress_high_support_trigger = yes
+				}
 			}
 			else = {
-				congress_medium_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_victory_program_trigger_1_tt
+					congress_medium_support_trigger = yes
+				}
+				
 			}
 		}
 
 		completion_reward = {
 			add_ideas = r56_USA_victory_program
 			if = {
-				if = {
-					limit = {
-						has_war_support < 0.4
-						has_war_support > 0.2
-						has_war = no
-					}
-					custom_effect_tooltip = USA_victory_program_focus_2_tt
-					add_stability = -0.1
-					
+				limit = {
+					has_war_support < 0.4
+					has_war_support > 0.2
+					has_war = no
 				}
-				else_if = {
-					limit = {
-						has_war_support < 0.2
-						has_war = no
-					}
-					custom_effect_tooltip = USA_victory_program_focus_tt
-					add_stability = -0.25
-					
+				custom_effect_tooltip = r56rp_USA_victory_program_focus_2_tt
+				add_stability = -0.1
+				
+			}
+			else_if = {
+				limit = {
+					has_war_support < 0.2
+					has_war = no
 				}
-				else = {
-					custom_effect_tooltip = USA_victory_program_focus_3_tt
+				custom_effect_tooltip = r56rp_USA_victory_program_focus_tt
+				add_stability = -0.25
+				
+			}
+			else_if = {
+				limit = {
+					has_war = yes
 				}
+				custom_effect_tooltip = r56rp_USA_victory_program_focus_4_tt
+			}
+			else_if = {
+				limit = {
+					has_war_support < 0.4
+					has_war = no
+				}
+				custom_effect_tooltip = r56rp_USA_victory_program_focus_3_tt
 			}
 			USA_congress_small_opposition = yes
 		}
@@ -11305,6 +11468,7 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 	
 		completion_reward = {
+			country_event = r56_usa.2
 			air_experience = 25
 			if = {
 				limit = {
@@ -11324,7 +11488,6 @@ focus_tree = {
 				category = air_doctrine
 			} # REVISIT May use modifier?
 			add_ideas = air_war_plans_division_focus
-			country_event = r56_usa.2
 		}
 	}
 
@@ -11349,8 +11512,17 @@ focus_tree = {
 			367 = {
 				air_base > 0
 			}
-			has_tech = fighter2
-			has_tech = tactical_bomber2
+			IF = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				has_tech = improved_small_airframe
+				has_tech = improved_medium_airframe
+			}
+			ELSE = {
+				has_tech = fighter2
+				has_tech = tactical_bomber2
+			}
 		}
 		completion_reward = {
 			add_war_support = 0.05
@@ -11376,8 +11548,24 @@ focus_tree = {
 
 		available_if_capitulated = yes
 		completion_reward = {
-			air_experience = 25
-			add_ideas = air_support_focus
+			IF = {
+				limit = {
+					has_country_flag =  r56rp_USA_us_army_airforce
+				}
+				custom_effect_tooltip = r56rp_USA_us_army_airforce_tt
+				add_political_power = 25
+			}
+			ELSE_IF = {
+				limit = {
+					has_country_flag = r56rp_USA_us_airforce
+				}
+				custom_effect_tooltip = r56rp_USA_us_airforce_tt
+				add_political_power = -50
+			}
+			swap_ideas = {
+				remove_idea = air_war_plans_division_focus
+				add_idea = r56rp_air_support_idea
+			}
 		}
 	}
 	focus = {
@@ -11428,6 +11616,7 @@ focus_tree = {
 					category = cas_bomber
 				}
 			}
+			air_experience = 10
 			
 		}
 	}
@@ -11466,7 +11655,7 @@ focus_tree = {
 					category = tactical_bomber
 				}
 			}
-			air_experience = 25
+			air_experience = 15
 		}
 	}
 	focus = {
@@ -11491,7 +11680,10 @@ focus_tree = {
 				cost_reduction = 0.5
 				category = air_doctrine
 			}
-			add_ideas = r56_USA_us_army_airforce
+			swap_ideas = {
+				remove_idea = r56rp_air_support_idea
+				add_idea = r56_USA_us_army_airforce
+			}
 		}
 	}
 	focus = {
@@ -11510,8 +11702,24 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			air_experience = 25
-			add_ideas = strategic_bombing_focus
+			IF = {
+				limit = {
+					has_country_flag = r56rp_USA_us_airforce
+				}
+				custom_effect_tooltip = r56rp_USA_us_airforce_tt
+				add_political_power = 25
+			}
+			ELSE_IF = {
+				limit = {
+					has_country_flag = r56rp_USA_us_army_airforce
+				}
+				custom_effect_tooltip =  r56rp_USA_us_army_airforce_tt
+				add_political_power = -50
+			}
+			swap_ideas = {
+				remove_idea = air_war_plans_division_focus
+				add_idea = r56rp_strategic_bombing_idea
+			}
 		}
 	}
 	focus = {
@@ -11548,7 +11756,42 @@ focus_tree = {
 				uses = 1
 				category = heavy_air
 			}
-			add_ideas = combined_bomber_offensive
+			IF = {
+				limit = {
+					has_idea = r56rp_strategic_bombing_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_strategic_bombing_idea
+					add_idea = r56rp_combined_bomber_offensive_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_flying_fortress_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_flying_fortress_idea
+					add_idea = r56rp_USA_flying_fortress_combomboff_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_us_air_force_fortress
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_us_air_force_fortress
+					add_idea = r56rp_USA_us_air_force_full
+				}
+			}
+
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = r56rp_strategic_bombing_idea
+						add_idea = r56rp_combined_bomber_offensive_idea
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -11589,7 +11832,41 @@ focus_tree = {
 					category = cat_strategic_bomber
 				}
 			}
-			add_ideas = r56_USA_flying_fortress
+			IF = {
+				limit = {
+					has_idea = r56rp_strategic_bombing_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_strategic_bombing_idea
+					add_idea = r56rp_USA_flying_fortress_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_combined_bomber_offensive_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_combined_bomber_offensive_idea
+					add_idea = r56rp_USA_flying_fortress_combomboff_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_us_air_force_combomoff_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_us_air_force_combomoff_idea
+					add_idea = r56rp_USA_us_air_force_full
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = r56rp_strategic_bombing_idea
+						add_idea = r56rp_USA_flying_fortress_idea
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -11614,7 +11891,41 @@ focus_tree = {
 				cost_reduction = 0.5
 				category = air_doctrine
 			}
-			add_ideas = USA_us_air_force
+			IF = {
+				limit = {
+					has_idea = r56rp_USA_flying_fortress_combomboff_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_flying_fortress_combomboff_idea
+					add_idea = r56rp_USA_us_air_force_full
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_flying_fortress_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_flying_fortress_idea
+					add_idea = r56rp_USA_us_air_force_fortress
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_combined_bomber_offensive_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_combined_bomber_offensive_idea
+					add_idea = r56rp_USA_us_air_force_combomoff_idea
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = r56rp_USA_flying_fortress_combomboff_idea
+						add_idea = r56rp_USA_us_air_force_full
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -11661,7 +11972,7 @@ focus_tree = {
 					obsolete = yes
 					icon = "GFX_USA_CAS1_medium"
 				}
-				add_ideas = r56rp_escort_fighters_focus
+				add_ideas = r56rp_escort_fighters_idea
 			}
 			else = {
 				add_tech_bonus = {
@@ -11676,7 +11987,7 @@ focus_tree = {
 					uses = 1
 					category = cat_heavy_fighter
 				}
-				add_ideas = escort_fighters_focus
+				add_ideas = r56rp_escort_fighters_legacy_idea
 			}
 		}
 	}
@@ -11734,13 +12045,19 @@ focus_tree = {
 				limit = {
 					has_war = no
 				}
-				NOT = { has_idea = great_depression }
-				NOT = { has_idea = great_depression_2 }
-				NOT = { has_idea = great_depression_3 }
-				congress_high_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_two_ocean_navy_trigger_1_tt
+					NOT = { has_idea = great_depression }
+					NOT = { has_idea = great_depression_2 }
+					NOT = { has_idea = great_depression_3 }
+					congress_high_support_trigger = yes
+				}
 			}
 			else = {
-				congress_low_support_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = r56rp_USA_two_ocean_navy_trigger_tt
+					congress_low_support_trigger = yes
+				}
 			}
 		}
 
@@ -11794,9 +12111,13 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					 has_war_support < 0.4 
+					has_war_support < 0.4 
 				}
+				custom_effect_tooltip = r56rp_USA_two_ocean_navy_focus_tt
 				USA_congress_medium_opposition = yes
+			}
+			else = {
+				custom_effect_tooltip = r56rp_USA_two_ocean_navy_focus_1_tt
 			}
 		}
 	}
@@ -11856,7 +12177,32 @@ focus_tree = {
 		}	
 
 		completion_reward = {
-			add_ideas = USA_maritime_commission
+			IF = {
+				limit = {
+					has_idea = bureau_of_ships_focus
+				}
+				swap_ideas = {
+					remove_idea = bureau_of_ships_focus
+					add_idea = r56rp_USA_maritime_commission_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_escort_effort_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_escort_effort_idea
+					add_idea = r56rp_USA_maritime_commission_plus_escort_idea
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = bureau_of_ships_focus
+						add_idea = r56rp_USA_maritime_commission_idea
+					}
+				}
+			}
 		}
 	}
 	
@@ -11885,7 +12231,32 @@ focus_tree = {
 
 		completion_reward = {
 			navy_experience = 25
-			add_ideas = liberty_ships_focus
+			IF = {
+				limit = {
+					has_idea = r56rp_USA_maritime_commission_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_maritime_commission_idea
+					add_idea = r56rp_liberty_ships_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_maritime_commission_plus_escort_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_USA_maritime_commission_plus_escort_idea
+					add_idea = r56rp_USA_maritime_commission_liberty_plus_escort_idea
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = bureau_of_ships_focus
+						add_idea = r56rp_liberty_ships_idea
+					}
+				}
+			}
 		}
 	}
 	
@@ -12240,8 +12611,41 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_ideas = escort_effort_focus
-			
+			IF = {
+				limit = {
+					has_idea = bureau_of_ships_focus
+				}
+				swap_ideas = {
+					remove_idea = bureau_of_ships_focus
+					add_idea = r56rp_USA_escort_effort_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_USA_maritime_commission_idea
+				}
+				swap_ideas = {
+					remove_idea = bureau_of_ships_focus
+					add_idea = r56rp_USA_maritime_commission_plus_escort_idea
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = r56rp_liberty_ships_idea
+				}
+				swap_ideas = {
+					remove_idea = r56rp_liberty_ships_idea
+					add_idea = r56rp_USA_maritime_commission_liberty_plus_escort_idea
+				}
+			}
+			ELSE = {
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = bureau_of_ships_focus
+						add_idea = r56rp_USA_escort_effort_idea
+					}
+				}
+			}
 		}
 	}
 

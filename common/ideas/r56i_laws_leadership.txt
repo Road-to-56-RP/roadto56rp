@@ -1,4 +1,7 @@
-#####----------> Mod by Sig "GreatExperiment" Altre
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 ## Edited by Comrade Warlider
 ideas = {
 
@@ -48,8 +51,8 @@ ideas = {
 						has_government = fascism
 					}					
 				}
-				hidden_trigger = {
-					NOT = {
+				NOT = {
+					hidden_trigger = {
 						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
 					}
 				}
@@ -68,6 +71,37 @@ ideas = {
 
 			ai_will_do = {
 				factor = 0
+
+				modifier = {
+					OR = {
+						AND = {
+							fascism > 0.5
+							date > 1939.01.01
+						}
+						
+						has_idea_with_trait = fascist_demagogue						
+						has_government = fascism
+						AND = {
+							has_idea = nationalism
+							NOT = {
+								is_puppet = yes
+								if = {
+									limit = {
+										is_puppet = yes
+									}
+									ROOT = {
+										OVERLORD = {
+											NOT = {	
+												has_government = fascism
+											}
+										}
+									}									
+								}
+						 	}
+					 	}
+					}
+					add = 3
+				}
 			}
 		}
 		
@@ -95,7 +129,40 @@ ideas = {
 			cancel_if_invalid = yes
 
 			ai_will_do = {
-   				factor = 0			
+   				factor = 0
+				   modifier = {
+					OR = {
+						AND = {
+							democratic > 0.5
+							date > 1939.01.01
+						}
+						has_idea_with_trait = democratic_reformer						
+						
+						AND = {
+							has_government = democratic
+							date > 1939.01.01
+						}						
+						AND = {
+							has_idea = GEN_Strenghten_Democracy_I
+							NOT = {
+								is_puppet = yes
+								if = {
+									limit = {
+										is_puppet = yes
+									}
+									ROOT = {
+										OVERLORD = {
+											NOT = {	
+												has_government = democratic
+											}
+										}
+									}									
+								}
+						 	}
+					 	}
+					}
+					add = 5
+				}				
    			}
 		}
 		
@@ -104,18 +171,16 @@ ideas = {
 		
 			available = {
 				NOT = {
+					OR = {
 						has_government = communism
 						is_puppet = yes
 						has_idea = internationalism
 						has_idea = nationalism						
+						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
 						has_country_leader = {
 							name = "Anarchist Commune"
 							ruling_only = yes
 						}					
-				}
-				hidden_trigger = {
-					NOT = {
-						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
 					}
 				}
 			}
@@ -134,7 +199,43 @@ ideas = {
 
 			ai_will_do = {
 				factor = 0
-			}				
+				modifier = {
+				 OR = {
+					 AND = {
+						 neutrality > 0.5
+						 date > 1939.01.01
+					 }
+
+					 has_idea_with_trait = staunch_monarchist
+					 has_idea_with_trait = staunch_traditionalist	
+					 has_idea_with_trait = staunch_aristocrat					
+					 
+					 AND = {
+						 has_government = neutrality
+						 date > 1939.01.01
+					 }						
+					 AND = {
+						 has_idea = GEN_Strenghten_Monarchy_I
+						 NOT = {
+							 is_puppet = yes
+							 if = {
+								 limit = {
+									 is_puppet = yes
+								 }
+								 ROOT = {
+									 OVERLORD = {
+										 NOT = {	
+											 has_government = neutrality
+										 }
+									 }
+								 }									
+							 }
+						  }
+					  }
+				 }
+				 add = 3
+			 }				
+			}
 		}
 		
 		#Will of the People
@@ -177,8 +278,8 @@ ideas = {
 					}
 					has_idea = SPR_collectivized_society
 				}
-				hidden_trigger = {
-					NOT = {
+				NOT = {
+					hidden_trigger = {
 						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
 					}
 				}
@@ -197,7 +298,7 @@ ideas = {
 			cancel_if_invalid = yes
 
 			ai_will_do = {
-				factor = 0
+				factor = 10
 			}
 		}		
 	}

@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 ideas = {
 
 	mobilization_laws = { 
@@ -55,6 +59,7 @@ ideas = {
 			modifier = {
 				consumer_goods_factor = 0.05
 				production_speed_buildings_factor = -0.3
+				industrial_capacity_factory = 0.15
 			}
 		}
 	}
@@ -78,6 +83,7 @@ ideas = {
 				min_export = 0.0
 				production_lack_of_resource_penalty_factor = -1
 				research_speed_factor = -0.05
+				consumer_goods_factor = -1 #cause if you capped, you shouldnt be expected to pay civilians.
 				civilian_intel_to_others = -15.0
 				navy_intel_to_others = -10.0
 				agency_upgrade_time = -0.3
@@ -86,6 +92,87 @@ ideas = {
 	}
 
 	hidden_ideas = {
+
+		r56_idea_small_nation_buildup_nerf = { #atleast we're trying to address lag :)
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+
+			cancel = {
+				OR = {
+					num_of_civilian_factories > 20
+					num_of_military_factories > 20
+				}
+			}
+			
+			removal_cost = -1
+			
+			modifier = { #tried to add modifers that wouldn't cripple tags, just slow them down. - SpicyAlfredo
+				training_time_factor = 0.10 #delay more troops getting in the field
+				minimum_training_level = 0.1 #delay more troops getting in the field
+				experience_gain_army_factor = -0.10 #less army xp = less variants
+				mobilization_speed = -0.10 #delay gaining more MP and training more troops
+				research_speed_factor = -0.05 #backhanded way to delay ai from getting new equipment faster.
+				land_equipment_upgrade_xp_cost = 1 #more variants are bad
+
+				#Ai modifers
+				ai_focus_aviation_factor = -0.10 #less focus on planes 
+				ai_focus_naval_factor = -0.10 #less likely to want ships
+
+				ai_focus_military_equipment_factor = -0.50 #Less focus on advancing military equipment research
+				ai_focus_military_advancements_factor = -0.50 #Less focus on advanced military equipment.
+				ai_focus_war_production_factor = -0.05
+
+				ai_focus_peaceful_factor = 0.05 #Increase focus on peaceful research and policies. In theory this modifer should be higher. Though it would make tags unable to defend themselves if it was.
+				ai_desired_divisions_factor = -0.25 #In theory this modifer should be higher. Though it would make tags unable to defend themselves if it was.
+
+				#Below are super tiny debuffs to slow down the AI from building and making stuff
+				production_speed_buildings_factor = -0.01
+				industrial_capacity_factory = -0.01
+			}
+		}
+
+		r56_idea_i_am_player_stockpile_capture = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			modifier = { #Gives player back base stockpile capture
+				equipment_capture_factor = 0.02
+			}
+		}
+
+		r56_idea_1941_ai_debuff = { #debuffs things that would cause drag on the game
+
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			modifier = { 
+				training_time_factor = 0.10 #delay more troops getting in the field
+				minimum_training_level = 0.1 #delay more troops getting in the field
+				equipment_upgrade_xp_cost = 1 #more variants are bad
+				land_equipment_upgrade_xp_cost = 1 #the biggest issue, biggest debuff x2 with the former modifer
+
+				#ai modifers 
+				ai_desired_divisions_factor = -0.01 #only a tiny amount since this idea is going on everybody
+			}
+		}
+
+	
 		idea_resistance_network_operative_1 = {
 			allowed = {
 				always = no
@@ -308,7 +395,7 @@ ideas = {
 			picture = escort_effort_focus
 			
 			modifier = {
-				consumer_goods_factor = -0.03
+				consumer_goods_factor = -0.12
 			}
 			
 			available = {
@@ -457,7 +544,7 @@ ideas = {
 			picture = SOV_scientist_defect
 
 			modifier = {
-				consumer_goods_factor = 0.05
+				consumer_goods_factor = 0.1
 				political_power_factor = -0.05
 			}
 		}
@@ -477,7 +564,7 @@ ideas = {
 			picture = SOV_scientist_defect
 			
 			modifier = {
-				consumer_goods_factor = -0.01
+				consumer_goods_factor = -0.05
 				production_speed_industrial_complex_factor = 0.01
 			}
 		}
@@ -497,7 +584,7 @@ ideas = {
 			picture = SOV_scientist_defect
 			
 			modifier = {
-				consumer_goods_factor = -0.05
+				consumer_goods_factor = -0.15
 				production_speed_buildings_factor = 0.05
 			}
 		}
@@ -517,7 +604,7 @@ ideas = {
 			picture = SOV_scientist_defect
 			
 			modifier = {
-				consumer_goods_factor = -0.05
+				consumer_goods_factor = -0.15
 				production_speed_buildings_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.05
 			}
@@ -538,7 +625,7 @@ ideas = {
 			picture = SOV_scientist_defect
 			
 			modifier = {
-				consumer_goods_factor = -0.05
+				consumer_goods_factor = -0.15
 				production_speed_buildings_factor = 0.1
 				production_factory_efficiency_gain_factor = 0.1
 				production_lack_of_resource_penalty_factor = -0.05
@@ -560,7 +647,7 @@ ideas = {
 			picture = SOV_scientist_defect
 			
 			modifier = {
-				consumer_goods_factor = -0.05
+				consumer_goods_factor = -0.15
 				production_speed_buildings_factor = 0.1
 				production_factory_efficiency_gain_factor = 0.1
 				production_lack_of_resource_penalty_factor = -0.1
@@ -582,7 +669,7 @@ ideas = {
 			picture = SOV_scientist_defect
 			
 			modifier = {
-				consumer_goods_factor = -0.05
+				consumer_goods_factor = -0.15
 				production_speed_buildings_factor = 0.1
 				production_factory_efficiency_gain_factor = 0.1
 				production_lack_of_resource_penalty_factor = -0.1
@@ -643,7 +730,7 @@ ideas = {
 				trade_laws_cost_factor = 0.25
 				mobilization_laws_cost_factor = 0.25
 				economy_cost_factor = 0.25
-				consumer_goods_factor = 0.05 
+				consumer_goods_factor = 0.1
 			}
 		}
 		generic_resource_extraction_effort = {
@@ -660,7 +747,7 @@ ideas = {
 			picture = generic_exploit_mines
 			
 			modifier = {
-				consumer_goods_factor = 0.1
+				consumer_goods_factor = 0.2
 				industrial_capacity_factory = -0.1
 			}
 		}

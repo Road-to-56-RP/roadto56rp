@@ -3056,7 +3056,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_abolish_the_monarchy
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 60
@@ -3192,7 +3192,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_form_the_federal_republic
 
-		cost = 10
+		cost = 15
 
 		ai_will_do = {
 			factor = 50
@@ -3224,7 +3224,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_yugoslavian_path_to_communism
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 50
@@ -3241,14 +3241,22 @@ focus_tree = {
 			create_faction = panslavic_workers_congress
 			hidden_effect = { news_event = { id = news.330 } }
 			set_rule = { can_create_factions = yes }
-			
 			unlock_decision_tooltip = YUG_instigate_in_bulgaria
 			unlock_decision_tooltip = YUG_instigate_in_albania
 			add_ideas = BEL_volunteer_corps
 			add_days_mission_timeout = {
 				mission = r56_alone_faction_leader
 				days = 365			
-			}			
+			}
+
+			hidden_effect = {
+				BUL = {
+					country_event = { id = r56rp_yugoslavian_menace.1 }
+				}
+				ALB = {
+					country_event = { id = r56rp_yugoslavian_menace.1 }
+				}
+			}
 		}
 	}
 
@@ -3597,7 +3605,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_invite_bulgaria
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 50
@@ -3615,6 +3623,17 @@ focus_tree = {
 			unlock_decision_tooltip = YUG_instigate_in_greece
 			unlock_decision_tooltip = YUG_instigate_in_romania
 			unlock_decision_tooltip = YUG_instigate_in_hungary
+			hidden_effect = {
+				GRE = {
+					country_event = { id = r56rp_yugoslavian_menace.1 }
+				}
+				ROM = {
+					country_event = { id = r56rp_yugoslavian_menace.1 }
+				}
+				HUN = {
+					country_event = { id = r56rp_yugoslavian_menace.1 }
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 	}
@@ -5636,6 +5655,22 @@ focus_tree = {
 
 
 		completion_reward = {
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = YUG_ikarus_organization
+				mio:YUG_ikarus_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
+			}
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = YUG_ikarus
+			}
+
 			random_owned_controlled_state = {
 				prioritize = { 107 }
 				limit = {
@@ -5648,8 +5683,6 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = YUG_ikarus	
 		}
 	}
 
@@ -5670,6 +5703,22 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = YUG_rogozarski_organization
+				mio:YUG_rogozarski_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
+			}
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = YUG_rogozarski	
+			}
+
 			random_owned_controlled_state = {
 				prioritize = { 107 }
 				limit = {
@@ -5682,8 +5731,6 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = YUG_rogozarski	
 		}
 	}
 
@@ -5704,6 +5751,22 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = YUG_zmaj_organization
+				mio:YUG_zmaj_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
+			}
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = YUG_zmaj
+			}
+
 			random_owned_controlled_state = {
 				prioritize = { 107 }
 				limit = {
@@ -5716,8 +5779,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = YUG_zmaj	
+			
 		}
 	}
 

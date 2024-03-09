@@ -623,7 +623,31 @@ focus_tree = {
 			factor = 2
 		}
 		available = {
+			NOT = {
+				has_government = communism
+			}
 			OR = {
+				ROOT = {
+					controls_state = 677
+					controls_state = 554
+					controls_state = 553
+				}
+				any_other_country = {
+					OR = {
+						original_tag = LEB
+						original_tag = SYR
+					}
+					is_subject_of = ROOT
+					OR = {
+						controls_state = 677
+						controls_state = 554
+						controls_state = 553
+					}
+				}
+			}
+		}
+		bypass = {
+			NOT = {
 				ROOT = {
 					controls_state = 677
 					controls_state = 554
@@ -1558,11 +1582,23 @@ focus_tree = {
 		available = {
 			is_subject = no
 			OR = {
+				has_government = communism
 				has_government = democratic
-				has_government = fascism
+				
 			}
 		}
-		
+		bypass = {
+			NOT = {
+				AND = {
+					controls_state = 677
+					controls_state = 680
+					controls_state = 554
+					controls_state = 553
+					controls_state = 799
+				}
+			}
+		}
+
 		ai_will_do = {
 			factor = 1.5
 		}
@@ -1592,7 +1628,6 @@ focus_tree = {
 					add_ideas = FRA_transitional_goverment
 					add_to_tech_sharing_group = french_research
 					set_cosmetic_tag = FRA_MEA
-
 					transfer_state = 553
 					transfer_state = 554
 					transfer_state = 680
@@ -1844,10 +1879,6 @@ focus_tree = {
 							name = "Administration Coloniale"
 						}
 					}
-
-
-
-
 					every_other_country = {
 						limit = {
 							has_war_with = ROOT
@@ -2272,9 +2303,20 @@ focus_tree = {
 			factor = 2
 		}
 		completion_reward = {
-			country_event = {
-				id = france.130
-				hours = 12
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				country_event = {
+					id = france.aat.2
+					hours = 12
+				}
+			}
+			else = {
+				country_event = {
+					id = france.130
+					hours = 12
+				}
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -2325,9 +2367,20 @@ focus_tree = {
 			factor = 2
 		}
 		completion_reward = {
-			country_event = {
-				id = france.131
-				hours = 12
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				country_event = {
+					id = france.aat.1
+					hours = 12
+				}
+			}
+			else = {
+				country_event = {
+					id = france.131
+					hours = 12
+				}
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -3388,9 +3441,34 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			USA = { country_event = lar_arms_purchases.1 }
-			custom_effect_tooltip = if_they_accept_tt
-			unlock_decision_category_tooltip = FRA_weapons_purchases_category
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				display_individual_scopes = yes
+				ROOT = {
+					add_equipment_subsidy = {
+						cic = 10000
+						equipment_type = infantry_equipment
+						seller_tags = { USA } 
+					}
+					add_equipment_subsidy = {
+						cic = 5000
+						equipment_type = artillery_equipment
+						seller_tags = { USA } 
+					}
+					add_equipment_subsidy = {
+						cic = 3000
+						equipment_type = anti_air_equipment
+						seller_tags = { USA } 
+					}
+				}
+			}
+			ELSE = {
+				USA = { country_event = lar_arms_purchases.1 }
+				custom_effect_tooltip = if_they_accept_tt
+				unlock_decision_category_tooltip = FRA_weapons_purchases_category
+			}
 		}
 	}	
 	focus = {
@@ -4103,7 +4181,7 @@ focus_tree = {
 		x = 7
 		y = 1
 		offset = {
-			x = -10
+			x = -8
 			trigger = {
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
@@ -10236,6 +10314,16 @@ focus_tree = {
 				uses = 1
 				category = infantry_weapons
 			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_mas_organization
+				mio:FRA_mas_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -10337,13 +10425,25 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = FRA_hotchkiss
 			add_tech_bonus = {
 				name = FRA_infantry_tanks
 				bonus = 1
 				uses = 1
 				category = armor
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_hotchkiss_organization 
+				mio:FRA_hotchkiss_organization = {
+					add_mio_size = 1
+					add_mio_funds = 250
+				}
+			}
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = FRA_hotchkiss
 			}
 		}
 	}
@@ -10373,6 +10473,15 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = cat_medium_armor
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_somua_organization
+				mio:FRA_somua_organization = {
+					add_mio_funds = 500
+				}
 			}
 		}
 	}
@@ -10648,12 +10757,16 @@ focus_tree = {
 				uses = 1
 				category = cat_mechanized_equipment
 			}
-			#add_tech_bonus = {
-			#	bonus = 1
-			#	uses = 2
-			#	category = cat_light_armor
-			#	category = cat_medium_armor
-			#}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_panhard_organization 
+				mio:FRA_panhard_organization = {
+					add_mio_size = 1
+					add_mio_funds = 600
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -10725,6 +10838,16 @@ focus_tree = {
 				uses = 2
 				category = cat_light_armor
 				category = cat_medium_armor
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_hotchkiss_organization 
+				mio:FRA_hotchkiss_organization = {
+					add_mio_size = 1
+					add_mio_funds = 250
+				}
 			}
 		}
 	}
@@ -10858,6 +10981,16 @@ focus_tree = {
 				bonus = 1
 				uses = 2
 				category = ss_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_acf_organization
+				mio:FRA_acf_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
 			}
 		}
 	}
@@ -11229,6 +11362,16 @@ focus_tree = {
 					technology = advanced_medium_battery
 				}
 			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_fcm_organization
+				mio:FRA_fcm_organization = {
+					add_mio_size = 1
+					add_mio_funds = 750
+				}
+			}
 		}
 	}
 	
@@ -11262,6 +11405,16 @@ focus_tree = {
 				category = bb_tech
 				category = bc_tech
 			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_acl_organization
+				mio:FRA_acl_organization = {
+					add_mio_size = 1
+					add_mio_funds = 750
+				}
+			}
 		}
 	}
 	
@@ -11292,6 +11445,16 @@ focus_tree = {
 				bonus = 1
 				uses = 2
 				category = cv_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_aeb_organization
+				mio:FRA_aeb_organization = {
+					add_mio_size = 1
+					add_mio_funds = 1000
+				}
 			}
 		}
 	}
@@ -11334,12 +11497,6 @@ focus_tree = {
 		relative_position_id = FRA_carrier_focus
 		cost = 10
 
-		allow_branch  = {
-			NOT = {
-				has_dlc = "By Blood Alone"
-			}
-		}
-
 		available_if_capitulated = yes
 
 		completion_reward = {
@@ -11348,6 +11505,16 @@ focus_tree = {
 				bonus = 1.0
 				uses = 2
 				category = naval_air
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_levasseur_organization
+				mio:FRA_levasseur_organization = {
+					add_mio_size = 1
+					add_mio_funds = 800
+				}
 			}
 		}
 	}
@@ -11898,24 +12065,25 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
-					technology =  photo_reconnaisance
+					technology = photo_reconnaisance
 					bonus = 0.75
 					uses = 1
-				}
+				}	
 			}
-			else_if = {
-				if = {
-					limit = {
-						has_dlc = "La Resistance"
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+					NOT = {
+						has_dlc = "By Blood Alone"
 					}
-					add_tech_bonus = {
-						name = scout_plane
-						bonus = 1.0
-						uses = 1
-						category = cat_scout_plane
-					}				
-				}			
-			}		
+				}
+				add_tech_bonus = {
+					name = scout_plane
+					bonus = 1.0
+					uses = 1
+					category = cat_scout_plane
+				}				
+			}
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -12175,14 +12343,31 @@ focus_tree = {
 			air_experience = 15
 			if = {
 				limit = {
-					NOT = { has_dlc = "By Blood Alone" }
+					has_dlc = "By Blood Alone"
 				}
-				custom_effect_tooltip = FRA_finalize_the_potez_630_tt
 				add_tech_bonus = {
 					name = FRA_modernisation_program
 					bonus = 1
 					uses = 1
-					category = cat_heavy_fighter
+					category = light_air
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						NOT = {
+							has_tech = heavy_fighter1
+						}
+					}
+					custom_effect_tooltip = FRA_finalize_the_potez_630_tt
+				}
+				else = {
+					add_tech_bonus = {
+						name = FRA_modernisation_program
+						bonus = 1
+						uses = 1
+						category = cat_heavy_fighter
+					}
 				}
 				hidden_effect = {
 					if = {
@@ -12194,23 +12379,21 @@ focus_tree = {
 						set_technology = { heavy_fighter1 = 1 }
 					}
 				}
+				add_tech_bonus = {
+					name = FRA_modernisation_program
+					bonus = 1
+					uses = 1
+					category = light_fighter
+				}
 			}
-			else_if = {
+			if = {
 				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				add_tech_bonus = {
-					name = fighter_command_focus
-					bonus = 1.0
-					uses = 1
-					category = light_air
-					category  = medium_air
-				}
-				add_tech_bonus = {
-					name = fighter_command_focus
-					bonus = 0.75
-					uses = 1
-					technology = range_improvements
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_morane_saulnier_organization
+				mio:FRA_morane_saulnier_organization = {
+					add_mio_size = 1
+					add_mio_funds = 750
 				}
 			}
 		}
@@ -12261,9 +12444,17 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					NOT = { has_dlc = "By Blood Alone" }
+					has_dlc = "By Blood Alone"
 				}
-				custom_effect_tooltip = FRA_finalize_the_potez_630_tt
+				add_tech_bonus = {
+					ahead_reduction = 1
+					bonus = 1
+					uses = 1
+					category = medium_air
+					category = heavy_air
+				}
+			}
+			else = {
 				add_tech_bonus = {
 					name = FRA_develop_bomber_fleet
 					ahead_reduction = 1
@@ -12272,15 +12463,14 @@ focus_tree = {
 					category = tactical_bomber
 				}
 			}
-			else_if = {
+			if = {
 				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				add_tech_bonus = {
-					name = fighter_command_focus
-					bonus = 1.0
-					uses = 1
-					category  = medium_air
+					has_dlc = "Arms Against Tyranny"
+				}    
+				show_mio_tooltip = FRA_amiot_organization
+				mio:FRA_amiot_organization = {
+					add_mio_size = 1
+					add_mio_funds = 800
 				}
 			}
 		}
@@ -12294,14 +12484,6 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_develop_bomber_fleet
 		}
-		# lazy simpy fixing
-
-		allow_branch  = {
-			NOT = {
-				has_dlc = "By Blood Alone"
-			}
-		}
-
 		x = 0
 		y = 1
 		relative_position_id = FRA_develop_bomber_fleet
@@ -12310,11 +12492,29 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_follow_up_on_the_potez
-				bonus = 1
-				uses = 1
-				category = cat_heavy_fighter
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = FRA_follow_up_on_the_potez
+					bonus = 0.75
+					uses = 1
+					category = medium_air
+				}
+				add_tech_bonus = {
+					category = radar_tech
+					bonus = 0.5
+					uses = 1
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = FRA_follow_up_on_the_potez
+					bonus = 1
+					uses = 1
+					category = cat_heavy_fighter
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -12334,19 +12534,33 @@ focus_tree = {
 			factor = 0.5
 		}
 
-		allow_branch  = {
-			NOT = {
-				has_dlc = "By Blood Alone"
-			}
-		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_provide_aerial_support
-				ahead_reduction = 0.5
-				bonus = 1
-				uses = 1
-				category = cas_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					technology = aa_cannon_2
+					ahead_reduction = 0.5
+					bonus = 0.75
+					uses = 1
+				}
+				add_tech_bonus = {
+					bonus = 0.5
+					uses = 1
+					category = medium_air
+				}
 			}
+			else = {
+				add_tech_bonus = {
+					name = FRA_provide_aerial_support
+					ahead_reduction = 1
+					bonus = 1
+					uses = 1
+					category = cas_bomber
+				}
+			}
+
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12366,12 +12580,26 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_new_french_fighter
-				ahead_reduction = 0.5
-				bonus = 1
-				uses = 1
-				category = light_fighter
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					technology  = improved_small_airframe
+					technology = advanced_small_airframe
+					ahead_reduction = 0.5
+					bonus = 1
+					uses = 1
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = FRA_new_french_fighter
+					ahead_reduction = 0.5
+					bonus = 1
+					uses = 1
+					category = light_fighter
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -12442,12 +12670,6 @@ focus_tree = {
 			focus = FRA_naval_construction_program
 		}
 
-		allow_branch  = {
-			NOT = {
-				has_dlc = "By Blood Alone"
-			}
-		}
-
 		x = -3
 		y = 2
 		relative_position_id = FRA_enact_plan_v
@@ -12456,18 +12678,35 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_tech_bonus = {
-				name = air_bonus
-				bonus = 1
-				uses = 2
-				category = maritime
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					bonus = 1
+					uses = 2
+					category = medium_air
+					category = heavy_air
+				}
+				add_tech_bonus = {
+					category = torpedo_equipment
+					bonus = 1
+					uses = 1
+				}
 			}
-
-			add_tech_bonus = {
-				name = air_bonus
-				bonus = 1
-				uses = 1
-				category = naval_bomber
+			else = {
+				add_tech_bonus = {
+					name = air_bonus
+					bonus = 1
+					uses = 2
+					category = maritime
+				}
+				add_tech_bonus = {
+					name = air_bonus
+					bonus = 1
+					uses = 1
+					category = naval_bomber
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
