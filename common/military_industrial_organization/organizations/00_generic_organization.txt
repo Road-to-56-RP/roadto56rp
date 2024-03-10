@@ -2196,6 +2196,32 @@ generic_escort_ship_organization = {
 			mines_sweeping = 0.05
 		}
 	}
+	trait = {
+		token = generic_mio_trait_multi_task_mining_equipment
+		name = generic_mio_trait_multi_task_mining_equipment
+		icon = GFX_generic_mio_trait_icon_mines
+
+		position = { x=-1 y=2 }
+		relative_position_id = generic_mio_trait_submarine_hunters
+
+		#visible = {
+		#	has_dlc = "Man the Guns"
+		#}
+		available = {
+			has_dlc = "Man the Guns"
+		}
+
+		any_parent = { generic_mio_trait_submarine_hunters }
+
+		mutually_exclusive = { generic_mio_trait_high_speed_mine_hunting_equipment }
+
+
+		equipment_bonus = {
+			mines_planting  = 0.05
+			mines_sweeping = 0.05
+		}
+	}
+
 
 	trait = {
 		token = generic_mio_trait_advanced_hydrodynamic_design
@@ -5178,8 +5204,27 @@ generic_naval_aircraft_organization = {
 	}
 
 	trait = {
-		token = generic_mio_trait_high_speed_torpedo_release
+		token = generic_mio_trait_high_speed_torpedo_release # could be evasion against ships too
 		name = generic_mio_trait_high_speed_torpedo_release
+		icon = GFX_generic_mio_trait_icon_torpedo_attack
+
+		position = { x=0 y=1 }
+		relative_position_id = generic_mio_trait_patrol_fuel_tanks
+
+		any_parent = { generic_mio_trait_patrol_fuel_tanks generic_mio_trait_internal_torpedo_mountings }
+
+		mutually_exclusive = { generic_mio_trait_radio_navigation_patrolling }
+
+		limit_to_equipment_type = { small_plane_naval_bomber_airframe mio_cat_eq_all_cv_aircraft large_plane_maritime_patrol_plane_airframe }
+
+		equipment_bonus = {
+			naval_strike_targetting = 0.05
+		}
+	}	
+
+	trait = {
+		token = generic_mio_trait_radio_navigation_patrolling
+		name = generic_mio_trait_radio_navigation_patrolling
 		icon = GFX_generic_mio_trait_icon_surface_detection
 
 		position = { x=1 y=1 }
@@ -6759,6 +6804,12 @@ generic_infantry_equipment_organization = {
 		NOT = {
 			AND = {
 				OR = { tag = FIN tag = NOR tag = DEN tag = SWE }
+				has_dlc = "Arms Against Tyranny"
+			}
+		}
+		NOT = {
+			AND = {
+				OR = { tag = AFG }
 				has_dlc = "Arms Against Tyranny"
 			}
 		}
