@@ -1,3 +1,116 @@
+CHI_r56rp_nra_1939_offensive = {
+	
+	CHI_r56rp_gather_equipment_for_the_offensive = {
+		icon = chi_war_of_resistance2
+		available = {
+			has_completed_focus = r56rp_KMT_nra_1939_offensive
+			has_equipment = {
+				infantry_equipment > 5000
+			}
+			has_equipment = {
+				artillery_equipment > 500
+			}
+			has_equipment = {
+				support_equipment > 250
+			}
+		}
+
+		fire_only_once = yes
+
+		days_remove = 7
+
+		remove_effect = {
+			set_country_flag = equipment_gathered_flag
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = CHI
+				amount = -5000
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = CHI
+				amount = -500
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = CHI
+				amount = -250
+			}
+		}
+
+		#custom_trigger_tooltip = {
+			#tooltip = has_completed_decision_connect_tabriz_tt
+			#has_country_flag = TUR_connect_tabriz
+		#}
+
+
+	}
+
+	CHI_r56rp_planning_for_the_offensive = {
+		icon = chi_war_of_resistance2
+		available = {
+			has_completed_focus = r56rp_KMT_nra_1939_offensive
+			has_country_flag = equipment_gathered_flag
+		}
+
+		custom_cost_trigger = {
+			command_power > 50
+		}
+		custom_cost_text = decision_cost_CP_50
+
+
+		fire_only_once = yes
+
+		days_remove = 7
+
+		remove_effect = {
+			set_country_flag = planning_complete_flag
+		}
+
+	}
+
+	CHI_r56rp_manpower_for_the_offensive = {
+		icon = chi_war_of_resistance2
+		available = {
+			has_completed_focus = r56rp_KMT_nra_1939_offensive
+			has_country_flag = planning_complete_flag
+			has_manpower > 500000
+		}
+
+		remove_effect = {
+			set_country_flag = manpower_gathered_flag
+			add_manpower = -500000
+		}
+	}
+
+
+	
+	CHI_r56rp_launch_the_offensive = {
+		icon = chi_war_of_resistance2
+		
+		activation = {
+			has_completed_focus = r56rp_KMT_nra_1939_offensive
+		}
+		
+		days_mission_timeout = 90
+
+		fire_only_once = yes
+
+		available = {
+			has_country_flag = equipment_gathered_flag
+			has_country_flag = planning_complete_flag
+			has_country_flag = manpower_gathered_flag
+		}
+
+		complete_effect = {
+
+		}
+
+		timeout_effect = {
+
+		}
+	}
+}
 #	r56rp_CHI_anti_corruption_measures_mission = {
 #
 #		icon = generic_construction
