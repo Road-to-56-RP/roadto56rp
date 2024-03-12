@@ -50,18 +50,7 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
-			visible = {
-				OR = {
-					NOT = { 
-						has_global_flag = ger_vanilla_focus_tree
-						has_completed_focus = GER_restore_weimar
-						has_completed_focus = GER_repeal_reichstag_fire_decree
-						has_completed_focus = GER_denounce_versailles
-						has_completed_focus = GER_rally_the_monarchists
-					}
-					has_government = communism
-				}
-			}	
+				
 			available = {
 				if = {
 					limit = {
@@ -81,8 +70,17 @@ characters={
 					has_completed_focus = GER_repeal_reichstag_fire_decree
 				}
 			}
-				visible = {
-				NOT = { has_global_flag = ger_vanilla_focus_tree }
+			visible = {
+				OR = {
+					NOT = { 
+						has_global_flag = ger_vanilla_focus_tree
+						has_completed_focus = GER_restore_weimar
+						has_completed_focus = GER_repeal_reichstag_fire_decree
+						has_completed_focus = GER_denounce_versailles
+						has_completed_focus = GER_rally_the_monarchists
+					}
+					has_government = communism
+				}
 			}	
 			traits = {
 				communist_revolutionary 
@@ -208,9 +206,17 @@ characters={
 				has_country_flag = GER_monarchist_civil_war_flag
 				has_government = neutrality
 				NOT = {
+					OR = {
 					AND = {
 						country_exists = BAY
 						has_government = neutrality
+					}
+						any_other_country = {
+							has_country_leader = {
+								name = "Rupprecht I"
+								ruling_only = yes
+							}						
+						}
 					}
 				}
 			}
@@ -272,6 +278,8 @@ characters={
 			idea_token = GER_erich_ludendorff
 			allowed = {
 				original_tag = GER
+			}
+			available = {
 				has_government = neutrality
 			}
 			visible = {
