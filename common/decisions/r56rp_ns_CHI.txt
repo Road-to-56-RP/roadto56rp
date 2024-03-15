@@ -3,7 +3,7 @@ CHI_r56rp_nra_1939_offensive = {
 	CHI_r56rp_gather_equipment_for_the_offensive = {
 		icon = chi_war_of_resistance2
 		available = {
-			has_completed_focus = r56rp_KMT_nra_1939_offensive
+			has_completed_focus = r56rp_KMT_nra_1939_winter_offensive
 			has_equipment = {
 				infantry_equipment > 5000
 			}
@@ -17,7 +17,7 @@ CHI_r56rp_nra_1939_offensive = {
 
 		fire_only_once = yes
 
-		days_remove = 7
+		days_remove = 10
 
 		remove_effect = {
 			set_country_flag = equipment_gathered_flag
@@ -49,7 +49,7 @@ CHI_r56rp_nra_1939_offensive = {
 	CHI_r56rp_planning_for_the_offensive = {
 		icon = chi_war_of_resistance2
 		available = {
-			has_completed_focus = r56rp_KMT_nra_1939_offensive
+			has_completed_focus = r56rp_KMT_nra_1939_winter_offensive
 			has_country_flag = equipment_gathered_flag
 		}
 
@@ -61,7 +61,7 @@ CHI_r56rp_nra_1939_offensive = {
 
 		fire_only_once = yes
 
-		days_remove = 7
+		days_remove = 10
 
 		remove_effect = {
 			set_country_flag = planning_complete_flag
@@ -72,10 +72,14 @@ CHI_r56rp_nra_1939_offensive = {
 	CHI_r56rp_manpower_for_the_offensive = {
 		icon = chi_war_of_resistance2
 		available = {
-			has_completed_focus = r56rp_KMT_nra_1939_offensive
+			has_completed_focus = r56rp_KMT_nra_1939_winter_offensive
 			has_country_flag = planning_complete_flag
 			has_manpower > 500000
 		}
+
+		days_remove = 10
+
+		fire_only_once = yes
 
 		remove_effect = {
 			set_country_flag = manpower_gathered_flag
@@ -83,13 +87,29 @@ CHI_r56rp_nra_1939_offensive = {
 		}
 	}
 
+	CHI_r56rp_political_goals = {
+		icon = chi_war_of_resistance2
+		available = {
+			has_country_flag = manpower_gathered_flag
+		}
 
+		cost = 75
+
+		days_remove = 10
+
+		fire_only_once = yes
+
+		remove_effect = {
+			set_country_flag = political_goals_established_flag
+		}
+	}
 	
+
 	CHI_r56rp_launch_the_offensive = {
 		icon = chi_war_of_resistance2
 		
 		activation = {
-			has_completed_focus = r56rp_KMT_nra_1939_offensive
+			has_completed_focus = r56rp_KMT_nra_1939_winter_offensive
 		}
 		
 		days_mission_timeout = 90
@@ -100,14 +120,21 @@ CHI_r56rp_nra_1939_offensive = {
 			has_country_flag = equipment_gathered_flag
 			has_country_flag = planning_complete_flag
 			has_country_flag = manpower_gathered_flag
+			has_country_flag = political_goals_established_flag
 		}
 
 		complete_effect = {
-
+			add_timed_idea = {
+				idea = r56rp_KMT_1939_winter_offensive_success
+				days = 120
+			}
 		}
 
 		timeout_effect = {
-
+			add_timed_idea = {
+				idea = r56rp_KMT_1939_winter_offensive_unfinished_preperation
+				days = 120
+			}
 		}
 	}
 }
