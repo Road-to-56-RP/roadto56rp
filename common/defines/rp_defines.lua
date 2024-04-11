@@ -19,7 +19,7 @@ NDefines.NCountry.BASE_FUEL_GAIN_PER_OIL = 4 -- (vanilla = 2)
 NDefines.NCountry.BASE_FUEL_CAPACITY = 150000
 
 -- ## NProduction ##
-NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 5 --VANILLA - 2.5
+NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 3 --VANILLA - 2.5
 NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 10
 NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 15
 NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 10
