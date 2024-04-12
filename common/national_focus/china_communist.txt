@@ -1036,7 +1036,7 @@ focus_tree = {
 					casualties_k > 250
 				}
 				AND = {
-					has_war_with = CHI
+					at_war_with = CHI
 					CHI = {
 						casualties_k > 250
 					}
@@ -2256,6 +2256,417 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}
 
+	###### INDUSTRIAL FOCUSES FOR PRC ########
+
+	focus = {
+		id = PRC_the_first_five_year_plan
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = PRC_land_reform }
+		x = 6
+		y = 1
+		relative_position_id = PRC_land_reform
+		cost = 10
+
+		available = {
+			OR = {
+				num_of_factories > 40
+				AND = {
+					has_war = no
+					num_of_factories > 20
+				}
+			}
+		}
+
+		completion_reward = {
+			every_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_wuhan_ins_corp
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = PRC_r56rp_faw_group_organization
+				mio:PRC_r56rp_faw_group_organization = {
+					add_mio_size = 1
+				}
+
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_newline_available_des_tt
+				show_ideas_tooltip = PRC_faw_group
+				show_ideas_tooltip = PRC_wuhan_ins_corp
+			}
+			
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = PRC_industrialization_NW
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { 
+			focus = PRC_the_first_five_year_plan
+			focus = PRC_industrial_developement 
+		}
+		x = 34
+		y = 4
+		#relative_position_id = PRC_the_first_five_year_plan #easier to move around
+		cost = 10
+
+		offset = {
+			x = -20
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					OR = {
+						has_completed_focus = PRC_destroy_mao_and_his_clique
+						has_completed_focus = PRC_the_second_northeast_flag_replacement
+					}
+				}
+			}
+		}
+
+		available = {
+			OR = {
+				num_of_factories > 100
+				AND = {
+					has_war = no
+					num_of_factories > 50
+				}
+			}
+			any_state = {
+				custom_trigger_tooltip = {
+					tooltip = state_is_western_china_tt
+					OR = {
+						region = 145
+						state = 756
+						state = 755
+						state = 604
+					}
+				}
+				is_controlled_by = ROOT
+			}
+		}
+		completion_reward = {
+			r56rp_CHI_industrialization_NW = yes
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = PRC_industrialization_S
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = {
+			focus = PRC_the_first_five_year_plan  
+			focus = PRC_industrial_developement
+		}
+		x = 2
+		y = 0
+		relative_position_id = PRC_industrialization_NW
+		cost = 10
+		available = {
+			OR = {
+				num_of_factories > 100
+				AND = {
+					has_war = no
+					num_of_factories > 50
+				}
+			}
+			any_state = {
+				OR = {
+					state = 591
+					state = 594
+					state = 592
+					state = 593
+					state = 599
+					state = 326
+					state = 729
+					state = 728
+				}
+				is_controlled_by = ROOT
+			}
+		}
+		completion_reward = {
+			r56rp_CHI_industrialization_S = yes
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = PRC_pioneering_the_north_east
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = {
+			focus = PRC_the_first_five_year_plan  
+			focus = PRC_industrial_developement
+		}
+		x = 4
+		y = 0
+		relative_position_id = PRC_industrialization_NW
+		cost = 15
+		available = {
+			OR = {
+				num_of_factories > 100
+				AND = {
+					has_war = no
+					num_of_factories > 50
+				}
+			}
+			any_state = {
+				custom_trigger_tooltip = {
+					tooltip = state_is_in_manchuria_tt
+					OR = {
+						region = 155
+						state = 947
+						state = 610
+					}
+				}
+				is_controlled_by = ROOT
+			}
+		}
+		
+		completion_reward = {
+			r56rp_CHI_industrialization_NE = yes
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = PRC_resources_prospection
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = PRC_industrialization_NW focus = PRC_industrialization_S focus = PRC_pioneering_the_north_east }
+		x = 0
+		y = 1
+		relative_position_id = PRC_industrialization_S
+		cost = 10
+
+		available = {
+			OR = {
+				num_of_factories > 100
+				AND = {
+					has_war = no
+					num_of_factories > 50
+				}
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					controls_state = 716
+				}
+				716 = {
+					add_resource = {
+						type = steel
+						amount = 3
+					}
+					add_resource = {
+						type = aluminium
+						amount = 3
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 621
+				}
+				621 = {
+					add_resource = {
+						type = steel
+						amount = 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 620
+				}
+				620 = {
+					add_resource = {
+						type = steel
+						amount = 3
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 328
+				}
+				328 = {
+					add_resource = {
+						type = steel
+						amount = 1
+					}
+					add_resource = {
+						type = aluminium
+						amount = 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 714
+				}
+				714 = {
+					add_resource = {
+						type = steel
+						amount = 1
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 610
+				}
+				610 = {
+					add_resource = {
+						type = steel
+						amount = 1
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 600
+				}
+				600 = {
+					add_resource = {
+						type = tungsten
+						amount = 12
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM FOCUS_FILTER_STEEL FOCUS_FILTER_TUNGSTEN}
+	}
+
+	focus = {
+		id = PRC_excavation_NW
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = PRC_resources_prospection }
+		x = -1
+		y = 1
+		relative_position_id = PRC_resources_prospection
+		cost = 10
+
+		available = {
+			OR = {
+				num_of_factories > 200
+				AND = {
+					has_war = no
+					num_of_factories > 100
+				}
+			}
+		}
+		
+		completion_reward = {
+			r56rp_CHI_excavation_NW = yes
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL}
+	}
+
+	focus = {
+		id = PRC_excavation_S
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = PRC_resources_prospection }
+		x = 0
+		y = 2
+		relative_position_id = PRC_resources_prospection
+		cost = 10
+
+		available = {
+			OR = {
+				num_of_factories > 200
+				AND = {
+					has_war = no
+					num_of_factories > 100
+				}
+			}
+		}
+		
+		completion_reward = {
+			r56rp_CHI_excavation_S = yes
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RUBBER }
+	}
+
+	focus = {
+		id = PRC_excavation_NE
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = PRC_resources_prospection }
+		x = 1
+		y = 1
+		relative_position_id = PRC_resources_prospection
+		cost = 10
+
+		available = {
+			OR = {
+				num_of_factories > 200
+				AND = {
+					has_war = no
+					num_of_factories > 100
+				}
+			}
+		}
+
+		completion_reward = {
+			r56rp_CHI_excavation_NE = yes
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_CHROMIUM FOCUS_FILTER_ALUMINIUM}
+	}
+
 
 	###### MAO POLITICS ###########
 	focus = {
@@ -2382,604 +2793,191 @@ focus_tree = {
 		}
 	}
 
-		###### INDUSTRIAL FOCUSES FOR PRC ########
-
-		focus = {
-			id = PRC_the_first_five_year_plan
-			icon = GFX_goal_generic_construct_infrastructure
-			prerequisite = { focus = PRC_land_reform }
-			x = 6
-			y = 1
-			relative_position_id = PRC_land_reform
-			cost = 10
-	
-			available = {
-				OR = {
-					num_of_factories > 40
-					AND = {
-						has_war = no
-						num_of_factories > 20
-					}
-				}
-			}
-	
-			completion_reward = {
-				every_controlled_state = {
-					limit = {
-						is_core_of = ROOT
-						free_building_slots = {
-							building = infrastructure
-							size > 1
-						}
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-				}
-				IF = {
-					limit = {
-						has_dlc = "Arms Against Tyranny"
-					}
-					custom_effect_tooltip = r56rp_newline_available_des_tt
-					show_ideas_tooltip = PRC_wuhan_ins_corp
-					custom_effect_tooltip = r56rp_newline_available_mio_tt
-					show_mio_tooltip = PRC_r56rp_faw_group_organization
-					mio:PRC_r56rp_faw_group_organization = {
-						add_mio_size = 1
-					}
-	
-				}
-				ELSE = {
-					custom_effect_tooltip = r56rp_newline_available_des_tt
-					show_ideas_tooltip = PRC_faw_group
-					show_ideas_tooltip = PRC_wuhan_ins_corp
-				}
-				
-			}
-			search_filters = { FOCUS_FILTER_INDUSTRY }
+	focus = {
+		id = KMT_great_leap_forawrd
+		icon = GFX_goal_generic_commie_investments
+		prerequisite = { focus = PRC_the_first_five_year_plan }
+		x = 1
+		y = 1
+		relative_position_id = PRC_the_first_five_year_plan
+		cost = 10
+		
+		available = {
+			has_war = no
+			has_government = communism
 		}
 
-		focus = {
-			id = KMT_great_leap_forawrd
-			icon = GFX_goal_generic_commie_investments
-			prerequisite = { focus = PRC_the_first_five_year_plan }
-			x = 1
-			y = 1
-			relative_position_id = PRC_the_first_five_year_plan
-			cost = 10
-			
-			available = {
-				has_war = no
-				has_government = communism
-			}
-	
-			completion_reward = {
-				country_event = { id = kmt.39 days = 1 }
-				add_ideas = KMT_three_red_banner
-				set_country_flag = KMT_great_leap_started
-				custom_effect_tooltip = PRC_great_leap_timespan
-				hidden_effect = {
-					country_event = { id = kmt.46 days = 365 }
-					country_event = { id = kmt.47 days = 175 }
-				}
-			}
-			search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-		}
-	
-		focus = {
-			id = PRC_begin_cultural_revolution
-			icon = GFX_focus_prc_maoism
-			prerequisite = { focus = KMT_great_leap_forawrd }		
-			x = 0
-			y = 1
-			relative_position_id = KMT_great_leap_forawrd
-			cost = 10
-	
-			available = {
-				has_war = no
-				has_country_flag = KMT_leap_stop
-				SOV = {
-					OR = {
-						NOT = {
-							has_country_leader = {
-								character = SOV_iosif_stalin
-								ruling_only = yes
-							}
-						}
-						is_puppet = yes
-					}
-				}
-				has_country_leader = {
-					character = PRC_mao_zedong
-					ruling_only = yes
-				}
-			}
-	
-			select_effect = {
-				country_event = { id = prc.6 days = 20 }
-			}
-			completion_reward = {
-				country_event = { id = prc.7 }
-			}
-			search_filters = { FOCUS_FILTER_POLITICAL }
-		}
-	
-		focus = {
-			id = PRC_economic_reform
-			icon = GFX_goal_generic_production2
-			prerequisite = { focus = PRC_begin_cultural_revolution }
-			mutually_exclusive = { focus = PRC_generalissimo_lin }
-			x = -1
-			y = 1
-			relative_position_id = PRC_begin_cultural_revolution
-			cost = 50
-			
-			available = {
-				has_global_flag = CR_ended
-				has_country_flag = deng_xiao_ping
-			}
-			cancel = { has_war = yes }
-			cancel_if_invalid = no
-	
-			select_effect = {
-				add_ideas = PRC_socialism_with_chinese_characteristics
-				every_other_country = {
-					reverse_add_opinion_modifier = {
-						target = PRC
-						modifier = PRC_swcc_1
-					}
-				}
-			}
-	
-			completion_reward = {
-				country_event = { id = prc.21 }
-			}
-			search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
-		}
-	
-		focus = {
-			id = PRC_generalissimo_lin
-			icon = GFX_goal_generic_attack_allies
-			prerequisite = { focus = PRC_begin_cultural_revolution }
-			mutually_exclusive = { focus = PRC_economic_reform }
-			x = 1
-			y = 1
-			relative_position_id = PRC_begin_cultural_revolution
-			cost = 10
-			
-			available = {
-				has_global_flag = CR_ended
-				has_country_flag = lin_biao
-			}
-	
-			completion_reward = {
-				add_country_leader_trait = generalissimo
+		completion_reward = {
+			country_event = { id = kmt.39 days = 1 }
+			add_ideas = KMT_three_red_banner
+			set_country_flag = KMT_great_leap_started
+			custom_effect_tooltip = PRC_great_leap_timespan
+			hidden_effect = {
+				country_event = { id = kmt.46 days = 365 }
+				country_event = { id = kmt.47 days = 175 }
 			}
 		}
-	
-		focus = {
-			id = PRC_armament_reorganization
-			icon = GFX_goal_generic_construct_mil_factory
-			prerequisite = { focus = PRC_generalissimo_lin }
-			x = 0
-			y = 1
-			relative_position_id = PRC_generalissimo_lin
-			cost = 10
-			
-			completion_reward = {
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = arms_factory
-							size > 3
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 4
-					add_building_construction = {
-						type = arms_factory
-						level = 4
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = arms_factory
-							size > 3
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 4
-					add_building_construction = {
-						type = arms_factory
-						level = 4
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-				}
-				add_tech_bonus = {
-					name = infantry_weapons_bonus
-					bonus = 1
-					uses = 4
-					category = infantry_weapons
-					category = artillery
-					category = armor
-					category = support_tech
-					category = air_equipment
-					category = naval_equipment
-					category = motorized_equipment
-				}
-				#add_ideas = lin_biao_generalissimo	#was previously a theorist-like army chief, no new equivalent was made
-				add_research_slot = 1
-			}
-			search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
-		}
-	
-		focus = {
-			id = PRC_industrialization_NW
-			icon = GFX_goal_generic_construct_infrastructure
-			prerequisite = { 
-				focus = PRC_the_first_five_year_plan
-				focus = PRC_industrial_developement 
-			}
-			x = 34
-			y = 4
-			#relative_position_id = PRC_the_first_five_year_plan #easier to move around
-			cost = 10
-	
-			offset = {
-				x = -20
-				y = 0
-				trigger = {
-					AND = {
-						has_game_rule = {
-							rule = obsolete_focus_branches_visibility
-							option = HIDE
-						}
-						OR = {
-							has_completed_focus = PRC_destroy_mao_and_his_clique
-							has_completed_focus = PRC_the_second_northeast_flag_replacement
-						}
-					}
-				}
-			}
-	
-			available = {
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = PRC_begin_cultural_revolution
+		icon = GFX_focus_prc_maoism
+		prerequisite = { focus = KMT_great_leap_forawrd }		
+		x = 0
+		y = 1
+		relative_position_id = KMT_great_leap_forawrd
+		cost = 10
+
+		available = {
+			has_war = no
+			has_country_flag = KMT_leap_stop
+			SOV = {
 				OR = {
-					num_of_factories > 100
-					AND = {
-						has_war = no
-						num_of_factories > 50
-					}
-				}
-				any_state = {
-					custom_trigger_tooltip = {
-						tooltip = state_is_western_china_tt
-						OR = {
-							region = 145
-							state = 756
-							state = 755
-							state = 604
+					NOT = {
+						has_country_leader = {
+							character = SOV_iosif_stalin
+							ruling_only = yes
 						}
 					}
-					is_controlled_by = ROOT
+					is_puppet = yes
 				}
 			}
-			completion_reward = {
-				r56rp_CHI_industrialization_NW = yes
+			has_country_leader = {
+				character = PRC_mao_zedong
+				ruling_only = yes
 			}
-			search_filters = { FOCUS_FILTER_INDUSTRY }
 		}
-	
-		focus = {
-			id = PRC_industrialization_S
-			icon = GFX_goal_generic_construct_infrastructure
-			prerequisite = {
-				focus = PRC_the_first_five_year_plan  
-				focus = PRC_industrial_developement
-			}
-			x = 2
-			y = 0
-			relative_position_id = PRC_industrialization_NW
-			cost = 10
-			available = {
-				OR = {
-					num_of_factories > 100
-					AND = {
-						has_war = no
-						num_of_factories > 50
-					}
-				}
-				any_state = {
-					OR = {
-						state = 591
-						state = 594
-						state = 592
-						state = 593
-						state = 599
-						state = 326
-						state = 729
-						state = 728
-					}
-					is_controlled_by = ROOT
-				}
-			}
-			completion_reward = {
-				r56rp_CHI_industrialization_S = yes
-			}
-			search_filters = { FOCUS_FILTER_INDUSTRY }
+
+		select_effect = {
+			country_event = { id = prc.6 days = 20 }
 		}
-	
-		focus = {
-			id = PRC_pioneering_the_north_east
-			icon = GFX_goal_generic_construct_civilian
-			prerequisite = {
-				focus = PRC_the_first_five_year_plan  
-				focus = PRC_industrial_developement
-			}
-			x = 4
-			y = 0
-			relative_position_id = PRC_industrialization_NW
-			cost = 15
-			available = {
-				OR = {
-					num_of_factories > 100
-					AND = {
-						has_war = no
-						num_of_factories > 50
-					}
-				}
-				any_state = {
-					custom_trigger_tooltip = {
-						tooltip = state_is_in_manchuria_tt
-						OR = {
-							region = 155
-							state = 947
-							state = 610
-						}
-					}
-					is_controlled_by = ROOT
-				}
-			}
-			
-			completion_reward = {
-				r56rp_CHI_industrialization_NE = yes
-			}
-			search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			country_event = { id = prc.7 }
 		}
-	
-		focus = {
-			id = PRC_resources_prospection
-			icon = GFX_goal_generic_construction2
-			prerequisite = { focus = PRC_industrialization_NW focus = PRC_industrialization_S focus = PRC_pioneering_the_north_east }
-			x = 0
-			y = 1
-			relative_position_id = PRC_industrialization_S
-			cost = 10
-	
-			available = {
-				OR = {
-					num_of_factories > 100
-					AND = {
-						has_war = no
-						num_of_factories > 50
-					}
-				}
-			}
-	
-			completion_reward = {
-				if = {
-					limit = {
-						controls_state = 716
-					}
-					716 = {
-						add_resource = {
-							type = steel
-							amount = 3
-						}
-						add_resource = {
-							type = aluminium
-							amount = 3
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 3
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 621
-					}
-					621 = {
-						add_resource = {
-							type = steel
-							amount = 2
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 620
-					}
-					620 = {
-						add_resource = {
-							type = steel
-							amount = 3
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 328
-					}
-					328 = {
-						add_resource = {
-							type = steel
-							amount = 1
-						}
-						add_resource = {
-							type = aluminium
-							amount = 2
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 3
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 714
-					}
-					714 = {
-						add_resource = {
-							type = steel
-							amount = 1
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 610
-					}
-					610 = {
-						add_resource = {
-							type = steel
-							amount = 1
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-				if = {
-					limit = {
-						controls_state = 600
-					}
-					600 = {
-						add_resource = {
-							type = tungsten
-							amount = 12
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 2
-							instant_build = yes
-						}
-					}
-				}
-			}
-			search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM FOCUS_FILTER_STEEL FOCUS_FILTER_TUNGSTEN}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = PRC_economic_reform
+		icon = GFX_goal_generic_production2
+		prerequisite = { focus = PRC_begin_cultural_revolution }
+		mutually_exclusive = { focus = PRC_generalissimo_lin }
+		x = -1
+		y = 1
+		relative_position_id = PRC_begin_cultural_revolution
+		cost = 50
+		
+		available = {
+			has_global_flag = CR_ended
+			has_country_flag = deng_xiao_ping
 		}
-	
-		focus = {
-			id = PRC_excavation_NW
-			icon = GFX_goal_generic_construction2
-			prerequisite = { focus = PRC_resources_prospection }
-			x = -1
-			y = 1
-			relative_position_id = PRC_resources_prospection
-			cost = 10
-	
-			available = {
-				OR = {
-					num_of_factories > 200
-					AND = {
-						has_war = no
-						num_of_factories > 100
-					}
+		cancel = { has_war = yes }
+		cancel_if_invalid = no
+
+		select_effect = {
+			add_ideas = PRC_socialism_with_chinese_characteristics
+			every_other_country = {
+				reverse_add_opinion_modifier = {
+					target = PRC
+					modifier = PRC_swcc_1
 				}
 			}
-			
-			completion_reward = {
-				r56rp_CHI_excavation_NW = yes
-			}
-			search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL}
 		}
-	
-		focus = {
-			id = PRC_excavation_S
-			icon = GFX_goal_generic_army_motorized
-			prerequisite = { focus = PRC_resources_prospection }
-			x = 0
-			y = 2
-			relative_position_id = PRC_resources_prospection
-			cost = 10
-	
-			available = {
-				OR = {
-					num_of_factories > 200
-					AND = {
-						has_war = no
-						num_of_factories > 100
+
+		completion_reward = {
+			country_event = { id = prc.21 }
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = PRC_generalissimo_lin
+		icon = GFX_goal_generic_attack_allies
+		prerequisite = { focus = PRC_begin_cultural_revolution }
+		mutually_exclusive = { focus = PRC_economic_reform }
+		x = 1
+		y = 1
+		relative_position_id = PRC_begin_cultural_revolution
+		cost = 10
+		
+		available = {
+			has_global_flag = CR_ended
+			has_country_flag = lin_biao
+		}
+
+		completion_reward = {
+			add_country_leader_trait = generalissimo
+		}
+	}
+
+	focus = {
+		id = PRC_armament_reorganization
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = PRC_generalissimo_lin }
+		x = 0
+		y = 1
+		relative_position_id = PRC_generalissimo_lin
+		cost = 10
+		
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
 					}
 				}
-			}
-			
-			completion_reward = {
-				r56rp_CHI_excavation_S = yes
-			}
-			search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RUBBER }
-		}
-	
-		focus = {
-			id = PRC_excavation_NE
-			icon = GFX_goal_generic_construction
-			prerequisite = { focus = PRC_resources_prospection }
-			x = 1
-			y = 1
-			relative_position_id = PRC_resources_prospection
-			cost = 10
-	
-			available = {
-				OR = {
-					num_of_factories > 200
-					AND = {
-						has_war = no
-						num_of_factories > 100
-					}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
 				}
 			}
-	
-			completion_reward = {
-				r56rp_CHI_excavation_NE = yes
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
 			}
-			search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_CHROMIUM FOCUS_FILTER_ALUMINIUM}
+			add_tech_bonus = {
+				name = infantry_weapons_bonus
+				bonus = 1
+				uses = 4
+				category = infantry_weapons
+				category = artillery
+				category = armor
+				category = support_tech
+				category = air_equipment
+				category = naval_equipment
+				category = motorized_equipment
+			}
+			#add_ideas = lin_biao_generalissimo	#was previously a theorist-like army chief, no new equivalent was made
+			add_research_slot = 1
 		}
-	
-	
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+	}
 	##### MAO INDEPENDENT PRC (ANTI-SOVIET) #######
 
 
