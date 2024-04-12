@@ -1,6 +1,6 @@
 -- crap sorted the same way as vanilla's define categories.
 -- ## NGame ##
-NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 30 -- 10 Vanilla Lag days
+NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 30 -- Lag days
 NDefines.NGame.LAG_DAYS_FOR_PAUSE = 90 -- pause days
 -- NDefines.NGame.GAME_SPEED_SECONDS = { 2.0, 0.10, 0.05, 0.035, 0 } -- game secs
 
@@ -19,7 +19,7 @@ NDefines.NCountry.BASE_FUEL_GAIN_PER_OIL = 4 -- (vanilla = 2)
 NDefines.NCountry.BASE_FUEL_CAPACITY = 150000
 
 -- ## NProduction ##
-NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 3 --VANILLA - 2.5
+NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 5 --VANILLA - 2.5
 NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 10
 NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 15
 NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 10

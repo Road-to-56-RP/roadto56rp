@@ -207,6 +207,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Subhas Chandra Bose"
+						desc = " "
 						picture = "gfx/leaders/RAJ/r56_portrait_RAJ_Subhas_Chadra_Bose.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -494,27 +495,6 @@ on_actions = {
 					is_major = yes
 				}
 				set_major = no
-			}
-
-			if = {
-				limit = {
-					tag = ENG
-					has_war_with = SCO
-					SCO = {
-						NOT = {
-							has_country_flag = SCO_has_the_stone_of_scone
-						}
-					}
-				}
-				SCO = {
-					set_country_flag = SCO_has_the_stone_of_scone
-					if = {
-						limit = {
-							has_idea = SCO_absence_of_the_stone_of_scone
-						}
-						remove_ideas = SCO_absence_of_the_stone_of_scone
-					}
-				}
 			}
 
 			# Polish government goes into exile after the capitulation by both USSR and Germany
@@ -871,6 +851,7 @@ on_actions = {
 						}
 						create_country_leader = {
 							name = "Pietro Badoglio"
+							desc = " "
 							picture = "gfx/leaders/ITA/Portrait_Italy_Pietro_Badoglio.dds"
 							expire = "1965.1.1"
 							ideology = fascism_ideology
@@ -989,6 +970,7 @@ on_actions = {
 					kill_ideology_leader = fascism
 					create_country_leader = { #more of a easter egg since at this point Germany can't come back from Yalta
 						name = "Karl Donitz"
+						desc = " "
 						picture = "Portrait_Germany_Karl_Donitz.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -1036,23 +1018,9 @@ on_actions = {
 					for_each_scope_loop = { #Reduced with array black magic.
 						array = GER.core_states #Only check German cores
 						if = {
-							limit = { #Affect only these states. (2024 note: this list is probably shit)
+							limit = { #Affect only these states.
 								OR = {
-									state = 28
-									state = 39
-									state = 63
-									state = 66
-									state = 67
-									state = 68
-									state = 69
-									state = 85
-									state = 86
-									state = 152
-									state = 153
-									state = 188
-									state = 807
-									state = 853
-									state = 965
+									state = 28 state = 39 state = 63 state = 66 state = 67 state = 68 state = 69 state = 85 state = 86 state = 152 state = 153 state = 188 state = 807 state = 853 state = 965
 								}
 							}
 							THIS = { remove_core_of = GER }
@@ -1429,13 +1397,6 @@ on_actions = {
 		effect = {
 			if = {
 				limit = {
-					tag = SAR
-					has_cosmetic_tag = SAR_FRA
-				}
-				drop_cosmetic_tag = yes
-			}
-			if = {
-				limit = {
 					is_in_faction = yes
 					NOT = {
 						is_faction_leader = yes
@@ -1611,17 +1572,6 @@ on_actions = {
 	#ROOT is winner #FROM gets annexed - This will also fire on_annex
 	on_civil_war_end = {
 		effect = {
-			if = {# The Norwegian Monarchist Civil War has ended. Norway gets to choose how to deal with the opposition leaders
-				limit = {
-					ROOT = {
-						original_tag = NOR
-						has_completed_focus = NOR_traditions_worth_fighting_for
-						has_government = neutrality
-						has_country_flag = NOR_has_monarchist_civil_war
-					}
-				}
-				country_event = { id = naw_norway.141 days = 14 random_days = 2	}
-			}
 			if = {
 				limit = {
 					ROOT = {
@@ -1643,12 +1593,6 @@ on_actions = {
 						}
 					}
 				}
-				if = {
-					limit = {
-						NOT = {
-							has_government = communism
-						}
-					}
 				ROOT = {
 					load_focus_tree = { tree = afghanistan_focus keep_completed = yes }
 					mark_focus_tree_layout_dirty = yes
@@ -1661,7 +1605,6 @@ on_actions = {
 					unlock_national_focus = AFG_power_to_the_king
 					change_tag_from = FROM
 				}
-			}
 			}
 			if = {
 				limit = {
@@ -2130,40 +2073,6 @@ on_actions = {
 ###---> On Declare War <><> <><> <><>
 	on_declare_war = {
 		effect = {
-			if = {# NEWS EVENT - Norwegian Neutrality violated by Germany, initial event #
-				limit = {
-					original_tag = NOR
-					is_subject = no
-					has_completed_focus = NOR_armed_neutrality_once_more
-					has_defensive_war_with = GER
-					NOT = { has_country_flag = NOR_neutrality_broken }
-				}
-				news_event = { id = naw_norway.202 }
-			}
-			if = {	# NEWS EVENT - Norwegian Neutrality violated by Britain, initial event #
-				limit = {
-					original_tag = NOR
-					is_subject = no
-					has_completed_focus = NOR_armed_neutrality_once_more
-					has_defensive_war_with = ENG
-					NOT = { has_country_flag = NOR_neutrality_broken }
-				}
-				news_event = { id = naw_norway.203 }
-			}
-			if = {# NEWS EVENT - Norwegian Neutrality violated, but not by the likely culprits (e.g. not Germany or the UK) #
-				limit = {
-					original_tag = NOR
-					is_subject = no
-					has_completed_focus = NOR_armed_neutrality_once_more
-					has_defensive_war = yes
-					NOT = {
-						has_defensive_war_with = GER
-						has_defensive_war_with = ENG
-					}
-					NOT = { has_country_flag = NOR_neutrality_broken }
-				}
-				news_event = { id = naw_norway.204 }
-			}
 			# Give back POR focus tree to Salazarist Portugal if they win the civil war, copied from LAR
 			if = { #Mod. Compressed. This may have the side effect of giving parts of Portugal's tree to "normal" civil wars.
 				limit = {
@@ -2321,6 +2230,7 @@ on_actions = {
 					FROM = {
 						create_country_leader = {
 							name = "Hirohito"
+							desc = " "
 							picture = "Portrait_Japan_Hirohito.dds"
 							expire = "1989.1.1"
 							ideology = despotism
@@ -2347,6 +2257,7 @@ on_actions = {
 					ROOT = {
 						create_country_leader = {
 							name = "Hirohito"
+							desc = " "
 							picture = "Portrait_Japan_Hirohito.dds"
 							expire = "1989.1.1"
 							ideology = despotism
@@ -2462,6 +2373,7 @@ on_actions = {
 					ROOT = {
 						create_country_leader = {
 							name = "Ferenc Szalasi"
+							desc = " "
 							picture = "gfx/leaders/HUN/r56_portrait_HUN_Ferenc_Szalasi.dds"
 							expire = "1965.1.1"
 							ideology = nazism
@@ -2489,6 +2401,7 @@ on_actions = {
 					FROM = {
 						create_country_leader = {
 							name = "Ferenc Szalasi"
+							desc = " "
 							picture = "gfx/leaders/HUN/r56_portrait_HUN_Ferenc_Szalasi.dds"
 							expire = "1965.1.1"
 							ideology = nazism
@@ -2560,9 +2473,13 @@ on_actions = {
 					retire_country_leader = yes
 					create_country_leader = {
 						name = "Li Jishen"
+						desc = " "
 						picture = "gfx/leaders/JAP/Portrait_Japan_Generic_land_4.dds"
 						expire = "1965.1.1"
 						ideology = moderatism
+						traits = {
+
+						}
 					}
 				}
 			}
@@ -2664,11 +2581,13 @@ on_actions = {
 						AND = { tag = GER FROM = { tag = POL } }
 						AND = { tag = POL FROM = { tag = GER } }
 					}
-					GER = {
-						is_ai = yes
-					}
-					POL = {
-						is_ai = yes
+					AND = {
+						GER = {
+							is_ai = yes
+						}
+						POL = {
+							is_ai = yes
+						}
 					}
 					GER = {
 						OR = {
@@ -2690,6 +2609,7 @@ on_actions = {
 						AND = { tag = DEN FROM = { tag = GER } }
 						AND = { tag = NOR FROM = { tag = GER } }
 					}
+					AND = {
 						GER = {
 							is_ai = yes
 						}
@@ -2709,6 +2629,7 @@ on_actions = {
 								is_ai = yes
 							}
 						}
+					}
 					GER = {
 						OR = {
 							has_completed_focus = GER_weserubung
@@ -2727,6 +2648,7 @@ on_actions = {
 						AND = { tag = GER FROM = { tag = HOL } }
 						AND = { tag = GER FROM = { tag = BEL } }
 					}
+					AND = {
 						GER = {
 							is_ai = yes
 						}
@@ -2782,6 +2704,7 @@ on_actions = {
 								is_ai = yes
 							}
 						}
+					}
 					GER = {
 						has_war_with = FRA
 						OR = {
@@ -2801,12 +2724,14 @@ on_actions = {
 						AND = { tag = GER FROM = { tag = YUG } }
 						AND = { tag = YUG FROM = { tag = GER } }
 					}
+					AND = {
 						GER = {
 							is_ai = yes
 						}
 						YUG = {
 							is_ai = yes
 						}
+					}
 					GER = {
 						has_completed_focus = GER_resolve_the_balkan_flank
 					}
@@ -3163,29 +3088,13 @@ on_actions = {
 						set_cosmetic_tag = GCDcivilwar
 						set_global_flag = PRC_civil_war_started
 					}
-					every_country = {
-						limit = {
-							OR = {
-								original_tag = ROOT
-								original_tag = CHI
-							}
-						}
-						add_timed_idea = {
-							days = 570
-							idea = PRC_until_the_bitter_end
-						}
-					}
-					hidden_effect = {			#dongbei partisans
-						country_event = { id = prc.49 days = 30 random_days = 10 }
-					}
 				}
 			}
 			# Middle Eastern countries get an option to join war against Israel
 			if = {
 				limit = {
 					has_global_flag = anti_israeli_coalition
-					tag = EGY
-					FROM = { tag = ISR }
+					AND = { tag = EGY FROM = { tag = ISR } }
 				}
 				every_country = {
 					limit = {
@@ -3227,36 +3136,6 @@ on_actions = {
 #					remove_ideas = generic_can_only_join_factions_same_ideology
 #				}
 #			}
-			if = {	# communist takeover queen reacts
-				limit = {
-					original_tag = HOL
-					has_idea = HOL_wilhelmina
-					has_government = communism
-				}
-				country_event = {
-					id = netherlands.27 days = 7 random_days = 2
-				}
-			}
-			if = {	# Country becomes communist. Get's event to become part of the Soviet Union
-				limit = {
-					OR = {
-						original_tag = LIT
-						original_tag = LAT
-						original_tag = EST
-						original_tag = FIN
-					}
-					has_government = communism
-					SOV = { has_government = communism }
-					NOT = {
-						has_country_flag = baltic.5_fired
-						has_civil_war = no
-					}
-					is_subject = no		#sanity check
-				}
-				country_event = {
-					id =baltic.5 days = 2 random_days = 2
-				}
-			}
 			if = {	#Polish falangists were very autarcic
 				limit = {
 					original_tag = POL
@@ -3485,6 +3364,7 @@ on_actions = {
 				if = {
 					limit = {
 						NOT = {
+							OR = {
 								has_country_leader = {
 									character = MAN_puyi
 									ruling_only = yes
@@ -3495,6 +3375,7 @@ on_actions = {
 								}
 							}
 						}
+					}
 					every_unit_leader = {
 						limit = {
 							OR = {
@@ -3714,9 +3595,11 @@ on_actions = {
 					NOT = {
 						original_tag = MPL
 					}
+					OR = {
 						capital_scope = {
 							is_on_continent = middle_east
 						}
+					}
 					has_government = fascism
 					MPL = {
 						has_completed_focus = MPL_two_people_union
@@ -3806,12 +3689,6 @@ on_actions = {
 
 ###---> On New Term Election <><> <><> <><>
 	on_new_term_election = {
-		random_events = {		#costa rica elections of 1936
-			100 = costa_rica.1
-		}
-		random_events = {
-			100 = panama.1		#panama elections of 1936
-		}
 		effect = {
 			if = {
 				limit = {
@@ -3963,6 +3840,7 @@ on_actions = {
 					retire_ideology_leader = neutrality
 					create_country_leader = {
 						name = "Tsarin Olga Alexandrovna"
+						desc = ""
 						picture = "gfx/leaders/LUX/r56_portrait_LUX_Duchess_Charlotte.dds"	#literally no female generic
 						expire = "1965.1.1"
 						ideology = absolute_monarchism
@@ -4168,6 +4046,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Philip of Greece"
+						desc = ""
 						picture = "gfx/leaders/r56_generic/r56_portrait_generic_admiral_europe_3.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -4223,6 +4102,7 @@ on_actions = {
 
 					has_government = communism
                     FROM = {
+						AND = {
 							OR = {
 								original_tag = SOV
 								is_in_faction_with = SOV
@@ -4232,11 +4112,16 @@ on_actions = {
 							}
 						}
 					}
+                }
 				create_country_leader = {
 					name = "Andrija Hebrang"
+					desc = ""
 					picture = "gfx/leaders/YUG/r56_portrait_YUG_Andrija_Hebrang.dds"
 					expire = "1965.1.1"
 					ideology = moderatism
+					traits = {
+						#
+					}
 				}
 			}
 			if = {
@@ -4428,6 +4313,7 @@ on_actions = {
 						}
 						create_country_leader = {
 							name = "Vladimir Kirillovich"
+							desc = " "
 							picture = "r56_portrait_SOV_Vladimir_Kirillovich.dds"
 							expire = "1965.1.1"
 							ideology = absolute_monarchism
@@ -4487,6 +4373,7 @@ on_actions = {
 						}
 						create_country_leader = {
 							name = "Grigory Semenov"
+							desc = " "
 							picture = "r56_portrait_SOV_Grigory_semenov.dds"
 							expire = "1965.1.1"
 							ideology = oligarchism
@@ -4539,6 +4426,7 @@ on_actions = {
 						}
 						create_country_leader = {
 							name = "Grigory Semenov"
+							desc = " "
 							picture = "r56_portrait_SOV_Grigory_semenov.dds"
 							expire = "1965.1.1"
 							ideology = fascism_ideology
@@ -4574,14 +4462,6 @@ on_actions = {
 				}
 			}
 
-			#Make Saarland French Protectorate Tag
-			if = {
-				limit = {
-					tag = SAR
-					is_subject_of = FRA
-				}
-				SAR = { set_cosmetic_tag = SAR_FRA }
-			}	
 
 			#Make Britain called England
 			if = {
@@ -4652,6 +4532,7 @@ on_actions = {
 				}
 				create_country_leader = {
 					name = "Stefan Fentsyk"
+					desc = ""
 					picture = "gfx/leaders/Europe/r56_portrait_generic_europe_augustyn_czartoryski.dds"
 					expire = "1965.1.1"
 					ideology = moderatism
@@ -4678,9 +4559,11 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Tymczasowy Rząd Jedności Narodowej"
+						desc = " "
 						picture = "r56_portrait_POL_Provisional_Government_of_National_Unity.dds"
 						expire = "1965.1.1"
 						ideology = stalinism
+						traits = { }
 					}
 				}
 				if = { #SOV
@@ -4707,9 +4590,11 @@ on_actions = {
 					drop_cosmetic_tag = yes
 					create_country_leader = {
 						name = "Tymczasowy Rząd Jedności Narodowej"
+						desc = " "
 						picture = "r56_portrait_POL_Provisional_Government_of_National_Unity.dds"
 						expire = "1965.1.1"
 						ideology = stalinism
+						traits = { }
 					}
 					if = {
 						limit = {
@@ -4820,6 +4705,7 @@ on_actions = {
 					POL = { set_party_name = { ideology = fascism long_name = GER_fascism_party_long name = GER_fascism_party } }
 					create_country_leader = {
 						name = "Hans Frank"
+						desc = " "
 						picture = "r56_portrait_POL_Hans_Frank.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -4830,6 +4716,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Fryderyk Krystian Wettyn"
+						desc = " "
 						picture = "r56_portrait_POL_Fryderyk_Krystian_Wettyn.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -4860,6 +4747,7 @@ on_actions = {
 						}
 						create_country_leader = {
 							name = "Liang Hongzhi"
+							desc = " "
 							picture = "gfx/leaders/CHI/r56_portrait_CHI_Liang_Hongzhi.dds"
 							expire = "1965.1.1"
 							ideology = fascism_ideology
@@ -4872,6 +4760,7 @@ on_actions = {
 					else = {
 						create_country_leader = {
 							name = "Wang Jingwei"
+							desc = " "
 							picture = "gfx/leaders/CHI/r56_portrait_CHI_Wang_Jingwei.dds"
 							expire = "1965.1.1"
 							ideology = fascism_ideology
@@ -4895,6 +4784,7 @@ on_actions = {
 						}
 						create_country_leader = {
 							name = "Liang Hongzhi"
+							desc = " "
 							picture = "gfx/leaders/CHI/r56_portrait_CHI_Liang_Hongzhi.dds"
 							expire = "1965.1.1"
 							ideology = despotism
@@ -4907,6 +4797,7 @@ on_actions = {
 					else = {
 						create_country_leader = {
 							name = "Wang Jingwei"
+							desc = " "
 							picture = "gfx/leaders/CHI/r56_portrait_CHI_Wang_Jingwei.dds"
 							expire = "1965.1.1"
 							ideology = despotism
@@ -4930,9 +4821,11 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Aisin Gioro Pujie"
+						desc = " "
 						picture = "gfx/leaders/MAN/r56_portrait_MAN_Aisin_Gioro_Pujie.dds"
 						expire = "1965.1.1"
 						ideology = despotism
+						traits = { }
 					}
 				}
 				else_if = {
@@ -4941,9 +4834,11 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Aisin Gioro Pujie"
+						desc = " "
 						picture = "gfx/leaders/MAN/r56_portrait_MAN_Aisin_Gioro_Pujie.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
+						traits = { }
 					}
 				}
 			}
@@ -4976,6 +4871,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Marcel Bucard"
+						desc = " "
 						picture = "gfx/leaders/FRA/r56_portrait_FRA_Marcel_Bucard.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -5009,6 +4905,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Marcel Déat"
+						desc = " "
 						picture = "gfx/leaders/FRA/r56_portrait_FRA_Marcel_Deat.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -5041,6 +4938,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Marcel Bucard"
+						desc = " "
 						picture = "gfx/leaders/FRA/r56_portrait_FRA_Marcel_Bucard.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -5082,6 +4980,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "André Yvert"
+						desc = " "
 						picture = "gfx/leaders/Europe/Portrait_Europe_Generic_2.dds"
 						expire = "1965.1.1"
 						ideology = absolute_monarchism
@@ -5101,6 +5000,7 @@ on_actions = {
 				if = {
 					limit = {
 						NOT = {
+							OR = {
 								any_other_country = {
 									has_country_leader = {
 										name = "Konstadinos Logothetopoulos"
@@ -5115,6 +5015,7 @@ on_actions = {
 								}
 							}
 						}
+					}
 					random_list = {
 						50 = {
 							create_country_leader = {
@@ -5155,6 +5056,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Konstadinos Logothetopoulos"
+						desc = " "
 						picture = "gfx/leaders/GRE/r56_portrait_GRE_Konstandinos_Logothetopoulos.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -5176,6 +5078,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Ioannis Rallis"
+						desc = " "
 						picture = "gfx/leaders/GRE/r56_portrait_GRE_ioannis_rallis.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -5208,6 +5111,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Alexandru Draghici"
+						desc = " "
 						picture = "gfx/leaders/ROM/r56_portrait_ROM_Alexandru_Draghici.dds"
 						expire = "1965.1.1"
 						ideology = marxism
@@ -5245,6 +5149,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Horia Sima"
+						desc = " "
 						picture = "gfx/leaders/ROM/r56_portrait_ROM_Horia_Sima.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -5273,6 +5178,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Kazys Škirpa"
+						desc = " "
 						picture = "gfx/leaders/LIT/r56_portrait_LIT_Kazys_Skirpa.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -5287,6 +5193,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Kazys Škirpa"
+						desc = " "
 						picture = "gfx/leaders/LIT/r56_portrait_LIT_Kazys_Skirpa.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -5346,6 +5253,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Alexei Petrovich Arkhangelsky"
+						desc = " "
 						picture = "gfx/leaders/r56_generic/r56_generic_portrait_white_russia_2.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -5374,6 +5282,7 @@ on_actions = {
 					}
 					create_country_leader = { #Russian fascist who lived in the USA
 						name = "Anastasy Vonsyatsky"
+						desc = " "
 						picture = "gfx/leaders/kr_generic/Portrait_Russia_Generic_land_1.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -5520,6 +5429,7 @@ on_actions = {
 				}
 				create_country_leader = { #pro nazi prince, should appear if there are 2 british collaboration governements
 					name = "Charles Edward of Albany"
+					desc = ""
 					picture = "gfx/leaders/ENG/r56_portrait_ENG_Charles_Edward.dds"
 					expire = "1965.1.1"
 					ideology = nazism
@@ -5547,6 +5457,7 @@ on_actions = {
 				}
 				create_country_leader = { #grandpa of Boris Johnson
 					name = "Osman Kemal"
+					desc = ""
 					picture = "gfx/leaders/kr_generic/Portrait_Europe_Generic_new_13.dds"
 					expire = "1965.1.1"
 					ideology = moderatism
@@ -5576,6 +5487,7 @@ on_actions = {
 					}
 					create_country_leader = { #pro fascist Ger American, Fritz Kuhn Otherwise?
 						name = "Gerhard Kunze"
+						desc = ""
 						picture = "gfx/leaders/kr_generic/Portrait_Europe_Generic_new_1.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -5599,6 +5511,7 @@ on_actions = {
 					}
 					create_country_leader = { #pro fascist Italo American
 						name = "Generoso Pope"
+						desc = ""
 						picture = "gfx/leaders/Europe/Portrait_Europe_Generic_6.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -5639,6 +5552,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Ferenc Szalasi"
+						desc = " "
 						picture = "gfx/leaders/HUN/r56_portrait_HUN_Ferenc_Szalasi.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -5677,6 +5591,7 @@ on_actions = {
 						#the generic portrait is actually him
 						create_country_leader = {
 							name = "Vilmos Rőder"
+							desc = " "
 							picture = "gfx/leaders/Europe/portrait_europe_generic_6.dds"
 							expire = "1965.1.1"
 							ideology = fascism_ideology
@@ -5693,6 +5608,7 @@ on_actions = {
 						#the generic portrait is actually him
 						create_country_leader = {
 							name = "Vilmos Rőder"
+							desc = " "
 							picture = "gfx/leaders/Europe/portrait_europe_generic_6.dds"
 							expire = "1965.1.1"
 							ideology = oligarchism
@@ -5769,18 +5685,22 @@ on_actions = {
 			}
 			if = {
 				limit = { 
+					AND = { 
 						TAG = QBC
 						is_subject_of = ENG	
 					}
+				}
 				QBC = {
 					set_cosmetic_tag = QBC_ENG
 				}
 			}
 			if = {
 				limit = { 
+					AND = { 
 						TAG = QBC
 						is_subject_of = CAN
 					}
+				}
 				QBC = {
 					set_cosmetic_tag = QBC_CAN
 				}
@@ -5809,13 +5729,6 @@ on_actions = {
 					is_puppet_of = FRA
 				}
 				set_cosmetic_tag = LEB_FRA
-			}
-			if = {
-				limit = {
-					tag = SAR
-					is_subject_of = FRA
-				}
-				set_cosmetic_tag = SAR_FRA
 			}
 			if = {	#French Lebanon gets French puppet tag
 				limit = {
@@ -5901,7 +5814,7 @@ on_actions = {
 						original_tag = GAB
 						original_tag = GAM
 						original_tag = GHA
-						#original_tag = GUN
+						original_tag = GUN
 						original_tag = GBR
 						original_tag = GEO
 						original_tag = HAN
@@ -5932,9 +5845,10 @@ on_actions = {
 						original_tag = SUR
 						original_tag = SYR
 						original_tag = SEN
-						#original_tag = SLE
+						original_tag = SLE
 						original_tag = SLV
 						original_tag = SOM
+						original_tag = SSD
 						original_tag = SZK
 						original_tag = TZN
 						original_tag = TUN
@@ -6450,9 +6364,13 @@ on_actions = {
 				}
 				create_country_leader = { #pro nazi prince, should appear if there are 2 british collaboration governements
 					name = "Charles Edward of Albany"
+					desc = ""
 					picture = "gfx/leaders/ENG/Portrait_Britain_Generic_3.dds"
 					expire = "1965.1.1"
 					ideology = nazism
+					traits = {
+						#
+					}
 				}
 			}
 			#### Trying to fix puppet communist Hungary
@@ -6501,6 +6419,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Philip of Greece"
+						desc = ""
 						picture = "gfx/leaders/r56_generic/r56_portrait_generic_admiral_europe_3.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -6535,6 +6454,7 @@ on_actions = {
 				}
 				create_country_leader = { #probaby pro nazi party founder, founded in 1937 see the NMB character file for notes
 					name = "Hans Hirsekorn"
+					desc = ""
 					picture = "gfx/leaders/kr_generic/Portrait_Europe_Generic_new_10.dds"
 					expire = "1965.1.1"
 					ideology = nazism
@@ -6567,6 +6487,7 @@ on_actions = {
 				}
 				create_country_leader = { #probaby pro nazi party founder, founded in 1937 see the NMB character file for notes
 					name = "Edgar Sander"
+					desc = ""
 					picture = "gfx/leaders/kr_generic/Portrait_Europe_Generic_new_11.dds"
 					expire = "1965.1.1"
 					ideology = moderatism
@@ -6596,6 +6517,7 @@ on_actions = {
 				}
 				create_country_leader = { #
 					name = "Simon Frederiks"
+					desc = ""
 					picture = "gfx/leaders/kr_generic/Portrait_Africa_Generic_new_4.dds"
 					expire = "1965.1.1"
 					ideology = moderatism
@@ -6622,19 +6544,27 @@ on_actions = {
 					}
 
                     FROM = {
+						AND = {
+							OR = {
 								original_tag = SOV
 								is_in_faction_with = SOV
+							}
 							SOV = {
 								has_government = communism
 							}
+						}
 
 					}
                 }
 				create_country_leader = {
 					name = "Andrija Hebrang"
+					desc = ""
 					picture = "gfx/leaders/YUG/r56_portrait_YUG_Andrija_Hebrang.dds"
 					expire = "1965.1.1"
 					ideology = stalinism
+					traits = {
+						#
+					}
 				}
 			}
 
@@ -7275,6 +7205,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Manley Powers"
+						desc = ""
 						picture = "gfx/leaders/kr_generic/Portrait_Britain_Generic_navy_1.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -7284,6 +7215,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Manley Powers"
+						desc = ""
 						picture = "gfx/leaders/kr_generic/Portrait_Britain_Generic_navy_1.dds"
 						expire = "1965.1.1"
 						ideology = liberalism
@@ -7293,6 +7225,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Manley Powers"
+						desc = ""
 						picture = "gfx/leaders/kr_generic/Portrait_Britain_Generic_navy_1.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -7309,6 +7242,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Arnold Margerie"
+						desc = ""
 						picture = "gfx/leaders/r56_generic/r56_portrait_generic_politician_europe_3.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -7331,11 +7265,13 @@ on_actions = {
 				limit = {
 					ROOT = { original_tag = CRO }
 					NOT = {
+						OR = {
 							owns_state = 109
 							owns_state = 959
 							owns_state = 952
 						}
 					}
+				}
 				set_cosmetic_tag = dalmatia
 			}
 			#Release Memel/Klaipėda put the Memel tag on lithuania
@@ -7343,11 +7279,13 @@ on_actions = {
 				limit = {
 					ROOT = { original_tag = LIT }
 					NOT = {
+						OR = {
 							owns_state = 189
 							owns_state = 11
 							owns_state = 784
 						}
 					}
+				}
 				set_cosmetic_tag = LIT_MEMEL
 			}
 			# CHI
@@ -7355,6 +7293,7 @@ on_actions = {
 				limit = {
 					ROOT = { original_tag = CHI }
 					NOT = {
+						OR = {
 							owns_state = 524
 							owns_state = 591
 							owns_state = 592
@@ -7373,6 +7312,7 @@ on_actions = {
 							owns_state = 325
 						}
 					}
+				}
 				if = {
 					limit = {
 						FROM = { original_tag = ENG }
@@ -7413,6 +7353,7 @@ on_actions = {
 					ROOT = { original_tag = POR }
 					owns_state = 698
 					NOT = {
+						OR = {
 							owns_state = 179
 							owns_state = 795
 							owns_state = 112
@@ -7425,6 +7366,7 @@ on_actions = {
 							has_cosmetic_tag = KPB_kingdom_portugal_and_brazil
 						}
 					}
+				}
 				set_cosmetic_tag = POR_ACORES
 			}
 
@@ -7522,6 +7464,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Wang Jingwei"
+						desc = " "
 						picture = "gfx/leaders/CHI/r56_portrait_CHI_Wang_Jingwei.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -7543,6 +7486,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Liang Hongzhi"
+						desc = " "
 						picture = "gfx/leaders/CHI/r56_portrait_CHI_Liang_Hongzhi.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -7566,6 +7510,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Wang Jingwei"
+						desc = " "
 						picture = "gfx/leaders/CHI/r56_portrait_CHI_Wang_Jingwei.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -7587,6 +7532,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Liang Hongzhi"
+						desc = " "
 						picture = "gfx/leaders/CHI/r56_portrait_CHI_Liang_Hongzhi.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -7741,6 +7687,7 @@ on_actions = {
 				ROOT = {
 					create_country_leader = {
 						name = "Ferenc Szalasi"
+						desc = " "
 						picture = "gfx/leaders/HUN/r56_portrait_HUN_Ferenc_Szalasi.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -8017,9 +7964,11 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Tymczasowy Rząd Jedności Narodowej"
+						desc = " "
 						picture = "r56_portrait_POL_Provisional_Government_of_National_Unity.dds"
 						expire = "1965.1.1"
 						ideology = stalinism
+						traits = { }
 					}
 				}
 				if = {
@@ -8033,6 +7982,7 @@ on_actions = {
 					drop_cosmetic_tag = yes
 					create_country_leader = {
 						name = "Tymczasowy Rząd Jedności Narodowej"
+						desc = " "
 						picture = "r56_portrait_POL_Provisional_Government_of_National_Unity.dds"
 						expire = "1965.1.1"
 						ideology = stalinism
@@ -8147,6 +8097,7 @@ on_actions = {
 					POL = { set_party_name = { ideology = fascism long_name = GER_fascism_party_long name = GER_fascism_party } }
 					create_country_leader = {
 						name = "Hans Frank"
+						desc = " "
 						picture = "r56_portrait_POL_Hans_Frank.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -8159,6 +8110,7 @@ on_actions = {
 					POL = { set_party_name = { ideology = neutrality long_name = POL_monarchy_party_long name = POL_monarchy_party } }
 					create_country_leader = {
 						name = "Fryderyk Krystian Wettyn"
+						desc = " "
 						picture = "r56_portrait_POL_Fryderyk_Krystian_Wettyn.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -8359,13 +8311,6 @@ on_actions = {
 				limit = {
 					tag = LEB
 					has_cosmetic_tag = LEB_FRA
-				}
-				drop_cosmetic_tag = yes
-			}
-			if = {
-				limit = {
-					tag = SAR
-					has_cosmetic_tag = SAR_FRA
 				}
 				drop_cosmetic_tag = yes
 			}
@@ -8748,11 +8693,13 @@ on_actions = {
 				limit = {
 					ROOT = { original_tag = CRO }
 					NOT = {
+						OR = {
 							owns_state = 109
 							owns_state = 959
 							owns_state = 952
 						}
 					}
+				}
 				set_cosmetic_tag = dalmatia
 			}
 			#Release Memel/Klaipėda put the Dalmatian tag on Croatia
@@ -8760,11 +8707,13 @@ on_actions = {
 				limit = {
 					ROOT = { original_tag = LIT }
 					NOT = {
+						OR = {
 							owns_state = 189
 							owns_state = 11
 							owns_state = 784
 						}
 					}
+				}
 				set_cosmetic_tag = LIT_MEMEL
 			}
 			#Glorious Hong Kong
@@ -8772,6 +8721,7 @@ on_actions = {
 				limit = {
 					ROOT = { original_tag = CHI }
 					NOT = { #No "proper" mainland china, I think.
+						OR = {
 							owns_state = 524
 							owns_state = 591
 							owns_state = 592
@@ -8790,6 +8740,7 @@ on_actions = {
 							owns_state = 325
 						}
 					}
+				}
 				if = {
 					limit = {
 						FROM = {
@@ -8831,6 +8782,7 @@ on_actions = {
 					ROOT = { original_tag = POR }
 					owns_state = 698
 					NOT = {
+						OR = {
 							owns_state = 179
 							owns_state = 795
 							owns_state = 112
@@ -8845,6 +8797,7 @@ on_actions = {
 							has_cosmetic_tag = KPB_kingdom_portugal_and_brazil
 						}
 					}
+				}
 				set_cosmetic_tag = POR_ACORES
 			}
 
@@ -8962,6 +8915,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Manley Powers"
+						desc = ""
 						picture = "gfx/leaders/ENG/r56_portrait_ENG_Arthur_Palliser.dds"
 						expire = "1965.1.1"
 						ideology = despotism
@@ -8971,6 +8925,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Manley Powers"
+						desc = ""
 						picture = "gfx/leaders/ENG/r56_portrait_ENG_Arthur_Palliser.dds"
 						expire = "1965.1.1"
 						ideology = liberalism
@@ -8980,6 +8935,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Manley Powers"
+						desc = ""
 						picture = "gfx/leaders/ENG/r56_portrait_ENG_Arthur_Palliser.dds"
 						expire = "1965.1.1"
 						ideology = fascism_ideology
@@ -8996,6 +8952,7 @@ on_actions = {
 					}
 					create_country_leader = {
 						name = "Arnold Margerie"
+						desc = ""
 						picture = "gfx/leaders/r56_generic/r56_portrait_generic_politician_europe_3.dds"
 						expire = "1965.1.1"
 						ideology = nazism
@@ -10462,7 +10419,7 @@ on_actions = {
 							modifier = {
 								factor = 0
 								NOT = {
-									has_global_flag = NOR_use_DLC_tree
+									has_country_flag = NOR_use_DLC_tree
 								}
 							}
 							set_country_flag = NOR_AI_RANDOM_COMMUNIST
@@ -11081,7 +11038,6 @@ on_actions = {
 				52 = { add_core_of = GER }
 				53 = { add_core_of = GER }
 				54 = { add_core_of = GER }
-				1053 = { add_core_of = GER }
 				BAY = {
 					hidden_effect = {
 						load_oob = "BAY_1936"
@@ -11101,7 +11057,6 @@ on_actions = {
 				52 = { add_core_of = GER }
 				53 = { add_core_of = GER }
 				54 = { add_core_of = GER }
-				1053 = { add_core_of = GER }
 				BAY = {
 					hidden_effect = {
 						load_oob = "BAY_1936"
@@ -11118,7 +11073,6 @@ on_actions = {
 				set_global_flag = game_rule_flag_germany_fragmented
 				WGR = {
 					add_state_core = 42
-					add_state_core = 1053
 					add_state_core = 50
 					add_state_core = 51
 					add_state_core = 52
@@ -11170,7 +11124,6 @@ on_actions = {
 					##give them cores over the other side.
 					DDR = {
 						add_state_core = 42
-						add_state_core = 1053
 						add_state_core = 50
 						add_state_core = 51
 						add_state_core = 52
@@ -11213,7 +11166,6 @@ on_actions = {
 				set_global_flag = game_rule_flag_germany_fragmented
 				WGR = {
 					add_state_core = 42
-					add_state_core = 1053
 					add_state_core = 50
 					add_state_core = 51
 					add_state_core = 52
@@ -11269,7 +11221,6 @@ on_actions = {
 					##give them cores over the other side.
 					DDR = {
 						add_state_core = 42
-						add_state_core = 1053
 						add_state_core = 50
 						add_state_core = 51
 						add_state_core = 52
@@ -11312,7 +11263,6 @@ on_actions = {
 				change_tag_from = GER
 				WGR = {
 					add_state_core = 42
-					add_state_core = 1053
 					add_state_core = 50
 					add_state_core = 51
 					add_state_core = 52
@@ -11375,7 +11325,6 @@ on_actions = {
 					##give them cores over the other side.
 					DDR = {
 						add_state_core = 42
-						add_state_core = 1053
 						add_state_core = 50
 						add_state_core = 51
 						add_state_core = 52
@@ -11427,7 +11376,6 @@ on_actions = {
 				}
 				set_global_flag = game_rule_flag_germany_fragmented
 				42 = { set_demilitarized_zone = no }
-				1053 = { set_demilitarized_zone = no }
 				51 = { set_demilitarized_zone = no }
 				989 = { set_demilitarized_zone = no }
 				922 = { set_demilitarized_zone = no }
@@ -12400,7 +12348,6 @@ on_actions = {
 
 				set_global_flag = game_rule_flag_germany_fragmented
 				42 = { set_demilitarized_zone = no }
-				1053 = { set_demilitarized_zone = no }
 				51 = { set_demilitarized_zone = no }
 				989 = { set_demilitarized_zone = no }
 				922 = { set_demilitarized_zone = no }
@@ -12854,8 +12801,6 @@ on_actions = {
 				SHL = {
 					add_state_core = 58
 					transfer_state = 58
-					add_state_core = 998
-					transfer_state = 998
 
 					division_template = {
 						name = "Infanterie-Division"
@@ -12971,7 +12916,6 @@ on_actions = {
 					transfer_state = 52
 					transfer_state = 53
 					transfer_state = 54
-					transfer_state = 1053
 
 				}
 				HAN = {
@@ -14601,7 +14545,6 @@ on_actions = {
 					release = LBA
 					release = ERI
 					release = SOM
-					activate_decision = ITA_withdraw_from_ethiopia	#Fix focus tree breaking
 				}
 				SOM = {
 					transfer_state = 269
@@ -15189,64 +15132,6 @@ on_actions = {
 					transfer_units_fraction = {
 						target = QBC
 						size = 0.1
-					}
-				}
-				466 = {
-					remove_dynamic_modifier = {
-						modifier = quebec_conscription_crisis
-					}
-					clr_state_flag = quebec_conscription_crisis_flag
-				}
-				861 = {
-					remove_dynamic_modifier = {
-						modifier = quebec_conscription_crisis
-					}
-					clr_state_flag = quebec_conscription_crisis_flag
-				}
-				860 = {
-					remove_dynamic_modifier = {
-						modifier = quebec_conscription_crisis
-					}
-					clr_state_flag = quebec_conscription_crisis_flag
-				}
-				863 = {
-					remove_dynamic_modifier = {
-						modifier = quebec_conscription_crisis
-					}
-					clr_state_flag = quebec_conscription_crisis_flag
-				}
-				862 = {
-					remove_dynamic_modifier = {
-						modifier = quebec_conscription_crisis
-					}
-					clr_state_flag = quebec_conscription_crisis_flag
-				}
-				468 = {
-					remove_dynamic_modifier = {
-						modifier = quebec_conscription_crisis
-					}
-					clr_state_flag = quebec_conscription_crisis_flag
-				}
-			}
-			else_if = {
-				limit = {
-					has_game_rule = {
-						rule = can_fragmentation_status
-						option = CAN_QUEBEC_FRAGMENTED
-					}
-				}
-				CAN = {
-					release = QBC
-					if = {
-						limit = { has_dlc = "Together for Victory" }
-						remove_ideas = CAN_conscription_crisis
-					}
-					transfer_units_fraction = {
-						target = QBC
-						size = 0.1
-					}
-					QBC = {
-						change_tag_from = CAN
 					}
 				}
 				466 = {
@@ -16898,6 +16783,12 @@ on_actions = {
 						20 = { set_variable = { MPL_path_selection = 60 } }
 					}
 				}
+				if = {
+					limit = {
+						is_ai = yes
+					}
+					set_country_flag = MPL_is_ai
+				}
 			}
 		}
 	}
@@ -16925,54 +16816,6 @@ on_actions = {
 			#			}
 			#		}
 			#	}
-			if = {				#famine in henan, replaced manual trigger
-				limit = {
-					OR = {
-						original_tag = CHI
-						original_tag = PRC
-					}
-					owns_state = 607
-					FROM.FROM = { 
-						state = 607
-						controller = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				country_event = { id = prc.115 random_days = 7 }
-			}
-			if = {				#civil war defectors rising up
-				limit = {
-					original_tag = PRC
-					has_war_with = CHI
-					has_global_flag = PRC_civil_war_started
-					CHI = {
-						has_completed_focus = KMT_harsh_takeover_focus
-					}
-					FROM.FROM = { state = 603 }
-				}
-				country_event = { id = prc.50 random_hours = 6 }
-			}
-			if = {				#civil war defectors rising up
-				limit = {
-					original_tag = PRC
-					has_war_with = CHI
-					has_global_flag = PRC_civil_war_started
-					CHI = {
-						has_completed_focus = KMT_harsh_takeover_focus
-					}
-					FROM.FROM = { state = 622 }
-				}
-				country_event = { id = prc.500 random_hours = 6 }
-			}
-			if = {				#was checked every day previously - Fantom
-				limit = {
-					original_tag = PRC
-					has_country_leader_with_trait = cornered_fox
-					num_of_controlled_states > 3
-				}
-				country_event = { id = china.5 random_hours = 6 }
-			}
 
 			if = {	#state renaming tool for possible dynamical name changes, inspired by Kaiserreichs way to do that (in particular, the presence of meta effects) - Fantom
 				limit = {
@@ -19372,6 +19215,7 @@ on_actions = {
 						}
 					}
 				}
+				log = "trust"
 				drop_cosmetic_tag = yes
 			}
 
@@ -19588,28 +19432,6 @@ on_actions = {
 					NOT = { has_global_flag = MR_pact_broken_event_flag }
 				}
 				news_event = news.153
-			}
-			if = {	#doolitle raid by USA on Japanese mainland
-				limit = {
-					ROOT = {
-						original_tag = USA
-					}
-					FROM = {
-						original_tag = JAP
-					}
-				}
-				country_event = { id = kmt.287 days = 125 random_days = 15 }
-			}
-			if = {	#PRC getting some foreigners help
-				limit = {
-					ROOT = {
-						original_tag = PRC
-					}
-					FROM = {
-						original_tag = JAP
-					}
-				}
-				country_event = { id = prc.25 days = 365 random_days = 30 }
 			}
 			if = {	#Afghanistan deccing on Soviets with idea
 				limit = {
@@ -20871,6 +20693,17 @@ on_actions = {
 					controls_state = 454
 				}
 				country_event = palestine.61
+			}
+			if = {
+				limit = {
+					tag = ISR
+					FROM = { tag = PAL }
+				}
+				country_event = {
+					id = mandate_palestine.208
+					days = 1 
+					random_hours = 12
+				}
 			}
 		}
 	}

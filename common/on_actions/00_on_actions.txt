@@ -126,12 +126,11 @@ on_actions = {
 	on_nuke_drop = {
 
 		effect = {
-			if = {		#making sure this triggers
+			set_global_flag = first_nuke_dropped
+			if = {
 				limit = { NOT = { has_global_flag = first_nuke_dropped } }
 				country_event = { id = generic.8 }
-				news_event = { id = nuke_dropped.1 days = 1}
 			}
-			set_global_flag = first_nuke_dropped
 			if = {
 				limit = { has_idea = race_for_the_bomb_outclassed }
 				remove_ideas = race_for_the_bomb_outclassed
@@ -178,6 +177,9 @@ on_actions = {
 			news_event = { id = nuke_dropped.12 days = 1}
 			news_event = { id = nuke_dropped.13 days = 1}
 		}
+		random_events = {
+			100 = nuke_dropped.0
+		}
 	}
 
 	# country random events
@@ -189,6 +191,14 @@ on_actions = {
 	#
 	#}
 
+	on_border_war_lost = {
+		effect = {
+			owner = {
+				country_event = { id = china.14 }
+				country_event = { id = china.16 }
+			}
+		}
+	}
 	
 	on_leave_faction = {
 		effect = {
@@ -231,40 +241,12 @@ on_actions = {
 					remove_ideas = anti_soviet_pact
 				}
 			}	
-			# Yugoslavia joins axis without solving Anti-German military - coup event
-			if = {
-				limit = {
-					original_tag = GER
-					has_government = fascism
-					FROM = {
-						original_tag = YUG
-						has_idea = anti_german_military
-						NOT = { has_country_flag = has_already_decided_yugo_coup_flag }
-					}
-				}
-				FROM = {
-					country_event = { id = DOD_yugoslavia.1 random_hours = 6 }	#6 hours to simulate fast military preparations and response
-				}
-			}
 		}
 	}
 
 	#FROM is faction leader on join faction requests. THIS DOES NOT FIRE ON ADD_TO_FACTION EFFECT! USE ON_OFFER_JOIN_FACTION!
 	on_join_faction = {
 		effect = {
-			# Yugoslavia joins axis without solving Anti-German military - coup event
-			if = {	
-				limit = {
-					FROM = {
-						original_tag = GER
-						has_government = fascism
-					}
-					original_tag = YUG
-					has_idea = anti_german_military
-					NOT = { has_country_flag = has_already_decided_yugo_coup_flag }
-				}
-				country_event = { id = DOD_yugoslavia.1 random_hours = 6 }	#6 hours to simulate fast military preparations and response
-			}
 			#Remove anti_soviet_pact if joining commie Soviet in faction
 			if = {
 				limit = {
@@ -414,12 +396,11 @@ on_actions = {
 			if = {
 				limit = {
 					ROOT = { original_tag = GER }
-					ROOT = { GER_has_mefo_bills_r56rp_legacy = yes }
+					ROOT = { GER_has_mefo_bills = yes }
 					NOT = { FROM = { original_tag = GER } } # Don't remove it from Fascist Germany if they start the civil war
 				}
 				ROOT = {
-					# keeps the declare screen a bit cleaner, otherwise goes outside of the screen.
-					GER_remove_mefo_bills_r56rp_legacy = yes
+					GER_remove_mefo_bills = yes
 					set_country_flag = mefo_bills_removed_through_war
 				}
 			}
@@ -428,10 +409,10 @@ on_actions = {
 			if = {
 				limit = {
 					FROM = { original_tag = GER }
-					FROM = { GER_has_mefo_bills_r56rp_legacy = yes }
+					FROM = { GER_has_mefo_bills = yes }
 				}
 				FROM = {
-					GER_remove_mefo_bills_r56rp_legacy = yes
+					GER_remove_mefo_bills = yes
 					set_country_flag = mefo_bills_removed_through_war
 				}
 			}
@@ -559,18 +540,6 @@ on_actions = {
 			}
 			
 			if = {
-				limit = {
-					original_tag = FRA
-					has_government = democratic
-					NOT = { has_global_flag = FRA_capitulation_event_fired } #might as well use the achievement flag to check if france.10 fired
-					is_subject = no
-					is_in_faction_with = ENG
-					has_war_with = GER
-				}
-				country_event = france.10
-			}
-
-			if = {
 				limit = { tag = FRA }
 				set_global_flag = FRA_already_surrendered
 				set_variable = { global.FRA_capitulation_days = global.num_days }
@@ -585,9 +554,27 @@ on_actions = {
 			
 			if = {
 				limit = { 
+					original_tag = POL
+					has_government = neutrality
+				}
+				retire_country_leader = yes
+			}
+			if = {
+				limit = {
 					original_tag = DEN
 				}
 				country_event = { id = wtt_denmark.1 days = 1 }
+			}
+			if = {
+				limit = {
+					original_tag = FRA
+					has_government = democratic
+					NOT = { has_global_flag = achievement_france_surrender } #might as well use the achievement flag to check if france.10 fired
+					is_subject = no
+					is_in_faction_with = ENG
+					has_war_with = GER
+				}
+				country_event = france.10
 			}
 		}
 	}
@@ -1403,7 +1390,7 @@ on_actions = {
 							modifier = {
 								factor = 0
 								NOT = {
-									has_global_flag = DEN_use_DLC_tree
+									has_country_flag = DEN_use_DLC_tree
 								}
 							}
 						}
@@ -1412,7 +1399,7 @@ on_actions = {
 							modifier = {
 								factor = 0
 								NOT = {
-									has_global_flag = DEN_use_DLC_tree
+									has_country_flag = DEN_use_DLC_tree
 								}
 							}
 						}
@@ -1423,7 +1410,7 @@ on_actions = {
 							set_country_flag = DEN_AI_RANDOM_COMMUNIST
 							modifier = {
 								factor = 0
-								has_global_flag = DEN_use_DLC_tree
+								has_country_flag = DEN_use_DLC_tree
 							}
 						}
 						20 = {
@@ -1531,14 +1518,14 @@ on_actions = {
 					}
 					
 					random_list = {
-						25 = { ISR = { set_country_flag = ISR_AI_RANDOM_MAPAI } }
-						15 = { ISR = { set_country_flag = ISR_AI_RANDOM_HASHOMER } }
-						5 = { ISR = { set_country_flag = ISR_AI_RANDOM_MAKI } }
-						5 = { ISR = { set_country_flag = ISR_AI_RANDOM_PROGRESSIVE } }
-						15 = { ISR = { set_country_flag = ISR_AI_RANDOM_GENERAL_ZIONIST } }
-						15 = { ISR = { set_country_flag = ISR_AI_RANDOM_HATZOHAR } }
-						15 = { ISR = { set_country_flag = ISR_AI_RANDOM_IRGUN } }
-						5 = { ISR = { set_country_flag = ISR_AI_RANDOM_LEHI } }
+						25 = { EGY = { set_country_flag = ISR_AI_RANDOM_MAPAI } }
+						15 = { EGY = { set_country_flag = ISR_AI_RANDOM_HASHOMER } }
+						5 = { EGY = { set_country_flag = ISR_AI_RANDOM_MAKI } }
+						5 = { EGY = { set_country_flag = ISR_AI_RANDOM_PROGRESSIVE } }
+						15 = { EGY = { set_country_flag = ISR_AI_RANDOM_GENERAL_ZIONIST } }
+						15 = { EGY = { set_country_flag = ISR_AI_RANDOM_HATZOHAR } }
+						15 = { EGY = { set_country_flag = ISR_AI_RANDOM_IRGUN } }
+						5 = { EGY = { set_country_flag = ISR_AI_RANDOM_LEHI } }
 					}
 					
 				}
@@ -2402,18 +2389,7 @@ on_actions = {
 					NOT = { has_global_flag = fall_of_berlin_civil_war }
 				}
 				set_global_flag = fall_of_berlin_civil_war
-				if = {
-					limit = {
-						any_other_country = {
-							original_tag = GER
-							has_government = fascism
-							has_civil_war = yes
-							owns_state = 64
-							surrender_progress > 0.6
-						}
-					}
-					country_event = { id = wtt_germany.50 days = 1 random_hours = 3 }
-				}
+				country_event = { id = wtt_germany.50 days = 1 random_hours = 3 }
 			}
 			if = {
 				limit = {
@@ -2677,7 +2653,6 @@ on_actions = {
 				}
 				set_temp_variable = { new_compliance = compliance }
 				multiply_temp_variable = { new_compliance = 0.5 }
-				set_compliance = new_compliance
 			}
 		}
 	}
