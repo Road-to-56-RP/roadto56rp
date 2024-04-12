@@ -638,6 +638,10 @@ ideas = {
 				industry = 0.15
 			}
 
+			modifier = {
+				production_factory_start_efficiency_factor = 0.05
+			}
+
 			traits = {
 				industrial_concern
 			}
@@ -682,9 +686,20 @@ ideas = {
 			picture = stalingrad_tractor_factory
 
 			available = {
-				controls_state = 617
 				NOT = {
 					has_war_with = SOV
+				}
+				SOV = {
+					has_opinion = {
+						target = ROOT
+						value > 0
+					}
+				}
+				any_neighbor_country = {
+					OR = {
+						tag = SOV
+						is_puppet_of = SOV
+					}
 				}
 			}
 
@@ -727,6 +742,8 @@ ideas = {
 					is_literally_china = yes
 				}
 			}
+
+			cost = 125
 			
 			research_bonus = {
 				electronics = 0.15
@@ -760,6 +777,12 @@ ideas = {
 			}
 			available = {
 				has_completed_focus = KMT_industrial_effort
+				GER = {
+					has_opinion = {
+						target = ROOT
+						value > 0
+					}
+				}
 				NOT = { has_war_with = GER }
 			}
 
@@ -772,7 +795,7 @@ ideas = {
 
 			research_bonus = {
 				industry = 0.15
-
+				armor = 0.10
 			}
 
 			traits = { industrial_concern }
@@ -801,7 +824,10 @@ ideas = {
 			removal_cost = 10
 
 			research_bonus = {
-				industry = 0.15
+				industry = 0.10
+			}
+			modifier = {
+				line_change_production_efficiency_factor = 0.05
 			}
 
 			traits = { industrial_concern }
@@ -819,11 +845,18 @@ ideas = {
 				}
 			}
 
+			available = {
+				has_completed_focus = KMT_electronics_research
+			}
+
 			cost = 150
 			removal_cost = 10
 
 			research_bonus = {
 				electronics = 0.15
+			}
+			modifier = {
+				production_speed_radar_station_factor = 0.15
 			}
 
 			traits = { electronics_concern }
