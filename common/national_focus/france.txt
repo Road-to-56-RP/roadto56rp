@@ -10411,7 +10411,7 @@ focus_tree = {
 	focus = {
 		id = FRA_infantry_tanks
 		icon = GFX_focus_generic_combined_arms
-		cost = 5
+		cost = 10
 		prerequisite = {
 			focus = FRA_fortification_focus
 			focus = FRA_motorized_focus
@@ -10488,7 +10488,7 @@ focus_tree = {
 	focus = {
 		id = FRA_army_reform
 		icon = GFX_goal_FRA_army_reform
-		cost = 15
+		cost = 10
 		prerequisite = {
 			focus = FRA_infantry_tanks
 		}
@@ -12202,10 +12202,7 @@ focus_tree = {
 					category = medium_air
 				}
 			}
-					swap_ideas = {
-					remove_idea = FRA_outdated_airforce
-					add_idea = FRA_r56rp_modernizing_airforce1
-				}
+			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12230,21 +12227,8 @@ focus_tree = {
 		
 		completion_reward = {
 			add_ideas = FRA_ecole_de_lair_idea
-				if = {
-				limit = {
-					has_idea = FRA_r56rp_modernizing_airforce1
-				}
-				swap_ideas = {
-					remove_idea = FRA_r56rp_modernizing_airforce1
-					add_idea = FRA_r56rp_modernizing_airforce2
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = FRA_r56rp_modernizing_airforce3
-					add_idea = FRA_r56rp_modernizing_airforce2a
-				}
-			}
+			
+			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12252,7 +12236,7 @@ focus_tree = {
 	focus = {
 		id = FRA_faire_face
 		icon = GFX_focus_generic_military_mission
-		cost = 5
+		cost = 10
 		prerequisite = {
 			focus = FRA_support_the_ecole_de_lair
 		}
@@ -12267,8 +12251,14 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			air_experience = 50
-			add_ideas = FRA_r56rp_faire_face_idea
+			air_experience = 10
+			add_doctrine_cost_reduction = {
+				name = FRA_faire_face
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12406,21 +12396,6 @@ focus_tree = {
 					add_mio_funds = 750
 				}
 			}
-				if = {
-				limit = {
-					has_idea = FRA_r56rp_modernizing_airforce1
-				}
-				swap_ideas = {
-					remove_idea = FRA_r56rp_modernizing_airforce1
-					add_idea = FRA_r56rp_modernizing_airforce3
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = FRA_r56rp_modernizing_airforce2
-					add_idea = FRA_r56rp_modernizing_airforce2a
-				}
-			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12447,10 +12422,8 @@ focus_tree = {
 				idea = FRA_plan_v_idea
 				days = 730
 			}
-			swap_ideas = {
-			remove_idea = FRA_r56rp_modernizing_airforce2a
-			add_idea = FRA_r56rp_modernizing_airforce3a
-			}
+			
+			FRA_air_force_improvement = yes
 		}
 	}
 	
@@ -12628,21 +12601,6 @@ focus_tree = {
 					category = light_fighter
 				}
 			}
-				if = {
-				limit = {
-					has_idea = FRA_r56rp_modernizing_airforce3a
-				}
-				swap_ideas = {
-					remove_idea = FRA_r56rp_modernizing_airforce3a
-					add_idea = FRA_r56rp_modernizing_airforce4
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = FRA_r56rp_modernizing_airforce4a
-					add_idea = FRA_r56rp_modernizing_airforce5
-				}
-			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12662,27 +12620,15 @@ focus_tree = {
 		}
 		
 		completion_reward = {
+			air_experience = 25
+			navy_experience = 25
 			add_tech_bonus = {
 				name = radar_focus
 				bonus = 1
-				uses = 1
+				uses = 2
 				category = radar_tech
 			}
-			if = {
-				limit = {
-					has_idea = FRA_r56rp_modernizing_airforce3a
-				}
-				swap_ideas = {
-					remove_idea = FRA_r56rp_modernizing_airforce3a
-					add_idea = FRA_r56rp_modernizing_airforce4a
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = FRA_r56rp_modernizing_airforce4
-					add_idea = FRA_r56rp_modernizing_airforce5
-				}
-			}
+			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
