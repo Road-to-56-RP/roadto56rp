@@ -189,14 +189,6 @@ on_actions = {
 	#
 	#}
 
-	on_border_war_lost = {
-		effect = {
-			owner = {
-				country_event = { id = china.14 }
-				country_event = { id = china.16 }
-			}
-		}
-	}
 	
 	on_leave_faction = {
 		effect = {
@@ -422,11 +414,12 @@ on_actions = {
 			if = {
 				limit = {
 					ROOT = { original_tag = GER }
-					ROOT = { GER_has_mefo_bills = yes }
+					ROOT = { GER_has_mefo_bills_r56rp_legacy = yes }
 					NOT = { FROM = { original_tag = GER } } # Don't remove it from Fascist Germany if they start the civil war
 				}
 				ROOT = {
-					GER_remove_mefo_bills = yes
+					# keeps the declare screen a bit cleaner, otherwise goes outside of the screen.
+					GER_remove_mefo_bills_r56rp_legacy = yes
 					set_country_flag = mefo_bills_removed_through_war
 				}
 			}
@@ -435,10 +428,10 @@ on_actions = {
 			if = {
 				limit = {
 					FROM = { original_tag = GER }
-					FROM = { GER_has_mefo_bills = yes }
+					FROM = { GER_has_mefo_bills_r56rp_legacy = yes }
 				}
 				FROM = {
-					GER_remove_mefo_bills = yes
+					GER_remove_mefo_bills_r56rp_legacy = yes
 					set_country_flag = mefo_bills_removed_through_war
 				}
 			}
@@ -2419,7 +2412,8 @@ on_actions = {
 							surrender_progress > 0.6
 						}
 					}
-				country_event = { id = wtt_germany.50 days = 1 random_hours = 3 }
+					country_event = { id = wtt_germany.50 days = 1 random_hours = 3 }
+				}
 			}
 			if = {
 				limit = {
