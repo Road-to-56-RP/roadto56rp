@@ -1,4 +1,5 @@
 add_namespace = r56rp_great_power_event
+add_namespace = r56rp_civoil_reminder
 
 news_event = { # Great Power Conference
 	id = r56rp_great_power_event.1
@@ -167,183 +168,190 @@ country_event = { #Complete Failure - Destruction of our own Carrier Fleet
 	}
 }
 
-add_namespace = r56rp_germany_communist # Demand Slovenia/Secure Yugoslav Flank
-
-country_event = { # Slovenia
-	id = r56rp_germany_communist.1
-	title = r56rp_germany_communist.1.t
-	desc = r56rp_germany_communist.1.d
-	picture = GFX_r56w_coordinated_strike_failure
-	
-	is_triggered_only = yes
-
-	option = { # Accept
-		name = r56rp_germany_communist.1.a
-		GER = {
-			transfer_state = 102
-			transfer_state = 853
-			transfer_state = 956
-			hidden_effect = {
-				102 = { add_claim_by = GER }
-				853 = { add_claim_by = GER }
-				956 = { add_claim_by = GER }
-			}
-		}
-	}
-
-	option = { # Fuck off (Creates for Owner of the State not just Yugoslavia - Whoever owns it will be targetted)
-		name = r56rp_germany_communist.1.b
-		GER = {
-			102 = {
-				controller = { 
-   					ROOT = {
-   			    		create_wargoal = {
-          					target = PREV
-          					type = take_state_focus
-           					generator = { 102 853 956 }
-        				}
-   					}
-				}
-			}
-		}
-	}
-}
-
-country_event = { # Alsace
-	id = r56rp_germany_communist.2
-	title = 56rp_germany_communist.2.t
-	desc = 56rp_germany_communist.2.d
-	picture = GFX_r56w_coordinated_strike_failure
-	
-	is_triggered_only = yes
-
-	option = { # Alsace Acceptance
-		name = r56rp_germany_communist.2.a
-		GER = {
-			transfer_state = 28
-			28 = { add_core_of = GER }
-		}
-		hidden_effect = {
-			GER = {
-				diplomatic_relation = {
-					country = FRA
-					relation = non_aggression_pact
-					active = yes
-				}	
-			}
-			FRA = {
-				diplomatic_relation = {
-					country = GER
-					relation = non_aggression_pact
-					active = yes
-				}
-			}
-		}
-	}
-
-	option = {
-		name = r56rp_germany_communist.2.b
-		GER = {
-			28 = {
-				controller = { 
-   					GER = {
-   			    		create_wargoal = {
-          					target = PREV
-          					type = take_state_focus
-           					generator = { 28 }
-        				}
-   					}
-				}
-			}
-		}
-		FRA = {
-			add_war_support = 0.2
-		}
-	
-		hidden_effect = {
-			GER = {
-				28 = { add_core_of = GER }
-			}
-		}
-	}
-}
-
-country_event = { # Benelux Submission Event Chain
-	id = r56rp_germany_communist.3
-	title = 56rp_germany_communist.3.t
-	desc = 56rp_germany_communist.3.d
-	picture = GFX_r56w_coordinated_strike_failure
-	
-	is_triggered_only = yes
-
-	option = { # 
-		name = r56rp_germany_communist.3.a
-		GER = {
-			puppet = {
-				target = ROOT
-    			end_wars = no
-			}
-		}
-
-	}
-
-	option = { # 
-		name = r56rp_germany_communist.3.b
-
-		if = {
-			limit = {
-				tag = HOL
-			}
-			GER = {
-				create_wargoal = {
-            		target = HOL
-           	 		type =  puppet_wargoal_focus
-           			generator = { 6 34 965 }
-       			}
-			}
-		}
-		if = {
-			limit = {
-				tag = BEL
-			}
-			GER = {
-				create_wargoal = {
-            		target = BEL
-           	 		type =  puppet_wargoal_focus
-           			generator = { 35 7 36 }
-       			}
-			}
-		}
-		if = {
-			limit = {
-				tag = LUX
-			}
-			GER = {
-				create_wargoal = {
-            		target = LUX
-           	 		type =  puppet_wargoal_focus
-           			generator = { 8 }
-       			}
-			}
-		}
-	}
-}
-
 country_event = { 
-	id = r56rp_fuel_reminder
-	title = r56rp_fuel_reminder.t
-	desc = r56rp_fuel_reminder.d
+	id = r56rp_civoil_reminder.1
+	title = r56rp_civoil_reminder.1.t
+	desc = r56rp_civoil_reminder.1.d
 	picture = GFX_r56w_coordinated_strike_failure
 	
 	is_triggered_only = yes
 
 	option = { # 
-		name = r56rp_fuel_reminder.a
-		set_country_flag = r56rp_please_remind_me
+		name = r56rp_civoil_reminder.1.a
+		#show the player the effects of not upkeeping fuel, visual only
+		# debuff swap itself is done via on action+scripted effect
+		effect_tooltip = {
+			IF = {
+				limit = {
+					fuel_ratio < 0.05
+				}
+				IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_4
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_3
+						add_idea = r56rp_lacking_fuel_4
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_3
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_2
+						add_idea = r56rp_lacking_fuel_3
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_2
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_1
+						add_idea = r56rp_lacking_fuel_2
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_1
+					}
+					swap_ideas = {
+						remove_idea = r56rp_fully_fueled
+						add_idea = r56rp_lacking_fuel_1
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					fuel_ratio > 0.10
+				}
+				IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_3
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_4
+						add_idea = r56rp_lacking_fuel_3
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_2
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_3
+						add_idea = r56rp_lacking_fuel_2
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_1
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_2
+						add_idea = r56rp_lacking_fuel_1
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_fully_fueled
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_1
+						add_idea = r56rp_fully_fueled
+					}
+				}
+			}
+		}
 	}
 
 	option = { # 
-		name = r56rp_fuel_reminder.b
-		set_country_flag = r56rp_dont_remind_me
+		name = r56rp_civoil_reminder.1.b
+		set_country_flag = r56rp_civoil_dont_remind_me
+		effect_tooltip = {
+			IF = {
+				limit = {
+					fuel_ratio < 0.05
+				}
+				IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_4
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_3
+						add_idea = r56rp_lacking_fuel_4
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_3
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_2
+						add_idea = r56rp_lacking_fuel_3
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_2
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_1
+						add_idea = r56rp_lacking_fuel_2
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_1
+					}
+					swap_ideas = {
+						remove_idea = r56rp_fully_fueled
+						add_idea = r56rp_lacking_fuel_1
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					fuel_ratio > 0.10
+				}
+				IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_3
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_4
+						add_idea = r56rp_lacking_fuel_3
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_2
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_3
+						add_idea = r56rp_lacking_fuel_2
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_lacking_fuel_1
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_2
+						add_idea = r56rp_lacking_fuel_1
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = r56rp_fully_fueled
+					}
+					swap_ideas = {
+						remove_idea = r56rp_lacking_fuel_1
+						add_idea = r56rp_fully_fueled
+					}
+				}
+			}
+		}
 	}
 }
