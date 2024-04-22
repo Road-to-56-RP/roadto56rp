@@ -1,0 +1,118 @@
+on_actions={
+	on_startup = {
+		effect = { #slaps the default fuel debuff on everything
+			every_country = {
+				IF = {
+					limit = {
+						NOT = { has_idea = r56rp_fully_fueled }
+					}
+					add_ideas = r56rp_fully_fueled
+				}
+			}
+			# Loops randomly removing civs from states to balance the oil imports.
+			for_loop_effect = {
+				end = 8
+				SOV = {
+					random_core_state = {
+						limit = {
+							industrial_complex > 0
+						}
+						remove_building = {
+							type = industrial_complex
+							level = 1
+						}
+					}
+				}
+			}
+			for_loop_effect = {
+				end = 15
+				USA = {
+					random_core_state = {
+						limit = {
+							industrial_complex > 0
+						}
+						remove_building = {
+							type = industrial_complex
+							level = 1
+						}
+					}
+				}
+			}
+			for_loop_effect = {
+				end = 3
+				ENG = {
+					random_core_state = {
+						limit = {
+							industrial_complex > 0
+						}
+						remove_building = {
+							type = industrial_complex
+							level = 1
+						}
+					}
+				}
+			}
+		}
+	}
+	on_release_as_free = {
+		effect = {
+			IF = { #if something new pops up, should slap the initial value onto it
+				limit = {
+					NOT = {
+						OR = {
+							has_idea = r56rp_fully_fueled 
+							has_idea = r56rp_lacking_fuel_4
+							has_idea = r56rp_lacking_fuel_3
+							has_idea = r56rp_lacking_fuel_2
+							has_idea = r56rp_lacking_fuel_1
+						}
+					}
+				}
+				add_ideas = r56rp_fully_fueled
+				set_country_flag = {
+					flag = r56rp_oil_situation_changed_flaglock #cause it ran trough the entire if/else instantly.
+					days = 6
+					value = 1
+				}
+			}
+		}
+	}
+	on_release_as_puppet = {
+		effect = {
+			IF = { #if something new pops up, should slap the initial value onto it
+				limit = {
+					NOT = {
+						OR = {
+							has_idea = r56rp_fully_fueled 
+							has_idea = r56rp_lacking_fuel_4
+							has_idea = r56rp_lacking_fuel_3
+							has_idea = r56rp_lacking_fuel_2
+							has_idea = r56rp_lacking_fuel_1
+						}
+					}
+				}
+				add_ideas = r56rp_fully_fueled
+				set_country_flag = {
+					flag = r56rp_oil_situation_changed_flaglock #cause it ran trough the entire if/else instantly.
+					days = 6
+					value = 1
+				}
+			}
+		}
+	}
+	on_weekly = {
+		effect = {
+			IF = {
+				limit = {
+					is_ai = no
+					fuel_ratio < 0.05
+					NOT = {
+						has_country_flag = r56rp_civoil_dont_remind_me
+					}
+				}
+				country_event = r56rp_civoil_reminder.1
+			}
+			r56rp_civoil_effect = yes
+		}
+	}
+}
