@@ -36,12 +36,12 @@ guiTypes = {
 		
 		moveable = yes
 		size = {
-			width = 320
+			width = 490
 			height = 450
 		}
 		background = {
 			name = "Background"
-			spriteType = "GFX_army_insignia_selection_bg"
+			spriteType = "GFX_r56rp_host_tool"
 		}
 
 		# Resource Rights Tool toggle button
@@ -125,9 +125,74 @@ guiTypes = {
 				alwaystransparent = yes
 			}
 		}
-		
+
+		#Example Buttons for array
+		buttonType = {
+			name ="r56rp_tool_state_selection_button_1"
+			quadTextureSprite ="GFX_button_148x34_light"
+			position = { x=328 y=350 }
+			#This will write onto the button the value and index of the array
+			buttonText = "PURGE LIST"
+			buttonFont = "hoi_16typewriter"
+			Orientation = centre
+		}
+		buttonType = {
+			name ="r56rp_tool_state_selection_button_2"
+			quadTextureSprite ="GFX_button_148x34_light"
+			position = { x=328 y=390 }
+			#This will write onto the button the value and index of the array
+			buttonText = "[r56rp_tool_state_selection_button_2_sloc]"
+			buttonFont = "hoi_16typewriter"
+			Orientation = centre
+			shortcut = "ctrl+c"
+		}
+
+		containerWindowType = {
+			name = "r56rp_tool_state_selection_grid"
+			Orientation = upper_left
+			size = {width=152 height=330}
+			position = {x=330 y=18}
+			verticalScrollbar = "right_vertical_slider_intel"
+			scroll_wheel_factor = 40
+			smooth_scrolling = yes
+
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+					
+			gridBoxType = {
+				name = "r56rp_tool_state_selection_grid_box"
+				position = { x = 0 y = 0}
+				#The size of the gridbox
+				size = { width = 100%% height = 100%% }
+				Orientation = upper_left
+				#The slot size
+				slotsize = {width=400 height=32 }
+				format = "UPPER_LEFT"
+				#the maximum horizontal gui elements
+				max_slots_horizontal = 1
+				#the maximum vertical gui elements
+				#max_slots_vertical = 1
+			}
+		}
 	}
 
+	#
+	containerWindowType = {
+		name = "r56rp_tool_state_selection_array"
+		size = {width=400 height=50}
+			
+		buttonType = {
+			name ="r56rp_tool_state_selection"
+			quadTextureSprite ="GFX_button_123x34"
+			position = { x=0 y=0 }
+			#This will write onto the button the value and index of the array
+			buttonText = "[?v:controller.GetFlag] [?v.GetName]"
+			buttonFont = "hoi_16mbs"
+		}
+	}
+	
 
 	# Resource Transfer Tool
 	containerWindowType = {
@@ -387,7 +452,6 @@ guiTypes = {
 		buttonType = {
 			name = "st_state_manager_power_mark_for_transfer" 
 			position = {x=15 y=35}
-			shortcut = "ctrl+c"	
 			quadTextureSprite ="GFX_sort_button_140x29"
 			frame = 1
 			font = "hoi_18mbs"
@@ -985,4 +1049,6 @@ guiTypes = {
 				}
 			}
 	}
+
+	
 }

@@ -36,7 +36,7 @@ scripted_gui = {
 	}
 	
 	r56rp_tools_container = {
-		context_type = player_context
+		context_type = selected_state_context
 		window_name = "r56rp_tools_container"
 		visible = {
 			ROOT = {
@@ -44,7 +44,46 @@ scripted_gui = {
 				is_ai = no
 			}
 		}
+		dynamic_lists = {
+			r56rp_tool_state_selection_grid_box = {
+				array = ROOT.r56rp_tool_state_array
+				value = v
+				index = i
+				change_scope = no
+				entry_container = "r56rp_tool_state_selection_array"
+			}
+		}
 		effects = {
+			#Example Buttons to show it working
+			r56rp_tool_state_selection_button_1_click = {
+				clear_array = ROOT.r56rp_tool_state_array
+			}
+			r56rp_tool_state_selection_button_2_click = {
+				IF = {
+					limit = {
+						is_in_array = {
+							array = ROOT.r56rp_tool_state_array
+							value = THIS.id
+						}
+					}
+					remove_from_array = { 
+						array = ROOT.r56rp_tool_state_array
+						value = THIS.id
+					}
+				}
+				ELSE = {
+					add_to_array = { 
+						array = ROOT.r56rp_tool_state_array
+						value = THIS.id 
+					}
+				}
+			}
+			r56rp_tool_state_selection_click = {
+				remove_from_array = { 
+					array = ROOT.r56rp_tool_state_array
+					index = i
+				}
+			}
 			# RTT Button
 			rt_button_topbar_click = {
 				ROOT = { 
@@ -564,7 +603,6 @@ scripted_gui = {
 	st_state_manager_powers = {
 	
 		context_type = selected_state_context
-		
 		parent_window_name = r56rp_tools_container
 		window_name = "st_state_manager_powers_container"
 		
@@ -647,9 +685,7 @@ scripted_gui = {
 	st_country_powers = {
 	
 		context_type = selected_country_context
-
 		parent_window_name = r56rp_tools_container
-		
 		window_name = "st_subject_powers_container"
 		
 		visible = {
@@ -850,6 +886,7 @@ scripted_gui = {
 	st_give_state = {
 	
 		context_type = decision_category
+		parent_window_name = r56rp_tools_container
 		window_name = "st_give_state"
 		
 		visible = {
@@ -955,6 +992,7 @@ scripted_gui = {
 	st_take_state = {
 	
 		context_type = decision_category
+		parent_window_name = r56rp_tools_container
 		window_name = "st_take_state"
 		
 		visible = {
@@ -1290,10 +1328,7 @@ scripted_gui = {
 			add_cores_click_enabled = {
 				check_variable = { ROOT.host_marked_states^num > 0 }
 			}
-
 		}
-
 	}
 
-	
 }
