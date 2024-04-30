@@ -10092,19 +10092,34 @@ focus_tree = {
 			
 			# Target Right Opposition politician
 			custom_effect_tooltip = SOV_left_eliminate_right_tt
+			custom_effect_tooltip = SOV_r56rp_save_the_left_tt
 			# custom_effect_tooltip = SOV_divert_purge_attention_tt
 			# Modify factionalism 
 			custom_effect_tooltip = SOV_eliminate_opposition_factionalism_tt
 			add_to_variable = { SOV_factionalism_political_power_factor = 0.05 }
-			
-			SOV_nikolay_bukharin = { set_character_flag = SOV_potential_target_flag }
-			SOV_mikhail_tomsky = { set_character_flag = SOV_potential_target_flag }
-			SOV_aleksey_rykov = { set_character_flag = SOV_potential_target_flag }
 
-			SOV_karl_radek = { clr_character_flag  = SOV_potential_target_flag }
-			SOV_ivar_smilga = { clr_character_flag  = SOV_potential_target_flag }
-			SOV_yevgeny_preobrazhensky = { clr_character_flag  = SOV_potential_target_flag }
+			SOV_nikolay_bukharin = {
+				set_character_flag = SOV_potential_target_flag
+			}
+			SOV_mikhail_tomsky = {
+				set_character_flag = SOV_potential_target_flag
+			}
+			SOV_aleksey_rykov = {
+				set_character_flag = SOV_potential_target_flag
+			}
 			
+			SOV_karl_radek = {
+				set_character_flag = SOV_safe_from_purge_flag
+				clr_character_flag = SOV_targeted_for_purge_flag
+			}
+			SOV_ivar_smilga = {
+				set_character_flag = SOV_safe_from_purge_flag
+				clr_character_flag = SOV_targeted_for_purge_flag
+			}
+			SOV_yevgeny_preobrazhensky = {
+				set_character_flag = SOV_safe_from_purge_flag
+				clr_character_flag = SOV_targeted_for_purge_flag
+			}
 		}
 	}
 
@@ -10461,7 +10476,7 @@ focus_tree = {
 		prerequisite = { focus = SOV_left_opposition_coup }
 	
 		x = 2
-		y = 1.5
+		y = 1
 		relative_position_id = SOV_left_opposition_coup
 		cost = 10
 
@@ -11555,18 +11570,34 @@ focus_tree = {
 		completion_reward = {
 			SOV_paranoia_high_increase_effect = yes 
 			custom_effect_tooltip = SOV_eliminate_the_left_tt
-			# custom_effect_tooltip = SOV_divert_purge_attention_tt
+			custom_effect_tooltip = SOV_r56rp_save_the_right_tt
 			custom_effect_tooltip = SOV_eliminate_opposition_factionalism_tt
 			add_to_variable = { SOV_factionalism_political_power_factor = 0.05 }
 			
-			SOV_karl_radek = { set_character_flag = SOV_potential_target_flag }
-			SOV_ivar_smilga = { set_character_flag = SOV_potential_target_flag }
-			SOV_yevgeny_preobrazhensky = { set_character_flag = SOV_potential_target_flag }
 
-			SOV_nikolay_bukharin = { clr_character_flag = SOV_potential_target_flag }
-			SOV_mikhail_tomsky = { clr_character_flag = SOV_potential_target_flag }
-			SOV_aleksey_rykov = { clr_character_flag = SOV_potential_target_flag }
-			
+			SOV_karl_radek = {
+				set_character_flag = SOV_potential_target_flag
+			}
+			SOV_ivar_smilga = {
+				set_character_flag = SOV_potential_target_flag
+			}
+			SOV_yevgeny_preobrazhensky = {
+				set_character_flag = SOV_potential_target_flag
+			}
+
+			SOV_nikolay_bukharin = {
+				set_character_flag = SOV_safe_from_purge_flag
+				clr_character_flag = SOV_targeted_for_purge_flag
+			}
+			SOV_mikhail_tomsky = {
+				set_character_flag = SOV_safe_from_purge_flag
+				clr_character_flag = SOV_targeted_for_purge_flag
+			}
+			SOV_aleksey_rykov = {
+				set_character_flag = SOV_safe_from_purge_flag
+				clr_character_flag = SOV_targeted_for_purge_flag
+			}
+
 		}
 	}
 
@@ -11908,33 +11939,34 @@ focus_tree = {
 		y = 1
 		relative_position_id = SOV_coup_detat
 		cost = 1
-		available = {  has_global_flag = SOV_soviet_civil_war_over 
+		available = {  
+			has_global_flag = SOV_soviet_civil_war_over 
 		}
 		                
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER}
 
 		completion_reward = {
-
-					country_event = {
-						id = NSB_soviet_communist_civil_war.002
-						hours = 1
+			country_event = {
+				id = NSB_soviet_communist_civil_war.002
+				hours = 1
+			}
+			# why yes, lets just ignore the "begin destalinisation" focus in the middle.
+			## Renaming of cities
+			#country_event = {
+			#	id = NSB_soviet_civil_war_common.010
+			#	days = 14
+			#	random_days = 7
+			#}
+			# Bring Exiled Characters back
+			hidden_effect = {
+				every_character = {
+					limit = {
+						has_character_flag = SOV_exiled_flag
+						has_character_flag = SOV_aligned_right_opposition_flag
 					}
-					# Renaming of cities
-					country_event = {
-						id = NSB_soviet_civil_war_common.010
-						days = 14
-						random_days = 7
-					}
-					# Bring Exiled Characters back
-					hidden_effect = {
-						every_character = {
-							limit = {
-								has_character_flag = SOV_exiled_flag
-								has_character_flag = SOV_aligned_right_opposition_flag
-							}
-							clr_character_flag = SOV_exiled_flag
-						}
-					}
+					clr_character_flag = SOV_exiled_flag
+				}
+			}
 		}
 	}
 
@@ -11987,14 +12019,20 @@ focus_tree = {
 		relative_position_id = SOV_r56rp_the_final_moscow_trial
 		cost = 10
 		available = {
-			has_character = SOV_grigory_zinovyev
+			SOV_grigory_zinovyev = { is_country_leader = yes }
 		}
 		                
 		search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY}
 
 		completion_reward = {
 			add_war_support = 0.05
-			add_ideas = SOV_r56rp_great_agitators
+			SOV_grigory_zinovyev = {
+				swap_country_leader_traits = {
+					remove = born_agitator
+					add = SOV_r56rp_born_agitator
+					ideology = marxism
+				}
+			}
 		}
 	}
 	focus = {
@@ -12014,27 +12052,15 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 75
-			IF = {
-				limit = { has_character = SOV_lev_kamenev }
-				if = {
-					limit = {
-						SOV_lev_kamenev = { is_country_leader = yes }
-					}
-					swap_ruler_traits = {
-						remove = the_faded_star
-						add = the_star_reborn
-					}
-				}
-				else = {
-					effect_tooltip = {
-						add_trait = {
-							character = SOV_lev_kamenev
-							slot = country_leader
-							trait = the_star_reborn
-						}
-					}
+
+			SOV_lev_kamenev = {
+				swap_country_leader_traits = {
+					remove = the_faded_star
+					add = the_star_reborn
+					ideology = marxism
 				}
 			}
+
 		}
 	}
 
@@ -12056,27 +12082,14 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 75
-			IF = {
-				limit = { has_character = SOV_nikolay_bukharin }
-				if = {
-					limit = {
-						SOV_nikolay_bukharin = { is_country_leader = yes }
-					}
-					swap_ruler_traits = {
-						remove = defender_of_the_peasantry
-						add = hero_of_the_peasantry
-					}
-				}
-				else = {
-					effect_tooltip = {
-						add_trait = {
-							character = SOV_nikolay_bukharin
-							slot = country_leader
-							trait = hero_of_the_peasantry
-						}
-					}
+			SOV_nikolay_bukharin = {
+				swap_country_leader_traits = {
+					remove = defender_of_the_peasantry
+					add = hero_of_the_peasantry
+					ideology = marxism
 				}
 			}
+			
 		}
 	}
 
@@ -12276,9 +12289,9 @@ focus_tree = {
 		icon = GFX_focus_eng_concessions_to_the_trade_unions
 		prerequisite = { focus = SOV_incorporate_local_organizations }
 		prerequisite = { focus = SOV_international_revolutionary_marxist_centre }
-		x = 0
+		x = 12
 		y = 1
-		relative_position_id = SOV_incorporate_local_organizations
+		relative_position_id = SOV_all_power_to_the_soviets
 		cost = 5
 
 		mutually_exclusive = { focus = SOV_strengthen_the_trade_unions }
@@ -12403,9 +12416,14 @@ focus_tree = {
 	focus = {
 		id = SOV_international_revolutionary_marxist_centre
 		icon = GFX_focus_spr_unify_the_london_bureau
-		prerequisite = { focus = SOV_a_new_theory_of_revolution focus = SOV_administrative_reforms focus = SOV_r56rp_a_star_Reborn focus = SOV_r56rp_great_agitator}
+		prerequisite = { 
+			focus = SOV_a_new_theory_of_revolution 
+			focus = SOV_administrative_reforms 
+			focus = SOV_r56rp_a_star_Reborn 
+			focus = SOV_r56rp_great_agitator
+		}
 		prerequisite = { focus = SOV_planned_economy }
-		x = 2
+		x = 1
 		y = 2
 		relative_position_id = SOV_a_new_theory_of_revolution
 		cost = 5
@@ -12559,7 +12577,7 @@ focus_tree = {
 		id = SOV_the_enemies_of_the_people
 		icon = GFX_focus_spr_the_anti_fascist_workers_revolution
 		prerequisite = { focus = SOV_international_revolutionary_marxist_centre }
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = SOV_international_revolutionary_marxist_centre
 		cost = 10
@@ -12920,8 +12938,11 @@ focus_tree = {
 	focus = {
 		id = SOV_align_the_zinovyevites
 		icon = GFX_focus_SOV_zinovyevists
-		prerequisite = { focus = SOV_cooperation_against_stalin }
-		x = -1
+		prerequisite = { 
+			focus = SOV_cooperation_against_stalin 
+			focus = SOV_left_eliminate_right
+		}
+		x = -2
 		y = 1
 		relative_position_id = SOV_cooperation_against_stalin
 		cost = 10
@@ -12996,8 +13017,11 @@ focus_tree = {
 	focus = {
 		id = SOV_liberate_ryutin
 		icon = GFX_goal_generic_prison_break
-		prerequisite = { focus = SOV_cooperation_against_stalin }
-		x = 1
+		prerequisite = { 
+			focus = SOV_cooperation_against_stalin
+			focus = SOV_eliminate_the_left
+		}
+		x = 2
 		y = 1
 		relative_position_id = SOV_cooperation_against_stalin
 		cost = 5	#a single advisor is too costly for 70-days focus
