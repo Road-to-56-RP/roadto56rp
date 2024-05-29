@@ -87,6 +87,7 @@ NDefines.NNavy.RESOURCE_EXPORT_PRIORITY = 3
 NDefines.NNavy.RESOURCE_ORIGIN_PRIORITY = 4
 NDefines.NNavy.RESOURCE_PURCHASE_PRIORITY = 5
 NDefines.NNavy.RESOURCE_LENDLEASE_PRIORITY = 6 -- vanilla 3
+NDefines.NNavy.PRIDE_OF_THE_FLEET_UNASSIGN_COST = 50 -- vanilla 100
 NDefines.NNavy.SUBMARINE_ESCAPE_RATIOS = { -- subs will escape battle in convoy raid if there are enemies that can attack
 	500,    -- do not engage (vanilla 1000)
 	15,    -- low
