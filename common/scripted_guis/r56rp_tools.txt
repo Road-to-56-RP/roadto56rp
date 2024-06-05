@@ -625,7 +625,6 @@ scripted_gui = {
 	}
 
 	# State Transfer Tool
-
 	st_country_powers = {
 	
 		context_type = selected_country_context
@@ -795,149 +794,6 @@ scripted_gui = {
         
 	}
 
-	st_give_state = {
-	
-		context_type = decision_category
-		window_name = "st_give_state"
-		
-		visible = {
-			ROOT = {
-				is_ai = no  
-			}
-		}
-		
-		dynamic_lists = {
-			# name of the grid box gui element
-			st_state_grid = {
-				array = ROOT.owned_controlled_states
-				change_scope = yes
-				entry_container = "[st_give_state_entry_loc]" 
-			}
-		}
-		
-		effects = {
-			st_mark_click = {
-				THIS = { 
-					set_state_flag = marked_for_transfer 
-				}
-				add_to_variable = { ROOT.marked_states = 1 }
-			}
-			
-			st_unmark_click = {
-				THIS = { 
-					clr_state_flag = marked_for_transfer 
-				}
-				subtract_from_variable = { ROOT.marked_states = 1 }
-			}
-			
-			mark_all_states_click = {
-				ROOT = {
-					every_owned_state = {
-						limit = {
-							NOT = { has_state_flag = marked_for_transfer }
-						}
-						set_state_flag = marked_for_transfer
-						add_to_variable = { ROOT.marked_states = 1 }
-					}
-				}
-			}
-		
-			mark_colonial_states_click  = {
-				ROOT = {
-					every_owned_state = {
-						limit = {
-							NOT = { is_in_home_area = yes }
-							NOT = { is_core_of = PREV }
-							NOT = { has_state_flag = marked_for_transfer }
-						}
-						set_state_flag = marked_for_transfer
-						add_to_variable = { ROOT.marked_states = 1 }
-					}
-				}
-			}
-			
-		}
-		
-		triggers = {
-			
-			mark_all_states_click_enabled = {
-				ROOT = { 
-					any_owned_state = {
-						NOT = { has_state_flag = marked_for_transfer }
-					}
-				}
-			}
-		
-			mark_colonial_states_click_enabled = {
-				ROOT = { 
-					any_owned_state = {
-						NOT = { is_in_home_area = yes }
-						NOT = { has_state_flag = marked_for_transfer }
-						NOT = { is_core_of = ROOT }
-						is_fully_controlled_by = ROOT
-					}
-				}
-			}
-		
-		}
-        
-	}
-
-	st_take_state = {
-	
-		context_type = decision_category
-		window_name = "st_take_state"
-		
-		visible = {
-			ROOT = {
-				is_ai = no  
-			}
-		}
-		
-		dynamic_lists = {
-			# name of the grid box gui element
-			st_state_grid = {
-				array = owned_controlled_states
-				change_scope = yes
-				entry_container = "[st_give_state_entry_loc]" 
-			}
-		}
-		
-		effects = {
-			st_mark_click = {
-				THIS = { 
-					set_state_flag = marked_for_transfer 
-				}
-				add_to_variable = { ROOT.marked_states = 1 }
-			}
-			
-			st_unmark_click = {
-				THIS = { 
-					clr_state_flag = marked_for_transfer 
-				}
-				subtract_from_variable = { ROOT.marked_states = 1 }
-			}
-			
-		}
-		
-		triggers = {
-			
-			mark_all_states_visible = {
-				always = no
-			}
-		
-			mark_colonial_states_visible = {
-				always = no
-			}
-			
-			clear_all_markings_click_enabled = {
-				check_variable = { ROOT.marked_states > 0 }
-			}
-		
-		}
-        
-	}
-
 	# Host Tool
 	host_country_powers = {
 
@@ -958,7 +814,7 @@ scripted_gui = {
 		effects = {
 
 			ht_TAG_1_click = {
-				# lock first flag
+				# lock first flag, save as country
 				set_variable = {
 					var = ROOT.r56rp_ht_tag_1
 					value = THIS.owner
@@ -966,7 +822,7 @@ scripted_gui = {
 			}
 
 			ht_TAG_2_click = {
-				# lock second flag
+				# lock second flag, save as country
 				set_variable = {
 					var = ROOT.r56rp_ht_tag_2
 					value = THIS.owner
@@ -983,73 +839,31 @@ scripted_gui = {
 			## buttons using the ht_tag's for targeting.
 			
 			whitepeace_selected_click  = {
-				ROOT.r56rp_ht_tag_2 = {
-					set_temp_variable = { ROOT.marks = this}
-					var:marks = {
-						declare_war_on = { target = JAM type = annex_everything }
-						every_enemy_country = { white_peace = PREV }
-					}
+
+				var:ROOT.r56rp_ht_tag_1 = {
+					white_peace = ROOT.r56rp_ht_tag_2
 				}
 			}
 			
 			annex_country_click = {
 
-				owner={
-					set_variable = { ROOT.taker = this}}
-				var:ROOT.host_marked_states^0={owner={set_variable={ROOT.target=this}}}
-				if={
-					limit={check_variable={ROOT.target=ROOT.taker}}
-				}
-				else={
-					var:ROOT.target={
-						var:ROOT.taker={
-							GER = {
-								news_event={id=hosttool.3}
-							}
-							annex_country={
-								target=PREV
-								transfer_troops=no
-								}}}}	
-
-				ROOT = {
-					for_each_scope_loop={
-						array=host_marked_states
-						clear_variable=host_mark_status
+				var:ROOT.r56rp_ht_tag_2 = {
+					var:ROOT.r56rp_ht_tag_1 = {
+						annex_country = {
+							target = PREV
+							transfer_troops = yes
+						}
 					}
-					clear_array=host_marked_states
-					clear_variable=target
-					clear_variable=taker
-					clear_variable=first_marked_state
 				}
 			}
 
 			puppet_country_click = {
-				owner={
-					set_variable = { ROOT.taker = this}}
-				var:ROOT.host_marked_states^0={owner={set_variable={ROOT.target=this}}}
-				if={
-					limit={check_variable={ROOT.target=ROOT.taker}}
-				}
-				else={
-					var:ROOT.target={
-						var:ROOT.taker={
-							GER = {
-								news_event={id=hosttool.6}
-							}
-							puppet=PREV
-						}
-					}
-				}
 
-				ROOT = {
-					for_each_scope_loop={
-						array=host_marked_states
-						clear_variable=host_mark_status
+				var:ROOT.r56rp_ht_tag_2 = {
+					puppet = {
+						target = ROOT.r56rp_ht_tag_1
+						end_wars = no
 					}
-					clear_array=host_marked_states
-					clear_variable=target
-					clear_variable=taker
-					clear_variable=first_marked_state
 				}
 
 			}
@@ -1072,7 +886,7 @@ scripted_gui = {
 					GER = {
 						news_event={id=hosttool.5}
 					}
-					JAM = {change_tag_from =var:marks}
+					JAM = {change_tag_from = var:marks}
 				}
 			}
 
@@ -1119,31 +933,6 @@ scripted_gui = {
 					}
 					transfer_state_to = PREV.owner
 				}
-			} 
-
-			add_cheat_click = {
-				set_variable = { ROOT.taker = this}
-				var:taker = {
-					owner={
-						set_variable={Root.target_country = this}
-						if={limit={check_variable={Root.selected_cheat=1}} add_offsite_building = { type = arms_factory level = 1 }}
-						if={limit={check_variable={Root.selected_cheat=2}} add_offsite_building = { type = arms_factory level = -1 }}
-						if={limit={check_variable={Root.selected_cheat=3}} add_offsite_building = { type = industrial_complex level = 1 }}
-						if={limit={check_variable={Root.selected_cheat=4}} add_offsite_building = { type = industrial_complex level = -1 }}
-						if={limit={check_variable={Root.selected_cheat=5}} add_political_power = 50 }
-						if={limit={check_variable={Root.selected_cheat=6}} add_political_power = -50 }
-						if={limit={check_variable={Root.selected_cheat=7}} army_experience = 50 }
-						if={limit={check_variable={Root.selected_cheat=8}} air_experience = 50 }
-						if={limit={check_variable={Root.selected_cheat=9}} navy_experience = 50 }
-						}
-					}
-				GER = {
-					set_variable={this.target_country=Root.target_country}
-					set_variable={this.selected_cheat=Root.selected_cheat}
-					news_event={id=hosttool.1}
-				}
-				clear_variable =ROOT.taker
-
 			}
 
 			add_cores_click = {
@@ -1158,22 +947,476 @@ scripted_gui = {
 				}
 			}
 
-			cheat1_click={if={limit={Root={has_country_flag=cheating}} set_variable={Root.selected_cheat=1} ROOT={clr_country_flag=cheating}} else={ROOT={set_country_flag=cheating}}
+			# cheat clicks
+
+			# shows currently selected cheat via scripted localisation
+			# also shows the drop down menu for cheat selection, which is kept separate to make
+			# the entire thing appear nicley
+			ht_select_cheat_0_click = {
+				ROOT = {
+					IF = {
+						limit = {
+							check_variable = {
+								r56rp_ht_cheat_showdropdown > 0
+							}
+						}
+						set_variable = { r56rp_ht_cheat_showdropdown = 0 }
+					}
+					ELSE = {
+						set_variable = { r56rp_ht_cheat_showdropdown = 1 }
+					}
+				}
 			}
-			cheat2_click={set_variable={Root.selected_cheat=2} ROOT={clr_country_flag=cheating}}
-			cheat3_click={set_variable={Root.selected_cheat=3} ROOT={clr_country_flag=cheating}}
-			cheat4_click={set_variable={Root.selected_cheat=4} ROOT={clr_country_flag=cheating}}
-			cheat5_click={set_variable={Root.selected_cheat=5} ROOT={clr_country_flag=cheating}}
-			cheat6_click={set_variable={Root.selected_cheat=6} ROOT={clr_country_flag=cheating}}
-			cheat7_click={set_variable={Root.selected_cheat=7} ROOT={clr_country_flag=cheating}}
-			cheat8_click={set_variable={Root.selected_cheat=8} ROOT={clr_country_flag=cheating}}
-			cheat9_click={set_variable={Root.selected_cheat=9} ROOT={clr_country_flag=cheating}}
+
+			ht_select_cheat_plus_button_click = {
+				add_to_variable = {
+					var = ROOT.r56rp_ht_cheat_iterations
+					value = 1
+				}
+			}
+			ht_select_cheat_plus_button_shift_click = {
+				add_to_variable = {
+					var = ROOT.r56rp_ht_cheat_iterations
+					value = 5
+				}
+			}
+
+			ht_select_cheat_minus_button_click = {
+				IF = {
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheat_iterations < 2
+						}
+					}
+					set_variable = {
+						ROOT.r56rp_ht_cheat_iterations = 1
+					}
+				}
+				ELSE = {
+					subtract_from_variable = {
+						var = ROOT.r56rp_ht_cheat_iterations
+						value = 1
+					}
+				}
+			}
+			ht_select_cheat_minus_button_shift_click = {
+				IF = {
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheat_iterations < 6
+						}
+					}
+					set_variable = {
+						ROOT.r56rp_ht_cheat_iterations = 1
+					}
+				}
+				ELSE = {
+					subtract_from_variable = {
+						var = ROOT.r56rp_ht_cheat_iterations
+						value = 5
+					}
+				}
+			}
+
+
+			# 1 add 10 pp
+			# 2 remove 10 pp
+			# 3 add 1 offmap civ
+			# 4 remove 1 offmap civ
+			# 5 add 1 offmap mill
+			# 6 remove 1 offmap mill
+			# 7 add 1 offmap dock
+			# 8 remove 1 offmap dock
+
+
+			ht_select_cheat_execute_button_click = {
+				IF = { # "Add 10 PP"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 1
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_political_power = r56rp_ht_tvar_1
+					}
+				}
+				ELSE_IF = { # "Rmv 10 PP"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 2
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
+						add_political_power = r56rp_ht_tvar_1
+					}
+				}
+				ELSE_IF = { # "Add 1% Stab"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 3
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_stability = r56rp_ht_tvar_1
+					}
+				}
+
+				ELSE_IF = { # "Rmv 1% Stab"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 4
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
+						add_stability = r56rp_ht_tvar_1
+					}
+				}
+				
+				ELSE_IF = { # "Add 1% WarSup"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 5
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_war_support = r56rp_ht_tvar_1
+					}
+				}
+				
+				ELSE_IF = { # "Rmv 1% WarSup"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 6
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
+						add_war_support = r56rp_ht_tvar_1
+					}
+				}
+				
+				ELSE_IF = { # "Add 50k Manpow"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 7
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = 50000 }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_war_support = r56rp_ht_tvar_1
+					}
+				}
+				
+				ELSE_IF = { # "Rmv 50k Manpow"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 8
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = 50000 }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
+						add_war_support = r56rp_ht_tvar_1
+					}
+					
+				}
+				
+				ELSE_IF = { # "Add 1 Offmap Civ"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 9
+						}
+					}
+					THIS.owner = {
+						add_offsite_building = { 
+							type = industrial_complex 
+							level = ROOT.r56rp_ht_cheat_iterations 
+						}
+					}
+				}
+				
+				ELSE_IF = { # "Rmv 1 Offmap Civ"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 10
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
+						add_offsite_building = { 
+							type = industrial_complex 
+							level = r56rp_ht_tvar_1
+						}
+					}
+					
+				}
+				
+				ELSE_IF = { # "Add 1 Offmap Mil"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 11
+						}
+					}
+					THIS.owner = {
+						add_offsite_building = { 
+							type = arms_factory 
+							level = ROOT.r56rp_ht_cheat_iterations
+						}
+					}
+				}
+				
+				ELSE_IF = { # "Rmv 1 Offmap Mil"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 12
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
+						add_offsite_building = { 
+							type = arms_factory 
+							level = r56rp_ht_tvar_1
+						}
+					}
+				}
+				
+				ELSE_IF = { # "Add 1 Offmap Dock"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 13
+						}
+					}
+					THIS.owner = {
+						add_offsite_building = { 
+							type = dockyard 
+							level = ROOT.r56rp_ht_cheat_iterations
+						}
+					}
+				}
+				
+				ELSE_IF = { # "Rmv 1 Offmap Dock"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 14
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
+						add_offsite_building = { 
+							type = dockyard 
+							level = r56rp_ht_tvar_1
+						}
+					}
+				}
+				
+				ELSE_IF = { # "Add 1 OnCore Civ"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 15
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_temp_variable = { r56rp_ht_tvar_1 = -1 }
+	
+						for_loop_effect = {
+							end = r56rp_ht_tvar_1
+							value = temp
+							random_core_state = {
+								limit = {
+									is_controlled_by = PREV
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+								}
+								add_extra_state_shared_building_slots = 1
+								add_building_construction = {
+									type = industrial_complex
+									level = 1
+									instant_build = yes
+								}
+							}
+						}
+					}
+				}
+				
+				ELSE_IF = { # "Rmv 1 OnCore Civ"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 16
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_temp_variable = { r56rp_ht_tvar_1 = -1 }
+	
+						for_loop_effect = {
+							end = r56rp_ht_tvar_1
+							value = temp
+							random_core_state = {
+								limit = {
+									is_controlled_by = PREV
+									industrial_complex > 0
+								}
+								remove_building = {
+									type = industrial_complex
+									level = 1
+								}
+							}
+						}
+					}
+
+				}
+				
+				ELSE_IF = { # "Add 1 OnCore Mil"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 17
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_temp_variable = { r56rp_ht_tvar_1 = -1 }
+	
+						for_loop_effect = {
+							end = r56rp_ht_tvar_1
+							value = temp
+							random_core_state = {
+								limit = {
+									is_controlled_by = PREV
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+								}
+								add_extra_state_shared_building_slots = 1
+								add_building_construction = {
+									type = arms_factory
+									level = 1
+									instant_build = yes
+								}
+							}
+						}
+					}
+				}
+				
+				ELSE_IF = { # "Rmv 1 OnCore Mil"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 18
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_temp_variable = { r56rp_ht_tvar_1 = -1 }
+	
+						for_loop_effect = {
+							end = r56rp_ht_tvar_1
+							value = temp
+							random_core_state = {
+								limit = {
+									is_controlled_by = PREV
+									military > 0
+								}
+								remove_building = {
+									type = arms_factory
+									level = 1
+								}
+							}
+						}
+					}
+
+				}
+				
+				ELSE_IF = { # "Add 1 OnCore Dock"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 19
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_temp_variable = { r56rp_ht_tvar_1 = -1 }
+	
+						for_loop_effect = {
+							end = r56rp_ht_tvar_1
+							value = temp
+							random_core_state = {
+								limit = {
+									is_controlled_by = PREV
+									is_coastal = yes
+									free_building_slots = {
+										building = dockyard
+										size > 1
+										include_locked = yes
+									}
+								}
+								add_extra_state_shared_building_slots = 1
+								add_building_construction = {
+									type = dockyard
+									level = 1
+									instant_build = yes
+								}
+							}
+						}
+					}
+				}
+				
+				ELSE_IF = { # "Rmv 1 OnCore Dock"
+					limit = {
+						check_variable = {
+							ROOT.r56rp_ht_cheatsl = 20
+						}
+					}
+					THIS.owner = {
+						set_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
+						add_temp_variable = { r56rp_ht_tvar_1 = -1 }
+	
+						for_loop_effect = {
+							end = r56rp_ht_tvar_1
+							value = temp
+							random_core_state = {
+								limit = {
+									is_controlled_by = PREV
+									dockyard > 0
+								}
+								remove_building = {
+									type = dockyard
+									level = 1
+								}
+							}
+						}
+					}
+				}
+			}
+
 		}
 		properties = {
 			toogle_mark={
 				frame = host_mark_status
 			}
-
 			ht_TAG_1 = {
 				image = [?ROOT.r56rp_ht_tag_1.GetFlag]
 			}
@@ -1184,59 +1427,175 @@ scripted_gui = {
 
 		triggers = {
 
-			
-
 			observer_click_enabled = {
 				owner = {
 					is_ai = no
 				}
 			}
+
 			free_country_click_enabled = {
 				owner = {
 					is_subject = yes
 				}
 			}
 
-
-			add_cheat_click_enabled = {check_variable={Root.selected_cheat>0}}
-			cheat1_visible={}
-			cheat1_text_visible={}
-			cheat2_visible={ROOT={has_country_flag=cheating}}
-			cheat3_visible={ROOT={has_country_flag=cheating}}
-			cheat4_visible={ROOT={has_country_flag=cheating}}
-			cheat5_visible={ROOT={has_country_flag=cheating}}
-			cheat6_visible={ROOT={has_country_flag=cheating}}
-			cheat7_visible={ROOT={has_country_flag=cheating}}
-			cheat8_visible={ROOT={has_country_flag=cheating}}
-			cheat9_visible={ROOT={has_country_flag=cheating}}
-			cheat2_text_visible={ROOT={has_country_flag=cheating}}
-			cheat3_text_visible={ROOT={has_country_flag=cheating}}
-			cheat4_text_visible={ROOT={has_country_flag=cheating}}
-			cheat5_text_visible={ROOT={has_country_flag=cheating}}
-			cheat6_text_visible={ROOT={has_country_flag=cheating}}
-			cheat7_text_visible={ROOT={has_country_flag=cheating}}
-			cheat8_text_visible={ROOT={has_country_flag=cheating}}
-			cheat9_text_visible={ROOT={has_country_flag=cheating}}
-			
 			clear_all_markings_click_enabled = {
-				
 			}
+
 			award_states_click_enabled = {
-				
 			}
+
 			annex_country_click_enabled = {
-				
 			}
+
 			puppet_country_click_enabled = {
-				
 			}
+
 			add_cores_click_enabled = {
-				
 			}
 
 		}
 
 	}
 
-	
+	ht_cheats_list_container = {
+		context_type = player_context
+		parent_window_name = r56rp_tools_container
+		window_name = "ht_cheats_list_container"
+		
+		visible = {
+			ROOT = {
+				check_variable = {
+					r56rp_ht_cheat_showdropdown > 0
+				}
+			}
+		}
+		effects = {
+			select_cheat_1_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 1
+				}
+			}
+
+			select_cheat_2_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 2
+				}
+			}
+
+			select_cheat_3_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 3
+				}
+			}
+
+			select_cheat_4_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 4
+				}
+			}
+
+			select_cheat_5_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 5
+				}
+			}
+
+			select_cheat_6_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 6
+				}
+			}
+
+			select_cheat_7_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 7
+				}
+			}
+
+			select_cheat_8_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 8
+				}
+			}
+
+			select_cheat_9_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 9
+				}
+			}
+
+			select_cheat_10_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 10
+				}
+			}
+
+			select_cheat_11_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 11
+				}
+			}
+
+			select_cheat_12_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 12
+				}
+			}
+
+			select_cheat_13_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 13
+				}
+			}
+
+			select_cheat_14_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 14
+				}
+			}
+
+			select_cheat_15_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 15
+				}
+			}
+
+			select_cheat_16_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 16
+				}
+			}
+
+			select_cheat_17_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 17
+				}
+			}
+
+			select_cheat_18_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 18
+				}
+			}
+
+			select_cheat_19_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 19
+				}
+			}
+
+			select_cheat_20_click = {
+				set_variable = {
+					ROOT.r56rp_ht_cheatsl = 20
+				}
+			}
+			
+
+
+		}
+		triggers = {
+
+		}
+	}
 }
