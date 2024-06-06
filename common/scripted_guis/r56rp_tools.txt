@@ -188,6 +188,14 @@ scripted_gui = {
 			}
 		}
 		triggers = {
+			r56rp_tool_state_selection_button_1_click_enable = {
+				any_state = {
+					is_in_array = {
+						array = ROOT.r56rp_tool_state_array
+						value = THIS.id
+					} 
+				}
+			}
 		}
 	}
 
@@ -628,9 +636,7 @@ scripted_gui = {
 	st_country_powers = {
 	
 		context_type = selected_country_context
-
 		parent_window_name = r56rp_tools_container
-		
 		window_name = "st_subject_powers_container"
 		
 		visible = {
@@ -663,22 +669,6 @@ scripted_gui = {
 					}
 				}
 			}
-		
-			mark_colonial_states_click  = {
-				set_temp_variable = { ROOT.marks = this}
-				var:marks = {
-					every_owned_state = {
-						limit = {
-							NOT = { is_in_home_area = yes }
-							NOT = { is_core_of = PREV }
-							NOT = { has_state_flag = marked_for_transfer }
-						}
-						set_state_flag = marked_for_transfer
-						add_to_variable = { ROOT.marked_states = 1 }
-						#set_border_war = yes
-					}
-				}
-			}
 			
 			award_states_click = {
 				set_temp_variable = { ROOT.taker = this}
@@ -698,7 +688,6 @@ scripted_gui = {
 							}
 						}
 					}
-
 
 					IF = {
 						limit = {
@@ -735,9 +724,7 @@ scripted_gui = {
 		triggers = {
 		
 			mark_all_states_click_enabled = {
-				ROOT = {
-					has_offensive_war = no
-				}
+	
 			}
 		
 			mark_colonial_states_click_enabled = {
@@ -858,19 +845,22 @@ scripted_gui = {
 			}
 
 			puppet_country_click = {
-
 				var:ROOT.r56rp_ht_tag_2 = {
 					puppet = {
 						target = ROOT.r56rp_ht_tag_1
 						end_wars = no
 					}
 				}
+			}
 
+			move_player_click = {
+				var:ROOT.r56rp_ht_tag_2 = {
+					change_tag_from = ROOT.r56rp_ht_tag_1
+				}
 			}
 			
-
-			## buttons using only the currently selected state as a target
-			whitepeace_click  = {
+		## buttons using only the currently selected state as a target
+			whitepeace_click = {
 				owner={
 					set_temp_variable = { ROOT.marks = this}
 					var:marks = {
@@ -947,7 +937,74 @@ scripted_gui = {
 				}
 			}
 
-			# cheat clicks
+			buff_nation_click = {
+				THIS.owner = {
+					IF = {
+						limit = {
+							has_idea = r56rp_ht_4t_buff_idea
+						}
+						remove_ideas = r56rp_ht_4t_buff_idea
+					}
+					ELSE = {
+						add_ideas = r56rp_ht_4t_buff_idea
+					}
+				}
+			}
+
+			lock_volunteers_click = {
+				THIS.owner = {
+					IF = {
+						limit = {
+							has_idea = r56rp_ht_no_volunteers_idea
+						}
+						remove_ideas = r56rp_ht_no_volunteers_idea
+						every_country = {
+							limit = {
+								has_volunteers_amount_from = {
+									tag = PREV
+									count > 0
+								}
+							}
+							recall_volunteers_from = PREV
+						}
+					}
+					ELSE = {
+						add_ideas = r56rp_ht_no_volunteers_idea
+					}
+				}
+			}
+
+			freeze_nation_click = {
+				THIS.owner = {
+					IF = {
+						limit = {
+							has_idea = r56rp_ht_freeze_nation_idea
+						}
+						remove_ideas = r56rp_ht_freeze_nation_idea
+					}
+					ELSE = {
+						add_ideas = r56rp_ht_freeze_nation_idea
+					}
+				}
+			}
+
+			change_ideology_click = {
+				ROOT = {
+					IF = {
+						limit = {
+							check_variable = {
+								r56rp_ht_ideology_showdropdown > 0
+							}
+						}
+						set_variable = { r56rp_ht_ideology_showdropdown = 0 }
+					}
+					ELSE = {
+						set_variable = { r56rp_ht_ideology_showdropdown = 1 }
+					}
+				}
+			}
+
+		# cheat clicks
 
 			# shows currently selected cheat via scripted localisation
 			# also shows the drop down menu for cheat selection, which is kept separate to make
@@ -1427,6 +1484,32 @@ scripted_gui = {
 
 		triggers = {
 
+			annex_country_click_enabled = {
+			}
+
+			puppet_country_click_enabled = {
+			}
+
+			move_player_click_enabled = {
+				var:ROOT.r56rp_ht_tag_2 = {
+					exists = yes
+					is_ai = yes
+				}
+				var:ROOT.r56rp_ht_tag_1 = {
+					exists = yes
+					is_ai = no
+				}
+			}
+
+			whitepeace_selected_click_enabled = {
+				var:ROOT.r56rp_ht_tag_2 = {
+					has_war_with = ROOT.r56rp_ht_tag_1
+				}
+				var:ROOT.r56rp_ht_tag_1 = {
+					has_war_with = ROOT.r56rp_ht_tag_2
+				}
+			}
+
 			observer_click_enabled = {
 				owner = {
 					is_ai = no
@@ -1439,23 +1522,119 @@ scripted_gui = {
 				}
 			}
 
-			clear_all_markings_click_enabled = {
+			whitepeace_click_enabled = {
+				owner = {
+					has_war = yes
+				}
 			}
 
 			award_states_click_enabled = {
-			}
-
-			annex_country_click_enabled = {
-			}
-
-			puppet_country_click_enabled = {
+				any_state = {
+					is_in_array = {
+						array = ROOT.r56rp_tool_state_array
+						value = THIS.id
+					} 
+				}
 			}
 
 			add_cores_click_enabled = {
+				any_state = {
+					is_in_array = {
+						array = ROOT.r56rp_tool_state_array
+						value = THIS.id
+					} 
+				}
 			}
 
 		}
 
+	}
+
+	ht_change_ideology_container = {
+		context_type = selected_country_context
+		parent_window_name = r56rp_tools_container
+		window_name = "ht_change_ideology_container"
+		
+		visible = {
+			ROOT = {
+				AND = {
+					check_variable = {
+						r56rp_ht_ideology_showdropdown > 0
+					}
+					has_country_flag = hosttool_enabled
+				}
+				
+			}
+		}
+		effects = {
+			select_cheat_1_click = {
+				THIS = {
+					set_politics = {
+						ruling_party = democratic
+						elections_allowed = yes
+					}
+				}
+				
+			}
+
+			select_cheat_2_click = {
+				THIS = {
+					set_politics = {
+						ruling_party = fascism
+						elections_allowed = no
+					}
+				}
+			}
+
+			select_cheat_3_click = {
+				THIS = {
+					set_politics = {
+						ruling_party = communism
+						elections_allowed = no
+					}
+				}
+			}
+
+			select_cheat_4_click = {
+				THIS = {
+					set_politics = {
+						ruling_party = neutrality
+						elections_allowed = no
+					}
+				}
+			}
+
+		}
+		triggers = {
+			select_cheat_1_click_enabled = {
+				THIS = {
+					NOT = {
+						has_government = democratic
+					}
+				}
+			}
+			select_cheat_2_click_enabled = {
+				THIS = {
+					NOT = {
+						has_government = fascism
+					}
+				}
+			}
+			select_cheat_3_click_enabled = {
+				THIS = {
+					NOT = {
+						has_government = communism
+					}
+				}
+			}
+			select_cheat_4_click_enabled = {
+				THIS = {
+					NOT = {
+						has_government = neutrality
+					}
+				}
+			}
+		}
 	}
 
 	ht_cheats_list_container = {
@@ -1465,9 +1644,13 @@ scripted_gui = {
 		
 		visible = {
 			ROOT = {
-				check_variable = {
-					r56rp_ht_cheat_showdropdown > 0
+				AND = {
+					check_variable = {
+						r56rp_ht_cheat_showdropdown > 0
+					}
+					has_country_flag = hosttool_enabled
 				}
+				
 			}
 		}
 		effects = {
