@@ -416,12 +416,12 @@ characters={
 		}
 		
 		corps_commander={
-			traits={ r56rp_trait_GER_democratic_sympathies trait_reckless media_personality armor_officer war_hero trickster }
-			skill=4
-			attack_skill=4
-			defense_skill=4
-			planning_skill=2
-			logistics_skill=3
+			traits={ brilliant_strategist media_personality war_hero trait_reckless infantry_officer trickster } #tank really not his thing until he touch it
+			skill=3 #was 4
+			attack_skill=2 #was 4
+			defense_skill=4 #was 4
+			planning_skill=3 #was 2
+			logistics_skill=1 #was 3
 			legacy_id=4
 		}
 	}
@@ -667,12 +667,12 @@ characters={
 		}
 		
 		corps_commander={
-			traits = { air_force_ties commando trait_reckless }
-			skill=4
-			attack_skill=4
+			traits = { air_force_ties commando trait_reckless } #Abbus: sorry I have to nerf you one level
+			skill=3 #was 4
+			attack_skill=3 #was 4
 			defense_skill=2
-			planning_skill=4
-			logistics_skill=3
+			planning_skill=3 #was 4
+			logistics_skill=2 #was 3
 			legacy_id=16
 		}
 	}
@@ -744,11 +744,11 @@ characters={
 		}
 		corps_commander={
 			traits={ armor_officer politically_connected }
-			skill=4
-			attack_skill=3
-			defense_skill=3
-			planning_skill=4
-			logistics_skill=3
+			skill=3 #was 4
+			attack_skill=3 #was 3
+			defense_skill=2 #was 3
+			planning_skill=2 #was 4
+			logistics_skill=3 #was 3
 			legacy_id=20
 		}
 	}
@@ -819,12 +819,12 @@ characters={
 			}
 		}
 		corps_commander={
-			traits = { r56rp_trait_GER_fascist_sympathies armor_officer politically_connected brilliant_strategist trait_reckless }
-			skill=4
-			attack_skill=2
-			defense_skill=3
-			planning_skill=4
-			logistics_skill=4
+			traits = { politically_connected trait_reckless } #Abbus: What? brilliant_strategist and armor_officer
+			skill=2 #was 4
+			attack_skill=3 #was 2
+			defense_skill=2 #was 3
+			planning_skill=1 #was 4
+			logistics_skill=1 #was 4
 			legacy_id=24
 		}
 	}
@@ -839,11 +839,11 @@ characters={
 		}
 		corps_commander={
 			traits={ career_officer trait_cautious armor_officer }
-			skill=4
-			attack_skill=4
-			defense_skill=3
-			planning_skill=3
-			logistics_skill=3
+			skill=2 #was 4
+			attack_skill=2 #was 4
+			defense_skill=2 #was 4
+			planning_skill=3 #was 3
+			logistics_skill=3 #was 3
 			legacy_id=25
 		}
 	}
@@ -893,12 +893,12 @@ characters={
 			}
 		}
 		corps_commander={
-			traits={ trait_cautious infantry_officer trait_engineer }
+			traits={ inflexible_strategist infantry_officer trait_engineer caring_leader } #why not for the most skilled on defense in the entire army
 			skill=3
-			attack_skill=3
-			defense_skill=1
-			planning_skill=3
-			logistics_skill=3
+			attack_skill=2 #was 3
+			defense_skill=3 #was 1
+			planning_skill=3 #was 3
+			logistics_skill=2 #was 3
 			legacy_id=33
 		}
 	}
@@ -977,8 +977,8 @@ characters={
 		name="Wilhelm Fahrmbacher"
 		portraits={
 			army={
-				small="GFX_idea_GER_generic_land_5"
-				large="gfx/leaders/GER/Portrait_Germany_Generic_land_5.dds"
+				large = "gfx/leaders/GER/r56_portrait_GER_Wilhelm_Fahrbacher.dds"
+				small = "gfx/interface/ideas/GER/advisors/r56_advisor_GER_Wilhelm_Fahrbacher.dds"
 			}
 		}
 		advisor={
@@ -1374,6 +1374,23 @@ characters={
 			legacy_id=31
 		}
 	}
+	GER_bernhard_rogge={
+		name=GER_bernhard_rogge
+		portraits={
+			army={
+				large="gfx/leaders/r56_generic/r56_portrait_GER_generic_navy_4.dds"
+			}
+		}
+		
+		navy_leader={
+			traits = { promising }
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			maneuvering_skill=1
+			coordination_skill=1
+		}
+	}
 
 	GER_alexander_von_falkenhausen = {
 		name = CHI_alexander_von_falkenhausen
@@ -1613,7 +1630,8 @@ characters={
 		name=GER_franz_halder
 		portraits={
 			army={
-				small="GFX_idea_franz_halder"
+				large = "gfx/leaders/GER/r56_portrait_GER_Franz_Halder.dds"
+				small = "gfx/interface/ideas/ger/advisors/r56_advisor_GER_Franz_Halder.dds"
 			}
 		}
 		advisor={
@@ -1630,6 +1648,14 @@ characters={
 				factor = 1.000
 			}
 		}
+		corps_commander = {
+			traits = { brilliant_strategist meticulous career_officer }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 3
+		}		
 	}
 
 	GER_walther_von_brauchitsch={
@@ -3131,6 +3157,40 @@ characters={
 		}	
 	}
 
+	GER_heinrich_brandler = {
+		name = GER_heinrich_brandler
+		portraits = {
+			civilian = {
+				large = "GFX_portrait_r56_GER_heinrich_brandler"
+				small = "GFX_idea_GER_heinrich_brandler"
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = heinrich_brandler
+
+			visible = {
+				has_country_flag = heinrich_brandler_arrived
+			}
+			available = {
+				has_government = communism
+				is_country_leader = no
+			}
+			on_add = {
+				custom_effect_tooltip = GER_will_strengthen_right_opposition
+			}
+			traits = { right_opposition_leader }
+		}
+
+		country_leader = {
+			ideology = marxism
+			traits = {
+				veteran_communist
+			}
+			expire = "1941.1.1"
+			id=-1
+		}
+	}
 
 		GER_nikolaus_von_falkenhorst = { # USED IN FINLAND
 		name = GER_nikolaus_von_falkenhorst

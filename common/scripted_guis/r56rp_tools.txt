@@ -858,6 +858,22 @@ scripted_gui = {
 					change_tag_from = ROOT.r56rp_ht_tag_1
 				}
 			}
+
+			ht_declare_war_button_click = {
+				var:ROOT.r56rp_ht_tag_1 = {
+					declare_war_on = {
+						target = var:ROOT.r56rp_ht_tag_2
+						type = annex_everything
+					}
+				}
+			}
+
+			ht_withdraw_volunt_button_click = {
+				var:ROOT.r56rp_ht_tag_1 = {
+					recall_volunteers_from = ROOT.r56rp_ht_tag_2
+				}
+				
+			}
 			
 		## buttons using only the currently selected state as a target
 			whitepeace_click = {
@@ -887,19 +903,19 @@ scripted_gui = {
 						set_temp_variable = { ROOT.puppeteer = this}
 					}
 				}
-					every_country = {
-						limit = { has_country_flag = puppetee }
-							GER = {
-								news_event={id=hosttool.7}
+				every_country = {
+					limit = { has_country_flag = puppetee }
+						GER = {
+							news_event={id=hosttool.7}
+						}
+						var:puppeteer = {
+							set_autonomy = {
+								target = PREV
+								autonomy_state = autonomy_free
 							}
-							var:puppeteer = {
-								set_autonomy = {
-									target = PREV
-									autonomy_state = autonomy_free
-								}
-							}
-						clr_country_flag = puppetee
-					}
+						}
+					clr_country_flag = puppetee
+				}
 			}
 
 			clear_all_markings_click = {
@@ -1498,6 +1514,23 @@ scripted_gui = {
 				var:ROOT.r56rp_ht_tag_1 = {
 					exists = yes
 					is_ai = no
+				}
+			}
+
+			ht_withdraw_volunt_button_click_enabled = {
+				var:ROOT.r56rp_ht_tag_2 = {
+					has_volunteers_amount_from = {
+						tag = ROOT.r56rp_ht_tag_1
+						count > 0
+					}
+				}
+			}
+
+			ht_declare_war_button_click_enabled = {
+				var:ROOT.r56rp_ht_tag_2 = {
+					NOT = {
+						has_war_with = ROOT.r56rp_ht_tag_1
+					}
 				}
 			}
 
