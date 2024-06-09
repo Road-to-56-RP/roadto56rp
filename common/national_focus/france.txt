@@ -5877,44 +5877,7 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = FRA_claim_the_andorran_throne
-		icon = GFX_goal_generic_attack_andorra
-		cost = 5
-		prerequisite = {
-			focus = FRA_proclaim_the_dual_monarchy
-		}
-		x = 2
-		y = 1
-		available = {
-			is_subject = no
-			has_government = neutrality
-			ADR = {
-				exists = yes
-				NOT = {
-					is_in_faction_with = ROOT
-					is_subject_of = ROOT
-				}
-			}
-		}
-		will_lead_to_war_with = ADR
-		relative_position_id = FRA_proclaim_the_dual_monarchy
-		
-		ai_will_do = {
-			factor = 20
-		}
-		completion_reward = {
-			every_state = {
-				limit = { is_core_of = ADR }
-				add_core_of = ROOT
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = ADR
-				expire = 0
-			}
-		}
-	}
+
 	focus = {
 		id = FRA_proclaim_the_dual_monarchy
 		icon = GFX_goal_new_burgundy2
@@ -6027,6 +5990,46 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
+
+	focus = {
+		id = FRA_claim_the_andorran_throne
+		icon = GFX_goal_generic_attack_andorra
+		cost = 5
+		prerequisite = {
+			focus = FRA_proclaim_the_dual_monarchy
+		}
+		x = 2
+		y = 1
+		available = {
+			is_subject = no
+			has_government = neutrality
+			ADR = {
+				exists = yes
+				NOT = {
+					is_in_faction_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+		will_lead_to_war_with = ADR
+		relative_position_id = FRA_proclaim_the_dual_monarchy
+		
+		ai_will_do = {
+			factor = 20
+		}
+		completion_reward = {
+			every_state = {
+				limit = { is_core_of = ADR }
+				add_core_of = ROOT
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = ADR
+				expire = 0
+			}
+		}
+	}
+	
 	focus = {
 		id = FRA_pacify_the_spanish_countryside
 		icon = GFX_goal_MAN_confront_gorillas
@@ -9736,37 +9739,10 @@ focus_tree = {
 						has_country_flag = koenig_commander
 					}
 				}
-				create_corps_commander = {
-					name = "Marie-Pierre Koenig"
-					GFX = GFX_portrait_fra_marie_pierre_koenig
-					skill = 3
-					traits = {  }
-					attack_skill = 2
-					defense_skill = 2
-					planning_skill = 3
-					logistics_skill = 3
-				}
+				show_unit_leaders_tooltip = FRA_marie_pierre_koenig
 			}
-			create_corps_commander = {
-				name = "Georges Catroux"
-				GFX = GFX_portrait_fra_georges_catroux
-				skill = 3
-				traits = {  }
-				attack_skill = 3
-				defense_skill = 3
-				planning_skill = 2
-				logistics_skill = 2
-			}
-			create_corps_commander = {
-				name = "Edgard de Larminat"
-				picture = "Portrait_France_Generic_land_4.dds"
-				traits = { desert_fox }
-				skill = 1
-				attack_skill = 1					
-				defense_skill = 1
-				planning_skill = 1
-				logistics_skill = 1
-			}			
+			show_unit_leaders_tooltip = FRA_georges_catroux
+			show_unit_leaders_tooltip = FRA_edgard_de_larminat
 		}
 	}
 	focus = {
@@ -10013,18 +9989,12 @@ focus_tree = {
 				}
 			}			
 		}
-		
-		bypass = {
-
-		}
-		
-		
 		available_if_capitulated = yes
 		completion_reward = {
 			air_experience = 25
 			SOV = {
 				add_equipment_to_stockpile = {
-					type = fighter_equipment
+					type = small_plane_airframe
 					amount = 150
 					producer = FRA
 				}
@@ -12287,36 +12257,13 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			if = {
-				limit = {
-					NOT = { has_dlc = "By Blood Alone" }
-				}
-				add_equipment_to_stockpile = {
-					type = fighter_equipment_0
-					amount = 100
-					producer = USA
-				}
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe_0
+				amount = 100
+				producer = USA
 			}
-			else_if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				air_experience = 25
-				create_equipment_variant = {
-					name = "P-36A" #
-					type = small_plane_airframe_1
-					modules = {
-						fixed_main_weapon_slot = light_mg_4x
-						fixed_auxiliary_weapon_slot_1 = light_mg_2x
-						engine_type_slot = engine_2_1x
-						special_type_slot_1 = empty
-					}
-					icon = "GFX_USA_fighter1_medium"
-				}
-
-				USA = {
-					add_political_power = 50
-				}
+			USA = {
+				add_political_power = 50
 			}
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
@@ -12503,6 +12450,7 @@ focus_tree = {
 					category = medium_air
 				}
 				add_tech_bonus = {
+					name = FRA_follow_up_on_the_potez
 					category = radar_tech
 					bonus = 0.5
 					uses = 1
@@ -12585,6 +12533,7 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
+					name = FRA_new_french_fighter
 					technology  = improved_small_airframe
 					technology = advanced_small_airframe
 					ahead_reduction = 0.5
@@ -12601,6 +12550,7 @@ focus_tree = {
 					category = light_fighter
 				}
 			}
+	
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
