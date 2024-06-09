@@ -18,7 +18,6 @@ focus_tree = {
 				tag = SHX
 				tag = XSM
 			}
-			has_dlc = "Waking the Tiger"
 		}
 	}
 	
@@ -158,11 +157,6 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					OR = {
-						has_dlc = "Together for Victory"
-						has_dlc = "Death or Dishonor"
-					}
-					
 					NOT = {
 						CHI = { is_in_tech_sharing_group = CHI_technological_cooperation_tech_group } 
 					}
@@ -447,12 +441,20 @@ focus_tree = {
 				#	value = 100
 				#}
 			}
-			PRC = {
+			
+			if = {
+				limit = {
+					PRC = {
+						has_government = communism
+					}
+				}
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = CHI_cooperation_with_the_communists_positive
-				}
+				}					
 			}
+
+			
 			CHI = {
 				add_opinion_modifier = {
 					target = ROOT
@@ -647,6 +649,8 @@ focus_tree = {
 					event_target:WTT_communist_china = {
 						NOT = { is_in_faction_with = ROOT }
 						is_in_faction = no
+						is_subject = no
+						has_government = communism
 					}
 				}
 				event_target:WTT_communist_china = {
@@ -1193,6 +1197,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			# r56rp change
+			# why spawn guns when you can have it be a subsidiy
 			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
