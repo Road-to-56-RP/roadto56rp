@@ -77,7 +77,9 @@ country_event = {
 	}
 }
 
-#more skilled people - r56rp - turned into a less obstructive mission.
+#more skilled people
+#r56rp - turned into a less obnoxious mission.
+
 #Stalin pass away
 country_event = {
 	id = prc.5
@@ -85,30 +87,9 @@ country_event = {
 	desc = prc.5.d
 	picture = GFX_report_event_stalin_propaganda
 
+	is_triggered_only = yes
+
 	trigger = {
-		OR = {
-			AND = {
-				PRC = {
-					is_ai = yes
-				}
-				date > 1952.3.1
-			}
-			AND = {
-				date > 1944.10.15
-				has_war = no
-				PRC = {
-					is_ai = no
-				}
-			}
-			AND = {
-				date > 1947.5.1
-				has_war = yes
-				PRC = {
-					is_ai = no
-				}
-			}
-		}
-		original_tag = SOV
 		NOT = { has_country_flag = counter_purge }
 		has_government = communism
 		has_country_leader = {				#making sure Stalin is dying!
@@ -116,8 +97,6 @@ country_event = {
 			ruling_only = yes
 		}
 	}
-
-	mean_time_to_happen = { days = 365 }	#was 120, why though?!
 
 	fire_only_once = yes
 
@@ -139,7 +118,6 @@ country_event = {
 
 	option = {
 		name = prc.5.a
-		custom_effect_tooltip = sov_power_struggle_begins
 		effect_tooltip = {
 			add_country_leader_role = {
 				character = SOV_georgy_malenkow
@@ -185,6 +163,25 @@ country_event = {
 		name = prc.7.a
 		add_ideas = PRC_cultural_revolution
 		set_global_flag = PRC_cr_started
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_global_flag = mao_dead
+					}
+				}
+				random_list = {
+					95 = {
+						country_event = { id = prc.47 days = 30 random_days = 10 }
+					}
+					5 = {
+						country_event = { id = prc.46 days = 30 random_days = 10 }
+					}
+				}
+			}
+			country_event = { id = prc.11 days = 111 random_days = 20 }
+			country_event = { id = prc.26 days = 60 random_days = 10 }
+		}
 	}
 }
 
@@ -204,88 +201,10 @@ country_event = {
 		set_global_flag = lin_biao_dead
 		remove_unit_leader = 1065
 		add_stability = -0.075
-	}
-}
-
-#Lin biao's fate
-country_event = {
-	id = prc.9
-	hidden = yes
-
-	trigger = {
-		tag = PRC
-		has_global_flag = mao_assassin_event_fired
-		NOT = {
-			has_global_flag = mao_dead
+		hidden_effect = {
+			country_event = { id = prc.11 days = 100 random_days = 20 }
 		}
 	}
-
-	mean_time_to_happen = { days = 10 }
-
-	fire_only_once = yes
-
-	immediate = {
-		set_global_flag = lin_biao_fate_fired
-		if = {
-			limit = {
-				SOV = {
-					exists = yes
-					NOT = {
-						is_puppet_of = ROOT
-					}
-				}
-			}
-			SOV = {
-				save_event_target_as = PRC_linbiao_flee_target
-			}
-			else = {
-				random_other_country = {
-					limit = {
-						exists = yes
-						NOT = {
-							is_puppet_of = ROOT
-						}
-					}
-					save_event_target_as = PRC_linbiao_flee_target
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_historical_focus_on = yes
-			}
-			random_list = {
-				85 = {
-					country_event = {
-						id = prc.8
-					}
-				}
-				15 = {
-					country_event = {
-						id = prc.10
-					}
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_historical_focus_on = no
-			}
-			random_list = {
-				60 = {
-					country_event = {
-						id = prc.8
-					}
-				}
-				40 = {
-					country_event = {
-						id = prc.10
-					}
-				}
-			}
-		}
-	}
-	option = {}
 }
 
 #Lin biao's fate
@@ -304,6 +223,9 @@ country_event = {
 		set_global_flag = lin_biao_fled_to_soviet
 		add_stability = -0.075
 		remove_unit_leader = 1065
+		hidden_effect = {
+			country_event = { id = prc.23 days = 80 random_days = 10 }
+		}
 	}
 }
 
@@ -314,15 +236,12 @@ country_event = {
 	desc = prc.11.d
 	picture = GFX_report_event_europe_funeral
 
-	trigger = {
-		tag = PRC
-		has_war = no
-		has_global_flag = PRC_cr_started
-	}
-
-	mean_time_to_happen = { days = 111 }
-
 	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_war = no
+	}
 
 	option = {
 		name = prc.11.a
@@ -339,15 +258,12 @@ country_event = {
 	picture = GFX_report_event_europe_funeral
 
 	trigger = {
-		tag = PRC
-		has_global_flag = lin_biao_fate_fired
 		NOT = {
 			has_country_flag = mao_assassinated
 		}
 	}
-
-	mean_time_to_happen = { days = 80 }
-
+	
+	is_triggered_only = yes
 	fire_only_once = yes
 
 	option = {
@@ -363,7 +279,6 @@ country_event = {
 			}
 			create_country_leader = {
 				name = "Hua Guofeng"
-				desc = " "
 				picture = "gfx/leaders/Asia/Portrait_Asia_Generic_communism.dds"
 				expire = "1965.1.1"
 				ideology = marxism
@@ -382,7 +297,6 @@ country_event = {
 			}
 			create_country_leader = {
 				name = "Lin Biao"
-				desc = " "
 				picture = "gfx/leaders/Asia/Portrait_Asia_Generic_warlord1.dds"
 				expire = "1965.1.1"
 				ideology = marxism
@@ -446,16 +360,14 @@ country_event = {
 	desc = prc.14.d
 	picture = GFX_report_event_second_vienna_award_pact
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			progress > 0.1
-			focus = PRC_economic_reform
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.15 days = 30 }
 		}
 	}
-	mean_time_to_happen = { days = 2 }
-
-	fire_only_once = yes
 
 	option = {
 		name = prc.14.a
@@ -510,16 +422,14 @@ country_event = {
 	desc = prc.15.d
 	picture = GFX_report_event_physics_lab_01
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			progress > 0.25
-			focus = PRC_economic_reform
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.16 days = 30 }
 		}
 	}
-
-	mean_time_to_happen = { days = 2 }
-	fire_only_once = yes
 
 	option = {
 		name = prc.15.a
@@ -543,16 +453,14 @@ country_event = {
 	desc = prc.14.d
 	picture = GFX_report_event_second_vienna_award_pact
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			progress > 0.4
-			focus = PRC_economic_reform
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.17 days = 30 }
 		}
 	}
-	mean_time_to_happen = { days = 2 }
-
-	fire_only_once = yes
 
 	option = {
 		name = prc.14.a
@@ -607,15 +515,14 @@ country_event = {
 	desc = prc.15.d
 	picture = GFX_report_event_physics_lab_01
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			progress > 0.6
-			focus = PRC_economic_reform
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.18 days = 30 }
 		}
 	}
-
-	fire_only_once = yes
 
 	option = {
 		name = prc.15.a
@@ -630,16 +537,14 @@ country_event = {
 	desc = prc.14.d
 	picture = GFX_report_event_second_vienna_award_pact
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			progress > 0.7
-			focus = PRC_economic_reform
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.19 days = 30 }
 		}
 	}
-
-	mean_time_to_happen = { days = 2 }
-	fire_only_once = yes
 
 	option = {
 		name = prc.14.a
@@ -694,16 +599,14 @@ country_event = {
 	desc = prc.14.d
 	picture = GFX_report_event_second_vienna_award_pact
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			progress > 0.8
-			focus = PRC_economic_reform
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.20 days = 30 }
 		}
 	}
-
-	fire_only_once = yes
-	mean_time_to_happen = { days = 2 }
 
 	option = {
 		name = prc.14.a
@@ -742,17 +645,8 @@ country_event = {
 	desc = prc.14.d
 	picture = GFX_report_event_second_vienna_award_pact
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			progress > 0.9
-			focus = PRC_economic_reform
-		}
-	}
-
 	fire_only_once = yes
-
-	mean_time_to_happen = { days = 2 }
+	is_triggered_only = yes
 
 	option = {
 		name = prc.14.a
@@ -839,22 +733,18 @@ country_event = {
 	desc = prc.22.d
 	picture = GFX_report_event_crowd_in_prague
 
+	fire_only_once = yes
+	is_triggered_only = yes
+
 	trigger = {
-		tag = PRC
-		has_global_flag = lin_biao_dead
 		has_global_flag = CR_ended
 	}
-
-	fire_only_once = yes
-
-	mean_time_to_happen = { days = 100 }
 
 	option = {
 		name = prc.22.a
 		retire_country_leader = yes
 		create_country_leader = {
 			name = "Deng Xiaoping"
-			desc = " "
 			picture = "gfx/leaders/Asia/Portrait_Asia_Generic_communism.dds"
 			expire = "1965.1.1"
 			ideology = marxism
@@ -873,22 +763,17 @@ country_event = {
 	desc = prc.23.d
 	picture = GFX_report_event_japanese_soldiers_02
 
+	fire_only_once = yes
+	is_triggered_only = yes
 	trigger = {
-		tag = PRC
-		has_global_flag = lin_biao_fled_to_soviet
 		has_global_flag = CR_ended
 	}
-
-	fire_only_once = yes
-
-	mean_time_to_happen = { days = 50 }
 
 	option = {
 		name = prc.23.a
 		kill_country_leader = yes
 		create_country_leader = {
 			name = "Lin Biao"
-			desc = " "
 			picture = "gfx/leaders/Asia/Portrait_Asia_Generic_warlord1.dds"
 			expire = "1965.1.1"
 			ideology = marxism
@@ -911,14 +796,11 @@ country_event = {
 	desc = prc.25.d
 	picture = GFX_report_event_chinese_soldiers_fighting
 
-	trigger = {
-		tag = PRC
-		has_war_with = JAP
-	}
-
-	mean_time_to_happen = { days = 365 }
-
+	is_triggered_only = yes
 	fire_only_once = yes
+	trigger = {
+		has_war_with = JAP	#has to be at war!
+	}
 
 	option = {
 		name = prc.25.a
@@ -958,18 +840,14 @@ country_event = {
 	desc = prc.26.d
 	picture = GFX_report_event_gathering_protest
 
+	fire_only_once = yes
+	is_triggered_only = yes
 	trigger = {
-		tag = PRC
 		has_war = no
-		has_global_flag = PRC_cr_started
 		NOT = {
 			has_global_flag = CR_ended
 		}
 	}
-
-	mean_time_to_happen = { days = 60 }
-
-	fire_only_once = yes
 
 	option = {
 		name = prc.26.a
@@ -978,6 +856,9 @@ country_event = {
 			remove_unit_leader = 1067
 			remove_unit_leader = 1069
 			set_country_flag = month_countercurrent
+			country_event = { id = prc.27 days = 75 random_days = 15 }
+			country_event = { id = prc.27 days = 50 random_days = 10 }
+			country_event = { id = prc.27 days = 30 random_days = 5 }
 		}
 	}
 }
@@ -989,18 +870,14 @@ country_event = {
 	desc = prc.27.d
 	picture = GFX_report_event_gathering_protest
 
+	is_triggered_only = yes
+	fire_only_once = yes
 	trigger = {
-		tag = PRC
 		has_war = no
-		has_country_flag = month_countercurrent
 		NOT = {
 			has_global_flag = CR_ended
 		}
 	}
-
-	mean_time_to_happen = { days = 50 }
-
-	fire_only_once = yes
 
 	option = {
 		name = prc.27.a
@@ -1018,18 +895,14 @@ country_event = {
 	desc = prc.28.d
 	picture = GFX_report_event_gathering_protest
 
+	is_triggered_only = yes
+	fire_only_once = yes
 	trigger = {
-		tag = PRC
 		has_war = no
-		has_country_flag = month_countercurrent
 		NOT = {
 			has_global_flag = CR_ended
 		}
 	}
-
-	mean_time_to_happen = { days = 30 }
-
-	fire_only_once = yes
 
 	option = {
 		name = prc.28.a
@@ -1047,18 +920,14 @@ country_event = {
 	desc = prc.29.d
 	picture = GFX_report_event_gathering_protest
 
+	is_triggered_only = yes
+	fire_only_once = yes
 	trigger = {
-		tag = PRC
 		has_war = no
-		has_country_flag = month_countercurrent
 		NOT = {
 			has_global_flag = CR_ended
 		}
 	}
-
-	mean_time_to_happen = { days = 75 }
-
-	fire_only_once = yes
 
 	option = {
 		name = prc.29.a
@@ -1080,7 +949,7 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		ai_chance = { factor = 95 }
+		ai_chance = { base = 95 }
 		name = prc.36.a
 		SIK = {
 			country_event = { id = prc.37 }
@@ -1088,7 +957,7 @@ country_event = {
 	}
 
 	option = {
-		ai_chance = { factor = 5 }
+		ai_chance = { base = 5 }
 		name = prc.36.b
 		PRC = {
 			country_event = { id = prc.38 }
@@ -1096,7 +965,7 @@ country_event = {
 	}
 
 	option = {
-		ai_chance = { factor = 0 }
+		ai_chance = { base = 0 }
 		name = prc.36.c
 		PRC = {
 			create_wargoal = {
@@ -1118,7 +987,7 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		ai_chance = { factor = 95 }
+		ai_chance = { base = 95 }
 		name = prc.37.a
 		PRC = {
 			annex_country = {
@@ -1130,7 +999,7 @@ country_event = {
 	}
 
 	option = {
-		ai_chance = { factor = 5 }
+		ai_chance = { base = 5 }
 		name = prc.37.b
 		SOV = {
 			country_event = { id = prc.40 }
@@ -1155,7 +1024,7 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		ai_chance = { factor = 35 }
+		ai_chance = { base = 35 }
 		name = prc.38.a
 		if = {
 			limit = {
@@ -1177,7 +1046,7 @@ country_event = {
 	}
 
 	option = {
-		ai_chance = { factor = 65 }
+		ai_chance = { base = 65 }
 		name = prc.38.b
 		add_political_power = -50
 		SOV = { country_event = { id = prc.42 }}
@@ -1352,37 +1221,6 @@ country_event = {
 	}
 }
 
-#assassination of mao
-country_event = {
-	id = prc.45
-	hidden = yes
-
-	trigger = {
-		tag = PRC
-		has_global_flag = PRC_cr_started
-		NOT = {
-			has_global_flag = mao_dead
-		}
-	}
-
-	mean_time_to_happen = { days = 100 }
-
-	fire_only_once = yes
-
-	immediate = {
-		set_global_flag = mao_assassin_event_fired
-		random_list = {
-			95 = {
-				country_event = { id = prc.47 }
-			}
-			5 = {
-				country_event = { id = prc.46 }
-			}
-		}
-	}
-	option = {}
-}
-
 #assassination of mao - success
 country_event = {
 	id = prc.46
@@ -1398,7 +1236,6 @@ country_event = {
 		kill_country_leader = yes
 		create_country_leader = {
 			name = "Lin Biao"
-			desc = " "
 			picture = "gfx/leaders/Asia/Portrait_Asia_Generic_warlord1.dds"
 			expire = "1965.1.1"
 			ideology = marxism
@@ -1436,6 +1273,65 @@ country_event = {
 
 	option = {
 		name = prc.47.a
+		set_global_flag = lin_biao_fate_fired
+		hidden_effect = {
+			if = {
+				limit = {
+					SOV = {
+						has_government = communism
+						NOT = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+				SOV = {
+					save_event_target_as = PRC_linbiao_flee_target
+				}
+				else = {
+					random_other_country = {
+						limit = {
+							has_government = communism
+							NOT = {
+								is_subject_of = ROOT
+							}
+						}
+						save_event_target_as = PRC_linbiao_flee_target
+					}
+				}
+			}
+			if = {
+				limit = {
+					is_historical_focus_on = yes
+				}
+				random_list = {
+					85 = {
+						country_event = {
+							id = prc.8 days = 10
+						}
+					}
+					15 = {
+						country_event = {
+							id = prc.10 days = 10
+						}
+					}
+				}
+			}
+			else = {
+				random_list = {
+					60 = {
+						country_event = {
+							id = prc.8 days = 10
+						}
+					}
+					40 = {
+						country_event = {
+							id = prc.10 days = 10
+						}
+					}
+				}
+			}
+			country_event = { id = prc.12 days = 80 random_days = 15 }
+		}
 	}
 }
 
@@ -1463,6 +1359,8 @@ country_event = {
 
 
 #dongbei partisans
+
+# r56rp changes, unsure tho
 country_event = {
 	id = prc.49
 	title = prc.49.t
@@ -1537,7 +1435,6 @@ country_event = {
 				ideology = communism
 			}
 		}
-
 		custom_effect_tooltip = PRC_dongbei_partisans_tt
 		load_oob = "PRC_dongbei_partisans"
 	}
@@ -1550,67 +1447,30 @@ country_event = {
 	desc = prc.50.d
 	picture = GFX_report_event_chinese_soldiers_fighting
 
-	trigger = {
-		tag = PRC
-		has_war_with = CHI
-		has_global_flag = PRC_civil_war_started
-		OR = {
-			controls_state = 603
-			controls_state = 622
-		}
-		CHI = {
-			has_completed_focus = KMT_harsh_takeover_focus
-		}
-	}
-
-	mean_time_to_happen = { days = 75 }
+	is_triggered_only = yes
 
 	fire_only_once = yes
 
 	option = {
 		name = prc.50.a
-		if = {
-			limit = {
-				controls_state = 603
-			}
-			load_oob = "PRC_nra_defect_beijing"
-		}
-		if = {
-			limit = {
-				controls_state = 622
-			}
-			load_oob = "PRC_nra_defect_yanan"
-		}
+		load_oob = "PRC_nra_defect_beijing"
 	}
 }
 
-#inspiring victory
+#some nra defects
 country_event = {
-	id = prc.51
-	title = prc.51.t
-	desc = prc.51.d
-	picture = GFX_report_event_chinese_officers
+	id = prc.500
+	title = prc.50.t
+	desc = prc.50.d
+	picture = GFX_report_event_chinese_soldiers_fighting
 
-	trigger = {
-		tag = PRC
-		has_war_with = CHI
-		has_global_flag = PRC_civil_war_started
-		surrender_progress < 0.01
-		CHI = {
-			surrender_progress > 0
-		}
-	}
-
-	mean_time_to_happen = { days = 5 }
+	is_triggered_only = yes
 
 	fire_only_once = yes
 
 	option = {
-		name = prc.51.a
-		add_timed_idea = {
-			days = 3700
-			idea = PRC_inspiring_victory
-		}
+		name = prc.50.a
+		load_oob = "PRC_nra_defect_yanan"
 	}
 }
 
@@ -1759,12 +1619,12 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		ai_chance = { factor = 100 }
+		ai_chance = { base = 100 }
 		name = prc.56.a
 	}
 
 	option = {
-		ai_chance = { factor = 0 }
+		ai_chance = { base = 0 }
 		name = prc.56.b
 		trigger = {
 			has_completed_focus = KMT_internal_stability
@@ -1788,7 +1648,6 @@ country_event = {
 
 	option = {
 		name = prc.57.a
-		set_global_flag = zxl_as_gnwu_leader
 		if = {
 			limit = {
 				has_global_flag = PRC_no_wargoal_to_chi_when_ok
@@ -1844,7 +1703,7 @@ country_event = {
 
 	option = {
 		ai_chance = {
-			factor = 30
+			base = 30
 		}
 		name = prc.59.a
 		set_global_flag = PRC_defy_sov_order
@@ -1863,7 +1722,7 @@ country_event = {
 
 	option = {
 		ai_chance = {
-			factor = 70
+			base = 70
 		}
 		add_political_power = -10
 		name = prc.59.b
@@ -1916,6 +1775,12 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.63 days = 30 }
+		}
+	}
+
 	option = {
 		name = prc.62.a
 		set_country_flag = PRC_zxl_purge
@@ -1955,15 +1820,13 @@ country_event = {
 
 	picture = GFX_report_event_chinese_officers
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			focus = PRC_destroy_mao_and_his_clique
-			progress > 0.25
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.64 days = 30 }
 		}
 	}
-
-	fire_only_once = yes
 
 	option = {
 		name = prc.63.a
@@ -1993,14 +1856,13 @@ country_event = {
 
 	picture = GFX_report_event_chinese_soldiers_fighting
 
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			focus = PRC_destroy_mao_and_his_clique
-			progress > 0.5
+	immediate = {
+		hidden_effect = {
+			country_event = { id = prc.65 days = 30 }
 		}
 	}
 
+	is_triggered_only = yes
 	fire_only_once = yes
 
 	option = {
@@ -2149,16 +2011,8 @@ country_event = {
 	desc = prc.65.d
 
 	picture = GFX_report_event_chinese_soldiers_02
-
-	trigger = {
-		tag = PRC
-		focus_progress = {
-			focus = PRC_destroy_mao_and_his_clique
-			progress > 0.75
-		}
-	}
-
-	fire_only_once = yes
+	
+	is_triggered_only = yes
 
 	option = {
 		name = prc.65.a
@@ -2177,27 +2031,13 @@ country_event = {
 	desc = prc.66.d
 
 	picture = GFX_report_event_soviet_purge_speech
-
-	trigger = {
-		tag = PRC
-		SOV = {
-			has_country_flag = counter_purge
-			has_government = communism
-		}
-		has_government = communism
-		NOT = {
-			has_country_flag = PRC_zxl_purge
-		}
-	}
-
-	mean_time_to_happen = { days = 5 }
-
-	fire_only_once = yes
+	
+	is_triggered_only = yes
 
 	option = {
 		name = prc.66.a
 		ai_chance = {
-			factor = 50
+			base = 50
 		}
 		if = {
 			limit = {
@@ -2211,7 +2051,6 @@ country_event = {
 			kill_country_leader = yes
 			create_country_leader = {
 				name = "Chen Duxiu"
-				desc = " "
 				picture = "gfx/leaders/PRC/r56_portrait_PRC_Chen_Duxiu.dds"
 				expire = "1965.1.1"
 				ideology = leninism
@@ -2231,7 +2070,7 @@ country_event = {
 
 	option = {
 		ai_chance = {
-			factor = 50
+			base = 50
 		}
 		name = prc.66.b
 		add_opinion_modifier = {
@@ -2253,7 +2092,7 @@ country_event = {
 
 	option = {
 		ai_chance = {
-			factor = 50
+			base = 50
 			modifier = {
 				ROOT = { tag = CHI }
 				factor = 1
@@ -2290,7 +2129,7 @@ country_event = {
 
 	option = {
 		ai_chance = {
-			factor = 50
+			base = 50
 		}
 		name = prc.67.b
 		FROM = {
@@ -2391,7 +2230,7 @@ country_event = {
 	option = {
 		name = prc.71.a
 		ai_chance = {
-			factor = 90
+			base = 90
 			modifier = {
 				factor = 0
 				NOT = {
@@ -2415,7 +2254,7 @@ country_event = {
 	}
 
 	option = {
-		ai_chance = { factor = 10 }
+		ai_chance = { base = 10 }
 		name = prc.70.b
 		FROM = { country_event = { id = prc.73 }}
 	}
@@ -2472,7 +2311,7 @@ country_event = {
 	option = {
 		name = prc.74.a
 		ai_chance = {
-			factor = 100
+			base = 100
 			modifier = {
 				FROM = {
 					has_government = communism
@@ -2503,7 +2342,7 @@ country_event = {
 
 	option = {
 		name = prc.74.b
-		ai_chance = { factor = 0 }
+		ai_chance = { base = 0 }
 		FROM = {
 			country_event = { id = prc.76 }
 		}
@@ -2565,7 +2404,7 @@ country_event = {
 	option = {
 		name = prc.77.a
 		ai_chance = {
-			factor = 80
+			base = 80
 		}
 		clr_global_flag = PRC_defy_sov_order
 		remove_opinion_modifier = {
@@ -2585,7 +2424,7 @@ country_event = {
 	option = {
 		name = prc.77.b
 		ai_chance = {
-			factor = 20
+			base = 20
 		}
 		FROM = {
 			country_event = { id = prc.79 }
@@ -2639,7 +2478,7 @@ country_event = {
 	option = {
 		name = prc.80.a
 		ai_chance = {
-			factor = 5
+			base = 5
 			modifier = {
 				FROM = {
 					strength_ratio = {
@@ -2704,7 +2543,7 @@ country_event = {
 	option = {
 		name = prc.80.b
 		ai_chance = {
-			factor = 95
+			base = 95
 			modifier = {
 				FROM = {
 					strength_ratio = {
@@ -2834,7 +2673,7 @@ country_event = {
 	option = {
 		name = prc.84.a
 		ai_chance = {
-			factor = 50
+			base = 50
 			modifier = {
 				is_in_faction = yes
 				add = -45
@@ -2957,7 +2796,7 @@ country_event = {
 	option = {
 		name = prc.84.b
 		ai_chance = {
-			factor = 50
+			base = 50
 		}
 		if = {
 			limit = {
@@ -3126,7 +2965,7 @@ country_event = {
 	option = {
 		name = prc.81.a
 		ai_chance = {
-			factor = 100
+			base = 100
 		}
 		effect_tooltip = {
 			puppet = FROM
@@ -3156,7 +2995,7 @@ country_event = {
 	option = {
 		name = prc.84.a
 		ai_chance = {
-			factor = 40
+			base = 40
 			modifier = {
 				is_in_faction = yes
 				add = -35
@@ -3238,7 +3077,7 @@ country_event = {
 	option = {
 		name = prc.84.b
 		ai_chance = {
-			factor = 60
+			base = 60
 		}
 		if = {
 			limit = {
@@ -3409,7 +3248,7 @@ country_event = {
 	option = {
 		name = prc.92.a
 		ai_chance = {
-			factor = 100
+			base = 100
 			modifier = {
 				strength_ratio = {
 					tag = FROM
@@ -3659,7 +3498,7 @@ country_event = {
 	option = {
 		name = prc.95.a
 		ai_chance = {
-			factor = 80
+			base = 80
 		}
 		FROM = {
 			country_event = { id = prc.96 }
@@ -3671,7 +3510,7 @@ country_event = {
 	option = {
 		name = prc.95.b
 		ai_chance = {
-			factor = 20
+			base = 20
 		}
 		FROM = {
 			country_event = { id = prc.97 }
@@ -3725,7 +3564,7 @@ country_event = {
 	option = {
 		name = prc.87.a
 		ai_chance = {
-			factor = 50
+			base = 50
 			modifier = {
 				FROM = {
 					strength_ratio = {
@@ -3772,7 +3611,7 @@ country_event = {
 	option = {
 		name = prc.87.b
 		ai_chance = {
-			factor = 50
+			base = 50
 		}
 		FROM = {
 			country_event = { id = prc.100 }
@@ -3835,7 +3674,7 @@ country_event = {
 
 	option = {
 		name = prc.102.a
-		ai_chance = { factor = 100 }
+		ai_chance = { base = 100 }
 		if = {
 			limit = {
 				is_faction_leader = yes
@@ -3986,18 +3825,8 @@ country_event = {
 
 	picture = GFX_report_event_airplane_crash
 
-	trigger = {
-		has_global_flag = zxl_arrested
-		tag = PRC
-		NOT = {
-			has_completed_focus = PRC_form_the_grand_northwest_united
-			has_global_flag = zxl_assassinated
-		}
-	}
-
-	mean_time_to_happen = { days = 2 }
-
 	fire_only_once = yes
+	is_triggered_only = yes
 
 	option = {
 		name = prc.108.a
@@ -4030,69 +3859,6 @@ country_event = {
 	}
 }
 
-#take dongbei and peace?
-country_event = {
-	id = prc.109
-	title = prc.109.t
-	desc = prc.109.d
-
-	picture = GFX_report_event_airplane_crash
-
-	trigger = {
-		has_war_with = JAP
-		tag = PRC
-		no_jap_in_manchuria = yes
-		OR = {
-			is_in_faction = no
-			is_faction_leader = yes
-		}
-		has_country_leader = {
-			name = "Zhang Xueliang"
-			ruling_only = yes
-		}
-	}
-
-	mean_time_to_happen = { days = 10 }
-
-	fire_only_once = yes
-
-	option = {
-		name = prc.109.a
-		ai_chance = {
-			factor = 1
-		}
-		JAP = {
-			country_event = { id = prc.110 }
-			custom_effect_tooltip = needs_approval
-		}
-		effect_tooltip = {
-			white_peace = JAP
-			custom_effect_tooltip = PRC_takeover_dongbei_tt
-		}
-	}
-
-	option = {
-		name = prc.109.b
-		trigger = {
-			NOT = {
-				has_global_flag = jap_civil_war_sf
-			}
-		}
-		ai_chance = {
-			factor = 100
-		}
-		set_global_flag = wait_for_jap_civil_war
-		custom_effect_tooltip = PRC_wait_for_civil_war_tt
-	}
-
-	option = {
-		ai_chance = {
-			factor = 0
-		}
-		name = prc.109.c
-	}
-}
-
 #peace with PRC?
 country_event = {
 	id = prc.110
@@ -4106,7 +3872,7 @@ country_event = {
 	option = {
 		name = prc.110.a
 		ai_chance = {
-			factor = 25
+			base = 50
 			modifier = {
 				has_civil_war = yes
 				factor = 100
@@ -4118,11 +3884,25 @@ country_event = {
 		effect_tooltip = {
 			white_peace = FROM
 			custom_effect_tooltip = PRC_takeover_dongbei_tt
+			if = {
+				limit = {
+					CHI = {
+						is_faction_leader = yes
+						is_in_faction_with = FROM
+					}
+				}
+				CHI = {
+					remove_from_faction = FROM
+				}
+			}
 		}
 	}
 
 	option = {
 		name = prc.110.b
+		ai_chance = {
+			base = 5
+		}
 		FROM = {
 			country_event = { id = prc.112 }
 		}
@@ -4144,16 +3924,40 @@ country_event = {
 			white_peace = FROM
 			every_state = {
 				limit = {
-					is_core_of = PRC
+					OR = {
+						region = 155
+						state = 609
+						state = 611
+						state = 612
+					}
+					NOT = {
+						state = 527
+						state = 525
+						state = 917
+						state = 918
+						state = 919
+						state = 920
+					}
 					owner = {
 						OR = {
 							tag = JAP
-							is_puppet_of = JAP
+							is_subject_of = JAP
 						}
 					}
 				}
 				PRC = {
 					transfer_state = PREV
+				}
+			}
+			if = {
+				limit = {
+					CHI = {
+						is_faction_leader = yes
+						is_in_faction_with = FROM
+					}
+				}
+				CHI = {
+					remove_from_faction = FROM
 				}
 			}
 		}
@@ -4190,6 +3994,17 @@ country_event = {
 					transfer_state = PREV
 				}
 			}
+			if = {
+				limit = {
+					CHI = {
+						is_faction_leader = yes
+						is_in_faction_with = FROM
+					}
+				}
+				CHI = {
+					remove_from_faction = FROM
+				}
+			}
 		}
 	}
 }
@@ -4209,76 +4024,6 @@ country_event = {
 	}
 }
 
-#check for states ownership for .114
-country_event = {
-	id = prc.113
-	hidden = yes
-
-	is_triggered_only = yes
-
-	immediate = {
-		if = {
-			limit = {
-				has_war_with = JAP
-				tag = PRC
-				no_jap_in_manchuria = yes
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-			country_event = {
-				id = prc.114
-			}
-			else = {
-				country_event = { id = prc.113 days = 10 }
-			}
-		}
-	}
-	option = {}
-}
-
-#peace?
-country_event = {
-	id = prc.114
-	title = prc.109.t
-	desc = prc.114.d
-
-	picture = GFX_report_event_chinese_soldiers_fighting
-
-	trigger = {
-		has_war_with = JAP
-		tag = PRC
-		no_jap_in_manchuria = yes
-	}
-
-	mean_time_to_happen = { days = 10 }
-
-	fire_only_once = yes
-
-	option = {
-		name = prc.109.a
-		ai_chance = {
-			factor = 1
-		}
-		JAP = {
-			country_event = { id = prc.110 }
-			custom_effect_tooltip = needs_approval
-		}
-		effect_tooltip = {
-			white_peace = JAP
-			custom_effect_tooltip = PRC_takeover_dongbei_tt
-		}
-	}
-
-	option = {
-		ai_chance = {
-			factor = 0
-		}
-		name = prc.109.c
-	}
-}
-
 #henan famine
 country_event = {
 	id = prc.115
@@ -4286,18 +4031,8 @@ country_event = {
 	desc = prc.115.d
 
 	picture = GFX_report_event_dead_soldiers
-
-	trigger = {
-		owns_state = 607
-		607 = {
-			controller = {
-				has_war_with = ROOT
-			}
-		}
-	}
-
-	mean_time_to_happen = { days = 20 }
-
+	
+	is_triggered_only = yes
 	fire_only_once = yes
 
 	option = {
@@ -4311,49 +4046,12 @@ country_event = {
 	option = {
 		name = prc.115.b
 		ai_chance = {
-			factor = 0
+			base = 0
 		}
-		if = {
-			limit = {
-				OR = {
-					has_government = neutrality
-					has_government = fascism
-				}
-			}
-			add_timed_idea = {
-				idea = KMT_no_aid_famine_comm
-				days = 150
-			}
-			add_popularity = {
-				popularity = 0.05
-				ideology = communism
-			}
-		}
-		if = {
-			limit = {
-				has_government = democratic
-			}
-			add_timed_idea = {
-				idea = KMT_no_aid_famine_fasc
-				days = 150
-			}
-			add_popularity = {
-				popularity = 0.05
-				ideology = fascism
-			}
-		}
-		if = {
-			limit = {
-				has_government = communism
-			}
-			add_timed_idea = {
-				idea = KMT_no_aid_famine_demo
-				days = 150
-			}
-			add_popularity = {
-				popularity = 0.05
-				ideology = democratic
-			}
+		add_political_power = -50
+		add_popularity = {
+			popularity = -0.15
+			ideology = ROOT
 		}
 	}
 }
@@ -4366,17 +4064,7 @@ country_event = {
 
 	picture = GFX_report_event_chinese_officers
 
-	trigger = {
-		tag = CHI
-		has_completed_focus = KMT_implement_parliamentary_system
-		NOT = {
-			country_exists = PRC
-		}
-	}
-
-	mean_time_to_happen = { days = 2 }
-
-	fire_only_once = yes
+	is_triggered_only = yes
 
 	immediate = {
 		hidden_effect = {
@@ -4456,7 +4144,7 @@ country_event = {
 
 	option = {
 		ai_chance = {
-			factor = 40
+			base = 40
 			modifier = {
 				has_government = communism
 				SOV = {
@@ -4525,7 +4213,7 @@ country_event = {
 
 	option = {
 		ai_chance = {
-			factor = 100
+			base = 100
 		}
 		name = prc.123.a
 		SIK = {
@@ -4546,12 +4234,7 @@ country_event = {
 
 	picture = GFX_report_event_chinese_officers
 
-	fire_only_once = yes
-
-	trigger = {	
-		tag = PRC
-		date > 1936.1.2
-	}
+	is_triggered_only = yes
 
 	option = {
 		name = prc.126.a
