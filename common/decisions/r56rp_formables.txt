@@ -36809,14 +36809,13 @@ pol_initial_zapadoslavia_formable = { 		#Czechoslovakia become Zapadoslavia
 	}
 }
 
-austrian_expansion = {
-	reunify_with_hungary_dem = {
+AUS_viennas_reach_in_central_europe = {
+	AUS_wien_und_budapest_wieder_vereint = {
 		icon = formable_nations_danubian_hungary
 		fire_only_once = yes
 		cost = 35
 		
 		available = {
-			# Austria
 			controls_state = 43
 			controls_state = 155
 			controls_state = 913
@@ -36832,158 +36831,132 @@ austrian_expansion = {
 		}
 
 		complete_effect = {
-			add_stability = -0.035
+			add_stability = -0.03
 			add_war_support = 0.01
 			add_popularity = {
-				ideology = fascism
-				popularity = -0.03	
+				ideology = ROOT
+				popularity = 0.05
 			}	
 			set_global_flag = form_austria_hungary_flag
 			set_cosmetic_tag = HUN_EMPIRE	
 		}			
 		days_remove = 70
 		modifier = {
-     		political_power_gain = -0.75
+     		political_power_factor = -0.35
 			consumer_goods_factor = 0.05	
 		}		
 		remove_effect = {
-	 		add_stability = 0.015
-	 		custom_effect_tooltip = hun_cored_by_aus_tt
-			hidden_effect = {
-				43 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 43
+						state = 155
+						state = 913
+						state = 154
+					}
 				}
-				155 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
+				add_core_of = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_hungarian_autonomy	
 				}
-				913 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
-				}
-				154 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
-				}
-			}	
+			}
 		}
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 	}
 
-	reunify_austria_sudetenland_dem = { # Not Democratic - All Ideologies
+	AUS_reintegrate_the_sudetenland = {
 		icon = formable_nations_danubian_bohemia
 		fire_only_once = yes
 		cost = 25
 		available = {
-			# Austria
 			controls_state = 69
 		}
-
-		visible = {
-			OR = {
-				has_government = democratic
-				has_government = communism
-			}	
-			controls_state = 69	
-		}
-
-		complete_effect = {
-			add_stability = -0.02
-			add_war_support = 0.01	
+		ai_will_do = {
+			base = 100		
 		}
 		
-		days_remove = 45
+		days_remove = 60
 		modifier = {
-     		political_power_gain = -0.40
-			consumer_goods_factor = 0.045	
+     		political_power_factor = -0.15
+			consumer_goods_factor = 0.04	
 		}
 
 		remove_effect = {
 			add_stability = 0.025
-			custom_effect_tooltip = aus_cores_on_sudetenland_tt
-			hidden_effect = {
-				69 = { add_claim_by = ROOT }
-				74 = { add_claim_by = ROOT }
-				72 = { add_claim_by = ROOT }	
+			add_war_support = 0.03
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.05
+			}
+			every_state = {
+				limit = {
+					OR = {
+						state = 69
+						state = 74
+					}
+				}
+				add_core_of = ROOT
 			}	
 		}	
 	}
 		
-	reunify_austria_bohemia_moravia_dem = {
+	AUS_grant_the_czechs_autonomy = {
 		icon = formable_nations_danubian_bohemiamoravia
 		fire_only_once = yes
 		cost = 45
 	
 		visible = {
 			OR = {
-				has_global_flag = form_austria_hungary_flag
-				controls_state = 9
-				controls_state = 75
-			}	
-		}
-		available = {
-			# Austria
-			owns_state = 9
-			owns_state = 75	
-			OR = {
 				has_government = democratic
 				has_government = communism
 			}
+		}
+		available = {
+			controls_state = 9
+			controls_state = 75
 		}		
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 		complete_effect = {
 			add_stability = -0.03
-			add_war_support = 0.01	
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.05	
-			}	
+			add_war_support = 0.01		
 		}
-		days_remove = 190
+		days_remove = 120
 		modifier = {
-   			political_power_gain = -0.35
-			consumer_goods_factor = 0.04
+   			political_power_factor = -0.25
+			consumer_goods_factor = 0.05
 		}
 		remove_effect = {
-			add_stability = 0.025
-			custom_effect_tooltip = aus_cores_on_czechia_tt
-			hidden_effect = {
-				9 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_czech_autonomy	
-					}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 9
+						state = 75
+					}
 				}
-				75 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_czech_autonomy	
-					}	
+				add_core_of = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_czech_autonomy	
+				}
+			}
+			if = {
+				limit = { 
+					72 = { is_controlled_by = ROOT }
 				}
 				72 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					add_dynamic_modifier = {
 						modifier = aus_czech_autonomy	
-					}	
+					}
 				}
 			}	
 		}	
 	}
 		
-	annex_hungarian_claims_in_slovakia_austria = {
+	AUS_reintegrate_kosice_and_carpathia_ruthenia = {
 		icon = formable_nations_danubian_kosice
 		fire_only_once = yes
 		cost = 20
@@ -36995,56 +36968,40 @@ austrian_expansion = {
 			}	
 		}
 		available = {
-			# Austria
 			controls_state = 664
 			controls_state = 996	
 			controls_state = 73	
 		}	
 
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 
-		complete_effect = {
-			add_war_support = 0.01	
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.025	
-			}	
-		}
 		days_remove = 70
 		modifier = {
-   			political_power_gain = -0.25
+   			political_power_factor = -0.1
 			consumer_goods_factor = 0.005
 			stability_weekly = -0.001
 		}
 		remove_effect = {
 			add_stability = 0.01		
-			custom_effect_tooltip = aus_cores_on_hungarian_claims_in_slovakia_tt
-			hidden_effect = {
-				664 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 664
+						state = 996
+						state = 73
+					}
 				}
-				996 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
-				}
-				73 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
-				}
+				add_core_of = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_hungarian_autonomy	
+				}	
 			}	
 		}
 	}
 		
-	reunify_austria_slovakia_dem = {
+	AUS_grant_the_slovaks_autonomy = {
 		icon = formable_nations_danubian_slovakia
 		fire_only_once = yes
 		cost = 0
@@ -37064,39 +37021,31 @@ austrian_expansion = {
 			factor = 100		
 		}
 		complete_effect = {
-			add_stability = -0.035
+			add_stability = -0.03
 			add_war_support = 0.01	
 		}
-		days_remove = 210
+		days_remove = 125
 		modifier = {
-   			political_power_gain = -0.20
-			consumer_goods_factor = 0.015
+   			political_power_gain = -0.15
+			consumer_goods_factor = 0.02
 		}
 		remove_effect = {
-			add_stability = 0.025	
-			custom_effect_tooltip = aus_cores_on_slovakia_tt	
-			hidden_effect =	{ 
-				70 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_slovak_autonomy	
-					}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 70
+						state = 71
+					}
 				}
-				71 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_slovak_autonomy	
-					}	
+				add_core_of = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_slovak_autonomy	
 				}
-				664 = { add_claim_by = AUS }	
-				996 = { add_claim_by = AUS }	
-				73 = { add_claim_by = AUS }
-				664 = { add_claim_by = AUS }	
 			}	
 		}	
 	}
 		
-	reintegrate_north_transylvania_dem = {
+	AUS_reintegrate_north_transylvania_into_hungary = {
 		icon = formable_nations_danubian_transylvania
 		fire_only_once = yes
 		cost = 30	
@@ -37108,19 +37057,14 @@ austrian_expansion = {
 			}	
 		}
 		available = {
-			# Austria
 			controls_state = 76	
 		}	
 		ai_will_do = {
 			factor = 100		
 		}
 		complete_effect = {
-			add_stability = -0.03
-			add_war_support = 0.01
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.025	
-			}	
+			add_stability = -0.02
+			add_war_support = 0.01	
 		}
 		days_remove = 110
 		modifier = {
@@ -37129,18 +37073,15 @@ austrian_expansion = {
 		}
 		remove_effect = {
 			add_stability = 0.01
-			custom_effect_tooltip = aus_core_on_north_transylvania_tt
-			hidden_effect = {
-				76 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
-				}
+			76 = {
+				add_claim_by = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_hungarian_autonomy	
+				}	
 			}	
 		}
 	}
-	reunify_transylvania_and_banat_austria_dem = {
+	AUS_autonomy_for_the_banat_and_transylvania = {
 		icon = formable_nations_danubian_banat
 		fire_only_once = yes
 		cost = 85	
@@ -37160,74 +37101,53 @@ austrian_expansion = {
 			owns_state = 764
 		}
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 
 		complete_effect = {
-			add_stability = -0.075
-			add_war_support = 0.01
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.03	
-			}	
+			add_stability = -0.05
+			add_war_support = 0.01	
 		}
-		days_remove = 240
+		days_remove = 175
 
 		modifier = {
    			political_power_gain = -0.25
 			consumer_goods_factor = 0.03	
 		}
 		remove_effect = {
-			add_stability = 0.025
-			custom_effect_tooltip = aus_cores_on_transylvania_and_banat_tt
-			hidden_effect = {
-				82 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_transylvania_autonomy	
-					}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 82
+						state = 83
+						state = 84
+						state = 764
+					}
 				}
-				83 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_transylvania_autonomy	
-					}	
-				}
-				84 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_transylvania_autonomy	
-					}	
-				}
-				764 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_transylvania_autonomy	
-					}	
+				add_core_of = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_transylvania_autonomy	
 				}
 			}	
 		}	
 	}
 		
-	reunify_austria_slovenia_dem = {
+	AUS_grant_the_slovenes_autonomy = {
 		icon = formable_nations_danubian_slovenia
 		fire_only_once = yes
 		cost = 15
 		available = {
-			owns_state = 102
-			owns_state = 853	
-			owns_state = 956	
-			OR = {
-				has_government = democratic
-				has_government = communism
-			}
+			controls_state = 102
+			controls_state = 853	
+			controls_state = 956	
 		}
 		visible = {
 			OR = {
 				has_global_flag = form_austria_hungary_flag
-				owns_state = 102
-				owns_state = 853	
-				owns_state = 853	
+				OR = {
+					has_government = democratic
+					has_government = communism
+				}
 			}	
 		}
 		complete_effect = {
@@ -37240,347 +37160,221 @@ austrian_expansion = {
 			consumer_goods_factor = 0.015	
 		}
 		remove_effect = {
-			add_stability = 0.01
-			custom_effect_tooltip = aus_cores_on_slovenia_tt
-			hidden_effect = {
-				102 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_slovene_autonomy	
-					}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 102
+						state = 853
+						state = 956
+					}
 				}
-				853 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_slovene_autonomy	
-					}	
+				add_core_of = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_slovene_autonomy	
 				}
-				956 = {
-					add_claim_by = ROOT
+			}
+			if = {
+				limit = {
+					736 = { is_controlled_by = ROOT }
+				}
+				736 = {
+					add_core_of = ROOT
 					add_dynamic_modifier = {
 						modifier = aus_slovene_autonomy	
 					}
 				}
-
-				736 = { add_claim_by = AUS }	
-				852 = { add_claim_by = AUS }	
-			}	
+			}
 		}	
 	}	
 
-	reunify_austria_croatia_dem = {
+	AUS_grant_the_croatians_autonomy = {
 		icon = formable_nations_danubian_croatia
 		fire_only_once = yes
-		cost = 20
+		cost = 40
 		available = {
-			owns_state = 109
-			owns_state = 959	
-			owns_state = 958	
-			owns_state = 103 
-			owns_state = 952
+			controls_state = 109
+			controls_state = 959	
+			controls_state = 958	
+			controls_state = 103 
+			controls_state = 952
+		}
+		visible = {
+			has_global_flag = form_austria_hungary_flag 
 			OR = {
 				has_government = democratic
 				has_government = communism
 			}
 		}
-		visible = {
-			has_global_flag = form_austria_hungary_flag 
-		}
 		complete_effect = {
-			add_stability = -0.02
+			add_stability = -0.03
 			add_war_support = 0.01	
 		}
-		days_remove = 210
+		days_remove = 185
 		modifier = {
      		political_power_gain = -0.25
-			consumer_goods_factor = 0.02	
+			consumer_goods_factor = 0.03	
 		}
 		remove_effect = {
-			add_stability = 0.01
-			custom_effect_tooltip = aus_cores_on_croatia_tt
-			hidden_effect = {
-				109 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_croatian_autonomy	
-					}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 109
+						state = 959
+						state = 952
+						state = 958
+						state = 103
+					}
 				}
-				959 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_croatian_autonomy	
-					}	
+				add_core_of = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_croatian_autonomy	
 				}
-				952 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_croatian_autonomy	
-					}	
-				}
-				958 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_croatian_autonomy	
-					}	
-				}
-				103 = {
-				add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_croatian_autonomy	
-					}	
-				}	
-				852 = { add_claim_by = AUS }	
-			}	
-		}	
-	}
-	austria_integrate_istria_dem = {
-		icon = formable_nations_danubian_istria
-		fire_only_once = yes
-		cost = 20
-		visible = {
-			OR = {
-				controls_state = 736
-				controls_state = 852
-				controls_state = 163
-			}	
-		}
-		available = {
-			owns_state = 736
-			owns_state = 852
-			OR = {
-				has_government = democratic
-				has_government = communism
 			}
-		}
-		complete_effect = {
-			add_stability = -0.01
-			add_war_support = 0.01	
-		}
-		days_remove = 170
-		modifier = {
-     		political_power_gain = -0.15
-			stability_weekly = -0.001
-		}
-		remove_effect = {
-			add_stability = 0.015
-			custom_effect_tooltip = aus_cores_on_istria_tt
-			hidden_effect = {
-				736 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_slovene_autonomy	
-					}	
+			if = {
+				limit = {
+					852 = { is_controlled_by = ROOT }
 				}
 				852 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					add_dynamic_modifier = {
 						modifier = aus_croatian_autonomy	
-					}	
+					}
+				}
+			}
+			if = {
+				limit = {
+					163 = { is_controlled_by = ROOT }
+				}
+				163 = {
+					add_core_of = ROOT
+					add_dynamic_modifier = {
+						modifier = aus_croatian_autonomy	
+					}
 				}
 			}	
 		}	
 	}
 
-	austria_integrate_zara_dem = {
-		icon = formable_nations_danubian_zara
-		fire_only_once = yes
-		cost = 10
-		visible = {
-			OR = {
-				controls_state = 736
-				controls_state = 852
-				controls_state = 163
-			}	
-		}
-		available = {
-			owns_state = 163
-			OR = {
-				has_government = democratic
-				has_government = communism
-			}
-		}
-		complete_effect = {
-			add_war_support = 0.01	
-		}
-		days_remove = 230
-		modifier = {
-     		political_power_gain = -0.05
-		}
-		remove_effect = {
-			add_stability = 0.01
-			custom_effect_tooltip = aus_cores_on_zara_tt
-			hidden_effect = {
-				163 = {
-				add_claim_by = ROOT
-				add_dynamic_modifier = {
-				modifier = aus_croatian_autonomy	}	
-				}
-			}	
-		}	
-	}	
-
-	reunify_austria_bosnia_dem = {
+	AUS_grant_the_bosnians_autonomy = {
 		icon = formable_nations_danubian_bosnia
 		fire_only_once = yes
-		cost = 85
+		cost = 75
 		available = {
-			owns_state = 961
-			owns_state = 804	
-			owns_state = 104	
-			owns_state = 962 
-			OR = {
-				has_government = democratic
-				has_government = communism
-			}
+			controls_state = 961
+			controls_state = 804	
+			controls_state = 104	
+			controls_state = 962 
 		}
 		visible = {
 			has_global_flag = form_austria_hungary_flag 
+			OR = {
+				has_government = democratic
+				has_government = communism
+			}
 		}
 		complete_effect = {
-			add_stability = -0.05
+			add_stability = -0.04
 			add_war_support = 0.01	
 		}
-		days_remove = 240
+		days_remove = 190
 		modifier = {
      		political_power_gain = -0.40
 			consumer_goods_factor = 0.02	
 		}
 		remove_effect = {
-			add_stability = 0.025
-			custom_effect_tooltip = aus_cores_on_bosnia_tt
-			hidden_effect = {
-				961 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_bosnian_autonomy	
-					}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 961
+						state = 804
+						state = 104
+						state = 962
+					}
 				}
-				804 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_bosnian_autonomy	
-					}	
-				}
-				104 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_bosnian_autonomy	
-					}	
-				}
-				962 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_bosnian_autonomy	
-					}	
-				}
-			}	
+				add_core_of = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_bosnian_autonomy	
+				}	
+			}
 		}	
 	}
 
-	reunify_vojvodina_austria_dem = {
+	AUS_reintegrate_the_vojvodina_into_hungary = {
 		icon = formable_nations_danubian_vojvodina
 		fire_only_once = yes
 		cost = 15
 		visible = {
 			has_global_flag = form_austria_hungary_flag 
-		}
-		available = {
-			# Austria
-			controls_state = 45	
 			OR = {
 				has_government = democratic
 				has_government = communism
 			}
+		}
+		available = {
+			controls_state = 45	
 		}	
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 		complete_effect = {
 			add_stability = -0.015
-			add_war_support = 0.01
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.05	
-			}	
+			add_war_support = 0.01	
 		}
 		days_remove = 70
 		modifier = {
     		political_power_gain = -0.15
-			consumer_goods_factor = 0.015	
-			stability_weekly = -0.0025 
+			consumer_goods_factor = 0.02	
 		}
 		remove_effect = {
-			add_stability = 0.02
-			custom_effect_tooltip = aus_core_on_voj_tt
-			hidden_effect = {
-				45 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_hungarian_autonomy	
-					}	
-				}
-				952 = { add_claim_by = AUS }	
-				764 = { add_claim_by = AUS }	
-			}	
+			45 = {
+				add_claim_by = ROOT
+				add_dynamic_modifier = {
+					modifier = aus_hungarian_autonomy	
+				}	
+			}
 		}	
 	}
 
-	integrate_bavaria_austria_dem = {
+	AUS_integrate_bavaria = {
 		icon = formable_nations_danubian_bavaria
 		fire_only_once = yes
 		cost = 45	
-		visible = {
-			OR = {
-				controls_state = 52
-				controls_state = 53
-				controls_state = 54	
-			}	
-		}
 		available = {
-			# Austria
 			controls_state = 52	
 			controls_state = 53
 			controls_state = 54	
 		}	
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 		complete_effect = {
 			add_stability = -0.01
 			add_war_support = 0.01
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.05	
-			}
 		}
-		days_remove = 110
+		days_remove = 90
 		modifier = {
-    		political_power_gain = -0.10
-			consumer_goods_factor = 0.025	
+    		political_power_gain = -0.15
+			consumer_goods_factor = 0.03	
 		}
 		remove_effect = {
-			add_stability = 0.02
-			custom_effect_tooltip = aus_cores_on_bavaria_tt
-			hidden_effect = {
-				52 = { add_claim_by = ROOT }	
-				53 = { add_claim_by = ROOT }	
-				54 = { add_claim_by = ROOT }	
-			}	
+			every_state = {
+				limit = {
+					OR = {
+						state = 52
+						state = 53
+						state = 54
+					}
+				}
+				add_core_of = ROOT
+			}
 		}	
 	}
 
-	integrate_baden_wurttemberg_austria_dem = {
+	AUS_integrate_baden_wurttemberg = {
 		icon = formable_nations_danubian_baden
 		fire_only_once = yes
 		cost = 35
-		visible = {
-			OR = {
-				controls_state = 50
-				controls_state = 923	
-			}
-		}
 		available = {
-			# Austria
 			controls_state = 50	
 			controls_state = 923	
 		}	
@@ -37588,7 +37382,7 @@ austrian_expansion = {
 			factor = 100		
 		}
 		complete_effect = {
-			add_stability = -0.01
+			add_stability = -0.005
 			add_war_support = 0.01
 			add_popularity = {
 				ideology = fascism
@@ -37601,68 +37395,78 @@ austrian_expansion = {
 			consumer_goods_factor = 0.015	
 		}
 		remove_effect = {
-			add_stability = 0.015
-			custom_effect_tooltip = aus_cores_on_bw_tt
-			hidden_effect = {
-				50 = { add_claim_by = ROOT }	
-				923 = { add_claim_by = ROOT }	
+			every_state = {
+				limit = {
+					OR = {
+						state = 50
+						state = 923
+					}
+				}
+				add_core_of = ROOT
 			}	
 		}
 	}
 	
-	integrate_german_speaking_switzerland_austria_dem = {
+	AUS_integrate_the_swiss_germans = {
 		icon = formable_nations_westernswiss
 		fire_only_once = yes
-		cost = 75	
-		visible = {
-			OR = {
-				controls_state = 151
-				controls_state = 3	
-				controls_state = 847	
-			}	
-		}
+		cost = 60	
 		available = {
-			# Austria
-			owns_state = 151	
-			owns_state = 3	
-			OR = {
-				has_government = democratic
-				has_government = communism
-			}
+			controls_state = 151
+			controls_state = 3	
 		}	
 		ai_will_do = {
-			factor = 100		
+			base = 20	
 		}
 		complete_effect = {
-			add_stability = -0.05
-			add_war_support = 0.01	
+			if = {
+				limit = {
+					OR = {
+						has_government = democratic
+						has_government = communism
+					}
+				}
+				add_stability = -0.04
+				add_war_support = 0.01
+			}
+			else = {
+				add_stability = -0.06
+			}	
 		}
-		days_remove = 240
+		days_remove = 190
 		modifier = {
   			political_power_gain = -0.25
 			consumer_goods_factor = 0.015	
 		}
 		remove_effect = {
-			add_stability = 0.01
-			custom_effect_tooltip = aus_cores_in_swi_tt
-			hidden_effect = {
-				151 = {
-					add_claim_by = ROOT
+			if = {
+				limit = {
+					OR = {
+						has_government = democratic
+						has_government = communism
+					}
+				}
+				every_state = {
+					limit = {
+						OR = {
+							state = 151
+							state = 3
+						}
+					}
+					add_core_of = ROOT
 					add_dynamic_modifier = {
 						modifier = aus_swiss_autonomy	
-					}	
+					}
 				}
-				3 = {
-					add_claim_by = ROOT
-					add_dynamic_modifier = {
-						modifier = aus_swiss_autonomy	
-					}	
-				}
-			}	
+			}
+			else = {
+				add_state_core = 151
+				add_state_core = 3
+			}
 		}
 	}
 
-	claim_galicia_and_bukovina = {
+	AUS_claim_galicia_lodomeria_and_the_bukovina = {
 		icon = formable_nations_danubian_bucovina
 		fire_only_once = yes
 		cost = 25
