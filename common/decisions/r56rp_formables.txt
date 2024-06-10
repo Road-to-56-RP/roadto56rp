@@ -36083,7 +36083,7 @@ hungarian_expansionism_decision_category = {	#Hungary decisions to expand territ
 	}
 }
 
-cze_initial_zapadoslavia_formable = {		#Decision Panel for Czechoslovakia to form Zapadoslavia.
+CZE_liberate_the_slavs_of_central_europe = {		#Decision Panel for Czechoslovakia to form Zapadoslavia.
 	cze_become_zapadoslavia = { 		#Czechoslovakia become Zapadoslavia
 		icon = formable_nations_zapadoslavia
 		fire_only_once = yes
@@ -36101,7 +36101,6 @@ cze_initial_zapadoslavia_formable = {		#Decision Panel for Czechoslovakia to for
 		}	
 		
 		visible = {
-			original_tag = CZE		#Is Czechoslovakia
 			NOT = {
 				has_cosmetic_tag = HUN_EMPIRE
 				has_cosmetic_tag = FORM_EUR
@@ -36115,7 +36114,7 @@ cze_initial_zapadoslavia_formable = {		#Decision Panel for Czechoslovakia to for
 		}
 		
 		complete_effect = {
-			add_political_power = -70
+			add_ideas = CZE_POL_liberators_of_the_west_slavs_idea
 			set_capital = {
 				state = 88
 				remember_old_capital = no
@@ -36145,430 +36144,90 @@ cze_initial_zapadoslavia_formable = {		#Decision Panel for Czechoslovakia to for
 				807 = { add_claim_by = CZE }	
 				85 = { add_claim_by = CZE }						
 			}
-		}		
+		}				
+				
+		ai_will_do = {
+			base = 100		
+		}
+	}
+}
+
+POL_liberate_the_slavs_of_central_europe = { 		#Czechoslovakia become Zapadoslavia
+	pol_become_zapadoslavia = {
 		
-		days_remove = 125
-		modifier = {
-     		political_power_gain = -0.35
-			consumer_goods_factor = 0.055
-	 		stability_weekly = -0.002
-		}		
+		icon = formable_nations_zapadoslavia
+		name = cze_become_zapadoslavia
+		fire_only_once = yes
+		cost = 0
 		
-		remove_effect = {		#Gain 2 Stability and gains core on all required states.
-	 		add_stability = 0.02
-			custom_effect_tooltip = core_land
-			hidden_effect = {
-				88 = { add_claim_by = ROOT }
-				92 = { add_claim_by = ROOT }
-				90 = { add_claim_by = ROOT }
-				87 = { add_claim_by = ROOT }
-				98 = { add_claim_by = ROOT }
-				97 = { add_claim_by = ROOT }
-				934 = { add_claim_by = ROOT }
+		available = {
+			OR = {	#Restrictions preventing people from getting the benefits of multiple monarchist paths
+				has_completed_focus = POL_radicalize_the_front
+				has_completed_focus = POL_complete_april_constitution
+				has_completed_focus = POL_rewrite_1935_constitution
+				has_completed_focus = POL_cossack_king
+			}
+			controls_state = 9		#Cechy
+			controls_state = 75	#Moravia
+			controls_state = 72	#Zaolzie
+			controls_state = 70	#Western Slovakia
+			controls_state = 71	#Eastern Slovaia
+
+		}
+		
+		visible = {
+			NOT = {		#Restrictions preventing people forming multiple formables in one game
+				has_cosmetic_tag = FORM_COM
+				has_cosmetic_tag = FORM_EUR
+				has_cosmetic_tag = FORM_VIS
+				has_cosmetic_tag = FORM_INT
+				has_cosmetic_tag = FORM_EUA
+				has_cosmetic_tag = FORM_HRE
+				has_cosmetic_tag = FORM_GMO
+				has_cosmetic_tag = FORM_AEA
+				has_cosmetic_tag = FORM_POH
+				has_cosmetic_tag = PLC_UNIFIED
+				has_cosmetic_tag = FORM_WOR
 			}
 		}
+		
+		complete_effect = {
+			add_ideas = CZE_POL_liberators_of_the_west_slavs_idea
+			set_capital = {
+				state = 88
+				remember_old_capital = no
+			}
+			set_cosmetic_tag = FORM_ZAP
+			custom_effect_tooltip = pol_claims_on_czechoslovaia_tt
+			hidden_effect =	{
+				9 = { add_claim_by = ROOT }
+				75 = { add_claim_by = ROOT }		
+				72 = { add_claim_by = ROOT }
+				70 = { add_claim_by = ROOT }		
+				71 = { add_claim_by = ROOT }		
+				69 = { add_claim_by = ROOT }		
+				74 = { add_claim_by = ROOT }				
+				996 = { add_claim_by = ROOT }		
+				73 = { add_claim_by = ROOT }
+				664 = { add_claim_by = ROOT }
+				97 = { add_claim_by = ROOT }
+				934 = { add_claim_by = ROOT }						
+			}
+		}			
 				
 		ai_will_do = {
 			factor = 100		
 		}
 	}
 }
-cze_zapadoslavia_post_unification = {		#Decision Panel that unlocks after forming Zapadoslavia
-	cze_integrate_poz = { 		#Czechoslovakia Core Poznan
-		icon = generic_civil_support
-		fire_only_once = yes
-		cost = 20
-		
-		available = {
-			controls_state = 86		#Poznan
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 86
-			}
-		}
-		
-	
-		days_remove = 150
-		modifier = {
-     		political_power_gain = -0.045
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 1.5 Stability and gains core on Poznan
-	 		add_stability = 0.015
-			86 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_gdy = { 		#Czechoslovakia Core Poznan
-		icon = generic_civil_support
-		fire_only_once = yes
-		cost = 10
-		
-		available = {
-			controls_state = 807		#Poznan
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 807
-			}
-		}
-	
-		days_remove = 165
-		modifier = {
-     		political_power_gain = -0.015
-			consumer_goods_factor = 0.005
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 2.5 Stability and gains core on Poznan
-	 		add_stability = 0.025
-			807 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_katowice = { 		#Czechoslovakia Core Katowice
-		icon = generic_civil_support
-		fire_only_once = yes
-		cost = 10
-		
-		available = {
-			controls_state = 762		#Poznan
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 762
-			}
-		}
-	
-		days_remove = 165
-		modifier = {
-     		political_power_gain = -0.02
-			consumer_goods_factor = 0.005
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 2.5 Stability and gains core on Poznan
-	 		add_stability = 0.025
-			762 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_stan = { 		#Czechoslovakia Core Stansinlawow
-		icon = formable_nations_kievan_rus
-		fire_only_once = yes
-		cost = 15
-		
-		available = {
-			controls_state = 89
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 89
-			}
-		}
-	
-		days_remove = 150
-		modifier = {
-     		political_power_gain = -0.045
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 2 Stability and gains core on Stansinlawow
-	 		add_stability = 0.02
-			89 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_lwow = { 		#Czechoslovakia Core Lwow/Lviv
-		icon = formable_nations_kievan_rus
-		fire_only_once = yes
-		cost = 20
-		
-		available = {
-			controls_state = 91
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 91
-			}
-		}
-	
-		days_remove = 175
-		modifier = {
-     		political_power_gain = -0.03
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 1.5 Stability and gains core on Lwow
-	 		add_stability = 0.015
-			91 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_wolyn = { 		#Czechoslovakia Core Wolyn
-		icon = formable_nations_kievan_rus
-		fire_only_once = yes
-		cost = 15
-		
-		available = {
-			controls_state = 93
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 93
-			}
-		}
-	
-		days_remove = 165
-		modifier = {
-     		political_power_gain = -0.03
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 1 Stability and gains core on Lwow
-	 		add_stability = 0.01
-			93 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_vilnius = { 		#Czechoslovakia Core Vilnius
-		icon = formable_nations_greater_lithuania
-		fire_only_once = yes
-		cost = 10
-		
-		available = {
-			controls_state = 784		#Polesie
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 784
-			}
-		}
-	
-		days_remove = 165
-		modifier = {
-     		political_power_gain = -0.1
-			consumer_goods_factor = 0.005
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 2.5 Stability and gains core on Poznan
-	 		add_stability = 0.025
-			784 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_polesie = { 		#Czechoslovakia Core Polsie
-		icon = generic_civil_support
-		fire_only_once = yes
-		cost = 15
-		
-		available = {
-			controls_state = 94		#Polesie
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 94
-			}
-		}
-	
-		days_remove = 160
-		modifier = {
-     		political_power_gain = -0.03
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 1.5 Stability and gains core on Poznan
-	 		add_stability = 0.015
-			94 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_nowogrodek_grodno = { 		#Czechoslovakia Core Vilnius/Wilno
-		icon = generic_civil_support
-		fire_only_once = yes
-		cost = 15
-		
-		available = {
-			controls_state = 95	#nowogrodek
-			controls_state =  935	#grodno
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 95
-			}
-		}
-	
-		days_remove = 165
-		modifier = {
-     		political_power_gain = -0.1
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 1.5 Stability and gains core on Poznan
-	 		add_stability = 0.015
-			95 = { add_claim_by = ROOT }	
-			935 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_integrate_wilejka = { 		#Czechoslovakia Core Wilekja/Outer-Wilno
-		icon = generic_civil_support
-		fire_only_once = yes
-		cost = 25
-		
-		available = {
-			controls_state = 96		#Wilejka
-			controls_state = 936		#Outer-Wilno
-		}	
-		
-		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
-			has_cosmetic_tag = FORM_ZAP
-		}
-		highlight_states = {
-			highlight_state_targets = {
-				state = 96
-			}
-		}
-	
-		days_remove = 190
-		modifier = {
-     		political_power_gain = -0.1
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 2 Stability and gains core on Poznan
-	 		add_stability = 0.02
-			96 = { add_claim_by = ROOT }	
-			936 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	cze_push_germany_west = { 		#Czechoslovakia Claim all starting German states east of the Oder River
+
+CZE_POL_zapadoslavia_post_unification = {		#Decision Panel that unlocks after forming Zapadoslavia
+	CZE_POL_push_germany_west = { 		#Czechoslovakia Claim all starting German states east of the Oder River
 		icon = formable_nations_bohemianlands
 		fire_only_once = yes
 		cost = 115
 		
 		visible = {
-			OR = {
-				original_tag = CZE		#Is Czechoslovakia
-				original_tag = SLO		#Is Slovakia
-			}
 			has_cosmetic_tag = FORM_ZAP
 			OR = {	#Is at war with Germany, or controls one or all states east of the Oder
 				has_war_with = GER
@@ -36611,202 +36270,6 @@ cze_zapadoslavia_post_unification = {		#Decision Panel that unlocks after formin
 			factor = 100		
 		}
 	}		
-	pol_integrate_sudetenland = { 		#Poland integrate Sudetenland and Eastern Sudetenland
-		icon = generic_civil_support
-		fire_only_once = yes
-		cost = 35
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 69
-			}
-		}
-		
-		available = {
-			controls_state = 69		#Sudetenland
-		}	
-		
-		visible = {
-			original_tag = POL		#Is Poland
-			has_cosmetic_tag = FORM_ZAP
-		}
-	
-		days_remove = 365
-		modifier = {
-     		political_power_gain = -0.1
-			consumer_goods_factor = 0.02
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 2.5 Stability and gains core on Sudetenland/Eastern-Sudetenland
-	 		add_stability = 0.025
-			69 = { add_claim_by = ROOT }	
-			74 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	pol_integrate_carpathia_ruthenia = { 		#Poland integrate Carpathia-Ruthenia/Uzhorod
-		icon = formable_nations_kievan_rus
-		fire_only_once = yes
-		cost = 20
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 73
-			}
-		}
-		
-		available = {
-			controls_state = 73		#Carpathia-Ruthenia
-		}	
-		
-		visible = {
-			original_tag = POL		#Is Poland
-			has_cosmetic_tag = FORM_ZAP
-		}
-	
-		days_remove = 210
-		modifier = {
-     		political_power_gain = -0.1
-			consumer_goods_factor = 0.005
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 2.5 Stability and gains core on Poznan
-	 		add_stability = 0.025
-			73 = { add_claim_by = ROOT }	
-			996 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-	pol_integrate_southern_slovakia = { 		#Poland integrate Southern Slovakia
-		icon = generic_civil_support
-		fire_only_once = yes
-		cost = 10
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 664
-			}
-		}
-		
-		available = {
-			controls_state = 664		#Carpathia-Ruthenia
-		}	
-		
-		visible = {
-			original_tag = POL		#Is Poland
-			has_cosmetic_tag = FORM_ZAP
-		}
-	
-		days_remove = 190
-		modifier = {
-     		political_power_gain = -0.1
-			consumer_goods_factor = 0.005
-	 		stability_weekly = -0.001
-		}		
-		
-		remove_effect = {		#Gain 2.5 Stability and gains core on Southern-Slovakia
-	 		add_stability = 0.025
-			664 = { add_claim_by = ROOT }	
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
-}
-pol_initial_zapadoslavia_formable = { 		#Czechoslovakia become Zapadoslavia
-	pol_become_zapadoslavia = {
-		
-		icon = formable_nations_zapadoslavia
-		fire_only_once = yes
-		cost = 0
-		
-		available = {
-			OR = {	#Restrictions preventing people from getting the benefits of multiple monarchist paths
-				has_completed_focus = POL_radicalize_the_front
-				has_completed_focus = POL_complete_april_constitution
-				has_completed_focus = POL_rewrite_1935_constitution
-				has_completed_focus = POL_cossack_king
-			}
-			controls_state = 9		#Cechy
-			controls_state = 75	#Moravia
-			controls_state = 72	#Zaolzie
-			controls_state = 70	#Western Slovakia
-			controls_state = 71	#Eastern Slovaia
-
-		}
-		
-		visible = {
-			NOT = {		#Restrictions preventing people forming multiple formables in one game
-				has_cosmetic_tag = FORM_COM
-				has_cosmetic_tag = FORM_EUR
-				has_cosmetic_tag = FORM_VIS
-				has_cosmetic_tag = FORM_INT
-				has_cosmetic_tag = FORM_EUA
-				has_cosmetic_tag = FORM_HRE
-				has_cosmetic_tag = FORM_GMO
-				has_cosmetic_tag = FORM_AEA
-				has_cosmetic_tag = FORM_POH
-				has_cosmetic_tag = PLC_UNIFIED
-				has_cosmetic_tag = FORM_WOR
-			}
-		}
-		
-		complete_effect = {
-			add_political_power = -60
-			set_capital = {
-				state = 88
-				remember_old_capital = no
-			}
-			set_cosmetic_tag = FORM_ZAP
-			custom_effect_tooltip = pol_claims_on_czechoslovaia_tt
-			hidden_effect =	{
-				9 = { add_claim_by = CZE }
-				75 = { add_claim_by = CZE }		
-				72 = { add_claim_by = CZE }
-				70 = { add_claim_by = CZE }		
-				71 = { add_claim_by = CZE }		
-				69 = { add_claim_by = CZE }		
-				74 = { add_claim_by = CZE }				
-				996 = { add_claim_by = CZE }		
-				73 = { add_claim_by = CZE }
-				664 = { add_claim_by = CZE }						
-			}
-		}		
-		
-		days_remove = 165
-		modifier = {
-     		political_power_gain = -0.3
-			consumer_goods_factor = 0.045	
-	 		stability_weekly = -0.003
-		}		
-		
-		remove_effect = {		#Gain 3.5 Stability and gains core on all required states.
-	 		add_stability = 0.035
-			custom_effect_tooltip = core_land
-			hidden_effect = {
-				9 = { add_claim_by = ROOT }
-				75 = { add_claim_by = ROOT }
-				70 = { add_claim_by = ROOT }
-				71 = { add_claim_by = ROOT }
-				72 = { add_claim_by = ROOT }
-				97 = { add_claim_by = ROOT }
-				934 = { add_claim_by = ROOT }
-			}
-		}
-				
-		ai_will_do = {
-			factor = 100		
-		}
-	}
 }
 
 AUS_viennas_reach_in_central_europe = {
