@@ -1725,7 +1725,7 @@ focus_tree = {
 		icon = GFX_focus_por_luso_tropicalism
 		cost = 10
 		allow_branch = {
-			has_dlc = "Waking the Tiger"
+			
 			if = {
 				limit = {
 					has_game_rule = {
@@ -2031,7 +2031,7 @@ focus_tree = {
 	# 		y = 0
 	# 		trigger = {
 	# 			NOT = {
-	# 				has_dlc = "Waking the Tiger"
+	# 				
 	# 			}
 	# 		}
 	# 	}
@@ -2352,7 +2352,7 @@ focus_tree = {
 	#		set_global_flag = falkenhausen_recalled
 	#		if = {
 	#			limit = {
-	#				has_dlc = "Waking the Tiger"
+	#				
 	#			}
 	#			create_corps_commander = {
 	#				name = "Alexander von Falkenhausen"
@@ -12846,16 +12846,76 @@ focus_tree = {
 	}
 
 	focus = {
+		id = GER_alliance_with_soviets
+		icon = GFX_goal_GER_soviet_alliance
+		cost = 10.00
+		prerequisite = {
+			focus = GER_repeal_reichstag_fire_decree
+		}
+		mutually_exclusive = {
+			focus = GER_r56rp_world_revolution
+		}
+		x = 1
+		y = 1
+		relative_position_id = GER_repeal_reichstag_fire_decree
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			is_puppet = no
+			has_civil_war = no
+			SOV = {
+				NOT = {
+					has_war_with = GER
+				}
+				is_puppet = no
+			}
+		}
+		completion_reward = {
+			set_cosmetic_tag = GER_stalinist
+			GER_ernst_thalmann = {
+				set_portraits = { #revert to fancy uniform which he doesnt use during the civil war
+					civilian = {
+						large="gfx/leaders/GER/r56_portrait_GER_ernst_thalmann.dds"
+					}
+				}
+				add_country_leader_trait = connections_to_moscow
+			}
+
+			custom_effect_tooltip = BLANK_SEPERATOR
+			delete_unit_template_and_units = {
+				division_template = "Rotes Regiment"
+				disband = yes
+			}
+
+			custom_effect_tooltip = BLANK_SEPERATOR
+			SOV = {
+				country_event = {
+					id = r56.ger.53
+					hours = 8
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+
+	}
+
+	focus = {
 		id = GER_r56rp_world_revolution
 		icon = GFX_goal_support_fourth_int
-		cost = 10.00
+		cost = 10
 		prerequisite = {
 			focus = GER_repeal_reichstag_fire_decree
 		}
 		prerequisite = {
 			focus = GER_r56rp_rebuild_the_nation
 		}
-		x = 0
+		mutually_exclusive = {
+			focus = GER_alliance_with_soviets
+		}
+		x = -1
 		y = 1
 		relative_position_id = GER_repeal_reichstag_fire_decree
 		ai_will_do = {
@@ -12912,6 +12972,7 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = GER_r56rp_world_revolution
+			focus = GER_alliance_with_soviets
 		}
 		x = 0
 		y = 2
@@ -14135,7 +14196,6 @@ focus_tree = {
 		text = GER_prepare_italian_coup
 		icon = GFX_goal_italian_civil_war
 		allow_branch = {
-			has_dlc = "Waking the Tiger"
 			if = {
 				limit = {
 					has_game_rule = {
@@ -14325,7 +14385,7 @@ focus_tree = {
 			focus = GER_restore_the_empire
 		}
 		allow_branch = {
-			has_dlc = "Waking the Tiger"
+		
 			if = {
 				limit = {
 					has_game_rule = {
@@ -14814,7 +14874,7 @@ focus_tree = {
 		relative_position_id = GER_european_claims
 
 		allow_branch = {
-			has_dlc = "Waking the Tiger"
+			
 			if = {
 				limit = {
 					has_game_rule = {
@@ -15626,6 +15686,7 @@ focus_tree = {
 		cost = 10.00
 		prerequisite = {
 			focus = GER_r56rp_world_revolution
+			focus = GER_alliance_with_soviets
 		}
 		relative_position_id = GER_r56rp_world_revolution
 		x = 4
