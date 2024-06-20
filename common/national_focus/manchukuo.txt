@@ -3280,6 +3280,55 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAN_reclaim_the_entierty_of_manchuria_puppet
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = {  focus = MAN_propagate_nanshinron }
+		relative_position_id = MAN_propagate_nanshinron
+		x = 3
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			JAP = {
+				NOT = {
+					is_in_faction_with = SOV
+					has_non_aggression_pact_with = SOV
+					has_guaranteed = SOV
+				}
+			}
+			OR = {
+				SOV = { is_justifying_wargoal_against = JAP }
+				JAP = { is_justifying_wargoal_against = SOV }
+				has_war_with = SOV
+				VLA = {
+					exists = yes
+					NOT = { is_in_faction_with = MAN }
+				}
+				GUK = {
+					exists = yes
+					NOT = { is_in_faction_with = MAN }
+				}
+				FER = {
+					exists = yes
+					NOT = { is_in_faction_with = MAN }
+				}
+			}
+			
+		}
+		completion_reward = {
+			add_state_claim = 408
+			add_state_claim = 409
+			add_state_claim = 560
+			add_state_claim = 561
+			add_state_claim = 657
+			unlock_decision_tooltip = core_outer_manchuria_decision
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
 		id = MAN_assume_continental_responsibilities
 		icon = GFX_goal_generic_jungle_warfare
 		prerequisite = { focus = MAN_propagate_nanshinron }
