@@ -120,7 +120,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = MAN_pacify_the_countryside
 
-		cost = 10
+		cost = 15
 
 		ai_will_do = {
 			factor = 1
@@ -128,26 +128,25 @@ focus_tree = {
 
 		available = {
 			NOT = { has_idea = MAN_banditry }
-			NOT = { has_war_with = JAP }
+			is_subject_of = JAP
+			has_full_control_of_state = 715
+			has_full_control_of_state = 610
+			has_full_control_of_state = 328
+		}
+
+		bypass = {
+			JAP = {
+				has_completed_focus = JAP_japanese_settlement
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
-		complete_tooltip = {
-			every_state = {
-				limit = { has_state_flag = MAN_invite_japanese_settlers_2IC }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
 
 		completion_reward = {
 			random_owned_controlled_state = {
+				prioritize = { 715 }
 				limit = { is_fully_controlled_by = ROOT }
-				add_manpower = 25417
+				add_manpower = 25000
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -157,8 +156,9 @@ focus_tree = {
 				set_state_flag = MAN_invite_japanese_settlers_2IC
 			}
 			random_owned_controlled_state = {
+				prioritize = { 610 }
 				limit = { is_fully_controlled_by = ROOT }
-				add_manpower = 33846
+				add_manpower = 35000
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -167,6 +167,20 @@ focus_tree = {
 				}
 				set_state_flag = MAN_invite_japanese_settlers_2IC
 			}
+			random_owned_controlled_state = {
+				prioritize = { 328 }
+				limit = { is_fully_controlled_by = ROOT }
+				add_manpower = 15000
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				set_state_flag = MAN_invite_japanese_settlers_2IC
+			}
+
+			add_ideas = MAN_japanese_settlers
 		}
 	}
 
@@ -541,7 +555,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			add_ideas = yoshisuke_aikawa_tfv
+			add_ideas = MAN_yoshisuke_aikawa
 			random_owned_controlled_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -579,7 +593,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			add_ideas = naoki_hoshino_tfv
+			add_ideas = MAN_naoki_hoshino
 			random_owned_controlled_state = {
 				limit = { is_fully_controlled_by = ROOT }
 				add_extra_state_shared_building_slots = 1
@@ -1065,18 +1079,18 @@ focus_tree = {
 					has_dlc = "Arms Against Tyranny"
 				}
 				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = MAN_mamc_light_organization
-				show_mio_tooltip = MAN_mamc_medium_organization
-				show_mio_tooltip = MAN_mamc_heavy_organization
 				
-
-
+				show_mio_tooltip = MAN_mamc_light_organization
 				mio:MAN_mamc_light_organization = {
 					add_mio_funds = 500
 				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = MAN_mamc_medium_organization
 				mio:MAN_mamc_medium_organization = {
 					add_mio_funds = 500
 				}
+				custom_effect_tooltip = r56rp_newline_available_mio_tt
+				show_mio_tooltip = MAN_mamc_heavy_organization
 				mio:MAN_mamc_heavy_organization = {
 					add_mio_funds = 500
 				}
@@ -1618,19 +1632,27 @@ focus_tree = {
 		y = 1
 		relative_position_id = MAN_our_place_in_the_empire
 
-		cost = 7.2
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
 		}
 
 		bypass = {
-			OR = {
-				MEN = {
-					is_subject_of = ROOT
-					exists = no
-
-					is_in_faction_with = ROOT
+			612 = {
+				OR = {
+					is_owned_by = ROOT
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			611 = {
+				OR = {
+					is_owned_by = ROOT
+					owner = {
+						is_subject_of = ROOT
+					}
 				}
 			}
 		}
@@ -1674,19 +1696,34 @@ focus_tree = {
 		}
 
 		bypass = {
-			
+			609 = {
+				OR = {
+					is_owned_by = ROOT
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			745 = {
+				OR = {
+					is_owned_by = ROOT
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
 		}
 
 		available = {
 			609 = {
-					OWNER = {
-						is_ally_with = ROOT
-					}
+				OWNER = {
+					is_ally_with = ROOT
+				}
 			}
 			745 = {
 				OWNER = {
-						is_ally_with = ROOT
-					}
+					is_ally_with = ROOT
+				}
 			}
 		}
 
@@ -1776,8 +1813,8 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAN_depose_the_imbecile
-		icon = GFX_goal_MAN_depose_the_imbecile
+		id = MAN_depose_the_weak_monarch
+		icon = GFX_goal_MAN_depose_the_weak_monarch
 		prerequisite = { focus = MAN_mukden_convention }
 		x = 0
 		y = 1
@@ -1802,11 +1839,11 @@ focus_tree = {
 	focus = {
 		id = MAN_reorganize_the_kwantung_army
 		icon = GFX_focus_ETH_peacekeeping_forces
-		prerequisite = { focus = MAN_depose_the_imbecile }
+		prerequisite = { focus = MAN_depose_the_weak_monarch }
 		mutually_exclusive = { focus = MAN_the_imperial_wildcard focus = MAN_the_concord_of_ethnicities }
 		x = -2
 		y = 1
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 5
 
@@ -1816,7 +1853,7 @@ focus_tree = {
 
 		available = {
 			has_country_leader = {
-				character = MAN_doihara_kenji_tfv
+				character = MAN_doihara_kenji
 				ruling_only = yes
 			}
 		}
@@ -1838,7 +1875,7 @@ focus_tree = {
 		prerequisite = { focus = MAN_reorganize_the_kwantung_army }
 		x = -2
 		y = 3
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 10
 
@@ -1860,22 +1897,22 @@ focus_tree = {
 				category = land_doctrine
 			}
 			custom_effect_tooltip = available_military_high_command
-			show_ideas_tooltip = itagaki_seishiro_tfv
+			show_ideas_tooltip = MAN_itagaki_seishiro_hc
 			custom_effect_tooltip = available_military_high_command
-			show_ideas_tooltip = kenkichi_ueda_tfv
+			show_ideas_tooltip = MAN_kenkichi_ueda
 			custom_effect_tooltip = available_theorist
-			show_ideas_tooltip = toshizo_nishio_tfv
+			show_ideas_tooltip = MAN_toshizo_nishio
 		}
 	}
 
 	focus = {
 		id = MAN_the_imperial_wildcard
 		icon = GFX_goal_MAN_imperial_wildcard
-		prerequisite = { focus = MAN_depose_the_imbecile }
+		prerequisite = { focus = MAN_depose_the_weak_monarch }
 		mutually_exclusive = { focus = MAN_reorganize_the_kwantung_army focus = MAN_the_concord_of_ethnicities }
 		x = 0
 		y = 1
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 5
 
@@ -1885,7 +1922,7 @@ focus_tree = {
 
 		available = {
 			has_country_leader = {
-				character = MAN_kishi_nobosuke_tfv
+				character = MAN_kishi_nobosuke
 				ruling_only = yes
 			}
 		}
@@ -1904,7 +1941,7 @@ focus_tree = {
 		prerequisite = { focus = MAN_reorganize_the_kwantung_army focus = MAN_the_imperial_wildcard }
 		x = -1
 		y = 2
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 10
 
@@ -1942,7 +1979,7 @@ focus_tree = {
 		prerequisite = { focus = MAN_the_concord_of_ethnicities focus = MAN_the_imperial_wildcard }
 		x = 1
 		y = 2
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 10
 
@@ -1990,7 +2027,7 @@ focus_tree = {
 		prerequisite = { focus = MAN_council_of_corporations }
 		x = 0
 		y = 3
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 5
 
@@ -2012,11 +2049,11 @@ focus_tree = {
 	focus = {
 		id = MAN_the_concord_of_ethnicities
 		icon = GFX_goal_generic_national_unity
-		prerequisite = { focus = MAN_depose_the_imbecile }
+		prerequisite = { focus = MAN_depose_the_weak_monarch }
 		mutually_exclusive = { focus = MAN_reorganize_the_kwantung_army focus = MAN_the_imperial_wildcard }
 		x = 2
 		y = 1
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 5
 
@@ -2048,7 +2085,7 @@ focus_tree = {
 		prerequisite = { focus = MAN_the_concord_of_ethnicities }
 		x = 2
 		y = 3
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 10
 
@@ -2098,7 +2135,7 @@ focus_tree = {
 		
 		x = 0
 		y = 4
-		relative_position_id = MAN_depose_the_imbecile
+		relative_position_id = MAN_depose_the_weak_monarch
 
 		cost = 14.3
 
@@ -2622,12 +2659,13 @@ focus_tree = {
 				}
 			}
 		}
-
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+		
 		completion_reward = {
 			MAN_low_legitimacy_level_down = yes 
 			country_event = manchukuo_events.4
 		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 	}
 
 	focus = {
@@ -2647,7 +2685,7 @@ focus_tree = {
 
 		available = {
 			has_country_leader = {
-				character = MAN_qi_xieyuan_tfv
+				character = MAN_qi_xieyuan
 			}
 		}
 
@@ -2745,7 +2783,7 @@ focus_tree = {
 			}
 			add_ideas = MAN_warlord_governorates
 			add_trait = {
-     			character = MAN_qi_xieyuan_tfv
+     			character = MAN_qi_xieyuan
      			ideology = fascism_ideology
      			trait = marshal_of_the_league
 			}
@@ -2774,7 +2812,7 @@ focus_tree = {
 
 		available = {
 			has_country_leader = {
-				character = MAN_aisin_gioro_pujie_tfv
+				character = MAN_aisin_gioro_pujie
 			}
 		}
 
@@ -2874,7 +2912,7 @@ focus_tree = {
 			}
 			add_ideas = MAN_subservient_empire
 			add_trait = {
-     			character = MAN_aisin_gioro_pujie_tfv
+     			character = MAN_aisin_gioro_pujie
      			ideology = fascism_ideology
      			trait = emperor_of_china
 			}
@@ -3002,7 +3040,7 @@ focus_tree = {
 			if = {
 				limit = {
 					TIB = {
-					is_subject = YES
+						is_subject = no
 					}
 				}
 				declare_war_on = {
@@ -3185,8 +3223,11 @@ focus_tree = {
 
 		available = {
 			591 = {
-				OWNER = {
-					is_ally_with = ROOT
+				OR = {
+					is_fully_controlled_by = ROOT
+					OWNER = {
+						is_ally_with = ROOT
+					}
 				}
 			}
 		}
@@ -3194,6 +3235,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
+			# r56rp
+			# no reason for this to be man control specific.
 			build_railway = {
   				level = 1
   				build_only_on_allied = yes
@@ -3209,34 +3252,80 @@ focus_tree = {
   				start_province = 7097
   				target_province = 1070
 			}
-			if = {
-				limit = { 591 = { is_fully_controlled_by = ROOT } }
-				591 = {
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = radar_station
-						level = 2
-						instant_build = yes
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-   						type = naval_base
-   						level = 3
-    					instant_build = yes
-    					province = 1070
-					}
+			591 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = radar_station
+					level = 2
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					instant_build = yes
+					province = 1070
 				}
 			}
 		}
+	}
+
+	focus = {
+		id = MAN_reclaim_the_entierty_of_manchuria_puppet
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = {  focus = MAN_propagate_nanshinron }
+		relative_position_id = MAN_propagate_nanshinron
+		x = 3
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			JAP = {
+				NOT = {
+					is_in_faction_with = SOV
+					has_non_aggression_pact_with = SOV
+					has_guaranteed = SOV
+				}
+			}
+			OR = {
+				SOV = { is_justifying_wargoal_against = JAP }
+				JAP = { is_justifying_wargoal_against = SOV }
+				has_war_with = SOV
+				VLA = {
+					exists = yes
+					NOT = { is_in_faction_with = MAN }
+				}
+				GUK = {
+					exists = yes
+					NOT = { is_in_faction_with = MAN }
+				}
+				FER = {
+					exists = yes
+					NOT = { is_in_faction_with = MAN }
+				}
+			}
+			
+		}
+		completion_reward = {
+			add_state_claim = 408
+			add_state_claim = 409
+			add_state_claim = 560
+			add_state_claim = 561
+			add_state_claim = 657
+			unlock_decision_tooltip = core_outer_manchuria_decision
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
 
 	focus = {
@@ -3361,7 +3450,7 @@ focus_tree = {
 			}
 			else = {
 				promote_character = {
-					character = MAN_puyi_tfv
+					character = MAN_puyi
 					ideology = fascism_ideology
 				}
 			}
@@ -3978,21 +4067,8 @@ focus_tree = {
 					ideology = neutrality
 					popularity = 0.5
 				}
+
 				if = {
-					limit = {
-						has_dlc = "Together for Victory"
-						has_country_leader = {
-							character = MAN_puyi_tfv
-							ruling_only = yes
-						}
-						has_government = fascism
-					}
-					set_country_leader_portrait = {
-						ideology = fascism
-						portrait = GFX_portrait_man_pu_yi_commander
-					}						
-				}
-				else_if = {
 					limit = {
 						has_country_leader = {
 							character = MAN_puyi
@@ -4005,21 +4081,8 @@ focus_tree = {
 						portrait = GFX_portrait_man_pu_yi_commander
 					}
 				}
+
 				if = {
-					limit = {
-						has_dlc = "Together for Victory"
-						has_country_leader = {
-							character = MAN_puyi_tfv
-							ruling_only = yes
-						}
-						has_government = neutrality
-					}
-					set_country_leader_portrait = {
-						ideology = neutrality
-						portrait = GFX_portrait_man_pu_yi_commander
-					}						
-				}
-				else_if = {
 					limit = {
 						has_country_leader = {
 							character = MAN_puyi
@@ -4034,17 +4097,9 @@ focus_tree = {
 				}			
 				news_event = { id = wtt_news.48 days = 2 }
 			}
-			if = {
-				limit = {
-					NOT = {
-						has_dlc = "Together for Victory"
-					}
-				}
-				remove_country_leader_trait = puppet_emperor
-			}
-			else = {
-				remove_country_leader_trait = puppet_emperor_tfv
-			}
+
+			remove_country_leader_trait = puppet_emperor_
+
 			add_country_leader_trait = nationalist_symbol
 		}
 	}

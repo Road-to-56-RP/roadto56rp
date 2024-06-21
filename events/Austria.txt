@@ -15,26 +15,7 @@
 			name = austria.1111.a
 			ai_chance = { factor = 90 }
 			effect_tooltip = {
-				if = {
-					limit = { 
-						NOT = { has_dlc = "Together for Victory" }
-						NOT = { has_dlc = "Death or Dishonor" }
-					}
-					puppet = FROM
-				}
-				if = {
-					limit = { 
-						has_dlc = "Together for Victory"
-						NOT = { has_dlc = "Death or Dishonor" } 
-					}
-					set_autonomy = { target = FROM autonomy_state = autonomy_dominion freedom_level = 0.75 }
-				}
-				if = {
-					limit = {
-						has_dlc = "Death or Dishonor" 
-					}
-					set_autonomy = { target = FROM autonomy_state = autonomy_satellite freedom_level = 0.75 }
-				}
+				set_autonomy = { target = FROM autonomy_state = autonomy_satellite freedom_level = 0.75 }
 				FROM = {
 					if = {
 						limit = {
@@ -85,26 +66,7 @@
 		option = {
 			name = austria.1112.a
 			FROM = {
-				if = {
-					limit = { 
-						NOT = { has_dlc = "Together for Victory" }
-						NOT = { has_dlc = "Death or Dishonor" }
-					}
-					puppet = ROOT
-				}
-				if = {
-					limit = { 
-						has_dlc = "Together for Victory"
-						NOT = { has_dlc = "Death or Dishonor" } 
-					}
-					set_autonomy = { target = ROOT autonomy_state = autonomy_dominion freedom_level = 0.75 }
-				}
-				if = {
-					limit = {
-						has_dlc = "Death or Dishonor" 
-					}
-					set_autonomy = { target = ROOT autonomy_state = autonomy_satellite freedom_level = 0.75 }
-				}
+				set_autonomy = { target = ROOT autonomy_state = autonomy_satellite freedom_level = 0.75 }
 			}
 			if = {
 				limit = {
@@ -150,6 +112,8 @@
 		
 		option = {
 			name = austria.1114.a
+			# r56rp change
+			# austrian ai likley to refuse anschluss 
 			ai_chance = {
 				factor = 8
 			}
@@ -158,6 +122,8 @@
 			hidden_effect = {
 				news_event = { hours = 1 id = r56.news_event.1114 }
 			}
+			# r56rp change
+			# for internal faction points tracking
 			IF = {
 				limit = {
 					check_variable = {
@@ -212,6 +178,8 @@
 		# Refuses
 		option = {
 			name = austria.1114.b
+			# r56rp change
+			# austrian ai likley to refuse anschluss 
 			ai_chance = {
 				factor = 2
 			}
@@ -223,6 +191,9 @@
 				AUS = {
 					create_wargoal = { type = annex_everything target = HUN }
 				}
+				# r56rp change
+				# this is so austria doesent push on cores.
+				# coring is separate in a focus.
 				every_state = {
 					limit = {
 						is_claimed_by = HUN
@@ -3272,32 +3243,11 @@ country_event = { #civil war
 					days = 1
 				}
 			}
-			
-			if = {
-				limit = { not = { has_dlc = "Death or Dishonor" } }
-				create_country_leader = {
-					name = "Otto von Habsburg"
-					desc = "POLITICS_OTTO_VON_HABSBURG_DESC"
-					picture = "gfx/leaders/AUS/r56_portrait_AUS_Otto_von_Habsburg.dds"
-					expire = "2011.1.1"
-					ideology = absolute_monarchism
-					traits = {
-						#
-					}
-				}
-			}
-			if = {
-				limit = { has_dlc = "Death or Dishonor" }
-				create_country_leader = {
-					name = "Otto von Habsburg"
-					desc = "POLITICS_OTTO_VON_HABSBURG_DESC"
-					picture = GFX_Portrait_hungary_otto_von_hapsburg
-					expire = "2011.1.1"
-					ideology = absolute_monarchism
-					traits = {
-						#
-					}
-				}
+			create_country_leader = {
+				name = "Otto von Habsburg"
+				picture = GFX_Portrait_hungary_otto_von_hapsburg
+				expire = "2011.1.1"
+				ideology = absolute_monarchism
 			}
 		}
 	}	
