@@ -80,210 +80,325 @@ on_actions = {
 
 	on_startup = {
 		effect = {
-			# make sure the same country doesent appear twice. itll be assigned the lowest value on the list if it does.
-			# (code executes from top to bottom, i refuse to change me sorting.)
-
-			# 7 pointers
-			every_possible_country = {
+			# static country point assignment based on the ruleset.
+			IF = { 
 				limit = {
-					OR = {
-						original_tag = GER # Germany
-						original_tag = USA # United States of America
+					has_game_rule = { 
+						rule = r56rp_choose_cp_type 
+						option = STATIC_TABLE 
 					}
 				}
-				set_variable = { r56rp_rules_fp_controlled = 7 }
-			}
+			
+				# make sure the same country doesent appear twice. itll be assigned the lowest value on the list if it does.
+				# (code executes from top to bottom, i refuse to change me sorting.)
 
-			# 5 pointers
-			every_possible_country = {
+				# 7 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = GER # Germany
+							original_tag = USA # United States of America
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 7 }
+				}
+
+				# 5 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = SOV # Soviet Russia / USSR
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 6 }
+				}
+
+				# 5 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = ENG # England / Great Britan
+							original_tag = FRA # France
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 5 }
+				}
+
+				# 4 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = PRC # People's Republic of China / Chineese Soviet Republic
+							original_tag = CHI # Republic of China
+							original_tag = JAP # Japan
+							original_tag = CSA # CSA / Confederated States of America
+							original_tag = ITA # Italy
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 4 }
+				}
+
+				# 4 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = PRC # People's Republic of China / Chineese Soviet Republic
+							original_tag = CHI # Republic of China
+							original_tag = JAP # Japan
+							original_tag = CSA # CSA / Confederated States of America
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 4 }
+				}
+
+				# 3 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = ARG # Argentina
+							original_tag = AUS # Austria
+							original_tag = AST # Australia
+							original_tag = BRA # Brazil
+							original_tag = BEL # Belgium
+							original_tag = RAJ # British Raj / India
+							original_tag = CAN # Canada
+							original_tag = COL # Colombia
+							original_tag = CZE # Czehoslovakia
+							original_tag = GRE # Greece
+							original_tag = HON # Honduras
+							original_tag = PER # Iran
+							original_tag = HOL # Netherlands
+							original_tag = POL # Poland
+							original_tag = POR # Portugal
+							original_tag = ROM # Romania
+							original_tag = SAF # South Africa
+							original_tag = SPR # Spain
+							original_tag = SWE # Sweden
+							original_tag = TUR # Turkey
+							original_tag = VEN # Venezuela
+							original_tag = YUG # Yugoslavia
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 3 }
+				}
+
+				# 2 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = COG # Belgian Congo
+							original_tag = BOL # Bolivia
+							original_tag = MAL # British Malaysia
+							original_tag = BUL # Bulgaria
+							original_tag = CHL # Chile
+							original_tag = INS # Dutch East Indies
+							original_tag = EGY # Egypt
+							original_tag = EST # Estonia
+							original_tag = ETH # Ethiopia
+							original_tag = FIN # Finland
+							original_tag = FRI # French Indochina
+							original_tag = GXC # Guangxhi Clique / Guanxhi Clique 
+							original_tag = HUN # Hungary 
+							original_tag = IRQ # Iraq 
+							original_tag = LAT # Latvia 
+							original_tag = LIT # Lithuania
+							original_tag = MAN # Manchuria / Manchuko / Qing
+							original_tag = MEX # Mexico
+							original_tag = NZL # New Zealand
+							original_tag = NOR # Norway
+							original_tag = PRU # Peru
+							original_tag = PHI # Philippines
+							original_tag = SIA # Siam
+							original_tag = SWI # Switzerland
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 2 }
+				}
+
+				# 1 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = AFG # Afghanistan / Afganistan
+							original_tag = ALB # Albania
+							original_tag = BHU # Bhutan
+							original_tag = COS # Costa Rica
+							original_tag = CUB # Cuba
+							original_tag = DEN # Denmark
+							original_tag = DOM # Dominican Republic
+							original_tag = ECU # Ecuador
+							original_tag = ELS # El Salvador
+							original_tag = GUA # Guatemala
+							original_tag = HAI # Haiti
+							original_tag = ICE # Iceland
+							original_tag = IRE # Ireland
+							original_tag = LIB # Liberia
+							original_tag = LUX # Luxembourg / luxemburg
+							original_tag = XSM # Ma Clique
+							original_tag = MEN # Mongol Political Comiteee / Mengukuo / that shit that flips from china to japan
+							original_tag = MON # Mongolia
+							original_tag = NEP # Nepal
+							original_tag = NIC # NicaRAGUA
+							original_tag = OMA # OMAN
+							original_tag = PAN # Panama
+							original_tag = PAR # Paraguay
+							original_tag = SAU # Saudi Arabia / Oilland
+							original_tag = AFA # Aussa / Afar
+							original_tag = SHX # Shanxi
+							original_tag = TAN # Tannu Tuva
+							original_tag = TIB # Tibet
+							original_tag = TNG # Tunganistan / make it so
+							original_tag = URG # Uruguay
+							original_tag = SIK # Sinkiang / Xinjiang
+							original_tag = YEM # Yemen
+							original_tag = YUN # Yunnan
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 1 }
+				}
+
+				# 0 pointers
+				every_possible_country = {
+					limit = {
+						OR = {
+							original_tag = ADR # Andorra
+							original_tag = DNZ # Danzig
+							original_tag = SAN # San Marino
+							original_tag = MNC # Monaco
+							original_tag = LIE # Liechtenstein
+						}
+					}
+					set_variable = { r56rp_rules_fp_controlled = 0 }
+				}
+
+				# everything not on the list
+				every_possible_country = {
+					limit = {
+							NOT = {
+								has_variable = r56rp_rules_normalwargoaldeclaration
+								has_variable = r56rp_rules_focuswargoaldeclaration
+								has_variable = r56rp_rules_fp_controlled
+							}
+						}
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+						set_variable = { r56rp_rules_fp_controlled = 1 }
+				}
+
+			}
+			# dynamic country points assignment, based on factory count alone
+			ELSE_IF = {
 				limit = {
-					OR = {
-						original_tag = SOV # Soviet Russia / USSR
+					has_game_rule = { 
+						rule = r56rp_choose_cp_type 
+						option = FACTORY_BASED 
 					}
 				}
-				set_variable = { r56rp_rules_fp_controlled = 6 }
-			}
 
-			# 5 pointers
-			every_possible_country = {
-				limit = {
-					OR = {
-						original_tag = ENG # England / Great Britan
-						original_tag = FRA # France
+				# 7 pointers
+				every_country = {
+					limit = {
+						#num_of_controlled_factories < 500
+						num_of_controlled_factories > 249
 					}
+					set_variable = { r56rp_rules_fp_controlled = 10 }
 				}
-				set_variable = { r56rp_rules_fp_controlled = 5 }
-			}
 
-			# 4 pointers
-			every_possible_country = {
-				limit = {
-					OR = {
-						original_tag = PRC # People's Republic of China / Chineese Soviet Republic
-						original_tag = CHI # Republic of China
-						original_tag = JAP # Japan
-						original_tag = CSA # CSA / Confederated States of America
-						original_tag = ITA # Italy
+				# 5 pointers
+				every_country = {
+					limit = {
+						num_of_controlled_factories < 250
+						num_of_controlled_factories > 144
 					}
+					set_variable = { r56rp_rules_fp_controlled = 7 }
 				}
-				set_variable = { r56rp_rules_fp_controlled = 4 }
-			}
 
-			# 4 pointers
-			every_possible_country = {
-				limit = {
-					OR = {
-						original_tag = PRC # People's Republic of China / Chineese Soviet Republic
-						original_tag = CHI # Republic of China
-						original_tag = JAP # Japan
-						original_tag = CSA # CSA / Confederated States of America
+				# 5 pointers
+				every_country = {
+					limit = {
+						num_of_controlled_factories < 145
+						num_of_controlled_factories > 124
 					}
+					set_variable = { r56rp_rules_fp_controlled = 6 }
 				}
-				set_variable = { r56rp_rules_fp_controlled = 4 }
-			}
 
-			# 3 pointers
-			every_possible_country = {
-				limit = {
-					OR = {
-						original_tag = ARG # Argentina
-						original_tag = AUS # Austria
-						original_tag = AST # Australia
-						original_tag = BRA # Brazil
-						original_tag = BEL # Belgium
-						original_tag = RAJ # British Raj / India
-						original_tag = CAN # Canada
-						original_tag = COL # Colombia
-						original_tag = CZE # Czehoslovakia
-						original_tag = GRE # Greece
-						original_tag = HON # Honduras
-						original_tag = PER # Iran
-						original_tag = HOL # Netherlands
-						original_tag = POL # Poland
-						original_tag = POR # Portugal
-						original_tag = ROM # Romania
-						original_tag = SAF # South Africa
-						original_tag = SPR # Spain
-						original_tag = SWE # Sweden
-						original_tag = TUR # Turkey
-						original_tag = VEN # Venezuela
-						original_tag = YUG # Yugoslavia
+				# 4 pointers
+				every_country = {
+					limit = {
+						num_of_controlled_factories < 125
+						num_of_controlled_factories > 104
 					}
+					set_variable = { r56rp_rules_fp_controlled = 5 }
 				}
-				set_variable = { r56rp_rules_fp_controlled = 3 }
-			}
 
-			# 2 pointers
-			every_possible_country = {
-				limit = {
-					OR = {
-						original_tag = COG # Belgian Congo
-						original_tag = BOL # Bolivia
-						original_tag = MAL # British Malaysia
-						original_tag = BUL # Bulgaria
-						original_tag = CHL # Chile
-						original_tag = INS # Dutch East Indies
-						original_tag = EGY # Egypt
-						original_tag = EST # Estonia
-						original_tag = ETH # Ethiopia
-						original_tag = FIN # Finland
-						original_tag = FRI # French Indochina
-						original_tag = GXC # Guangxhi Clique / Guanxhi Clique 
-						original_tag = HUN # Hungary 
-						original_tag = IRQ # Iraq 
-						original_tag = LAT # Latvia 
-						original_tag = LIT # Lithuania
-						original_tag = MAN # Manchuria / Manchuko / Qing
-						original_tag = MEX # Mexico
-						original_tag = NZL # New Zealand
-						original_tag = NOR # Norway
-						original_tag = PRU # Peru
-						original_tag = PHI # Philippines
-						original_tag = SIA # Siam
-						original_tag = SWI # Switzerland
+				# 4 pointers
+				every_country = {
+					limit = {
+						num_of_controlled_factories < 105
+						num_of_controlled_factories > 74
 					}
+					set_variable = { r56rp_rules_fp_controlled = 4 }
 				}
-				set_variable = { r56rp_rules_fp_controlled = 2 }
-			}
 
-			# 1 pointers
-			every_possible_country = {
-				limit = {
-					OR = {
-						original_tag = AFG # Afghanistan / Afganistan
-						original_tag = ALB # Albania
-						original_tag = BHU # Bhutan
-						original_tag = COS # Costa Rica
-						original_tag = CUB # Cuba
-						original_tag = DEN # Denmark
-						original_tag = DOM # Dominican Republic
-						original_tag = ECU # Ecuador
-						original_tag = ELS # El Salvador
-						original_tag = GUA # Guatemala
-						original_tag = HAI # Haiti
-						original_tag = ICE # Iceland
-						original_tag = IRE # Ireland
-						original_tag = LIB # Liberia
-						original_tag = LUX # Luxembourg / luxemburg
-						original_tag = XSM # Ma Clique
-						original_tag = MEN # Mongol Political Comiteee / Mengukuo / that shit that flips from china to japan
-						original_tag = MON # Mongolia
-						original_tag = NEP # Nepal
-						original_tag = NIC # NicaRAGUA
-						original_tag = OMA # OMAN
-						original_tag = PAN # Panama
-						original_tag = PAR # Paraguay
-						original_tag = SAU # Saudi Arabia / Oilland
-						original_tag = AFA # Aussa / Afar
-						original_tag = SHX # Shanxi
-						original_tag = TAN # Tannu Tuva
-						original_tag = TIB # Tibet
-						original_tag = TNG # Tunganistan / make it so
-						original_tag = URG # Uruguay
-						original_tag = SIK # Sinkiang / Xinjiang
-						original_tag = YEM # Yemen
-						original_tag = YUN # Yunnan
+				# 3 pointers
+				every_country = {
+					limit = {
+						num_of_controlled_factories < 75
+						num_of_controlled_factories > 54
 					}
+					set_variable = { r56rp_rules_fp_controlled = 3 }
 				}
-				set_variable = { r56rp_rules_fp_controlled = 1 }
-			}
 
-			# 0 pointers
-			every_possible_country = {
-				limit = {
-					OR = {
-						original_tag = ADR # Andorra
-						original_tag = DNZ # Danzig
-						original_tag = SAN # San Marino
-						original_tag = MNC # Monaco
-						original_tag = LIE # Liechtenstein
+				# 2 pointers
+				every_country = {
+					limit = {
+						num_of_controlled_factories < 55
+						num_of_controlled_factories > 34
 					}
+					set_variable = { r56rp_rules_fp_controlled = 2 }
 				}
-				set_variable = { r56rp_rules_fp_controlled = 0 }
+
+				# 1 pointers
+				every_country = {
+					limit = {
+						num_of_controlled_factories < 35
+						num_of_controlled_factories > 9
+					}
+					set_variable = { r56rp_rules_fp_controlled = 1 }
+				}
+
+				# 0 pointers
+				every_possible_country = {
+					limit = {
+						num_of_controlled_factories < 10
+					}
+					set_variable = { r56rp_rules_fp_controlled = 0 }
+				}
+
+				# everything not on the list
+				every_possible_country = {
+					limit = {
+							NOT = {
+								has_variable = r56rp_rules_normalwargoaldeclaration
+								has_variable = r56rp_rules_focuswargoaldeclaration
+								has_variable = r56rp_rules_fp_controlled
+							}
+						}
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+						set_variable = { r56rp_rules_fp_controlled = 1 }
+				}
 			}
 
-			# governs assigning of dates per country point value and assigns points to nations not on the list above.
+			# governs assigning of dates per country point value.
 			every_possible_country  = {
 				set_variable = { global.r56rp_rules_fp_maxallowed = 7 }
 				set_variable = { r56rp_rules_fp_summed = 0 }
 				set_variable = { r56rp_rules_fp_free = 0 }
 
-				## If not on list, slap 1 point onto it.
-				IF = { 
-					limit = {
-						NOT = {
-							has_variable = r56rp_rules_normalwargoaldeclaration
-							has_variable = r56rp_rules_focuswargoaldeclaration
-							has_variable = r56rp_rules_fp_controlled
-						}
-					}
-					set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
-					set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
-					set_variable = { r56rp_rules_fp_controlled = 1 }
-				}
 
 				#if has the variable, slap the corresponding wargoal date depending on the fp_controlled value
-				ELSE_IF = { 
+				IF = { 
 					limit = {
 						check_variable = {
 							var = r56rp_rules_fp_controlled
@@ -355,6 +470,179 @@ on_actions = {
 
 	on_monthly = {
 		effect = {
+		# recalculate points each month, if value changes issue event
+			IF = {
+				limit = {
+					has_game_rule = { 
+						rule = r56rp_choose_cp_type 
+						option = FACTORY_BASED 
+					}
+				}
+
+					# 7 pointers
+					every_country = {
+						limit = {
+							#num_of_controlled_factories < 500
+							num_of_controlled_factories > 249
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 10
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 10 }
+						## Allowed to go to war
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+						## Allowed to go to war via focus.
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+						country_event = r56rp_rule_fp_events.9
+					}
+
+					# 5 pointers
+					every_country = {
+						limit = {
+							num_of_controlled_factories < 250
+							num_of_controlled_factories > 144
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 7
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 7 }
+						## Allowed to go to war
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+						## Allowed to go to war via focus.
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+						country_event = r56rp_rule_fp_events.8
+					}
+
+					# 5 pointers
+					every_country = {
+						limit = {
+							num_of_controlled_factories < 145
+							num_of_controlled_factories > 124
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 6
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 6 }
+						## Allowed to go to war
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+						## Allowed to go to war via focus.
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+						country_event = r56rp_rule_fp_events.7
+					}
+
+					# 4 pointers
+					every_country = {
+						limit = {
+							num_of_controlled_factories < 125
+							num_of_controlled_factories > 104
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 5
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 5 }
+						## Allowed to go to war
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 }
+						## Allowed to go to war via focus.
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 }
+						country_event = r56rp_rule_fp_events.6
+					}
+
+					# 4 pointers
+					every_country = {
+						limit = {
+							num_of_controlled_factories < 105
+							num_of_controlled_factories > 74
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 4
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 4 }
+						set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+						country_event = r56rp_rule_fp_events.5
+					}
+
+					# 3 pointers
+					every_country = {
+						limit = {
+							num_of_controlled_factories < 75
+							num_of_controlled_factories > 54
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 3
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 3 }
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+						country_event = r56rp_rule_fp_events.4
+					}
+
+					# 2 pointers
+					every_country = {
+						limit = {
+							num_of_controlled_factories < 55
+							num_of_controlled_factories > 34
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 2
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 2 }
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+						country_event = r56rp_rule_fp_events.3
+					}
+
+					# 1 pointers
+					every_country = {
+						limit = {
+							num_of_controlled_factories < 35
+							num_of_controlled_factories > 9
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 1
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 1 }
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+						country_event = r56rp_rule_fp_events.2
+					}
+
+					# 0 pointers
+					every_country = {
+						limit = {
+							num_of_controlled_factories < 10
+							check_variable = {
+								var = r56rp_rules_fp_controlled
+								value = 0
+								compare = not_equals
+							}
+						}
+						set_variable = { r56rp_rules_fp_controlled = 0 }
+						set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+						set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+						country_event = r56rp_rule_fp_events.1
+					}
+				
+			}
+
+
+		#yearly max faction points change.
 			if = { # 1937 FP Max
 					limit = {
 						date > 1936.12.31
