@@ -642,6 +642,19 @@ ideas = {
 			picture = generic_morale_bonus
 			
 			removal_cost = -1
+
+			on_remove = {
+				if = {
+					limit = {
+						ROOT = {
+							is_subject_of = ENG
+						}
+					}
+					OVERLORD = {	#Time for India to be free
+						country_event = { id = britain.6 days = 7 random_days = 7 }	
+					}
+				}
+			}
 			
 			modifier = {
 				stability_factor = -0.1
@@ -669,7 +682,6 @@ ideas = {
 			removal_cost = -1			
 			
 		}
-
 		ENG_special_air_service_idea = {
 
 			name = ENG_special_air_service
@@ -726,7 +738,6 @@ ideas = {
 			}
 
 			cancel = {
-				is_subject = yes
 				NOT = {
 					is_subject_of = ENG
 				}
@@ -758,7 +769,6 @@ ideas = {
 			}
 
 			cancel = {
-				is_subject = yes
 				NOT = {
 					is_subject_of = ENG
 				}
@@ -791,7 +801,6 @@ ideas = {
 			}
 
 			cancel = {
-				is_subject = yes
 				NOT = {
 					is_subject_of = ENG
 				}
@@ -823,7 +832,6 @@ ideas = {
 			}
 
 			cancel = {
-				is_subject = yes
 				NOT = {
 					is_subject_of = ENG
 				}
@@ -1085,8 +1093,6 @@ ideas = {
 		}
 
 		ENG_for_the_good_of_the_revolution_idea = {
-
-			name = ENG_for_the_good_of_the_revolution
 			
 			allowed = {
 				always = no
@@ -3156,17 +3162,6 @@ ideas = {
 				if = {
 					limit = {
 						original_tag = CAN
-						has_dlc = "Together for Victory"
-						has_global_flag = can_tfv_focus_tree
-					}
-					has_completed_focus = CAN_fund_fairchilds_development
-				}
-				if = {
-					limit = {
-						original_tag = CAN
-						NOT = {
-							has_global_flag = can_tfv_focus_tree
-						}
 					}
 					has_completed_focus = r56_CAN_fairchild_aircraft_company
 				}				
@@ -3470,7 +3465,25 @@ ideas = {
 			modifier = {
 				production_speed_steel_mill_factor = 0.10 
 			}
-		}		
+		}
+		ENG_vulcan_foundry = { # made austerity trains
+
+		    picture = generic_electronics_concern_2
+		    
+				allowed = {
+		        original_tag = ENG
+		    }
+		    
+		    research_bonus = {
+		        train_tech = 0.1
+		    }
+		    
+		    traits = { railway_company }
+		    
+		    ai_will_do = {
+		        factor = 0.5
+		    }
+		}
 	}	
 
 	
@@ -3497,27 +3510,6 @@ ideas = {
 			modifier = {
 			}
 		}
-
-		vickers_armstrong_amphib_eng = { # warlider addition
-
-			picture = vickers_armstrong_eng
-			
-			allowed = {
-				original_TAG = ENG
-			}
-			
-
-			
-			research_bonus = {
-				armor = 0.15
-			}
-			
-			traits = { amphibious_tank_manufacturer }
-			
-			modifier = {
-			}
-		}
-
 		ENG_vauxhall_tanks = {
 			
 			picture = vauxhall

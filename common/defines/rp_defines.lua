@@ -23,6 +23,7 @@ NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 3 --VANILLA - 2.5
 NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 10
 NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 15
 NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 10
+NDefines.NProduction.MINIMUM_NUMBER_OF_FACTORIES_TAKEN_BY_CONSUMER_GOODS_PERCENT = 0.1
 
 -- ## NTechnology ##
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 50 --BASE_RESEARCH_POINTS_SAVED
@@ -56,23 +57,23 @@ NDefines.NAir.MISSION_COMMAND_POWER_COSTS = { -- command power cost per plane to
 	0.0, -- NAVAL_PATROL
 }
 NDefines.NAir.MISSION_FUEL_COSTS = {  -- CHECK ROAD fuel cost per plane for each mission
-		1.0, -- AIR_SUPERIORITY
-		1.0, -- CAS
-		0.2, -- INTERCEPTION
-		1.0, -- STRATEGIC_BOMBER
-		1.0, -- NAVAL_BOMBER
-		1.0, -- DROP_NUKE
-		1.0, -- PARADROP
-		0.75, -- NAVAL_KAMIKAZE
-		1.2, -- PORT_STRIKE
-		1.2, -- ATTACK_LOGISTICS
-		1.0, -- AIR_SUPPLY
-		0.5, -- TRAINING (vanilla 0.6)
-		1.0, -- NAVAL_MINES_PLANTING
-		1.0, -- NAVAL_MINES_SWEEPING
-		1.0, -- RECON
-		1.0, -- NAVAL_PATROL
-	}
+	1.0, -- AIR_SUPERIORITY
+	1.0, -- CAS
+	0.2, -- INTERCEPTION
+	1.0, -- STRATEGIC_BOMBER
+	1.0, -- NAVAL_BOMBER
+	1.0, -- DROP_NUKE
+	1.0, -- PARADROP
+	0.75, -- NAVAL_KAMIKAZE
+	1.2, -- PORT_STRIKE
+	1.2, -- ATTACK_LOGISTICS
+	1.0, -- AIR_SUPPLY
+	0.5, -- TRAINING (vanilla 0.6)
+	1.0, -- NAVAL_MINES_PLANTING
+	1.0, -- NAVAL_MINES_SWEEPING
+	1.0, -- RECON
+	1.0, -- NAVAL_PATROL
+}
 
 -- ### NNavy ##
 NDefines.NNavy.GUN_HIT_PROFILES = { -- hit profiles for guns, if target ih profile is lower the gun will have lower accuracy
@@ -87,6 +88,20 @@ NDefines.NNavy.RESOURCE_EXPORT_PRIORITY = 3
 NDefines.NNavy.RESOURCE_ORIGIN_PRIORITY = 4
 NDefines.NNavy.RESOURCE_PURCHASE_PRIORITY = 5
 NDefines.NNavy.RESOURCE_LENDLEASE_PRIORITY = 6 -- vanilla 3
+NDefines.NNavy.PRIDE_OF_THE_FLEET_UNASSIGN_COST = 50 -- vanilla 100
+NDefines.NNavy.MISSION_SPREADS = {  -- mission spreads in the case a ship join combat, which is calculated for number of ships that will be in combat. 1 means no ship will be at start
+	0.0, -- HOLD
+	0.4, -- PATROL
+	0.2, -- STRIKE FORCE, 0 base
+	0.0, -- CONVOY RAIDING
+	0.1, -- CONVOY ESCORT
+	0.7, -- MINES PLANTING
+	0.7, -- MINES SWEEPING
+	0.5, -- TRAIN
+	0.0, -- RESERVE_FLEET
+	0.2, -- NAVAL_INVASION_SUPPORT
+}
+NDefines.NNavy.AGGRESSION_HEAVY_GUN_EFFICIENCY_ON_LIGHT_SHIPS = 0.50 --0.25 base, should make heavy guns just better against lights.
 NDefines.NNavy.SUBMARINE_ESCAPE_RATIOS = { -- subs will escape battle in convoy raid if there are enemies that can attack
 	500,    -- do not engage (vanilla 1000)
 	15,    -- low
