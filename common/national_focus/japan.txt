@@ -2821,23 +2821,23 @@ focus_tree = {
 					}
 					OR = {
 						PHI = {
-							exists = YES
+							exists = yes
 						}
 						INS = {
-							exists = YES
+							exists = yes
 						}
 						MAL = {
-							exists = YES
+							exists = yes
 						}
 						FRI = {
-							exists = YES
+							exists = yes
 						}
 					}
 					AND = { #don't make it harder for a player
 						if = {
 							limit = {
 								PHI = {
-									exists = YES
+									exists = yes
 								}
 							}
 							PHI = {
@@ -2847,7 +2847,7 @@ focus_tree = {
 						if = {
 							limit = {
 								MAL = {
-									exists = YES
+									exists = yes
 								}
 							}
 							MAL = {
@@ -2857,7 +2857,7 @@ focus_tree = {
 						if = {
 							limit = {
 								INS = {
-									exists = YES
+									exists = yes
 								}
 							}
 							INS = {
@@ -2867,7 +2867,7 @@ focus_tree = {
 						if = {
 							limit = {
 								FRI = {
-									exists = YES
+									exists = yes
 								}
 							}
 							FRI = {
@@ -6285,14 +6285,12 @@ focus_tree = {
 			}
 			random_owned_controlled_state = {
 				limit = {
-					limit = {
-						steel_mill < 2
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
 					}
+					steel_mill < 2
 				}
 				prioritize = { 535 }
 				
@@ -8521,12 +8519,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 2
 		}
-		available = {
-			NOT = {
-				has_completed_focus = JAP_manchu_buff1
-			}
-		}
-
 
 		completion_reward = {
 			MAN = {
@@ -8551,12 +8543,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 2
 		}
-		available = {
-			NOT = {
-				has_completed_focus = JAP_manchu_buff
-			}
-		}
-
 
 		completion_reward = {
 			MAN = {
@@ -8720,7 +8706,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = JAP_factory_manchu
 
-		cost = 10
+		cost = 7.2
 
 		ai_will_do = {
 			factor = 1
@@ -8728,6 +8714,7 @@ focus_tree = {
 
 		available = {
 			MAN = {
+				NOT = { has_idea = MAN_banditry }
 				is_subject_of = ROOT
 				has_full_control_of_state = 715
 				has_full_control_of_state = 610
@@ -8735,14 +8722,54 @@ focus_tree = {
 			}
 		}
 
+		bypass = {
+			MAN = {
+				has_completed_focus = MAN_invite_japanese_settlers
+			}
+		}
 
 		completion_reward = {
-			715 = { add_extra_state_shared_building_slots = 2 }
-			610 = { add_extra_state_shared_building_slots = 2 }
-			328 = { add_extra_state_shared_building_slots = 2 }
 			MAN = {
+				random_owned_controlled_state = {
+					prioritize = { 715 }
+					limit = { is_fully_controlled_by = MAN }
+					add_manpower = 25000
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = MAN_invite_japanese_settlers_2IC
+				}
+				random_owned_controlled_state = {
+					prioritize = { 610 }
+					limit = { is_fully_controlled_by = MAN }
+					add_manpower = 35000
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = MAN_invite_japanese_settlers_2IC
+				}
+				random_owned_controlled_state = {
+					prioritize = { 328 }
+					limit = { is_fully_controlled_by = MAN }
+					add_manpower = 15000
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = MAN_invite_japanese_settlers_2IC
+				}
+
 				add_ideas = MAN_japanese_settlers
 			}
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -11313,7 +11340,6 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = JAP_first_air_fleet
-			custom_effect_tooltip = r56rp_JAP_choice_tt
 			if = {
 				limit = {
 					has_completed_focus = JAP_carrier_warfare_experiments
@@ -11322,6 +11348,7 @@ focus_tree = {
 					limit = {
 						has_dlc = "Arms Against Tyranny"
 					}	
+					custom_effect_tooltip = r56rp_JAP_choice_tt
 					custom_effect_tooltip = available_mio_tt
 					show_mio_tooltip = JAP_yokosuka_naval_arsenal_organization
 					mio:JAP_yokosuka_naval_arsenal_organization = {
@@ -11536,7 +11563,6 @@ focus_tree = {
 					technology = improved_heavy_shell
 				}				
 			}
-			custom_effect_tooltip = r56rp_JAP_choice_2_tt
 			if = {
 				limit = {
 					has_completed_focus = JAP_supremacy_of_the_battlefleet
@@ -11544,7 +11570,8 @@ focus_tree = {
 				if = {
 					limit = {
 						has_dlc = "Arms Against Tyranny"
-					}	
+					}
+					custom_effect_tooltip = r56rp_JAP_choice_2_tt
 					show_mio_tooltip = JAP_kure_naval_arsenal_organization
 					mio:JAP_kure_naval_arsenal_organization = {
 						add_mio_size = 2

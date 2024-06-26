@@ -136,14 +136,14 @@ GLO_state_integration_category = {
 						is_claimed_by = ROOT
 					}
 				}
-				custom_effect_tooltip = r56rp_si_we_have_claim
+				custom_effect_tooltip = r56rp_si_peace_we_have_claim
 				add_political_power = 30
 			}
 			ELSE_IF = {
 				limit = {
 					is_major = no
 				}
-				custom_effect_tooltip = r56rp_si_we_are_minor
+				custom_effect_tooltip = r56rp_si_peace_we_are_minor
 				add_political_power = 30
 			}
 			hidden_effect = {
@@ -192,29 +192,6 @@ GLO_state_integration_category = {
 					NOT = { has_state_flag = being_cored }
 				}
 			}
-			IF = {
-				limit = {
-					OR = {
-						is_major = no
-						FROM = {
-							is_claimed_by = ROOT
-						}
-					}
-				}
-				FROM = {
-					compliance > 69
-					resistance < 19
-				}
-				has_manpower > coring_man
-				
-			}
-			ELSE = {
-				FROM = {
-					compliance > 79
-					resistance < 11
-				}
-				has_manpower > coring_man				
-			}
 
 			IF = {
 				limit = {
@@ -231,7 +208,7 @@ GLO_state_integration_category = {
 				}
 				has_manpower > 12500
 				has_equipment = {
-					infantry_equipment > FROM.r56rp_core_cost
+					infantry_equipment > FROM.r56rp_core_cost_minor
 				}
 				
 			}
@@ -241,7 +218,7 @@ GLO_state_integration_category = {
 					resistance < 21
 				}
 				has_equipment = {
-					infantry_equipment > FROM.r56rp_core_cost_minor
+					infantry_equipment > FROM.r56rp_core_cost
 				}
 			}
         }
@@ -282,15 +259,23 @@ GLO_state_integration_category = {
         complete_effect = {
 			IF = {
 				limit = {
-					OR = { #if not a major, or if a major has a claim, discounted coring.
-					NOT = { 
-						is_major = yes
-					}
 					FROM = {
 						is_claimed_by = ROOT
 					}
 				}
+				custom_effect_tooltip = r56rp_si_force_we_have_claim
+				set_temp_variable = { GLO_f_inf_cost_t = FROM.r56rp_core_cost_minor }
+				multiply_temp_variable = { GLO_f_inf_cost_t = -1 }
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = GLO_f_inf_cost_t
 				}
+			}
+			ELSE_IF = {
+				limit = {
+					is_major = no
+				}
+				custom_effect_tooltip = r56rp_si_force_we_are_minor
 				set_temp_variable = { GLO_f_inf_cost_t = FROM.r56rp_core_cost_minor }
 				multiply_temp_variable = { GLO_f_inf_cost_t = -1 }
 				add_equipment_to_stockpile = {

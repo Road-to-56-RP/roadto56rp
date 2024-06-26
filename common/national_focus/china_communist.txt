@@ -34,6 +34,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			retire_ideology_leader = communism
+			promote_character = {
+				character = PRC_mao_zedong
+				ideology = maoismsid
+			}
+
 			custom_effect_tooltip = prc_long_march_tt
 			army_experience = 15
 			random_owned_controlled_state = {
@@ -358,6 +364,18 @@ focus_tree = {
 		relative_position_id = PRC_approach_the_front
 		cost = 5
 
+		ai_will_do = {
+			factor = 10
+			modifier = {					#no self-harming extra war declarations please
+				factor = 0
+				any_neighbor_country = {
+					OR = {
+						has_war_with = ROOT
+						has_wargoal_against = ROOT
+					}
+				}
+			}
+		}
 		available = {
 			r56_script_i_am_sane = yes
 			XSM = {
@@ -1395,7 +1413,7 @@ focus_tree = {
 			every_army_leader = {
 				limit = {
 					skill > 2
-					is_field_marshal = NO
+					is_field_marshal = no
 				}
 				add_unit_leader_trait = camouflage_expert
 			}
@@ -1697,10 +1715,6 @@ focus_tree = {
 		select_effect = {
 			every_other_country = {
 				limit = {
-					NOT = {
-						has_completed_focus = MAN_manzhouli_secret_meeting
-						has_completed_focus = MAN_fotify_heilungkiang_border
-					}
 					OR = {
 						has_offensive_war_with = CHI
 						has_offensive_war_with = PRC
@@ -1734,10 +1748,6 @@ focus_tree = {
 			effect_tooltip = {
 				every_other_country = {
 					limit = {
-						NOT = {
-							has_completed_focus = MAN_manzhouli_secret_meeting
-							has_completed_focus = MAN_fotify_heilungkiang_border
-						}
 						OR = {
 							has_offensive_war_with = CHI
 							has_offensive_war_with = PRC
@@ -1769,10 +1779,6 @@ focus_tree = {
 			hidden_effect = {
 				every_other_country = {
 					limit = {
-						NOT = {
-							has_completed_focus = MAN_manzhouli_secret_meeting
-							has_completed_focus = MAN_fotify_heilungkiang_border
-						}
 						OR = {
 							has_offensive_war_with = CHI
 							has_offensive_war_with = PRC
