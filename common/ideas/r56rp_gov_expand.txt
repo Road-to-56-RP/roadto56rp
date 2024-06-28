@@ -189,34 +189,47 @@ ideas = {
 					has_idea = partial_economic_mobilisation
 					has_idea = war_economy
 					has_idea = tot_economic_mobilisation
-					has_idea = undisturbed_isolation
-					# lazy way of making the tooltip nicer to look at.
-					IF = {
-						limit = {
-							has_idea = KMT_corrupted_government
-						}
+				}
+				# lazy way of making the tooltip nicer to look at.
+				# DO NOT MOVE THIS INTO THE UPPER NOT. IT JUST BREAKS.
+				IF = {
+					limit = {
 						has_idea = KMT_corrupted_government
 					}
-					IF = {
-						limit = {
-							has_idea = KMT_corrupted_government_lesser
-						}
+					NOT = {
+						has_idea = KMT_corrupted_government
+					}
+				}
+				ELSE_IF = {
+					limit = {
 						has_idea = KMT_corrupted_government_lesser
 					}
-					IF = {
-						limit = {
-							has_idea = KMT_corrupted_government_wartime
-						}
+					NOT = {
+						has_idea = KMT_corrupted_government_lesser
+					}
+				}
+				ELSE_IF = {
+					limit = {
 						has_idea = KMT_corrupted_government_wartime
 					}
-					IF = {
-						limit = {
-							has_idea = KMT_corrupted_government_wartime_lesser
-						}
+					NOT = {
+						has_idea = KMT_corrupted_government_wartime
+					}
+				}
+				ELSE_IF = {
+					limit = {
 						has_idea = KMT_corrupted_government_wartime_lesser
 					}
-					ELSE = {
-						has_idea = KMT_corrupted_government
+					NOT = {
+						has_idea = KMT_corrupted_government_wartime_lesser
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = undisturbed_isolation
+					}
+					NOT = {
+						has_idea = undisturbed_isolation
 					}
 				}
 			}
