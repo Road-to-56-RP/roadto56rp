@@ -1,5 +1,7 @@
 ideas = {
 
+	# government policies tab
+
 	equality = { 
 	
 		law = yes
@@ -153,8 +155,8 @@ ideas = {
 				stability_factor = -0.15
 				#army buffs
 				command_power_gain_mult = 0.1
-				special_forces_cap = 0.1
-				#factory buffs.
+				special_forces_cap = 0.02
+				#factory buffs.	
 				production_factory_max_efficiency_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.05
 				industrial_capacity_dockyard = 0.05
@@ -188,12 +190,39 @@ ideas = {
 					has_idea = war_economy
 					has_idea = tot_economic_mobilisation
 					has_idea = undisturbed_isolation
+					# lazy way of making the tooltip nicer to look at.
+					IF = {
+						limit = {
+							has_idea = KMT_corrupted_government
+						}
+						has_idea = KMT_corrupted_government
+					}
+					IF = {
+						limit = {
+							has_idea = KMT_corrupted_government_lesser
+						}
+						has_idea = KMT_corrupted_government_lesser
+					}
+					IF = {
+						limit = {
+							has_idea = KMT_corrupted_government_wartime
+						}
+						has_idea = KMT_corrupted_government_wartime
+					}
+					IF = {
+						limit = {
+							has_idea = KMT_corrupted_government_wartime_lesser
+						}
+						has_idea = KMT_corrupted_government_wartime_lesser
+					}
+					ELSE = {
+						has_idea = KMT_corrupted_government
+					}
 				}
 			}
 
 			modifier = {
 				stability_factor = 0.05
-				war_support_factor = 0.05
 				consumer_goods_factor = 0.25
 				production_speed_industrial_complex_factor = 0.2
 			}
@@ -269,116 +298,114 @@ ideas = {
    			}
 		}
 
-#		#Heavy industry subsidies
-#		r56rp_heavy_industry_subsidies = {
-#		
-#			available = {
-#				NOT = {
-#					has_government = fascism
-#				}
-#			}
-#			
-#			modifier = {
-#				production_speed_industrial_complex_factor = 0.05
-#				production_speed_infrastructure_factor = 0.15
-#				stability_factor = -0.10
-#				production_speed_steel_mill_factor = 0.25
-#				production_speed_aluminum_mill_factor = 0.25
-#				communism_drift = 0.05
-#			}
-#
-#			cost = 200
-#			
-#			cancel_if_invalid = yes
-#
-#			ai_will_do = {
-#   				factor = 0.4
-#				
-#   			}
-#		}
-#
-#		#Agricultural Subsidies
-#		r56rp_agri_subsidies = {
-#		
-#			available = {
-#				NOT = {
-#					has_government = fascism
-#				}
-#			}
-#			
-#			modifier = {
-#				production_speed_industrial_complex_factor = -0.05
-#				production_speed_arms_factory_factor = -0.05
-#				consumer_goods_factor = -0.15
-#				stability_factor = 0.10
-#				democratic_drift = 0.05
-#				communism_drift = -0.03
-#			}
-#
-#			cost = 150
-#			
-#			cancel_if_invalid = yes
-#
-#			ai_will_do = {
-#   				factor = 0.4
-#				
-#   			}
-#		}
-#
-#		#Populist Spending
-#		r56rp_populist_spending = {
-#		
-#			available = {
-#				NOT = {
-#					has_government = fascism
-#				}
-#			}
-#			
-#			modifier = {
-#				political_power_gain = 0.40
-#				consumer_goods_factor = 0.30
-#				stability_weekly = 0.0025 #should be 13ish% every year
-#				war_support_weekly = 0.0025
-#				party_popularity_stability_factor = 0.2
-#				democratic_drift = -0.03
-#			}
-#
-#			cost = 100
-#			
-#			cancel_if_invalid = yes
-#
-#			ai_will_do = {
-#   				factor = 0.4
-#				
-#   			}
-#		}
-#
-#		#Populist Spending
-#		r56rp_aristocratic_pillaging = {
-#		
-#			available = {
-#				NOT = {
-#					has_government = fascism
-#				}
-#			}
-#			
-#			modifier = {
-#				political_power_gain = 0.40
-#				consumer_goods_factor = 0.25
-#				war_support_weekly = 0.0025
-#				party_popularity_stability_factor = -0.2
-#				neutrality_drift = 0.05
-#			}
-#
-#			cost = 100
-#			
-#			cancel_if_invalid = yes
-#
-#			ai_will_do = {
-#   				factor = 0.4
-#				
-#   			}
-#		}
+		##Heavy industry subsidies
+		#r56rp_heavy_industry_subsidies = {
+		#
+		#	available = {
+		#		NOT = {
+		#			has_government = fascism
+		#		}
+		#	}
+		#	
+		#	modifier = {
+		#		production_speed_industrial_complex_factor = 0.05
+		#		production_speed_infrastructure_factor = 0.15
+		#		stability_factor = -0.10
+		#		production_speed_steel_mill_factor = 0.25
+		#		production_speed_aluminum_mill_factor = 0.25
+		#		communism_drift = 0.05
+		#	}
+		#
+		#	cost = 200
+		#	
+		#	cancel_if_invalid = yes
+		#
+		#	ai_will_do = {
+   		#		factor = 0.4
+		#		
+   		#	}
+		#}
+		#
+		##Agricultural Subsidies
+		#r56rp_agri_subsidies = {
+		#
+		#	available = {
+		#		NOT = {
+		#			has_government = fascism
+		#		}
+		#	}
+		#	
+		#	modifier = {
+		#		production_speed_industrial_complex_factor = -0.05
+		#		production_speed_arms_factory_factor = -0.05
+		#		consumer_goods_factor = -0.15
+		#		stability_factor = 0.10
+		#		democratic_drift = 0.05
+		#		communism_drift = -0.03
+		#	}
+		#
+		#	cost = 150
+		#	
+		#	cancel_if_invalid = yes
+		#
+		#	ai_will_do = {
+   		#		factor = 0.4
+		#		
+   		#	}
+		#}
+		#
+		##Populist Spending
+		#r56rp_populist_spending = {
+		#
+		#	available = {
+		#		NOT = {
+		#			has_government = fascism
+		#		}
+		#	}
+		#	
+		#	modifier = {
+		#		political_power_gain = 0.40
+		#		consumer_goods_factor = 0.30
+		#		stability_weekly = 0.0025 #should be 13ish% every year
+		#		war_support_weekly = 0.0025
+		#		party_popularity_stability_factor = 0.2
+		#		democratic_drift = -0.03
+		#	}
+		#
+		#	cost = 100
+		#	
+		#	cancel_if_invalid = yes
+		#
+		#	ai_will_do = {
+   		#		factor = 0.4
+		#		
+   		#	}
+		#}
+
+		##Populist Spending
+		#r56rp_aristocratic_pillaging = {
+		#
+		#	available = {
+		#		NOT = {
+		#			has_government = fascism
+		#		}
+		#	}
+		#	
+		#	modifier = {
+		#		political_power_gain = 0.40
+		#		consumer_goods_factor = 0.25
+		#		war_support_weekly = 0.0025
+		#		party_popularity_stability_factor = -0.2
+		#		neutrality_drift = 0.05
+		#	}
+		#	cost = 100
+		#	
+		#	cancel_if_invalid = yes
+		#	ai_will_do = {
+   		#		factor = 0.4
+		#		
+   		#	}
+		#}
 
 	}
 
@@ -394,6 +421,7 @@ ideas = {
 					has_government = communism
 					has_government = fascism
 				}
+				has_idea = free_trade
 			}
 			modifier = {
 				consumer_goods_factor = -0.20
@@ -401,7 +429,7 @@ ideas = {
 				research_speed_factor = 0.075
 				local_building_slots_factor = 0.15
 				production_lack_of_resource_penalty_factor = 0.65 
-				min_export = 0.35
+				min_export = 0.20
 			}
 			
 			cost = 200
@@ -426,6 +454,7 @@ ideas = {
 					has_government = democratic
 					has_government = neutrality
 				}
+				has_idea = export_focus
 			}
 			
 			
@@ -435,7 +464,7 @@ ideas = {
 				production_factory_max_efficiency_factor = -0.05
 				production_factory_efficiency_gain_factor = 0.05
 				local_resources_factor = 0.05
-				min_export = 0.2
+				min_export = 0.1
 			}
 			
 			cost = 175
@@ -457,9 +486,9 @@ ideas = {
 		nationalization_full = {
 			available = {
 				NOT = {
-						has_government = democratic
-					}
+					has_government = democratic
 				}
+			}
 			
 			modifier = {
 				research_speed_factor = 0.05
@@ -467,7 +496,7 @@ ideas = {
 				production_factory_max_efficiency_factor = -0.05
 				production_factory_efficiency_gain_factor = 0.075
 				local_resources_factor = 0.05
-				min_export = 0.10
+				min_export = -0.10
 			}
 			
 			cost = 175
@@ -501,7 +530,6 @@ ideas = {
 						has_war  = yes
 					}
 				}
-			
 			}
 			
 			modifier = {
@@ -509,7 +537,7 @@ ideas = {
 				consumer_goods_factor = -0.15
 				stability_factor = -0.05
 				war_support_factor = -0.05
-				political_power_cost = -0.25
+				political_power_factor = -0.10
 			}
 			
 			cost = 150
@@ -547,7 +575,7 @@ ideas = {
 				consumer_goods_factor = -0.075
 				stability_factor = -0.025
 				war_support_factor = -0.025
-				political_power_cost = -0.15
+				political_power_factor = -0.05
 			}
 			
 			cost = 75
@@ -577,7 +605,7 @@ ideas = {
 			
 			modifier = {
 				stability_factor = 0.05
-				political_power_cost = 0.35
+				political_power_factor = 0.10
 			}
 
 			cost = 75
@@ -684,299 +712,6 @@ ideas = {
 					factor = 10
 				}
 			}
-		}
-	}
-
-	maximum_age_laws = { 
-		law = yes
-		use_list_view = yes
-
-		age_40 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 4
-			
-			available = {
-			}
-
-			modifier = {
-				attrition = -0.05
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-			
-			cancel_if_invalid = no
-			default = yes
-		}
-		age_50 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 3
-			
-			available = {
-				NOT = { has_idea = disarmed_nation }
-				NOT = { has_idea = volunteer_only }
-				OR = {
-					has_war = yes
-					has_government = fascism
-				}
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				conscription_factor = 0.025
-			}
-			
-			cancel_if_invalid = no
-		}
-		age_60 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 2
-			
-			available = {
-				NOT = { has_idea = disarmed_nation }
-				NOT = { has_idea = volunteer_only }
-				NOT = { has_idea = limited_conscription }
-				NOT = { has_idea = extensive_conscription }
-				AND = {
-					has_war = yes
-					enemies_strength_ratio > 1.5
-				}
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				conscription_factor = 0.05
-				attrition = 0.05
-				political_power_factor = -0.25
-			}
-			
-			cancel_if_invalid = no
-		}
-		all_must_serve_old = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 1
-			
-			available = {
-				NOT = { has_idea = disarmed_nation }
-				NOT = { has_idea = volunteer_only }
-				NOT = { has_idea = limited_conscription }
-				NOT = { has_idea = extensive_conscription }
-				NOT = { has_idea = service_by_requirement }
-				AND = {
-					has_war = yes
-					enemies_strength_ratio > 1.5
-				}
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				conscription_factor = 0.15
-				attrition = 0.10
-				political_power_factor = -0.25
-			}
-			
-			cancel_if_invalid = no
-		}
-	}
-
-	minimum_age_laws = { 
-		law = yes
-		use_list_view = yes
-
-		age_19 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 7
-			
-			available = {
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				training_time_army_factor = -0.1
-			}
-			
-			cancel_if_invalid = no
-			default = yes
-		}
-		age_18 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 6
-			
-			available = {
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				training_time_army_factor = -0.05
-				conscription_factor = 0.025
-			}
-			
-			cancel_if_invalid = no
-		}
-		age_17 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 5
-			
-			available = {
-
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				conscription_factor = 0.05
-			}
-			
-			cancel_if_invalid = no
-		}
-		age_16 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 4
-			
-			available = {
-				NOT = { has_idea = disarmed_nation }
-				NOT = { has_idea = volunteer_only }
-				OR = {
-					AND = {
-						NOT = { has_government = democratic }
-						threat > 0.50
-					}
-					AND = {
-						has_war = yes
-						enemies_strength_ratio > 1.5
-					}
-				}
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				training_time_army_factor = 0.05
-				conscription_factor = 0.10
-			}
-			
-			cancel_if_invalid = no
-		}
-		age_15 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 3
-			
-			available = {
-				NOT = { has_idea = disarmed_nation }
-				NOT = { has_idea = volunteer_only }
-				NOT = { has_idea = limited_conscription }
-				AND = {
-					has_war = yes
-					enemies_strength_ratio > 1.5
-				}
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				training_time_army_factor = 0.10
-				conscription_factor = 0.20
-			}
-			
-			cancel_if_invalid = no
-		}
-		age_14 = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 2
-			
-			available = {
-				NOT = { has_idea = disarmed_nation }
-				NOT = { has_idea = volunteer_only }
-				NOT = { has_idea = limited_conscription }
-				NOT = { has_idea = extensive_conscription }
-				AND = {
-					has_war = yes
-					enemies_strength_ratio > 1.5
-				}
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				conscription_factor = 0.25
-				training_time_army_factor = 0.15
-			}
-			
-			cancel_if_invalid = no
-		}
-		all_must_serve_young = {
-						
-			cost = 100
-			removal_cost = -1
-			level = 1
-			
-			available = {
-				NOT = { has_idea = disarmed_nation }
-				NOT = { has_idea = volunteer_only }
-				NOT = { has_idea = limited_conscription }
-				NOT = { has_idea = extensive_conscription }
-				NOT = { has_idea = service_by_requirement }
-				AND = {
-					has_war = yes
-					enemies_strength_ratio > 1.5
-				}
-			}
-			
-			ai_will_do = {
-				factor = 1
-			}
-
-			modifier = {
-				conscription_factor = 0.35
-				training_time_army_factor = 0.20
-
-			}
-			
-			cancel_if_invalid = no
 		}
 	}
 
@@ -1193,7 +928,7 @@ ideas = {
 			}
 
 			modifier = {
-				conscription = 0.02
+				conscription_factor = 0.10
 				political_power_factor = -0.05
 			}
 			
@@ -1226,7 +961,7 @@ ideas = {
 			}
 
 			modifier = {
-				conscription = 0.10
+				conscription_factor = 0.50
 				political_power_factor = -0.15
 			}
 			
@@ -1234,9 +969,34 @@ ideas = {
 		}
 	}
 
+	# recruitment laws tab
+
 	recruitment_standard_laws = { 
 		law = yes
 		use_list_view = yes
+
+		r56rp_armystandard_best_of_the_best = {
+						
+			cost = 150
+			removal_cost = -1
+			level = 4
+			
+			available = {
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				conscription_factor = -0.2
+				army_org_factor = 0.10
+				war_support_factor = 0.015
+			}
+			
+			cancel_if_invalid = no
+			default = yes
+		}
 
 		healthy_standard = {
 						
@@ -1252,8 +1012,7 @@ ideas = {
 			}
 
 			modifier = {
-				army_org_factor = 0.10
-				war_support_factor = 0.025
+				
 			}
 			
 			cancel_if_invalid = no
@@ -1262,7 +1021,7 @@ ideas = {
 		
 		loose_standard = {
 						
-			cost = 150
+			cost = 75
 			removal_cost = -1
 			level = 3
 			
@@ -1280,10 +1039,9 @@ ideas = {
 			}
 
 			modifier = {
-				conscription = 0.01
-				army_org_factor = 0.05
-				war_support_factor = 0.015
-
+				conscription_factor = 0.1
+				army_org_factor = -0.05
+				war_support_factor = -0.015
 			}
 			
 			cancel_if_invalid = no
@@ -1291,9 +1049,365 @@ ideas = {
 		
 		no_exemptions = {
 						
-			cost = 150
+			cost = 75
 			removal_cost = -1
 			level = 2
+			
+			available = {
+				NOT = { has_idea = disarmed_nation }
+				NOT = { has_idea = volunteer_only }
+				NOT = { has_idea = limited_conscription }
+				OR = {
+					has_war = yes
+					threat > 0.50
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				conscription_factor = 0.20
+				army_org_factor = -0.10
+				war_support_factor = -0.025
+			}
+			
+			cancel_if_invalid = no
+		}
+		
+		scraping_the_barrel_standard = {
+						
+			cost = 75
+			removal_cost = -1
+			level = 1
+			
+			available = {
+				NOT = { has_idea = disarmed_nation }
+				NOT = { has_idea = volunteer_only }
+				NOT = { has_idea = limited_conscription }
+				OR = {
+					has_war = yes
+					threat > 0.60
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				conscription_factor = 0.30
+				army_org_factor = -0.15
+				war_support_factor = -0.075
+			}
+			
+			cancel_if_invalid = no
+		}
+	}
+
+	service_limit_laws = { 
+		law = yes
+		use_list_view = yes
+
+		limited_service = {
+						
+			cost = 75
+			removal_cost = -1
+			level = 3
+			
+			available = {
+			}
+
+			modifier = {
+				experience_gain_army_factor = -0.025
+				experience_gain_air_factor = -0.025
+				experience_gain_navy_factor = -0.025
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+			
+			cancel_if_invalid = no
+			default = yes
+		}
+		
+		wartime_service = {
+						
+			cost = 100
+			removal_cost = -1
+			level = 2
+			
+			available = {
+				OR = {
+					has_war = yes
+					threat > 0.30
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				training_time_factor = -0.10
+				experience_gain_army_factor = 0.025
+				experience_gain_air_factor = 0.025
+				experience_gain_navy_factor = 0.025
+				army_attack_factor = 0.025
+				army_defence_factor = 0.025
+				experience_loss_factor = 0.125
+			}
+			
+			cancel_if_invalid = no
+		}
+		
+		shake_and_bake = {
+						
+			cost = 125
+			removal_cost = -1
+			level = 1
+			
+			available = {
+				OR = {
+					has_war = yes
+					threat > 0.50
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				training_time_factor = -0.25
+				experience_gain_army_factor = 0.1
+				experience_gain_air_factor = 0.1
+				experience_gain_navy_factor = 0.1
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				experience_loss_factor = 0.25
+			}
+			
+			cancel_if_invalid = no
+		}
+	}
+
+	maximum_age_laws = { 
+		law = yes
+		use_list_view = yes
+
+		age_40 = {
+						
+			cost = 50
+			removal_cost = -1
+			level = 4
+			
+			available = {
+			}
+
+			modifier = {
+				#attrition = -0.05
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+			
+			cancel_if_invalid = no
+			default = yes
+		}
+		age_50 = {
+						
+			cost = 50
+			removal_cost = -1
+			level = 3
+			
+			available = {
+				NOT = { has_idea = disarmed_nation }
+				NOT = { has_idea = volunteer_only }
+				OR = {
+					has_war = yes
+					has_government = fascism
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				conscription_factor = 0.05
+				attrition = 0.025
+				political_power_factor = -0.05
+			}
+			
+			cancel_if_invalid = no
+		}
+		age_60 = {
+						
+			cost = 100
+			removal_cost = -1
+			level = 2
+			
+			available = {
+				NOT = { has_idea = disarmed_nation }
+				NOT = { has_idea = volunteer_only }
+				NOT = { has_idea = limited_conscription }
+				NOT = { has_idea = extensive_conscription }
+				AND = {
+					has_war = yes
+					enemies_strength_ratio > 1.5
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				conscription_factor = 0.10
+				attrition = 0.05
+				political_power_factor = -0.10
+			}
+			
+			cancel_if_invalid = no
+		}
+		all_must_serve_old = {
+						
+			cost = 150
+			removal_cost = -1
+			level = 1
+			
+			available = {
+				NOT = { has_idea = disarmed_nation }
+				NOT = { has_idea = volunteer_only }
+				NOT = { has_idea = limited_conscription }
+				NOT = { has_idea = extensive_conscription }
+				NOT = { has_idea = service_by_requirement }
+				AND = {
+					has_war = yes
+					enemies_strength_ratio > 1.5
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				conscription_factor = 0.15
+				attrition = 0.10
+				political_power_factor = -0.10
+			}
+			
+			cancel_if_invalid = no
+		}
+	}
+
+	minimum_age_laws = { 
+		law = yes
+		use_list_view = yes
+
+		age_19 = {	
+			cost = 100
+			removal_cost = -1
+			level = 7
+			
+			available = {
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				training_time_army_factor = -0.1
+				max_training = 0.1
+				conscription_factor = -0.05
+			}
+			
+			cancel_if_invalid = no
+		}
+		age_18 = {
+			cost = 50
+			removal_cost = -1
+			level = 6
+
+			default = yes
+			
+			available = {
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+
+			}
+			
+			cancel_if_invalid = no
+		}
+		age_17 = {
+						
+			cost = 50
+			removal_cost = -1
+			level = 5
+			
+			available = {
+
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				conscription_factor = 0.05
+			}
+			
+			cancel_if_invalid = no
+		}
+		age_16 = {
+						
+			cost = 50
+			removal_cost = -1
+			level = 4
+			
+			available = {
+				NOT = { has_idea = disarmed_nation }
+				NOT = { has_idea = volunteer_only }
+				OR = {
+					AND = {
+						NOT = { has_government = democratic }
+						threat > 0.50
+					}
+					AND = {
+						has_war = yes
+						enemies_strength_ratio > 1.5
+					}
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				training_time_army_factor = 0.05
+				conscription_factor = 0.10
+				stability_factor = -0.05
+			}
+			
+			cancel_if_invalid = no
+		}
+		age_15 = {
+						
+			cost = 50
+			removal_cost = -1
+			level = 3
 			
 			available = {
 				NOT = { has_idea = disarmed_nation }
@@ -1310,27 +1424,27 @@ ideas = {
 			}
 
 			modifier = {
-				conscription = 0.025
-				army_org_factor = -0.10
-				war_support_factor = -0.025
+				training_time_army_factor = 0.10
+				conscription_factor = 0.20
+				stability_factor = -0.05
 			}
 			
 			cancel_if_invalid = no
 		}
-		
-		scraping_the_barrel_standard = {
+		age_14 = {
 						
-			cost = 150
+			cost = 75
 			removal_cost = -1
-			level = 1
+			level = 2
 			
 			available = {
 				NOT = { has_idea = disarmed_nation }
 				NOT = { has_idea = volunteer_only }
 				NOT = { has_idea = limited_conscription }
+				NOT = { has_idea = extensive_conscription }
 				AND = {
 					has_war = yes
-					enemies_strength_ratio > 2.0
+					enemies_strength_ratio > 1.5
 				}
 			}
 			
@@ -1339,9 +1453,39 @@ ideas = {
 			}
 
 			modifier = {
-				conscription = 0.05
-				army_org_factor = -0.20
-				war_support_factor = -0.075
+				training_time_army_factor = 0.15
+				conscription_factor = 0.25
+				stability_factor = -0.1
+			}
+			
+			cancel_if_invalid = no
+		}
+		all_must_serve_young = {
+						
+			cost = 100
+			removal_cost = -1
+			level = 1
+			
+			available = {
+				NOT = { has_idea = disarmed_nation }
+				NOT = { has_idea = volunteer_only }
+				NOT = { has_idea = limited_conscription }
+				NOT = { has_idea = extensive_conscription }
+				NOT = { has_idea = service_by_requirement }
+				AND = {
+					has_war = yes
+					enemies_strength_ratio > 1.5
+				}
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+
+			modifier = {
+				training_time_army_factor = 0.20
+				conscription_factor = 0.35
+				stability_factor = -0.1
 			}
 			
 			cancel_if_invalid = no
