@@ -3354,20 +3354,34 @@ focus_tree = {
 				}
 			}
 
-			IF = { #aat probably doing something on its own, stilln nice tooltip to have for anyone without the dlc
-				limit = {
-					NOT = {
-						has_dlc = "Arms Against Tyranny"
-					}
+
+			custom_effect_tooltip = r56rp_italy_designer_changes.tt #in r56rp_i_english.yml
+			
+			effect_tooltip = {
+				#INDUSTRIAL
+				swap_ideas = {
+					remove_idea = danieli
+					add_idea = ITA_danieli_improved
 				}
-				custom_effect_tooltip = r56rp_italy_designer_changes.tt #in r56rp_i_english.yml
-				effect_tooltip = {
+				swap_ideas = {
+					remove_idea = ITA_italcementi
+					add_idea = ITA_italcementi_improved
+				}
+				swap_ideas = {
+					remove_idea = ITA_ducati_energia
+					add_idea = ITA_ducati_energia_improved
+				}
+				IF = { #aat probably doing something on its own, stilln nice tooltip to have for anyone without the dlc
+					limit = {
+						NOT = {
+							has_dlc = "Arms Against Tyranny"
+						}
+					}
 					swap_ideas = {
 						remove_idea = fiat
 						add_idea = ITA_fiat_improved
 					}
-			
-				#NAVAL
+					#NAVAL
 					swap_ideas = {
 						remove_idea = crda
 						add_idea = ITA_crda_improved
@@ -3376,8 +3390,7 @@ focus_tree = {
 						remove_idea = ITA_cantiere_oto
 						add_idea = ITA_cantiere_oto_improved
 					}
-			
-				#AIRCRAFT
+					#AIRCRAFT
 					swap_ideas = {
 						remove_idea = macchi
 						add_idea = ITA_macchi_improved
@@ -3402,8 +3415,7 @@ focus_tree = {
 						remove_idea = ITA_fiat_aviazione
 						add_idea = ITA_fiat_aviazione_improved
 					}
-			
-				#MATERIEL
+					#MATERIEL
 					swap_ideas = {
 						remove_idea = beretta
 						add_idea = ITA_beretta_improved
@@ -3420,21 +3432,33 @@ focus_tree = {
 						remove_idea = ITA_brescia_arsenal
 						add_idea = ITA_brescia_arsenal_improved
 					}
-			
-				#INDUSTRIAL
-					swap_ideas = {
-						remove_idea = danieli
-						add_idea = ITA_danieli_improved
-					}
-					swap_ideas = {
-						remove_idea = ITA_italcementi
-						add_idea = ITA_italcementi_improved
-					}
-					swap_ideas = {
-						remove_idea = ITA_ducati_energia
-						add_idea = ITA_ducati_energia_improved
+				}
+				ELSE = {
+					every_military_industrial_organization = {
+						limit = {
+							OR = {
+								is_military_industrial_organization = ITA_fiat_organization
+								is_military_industrial_organization = ITA_crda_organization
+								is_military_industrial_organization = ITA_cantiere_oto_organization
+								is_military_industrial_organization = ITA_macchi_organization
+								is_military_industrial_organization = ITA_savoia_marchetti_organization
+								is_military_industrial_organization = ITA_caproni_organization
+								is_military_industrial_organization = ITA_piaggio_organization
+								is_military_industrial_organization = ITA_crda_cant_organization
+								is_military_industrial_organization = ITA_fiat_aviazione_organization
+								is_military_industrial_organization = ITA_beretta_organization
+								is_military_industrial_organization = ITA_lancia_organization
+								is_military_industrial_organization = ITA_breda_organization
+								is_military_industrial_organization = ITA_brescia_arsenal_organization
+							}
+						}
+						unlock_mio_trait_tooltip = {
+							trait = ITA_mio_trait_new_industrialization_program
+							show_modifiers = yes
+						}
 					}
 				}
+			
 			}
 		}
 	}
@@ -3627,26 +3651,7 @@ focus_tree = {
 			custom_effect_tooltip = r56rp_italy_designer_changes.tt #in r56rp_i_english.yml
 
 			effect_tooltip = {
-				#NAVAL
-				swap_ideas = {
-					remove_idea = ITA_navalmeccanica
-					add_idea = ITA_navalmeccanica_improved
-				}
-				swap_ideas = {
-					remove_idea = ITA_cantiere_navale_di_ancona
-					add_idea = ITA_cantiere_navale_di_ancona_improved
-				}
-				swap_ideas = {
-					remove_idea = ITA_cantieri_navali_tosi
-					add_idea = ITA_cantieri_navali_tosi_improved
-				}
-
-				#AIRCRAFT
-				swap_ideas = {
-					remove_idea = ITA_imam
-					add_idea = ITA_imam_improved
-				}
-
+				
 				#INDUSTRIAL
 				swap_ideas = {
 					remove_idea = ITA_terni_industria_ed_elettricita
@@ -3656,7 +3661,51 @@ focus_tree = {
 					remove_idea = ITA_astaldi
 					add_idea = ITA_astaldi_improved
 				}
-				##
+
+				IF = {
+					limit = {
+						NOT = {
+							has_dlc = "Arms Against Tyranny"
+						}
+					}
+					#NAVAL
+					swap_ideas = {
+						remove_idea = ITA_navalmeccanica
+						add_idea = ITA_navalmeccanica_improved
+					}
+					swap_ideas = {
+						remove_idea = ITA_cantiere_navale_di_ancona
+						add_idea = ITA_cantiere_navale_di_ancona_improved
+					}
+					swap_ideas = {
+						remove_idea = ITA_cantieri_navali_tosi
+						add_idea = ITA_cantieri_navali_tosi_improved
+					}
+
+					#AIRCRAFT
+					swap_ideas = {
+						remove_idea = ITA_imam
+						add_idea = ITA_imam_improved
+					}
+				}
+				ELSE = {
+					every_military_industrial_organization = {
+						limit = {
+							OR = {
+								is_military_industrial_organization = ITA_navalmeccanica_organization
+								is_military_industrial_organization = ITA_cantiere_navale_di_ancona_organization
+								is_military_industrial_organization = ITA_cantieri_navali_tosi_organization
+								is_military_industrial_organization = ITA_macchi_organization
+								is_military_industrial_organization = ITA_imam_organization
+							}
+						}
+						unlock_mio_trait_tooltip = {
+							trait = ITA_mio_trait_new_industrialization_program
+							show_modifiers = yes
+						}
+					}
+				}
+
 			}
 		}
 	}
