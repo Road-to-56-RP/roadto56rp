@@ -33760,13 +33760,15 @@ POR_expansionism_decision_category = {	#Portugal decisions to expand territorial
 
 unify_iberia_decision_category = {
 	SPR_unify_iberia_decision = {
+		cost = 65
 		icon = formable_nations_iberia
-		
-		visible = {
+		allowed = {
 			OR = {
 				original_tag = SPR
 				original_tag = SPA
 			}
+		}
+		visible = {
 			NOT = {
 				has_completed_focus = SPR_regional_defense_council_of_aragon
 				has_cosmetic_tag = FORM_IBE
@@ -33794,87 +33796,66 @@ unify_iberia_decision_category = {
 		fire_only_once = yes	
 
 		complete_effect = {
-			r56rp_rules_formable_to_4_points_se = yes 
-			add_political_power = -75
-			capital_scope = { set_state_flag = formable_nations_old_capital
-			}
+			capital_scope = { set_state_flag = formable_nations_old_capital }
 			set_cosmetic_tag = FORM_IBE
 			hidden_effect =	{
-				180 = { add_claim_by = SPR }	
-				180 = { add_claim_by = SPA }
-				181 = { add_claim_by = SPR }					
-				181 = { add_claim_by = SPA }	
-				112 = { add_claim_by = SPR }					
-				112 = { add_claim_by = SPA }	
-				795 = { add_claim_by = SPR }					
-				795 = { add_claim_by = SPA }	
-				179 = { add_claim_by = SPR }					
-				179 = { add_claim_by = SPA }	
-				697 = { add_claim_by = SPA }	
-				697 = { add_claim_by = SPR }	
-				698 = { add_claim_by = SPA }		
-				698 = { add_claim_by = SPR }						
+				add_state_claim = 180
+				add_state_claim = 181
+				add_state_claim = 112
+				add_state_claim = 795
+				add_state_claim = 179
+				add_state_claim = 697
+				add_state_claim = 698						
 			}
 		}
 		days_remove = 150
 		modifier = {
      		political_power_gain = -0.5
-			consumer_goods_factor = 0.07	
-	 		stability_weekly = -0.004
+			civilian_factory_use = 3
+	 		stability_weekly = -0.003
 		}
-		remove_effect = {	#add 6% stability, and core all of Portugal
-	 		add_stability = 0.06
+		remove_effect = {	#add 5% stability, and core all of Portugal
+	 		add_stability = 0.05
 			custom_effect_tooltip = SPR_cores_all_iberian_states_tt	
 			hidden_effect =	{
-				180 = { add_claim_by = SPR }	
-				180 = { add_claim_by = SPA }
-				181 = { add_claim_by = SPR }					
-				181 = { add_claim_by = SPA }	
-				112 = { add_claim_by = SPR }					
-				112 = { add_claim_by = SPA }	
-				795 = { add_claim_by = SPR }					
-				795 = { add_claim_by = SPA }	
-				179 = { add_claim_by = SPR }					
-				179 = { add_claim_by = SPA }
-				697 = { add_claim_by = SPA }
-				697 = { add_claim_by = SPR }
-				698 = { add_claim_by = SPA }
-				698 = { add_claim_by = SPR }
+				add_state_core = 180
+				add_state_core = 181
+				add_state_core = 112
+				add_state_core = 795
+				add_state_core = 179
+				add_state_core = 697
+				add_state_core = 698
 			}
 		}
 		ai_will_do = {
-			factor = 100
+			base = 100
 		}
 	}
 
 	POR_unify_iberia_decision_DLCtree = {
 		icon = formable_nations_iberia
+		fire_only_once = yes
 		cost = 40
+		allowed = { original_tag = POR }
 		visible = {
-			original_tag = POR
-			has_focus_tree = portuguese_focus
-			NOT = {
-				has_cosmetic_tag = FORM_IBE
-			}
+			NOT = { has_cosmetic_tag = FORM_IBE }
 		}
-
 		available = {
-			controls_state = 41
-			OR = {
-				has_completed_focus = POR_popular_front
-				has_completed_focus = POR_strengthen_the_regime
-				has_completed_focus = POR_national_syndicalism
-				has_completed_focus = POR_luso_monarchist_cooperation
-				has_completed_focus = POR_recover_brazil
+			if = { 
+				limit = { has_focus_tree = portuguese_focus }
+				OR = {
+					has_completed_focus = POR_popular_front
+					has_completed_focus = POR_strengthen_the_regime
+					has_completed_focus = POR_national_syndicalism
+					has_completed_focus = POR_luso_monarchist_cooperation
+					has_completed_focus = POR_recover_brazil
+				}
 			}
-		}
-		
-		fire_only_once = yes	
-
+			controls_state = 41
+		}	
 		complete_effect = {
 			r56rp_rules_formable_to_4_points_se = yes 
-			capital_scope = { set_state_flag = formable_nations_old_capital
-			}
+			capital_scope = { set_state_flag = formable_nations_old_capital }
 			set_cosmetic_tag = FORM_IBE
 			hidden_effect =	{
 				171 = { add_claim_by = POR }	
@@ -33902,65 +33883,10 @@ unify_iberia_decision_category = {
 				178 = { add_claim_by = POR }
 				172 = { add_claim_by = POR }
 			}
-				custom_effect_tooltip = POR_claims_all_spanish_states_tt
+			custom_effect_tooltip = POR_claims_all_spanish_states_tt
 		}
 		ai_will_do = {
-			factor = 100
-		}
-	}
-	
-	POR_unify_iberia_decision_r56tree = {
-		icon = formable_nations_iberia
-		cost = 40
-		visible = {
-			original_tag = POR
-			has_focus_tree = r56_portuguese_focus
-			NOT = {
-				has_cosmetic_tag = FORM_IBE
-			}
-		}
-
-		available = {
-			controls_state = 41
-		}
-		
-		fire_only_once = yes	
-
-		complete_effect = {
-			r56rp_rules_formable_to_4_points_se = yes 
-			capital_scope = { set_state_flag = formable_nations_old_capital
-			}
-			set_cosmetic_tag = FORM_IBE
-			hidden_effect =	{
-				171 = { add_claim_by = POR }	
-				790 = { add_claim_by = POR }	
-				174 = { add_claim_by = POR }
-				788 = { add_claim_by = POR }
-				170 = { add_claim_by = POR }
-				169 = { add_claim_by = POR }
-				791 = { add_claim_by = POR }
-				41 = { add_claim_by = POR }
-				790 = { add_claim_by = POR }
-				175 = { add_claim_by = POR }
-				789 = { add_claim_by = POR }
-				173 = { add_claim_by = POR }
-				792 = { add_claim_by = POR }
-				176 = { add_claim_by = POR }
-				793 = { add_claim_by = POR }
-				790 = { add_claim_by = POR }
-				168 = { add_claim_by = POR }
-				167 = { add_claim_by = POR }
-				166 = { add_claim_by = POR }
-				794 = { add_claim_by = POR }
-				165 = { add_claim_by = POR }
-				177 = { add_claim_by = POR }
-				178 = { add_claim_by = POR }
-				172 = { add_claim_by = POR }
-			}
-				custom_effect_tooltip = POR_claims_all_spanish_states_tt
-		}
-		ai_will_do = {
-			factor = 100
+			base = 100
 		}
 	}
 
@@ -33968,10 +33894,8 @@ unify_iberia_decision_category = {
         icon = formable_nations_spaniards
 		fire_only_once = yes
 		cost = 90
-		visible = {
-			original_tag = POR
-			has_cosmetic_tag = FORM_IBE
-		}
+		allowed = { original_tag = POR }
+		visible = { has_cosmetic_tag = FORM_IBE }
 		available = {
 			custom_trigger_tooltip = { 
 				tooltip = POR_owns_most_iberian_states_tt
@@ -33991,38 +33915,32 @@ unify_iberia_decision_category = {
 				owns_state = 794
 			}
 		}
-
-		complete_effect = {
-
-		}
-
 		days_remove = 175
 		modifier = {
      		political_power_gain = -0.55
-			consumer_goods_factor = 0.12	
+			civilian_factory_use = 4
 	 		stability_weekly = -0.002
 		}
-
-		remove_effect = {		#add 7% stability, and core all of Portugal
+		remove_effect = {
 	 		add_stability = 0.07
 			hidden_effect =	{
-				790 = { add_claim_by = POR }
-				174 = { add_claim_by = POR }
-				788 = { add_claim_by = POR }
-				170 = { add_claim_by = POR }
-				169 = { add_claim_by = POR }
-				791 = { add_claim_by = POR }
-				41 = { add_claim_by = POR }
-				175 = { add_claim_by = POR }
-				789 = { add_claim_by = POR }
-				173 = { add_claim_by = POR }
-				168 = { add_claim_by = POR }
-				793 = { add_claim_by = POR }
-				176 = { add_claim_by = POR }
-				794 = { add_claim_by = POR }
-				791 = { add_claim_by = POR }
-				166 = { add_claim_by = POR }
-				178 = { add_claim_by = POR }
+				790 = { add_core_of = ROOT }
+				174 = { add_core_of = ROOT }
+				788 = { add_core_of = ROOT }
+				170 = { add_core_of = ROOT }
+				169 = { add_core_of = ROOT }
+				791 = { add_core_of = ROOT }
+				41 = { add_core_of = ROOT }
+				175 = { add_core_of = ROOT }
+				789 = { add_core_of = ROOT }
+				173 = { add_core_of = ROOT }
+				168 = { add_core_of = ROOT }
+				793 = { add_core_of = ROOT }
+				176 = { add_core_of = ROOT }
+				794 = { add_core_of = ROOT }
+				791 = { add_core_of = ROOT }
+				166 = { add_core_of = ROOT }
+				178 = { add_core_of = ROOT }
 			}
 			custom_effect_tooltip = POR_cores_most_spanish_states
 		}
@@ -34032,10 +33950,8 @@ unify_iberia_decision_category = {
         icon = formable_nations_catalan
 		fire_only_once = yes
 		cost = 30
-		visible = {
-			has_cosmetic_tag = FORM_IBE
-			original_tag = POR
-		}
+		allowed = { original_tag = POR }
+		visible = { has_cosmetic_tag = FORM_IBE }
 		available = {
 			owns_state = 165
 		}
@@ -34050,10 +33966,10 @@ unify_iberia_decision_category = {
 		}
 		remove_effect = {		#add 1% stability, and core all Catalan states
 	 		add_stability = 0.01
-				167 = { add_claim_by = ROOT }
-				177 = { add_claim_by = ROOT }
+			add_state_core = 167
+			add_state_core = 177
 			165 = { 
-				add_claim_by = ROOT 
+				add_core_of = ROOT 
 				remove_dynamic_modifier = {
 					modifier = autonomous_state	
 				}
@@ -34065,9 +33981,9 @@ unify_iberia_decision_category = {
         icon = formable_nations_basque
 		fire_only_once = yes
 		cost = 30
+		allowed = { original_tag = POR }
 		visible = {
 			has_cosmetic_tag = FORM_IBE
-			original_tag = POR
 		}
 		available = {
 			owns_state = 792
@@ -34082,11 +33998,11 @@ unify_iberia_decision_category = {
 			consumer_goods_factor = 0.025
 	 		stability_weekly = -0.001
 		}
-		remove_effect = {		#add 3.5% stability, and core all of Portugal
+		remove_effect = {
 	 		add_stability = 0.01
-				792 = { add_claim_by = ROOT }
-				172 = { 
-				add_claim_by = ROOT 
+			792 = { add_core_of = ROOT }
+			172 = { 
+				add_core_of = ROOT 
 				remove_dynamic_modifier = {
 					modifier = autonomous_state	
 				}
@@ -34098,16 +34014,14 @@ unify_iberia_decision_category = {
         icon = formable_nations_pyrenes
 		fire_only_once = yes
 		cost = 20
-		visible = {
+		allowed = {
 			OR = {
 				original_tag = SPR
 				original_tag = SPA
-				has_cosmetic_tag = FORM_IBE
 			}
-			OR = {
-				controls_state = 806
-				owns_state = 806				
-			}
+		}
+		visible = { has_cosmetic_tag = FORM_IBE
+			controls_state = 806				
 		}
 
 		available = {
@@ -34116,7 +34030,7 @@ unify_iberia_decision_category = {
 		}
 
 		complete_effect = {
-			806 = { add_claim_by = SPR }
+			add_state_claim = 806
 			add_stability = -0.01
 		}
 
@@ -34126,9 +34040,9 @@ unify_iberia_decision_category = {
 			consumer_goods_factor = 0.01
 		}
 
-		remove_effect = {	#add 3.5% stability, and core all of Portugal
+		remove_effect = {
 	 		add_stability = 0.005
-			806 = { add_claim_by = ROOT }
+			add_state_core = 806
 		}
 	}
 
@@ -34138,27 +34052,20 @@ unify_iberia_decision_category = {
 		cost = 15
 		visible = {
 			has_cosmetic_tag = FORM_IBE
-			OR = {
-				controls_state = 973
-				owns_state = 973
-			}
+			controls_state = 973
 		}
-
 		available = {
 			owns_state = 973
 		}
-
 		complete_effect = {
 			973 = { add_claim_by = SPR }
 		}
-
 		days_remove = 110
 		modifier = {
      		political_power_gain = -0.1
-
 		}
 		remove_effect = {		#Core Andorra
-			973 = { add_claim_by = ROOT }
+			add_state_core = 973
 		}
 	}
 	
@@ -34188,11 +34095,15 @@ catalonia_decisions_category = {
 		icon = formable_nations_valencia
 		fire_only_once = yes
 		cost = 65
-		
+		allowed = {
+			OR = {
+				original_tag = ADR
+				original_tag = CAT
+			}
+		}
 		available = {
 			controls_state = 167		#Controls Cataluna
 		}	
-		
 		visible = {
 			has_cosmetic_tag = CAT		#Has the name/flag of Catalonia
 		}
@@ -34201,31 +34112,32 @@ catalonia_decisions_category = {
 				state = 167
 			}
 		}
-		
 		complete_effect = {	#gain 2 war support.
 			add_war_support = 0.02
 		}	
-		
 		days_remove = 45
 		modifier = {
      		political_power_gain = -0.35
 			consumer_goods_factor = 0.035	
 		}		
-		
 		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
 	 		add_stability = 0.01
-			167 = { add_claim_by = ROOT }	
-		}
-				
+			add_state_core = 167
+		}		
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 	}
 	ADR_integrate_balearic_islands = { 		#Catalonia integrates Valencia
 		icon = formable_nations_balearic
 		fire_only_once = yes
 		cost = 35
-		
+		allowed = {
+			OR = {
+				original_tag = ADR
+				original_tag = CAT
+			}
+		}
 		available = {
 			controls_state = 177		#Controls Cataluna
 		}	
@@ -34251,11 +34163,10 @@ catalonia_decisions_category = {
 		
 		remove_effect = {		#Gain 1 Stability and gains core on Valencia.
 	 		add_stability = 0.01
-			177 = { add_claim_by = ROOT }	
-		}
-				
+			add_state_core = 177	
+		}		
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 	}
 }
@@ -34265,20 +34176,19 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 		icon = formable_nations_wallonia
 		fire_only_once = yes
 		cost = 25
-		
 		available = {
-			controls_state = 34	#Controls Wallonie
+			controls_state = 34		#Controls Wallonie
 		}	
 		
 		visible = {
-			original_tag = FRA		#Is France
 			NOT = {
 				has_government = neutrality		#Not visible if France is monarchist, as they get their own decision to integrate it.
 			}	
 		}
 		complete_effect = {		#gain 2% war support upon clicking the decision.
-			add_stability = -0.04
 			add_war_support = 0.02
+			add_state_claim = 34
+			add_state_claim = 965
 		}			
 		highlight_states = {
 			highlight_state_targets = {
@@ -34287,56 +34197,36 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 		}
 		days_remove = 150
 		modifier = {
-     		political_power_gain = -0.35
-			consumer_goods_factor = 0.012
+     		political_power_gain = -0.25
+			civilian_factory_use = 2
 		}		
-		
-		remove_effect = {		#add 3.5% stability, core Wallonie province, and claim Eupen-Malmedy province
-	 		add_stability = 0.025
-			34 = { add_claim_by = ROOT }	
-			965 = { add_claim_by = FRA }	
-		}
-		
+		remove_effect = { add_state_core = 34 }
 		ai_will_do = {
 			factor = 100		
 		}
 	}
 
-	FRA_core_lux = { #France core Luxembourg
+	FRA_core_lux = {
 		icon = formable_nations_luxembourg
 		fire_only_once = yes
-		cost = 10
-		
-		available = {
-			controls_state = 8	#Controls Luxembourg
-		}	
-		
-		visible = {
-			original_tag = FRA		#Is France
-		}
-
+		available = { controls_state = 8 }	
 		highlight_states = {
 			highlight_state_targets = {
 				state = 8
 			}
 		}
-
-		complete_effect = {		#Lose 1 stability upon clicing decision, and gain 1.5 war support.
-			add_stability = -0.01
+		complete_effect = {
 			add_war_support = 0.0015
 		}			
-		
 		days_remove = 180
-		modifier = {		#Lose 1.05 Political Power and 0.1% stability per week for 180 days.
-     		political_power_gain = -0.1
+		modifier = {
+     		political_power_gain = -0.05
 		}		
-		
-		remove_effect = {		#add 0.5% stability, and core Luxembourg
-	 		add_stability = 0.005
-			8 = { add_claim_by = ROOT }	
+		remove_effect = {
+			add_state_core = 8
 		}
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 	}
 
@@ -34344,87 +34234,73 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 		icon = formable_nations_jura
 		fire_only_once = yes
 		cost = 25
-		
 		available = {
 			controls_state = 845		#Controls Jura Mountains
 		}	
-
 		highlight_states = {
 			highlight_state_targets = {
 				state = 845
 			}
-		}
-		
-		visible = {
-			original_tag = FRA		#Is France
-		}
-		
-		
+		}	
 		complete_effect = {
-			add_stability = -0.025
-			add_war_support = 0.015
+			add_war_support = 0.01
 			845 = {
 				add_dynamic_modifier = {
 					modifier = swiss_partisans
 				}		
 			}
 		}			
-		days_remove = 210
-		modifier = {		#Lose 1 Political Power, and gain 0.5% consumer goods for 210 days.
+		days_remove = 190
+		modifier = {
      		political_power_gain = -0.1
-			consumer_goods_factor = 0.005
 		}		
-		remove_effect = {		#add 1.5% stability, remove funny modifier, and core Jura Mountains
-	 		add_stability = 0.015
-			845 = { add_claim_by = ROOT 
+		remove_effect = {
+			845 = { 
+				add_core_of = ROOT
 				remove_dynamic_modifier = {
 					modifier = swiss_partisans
 				}	
 			}	
 		}
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 	}
 
-	FRA_core_western_swiss_alps = { 		#France core Jura Mountains
+	FRA_core_western_swiss_alps = { 
 		icon = formable_nations_westernswiss
 		fire_only_once = yes
-		cost = 10
-		
+		cost = 15
 		available = {
-			controls_state = 847		#Controls Western Swiss Alps
+			controls_state = 847
 		}	
-
 		highlight_states = {
 			highlight_state_targets = {
 				state = 847
 			}
-		}
-		visible = {
-			original_tag = FRA		#Is France
-		}
-		
+		}	
 		complete_effect = {
-			add_stability = -0.0015
-			add_war_support = 0.005
 			847 = {
 				add_dynamic_modifier = {
 					modifier = swiss_partisans
 				}		
 			}
 		}			
-		days_remove = 365
-		modifier = {		#Lose 0.8 Political Power a day, and -0.001% stability per week for 365 days.
+		days_remove = 225
+		modifier = {
      		political_power_gain = -0.08
 		}		
-		remove_effect = {		#add 1% stability, and core 847
-	 		add_stability = 0.01
-			847 = { add_claim_by = ROOT }	
+		remove_effect = {
+			847 = { 
+				add_core_of = ROOT
+				remove_dynamic_modifier = {
+					modifier = swiss_partisans
+				}	
+			}
 		}
 
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 	}
 
@@ -34444,7 +34320,6 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 		}
 
 		visible = {
-			original_tag = FRA		#Is France
 			has_government = fascism		#Is Fascist
 		}
 
@@ -34458,7 +34333,7 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 			}			
 		}
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 	}
 
@@ -34479,24 +34354,18 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 		}
 		
 		visible = {
-			original_tag = FRA		#Is France
-			NOT = { 165 = { is_core_of = ROOT }  }
-		}	
-		
-		complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
-			add_stability = -0.02
-			add_war_support = 0.01
+			NOT = { 
+				165 = { is_core_of = ROOT }  
+			}
 		}		
-		days_remove = 210
-		modifier = {		#Lose 0.1 Political Power a day, and gain 1% consumer goods for 210 days.
+		days_remove = 190
+		modifier = {
      		political_power_gain = -0.1
-			consumer_goods_factor = 0.01
-	 		stability_weekly = -0.001
+			civilian_factory_use = 2
 		}	
-		remove_effect = {		#add 1.5% stability, and core Luxembourg
-	 		add_stability = 0.015
+		remove_effect = {
 			165 = { 
-				add_claim_by = ROOT	
+				add_core_of = ROOT
 				remove_dynamic_modifier = {
 					modifier = autonomous_state
 				}
@@ -34506,100 +34375,86 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 			}
 		}
 		ai_will_do = {
-			factor = 100		
-			}
+			base = 100		
+		}
 	}
 
 	FRA_core_other_catalan_territories = { 		#France core Eastern Aragón, Balaeric Islands, and Valencia
 		icon = formable_nations_balearic
 		fire_only_once = yes
 		cost = 0
-		
-			available = {
-				controls_state = 165		#Controls Cataluña
-				controls_state = 167		#Controls Valencia
-				controls_state = 177		#Controls BalaericIslands
-				has_government = neutrality		#Is Authoritarian
-			}	
-
-			highlight_states = {
-				highlight_state_targets = {
-					state = 167
+		available = {
+			controls_state = 165		#Controls Cataluña
+			controls_state = 167		#Controls Valencia
+			controls_state = 177		#Controls BalaericIslands
+			has_government = neutrality		#Is Authoritarian
+		}	
+		highlight_states = {
+			highlight_state_targets = {
+				state = 167
+			}
+		}
+		visible = {
+			165 = { is_core_of = ROOT }
+		}
+		complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
+			add_war_support = 0.02
+		}			
+		days_remove = 305
+		modifier = {		#Lose 0.1 Political Power a day, gain 1.5% consumer goods, and -0.1% stability per week for 210 days.
+			political_power_gain = -0.2
+			civilian_factory_use = 3	
+		}		
+		remove_effect = {
+			167 = { 
+				add_core_of = ROOT	
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
+				}
+				add_dynamic_modifier = {
+					modifier = FRA_cat_autonomy
 				}
 			}
-
-			visible = {
-				original_tag = FRA		#Is France
-				165 = { is_core_of = ROOT }	#Has core on Cataluña
-			}
-			complete_effect = {		#Lose 60 Political Power upon clicing decision, and gain 1 war support.
-				add_political_power = -60
-				add_war_support = 0.01
-			}			
-			days_remove = 365
-			modifier = {		#Lose 0.1 Political Power a day, gain 1.5% consumer goods, and -0.1% stability per week for 210 days.
-				political_power_gain = -0.2
-				consumer_goods_factor = 0.03	
-				stability_weekly = -0.002
-			}		
-			remove_effect = {		#add 4% stability, and core Eastern Aragón, Balaeric Islands, and Valencia
-				add_stability = 0.04
-				167 = { add_claim_by = ROOT 	
-					remove_dynamic_modifier = {
-						modifier = autonomous_state
-					}
-					add_dynamic_modifier = {
-						modifier = FRA_cat_autonomy
-					}
+			177 = { 
+				add_core_of = ROOT		
+				remove_dynamic_modifier = {
+					modifier = autonomous_state
 				}
-				177 = { add_claim_by = ROOT 	
-					remove_dynamic_modifier = {
-						modifier = autonomous_state
-					}
-					add_dynamic_modifier = {
-						modifier = FRA_cat_autonomy
-					}
+				add_dynamic_modifier = {
+					modifier = FRA_cat_autonomy
 				}
 			}
+		}
 		ai_will_do = {
-			factor = 100		
+			base = 100		
 		}
 	}
 
-	FRA_push_germany_east = { 	#France claim both Rhinelad tiles
+	FRA_push_germany_east = { 	#France claim the Rhinelad tiles
 		icon = formable_nations_rhineclaim
 		fire_only_once = yes
 		cost = 75
-		
 		available = {
-			OR = {	#Is at war with Germany, or controls one or both Rhineland states.
+			OR = {	#Is at war with Germany, or controls one or all Rhineland states.
 				has_war_with = GER
+				add_state_claim = 1053
 				controls_state = 42
 				controls_state = 51
 			}
 		}
-
 		highlight_states = {
 			highlight_state_targets = {
 				state = 42
 			}
 		}
-
-		visible = {
-			original_tag = FRA		#Is France
-		}
-
-		complete_effect = {		#gain 5 war support, and adds claim on both Rhineland states.
+		complete_effect = {		#gain 5 war support, and adds claim on the Rhineland states.
 			add_war_support = 0.05
-			42 = {
-				add_claim_by = FRA
-			}	
-			51 = {
-				add_claim_by = FRA
-			}	
+			add_state_claim = 1053
+			add_state_claim = 42
+			add_state_claim = 51	
 		}			
 		ai_will_do = {
-			factor = 100		
+			base = 30		
 		}
 	}
 
@@ -34607,11 +34462,6 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 		icon = formable_nations_piedmont
 		fire_only_once = yes
 		cost = 35
-		
-		available = {
-			original_tag = FRA		#Is France
-		}	
-
 		highlight_states = {
 			highlight_state_targets = {
 				state = 158
@@ -34619,7 +34469,6 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 		}
 
 		visible = {
-			original_tag = FRA		#Is France
 			OR = {	#Is at war with Italy, or controls Piedmont.
 				has_war_with = ITA
 				controls_state = 158
@@ -34630,16 +34479,12 @@ FRA_expanisonism_category = {	#Category with options to core several linguistic/
 
 		complete_effect = {		#gain 2 war support, and adds claim on Piedmont and Sardinia.
 			add_war_support = 0.02
-			158 = {
-				add_claim_by = FRA
-			}	
-			114 = {
-				add_claim_by = FRA
-			}				
+			add_state_claim = 158
+			add_state_claim = 114					
 		}
 
 		ai_will_do = {
-			factor = 100		
+			factor = 25		
 		}
 	}
 }	
@@ -34655,13 +34500,8 @@ bel_expansionism_decision_category = {
 			}
 		}
 		visible = {
-			original_tag = BEL
 			NOT = {
-				has_global_flag = form_united_netherlands_flag 
-				has_global_flag = BEL_benelux_formed
-				has_cosmetic_tag = BEL_benelux_formed
-				has_cosmetic_tag = form_united_netherlands_flag 
-				8 = {	is_core_of = BEL	}
+				8 = { is_core_of = BEL }
 			}
 		} 	
 		available = {
@@ -34680,7 +34520,7 @@ bel_expansionism_decision_category = {
 			}
 		}		
 		remove_effect = {
-			8 = { add_claim_by = ROOT }
+			add_state_core = 8
 		}
 		ai_will_do = {
 			factor = 100
@@ -34696,8 +34536,7 @@ bel_expansionism_decision_category = {
 			}
 		}
 		visible = {
-			original_tag = BEL
-				NOT = {
+			NOT = {
 				has_global_flag = form_united_netherlands_flag 
 				has_global_flag = BEL_benelux_formed
 				has_cosmetic_tag = BEL_benelux_formed
@@ -34711,25 +34550,21 @@ bel_expansionism_decision_category = {
 			controls_state = 36	#Groningen
 		}
 
-		days_remove = 170
+		days_remove = 175
 		modifier = {
      		political_power_gain = -0.25
-			consumer_goods_factor = 0.035
+			civilian_factory_use = 3
 		}	
 		complete_effect = {
-			add_stability = -0.05
-			add_war_support = 0.025
-			8 = { add_claim_by = BEL }
+			add_war_support = 0.05
 		}		
 		remove_effect = {
-			add_stability = 0.03
-			35 = { add_claim_by = ROOT }
-			7 = { add_claim_by = ROOT }
-			36 = { add_claim_by = ROOT }
-			
+			add_state_core = 35
+			add_state_core = 7
+			add_state_core = 36		
 		}
 		ai_will_do = {
-			factor = 100
+			base = 100
 		}
 	}
 	bel_claim_nordpaspdepcalais = {
@@ -34742,10 +34577,9 @@ bel_expansionism_decision_category = {
 			}
 		}
 		visible = {
-			original_tag = BEL
-				NOT = {
-				29 = {	is_core_of = BEL	}
-				29 = {	is_claimed_by = BEL	}
+			NOT = {
+				29 = { is_core_of = BEL }
+				29 = { is_claimed_by = BEL }
 			}
 		} 	
 		available = {
@@ -34786,20 +34620,17 @@ romanian_expansionism_decision_category = {	#Romania decisions to expand territo
 		}
 		
 		complete_effect = {		#Add 1 war support, and claim on West Banat
-			add_stability = -0.02
 			add_war_support = 0.01
 			764 = { add_claim_by = ROM }	
 		}
 		
 		days_remove = 210
 		modifier = {
-     		political_power_gain = -0.1
-			consumer_goods_factor = 0.005	
+     		political_power_gain = -0.15
 		}		
 
-		remove_effect = {		#Gain 1 Stability and gains core on all required states.
-	 		add_stability = 0.01
-			764 = { add_claim_by = ROOT }
+		remove_effect = {
+			add_state_core = 764
 		}
 
 		ai_will_do = {
@@ -34832,12 +34663,12 @@ romanian_expansionism_decision_category = {	#Romania decisions to expand territo
 			}
 		}
 		
-		complete_effect = {		#Add 1 war support, and claim on West Banat
+		complete_effect = {
 			add_war_support = 0.01
-			154 = { add_claim_by = ROM }	
+			add_state_claim = 154
 		}
 		ai_will_do = {
-			factor = 25
+			base = 25
 		}
 	}
 }
@@ -34853,9 +34684,8 @@ hungarian_expansionism_decision_category = {	#Hungary decisions to expand territ
 		}	
 		
 		visible = {
-			original_tag = HUN
 			NOT = {
-				45 = {	is_core_of = HUN	}
+				45 = { is_core_of = HUN }
 			}
 		}
 		highlight_states = {
@@ -34865,24 +34695,22 @@ hungarian_expansionism_decision_category = {	#Hungary decisions to expand territ
 		}
 		
 		complete_effect = {		#Add 1 war support, and claim on Vojvodina
-			add_stability = -0.015
 			add_war_support = 0.02
 			45 = { add_claim_by = HUN }	
 		}
 		
 		days_remove = 115
 		modifier = {
-     		political_power_gain = -0.1
-			consumer_goods_factor = 0.01	
+     		political_power_gain = -0.15
 		}		
 
 		remove_effect = {		#Gain 2 Stability and gains core on all required states.
 	 		add_stability = 0.01
-			45 = { add_claim_by = ROOT }
+			add_state_core = 45
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	hun_core_northtransylvania = { 		#Hungary core North Transylvania
@@ -34895,9 +34723,8 @@ hungarian_expansionism_decision_category = {	#Hungary decisions to expand territ
 		}	
 		
 		visible = {
-			original_tag = HUN
 			NOT = {
-				76 = {	is_core_of = HUN	}
+				76 = { is_core_of = HUN }
 			}
 		}
 		highlight_states = {
@@ -34906,25 +34733,23 @@ hungarian_expansionism_decision_category = {	#Hungary decisions to expand territ
 			}
 		}
 		
-		complete_effect = {		#Add 1 war support, and claim on North Transylvania
-			add_stability = -0.04
+		complete_effect = {		#Add 2 war support, and claim on North Transylvania
 			add_war_support = 0.02
-			76 = { add_claim_by = HUN }	
+			add_state_claim = 76
 		}
 		
 		days_remove = 185
 		modifier = {
      		political_power_gain = -0.15
-			consumer_goods_factor = 0.02	
+			civilian_factory_use = 1
 		}		
 
-		remove_effect = {		#Gain 2 Stability and gains core on all required states.
-	 		add_stability = 0.02
-			76 = { add_claim_by = ROOT }
+		remove_effect = {
+			add_state_core = 76
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
@@ -34938,7 +34763,6 @@ hungarian_expansionism_decision_category = {	#Hungary decisions to expand territ
 		}	
 		
 		visible = {
-			original_tag = HUN
 			NOT = {
 				73 = {	is_core_of = HUN	}
 			}
@@ -34949,22 +34773,18 @@ hungarian_expansionism_decision_category = {	#Hungary decisions to expand territ
 			}
 		}
 		
-		complete_effect = {		#Add 1 war support, and claim on Carpathia-Ruthenia
-			add_stability = -0.015
+		complete_effect = {
 			add_war_support = 0.02
-			73 = { add_claim_by = HUN }	
+			add_state_claim = 73
 		}
 		
-		days_remove = 185
+		days_remove = 175
 		modifier = {
      		political_power_gain = -0.15
-			consumer_goods_factor = 0.015	
-	 		stability_weekly = -0.0015
 		}		
 
-		remove_effect = {		#Gain 1 Stability and gains core on all required states.
-	 		add_stability = 0.01
-			73 = { add_claim_by = ROOT }
+		remove_effect = {
+			add_state_core = 73
 		}
 
 		ai_will_do = {
@@ -36209,6 +36029,9 @@ bul_demcom_integrate_the_yugoslav_states = {	#Decisions for Bulgaria to go ham o
 		}	
 		remove_effect = {
 			add_stability = 0.01
+			add_state_core = 853
+			add_state_core = 102
+			add_state_core = 736
 			853 = { add_claim_by = ROOT }
 			102 = { add_claim_by = ROOT }
 			736 = { add_claim_by = ROOT }
@@ -36507,8 +36330,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			}
 		}
 
-		complete_effect = {		#Lose 2.5 stability
-			add_stability = -0.025	
+		complete_effect = {
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -36523,35 +36345,33 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				}
 			}
 		}
-		days_remove = 210
-		modifier = {		#Lose 0.25 Political Power and gain 2% cg for 210 days.
-     		political_power_gain = -0.25
-	 		consumer_goods_factor = 0.02
+		days_remove = 185
+		modifier = {
+     		political_power_gain = -0.15
 		}	
 		remove_effect = {
-			add_stability = 0.005
 			custom_effect_tooltip = bul_cores_northern_greece_tt
 			hidden_effect = {
 				184 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = greek_partisans
 					}
 				}
 				731 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = greek_partisans
 					}
 				}
 				185 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = greek_partisans
 					}
 				}
 				187 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = greek_partisans
 					}
@@ -36560,13 +36380,13 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}
 			
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	bulautfas_integrate_southern_greece = {
 		icon = formable_nations_southerngreece
 		fire_only_once = yes
-		cost = 55
+		cost = 50
 		
 		available = {
 			owns_state = 184
@@ -36574,11 +36394,9 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			owns_state = 185
 		}
 		visible = {
-			185 = {	is_core_of = BUL
-			}
-			NOT = {
-				47 = {	is_core_of = BUL
-				}
+			185 = {	is_core_of = BUL }
+			NOT = { 
+				47 = { is_core_of = BUL }
 			}	
 		}
 		
@@ -36587,8 +36405,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				state = 47
 			}
 		}
-		complete_effect = {		#Lose 3 stability
-			add_stability = -0.03
+		complete_effect = {
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -36603,35 +36420,33 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				}
 			}
 		}
-		days_remove = 250
-		modifier = {		#Lose 0.35 Political Power and gain 2.5% cg for 210 days.
-     		political_power_gain = -0.35
-	 		consumer_goods_factor = 0.025
+		days_remove = 200
+		modifier = {
+     		political_power_gain = -0.2
 		}	
 		remove_effect = {
-			add_stability = 0.01
 			custom_effect_tooltip = bul_cores_southern_greece_tt
 			hidden_effect = {
 				47 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = greek_partisans
 					}
 				}
 				186 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT 
 					remove_dynamic_modifier = {
 						modifier = greek_partisans
 					}
 				}
 				182 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = greek_partisans
 					}
 				}
 				164 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = greek_partisans
 					}
@@ -36640,7 +36455,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}	
 			
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	bulautfas_integrate_serbia = {
@@ -36664,8 +36479,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				state = 107
 			}
 		}
-		complete_effect = {		#Lose 4 stability
-			add_stability = -0.04
+		complete_effect = {	
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -36679,29 +36493,27 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				}
 			}
 		}
-		days_remove = 210
-		modifier = {		#Lose 0.25 Political Power and gain 2% cg for 210 days.
-     		political_power_gain = -0.3
-	 		consumer_goods_factor = 0.025
+		days_remove = 225
+		modifier = {
+     		political_power_gain = -0.25
 		}	
 		remove_effect = {
-			add_stability = 0.005
 			custom_effect_tooltip = bul_cores_serbia_tt
 			hidden_effect = {
 				107 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_yugoslav_partisans
 					}
 				}
 				108 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_yugoslav_partisans
 					}
 				}
 				952 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_yugoslav_partisans
 					}
@@ -36725,7 +36537,8 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}
 		visible = {
 			NOT = {
-				802 = {	is_core_of = BUL
+				802 = {	
+					is_core_of = BUL
 				}
 			}	
 		}
@@ -36752,28 +36565,26 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			}
 		}
 		days_remove = 175
-		modifier = {		#Lose 0.1 Political Power and gain 0.3% cg for 150 days.
+		modifier = {
      		political_power_gain = -0.12
-	 		consumer_goods_factor = 0.005
 		}	
 		remove_effect = {
-			add_stability = 0.01
 			custom_effect_tooltip = bul_cores_debar_kosovo_tt
 			hidden_effect = {
 				953 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_albanian_partisans
 					}
 				}
 				802 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT 
 					remove_dynamic_modifier = {
 						modifier = pan_albanian_partisans
 					}
 				}
 				950 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_albanian_partisans
 					}
@@ -36782,7 +36593,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}	
 			
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	bulautfas_integrate_albania = { 		
@@ -36796,11 +36607,9 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			owns_state = 805
 		}
 		visible = {
-				950 = {	is_core_of = BUL	
-				}
+			950 = {	is_core_of = BUL }
 			NOT = {
-				44 = {	is_core_of = BUL
-				}
+				44 = {	is_core_of = BUL }
 			}	
 		}
 		
@@ -36810,8 +36619,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			}
 		}
 		
-		complete_effect = {		#Lose 2 stability
-			add_stability = -0.02
+		complete_effect = {
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -36825,29 +36633,27 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				}
 			}
 		}
-		days_remove = 175
-		modifier = {		#Lose 0.1 Political Power and gain 1% cg for 150 days.
-     		political_power_gain = -0.12
-	 		consumer_goods_factor = 0.01
+		days_remove = 165
+		modifier = {
+     		political_power_gain = -0.1
 		}	
 		remove_effect = {
-			add_stability = 0.01
 			custom_effect_tooltip = bul_cores_albania_tt
 			hidden_effect = {
 				44 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_albanian_partisans
 					}
 				}
 				910 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_albanian_partisans
 					}
 				}
 				805 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_albanian_partisans
 					}
@@ -36856,7 +36662,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}	
 			
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	bul_autfas_integrate_montenegro = { 		
@@ -36883,8 +36689,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			}
 		}
 		
-		complete_effect = {		#Lose 1 stability
-			add_stability = -0.01
+		complete_effect = {
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -36897,22 +36702,21 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				}
 			}
 		}
-		days_remove = 175
-		modifier = {		#Lose 0.15 Political Power and gain 2% cg for 210 days.
+		days_remove = 16
+		modifier = {
      		political_power_gain = -0.15
-	 		consumer_goods_factor = 0.005
 		}	
 		remove_effect = {
 			custom_effect_tooltip = bul_cores_montenegro_tt
 			hidden_effect = {
 				105 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_yugoslav_partisans
 					}
 				}
 				963 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = pan_yugoslav_partisans
 					}
@@ -36921,7 +36725,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}	
 			
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	bul_autfas_integrate_vojvodina = { 		
@@ -36934,11 +36738,9 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			owns_state = 764
 		}
 		visible = {
-				952 = {	is_core_of = BUL	
-				}
+			952 = {	is_core_of = BUL }
 			NOT = {
-				45 = {	is_core_of = BUL
-				}
+				45 = {	is_core_of = BUL }
 			}	
 		}
 		
@@ -36948,8 +36750,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			}
 		}
 		
-		complete_effect = {		#Lose .5 stability
-			add_stability = -0.01
+		complete_effect = {
 			every_owned_state = {
 				limit = {
 					OR = {
@@ -36963,22 +36764,20 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			}
 		}
 		days_remove = 175
-		modifier = {		#Lose 0.12 Political Power and gain 1% cg for 210 days.
+		modifier = {
      		political_power_gain = -0.12
-	 		consumer_goods_factor = 0.01
 		}	
 		remove_effect = {
-			add_stability = 0.005
 			custom_effect_tooltip = bul_cores_montenegro_tt
 			hidden_effect = {
 				45 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = divided_rebellion
 					}
 				}
 				764 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT 
 					remove_dynamic_modifier = {
 						modifier = divided_rebellion
 					}
@@ -36987,7 +36786,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}	
 			
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	bul_autfas_integrate_bosnia = { 		
@@ -37002,11 +36801,9 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			owns_state = 961
 		}
 		visible = {
-				952 = {	is_core_of = BUL	
-				}
+			952 = {	is_core_of = BUL }
 			NOT = {
-				961 = {	is_core_of = BUL
-				}
+				961 = {	is_core_of = BUL }
 			}	
 		}
 		
@@ -37032,35 +36829,33 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				}
 			}
 		}
-		days_remove = 275
-		modifier = {		#Lose 0.15 Political Power and gain 2% cg for 210 days.
+		days_remove = 235
+		modifier = {
      		political_power_gain = -0.15
-	 		consumer_goods_factor = 0.01
 		}	
 		remove_effect = {
-			add_stability = 0.005
 			custom_effect_tooltip = bul_cores_bosnia_tt
 			hidden_effect = {
 				104 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = serbo_bosniak_partisans
 					}
 				}
 				962 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = serbo_bosniak_partisans
 					}
 				}
 				804 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = serbo_bosniak_partisans
 					}
 				}
 				961 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = serbo_bosniak_partisans
 					}
@@ -37069,7 +36864,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}	
 			
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	bul_autfas_integrate_croatia = { 		
@@ -37084,11 +36879,9 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			owns_state = 103
 		}
 		visible = {
-				952 = {	is_core_of = BUL	
-				}
+			952 = {	is_core_of = BUL }
 			NOT = {
-				109 = {	is_core_of = BUL
-				}
+				109 = {	is_core_of = BUL }
 			}	
 		}
 		
@@ -37099,8 +36892,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}
 		
 		complete_effect = {		#Lose 3.5 stability
-			add_stability = -0.035
-			every_owned_state = {
+			every_controlled_state = {
 				limit = {
 					OR = {
 						state = 109
@@ -37116,47 +36908,45 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				}
 			}
 		}
-		days_remove = 250
-		modifier = {		#Lose 0.2 Political Power and gain 2% cg for 150 days.
+		days_remove = 235
+		modifier = {
      		political_power_gain = -0.2
-	 		consumer_goods_factor = 0.02
 		}	
 		remove_effect = {
-			add_stability = 0.005
 			custom_effect_tooltip = bul_cores_croatia_tt
 			hidden_effect = {
 				109 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = croatian_partisans
 					}
 				}
 				959 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = croatian_partisans
 					}
 				}
 				958 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = croatian_partisans
 					}
 				}
 				103 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = croatian_partisans
 					}
 				}
 				163 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = croatian_partisans
 					}
 				}
 				852 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = croatian_partisans
 					}
@@ -37178,11 +36968,9 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			owns_state = 102
 		}
 		visible = {
-				109 = {	is_core_of = BUL	
-				}
+			109 = {	is_core_of = BUL }
 			NOT = {
-				102 = {	is_core_of = BUL
-				}
+				102 = {	is_core_of = BUL }
 			}	
 		}
 		
@@ -37193,8 +36981,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 		}
 		
 		complete_effect = {		#Lose 1.5 stability
-			add_stability = -0.015
-			every_owned_state = {
+			every_controlled_state = {
 				limit = {
 					OR = {
 						state = 102
@@ -37208,35 +36995,33 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 				}
 			}
 		}
-		days_remove = 275
-		modifier = {		#Lose 0.15 Political Power and gain 1.2% cg for 210 days.
-     		political_power_gain = -0.15
-	 		consumer_goods_factor = 0.012
+		days_remove = 265
+		modifier = {
+     		political_power_gain = -0.1
 		}	
 		remove_effect = {
-			add_stability = 0.005
 			custom_effect_tooltip = bul_cores_slovenia_tt
 			hidden_effect = {
 				102 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = slovene_partisans
 					}
 				}
 				853 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = slovene_partisans
 					}
 				}
 				956 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = slovene_partisans
 					}
 				}
 				736 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT 
 					remove_dynamic_modifier = {
 						modifier = slovene_partisans
 					}
@@ -37244,7 +37029,7 @@ bul_autfas_integrate_the_balkan_states = {		#Decisions for Bulgaria to go ham on
 			}
 		}
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 }
@@ -37327,41 +37112,39 @@ yug_expanding_belgrades_reach = {	#Decisions for Yugoslavia to go ham
 				}
 			}
 		}
-		days_remove = 315
-		modifier = {		#Lose 0.2 Political Power and gain 1.5% cg for 190 days.
+		days_remove = 300
+		modifier = {
      		political_power_gain = -0.25
-	 		consumer_goods_factor = 0.02
 		}	
 		remove_effect = {
-			add_stability = 0.01
 			custom_effect_tooltip = yug_cores_bulgaria_tt
 			hidden_effect = {
 				48 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = bulgarias_last_stand
 					}
 				}
 				212 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT 
 					remove_dynamic_modifier = {
 						modifier = bulgarias_last_stand
 					}
 				}
 				801 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = bulgarias_last_stand
 					}
 				}
 				211 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = bulgarias_last_stand
 					}
 				}
 				77 = { 
-					add_claim_by = ROOT 
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = bulgarias_last_stand
 					}
@@ -37370,7 +37153,7 @@ yug_expanding_belgrades_reach = {	#Decisions for Yugoslavia to go ham
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 	YUG_claim_thrace = { 	
@@ -42917,7 +42700,7 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 	usa_integrate_pacific_canada = { 		#USA integrate British-Columbia / Yukon
 		icon = formable_nations_british_columbia
 		fire_only_once = yes
-		cost = 50
+		cost = 45
 		
 		available = {
 			owns_state = 473		#British Columbia
@@ -42926,7 +42709,6 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}	
 		
 		visible = {
-			original_tag = USA
 			NOT = {
 				473 = {	is_core_of = USA	}
 			}
@@ -42946,7 +42728,6 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 		
 		complete_effect = {		#Remove 1.5 stability, and claim on all Pacific Canadian states
-			add_stability = -0.015
 			custom_effect_tooltip = USA_claim_pacific_canada_tt	
 				hidden_effect =	{
 				473 = { add_claim_by = USA }
@@ -42960,11 +42741,10 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		days_remove = 145
 		modifier = {
      		political_power_gain = -0.12
-			consumer_goods_factor = 0.007	
+			civilian_factory_use = 2
 		}		
 
-		remove_effect = {		#Gain 2.5 Stability and gains core on all required states.
-	 		add_stability = 0.01
+		remove_effect = {
 			custom_effect_tooltip = USA_core_pacific_canada_tt	
 			hidden_effect =	{
 				473 = { add_claim_by = ROOT }
@@ -42976,14 +42756,14 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
 	usa_integrate_alberta_and_northwest = { 		#USA integrate Albera and Northwest Territories
 		icon = formable_nations_alberta
 		fire_only_once = yes
-		cost = 40
+		cost = 35
 		
 		available = {
 			owns_state = 470		#Alberta
@@ -42991,7 +42771,6 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}	
 		
 		visible = {
-			original_tag = USA
 			NOT = {
 				470 = {	is_core_of = USA	}
 			}
@@ -43007,8 +42786,7 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 			}
 		}
 		
-		complete_effect = {		#Remove 1.5 stability, and claim on Alberta/Northwest
-			add_stability = -0.015
+		complete_effect = {
 			add_state_claim = 470
 			add_state_claim = 472
 		}
@@ -43016,11 +42794,10 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		days_remove = 125
 		modifier = {
      		political_power_gain = -0.1
-			consumer_goods_factor = 0.003	
+			civilian_factory_use = 1
 		}		
 
-		remove_effect = {		#Gain 1 Stability and gains core on all required states.
-	 		add_stability = 0.01
+		remove_effect = {
 			custom_effect_tooltip = core_land
 			hidden_effect =	{
 				472 = { add_claim_by = ROOT }
@@ -43029,14 +42806,14 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
 	usa_integrate_saskatchewan = { 		#USA integrate Saskatchewan and North Saskatchewan
 		icon = formable_nations_saskatchewan
 		fire_only_once = yes
-		cost = 35
+		cost = 30
 		
 		available = {
 			owns_state = 469		#Alberta
@@ -43044,9 +42821,8 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}	
 		
 		visible = {
-			original_tag = USA
 			NOT = {
-				469 = {	is_core_of = USA	}
+				469 = {	is_core_of = USA }
 			}
 			OR = {	
 				has_war_with = CAN
@@ -43060,8 +42836,7 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 			}
 		}
 		
-		complete_effect = {		#Remove 1.5 stability, and claim on Alberta/Northwest
-			add_stability = -0.015
+		complete_effect = {
 			add_state_claim = 469
 			add_state_claim = 865
 		}
@@ -43069,11 +42844,10 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		days_remove = 140
 		modifier = {
      		political_power_gain = -0.1
-			consumer_goods_factor = 0.003	
+			civilian_factory_use = 1	
 		}		
 
-		remove_effect = {		#Gain 1 Stability and gains core on all required states.
-	 		add_stability = 0.01
+		remove_effect = {
 			custom_effect_tooltip = core_land
 			hidden_effect =	{
 				469 = { add_claim_by = ROOT }
@@ -43082,11 +42856,11 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
-	usa_integrate_manitoba_and_nunavut = { 		#USA integrate Manitoba, Northern Manitoba, and Nunavut
+	usa_integrate_manitoba_and_nunavut = {
 		icon = formable_nations_manitoba
 		fire_only_once = yes
 		cost = 30
@@ -43097,7 +42871,6 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}	
 		
 		visible = {
-			original_tag = USA
 			NOT = {
 				467 = {	is_core_of = USA	}
 			}
@@ -43114,8 +42887,7 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 			}
 		}
 		
-		complete_effect = {		#Remove 1.5 stability, and claim on Alberta/Northwest
-			add_stability = -0.015
+		complete_effect = {
 			add_state_claim = 469
 			add_state_claim = 865
 			add_state_claim = 683
@@ -43124,11 +42896,10 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		days_remove = 140
 		modifier = {
      		political_power_gain = -0.12
-			consumer_goods_factor = 0.007	
+			civilian_factory_use = 1	
 		}		
 
-		remove_effect = {		#Gain 1 Stability and gains core on all required states.
-	 		add_stability = 0.01
+		remove_effect = {
 			custom_effect_tooltip = core_land
 			hidden_effect =	{
 				467 = { add_claim_by = ROOT }
@@ -43136,9 +42907,8 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 				683 = { add_claim_by = ROOT }
 			}
 		}
-
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
@@ -43181,11 +42951,10 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		days_remove = 210
 		modifier = {
      		political_power_gain = -0.25
-			consumer_goods_factor = 0.03
+			civilian_factory_use = 4
 		}		
 
 		remove_effect = {		#Gain 3 Stability and gains core on all required states.
-	 		add_stability = 0.03
 			custom_effect_tooltip = core_land
 			hidden_effect =	{
 				276 = { add_claim_by = ROOT }
@@ -43195,7 +42964,7 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
@@ -43242,14 +43011,14 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 
 		ai_will_do = {
-			factor = 20
+			base = 20
 		}
 	}
 
 	usa_integrate_quebec = { 
 		icon = formable_nations_quebec
 		fire_only_once = yes
-		cost = 75
+		cost = 70
 		
 		available = {
 			owns_state = 468
@@ -43273,13 +43042,9 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 			}
 		}
 		
-		complete_effect = {		#Adds shitty province spirits + other negative effects
-			add_stability = -0.06
-			
-			every_owned_state = {
-					limit = {
-						is_core_of = QBC
-					}
+		complete_effect = {
+			every_controlled_state = {
+				limit = { is_core_of = QBC }
 				add_dynamic_modifier = {
 					modifier = quebecs_last_stand
 				}
@@ -43294,47 +43059,46 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 			}
 		}
 		
-		days_remove = 315
+		days_remove = 305
 		modifier = {
-     		political_power_gain = -0.3
-			consumer_goods_factor = 0.02
+     		political_power_gain = -0.25
+			civilian_factory_use = 3
 		}		
 		remove_effect = {		#Gain 3 Stability, gains core on all required states, and removes the "Quebec's Last Stand" modifier.
-	 		add_stability = 0.03
 			custom_effect_tooltip = core_quebec_tt
 			hidden_effect =	{
 				468 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = quebecs_last_stand
 					}		
 				}
 				862 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = quebecs_last_stand
 					}		
 				}
 				466 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = quebecs_last_stand
 					}		
 				}
 				861 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = quebecs_last_stand
 					}		
 				}
 				860 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = quebecs_last_stand
 					}		
 				}
 				863 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = quebecs_last_stand
 					}		
@@ -43343,24 +43107,21 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
-	usa_integrate_newbrunswick_and_novascotia = { 		#USA integrate New Brunswick and Nova-Scotia
+	usa_integrate_newbrunswick_and_novascotia = {
 		icon = formable_nations_brunswick
 		fire_only_once = yes
-		cost = 45
-		
+		cost = 45	
 		available = {
 			owns_state = 464		#New Brunswick
 			owns_state = 465		#Nova Scotia
-		}	
-		
+		}		
 		visible = {
-			original_tag = USA
 			NOT = {
-				464 = {	is_core_of = USA	}
+				464 = {	is_core_of = USA }
 			}
 			OR = {	
 				has_war_with = CAN
@@ -43368,52 +43129,44 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 				controls_state = 465
 			}
 		}
-
 		highlight_states = {
 			highlight_state_targets = {
 				state = 464
 			}
 		}
-		
-		complete_effect = {		#Remove 1.5 stability, and claim on Alberta/Northwest
-			add_stability = -0.01
+		complete_effect = {
 			add_state_claim = 465
 			add_state_claim = 464
 		}
 		
-		days_remove = 140
+		days_remove = 135
 		modifier = {
      		political_power_gain = -0.12
-			consumer_goods_factor = 0.004
+			civilian_factory_use = 1
 		}		
 
-		remove_effect = {		#Gain 1 Stability and gains core on all required states.
-	 		add_stability = 0.01
+		remove_effect = {
 			custom_effect_tooltip = core_land
 			hidden_effect =	{
-				465 = { add_claim_by = ROOT }
-				464 = { add_claim_by = ROOT }
+				add_state_core = 465
+				add_state_core = 464
 			}
 		}
-
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
 	usa_integrate_newfoundland_laborador = { 		#USA integrate Newfoundland and Laborador
 		icon = formable_nations_labrador
 		fire_only_once = yes
-		cost = 20
-		
+		cost = 25
 		available = {
 			owns_state = 331		#Newfoundland
-		}	
-		
+		}		
 		visible = {
-			original_tag = USA
 			NOT = {
-				331 = {	is_core_of = USA	}
+				331 = {	is_core_of = USA }
 			}
 			OR = {	
 				has_war_with = CAN
@@ -43426,29 +43179,24 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 				state = 331
 			}
 		}
-		
 		complete_effect = {		#Remove 1 stability, and claim on Alberta/Northwest
-			add_stability = -0.01
 			add_state_claim = 331
+			add_state_claim = 332
 		}
-		
 		days_remove = 95
 		modifier = {
      		political_power_gain = -0.1
-			consumer_goods_factor = 0.003	
+			civilian_factory_use = 1	
 		}		
-
 		remove_effect = {		#Gain 1 Stability and gains core on all required states.
-	 		add_stability = 0.01
 			custom_effect_tooltip = core_newfoundland_laborador_tt
 			hidden_effect =	{
-				331 = { add_claim_by = ROOT }
-				332 = { add_claim_by = ROOT }
+				add_state_core = 331
+				add_state_core = 332
 			}
 		}
-
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 
@@ -43462,7 +43210,6 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}	
 		
 		visible = {
-			original_tag = USA
 			OR = {	
 				has_war_with = MEX
 				controls_state = 484
@@ -43534,26 +43281,26 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		days_remove = 315
 		modifier = {
      		political_power_gain = -0.25
-			consumer_goods_factor = 0.01	
+			civilian_factory_use = 2	
 		}		
 
 		remove_effect = {		#Gain cores on all required states.
 			custom_effect_tooltip = usa_cored_nw_mexico_tt
 			hidden_effect =	{
 				484 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = mexicos_last_stand
 					}		
 				}
 				483 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = mexicos_last_stand
 					}		
 				}
 				482 = {
-					add_claim_by = ROOT
+					add_core_of = ROOT
 					remove_dynamic_modifier = {
 						modifier = mexicos_last_stand
 					}		
@@ -43562,7 +43309,7 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 65
 		}
 	}
 
@@ -43635,7 +43382,7 @@ usa_complete_the_manifest_destiny = {	#Decisions for the US to go APE MODE
 		}
 
 		ai_will_do = {
-			factor = 100	
+			base = 100	
 		}
 	}
 }
@@ -43681,7 +43428,7 @@ can_towards_a_greater_canada = {	#Decisions for Canada to go APE MODE
 		remove_effect = {		#Gain 1.5 Stability and gains core on all required states.
 	 		add_stability = 0.015
 			357 = {
-				add_claim_by = ROOT
+				add_core_of = ROOT
 				remove_dynamic_modifier = {
 					modifier = americas_last_stand
 				}		
@@ -43733,7 +43480,7 @@ can_towards_a_greater_canada = {	#Decisions for Canada to go APE MODE
 		remove_effect = {		#Gain 1 Stability and gains core on all required states.
 	 		add_stability = 0.01
 				921 = {
-				add_claim_by = ROOT
+				add_core_of = ROOT
 				remove_dynamic_modifier = {
 					modifier = americas_last_stand
 				}		
@@ -43785,7 +43532,7 @@ can_towards_a_greater_canada = {	#Decisions for Canada to go APE MODE
 		remove_effect = {		#Gain 1 Stability and gains core on all required states.
 	 		add_stability = 0.01
 			990 = {
-				add_claim_by = ROOT
+				add_core_of = ROOT
 				remove_dynamic_modifier = {
 					modifier = americas_last_stand
 				}		
@@ -43841,7 +43588,7 @@ can_towards_a_greater_canada = {	#Decisions for Canada to go APE MODE
 		remove_effect = {		#Gain 2 Stability and gains core on all required states.
 	 		add_stability = 0.02
 			991 = {
-				add_claim_by = ROOT
+				add_core_of = ROOT
 				remove_dynamic_modifier = {
 					modifier = home_of_the_american_revolution
 				}		
@@ -43894,7 +43641,7 @@ can_towards_a_greater_canada = {	#Decisions for Canada to go APE MODE
 		remove_effect = {		#Gain 1.5 Stability and gains core on all required states.
 	 		add_stability = 0.01
 			993 = {
-				add_claim_by = ROOT
+				add_core_of = ROOT
 				remove_dynamic_modifier = {
 					modifier = americas_last_stand
 				}		
@@ -43947,7 +43694,7 @@ can_towards_a_greater_canada = {	#Decisions for Canada to go APE MODE
 		remove_effect = {		#Gain 1 Stability and gains core on all required states.
 	 		add_stability = 0.01
 			992 = {
-				add_claim_by = ROOT
+				add_core_of = ROOT
 				remove_dynamic_modifier = {
 					modifier = americas_last_stand
 				}		
