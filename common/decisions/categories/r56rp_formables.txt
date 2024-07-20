@@ -6201,7 +6201,7 @@ formable_nations_rhine_category = {
 
 usa_complete_the_manifest_destiny = {	##Shit for the US to core/claim certain shit
 	icon = generic_formable_nations
-
+	allowed = { original_tag = USA }
 	visible = {
 		has_country_flag = manifest_shown
 	}
@@ -6210,7 +6210,7 @@ usa_complete_the_manifest_destiny = {	##Shit for the US to core/claim certain sh
 
 can_towards_a_greater_canada = {	##Shit for the Canada to core/claim certain shit
 	icon = generic_formable_nations
-	
+	allowed = { original_tag = CAN }
 	visible = {
 		has_country_flag = greater_canada_shown
 	}
@@ -6434,12 +6434,19 @@ POR_expansionism_decision_category = {	##Shit for Portugal to core/claim a few t
 
 unify_iberia_decision_category = {
 	icon = generic_formable_nations
-
-	visible = {
+	allowed = {
 		OR = {
 			original_tag = SPR
 			original_tag = SPA
 			original_tag = POR
+			original_tag = ADR
+			original_tag = CAT
+		}
+	}
+
+	visible = {
+		if = {
+			limit = { original_tag = ADR }
 			has_cosmetic_tag = CAT
 		}
 		has_country_flag = iberian_ambitions
@@ -6478,48 +6485,37 @@ unify_iberia_decision_category = {
 
 catalonia_decisions_category = {
 	icon = generic_formable_nations
-
-	visible = {
-		OR = {	#Originally started as Catalonia or Andorra.
+	priority = 20
+	allowed = { 
+		OR = {
 			original_tag = ADR
 			original_tag = CAT
 		}
-		has_country_flag = catalan_shown
 	}
+	visible = { has_country_flag = catalan_shown }
 }
 
 fra_expanisonism_category = {
 	icon = generic_formable_nations
-	
-	visible = {
-		original_tag = FRA
-		has_country_flag = france_natural_shown
-	}
+	priority = 20
+	allowed = { original_tag = FRA }
+	visible = { has_country_flag = france_natural_shown }
 }
 
 bel_expansionism_decision_category = {
 	icon = generic_formable_nations
-	picture = GFX_decision_cat_generic_united_netherlands	#Determines the order of display in the decisions tab, the higher the number, the higher it will show up.
-	
-	visible = {
-		original_tag = BEL
-		has_country_flag = greater_belgium_shown
-	}
+	priority = 20
+	picture = GFX_decision_cat_generic_united_netherlands
+	allowed = { original_tag = BEL }
+	visible = { has_country_flag = greater_belgium_shown }
 }
 
 AUS_viennas_reach_in_central_europe = {
 	icon = generic_formable_nations
-
 	picture = GFX_decision_cat_generic_austria_hungary
 	priority = 3
-
-	allowed = {
-		original_tag = AUS
-	}
-	
-	visible = {
-		has_country_flag = danubian_federation_shown
-	}
+	allowed = { original_tag = AUS }
+	visible = { has_country_flag = danubian_federation_shown }
 }
 
 
