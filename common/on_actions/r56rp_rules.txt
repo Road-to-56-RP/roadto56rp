@@ -34,6 +34,8 @@
 
 
 on_actions = {
+
+	# china can go to war with 2 warlords early
 	on_declare_war = {
 		effect = {
 			IF = {
@@ -74,6 +76,41 @@ on_actions = {
 					}
 					set_country_flag = r56rp_chi_declared_on_warlord_early_1
 				}
+			}
+		}
+	}
+
+	# copying the rules variables when a civil war launches.
+	# and no, there is no civil war specific effect.
+	on_war_relation_added = {
+		effect = {
+			# attacker
+			ROOT = {
+				limit = {
+					has_civil_war = yes
+					NOT = {
+						has_variable = r56rp_rules_normalwargoaldeclaration
+						has_variable = r56rp_rules_focuswargoaldeclaration
+						has_variable = r56rp_rules_fp_controlled
+					}
+				}
+				set_variable = { r56rp_rules_normalwargoaldeclaration = FROM.r56rp_rules_normalwargoaldeclaration }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = FROM.r56rp_rules_focuswargoaldeclaration }
+				set_variable = { r56rp_rules_fp_controlled = FROM.r56rp_rules_fp_controlled }
+			}
+			# defender
+			FROM = {
+				limit = {
+					has_civil_war = yes
+					NOT = {
+						has_variable = r56rp_rules_normalwargoaldeclaration
+						has_variable = r56rp_rules_focuswargoaldeclaration
+						has_variable = r56rp_rules_fp_controlled
+					}
+				}
+				set_variable = { r56rp_rules_normalwargoaldeclaration = ROOT.r56rp_rules_normalwargoaldeclaration }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = ROOT.r56rp_rules_focuswargoaldeclaration }
+				set_variable = { r56rp_rules_fp_controlled = ROOT.r56rp_rules_fp_controlled }
 			}
 		}
 	}
@@ -274,15 +311,15 @@ on_actions = {
 				# everything not on the list
 				every_possible_country = {
 					limit = {
-							NOT = {
-								has_variable = r56rp_rules_normalwargoaldeclaration
-								has_variable = r56rp_rules_focuswargoaldeclaration
-								has_variable = r56rp_rules_fp_controlled
-							}
+						NOT = {
+							has_variable = r56rp_rules_normalwargoaldeclaration
+							has_variable = r56rp_rules_focuswargoaldeclaration
+							has_variable = r56rp_rules_fp_controlled
 						}
-						set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
-						set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
-						set_variable = { r56rp_rules_fp_controlled = 1 }
+					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+					set_variable = { r56rp_rules_fp_controlled = 1 }
 				}
 
 			}
@@ -865,59 +902,5 @@ on_actions = {
 
 		}
 	}
-
-
-	#on_create_faction = {
-	#	effect = {
-	#		FROM = {
-	#			limit = {
-	#				is_in_faction = yes
-	#				is_faction_leader = no
-	#				NOT = { is_in_array = { faction_leader.FP_list_array = THIS } }
-	#			}
-	#			set_temp_variable = { var:targetFP_1 = faction_leader }
-	#			log = "Added [?THIS.GetTag]'s [?THIS.r56rp_rules_fp_controlled] to array [?var:targetFP_1.GetTag]'s"
-	#			
-	#			add_to_array = { var:targetFP_1.FP_list_array = THIS.r56rp_rules_fp_controlled }
-	#		}
-	#		#every_country = {
-	#		#	limit = {
-	#		#		is_faction_leader = yes
-	#		#	}
-	#		#	set_temp_variable = { var:targetFP = THIS }
-	#		#	log = "Set [?var:targetFP.GetTag] as target"
-	#		#	log = "Set [?var:targetFP.r56rp_rules_fp_summed] as [?temp_fp_rules_summation]"
-	#		#	add_to_variable = { temp_fp_rules_summation = var:targetFP.FP_list_array^num }
-	#		#	log = "[?var:targetFP.r56rp_rules_fp_controlled^num] - [?var:targetFP.r56rp_rules_fp_controlled^1] [?var:targetFP.r56rp_rules_fp_controlled^2]"
-	#		#		
-	#		#}
-	#	}
-	#}
-				
-
-
-	#on_create_faction = {
-	#	effect = {
-	#		any_allied_country = {
-	#			
-	#			add_to_variable = {
-	#				add_to_variable = { var:r56rp_rules_fp_summed = var:r56rp_rules_fp_controlled }
-	#			}
-	#		}
-	#	}
-	#}
-
-	#on_faction_formed = {
-	#
-	#}
-
-	#on_join_faction = {
-	#
-	#}
-
-	#on_leave_faction = {
-	#
-	#}
-
 
 }
