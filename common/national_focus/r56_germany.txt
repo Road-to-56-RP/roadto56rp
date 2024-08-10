@@ -29,14 +29,7 @@ focus_tree = {
 		x = -1
 		y = 0
 		ai_will_do = {
-			factor = 10
-			modifier = {
-				add = 6
-				AND = {
-					num_of_factories<150
-					date<1939.1.1
-				}
-			}
+			factor = 200
 		}
 		
 		completion_reward = {
@@ -1491,9 +1484,7 @@ focus_tree = {
 			factor = 75
 			modifier = {
 				factor = 0
-				NOT = {
-					has_government = fascism
-				}
+				date < 1936.6.1
 			}
 		}
 
@@ -2082,7 +2073,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_begin_depression_recovery
 		ai_will_do = {
-			factor = 10
+			factor = 200
 		}
 		bypass = {
 			amount_taken_ideas = {
@@ -3230,6 +3221,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	# focus = {
 	# 	id = GER_two_side_economics
 	# 	icon = GFX_goal_GER_two_sided_economics
@@ -3263,7 +3255,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = GER_begin_depression_recovery
 		ai_will_do = {
-			factor = 10
+			factor = 0
 		}
 		completion_reward = {
 			hidden_effect = {
@@ -3303,7 +3295,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_support_technocrats_I
 		ai_will_do = {
-			factor = 10
+			factor = 0
 		}
 		completion_reward = {
 			unlock_decision_category_tooltip = GER_trade_influence_decisions
@@ -3402,6 +3394,10 @@ focus_tree = {
 		relative_position_id = GER_begin_depression_recovery
 		ai_will_do = {
 			factor = 10
+			modifier = {
+				factor = 0
+				date < 1940.1.1
+			}
 		}
 		completion_reward = {
 			hidden_effect = {
@@ -3466,7 +3462,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_support_technocrats_I
 		ai_will_do = {
-			factor = 10
+			factor = 0
 		}
 		completion_reward = {
 			# hidden_effect = {
@@ -3731,12 +3727,12 @@ focus_tree = {
 			has_full_control_of_state = 54
 		}
 		ai_will_do = {
-			factor = 10
+			factor = 200
 			modifier = {
-				factor = 4
+				factor = 0.25
 				AND = {
-					num_of_factories < 150
-					date < 1939.1.1
+					num_of_factories > 150
+					date > 1939.1.1
 				}
 			}
 		}
@@ -3788,12 +3784,12 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_autobahn
 		ai_will_do = {
-			factor = 10
+			factor = 200
 			modifier = {
-				factor = 4
+				factor = 0.25
 				AND = {
-					num_of_factories < 150
-					date < 1939.1.1
+					num_of_factories > 150
+					date > 1939.1.1
 				}
 			}
 		}
@@ -3854,12 +3850,12 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_privatize_reichsbahn
 		ai_will_do = {
-			factor = 10
+			factor = 200
 			modifier = {
-				factor = 4
+				factor = 0.25
 				AND = {
-					num_of_factories < 150
-					date < 1939.1.1
+					num_of_factories > 150
+					date > 1939.1.1
 				}
 			}
 		}
@@ -3908,7 +3904,14 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_appoint_economic_positions
 		ai_will_do = {
-			factor = 10
+			factor = 150
+			modifier = {
+				factor = 0
+				or = {
+					num_of_factories < 500
+					check_variable = { resource@steel > 24 }
+				}
+			}
 		}
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -4312,6 +4315,11 @@ focus_tree = {
 		relative_position_id = GER_appoint_economic_positions
 		ai_will_do = {
 			factor = 10
+		}
+		bypass = {
+			28 = {
+				is_owned_and_controlled_by = ROOT
+			}
 		}
 		available = {
 			42 = {
@@ -6131,7 +6139,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		ai_will_do = {
-			factor = 5
+			factor = 12
 		}
 		completion_reward = {
 			custom_effect_tooltip = available_chief_of_airforce
@@ -13213,6 +13221,10 @@ focus_tree = {
 		relative_position_id = GER_denounce_versailles
 		ai_will_do = {
 			factor = 10
+			modifier = {
+				factor = 0
+				num_occupied_states < 5
+			}
 		}
 		completion_reward = {
 			#add_ideas = GER_combine_SS_gestapo_idea
@@ -13379,7 +13391,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_air_superiority_english_channel
 		ai_will_do = {
-			factor = 10
+			factor = 12
 		}
 		completion_reward = {
 			add_tech_bonus = {
@@ -13419,7 +13431,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_support_technocrats_II
 		ai_will_do = {
-			factor = 8
+			factor = 0
 		}
 		completion_reward = {
 			swap_ideas = {
@@ -13541,6 +13553,10 @@ focus_tree = {
 		y = 1
 		ai_will_do = {
 			factor = 10
+			modifier = {
+				factor = 0
+				num_occupied_states < 5
+			}
 		}
 		available = {
 			num_occupied_states > 5
@@ -13664,10 +13680,6 @@ focus_tree = {
 		relative_position_id = GER_rally_the_monarchists
 		ai_will_do = {
 			factor = 16
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
 		}
 
 		completion_reward = {
