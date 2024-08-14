@@ -325,6 +325,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			add_political_power = 25
+			add_stability = 0.05
+			add_war_support = 0.05
 			if = {
 				limit = {
 					has_idea = SOV_risk_of_disease
@@ -365,10 +368,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = SOV_fyp_controlled_factories_tier_1_tt
-				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_1 }
-			}
+			NOT = { num_of_controlled_factories < 120 }
 		}
 		
 
@@ -443,6 +443,57 @@ focus_tree = {
 		y = 1
 		relative_position_id = SOV_finish_the_five_year_plan
 		cost = 5
+
+		available = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_railway_level = {
+						state = 219
+						level = 3
+				}
+				has_railway_level = {
+						state = 253
+						level = 3
+				}
+				has_railway_level = {
+						state = 252
+						level = 3
+				}
+				has_railway_level = {
+						state = 256
+						level = 3
+				}
+				has_railway_level = {
+						state = 249
+						level = 3
+				}
+				has_railway_level = {
+						state = 399
+						level = 3
+				}
+				has_railway_level = {
+						state = 398
+						level = 3
+				}
+				has_railway_level = {
+						state = 573
+						level = 3
+				}
+				has_railway_level = {
+						state = 653
+						level = 3
+				}
+				has_railway_level = {
+						state = 572
+						level = 3
+				}
+			}
+			else = {
+				#
+			}
+		}
 
 		ai_will_do = {
 			factor = 11
@@ -520,10 +571,8 @@ focus_tree = {
 
 		available = {
 			SOV_third_five_year_plan_available = yes
-			custom_trigger_tooltip = {
-				tooltip = SOV_fyp_controlled_factories_tier_2_tt
-				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_2 }
-			}
+			NOT = { num_of_controlled_factories < 150 }
+
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
 		}
 		
@@ -1589,6 +1638,9 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.1
+
 			custom_effect_tooltip = SOV_national_specialists_tt
 
 			SOV_replace_industrial_designer = yes #"National" Industrial Designers get +5% research bonus
@@ -4540,10 +4592,19 @@ focus_tree = {
 				limit = {
 					has_dlc = "No Step Back"
 				}
-				has_tech = improved_medium_tank_chassis
+				OR = {
+					has_tech = improved_medium_tank_chassis
+					has_tech = advanced_light_tank_chassis
+					has_tech = improved_heavy_tank_chassis
+				}
+				
 			}
 			else = {
-				has_tech = improved_medium_tank
+				OR = {
+					has_tech = improved_medium_tank
+					has_tech = advanced_light_tank
+					has_tech = improved_heavy_tank
+				}
 			}
 		}
 		
@@ -18972,7 +19033,7 @@ focus_tree = {
 		prerequisite = { focus = SOV_consolidate_power } 
 		prerequisite = { focus = SOV_reformalize_the_role_of_the_patriarchate }
 		mutually_exclusive = { focus = SOV_solidify_the_provisional_government }
-		x = -8
+		x = 4
 		y = 3
 		relative_position_id = SOV_consolidate_power
 		cost = 7.2
@@ -18980,7 +19041,18 @@ focus_tree = {
 			factor = 1
 		}
 		offset = {
-			x = 10
+			x = -12
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = SOV_the_hands_do
+			}
+		}
+		offset = {
+			x = 12
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -18990,6 +19062,7 @@ focus_tree = {
 				has_completed_focus = SOV_reconvene_the_zemsky_sobor
 			}
 		}
+		
 		allow_branch = { 
 			if = {
 				limit = {
@@ -18999,6 +19072,7 @@ focus_tree = {
 					}
 				}
 				NOT = { has_completed_focus = SOV_solidify_the_provisional_government }
+				NOT = { has_completed_focus = SOV_the_path_of_marxism_leninism }
 			}
 		}
 		
@@ -19037,7 +19111,7 @@ focus_tree = {
 		prerequisite = { focus = SOV_consolidate_power } 
 		prerequisite = { focus = SOV_reformalize_the_role_of_the_patriarchate }
 		mutually_exclusive = { focus = SOV_reconvene_the_zemsky_sobor }
-		x = 9
+		x = 18
 		y = 3
 		relative_position_id = SOV_consolidate_power
 
@@ -19047,6 +19121,17 @@ focus_tree = {
 			factor = 1
 		}
 
+		offset = {
+			x = -12
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = SOV_the_hands_do
+			}
+		}
 		offset = {
 			x = -6
 			y = 0
@@ -19067,6 +19152,7 @@ focus_tree = {
 					}
 				}
 				NOT = { has_completed_focus = SOV_reconvene_the_zemsky_sobor }
+				NOT = { has_completed_focus = SOV_the_path_of_marxism_leninism }
 			}
 		}
 

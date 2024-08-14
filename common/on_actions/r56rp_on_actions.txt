@@ -45,7 +45,33 @@ on_actions = {
 					log = "<R56RP_LOG_ET> ;[?global.date.GetDateStringNoHour];[THIS.GetTag];[?num_of_controlled_factories];[?num_of_civilian_factories];[?num_of_military_factories];[?num_of_naval_factories]"
 				}
 			}
-			
+			# required for china industralization
+			# no touchy.
+			every_state = {
+				limit = {
+					OR = {
+						AND = {
+							region = 145
+							NOT = {
+								state = 287 # ah yes 1k people, impassable terrain, but 2 factories.
+							}
+						}
+						region = 200
+						region = 252
+						region = 248
+						region = 249
+						region = 155
+						state = 756
+						state = 609
+						state = 611
+						state = 612
+					}
+				}
+				add_to_array = {
+					array = global.CHI_r56rp_industralisation_states_array
+					value = THIS.id
+				}
+			}
 		}
 	}
 
@@ -704,6 +730,27 @@ on_actions = {
 					hidden_effect = {
 						set_technology = {
 							tech_special_forces = 1
+							popup = no
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						OR = {
+							has_tech = shocktroops
+							has_tech = marines
+							has_tech = tech_mountaineers
+							has_tech = jaegers
+							has_tech = desertinfantry_at
+							has_tech = jungletroops
+						}
+						NOT = {
+							has_tech = tech_support
+						}
+					}
+					hidden_effect = {
+						set_technology = {
+							tech_support = 1
 							popup = no
 						}
 					}
