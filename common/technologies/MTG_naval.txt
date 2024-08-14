@@ -609,6 +609,10 @@ technologies = {
 		on_research_complete = {
 			custom_effect_tooltip = sonar_advice_tt
 		}
+		path = {
+			leads_to_tech = r56rp_sonar_3
+			research_cost_coeff = 1
+		}
 		research_cost = 1
 
 		start_year = 1936
@@ -616,6 +620,110 @@ technologies = {
 		folder = {
 			name = mtgnavalfolder
 			position = { x = 2 y = 6 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				factor = 4
+				has_war_with = GER
+				has_navy_size = {
+					size > 0
+				}					
+			}
+			modifier = {
+				factor = 4
+				anti_submarine_strategy_required_trigger = yes
+			}
+			modifier = {
+				not = {
+					any_controlled_state = {
+							 
+						is_coastal = yes
+					}
+				}
+				factor = 0.2
+			}			
+		}
+		
+		categories = {
+			naval_equipment
+			dd_tech
+			asw_tech
+			mio_cat_tech_all_screen_ship_and_modules
+			mio_cat_tech_all_destroyer_and_modules
+		}
+	}
+
+	r56rp_sonar_3 = {
+		enable_equipment_modules = { 
+			r56rp_ship_sonar_3
+		}
+		on_research_complete = {
+			custom_effect_tooltip = sonar_advice_tt
+		}
+		path = {
+			leads_to_tech = r56rp_sonar_4
+			research_cost_coeff = 1
+		}
+		research_cost = 1
+
+		start_year = 1940
+		
+		folder = {
+			name = mtgnavalfolder
+			position = { x = 2 y = 12 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				factor = 4
+				has_war_with = GER
+				has_navy_size = {
+					size > 0
+				}					
+			}
+			modifier = {
+				factor = 4
+				anti_submarine_strategy_required_trigger = yes
+			}
+			modifier = {
+				not = {
+					any_controlled_state = {
+							 
+						is_coastal = yes
+					}
+				}
+				factor = 0.2
+			}			
+		}
+		
+		categories = {
+			naval_equipment
+			dd_tech
+			asw_tech
+			mio_cat_tech_all_screen_ship_and_modules
+			mio_cat_tech_all_destroyer_and_modules
+		}
+	}
+
+	r56rp_sonar_4 = {
+		enable_equipment_modules = { 
+			r56rp_ship_sonar_4
+		}
+		on_research_complete = {
+			custom_effect_tooltip = sonar_advice_tt
+		}
+		research_cost = 1
+
+		start_year = 1944
+		
+		folder = {
+			name = mtgnavalfolder
+			position = { x = 2 y = 18 }
 		}
 		
 		ai_will_do = {
@@ -1328,9 +1436,49 @@ technologies = {
 
 		start_year = 1936
 
+		path = {
+			leads_to_tech = r56rp_ship_hull_super_heavy_2
+			research_cost_coeff = 1
+		}
+
 		folder = {
 			name = mtgnavalfolder
 			position = {  x = 0 y = 7 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 25
+				tag = JAP
+			}
+		}
+		
+		categories = {
+			naval_equipment
+			bb_tech
+			bc_tech
+			mio_cat_tech_all_capital_ship_and_modules
+		}
+	}
+
+	r56rp_ship_hull_super_heavy_2 = {
+
+		enable_equipments = {
+			r56rp_ship_hull_super_heavy_2
+		}
+		enable_equipment_modules = { 
+			ship_armor_shbb_2
+		}
+		
+		research_cost = 2
+
+		start_year = 1944
+
+		folder = {
+			name = mtgnavalfolder
+			position = {  x = 0 y = 19 }
 		}
 		
 		ai_will_do = {
@@ -1709,7 +1857,11 @@ early_ship_hull_carrier = {
 		path = {
 			leads_to_tech = modern_ship_hull_carrier
 			research_cost_coeff = 1
-		}		
+		}
+		path = {
+			leads_to_tech = r56rp_ship_hull_supercarrier_1
+			research_cost_coeff = 1
+		}
 		research_cost = 1.5
 
 		start_year = 1944
@@ -1753,6 +1905,57 @@ early_ship_hull_carrier = {
 			mio_cat_tech_all_carrier_and_modules
 		}
 	}
+
+	r56rp_ship_hull_supercarrier_1 = {
+
+		enable_equipments = {
+			r56rp_ship_hull_supercarrier_1
+		}
+		
+		research_cost = 2
+
+		start_year = 1946
+		
+		folder = {
+			name = mtgnavalfolder
+			position = {  x = 1 y = 22 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 8
+				OR = {
+					tag = ENG
+					tag = JAP
+					tag = USA
+				}
+			}
+			modifier = {
+				not = {
+					any_controlled_state = {
+							 
+						is_coastal = yes
+					}
+				}
+				factor = 0.2
+			}	
+			modifier = {
+				factor = 4
+				has_tech_bonus = {
+    				category = cv_tech
+				}
+			}					
+		}
+		
+		categories = {
+			naval_equipment
+			cv_tech
+			mio_cat_tech_all_carrier_and_modules
+		}
+	}
+
 	modern_ship_hull_carrier = {
 
 		enable_equipments = {
@@ -2007,10 +2210,7 @@ early_ship_hull_carrier = {
 			leads_to_tech = modern_ship_hull_submarine
 			research_cost_coeff = 1
 		}
-		path = {
-			leads_to_tech = r56rp_cruiser_submarines_2
-			research_cost_coeff = 1
-		}
+
 		research_cost = 2.0
 
 		start_year = 1944
@@ -2116,6 +2316,11 @@ early_ship_hull_carrier = {
 
 		start_year = 1936
 		
+		path = {
+			leads_to_tech = r56rp_cruiser_submarines_2
+			research_cost_coeff = 1
+		}
+
 		folder = {
 			name = mtgnavalfolder
 			position = {  x = 0 y = 7 }
@@ -2132,34 +2337,35 @@ early_ship_hull_carrier = {
 		}
 	}
 
-#	r56rp_cruiser_submarines_2 = { #planned for a later date
-#
-#		enable_equipments = { 
-#			ship_hull_cruiser_submarine
-#		}
-#		enable_equipment_modules = { 
-#			ship_extra_fuel_tank
-#		}
-#		
-#		research_cost = 1.5
-#
-#		start_year = 1936
-#		
-#		folder = {
-#			name = mtgnavalfolder
-#			position = {  x = 0 y = 19 }
-#		}
-#		
-#		ai_will_do = {
-#			factor = 0				
-#		}
-#		
-#		categories = {
-#			naval_equipment
-#			ss_tech
-#			mio_cat_tech_all_submarine_and_modules
-#		}
-#	}
+	r56rp_cruiser_submarines_2 = { #planned for a later date
+
+		enable_equipments = { 
+			r56rp_ship_hull_cruiser_submarine_2
+		}
+		enable_equipment_modules = { 
+			ship_torpedo_sub_4
+			sub_ship_engine_4
+		}
+		
+		research_cost = 2
+
+		start_year = 1944
+		
+		folder = {
+			name = mtgnavalfolder
+			position = {  x = 0 y = 19 }
+		}
+		
+		ai_will_do = {
+			factor = 0				
+		}
+		
+		categories = {
+			naval_equipment
+			ss_tech
+			mio_cat_tech_all_submarine_and_modules
+		}
+	}
 
 
 	midget_submarines = {

@@ -120,6 +120,7 @@ scripted_gui = {
 				OR = {
 					is_debug = yes
 					has_country_flag = host
+					has_country_flag = host_2
 				}
 				NOT = { has_country_flag = hidden_switch }
 			}
@@ -127,6 +128,7 @@ scripted_gui = {
 				OR = {
 					is_debug = yes
 					has_country_flag = host
+					has_country_flag = host_2
 				}
 				NOT = { has_country_flag = hidden_switch }
 			}
@@ -793,6 +795,7 @@ scripted_gui = {
 				OR = {
 					is_debug = yes #cause fuck doing the game option
 					has_country_flag = host
+					has_country_flag = host_2
 				}
 				has_country_flag = hosttool_enabled
 			}
@@ -874,6 +877,10 @@ scripted_gui = {
 				}
 				
 			}
+
+			ht_into_faction_button_click = {
+				var:ROOT.r56rp_ht_tag_1 = { add_to_faction = ROOT.r56rp_ht_tag_2 }
+			}
 			
 		## buttons using only the currently selected state as a target
 			whitepeace_click = {
@@ -926,7 +933,12 @@ scripted_gui = {
 					}
 					clear_array=host_marked_states
 				}
+			}
 
+			remove_from_faction_click = {
+				THIS.owner = {
+					leave_faction = yes
+				}
 			}
 
 			award_states_click = {
@@ -1122,9 +1134,8 @@ scripted_gui = {
 						}
 					}
 					THIS.owner = {
-						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						set_temp_variable = { r56rp_ht_tvar_1 = -10 }
 						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
-						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
 						add_political_power = r56rp_ht_tvar_1
 					}
 				}
@@ -1135,7 +1146,7 @@ scripted_gui = {
 						}
 					}
 					THIS.owner = {
-						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						set_temp_variable = { r56rp_ht_tvar_1 = 0.01 }
 						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
 						add_stability = r56rp_ht_tvar_1
 					}
@@ -1148,9 +1159,8 @@ scripted_gui = {
 						}
 					}
 					THIS.owner = {
-						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						set_temp_variable = { r56rp_ht_tvar_1 = -0.01 }
 						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
-						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
 						add_stability = r56rp_ht_tvar_1
 					}
 				}
@@ -1162,7 +1172,7 @@ scripted_gui = {
 						}
 					}
 					THIS.owner = {
-						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						set_temp_variable = { r56rp_ht_tvar_1 = 0.01 }
 						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
 						add_war_support = r56rp_ht_tvar_1
 					}
@@ -1175,9 +1185,8 @@ scripted_gui = {
 						}
 					}
 					THIS.owner = {
-						set_temp_variable = { r56rp_ht_tvar_1 = 10 }
+						set_temp_variable = { r56rp_ht_tvar_1 = -0.01 }
 						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
-						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
 						add_war_support = r56rp_ht_tvar_1
 					}
 				}
@@ -1191,7 +1200,7 @@ scripted_gui = {
 					THIS.owner = {
 						set_temp_variable = { r56rp_ht_tvar_1 = 50000 }
 						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
-						add_war_support = r56rp_ht_tvar_1
+						add_manpower = r56rp_ht_tvar_1
 					}
 				}
 				
@@ -1205,7 +1214,7 @@ scripted_gui = {
 						set_temp_variable = { r56rp_ht_tvar_1 = 50000 }
 						multiply_temp_variable = { r56rp_ht_tvar_1 = ROOT.r56rp_ht_cheat_iterations }
 						multiply_temp_variable = { r56rp_ht_tvar_1 = -1 }
-						add_war_support = r56rp_ht_tvar_1
+						add_manpower = r56rp_ht_tvar_1
 					}
 					
 				}

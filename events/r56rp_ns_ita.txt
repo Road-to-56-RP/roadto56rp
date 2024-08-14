@@ -1,0 +1,175 @@
+###########################
+# r56rp ITA Events
+###########################
+
+add_namespace = r56rp_BBA_italy_second_italo_ethiopian_war
+
+## ETH accepts ITA peace offer - Event for ITA
+# basically copypaste of the vanilla event, but a lot moved into the immidiete, so the mission timeout works better.
+country_event = {
+	id = r56rp_BBA_italy_second_italo_ethiopian_war.1
+	title = r56rp_BBA_italy_second_italo_ethiopian_war.1.t
+	desc = BBA_italy_second_italo_ethiopian_war.2.desc
+	picture = GFX_report_event_african_soldiers
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			ITA_end_the_italo_ethiopian_war = yes
+		}
+		if = { #ERITREA
+			limit = {
+				FROM = { has_full_control_of_state = 550 }
+			}
+			ETH = {
+				transfer_state = 550
+				550 = { add_compliance = 50 }
+			}
+		}
+		if = { #SOMALILAND
+			limit = {
+				FROM = { has_full_control_of_state = 559 }
+			}
+			ETH = {
+				transfer_state = 559
+				559 = { add_compliance = 50 }
+			}
+		}
+		if = { #JUBALAND
+			limit = {
+				FROM = { has_full_control_of_state = 844 }
+			}
+			ETH = {
+				transfer_state = 844
+				844 = { add_compliance = 50 }
+			}
+		}
+		if = { #AFAR always goes to ETH if owned by ITA
+			limit = {
+				owns_state = 908
+			}
+			ETH = {
+				transfer_state = 908 
+				908 = { add_compliance = 50 }
+			}
+		}
+		white_peace = ETH
+		hidden_effect = {
+			if = {
+				limit = {
+					any_country = {
+						is_in_faction_with = ROOT
+						has_war_with = FROM
+					}
+				}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ROOT
+						has_war_with = FROM
+					}
+					white_peace = FROM
+				}
+			}
+		}
+	}
+	
+	#Ok - Already completed initial missiolini focus
+	option = {
+		name = BBA_italy_second_italo_ethiopian_war.1.a
+
+		trigger = {
+			OR = {
+				has_completed_focus = ITA_solid_progress
+				has_completed_focus = ITA_the_abyssinian_fiasco
+				has_completed_focus = ITA_struggle_in_ethiopia
+			}
+		}
+
+		ITA_manage_italian_defeat_in_ethiopia_effect = yes
+
+		hidden_effect = {
+			news_event = {
+				id = news.337
+				days = 1
+			}
+		}
+	}
+
+	# Ok - Abyssinian Fiasco
+	option = { 
+		name = BBA_italy_missiolinis.02_north.b
+
+		trigger = {
+			has_dlc = "By Blood Alone" #Abyssinian Fiasco focus not available without BBA
+			NOT = {
+				has_completed_focus = ITA_solid_progress
+				has_completed_focus = ITA_the_abyssinian_fiasco
+				has_completed_focus = ITA_struggle_in_ethiopia
+			}
+		}
+
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 100
+				OR = {
+					ITA_is_socialist_ai = yes
+					ITA_is_communist_ai = yes
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				NOT = { has_completed_focus = ITA_struggle_in_ethiopia }
+				NOT = { has_completed_focus = ITA_solid_progress }
+			}
+			complete_national_focus = ITA_the_abyssinian_fiasco
+		}
+
+		ITA_manage_italian_defeat_in_ethiopia_effect = yes
+
+		hidden_effect = {
+			news_event = {
+				id = news.337
+				days = 1
+			}
+		}
+	}
+
+	# Ok - Struggle in Ethiopia
+	option = { 
+		name = BBA_italy_missiolinis.02_north.c
+
+		trigger = {
+			NOT = {
+				has_completed_focus = ITA_solid_progress
+				has_completed_focus = ITA_the_abyssinian_fiasco
+				has_completed_focus = ITA_struggle_in_ethiopia
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+
+		if = {
+			limit = {
+				NOT = { has_completed_focus = ITA_the_abyssinian_fiasco }
+				NOT = { has_completed_focus = ITA_solid_progress }
+			}
+			complete_national_focus = ITA_struggle_in_ethiopia
+		}
+
+		ITA_manage_italian_defeat_in_ethiopia_effect = yes
+
+		hidden_effect = {
+			news_event = {
+				id = news.337
+				days = 1
+			}
+		}
+
+	}
+}
