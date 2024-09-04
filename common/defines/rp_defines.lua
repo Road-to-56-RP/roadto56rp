@@ -131,6 +131,9 @@ NDefines.NNavy.SUBMARINE_ESCAPE_RATIOS = { -- subs will escape battle in convoy 
 	1.5,   -- [vanilla 1] high
 	1.0,   -- [vanilla 0.1] I am death incarnate! 
 }
+
+NDefines.NNavy.CARRIER_STACK_PENALTY = 6	-- Vanilla 4. Gives Carriers more power in Naval Battles and increases their power in line with the issues of Battleships being the Ultimate power of Naval Battles									
+NDefines.NNavy.CARRIER_STACK_PENALTY_EFFECT = 0.2
 NDefines.NNavy.BASE_ESCAPE_SPEED = 0.10			    -- [vanilla 0.045] daily base escape speed (gained as percentagE)
 NDefines.NNavy.SPEED_TO_ESCAPE_SPEED = 0.95			-- [vanilla 0.95] ratio to converstion from ship speed to escape speed (divided by hundred)
 NDefines.NNavy.ESCAPE_SPEED_PER_COMBAT_DAY = 0.025	-- [vanilla 0.01] daily increase in escape speed during combat duration
