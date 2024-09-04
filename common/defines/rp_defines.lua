@@ -112,6 +112,9 @@ NDefines.NNavy.SUBMARINE_ESCAPE_RATIOS = { -- subs will escape battle in convoy 
 NDefines.NNavy.CARRIER_ONLY_COMBAT_ACTIVATE_TIME = 0 -- vanilla 0
 NDefines.NNavy.CAPITAL_ONLY_COMBAT_ACTIVATE_TIME = 6 -- vanilla 6
 NDefines.NNavy.ALL_SHIPS_ACTIVATE_TIME = 10 -- vanilla 8. This gives capital ships more time to fire increasing thier importance.
+NDefines.NNavy.CARRIER_STACK_PENALTY = 10	-- Vanilla 4. Gives Carriers more power in Naval Battles and increases their power in line with the issues of Battleships being the Ultimate power of Naval Battles									
+NDefines.NNavy.CARRIER_STACK_PENALTY_EFFECT = 0.2
+NDefines.NNavyBASE_CARRIER_SORTIE_EFFICIENCY = 1 -- Workaround to ensure they actually use their planes in a naval battle
 
 -- ## NAI ##
 NDefines.NAI.GARRISON_FRACTION = 0.2 -- 20% of the troops will NOT push the enemy while advancing. will make it harder to punch trough ai lines
