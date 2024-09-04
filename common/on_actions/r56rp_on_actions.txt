@@ -973,9 +973,9 @@ on_actions = {
 	## CONTINENT DISABLED ##
 	########################
 
-		# EUROPE
 		on_startup = {
 			effect = {
+			# EUROPE
 				IF = {
 					limit = {
 						has_game_rule = {
@@ -984,20 +984,26 @@ on_actions = {
 						}
 					}
 					
-					every_country = {
+					every_state = {
 						limit = {
-							any_owned_state = {
-								is_capital = yes
-								is_on_continent = europe
+							is_on_continent = europe
+							NOT = {
+								is_owned_and_controlled_by = SOV
 							}
 						}
-						set_cosmetic_tag = DISABLED_CT
-						country_lock_all_division_template = yes
-						add_ideas = r56rp_disabled_continent
-						load_focus_tree = generic_focus
+						remove_core_of = THIS
+						add_core_of = X01
+						transfer_state_to = X01
+						set_demilitarized_zone = yes
+						X01 = {
+							country_lock_all_division_template = yes
+							add_ideas = r56rp_disabled_continent
+							load_focus_tree = r56rp_dummy_tree
+						}
+						
 					}
 				}
-				
+			# AFRICA
 				IF = {
 					limit = {
 						has_game_rule = {
@@ -1005,21 +1011,33 @@ on_actions = {
 							option = DISABLED
 						}
 					}
-					
-					every_country = {
+
+					every_state = {
 						limit = {
-							any_owned_state = {
-								is_capital = yes
-								is_on_continent = africa
+							is_on_continent = africa
+						}
+
+						for_loop_effect = {
+								end = 3
+								value = temp_0001
+							every_country = { #gotta trigger multiple times otherwise it misses cores.
+								PREV = {
+									remove_core_of = PREV
+								}
 							}
 						}
-						set_cosmetic_tag = DISABLED_CT
-						country_lock_all_division_template = yes
-						add_ideas = r56rp_disabled_continent
-						load_focus_tree = generic_focus
+						add_core_of = X02
+						transfer_state_to = X02
+						set_demilitarized_zone = yes
+						X02 = {
+							country_lock_all_division_template = yes
+							add_ideas = r56rp_disabled_continent
+							load_focus_tree = r56rp_dummy_tree
+						}
+						
 					}
 				}
-				
+			# ASIA
 				IF = {
 					limit = {
 						has_game_rule = {
@@ -1027,21 +1045,36 @@ on_actions = {
 							option = DISABLED
 						}
 					}
-					
-					every_country = {
+
+					every_state = {
 						limit = {
-							any_owned_state = {
-								is_capital = yes
-								is_on_continent = asia
+							is_on_continent = asia
+							NOT = {
+								is_core_of = SOV
 							}
 						}
-						set_cosmetic_tag = DISABLED_CT
-						country_lock_all_division_template = yes
-						add_ideas = r56rp_disabled_continent
-						load_focus_tree = generic_focus
+
+						for_loop_effect = {
+								end = 3
+								value = temp_0001
+							every_country = { #gotta trigger multiple times otherwise it misses cores.
+								PREV = {
+									remove_core_of = PREV
+								}
+							}
+						}
+						add_core_of = X03
+						transfer_state_to = X03
+						set_demilitarized_zone = yes
+						X03 = {
+							country_lock_all_division_template = yes
+							add_ideas = r56rp_disabled_continent
+							load_focus_tree = r56rp_dummy_tree
+						}
+						
 					}
 				}
-
+			# SOUTH AMERICA
 				IF = {
 					limit = {
 						has_game_rule = {
@@ -1049,21 +1082,32 @@ on_actions = {
 							option = DISABLED
 						}
 					}
-					
-					every_country = {
+					every_state = {
 						limit = {
-							any_owned_state = {
-								is_capital = yes
-								is_on_continent = south_america
+							is_on_continent = south_america
+						}
+
+						for_loop_effect = {
+								end = 3
+								value = temp_0001
+							every_country = { #gotta trigger multiple times otherwise it misses cores.
+								PREV = {
+									remove_core_of = PREV
+								}
 							}
 						}
-						set_cosmetic_tag = DISABLED_CT
-						country_lock_all_division_template = yes
-						add_ideas = r56rp_disabled_continent
-						load_focus_tree = generic_focus
+						add_core_of = X04
+						transfer_state_to = X04
+						set_demilitarized_zone = yes
+						X04 = {
+							country_lock_all_division_template = yes
+							add_ideas = r56rp_disabled_continent
+							load_focus_tree = r56rp_dummy_tree
+						}
+						
 					}
 				}
-
+			# NORTH AMERICA
 				IF = {
 					limit = {
 						has_game_rule = {
@@ -1071,26 +1115,99 @@ on_actions = {
 							option = DISABLED
 						}
 					}
-					
-					every_country = {
+					every_state = {
 						limit = {
-							any_owned_state = {
-								is_capital = yes
-								is_on_continent = north_america
-							}
+							is_on_continent = north_america
 						}
-						set_cosmetic_tag = DISABLED_CT
-						country_lock_all_division_template = yes
-						add_ideas = r56rp_disabled_continent
-						load_focus_tree = generic_focus
 						USA = {
 							release = HAW
 							release = GUM
 							release = PUE
 						}
 						685 = { transfer_state_to = PAN }
+						for_loop_effect = {
+								end = 3
+								value = temp_0001
+							every_country = { #gotta trigger multiple times otherwise it misses cores.
+								PREV = {
+									remove_core_of = PREV
+								}
+							}
+						}
+						add_core_of = X05
+						transfer_state_to = X05
+						set_demilitarized_zone = yes
+						X05 = {
+							country_lock_all_division_template = yes
+							add_ideas = r56rp_disabled_continent
+							load_focus_tree = r56rp_dummy_tree
+						}
+						
 					}
 				}
 			}
 		}
+
+	on_war_relation_added = {
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							FROM = { 
+								original_tag = JAP
+							}
+							ROOT = {
+								has_power_balance = {
+									id = CHI_r56rp_corruption_power_balance
+								}
+							}
+						}
+						AND = {
+							FROM = { 
+								has_power_balance = {
+									id = CHI_r56rp_corruption_power_balance
+								}
+							}
+							ROOT = {
+								original_tag = JAP
+							}
+						}
+					}
+					NOT = {
+						has_country_flag = r56rp_anti_corruption_war_event_fired
+					}
+
+				}
+				CHI = {
+					country_event = { id = r56rp_kmt.1 }
+					set_country_flag = r56rp_anti_corruption_war_event_fired
+				}
+			}
+		}
+	}
+
+	on_peace = {
+		effect = {
+			if = {
+				limit = {
+					THIS = {
+						has_power_balance = {
+							id = CHI_r56rp_corruption_power_balance
+						}
+					}
+					NOT = {
+						has_country_flag = r56rp_anti_corruption_war_event_fired_peace
+					}
+				}
+				THIS = {
+					country_event = { id = r56rp_kmt.2 }
+					set_country_flag = r56rp_anti_corruption_war_event_fired_peace
+				}
+			}
+		}
+	}
+
+		
+
 }
