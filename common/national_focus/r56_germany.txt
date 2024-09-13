@@ -10464,90 +10464,7 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = GER_romania_friend
-		icon = GFX_goal_generic_befriend_romania
-		cost = 10.00
-		prerequisite = {
-			focus = GER_hungary_friend
-			focus = GER_war_with_hungary
-		}
-		mutually_exclusive = {
-			focus = GER_second_vienna_award
-			focus = GER_romania_war
-		}
-		relative_position_id = GER_hungary_friend
-		x = 1
-		y = 1
-		ai_will_do = {
-			factor = 10
-		}
-		available = {
-			NOT = {
-				has_war_with = ROM
-			}
-		}
-		bypass = {
-			OR = {
-				ROM = {
-					is_in_faction_with = GER
-				}
-				NOT = {
-					country_exists = ROM
-				}
-			}
-		}
-		completion_reward = {
-			ROM = {
-				add_opinion_modifier = {
-					target = GER
-					modifier = ger_naval_intimidation_focus
-				}
-				if = {
-					limit = {
-						GER = {
-							has_government = fascism
-						}
-					}
-					add_timed_idea = {
-						idea = fascist_influence
-						days = 1035
-					}
-				}
-				if = {
-					limit = {
-						GER = {
-							has_government = communism
-						}
-					}
-					add_timed_idea = {
-						idea = communist_influence
-						days = 1035
-					}
-				}
-				if = {
-					limit = {
-						GER = {
-							has_government = democratic
-						}
-					}
-					add_timed_idea = {
-						idea = democratic_influence
-						days = 1035
-					}
-				}
-				country_event = {
-					id = generic.1
-				}
-				if = {
-					limit = {
-						has_idea = neutrality_idea
-					}
-					remove_ideas = neutrality_idea
-				}
-			}
-		}
-	}
+
 	focus = {
 		id = GER_hungary_friend
 		icon = GFX_goal_generic_befriend_hungary
@@ -10725,6 +10642,92 @@ focus_tree = {
 		}
 
 	}
+
+		focus = {
+		id = GER_romania_friend
+		icon = GFX_goal_generic_befriend_romania
+		cost = 10.00
+		prerequisite = {
+			focus = GER_hungary_friend
+			focus = GER_war_with_hungary
+		}
+		mutually_exclusive = {
+			focus = GER_second_vienna_award
+			focus = GER_romania_war
+		}
+		relative_position_id = GER_hungary_friend
+		x = 1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			NOT = {
+				has_war_with = ROM
+			}
+		}
+		bypass = {
+			OR = {
+				ROM = {
+					is_in_faction_with = GER
+				}
+				NOT = {
+					country_exists = ROM
+				}
+			}
+		}
+		completion_reward = {
+			ROM = {
+				add_opinion_modifier = {
+					target = GER
+					modifier = ger_naval_intimidation_focus
+				}
+				if = {
+					limit = {
+						GER = {
+							has_government = fascism
+						}
+					}
+					add_timed_idea = {
+						idea = fascist_influence
+						days = 1035
+					}
+				}
+				if = {
+					limit = {
+						GER = {
+							has_government = communism
+						}
+					}
+					add_timed_idea = {
+						idea = communist_influence
+						days = 1035
+					}
+				}
+				if = {
+					limit = {
+						GER = {
+							has_government = democratic
+						}
+					}
+					add_timed_idea = {
+						idea = democratic_influence
+						days = 1035
+					}
+				}
+				country_event = {
+					id = generic.1
+				}
+				if = {
+					limit = {
+						has_idea = neutrality_idea
+					}
+					remove_ideas = neutrality_idea
+				}
+			}
+		}
+	}
+
 	focus = {
 		id = GER_second_vienna_award
 		icon = GFX_goal_constitution
@@ -12262,6 +12265,12 @@ focus_tree = {
 				division_template = "Rotes Regiment"
 				disband = yes
 			}
+			hidden_effect = {
+				delete_unit_template_and_units = {
+					division_template = "Communist Millitias"
+					disband = yes
+				}
+			}
 
 			custom_effect_tooltip = r56_newline
 			SOV = {
@@ -12334,6 +12343,12 @@ focus_tree = {
 			delete_unit_template_and_units = {
 				division_template = "Rotesregiment"
 				disband = yes
+			}
+			hidden_effect = {
+				delete_unit_template_and_units = {
+					division_template = "Communist Millitias"
+					disband = yes
+				}
 			}
 		}
 		search_filters = {
@@ -14832,6 +14847,36 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = GER_european_claims
+		icon = GFX_goal_GER_great_black_menace
+		cost = 10.00
+		prerequisite = {
+			focus = GER_restore_the_empire
+		}
+		relative_position_id = GER_restore_the_empire
+		x = 7
+		y = 1
+		available = {
+			is_subject = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_state_core = 85
+			add_state_core = 86
+			add_state_core = 188
+			add_state_core = 28
+			add_state_core = 762
+			add_state_core = 807
+			add_state_core = 965
+		}
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ANNEXATION
+		}
+	}
+
+	focus = {
 		id = GER_safeguard_the_baltic_r56
 		text = GER_safeguard_the_baltic
 		icon = GFX_goal_SOV_baltic_aggression
@@ -15748,35 +15793,6 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH
 		}
 
-	}
-	focus = {
-		id = GER_european_claims
-		icon = GFX_goal_GER_great_black_menace
-		cost = 10.00
-		prerequisite = {
-			focus = GER_restore_the_empire
-		}
-		relative_position_id = GER_restore_the_empire
-		x = 7
-		y = 1
-		available = {
-			is_subject = no
-		}
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_state_core = 85
-			add_state_core = 86
-			add_state_core = 188
-			add_state_core = 28
-			add_state_core = 762
-			add_state_core = 807
-			add_state_core = 965
-		}
-		search_filters = {
-			FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ANNEXATION
-		}
 	}
 	# r56rp
 	# turned into decision. aint nobody got 50 days to waste for 1 puny danish state

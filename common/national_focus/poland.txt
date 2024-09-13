@@ -1297,22 +1297,24 @@ focus_tree = {
                 bonus = 1
                 uses = 1
                 category = steel_tech
-            }
-			random_owned_controlled_state = {
-				prioritize = { 88 }
-				limit = {
-					steel_mill < 2
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
+            }			
+			if = {
+				limit = { 
+					OR = {
+						controls_state = 88
+						any_other_country = {
+							is_subject_of = ROOT
+							controls_state = 88
+						} 
 					}
 				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = steel_mill
-					level = 2
-					instant_build = yes
+				88 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = steel_mill
+						level = 2
+						instant_build = yes
+					}
 				}
 			}
 			random_owned_controlled_state = {
@@ -1410,8 +1412,12 @@ focus_tree = {
 		}
 		
 		bypass = {
-			NOT = { has_active_mission = POL_looming_peasants_strike_mission }
-			NOT = { has_active_mission = POL_peasants_strike }
+			NOT = {
+				has_active_mission = POL_looming_peasants_strike_mission
+				has_active_mission = POL_peasants_strike
+				has_idea = POL_great_peasants_strike
+				has_idea = POL_looming_peasants_strike
+			}
 		}
 
 		select_effect = {
@@ -3068,6 +3074,7 @@ focus_tree = {
 					icon = "GFX_USA_CAS1_medium"
 				}
 				add_tech_bonus = {
+					name = POL_heavy_fighter_concept
 					bonus = 1.0
 					uses = 1				
 					category = medium_air
@@ -3201,6 +3208,7 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
+					name = POL_medium_bomber_focus
 					technology = basic_medium_airframe
 					technology = improved_medium_airframe
 					technology = advanced_medium_airframe
@@ -3270,13 +3278,14 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
+					name = POL_light_bomber_focus
 					technology = aa_cannon_1
 					technology  = aa_cannon_2
 					bonus = 1.0
 					uses = 1				
 				}
 				add_tech_bonus = {
-					name = PPOL_light_bomber_focus
+					name = POL_light_bomber_focus
 					bonus = 0.75
 					uses = 2
 					category = battlefield_support_tree
@@ -3324,6 +3333,7 @@ focus_tree = {
 				}
 			}
 			add_ideas = POL_Modern_Aircraft_Production
+			# R56RP Addition
 			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
@@ -3629,6 +3639,8 @@ focus_tree = {
 				country_event = poland.86
 			}
 			show_unit_leaders_tooltip = POL_stefan_dab_biernacki
+			
+		
 		}
 	}
 
@@ -3715,7 +3727,6 @@ focus_tree = {
 			OR = {
 				threat > 0.1
 				is_in_faction_with = ROM
-				ROM = { has_completed_focus = ROM_renew_the_romanian_polish_alliance }
 				HUN = { has_completed_focus = HUN_renounce_the_treaty_of_trianon }
 			}
 			NOT = { is_justifying_wargoal_against = ROM }
@@ -3826,8 +3837,10 @@ focus_tree = {
 				country_event = poland.161
 			}
 			add_political_power = 25
-			POL = { diplomatic_relation = { country = FRA relation = guarantee active = no} }
-			add_ideas = POL_Neutral_Foreign_Policy
+
+			#marijn211: these were apparently ported from the R56 tree (by fantom) but it breaks the focus to join the Allies
+			#POL = { diplomatic_relation = { country = FRA relation = guarantee active = no} }
+			#add_ideas = POL_Neutral_Foreign_Policy
 		}
 	}
 
@@ -3853,6 +3866,7 @@ focus_tree = {
 				}
 			}
 			has_government = neutrality
+			
 		}
 		
 		x = 0
@@ -4071,9 +4085,24 @@ focus_tree = {
 		}
 
 		available = {
-				OR = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = POL_bop_status_quo_tt
+					and = {
+						power_balance_value = {
+							id = POL_power_balance
+							value > -0.11
+						}
+						power_balance_value = {
+							id = POL_power_balance
+							value < 0.11
+						}
+					}
+				}
+				AND = {
+					has_completed_focus = POL_second_man_of_the_state
 					custom_trigger_tooltip = {
-						tooltip = POL_bop_status_quo_tt
+						tooltip = POL_bop_limited_right_influence_tt
 						and = {
 							power_balance_value = {
 								id = POL_power_balance
@@ -4081,27 +4110,12 @@ focus_tree = {
 							}
 							power_balance_value = {
 								id = POL_power_balance
-								value < 0.11
-							}
-						}
-					}
-					AND = {
-						has_completed_focus = POL_second_man_of_the_state
-						custom_trigger_tooltip = {
-							tooltip = POL_bop_limited_right_influence_tt
-							and = {
-								power_balance_value = {
-									id = POL_power_balance
-									value > -0.11
-								}
-								power_balance_value = {
-									id = POL_power_balance
-									value < 0.50
-								}
+								value < 0.50
 							}
 						}
 					}
 				}
+			}
 			neutrality > 0.5
 		}
 
@@ -4113,8 +4127,8 @@ focus_tree = {
 			}
 			set_party_name = { ideology = neutrality long_name = POL_Castle_party_long name = POL_Castle_party }
 			add_country_leader_trait = stern_imperialist
-			#POL_sanation_left_opposition_remove = yes
-			#POL_sanation_right_opposition_remove = yes
+#			POL_sanation_left_opposition_remove = yes
+#			POL_sanation_right_opposition_remove = yes
 			custom_effect_tooltip = no_more_san_right_tt
 			custom_effect_tooltip = no_more_san_left_tt
 			unlock_decision_category_tooltip = POL_industrial_projects_category
@@ -4547,6 +4561,7 @@ focus_tree = {
 					elections_allowed = no
 				}
 			}
+			
 			set_party_name = { ideology = neutrality long_name = POL_POS_party_long name = POL_POS_party }
 #			POL_sanation_right_opposition_remove = yes
 			effect_tooltip = {
@@ -5007,7 +5022,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = POL_second_man_of_the_state
 		cost = 10
-
+		
 		available = {
 			power_balance_value = {
 				id = POL_power_balance
@@ -5527,7 +5542,6 @@ focus_tree = {
 		}
 
 		available = {
-			is_faction_leader = no
 			OR = {
 				AND = {
 					LIT = {
@@ -5581,8 +5595,13 @@ focus_tree = {
 		
 		search_filters = { FOCUS_FILTER_POLITICAL } 
 		completion_reward = {
-			create_faction = POL_baltic_alliance
-			set_rule = { can_create_factions = yes }
+			if = {
+				limit = {
+					is_faction_leader = no
+				}
+				create_faction = POL_baltic_alliance
+				set_rule = { can_create_factions = yes }
+			}
 			hidden_effect = {
 				if = {
 					limit = {
@@ -7243,6 +7262,16 @@ focus_tree = {
 			has_army_manpower = { size > 399999 }
 		}
 
+		bypass = {
+			LIT = {
+				exists = no
+			}
+			owns_state = 189
+			owns_state = 815
+			owns_state = 11
+			owns_state = 814
+		}
+
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
@@ -8046,8 +8075,6 @@ focus_tree = {
 		}
 
 		available_if_capitulated = yes
-
-		search_filters = {  }
 		completion_reward = {
 			add_ideas = { POL_committee_of_national_liberation_idea }
 		}
@@ -9579,8 +9606,6 @@ focus_tree = {
 		ai_will_do = {
 			factor = 0.8
 		}
-
-		available_if_capitulated = no
 		
 		available = {
 			is_subject = no
@@ -9675,6 +9700,7 @@ focus_tree = {
 						OR = {
 							state = 664
 							state = 69
+							state = 1078
 							state = 70
 							state = 71
 							state = 72
@@ -9692,6 +9718,7 @@ focus_tree = {
 						OR = {
 							owns_state = 664
 							owns_state = 69
+							owns_state = 1078
 							owns_state = 70
 							owns_state = 71
 							owns_state = 72
@@ -9961,9 +9988,6 @@ focus_tree = {
 					}
 				}
 			}
-		}
-		
-		bypass = {
 		}
 
 		available_if_capitulated = yes
@@ -10259,9 +10283,6 @@ focus_tree = {
 		}
 		
 		available = {
-		}
-		
-		bypass = {
 		}
 
 		available_if_capitulated = yes
@@ -10615,7 +10636,6 @@ focus_tree = {
 			effect_tooltip = {
 				create_country_leader = {
 					name = "Michał II"
-					desc = "POLITICS_MICHAEL_I_DESC"
 					picture = "gfx/leaders/ROM/Portrait_romania_michael_i.dds"			
 					expire = "1965.1.1"
 					ideology = absolute_monarchism
@@ -12641,7 +12661,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_ideas = { ROM_flexible_foreign_policy_2	}
 			add_popularity = {
 				popularity = 0.15
 				ideology = democratic
@@ -12948,7 +12967,7 @@ focus_tree = {
 						character = GER_victoria
 						ruling_only = yes
 					}
-					has_idea = GER_wilhelm_iii #if constitutional monarch
+					has_idea = GER_wilhelm_iii_idea #if constitutional monarch
 				}
 				OR = {
 					is_in_faction = no
@@ -13189,7 +13208,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = POL_Evacuate_Polands_Gold_Reserves
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 100
@@ -13238,6 +13257,7 @@ focus_tree = {
 						state = 68
 						state = 66
 						state = 67
+						state = 85
 					}
 				}
 				add_core_of = POL
@@ -13302,7 +13322,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = POL_Polish_Cipher_Bureau
+				name = POL_Polish_Cipher_Bureau_no_lar
 				bonus = 1.0
 				ahead_reduction = 1.0
 				uses = 1
@@ -13387,7 +13407,7 @@ focus_tree = {
 			custom_effect_tooltip =POL_Encryption_Decryption_tooltip
 			hidden_effect = {
 				add_tech_bonus = {
-					name = POL_The_Cyclometer
+					name = POL_The_Bombe_no_lar
 					bonus = 1.0
 					uses = 1
 					category = encryption_tech
@@ -13730,10 +13750,37 @@ focus_tree = {
 			add_ideas = POL_aces_in_exile
 			air_experience = 75
 			add_manpower = 9700
-			add_equipment_to_stockpile = {
-				type = CAS_equipment_1
-				amount = 50
-				producer = POL
+			# 19400 Poles served in the exile airforce, 100 manpower per plane making it around 200 planes total. Ported over from Vanilla.
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "By Blood Alone"
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = fighter_equipment_1
+					amount = 100
+					producer = POL
+				}
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment_1
+					amount = 50
+					producer = POL
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe_0
+					amount = 100
+					producer = POL
+					variant_name = "PZL P.11"
+				}
+				add_equipment_to_stockpile = {
+					type = small_plane_cas_airframe_1
+					amount = 50
+					producer = POL
+					variant_name = "PZL P.23"
+				}
 			}
 			#commanded the squadron at some point and survived the war, many didn't. 
 			add_ace = {
@@ -14319,6 +14366,7 @@ focus_tree = {
 						state = 68
 						state = 66
 						state = 67
+						state = 85
 					}
 				}
 				add_core_of = POL
@@ -14559,8 +14607,7 @@ focus_tree = {
 			#	attack_skill = 4
 			#	defense_skill = 2
 			#	maneuvering_skill = 3
-			#	coordination_skill = 1
-			#}		
+			#	coordination_skill = 1			
 			GER = { 
 				country_event = poland.38
 			}
@@ -14605,7 +14652,10 @@ focus_tree = {
 			}
 			custom_effect_tooltip = if_they_refuse_tt
 			effect_tooltip = {
-				POL = {
+				random_country = {
+					limit = { 
+						tag = POL 
+					}
 					add_tech_bonus = {
 						name = POL_German_Berlinka_Highway_Project
 						bonus = 1.0
@@ -14613,25 +14663,46 @@ focus_tree = {
 					}
 					10 = {
 						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
+						type = infrastructure
+						level = 1
+						instant_build = yes
 						}
 					}
 					98 = {
 						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
+						type = infrastructure
+						level = 1
+						instant_build = yes
 						}
 					}
 					85 = {
 						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
+						type = infrastructure
+						level = 1
+						instant_build = yes
 						}
 					}					
+				#	10 = {
+				#		add_building_construction = {
+				#		type = infrastructure
+				#		level = 1
+				#		instant_build = yes
+				#		}
+				#	}
+				#	98 = {
+				#		add_building_construction = {
+				#		type = infrastructure
+				#		level = 1
+				#		instant_build = yes
+				#		}
+				#	}
+				#	85 = {
+				#		add_building_construction = {
+				#		type = infrastructure
+				#		level = 1
+				#		instant_build = yes
+				#		}
+				#	}
 				}
 			}
 		}
@@ -14646,12 +14717,6 @@ focus_tree = {
 		y = 1
 		relative_position_id = POL_Seek_Accommodation_With_Germany
 		cost = 10
-		allow_branch = { 
-			OR = {
-				has_dlc = "Together for Victory"
-				has_dlc = "Death or Dishonor"
-			}
-		}
 		available = {
 			is_subject = no
 			is_in_faction = no
@@ -14714,19 +14779,7 @@ focus_tree = {
 			}
 			custom_effect_tooltip = if_they_accept_tt
 			effect_tooltip = { POL = { diplomatic_relation = { country = SOV relation = non_aggression_pact active = no } } }
-			if = {
-				limit = { has_dlc = "Death or Dishonor" }
-				custom_effect_tooltip = POL_Ribbentrop_Beck_tooltip_DOD
-				else = {
-					if = {
-						limit = { has_dlc = "Together for Victory"}
-						custom_effect_tooltip = POL_Ribbentrop_Beck_tooltip_TFV
-						else = {
-							custom_effect_tooltip = POL_Ribbentrop_Beck_tooltip
-						}
-					}
-				}
-			}
+			custom_effect_tooltip = POL_Ribbentrop_Beck_tooltip_DOD
 			effect_tooltip = {
 				add_ideas = POL_Ribbentrop_Beck_Pact
 			}
@@ -14754,12 +14807,6 @@ focus_tree = {
 			OR = {
 				has_autonomy_state = autonomy_satellite
 				has_autonomy_state = autonomy_dominion
-			}
-		}
-		allow_branch = { 
-			OR = {
-				has_dlc = "Together for Victory"
-				has_dlc = "Death or Dishonor"
 			}
 		}
 		
@@ -14793,7 +14840,6 @@ focus_tree = {
 				}
 				create_country_leader = {
 					name = "Władysław Sikorski"
-					desc = "POLITICS_WLADYSLAW_SIKORSKI_DESC"
 					picture = "Portrait_Poland_Wladyslaw_Sikorski.dds"
 					expire = "1965.1.1"
 					ideology = liberalism
@@ -14808,7 +14854,6 @@ focus_tree = {
 				}
 				create_country_leader = {
 					name = "Bolesław Wieniawa-Długoszowski"
-					desc = "POLITICS_BOLESLAW_WIENIAWA_DLUGOSZOWSKI_DESC"
 					picture = "r56_portrait_POL_Boleslaw_Wieniawa_Dlugoszowski.dds"
 					expire = "1965.1.1"
 					ideology = oligarchism
@@ -15840,11 +15885,12 @@ focus_tree = {
 			set_party_name = { ideology = democratic long_name = POL_ND_party_long name = POL_ND_party }
 			if = {
 				limit = {
-					has_global_flag = Dmowski_dead
+					NOT = {
+						has_character = POL_roman_dmowski
+					}
 				}
 				create_country_leader = {
 					name = "Tadeusz Bielecki"
-					desc = "POLITICS_Tadeusz_Bielecki_DESC"
 					picture = "r56_portrait_POL_Tadeusz_Bielecki.dds"
 					expire = "1965.1.1"
 					ideology = conservatism
@@ -15857,7 +15903,6 @@ focus_tree = {
 				else = {
 					create_country_leader = {
 						name = "Roman Dmowski"
-						desc = "POLITICS_Roman_Dmowski_DESC"
 						picture = "r56_portrait_POL_Roman_Dmowski.dds"
 						expire = "1965.1.1"
 						ideology = conservatism
@@ -15943,7 +15988,7 @@ focus_tree = {
 			}
 		}
 		
-		x = -2
+		x = -5
 		y = 1
 		relative_position_id = POL_The_Endecja_Movement
 		cost = 5
@@ -15998,9 +16043,9 @@ focus_tree = {
 				has_government = neutrality
 				has_government = democratic
 			}
-			#NOT = { #OLD FOCUS
-			#	has_completed_focus = POL_Kasprzycki_Gamelin_Convention
-			#}
+			NOT = {
+				has_completed_focus = POL_Kasprzycki_Gamelin_Convention
+			}
 		}
 		
 		x = 0
@@ -16034,7 +16079,6 @@ focus_tree = {
 			add_ideas = POL_polish_revanchism_focus
 			if = {
 				limit = { 
-					has_dlc = "Waking the Tiger"
 					NOT = { has_completed_focus = POL_The_Endecja_Movement }
 				}
 				custom_effect_tooltip = POL_Polish_Revanchism_tt
@@ -16132,7 +16176,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-	
+
 ###TODO, alternative for silesia or war	
 #	focus = {
 #		id = POL_silesian_question
@@ -16682,16 +16726,8 @@ focus_tree = {
 			}
 		}
 		
-		
-		
 		completion_reward = {
-			if = {
-				limit = { has_dlc = "Together for Victory"}
-				custom_effect_tooltip = POL_Beck_Molotov_tooltip_TFV
-				else = {
-					custom_effect_tooltip = POL_Beck_Molotov_tooltip
-				}
-			}
+			custom_effect_tooltip = POL_Beck_Molotov_tooltip_TFV
 			SOV = { country_event = poland.115 }
 		}
 	}
@@ -16733,23 +16769,6 @@ focus_tree = {
 				promote_leader = yes
 			}
 			custom_effect_tooltip = POL_Gain_Ministers_Tooltip
-			if = {
-				limit = {
-					NOT = { has_unit_leader = 3179 }
-					SOV = { NOT = { has_country_flag = purge_1_group_b } }
-				}
-				create_field_marshal = {
-					name = "Konstanty Rokossowski"
-					picture = "r56_portrait_POL_Konstanty_Rokossowski.dds"
-					traits = { politically_connected panzer_leader panzer_expert offensive_doctrine thorough_planner aggressive_assaulter }
-					id = 3179
-					skill = 5
-					attack_skill = 5
-					defense_skill = 2
-					planning_skill = 5
-					logistics_skill = 4
-				}
-			}
 			if = {
 				limit = { NOT = { has_unit_leader = 3156 } }
 				create_field_marshal = {
@@ -16920,11 +16939,6 @@ focus_tree = {
 				is_in_faction_with = SOV
 				is_subject_of = SOV
 			}
-			has_dlc = "Death or Dishonor"
-		}
-
-		bypass = {
-			NOT = { has_dlc = "Death or Dishonor" }
 		}
 
 		completion_reward = {
@@ -16961,26 +16975,16 @@ focus_tree = {
 
 		completion_reward = {
 			if = {
-				limit = { 
-					has_dlc = "Together for Victory"
+				limit = {
 					is_subject = yes
 				}
 				add_autonomy_ratio = {
 					value = 0.15
 				}
-				if = {
-					limit = {
-						is_subject = yes
-					}
-					add_autonomy_ratio = {
-						value = 0.15
-					}
-				}
 			}
 			set_party_name = { ideology = communism long_name = POL_PPR_party_long name = POL_PPR_party }
 			create_country_leader = {
 				name = "Władysław Gomułka"
-				desc = "POLITICS_WLADYSLAW_GOMULKA_DESC"
 				picture = "Portrait_Poland_Wladyslaw_Gomulka.dds"
 				expire = "1965.1.1"
 				ideology = anti_revisionism
@@ -18092,6 +18096,9 @@ focus_tree = {
 			
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POL_mieczyslaw_michalowicz
+
+			unlock_decision_tooltip = POL_Handle_Danzig
+			unlock_decision_tooltip = POL_Collective_Farms
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -19700,7 +19707,7 @@ focus_tree = {
 		}
 		bypass = {
 			any_other_country = {
-				has_completed_focus = ROM_hunedoara_steel_works
+				has_completed_focus = ROM_increase_mining_efforts
 			}
 		}
 
@@ -19766,7 +19773,7 @@ focus_tree = {
 		}
 		bypass = {
 			any_other_country = {
-				has_completed_focus = ROM_invest_in_the_iar
+				has_completed_focus = ROM_funding_to_iar
 			}
 		}
 		
@@ -19812,7 +19819,7 @@ focus_tree = {
 		}
 		bypass = {
 			any_other_country = {
-				has_completed_focus = ROM_expand_ploiesti_oil_production
+				has_completed_focus = ROM_derrick_upgrades
 			}
 		}
 		available = {
@@ -19831,20 +19838,14 @@ focus_tree = {
 		}
 	}	
 	focus = {
-		id =POL_union_oil_refining_infrastructure
-		text = ROM_oil_refining_infrastructure
+		id = POL_union_oil_refining_infrastructure
+		text = HUN_synthetic_industry
 		icon = GFX_goal_refining
 		prerequisite = { focus = POL_union_expand_ploiesti_oil_production }
 		x = 2
 		y = 1
 		relative_position_id = POL_union_expand_ploiesti_oil_production
-
-		cost = 10
-		bypass = {
-			any_other_country = {
-				has_completed_focus = ROM_oil_refining_infrastructure
-			}
-		}
+		cost = 15
 		ai_will_do = {
 			factor = 10
 		}
@@ -19913,7 +19914,7 @@ focus_tree = {
 		
 
 		completion_reward = {
-			add_ideas = ROM_exploit_the_baita_mines
+			add_ideas = ROM_uranium_supply_idea
 		}
 	}
 }
