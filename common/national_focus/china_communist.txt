@@ -413,9 +413,14 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			date < 1936.11.1
-			NOT = {
-				is_in_faction_with = CHI
+			or = {
+				NOT = { tag = PRC }
+				if = {
+					date < 1936.11.1
+					NOT = {
+						is_in_faction_with = CHI
+					}
+				}
 			}
 		}
 		
@@ -513,9 +518,6 @@ focus_tree = {
 			create_faction = grand_nw_united
 			set_capital = { state = 283 }
 			if = {
-				limit = {
-					has_global_flag = zxl_as_gnwu_leader
-				}
 				add_popularity = {
 					ideology = fascism
 					popularity = 0.1

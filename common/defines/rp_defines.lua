@@ -10,6 +10,7 @@ NDefines.NDiplomacy.VOLUNTEERS_PER_COUNTRY_ARMY = 0.05 --Each province owned by 
 NDefines.NDiplomacy.VOLUNTEERS_PER_TARGET_PROVINCE = 0.025 --Each army unit owned by the source country contributes this amount of volunteers to the limit.
 NDefines.NDiplomacy.GUARANTEE_COST = 75 
 NDefines.NDiplomacy.EMBARGO_COST = 50
+NDefines.NDiplomacy.EMBARGO_THREAT_THRESHOLD = -1 -- [vanilla 30] set to 0, so it can be set to overall world tension, not individual generation
 
 -- ## NCountry ##
 NDefines.NCountry.ARMY_COUNT_DAILY_DECREASE_FOR_TRAINING_XP = 0.05 -- number of armies that is used in training xp calculates daily linearly approaches this number (if real number is lower)
@@ -24,6 +25,7 @@ NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 10
 NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 15
 NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 10
 NDefines.NProduction.MINIMUM_NUMBER_OF_FACTORIES_TAKEN_BY_CONSUMER_GOODS_PERCENT = 0.1
+NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 2.50  -- [vanilla 5]
 
 -- ## NTechnology ##
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 50 --BASE_RESEARCH_POINTS_SAVED
