@@ -38,6 +38,9 @@ NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_IMPACT = -0.20         -- [vanilla -0.3
 NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_DEFENSE = 0.80	     -- [vanilla 0.70] more AA attack will approach this amount of help (diminishing returns)
 NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_DEFENSE_STEEPNESS = 60 -- [vanilla 112] how quickly defense approaches the max impact diminishing returns curve
 NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_SPEED_IMPACT = -0.2    -- [vanilla -0.3] effect on speed due to enemy air superiority
+NDefines.NMilitary.PLANNING_DECAY = 0.01				--[vanilla 0.01]
+NDefines.NMilitary.PLAYER_ORDER_PLANNING_DECAY = 0.04	--[vanilla 0.03]
+NDefines.NMilitary.PLANNING_GAIN = 0.005				--[vanilla 0.02]
 
 NDefines.NMilitary.PLAN_CONSIDERED_GOOD = 0.50					-- [vanilla 0.25] Plan evaluations above this value are considered more or less safe
 NDefines.NMilitary.PLAN_CONSIDERED_BAD = -0.05					-- [vanilla -0.25] Plan evaluations below this value are considered unsafe
