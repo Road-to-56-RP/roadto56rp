@@ -1771,17 +1771,17 @@ focus_tree = {
 			modifier = {
 				factor = 4
 				has_army_manpower = {
-					size > 500000
+					size > 300000
 				}
 			}
 		}
 		cancel_if_invalid = no
 		available = {
 			is_subject = no
-			has_army_manpower = { size > 499999 }
+			has_army_manpower = { size > 300000 }
 			custom_trigger_tooltip = {
-			 	tooltip = GER_anschluss_eq_trigger_tt
-			 	check_variable = { num_equipment_in_armies_k@infantry_equipment > 40 }
+			 	tooltip = GER_r56rp_anschluss_eq_trigger_tt
+			 	check_variable = { num_equipment_in_armies_k@infantry_equipment > 25 }
 			}
 			NOT = {
 				has_idea = rhineland_challenge_met
@@ -3977,8 +3977,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			random_owned_controlled_state = {
-				prioritize = {
-					50
+				prioritize = { 50 }
+				limit = {
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = synthetic_refinery
+						size > 2
+						include_locked = yes
+					}
 				}
 				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
@@ -4028,10 +4035,24 @@ focus_tree = {
 		completion_reward = {
 			random_owned_controlled_state = {
 				prioritize = { 60 }
-				add_extra_state_shared_building_slots = 1
+				limit = {
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					# r56rp
+					# because base game cannot for some reason
+					# check specificaly for custom building free slots
+					# so this is a workaround.
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+					rubber_refinary < 1
+				}
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = rubber_refinery
-					level = 1
+					level = 3
 					instant_build = yes
 				}
 			}
@@ -4087,7 +4108,7 @@ focus_tree = {
 				}
 			}
 			has_army_manpower = {
-				size > 800000
+				size > 400000
 			}
 			# NOT = {
 			# 	has_idea = rhineland_challenge_met
@@ -4184,7 +4205,7 @@ focus_tree = {
 		relative_position_id = GER_anschluss
 		available = {
 			has_army_manpower = {
-				size > 600000
+				size > 400000
 			}
 			# NOT = {
 			# 	has_idea = rhineland_challenge_met
@@ -7135,7 +7156,7 @@ focus_tree = {
 				has_completed_focus = GER_mol_rib_pact
 			}
 			has_army_manpower = {
-				size > 299999
+				size > 200000
 			}
 			is_puppet = no
 			has_civil_war = no
@@ -7278,7 +7299,7 @@ focus_tree = {
 		mutually_exclusive = { focus = GER_mol_rib_pact }
 		available = {
 			is_subject = no
-			has_army_manpower = { size > 849999 } #ca 90 div
+			has_army_manpower = { size > 600000 } #ca 90 div
 		}
 		x = -1
 		y = 1
@@ -8188,7 +8209,7 @@ focus_tree = {
 			controls_state = 4
 			controls_state = 1054
 			has_army_manpower = {
-				size > 624999 #ca 80 div
+				size > 450000 #ca 80 div
 			}
 			OR = {
 				YUG = {
@@ -8357,7 +8378,7 @@ focus_tree = {
 			controls_state = 1054
 			is_neighbor_of = YUG
 			has_army_manpower = {
-				size > 874999 
+				size > 625000
 			}
 			YUG = {
 				r56_script_target_is_sane = yes
@@ -9261,7 +9282,7 @@ focus_tree = {
 		available = {
 			r56_script_i_am_sane = yes
 			has_army_manpower = {
-				size > 800000
+				size > 600000
 			}
 			CZE = {
 				r56_script_target_is_sane = yes
@@ -9510,7 +9531,7 @@ focus_tree = {
 		}
 		available = {
 			has_army_manpower = {
-				size > 624999
+				size > 525000
 			}
 			r56_script_i_am_sane = yes
 			OR = {
@@ -9660,7 +9681,7 @@ focus_tree = {
 			r56_script_i_am_sane = yes
 			is_neighbor_of = ITA
 			has_army_manpower = {
-				size > 699999
+				size > 550000
 			}
 			ITA = {
 				r56_script_target_is_sane = yes
@@ -9740,7 +9761,7 @@ focus_tree = {
 			is_subject = no
 			r56_script_i_am_sane = yes
 			has_army_manpower = {
-				size > 550000
+				size > 400000
 			}
 			NOT = {
 				has_idea = rhineland_challenge_met
@@ -9809,7 +9830,7 @@ focus_tree = {
 		}
 		available = {
 			has_army_manpower = {
-				size > 1250000
+				size > 900000
 			}
 			r56_script_i_am_sane = yes
 			POL = {
@@ -10284,7 +10305,7 @@ focus_tree = {
 			r56_script_i_am_sane = yes
 			OR = {
 				has_army_manpower = {
-					size > 950000
+					size > 600000
 				}
 
 				strength_ratio = {
@@ -10779,7 +10800,7 @@ focus_tree = {
 		available = {
 			is_puppet = no
 			has_army_manpower = {
-				size > 649999
+				size > 450000
 			}
 			has_capitulated = no
 			HUN = {
@@ -11071,7 +11092,7 @@ focus_tree = {
 		available = {
 			is_puppet = no
 			has_army_manpower = {
-				size > 699999
+				size > 550k
 			}
 			SOV = {
 				NOT = {
@@ -13003,7 +13024,7 @@ focus_tree = {
 			}
 
 			custom_effect_tooltip = r56_newline
-			hold_election = ROOT
+#			hold_election = ROOT
 			effect_tooltip = {
 				country_event = r56.ger.60
 			}

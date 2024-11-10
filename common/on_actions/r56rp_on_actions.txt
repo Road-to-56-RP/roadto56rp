@@ -1148,65 +1148,90 @@ on_actions = {
 			}
 		}
 
-	on_war_relation_added = {
-		effect = {
-			if = {
-				limit = {
-					OR = {
-						AND = {
-							FROM = { 
-								original_tag = JAP
-							}
-							ROOT = {
-								has_power_balance = {
-									id = CHI_r56rp_corruption_power_balance
-								}
-							}
-						}
-						AND = {
-							FROM = { 
-								has_power_balance = {
-									id = CHI_r56rp_corruption_power_balance
-								}
-							}
-							ROOT = {
-								original_tag = JAP
-							}
-						}
-					}
-					NOT = {
-						has_country_flag = r56rp_anti_corruption_war_event_fired
-					}
 
-				}
-				CHI = {
-					country_event = { id = r56rp_kmt.1 }
-					set_country_flag = r56rp_anti_corruption_war_event_fired
+
+	##############################
+	## JAPAN-USA ISLAND HOPPING ##
+	##############################
+
+		#
+		#on_state_control_changed = {
+		#	effect = {
+		#		# ROOT is new controller, 
+		#		# FROM is old controller, 
+		#		# FROM.FROM is state ID.
+		#		if = {
+		#			limit = {
+		#				ROOT
+		#			}
+		#		}
+		#	}
+		#	
+		#}
+
+	#############################
+	## ROC CORRUPTION "REWORK" ##
+	#############################
+
+		on_war_relation_added = {
+			effect = {
+				if = {
+					limit = {
+						OR = {
+							AND = {
+								FROM = { 
+									original_tag = JAP
+								}
+								ROOT = {
+									has_power_balance = {
+										id = CHI_r56rp_corruption_power_balance
+									}
+								}
+							}
+							AND = {
+								FROM = { 
+									has_power_balance = {
+										id = CHI_r56rp_corruption_power_balance
+									}
+								}
+								ROOT = {
+									original_tag = JAP
+								}
+							}
+						}
+						NOT = {
+							has_country_flag = r56rp_anti_corruption_war_event_fired
+						}
+
+					}
+					CHI = {
+						country_event = { id = r56rp_kmt.1 }
+						set_country_flag = r56rp_anti_corruption_war_event_fired
+					}
 				}
 			}
 		}
-	}
 
-	on_peace = {
-		effect = {
-			if = {
-				limit = {
+		on_peace = {
+			effect = {
+				if = {
+					limit = {
+						THIS = {
+							has_power_balance = {
+								id = CHI_r56rp_corruption_power_balance
+							}
+						}
+						NOT = {
+							has_country_flag = r56rp_anti_corruption_war_event_fired_peace
+						}
+					}
 					THIS = {
-						has_power_balance = {
-							id = CHI_r56rp_corruption_power_balance
-						}
+						country_event = { id = r56rp_kmt.2 }
+						set_country_flag = r56rp_anti_corruption_war_event_fired_peace
 					}
-					NOT = {
-						has_country_flag = r56rp_anti_corruption_war_event_fired_peace
-					}
-				}
-				THIS = {
-					country_event = { id = r56rp_kmt.2 }
-					set_country_flag = r56rp_anti_corruption_war_event_fired_peace
 				}
 			}
 		}
-	}
 
 		
 
