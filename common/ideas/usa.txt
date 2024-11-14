@@ -81,6 +81,32 @@ ideas = {
 
 	country = {
 		#new stuff Rt56 starts here#
+		rt56_USA_advisory_committee_on_uranium = {
+			picture = generic_research_bonus
+			allowed = {
+				always = no
+			}
+
+			available = {
+				has_government = democratic
+				NOT = {
+					OR = {
+						has_completed_focus = USA_manhattan_project
+						is_special_project_completed = sp:sp_nuclear_reactor
+					}
+				}
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			removal_cost = -1
+			
+			modifier = {
+				production_speed_nuclear_facility_factor = 0.05
+			}
+		}
 		rt56_USA_homeland_secuirty = {
 			picture = generic_intel_bonus
 			allowed = {
@@ -656,49 +682,8 @@ ideas = {
 				}
 			}
 		}
-		
-		r56rp_USA_flying_fortress_idea = {
-			picture = generic_air_bonus
-			
-			allowed = {
-				always = yes
-			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			removal_cost = -1
-			
-			modifier = {
-				air_strategic_bomber_defence_factor = 0.1
-			}
-
-			equipment_bonus = {
-				small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				medium_plane_fighter_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				large_plane_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				medium_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-			}
-		}
-
-		r56rp_USA_flying_fortress_combomboff_idea = {
+		r56_USA_flying_fortress = {
 			name = USA_flying_fortress
 			picture = generic_air_bonus
 			
@@ -715,36 +700,9 @@ ideas = {
 			modifier = {
 				air_strategic_bomber_defence_factor = 0.1
 			}
-
-			equipment_bonus = {
-				large_plane_airframe = {
-					air_range = 0.3
-					reliability = 0.1
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				medium_plane_airframe = {
-					air_range = 0.15
-					reliability = 0.1
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				medium_plane_fighter_airframe = {
-					air_range = 0.15
-					reliability = 0.1
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-			}	
 		}
+		
+
 		
 		r56_USA_naval_air_coordination = {
 			name = USA_naval_air_coordination
@@ -1139,8 +1097,8 @@ ideas = {
 			}
 		}
 
-		r56rp_USA_us_air_force_full = {
-			picture = usa_us_air_force
+		USA_maritime_commission = {
+			picture = generic_sea_focused_navy
 			allowed = {
 				always = no
 			}
@@ -1151,91 +1109,67 @@ ideas = {
 
 			removal_cost = -1
 			
-			
-
 			modifier = {
-				air_bombing_targetting = 0.1
-				air_strategic_bomber_bombing_factor = 0.1
-				air_strategic_bomber_defence_factor = 0.1
-				air_doctrine_cost_factor = -0.1
-			}
-
-			equipment_bonus = {
-				large_plane_airframe = {
-					air_range = 0.3
-					reliability = 0.1
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				medium_plane_airframe = {
-					air_range = 0.15
-					reliability = 0.1
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				medium_plane_fighter_airframe = {
-					air_range = 0.15
-					reliability = 0.1
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
+				production_speed_dockyard_factor = 0.1	
 			}
 		}
 
-		r56rp_USA_us_air_force_fortress = {
-			picture = usa_us_air_force
+		USA_greenland_patrol_idea = {
+			picture = tur_sub_zero_survival_training
+
 			allowed = {
-				always = no
+				original_tag = USA
 			}
 
 			allowed_civil_war = {
 				always = yes
 			}
-
 			removal_cost = -1
-			
-			
 
-			modifier = {
-				air_bombing_targetting = 0.1
-				air_strategic_bomber_bombing_factor = 0.1
-				air_strategic_bomber_defence_factor = 0.1
-				air_doctrine_cost_factor = -0.1
+			available = {
+				101 = {	is_controlled_by = ROOT }
+				DEN = {
+					OR = {
+						has_war = yes
+						is_subject = yes
+					}
+				}
 			}
 
-			equipment_bonus = {
-				small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
+			cancel = {
+				DEN = {
+					is_subject = no
+					has_war = no
+					is_in_faction_with = ROOT
+					has_government = ROOT
 				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
+			}
+
+			on_remove = {
+				IF = {
+					limit = {
+						DEN = {
+							exists = yes
+							is_subject = no
+						}
+						101 = {
+							is_owned_and_controlled_by = ROOT
+						}
+					}
+					101 = {
+						transfer_state_to = DEN
+					}
+					DEN = { country_event = { id = AAT_USA_events.07 days = 1 } }
 				}
-				medium_plane_fighter_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				large_plane_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				medium_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
+			}
+			
+			modifier = {
+				acclimatization_cold_climate_gain_factor = 0.1
+				spotting_chance = 0.02
 			}
 		}
 
-		r56rp_USA_us_air_force_combomoff_idea = {
+		USA_us_air_force = {
 			picture = usa_us_air_force
 			allowed = {
 				always = no
@@ -1253,36 +1187,6 @@ ideas = {
 				air_bombing_targetting = 0.1
 				air_strategic_bomber_bombing_factor = 0.1
 				air_doctrine_cost_factor = -0.1
-			}
-
-			equipment_bonus = {
-				large_plane_airframe = {
-					air_range = 0.3
-					reliability = 0.1
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				medium_plane_airframe = {
-					air_range = 0.15
-					reliability = 0.1
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				medium_plane_fighter_airframe = {
-					air_range = 0.15
-					reliability = 0.1
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				
-				small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
 			}
 		}
 
@@ -1635,203 +1539,6 @@ ideas = {
 			}
 		}
 
-		r56rp_USA_escort_effort_idea = {
-			
-			allowed = {
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-			
-			removal_cost = -1
-
-			picture = generic_navy_bonus
-			
-			modifier = {
-				naval_equipment_upgrade_xp_cost = -0.1
-			}
-
-			equipment_bonus = {
-				ship_hull_heavy = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_carrier = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_cruiser = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_light = {
-					build_cost_ic = -0.15 instant = yes
-				}				
-				ship_hull_submarine = {
-					build_cost_ic = -0.05 instant = yes
-				}
-			}
-		}
-
-		r56rp_USA_maritime_commission_idea = {
-			picture = generic_sea_focused_navy
-			allowed = {
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			removal_cost = -1
-
-			picture = generic_navy_bonus
-			
-			modifier = {
-				production_speed_dockyard_factor = 0.1
-				naval_equipment_upgrade_xp_cost = -0.1
-			}
-
-			equipment_bonus = {
-
-				ship_hull_heavy = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_carrier = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_cruiser = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_light = {
-					build_cost_ic = -0.05 instant = yes
-				}				
-				ship_hull_submarine = {
-					build_cost_ic = -0.05 instant = yes
-				}
-			}
-		}
-
-		r56rp_USA_maritime_commission_plus_escort_idea = {
-			picture = generic_sea_focused_navy
-			allowed = {
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			removal_cost = -1
-
-			picture = generic_navy_bonus
-			
-			modifier = {
-				production_speed_dockyard_factor = 0.1
-				naval_equipment_upgrade_xp_cost = -0.1
-			}
-
-			equipment_bonus = {
-
-				ship_hull_heavy = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_carrier = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_cruiser = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_light = {
-					build_cost_ic = -0.15 instant = yes
-				}				
-				ship_hull_submarine = {
-					build_cost_ic = -0.05 instant = yes
-				}
-			}
-		}
-
-		r56rp_liberty_ships_idea = {
-			
-			allowed = {
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-			
-			removal_cost = -1
-
-			picture = generic_navy_bonus
-			
-			modifier = {
-				production_speed_dockyard_factor = 0.1
-				naval_equipment_upgrade_xp_cost = -0.1
-			}
-			equipment_bonus = {
-				ship_hull_heavy = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_carrier = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_cruiser = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_light = {
-					build_cost_ic = -0.05 instant = yes
-				}				
-				ship_hull_submarine = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				convoy = {
-					instant = yes
-					build_cost_ic = -0.25
-				}
-			}
-		}
-
-		r56rp_USA_maritime_commission_liberty_plus_escort_idea = {
-			
-			allowed = {
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-			
-			removal_cost = -1
-
-			picture = generic_navy_bonus
-			
-			modifier = {
-				production_speed_dockyard_factor = 0.1
-				naval_equipment_upgrade_xp_cost = -0.1
-			}
-			equipment_bonus = {
-				ship_hull_heavy = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_carrier = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_cruiser = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				ship_hull_light = {
-					build_cost_ic = -0.15 instant = yes
-				}				
-				ship_hull_submarine = {
-					build_cost_ic = -0.05 instant = yes
-				}
-				convoy = {
-					instant = yes
-					build_cost_ic = -0.25
-				}
-			}
-		}
-
 		USA_unrestricted_submarine_warfare = {
 			
 			
@@ -1900,8 +1607,7 @@ ideas = {
 			}
 		}
 
-
-		r56rp_combined_bomber_offensive_idea = {
+		combined_bomber_offensive = {
 			
 			allowed = {
 				always = no
@@ -1917,34 +1623,13 @@ ideas = {
 			
 			equipment_bonus = {
 				large_plane_airframe = {
-					air_range = 0.3
-					reliability = 0.1
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				medium_plane_airframe = {
-					air_range = 0.15
-					reliability = 0.1
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				medium_plane_fighter_airframe = {
-					air_range = 0.15
-					reliability = 0.1
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				
-				small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
+					air_range = 0.3 instant = yes
+				}	
 			}			
 		}
+
+
+
 
 		office_of_strategic_services = {
 			allowed = {
@@ -2006,6 +1691,25 @@ ideas = {
 			}
 		}
 
+		USA_manhattan_project_ns = {
+			name = USA_manhattan_project
+
+			picture = generic_research_bonus
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = democratic
+			}
+
+			removal_cost = -1			
+
+			modifier = {
+				specialization_nuclear_speed_factor = 0.05
+			}
+		}
+
 		war_bonds_focus = {
 			allowed = {
 				always = no
@@ -2037,6 +1741,29 @@ ideas = {
 			modifier = {
 				consumer_goods_factor = 0.10
 				political_power_gain = 0.20
+			}
+		}
+
+		liberty_ships_focus = {
+			
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				amphibious_invasion = 0.10
+			}
+			equipment_bonus = {
+				convoy = {
+					instant = yes
+					build_cost_ic = -0.25
+				}
 			}
 		}
 
@@ -2072,9 +1799,7 @@ ideas = {
 			}
 		}
 
-		r56rp_air_support_idea = {
-
-			picture = air_support_focus
+		air_support_focus = {
 			
 			allowed = {
 				always = no
@@ -2087,74 +1812,22 @@ ideas = {
 			removal_cost = -1
 			
 			equipment_bonus = {
-				small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				medium_plane_fighter_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
 				small_plane_cas_airframe = {
-					build_cost_ic = -0.05
+					build_cost_ic = -0.1
 					instant = yes
 				}
 				cv_small_plane_cas_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				medium_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-			}
-		}
-
-		r56rp_strategic_bombing_idea = {
-
-			picture = generic_air_bonus
-			
-			allowed = {
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-			
-			removal_cost = -1
-			
-			equipment_bonus = {
-				small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				medium_plane_fighter_airframe = {
-					build_cost_ic = -0.05
-					instant = yes
-				}
-				large_plane_airframe = {
 					build_cost_ic = -0.1
 					instant = yes
 				}
 				medium_plane_airframe = {
-					build_cost_ic = -0.05
+					build_cost_ic = -0.1
 					instant = yes
 				}
 			}
 		}
 
-		r56rp_escort_fighters_idea = {
-
-			picture = generic_air_bonus
+		strategic_bombing_focus = {
 			
 			allowed = {
 				always = no
@@ -2167,17 +1840,14 @@ ideas = {
 			removal_cost = -1
 			
 			equipment_bonus = {
-				medium_plane_fighter_airframe = {
-					air_range = 0.15
-					reliability = 0.1
+				large_plane_airframe = {
+					build_cost_ic = -0.1
 					instant = yes
 				}
 			}
 		}
 
-		r56rp_escort_fighters_legacy_idea = {
-
-			picture = generic_air_bonus
+		escort_effort_focus = {
 			
 			allowed = {
 				always = no
@@ -2190,13 +1860,13 @@ ideas = {
 			removal_cost = -1
 			
 			equipment_bonus = {
-				heavy_fighter = {
-					air_range = 0.15
-					reliability = 0.1
-					instant = yes
+				ship_hull_light = {
+					build_cost_ic = -0.1 instant = yes
 				}
 			}
 		}
+
+
 		
 		home_of_the_free = {
 			
