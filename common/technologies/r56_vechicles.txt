@@ -3,7 +3,7 @@
 #####################################################################
 
 
-technologies = { 
+technologies = {
 
 	@1910 = 1
 	@1918 = 4
@@ -493,11 +493,6 @@ technologies = {
 		path = {
 			leads_to_tech = mechanised_infantry2
 			research_cost_coeff = 1
-		} 
-
-		path = {
-			leads_to_tech = r56rp_mechanized_rocket_unit
-			research_cost_coeff = 1
 		}
 
 		path = {
@@ -556,56 +551,6 @@ technologies = {
 		}
 	}
 
-#	r56rp_mechanized_rocket_unit = {
-#
-#		enable_subunits = {
-#			motorized_rocket_brigade
-#		}
-#		enable_equipments = {
-#			motorized_rocket_equipment_1
-#		}
-#
-#		dependencies = {
-#			mechanised_infantry = 1
-#			motorized_rocket_unit = 1
-#		}
-#
-#		folder = {
-#			name = r56_vechicles_folder
-#			position = { x = -4 y = @1942 }
-#		}
-#		
-#		path = {
-#			#leads_to_tech = r56_motorized_rocket_equipment_2	#there is no such tech (yet?)
-#			research_cost_coeff = 1
-#		}
-#		
-#
-#		research_cost = 1.5
-#		start_year = 1940
-#		
-#		ai_will_do = {
-#			factor = 1
-#			modifier = {
-#				factor = 6
-#				date > "1939.1.1"
-#			}	
-#			modifier = {
-#				factor = 4
-#				has_war = yes
-#			}						
-#			modifier = {
-#				factor = 50
-#				tag = SOV
-#			}
-#		}
-#		
-#		categories = {
-#			mot_rockets
-#			motorized_equipment
-#		}
-#	}
-
 	###  <><> <><> <><> <><> <><>
 	amphibious_mechanized_infantry = {
 
@@ -640,6 +585,7 @@ technologies = {
 			tp_tech
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 2
@@ -1508,9 +1454,14 @@ technologies = {
 			position = { x = -1 y = 23 }
 		}
 
-		production_speed_supply_node_factor = 0.15
-		production_speed_rail_way_factor = 0.15
-		supply_node_range = 0.15
+		path = {
+			leads_to_tech = r56_modern_military_railnetwork_2
+			research_cost_coeff = 1
+		}
+
+		production_speed_supply_node_factor = 0.10
+		production_speed_rail_way_factor = 0.10
+		repair_speed_rail_way_factor = 0.05
 
 		categories = {
 			train_tech
@@ -1536,110 +1487,43 @@ technologies = {
 			}
 		}
 	}
-	
-	r56rp_heli_1 = {
-		# early powered choppers, used light radial engines
-		# hence the lock to engine_4 tech.
-		research_cost = 2
-		start_year = 1944
 
-		enable_equipments = {
-			r56rp_heli_eq_1
+	r56_modern_military_railnetwork_2 = {
+		research_cost = 2 
+		start_year = 1950
+		folder = {
+			name = r56_vechicles_folder
+			position = { x = -1 y = 24 }
 		}
 
-		enable_subunits = {
-			r56rp_helo_recon_company
+		production_speed_supply_node_factor = 0.10
+		production_speed_rail_way_factor = 0.10
+		repair_speed_rail_way_factor = 0.05
+
+		categories = {
+			train_tech
+			railway_construction_tech
 		}
+
+		ai_will_do = {
+			factor = 1
 		
-		path = {
-			leads_to_tech = r56rp_heli_2
-			research_cost_coeff = 1
-		}
+			modifier = {
+				factor = 1
+				date > "1948.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1950.1.1"
+			}
 
-		path = {
-			leads_to_tech = r56rp_heli_cargo_1
-			research_cost_coeff = 1
-		}
-
-		folder = {
-			name = r56_vechicles_folder
-			position = { x = 0 y = @1944 }
-		}
-
-		dependencies = {
-			engines_4 = 1
-		}
-
-		categories = {
-			#tbd
-		}
-
-		ai_will_do = {
-			factor = 1
+			modifier = {
+				factor = 3
+				date > "1952.1.1"
+			}
 		}
 	}
-
-	r56rp_heli_2 = {
-		# this is turboshaft chopper tech.
-		# earliest modification using this was 1951, 
-		# 1955 was the first serialy produced turboshaft chopper, alouette II.
-		research_cost = 1.5
-		start_year = 1951
-
-		enable_equipments = {
-			r56rp_heli_eq_2
-		}
-
-		folder = {
-			name = r56_vechicles_folder
-			position = { x = 0 y = @1951 }
-		}
-
-		dependencies = {
-			jet_engines = 1
-		}
-
-		categories = {
-			#tbd
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-	}
-
-	r56rp_heli_cargo_1 = {
-		# cargo version
-		# 
-		research_cost = 2
-		start_year = 1945
-
-		enable_equipments = {
-			r56rp_heli_c_eq_1
-		}
-
-		enable_subunits = {
-			r56rp_helo_logistics_company
-		}
-
-		folder = {
-			name = r56_vechicles_folder
-			position = { x = 2 y = @1945 }
-		}
-
-		#dependencies = {
-		#	engines_4 = 1
-		#}
-
-		categories = {
-			#tbd
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-	}
-
 }
 
 #####-----------------------------------------------------------> End
