@@ -780,7 +780,9 @@ leader_traits = {
 					original_tag = ITA
 					original_tag = SWI
 					original_tag = SWE
+					original_tag = AUS
 					original_tag = BRA
+					original_tag = GER
 				}
 			}
 		}
@@ -796,7 +798,9 @@ leader_traits = {
 					original_tag = ITA
 					original_tag = SWI
 					original_tag = SWE
+					original_tag = AUS
 					original_tag = BRA
+					original_tag = GER
 				}
 				NOT = {
 					OR = {
@@ -848,12 +852,15 @@ leader_traits = {
 		planning_skill_factor = 1
 	}
 
-	jaeger = { 
+	jaeger_trait = { 
 		type = land
 		trait_type = personality_trait 
 
 		allowed = {
-			FROM = { original_tag = FIN }
+			FROM = {
+				original_tag = FIN 
+				is_character = GER_eduard_dietl
+			}
 		}
 				
 		trait_xp_factor = {
@@ -879,6 +886,7 @@ leader_traits = {
 		logistics_skill_factor = 1
 	}
 
+
 	
 ##################################
 # Field Marshal traits.
@@ -894,7 +902,6 @@ leader_traits = {
 		field_marshal_modifier = {
 			supply_consumption_factor = -0.15
 		}
-		
 		enable_ability = extra_suplies
 		ai_will_do = {
 			factor = 1
@@ -2016,9 +2023,9 @@ leader_traits = {
 		custom_gain_xp_trigger_tooltip = SEAWOLF_TRIGGER_TT
 		
 		slot = high_command
-		specialist_advisor_trait = navy_anti_submarine_1
-		expert_advisor_trait = navy_anti_submarine_2
-		genius_advisor_trait = navy_anti_submarine_3
+		specialist_advisor_trait = navy_submarine_1
+		expert_advisor_trait = navy_submarine_2
+		genius_advisor_trait = navy_submarine_3
 		
 		ai_will_do = {
 			factor = 1
@@ -2038,7 +2045,13 @@ leader_traits = {
 			spotting_chance = 0.1
 		}
 		custom_gain_xp_trigger_tooltip = SPOTTER_TRIGGER_TT
-		
+
+		slot = high_command
+		specialist_advisor_trait = navy_anti_submarine_1
+		expert_advisor_trait = navy_anti_submarine_2
+		genius_advisor_trait = navy_anti_submarine_3
+
+
 		ai_will_do = {
 			factor = 1
 		}
@@ -2309,7 +2322,7 @@ leader_traits = {
 	flight_deck_manager = { 
 		type = navy
 		modifier = {
-			 sortie_efficiency = 0.1
+			sortie_efficiency = 0.1
 		}
 		
 		slot = high_command
@@ -2358,7 +2371,7 @@ leader_traits = {
 		genius_advisor_trait = navy_capital_ship_3
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 		
 		trait_type = assignable_trait
@@ -2380,7 +2393,7 @@ leader_traits = {
 		genius_advisor_trait = navy_chief_reform_3
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 		
 		trait_type = assignable_trait
@@ -2397,7 +2410,7 @@ leader_traits = {
 		}
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 		
 		trait_type = assignable_trait
@@ -2421,7 +2434,7 @@ leader_traits = {
 		genius_advisor_trait = navy_submarine_3
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 
 		trait_type = assignable_trait
@@ -2437,7 +2450,7 @@ leader_traits = {
 		}
 				
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 		
 		trait_type = assignable_trait
@@ -2458,7 +2471,7 @@ leader_traits = {
 		}
 				
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 		
 		trait_type = assignable_trait
@@ -2550,7 +2563,7 @@ leader_traits = {
 		genius_advisor_trait = air_naval_strike_3
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 		
 		trait_type = assignable_trait
@@ -2574,7 +2587,7 @@ leader_traits = {
 		genius_advisor_trait = navy_chief_decisive_battle_3
 		
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 		
 		trait_type = assignable_trait
@@ -2588,7 +2601,7 @@ leader_traits = {
 	crisis_magician = { 
 		type = navy
 		modifier = {
-			 naval_critical_effect_factor = -0.5
+			naval_critical_effect_factor = -0.5
 		}
 				
 		ai_will_do = {
@@ -2602,6 +2615,7 @@ leader_traits = {
 		gui_row = 11
 		gui_column = 2
 	}
+
 
 ##################################
 # navy terrain trait
@@ -2706,34 +2720,6 @@ leader_traits = {
 #  # #  #  # #  #  # #       #    #   #  #   # #  # #  # #  # #    #   #    #        #  #  # #  #  #   #    # 
 #  # #  #   #   #  # ###     #    ### #  # ##   ##  #  # #  # ### ###  #    #        #  #  # #  # ###  #  ##  
 
-	
-	submarine_captain = { 
-		type = navy
-		trait_type = personality_trait
-		
-		trait_xp_factor = {
-			seawolf = 0.5     #+100%
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-		new_commander_weight = {
-			factor = 1  
-			modifier = {
-				FROM = { has_idea = best_of_the_best_naval_academy_spirit }
-				factor = 0
-			}
-			modifier = {
-				FROM = { has_idea = naval_academy_scholarships_spirit }
-				factor = 0
-			}
-			modifier = { #Purged Junior Navy Officers
-				FROM = { has_idea = SOV_purged_junior_navy_officers_3 }
-				factor = 0
-			}			
-		}		
-	}
 	old_guard_navy = { 
 		type = navy
 		trait_type = personality_trait
@@ -3086,6 +3072,36 @@ leader_traits = {
 		}
 	}
 
+#R56 or removed vanilla content?
+#naval personality traits
+	submarine_captain = { 
+		type = navy
+		trait_type = personality_trait
+		
+		trait_xp_factor = {
+			seawolf = 0.5     #+100%
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		new_commander_weight = {
+			factor = 1  
+			modifier = {
+				FROM = { has_idea = best_of_the_best_naval_academy_spirit }
+				factor = 0
+			}
+			modifier = {
+				FROM = { has_idea = naval_academy_scholarships_spirit }
+				factor = 0
+			}
+			modifier = { #Purged Junior Navy Officers
+				FROM = { has_idea = SOV_purged_junior_navy_officers_3 }
+				factor = 0
+			}			
+		}		
+	}
+
 ##################################
 # status traits
 ##################################
@@ -3410,6 +3426,26 @@ leader_traits = {
 			factor = 0
 		}
 	}
+	
+	trait_HUN_fascist_sympathies = {
+
+		type = all
+		trait_type = personality_trait
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+
+	trait_HUN_vitez = {
+
+		type = all
+		trait_type = personality_trait
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
 ##################################
 # operative traits
 ##################################
@@ -3651,7 +3687,7 @@ leader_traits = {
 		}
 	}
 	
-	promoted_from_the_ranks = {  
+	promoted_from_the_ranks = { #rp specific?
 		type = land
 		trait_type = personality_trait
 		

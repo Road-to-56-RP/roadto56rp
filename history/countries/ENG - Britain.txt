@@ -96,7 +96,7 @@ set_technology = {
 	# Extended Technologies
 	etax_doctrine = 1
 	camo = 1
-		
+
 	steel_production_1 = 1
 	aluminum_production_1 = 1
 
@@ -122,8 +122,30 @@ set_technology = {
 	radio_detection = 1
 	fuel_silos = 1
 	fuel_refining = 1
+	marines = 1
 	basic_train = 1
 }
+
+complete_special_project = sp:sp_air_radar
+
+complete_special_project = {
+	project = sp:sp_air_rdf
+	scientist = ENG_robert_watson_watt
+}
+
+add_breakthrough_progress = {
+	specialization = specialization_naval
+	value = 0.6
+}
+add_breakthrough_progress = {
+	specialization = specialization_air
+	value = 0.5
+}
+add_breakthrough_progress = {
+	specialization = specialization_land
+	value = 0.1
+}
+
 if = {
 	limit = {
 		has_dlc = "La Resistance"
@@ -224,42 +246,42 @@ add_ideas = {
 set_convoys = 800
 
 # DIPLOMACY
-	set_autonomy = {
-		target = MAL
-		autonomous_state = autonomy_integrated_puppet
-	}
-	set_autonomy = {
-		target = RAJ
-		autonomous_state = autonomy_colony
-		freedom_level = 0.35
-	}
-	set_autonomy = {
-		target = CAN
-		autonomous_state = autonomy_dominion
-		freedom_level = 0.4
-	}
-	set_autonomy = {
-		target = SAF
-		autonomous_state = autonomy_dominion
-		freedom_level = 0.4
-	}
-	set_autonomy = {
-		target = AST
-		autonomous_state = autonomy_dominion
-		freedom_level = 0.2
-	}
-	set_autonomy = {
-		target = NZL
-		autonomous_state = autonomy_dominion
-		freedom_level = 0.2
-	}
+set_autonomy = {
+	target = MAL
+	autonomous_state = autonomy_integrated_puppet
+}
+set_autonomy = {
+	target = RAJ
+	autonomous_state = autonomy_colony
+	freedom_level = 0.35
+}
+set_autonomy = {
+	target = CAN
+	autonomous_state = autonomy_dominion
+	freedom_level = 0.4
+}
+set_autonomy = {
+	target = SAF
+	autonomous_state = autonomy_dominion
+	freedom_level = 0.4
+}
+set_autonomy = {
+	target = AST
+	autonomous_state = autonomy_dominion
+	freedom_level = 0.2
+}
+set_autonomy = {
+	target = NZL
+	autonomous_state = autonomy_dominion
+	freedom_level = 0.2
+}
 
-	add_to_tech_sharing_group = commonwealth_research
+add_to_tech_sharing_group = commonwealth_research
 
 set_politics = {
 	ruling_party = democratic
 	last_election = "1935.11.14"
-	election_frequency = 48
+	election_frequency = 60 #next election 1940 (tho suspended)
 	elections_allowed = yes ##suspended through duration of war, which is handled via event
 }
 set_popularities = {
@@ -280,6 +302,7 @@ add_to_faction = RAJ
 give_military_access = EGY
 add_to_faction = EGY
 add_to_faction = MAL
+give_market_access = IRQ	#1930 Anglo-Iraqi Treaty
 
 #give_guarantee = CZE
 
@@ -390,6 +413,14 @@ recruit_character = ENG_gilbert_stephenson
 
 recruit_character = ENG_george_vi
 recruit_character = ENG_elizabeth_ii
+recruit_character = ENG_charles_edward_of_albany
+
+#scientists
+recruit_character = ENG_john_cockcroft
+recruit_character = ENG_charles_goodeve
+recruit_character = ENG_nevil_shute
+recruit_character = ENG_robert_watson_watt
+recruit_character = ENG_r56_percy_hobart
 
 country_event = { id = britain.16 days = 20 }		#George V dies
 country_event = { id = britain.17 days = 344 }		#Edward VIII abdicates for non-MtG people
@@ -444,7 +475,7 @@ if = {
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		nationalities = { ENG RAJ MAL }
-	}	
+	}
 	create_operative_leader = {
 		name = "Patrick Leigh Fermor"
 		GFX = GFX_portrait_eng_patrick_fermor
@@ -468,7 +499,7 @@ if = {
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		nationalities = { ENG ROM }
-	}	
+	}
 	create_operative_leader = {
 		name = "Julius Hanau"
 		gfx = GFX_r56_portrait_ENG_generic_operative_m_1
@@ -484,7 +515,7 @@ if = {
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		nationalities = { ENG SWE }
-	}				
+	}
 }
 
 if = {
@@ -663,7 +694,7 @@ if = {
 		}
 		obsolete = yes
 	}
-	
+
 	# Heavy Cruisers #
 	create_equipment_variant = {
 		name = "County Class"
