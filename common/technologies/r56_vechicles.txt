@@ -65,6 +65,7 @@ technologies = {
 			motorized_equipment
 			infantry_tech
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 5
@@ -89,6 +90,7 @@ technologies = {
 			}
 		}
 	}
+
 	###------> X <><> <><> <><> <><> <><>
 	motorised_infantry = {
 
@@ -138,6 +140,7 @@ technologies = {
 			motorized_equipment
 			infantry_tech
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 1
@@ -148,18 +151,25 @@ technologies = {
 			}
 			
 			modifier = {
-				factor = 2
+				factor = 3
 				date > "1938.1.1"
 			}
 			
 			modifier = {
-				factor = 2
+				factor = 4
 				date > "1939.1.1"
 			}
+
 			modifier = {
 				is_major = no
-				factor = 0.5
+				factor = 0
 			}
+
+			modifier = {
+				factor = 0
+				num_of_civilian_factories < 3
+			}
+
 		}
 	}
 
@@ -188,6 +198,13 @@ technologies = {
 			supply_node_tech
 		}
 
+		on_research_complete = {
+			custom_effect_tooltip = {
+				localization_key = SP_UNLOCK_PROJECT
+				PROJECT = sp_air_fido	
+			}
+		}
+
 		ai_will_do = {
 			factor = 0.5
 		
@@ -205,7 +222,6 @@ technologies = {
 				factor = 4
 				AND = {
 					OR = { #We get it. Everyone else is dumb
-						original_tag = USA
 						original_tag = GER
 						original_tag = SOV
 					}
@@ -222,6 +238,7 @@ technologies = {
 				factor = 4
 				AND = {
 					OR = { #this might be important...
+						original_tag = USA
 						original_tag = FRA
 						original_tag = ENG
 						original_tag = JAP
@@ -446,6 +463,7 @@ technologies = {
 			mot_rockets
 			motorized_equipment
 		}
+		special_project_specialization = { specialization_land }	#could consider adding air since rocket-related
 	}
 
 	mechanised_infantry = {
@@ -499,6 +517,7 @@ technologies = {
 			cat_mechanized_equipment
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 2
@@ -671,6 +690,7 @@ technologies = {
 			tp_tech
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 2
@@ -724,6 +744,7 @@ technologies = {
 			cat_mechanized_equipment
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 2
@@ -769,6 +790,7 @@ technologies = {
 			cat_mechanized_equipment
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 
 		ai_will_do = {
 			factor = 2
@@ -809,6 +831,7 @@ technologies = {
 			cat_mechanized_equipment
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 2
@@ -855,28 +878,10 @@ technologies = {
 			armored_cars_tech
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 0
-			
-			modifier = {
-				factor = 2
-				date > "1937.1.1"
-			}
-			
-			modifier = {
-				factor = 2
-				date > "1938.1.1"
-			}
-			
-			modifier = {
-				factor = 2
-				date > "1939.1.1"
-			}
-			modifier = {
-				is_major = no
-				factor = 0.5
-			}
 		}
 	}
 
@@ -903,28 +908,10 @@ technologies = {
 			armored_cars_tech
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 0
-			
-			modifier = {
-				factor = 2
-				date > "1937.1.1"
-			}
-			
-			modifier = {
-				factor = 2
-				date > "1938.1.1"
-			}
-			
-			modifier = {
-				factor = 2
-				date > "1939.1.1"
-			}
-			modifier = {
-				is_major = no
-				factor = 0.5
-			}
 		}
 	}
 
@@ -951,6 +938,7 @@ technologies = {
 			armored_cars_tech
 			cat_light_armor
 		}
+		special_project_specialization = { specialization_land }
 		
 		sub_technologies = {
 			armored_car_at_upgrade
@@ -958,25 +946,6 @@ technologies = {
 
 		ai_will_do = {
 			factor = 0
-			
-			modifier = {
-				factor = 2
-				date > "1937.1.1"
-			}
-			
-			modifier = {
-				factor = 2
-				date > "1938.1.1"
-			}
-			
-			modifier = {
-				factor = 2
-				date > "1939.1.1"
-			}
-			modifier = {
-				is_major = no
-				factor = 0.5
-			}
 		}
 	}
 
@@ -996,28 +965,10 @@ technologies = {
 			armored_cars_tech
 			armor_variant_tech
 		}
+		special_project_specialization = { specialization_land }
 
-		ai_will_do = {
+		ai_will_do = { #the AI doesn't need this
 			factor = 0
-			
-			modifier = {
-				factor = 2
-				date > "1937.1.1"
-			}
-			
-			modifier = {
-				factor = 2
-				date > "1938.1.1"
-			}
-			
-			modifier = {
-				factor = 2
-				date > "1939.1.1"
-			}
-			modifier = {
-				is_major = no
-				factor = 0.5
-			}
 		}
 	}
 
@@ -1066,17 +1017,17 @@ technologies = {
 				factor = 100 #might wanna get on that
 			}
 			modifier = {
-				factor = 1.2
+				factor = 1
 				date > "1936.1.1"
 			}
 			
 			modifier = {
-				factor = 3
+				factor = 5
 				date > "1937.1.1"
 			}
 			
 			modifier = {
-				factor = 5
+				factor = 10
 				date > "1938.1.1"
 			}
 		}
@@ -1085,6 +1036,17 @@ technologies = {
 	railway_gun = {
 		enable_equipments = {
 			railway_gun_equipment_1
+		}
+
+		enable_equipment_modules = {
+			lc_hull_mounted_railway_gun #Module for Land Cruiser
+		}
+
+		on_research_complete = {
+			custom_effect_tooltip = {
+				localization_key = SP_UNLOCK_PROJECT
+				PROJECT = sp_land_super_heavy_railway_gun
+			}
 		}
 
 		research_cost = 1.5
@@ -1103,10 +1065,16 @@ technologies = {
 			train_tech
 			artillery
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
-			factor = 1
-			
+			factor = 0
+
+			modifier = {
+				num_of_factories > 50
+				factor = 1 
+			}
+
 			modifier = {
 				is_major = yes
 				factor = 2
@@ -1121,7 +1089,6 @@ technologies = {
 			}
 		}
 	}
-
 	###------> New R56 Railways Guns <><> <><> <><> <><> <><>
 	r56_gw_railway_gun = {
 
@@ -1153,6 +1120,7 @@ technologies = {
 			train_tech
 			artillery
 		}
+		special_project_specialization = { specialization_land }
 		
 		ai_will_do = {
 			factor = 0
@@ -1173,6 +1141,7 @@ technologies = {
 			train_tech
 			artillery
 		}
+		special_project_specialization = { specialization_land }
 
 		ai_will_do = {
 			factor = 0
@@ -1245,18 +1214,23 @@ technologies = {
 				factor = 20
 			}
 			modifier = {
-				factor = 1.2
+				factor = 2
 				date > "1940.1.1"
 			}
 			
 			modifier = {
-				factor = 1.2
+				factor = 3
 				date > "1941.1.1"
 			}
 			
 			modifier = {
-				factor = 1.2
+				factor = 4
 				date > "1942.1.1"
+			}
+
+			modifier = {
+				num_of_civilian_factories < 3
+				factor = 0
 			}
 		}
 	}
@@ -1425,9 +1399,6 @@ technologies = {
 			train_tech
 		}
 
-		modern_armor = {
-			maximum_speed = 0.1
-		}
 		
 		ai_will_do = {
 			factor = 1
@@ -1479,14 +1450,10 @@ technologies = {
 			}
 			
 			modifier = {
-				factor = 2
+				factor = 3
 				date > "1939.1.1"
 			}
 
-			modifier = {
-				is_major = no
-				factor = 0.5 #pfft this is silly 
-			}
 		}
 	}
 
