@@ -14,6 +14,21 @@
 #
 #		Example: (Germany is prevented from declaring war on the Soviet Union.)
 #
+#		DIPLOMACY_WAR_ENABLE_TRIGGER = {
+#			if = {
+#				limit = {
+#					tag = GER
+#				}
+#				custom_trigger_tooltip = {
+#					tooltip = PREVENT_GER_WAR_ON_SOV
+#					FROM = {
+#						NOT = {
+#							tag = SOV
+#						}
+#					}
+#				}
+#			}
+#		}
 ############ NEEDS TO ADD R56 GAME RULES SUPPORT #############################################
 # This specifically overrides the rule check as to whether or not you can guarantee other ideologies
 DIPLOMACY_GUARANTEE_ENABLE_TRIGGER_OVERRIDES_GAME = {
@@ -100,16 +115,10 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 				NOT = { has_dlc = "La Resistance" }
 				NOT = { original_tag = SPR }
 			}
-			OR = {
-				NOT = { has_dlc = "Death or Dishonor" }
-				AND = {
-					NOT = { original_tag = ROM }
-					NOT = { original_tag = YUG }
-				}
-			}
+			NOT = { original_tag = ROM }
+			NOT = { original_tag = YUG }
 			NOT = { original_tag = SOV }
 			NOT = { original_tag = MPL }
-			NOT = { original_tag = FRA }
 		}
 		always = yes
 	}
@@ -169,7 +178,6 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 				rule = allow_release_nations
 				option = FREE
 			}
-			has_dlc = "Death or Dishonor"
 			original_tag = YUG
 			NOT = { has_completed_focus = YUG_reunite_the_kingdom }
 		}
@@ -346,7 +354,6 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 					option = PEACE_ONLY
 				}
 			}
-			has_dlc = "Death or Dishonor"
 			original_tag = ITA
 		}
 		custom_trigger_tooltip = {
@@ -401,6 +408,10 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			
 		}
 	}
+	#r56rp. at least i think so.
+	# this is to stop france from not having to do the
+	# "lets give autonomy to our colonies" focus and then giving autonomy
+	# to their colonies
 	if = {
 		limit = {
 			has_game_rule = {
@@ -522,6 +533,10 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			}
 		}
 	}
+	#r56rp. at least i think so.
+	# this is to stop france from not having to do the
+	# "lets give autonomy to our colonies" focus and then giving autonomy
+	# to their colonies
 	if = {
 		limit = {
 			has_game_rule = {
@@ -530,6 +545,7 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			}
 			original_tag = FRA
 		}
+		
 		custom_trigger_tooltip = {
 			tooltip = RULE_ALLOW_RELEASE_NATIONS_FRANCE_TOOLTIP
 			has_war = no
@@ -575,6 +591,7 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 		custom_trigger_tooltip = {
 			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_CSA_TOOLTIP #US constitution has no exit clause
 			NOT = { FROM = { tag = CSA } }
+			NOT = { FROM = { tag = TXS } }
 		}
 	}
 	if = {
@@ -584,6 +601,7 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 		custom_trigger_tooltip = {
 			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_CSA_TOOLTIP #LOL
 			NOT = { FROM = { tag = USA } }
+			NOT = { FROM = { tag = TXS } }
 		}
 	}
 	if = {
@@ -667,7 +685,6 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 	}
 	#End Rt56 Ad-ons
 }
-
 DIPLOMACY_MILACC_ENABLE_TRIGGER = {
 	if = {
 		limit = {
@@ -816,7 +833,12 @@ DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = { #_OVERRIDES_GAME
 				option = FREE
 			}
 		}
-		IF = { # why does it look cursed you may ask? well as far as i can tell paradox in its infinite wisdom just attached ignoring of threat limit to this specific  = FREE option.
+		#r56rp
+		# why does it look cursed you may ask? 
+		# well as far as i can tell paradox in its infinite wisdom 
+		#just attached ignoring of threat limit to this specific  = FREE option.
+		
+		IF = { 
 			limit = {
 				has_game_rule = {
 					rule = r56rp_enable_bakedinrules
@@ -1169,13 +1191,25 @@ DIPLOMACY_STAGE_COUP_ENABLE_TRIGGER = {
 DIPLOMACY_LEAVE_FACTION_ENABLE_TRIGGER = {
 	if = {
 		limit = {
-			has_game_rule = {
-				rule = allow_leave_faction
-				option = BLOCKED
+			OR = {
+				has_game_rule = {
+					rule = allow_leave_faction
+					option = BLOCKED
+				}
 			}
 		}
 		custom_trigger_tooltip = {
 			tooltip = RULE_ALLOW_LEAVE_FACTION_BLOCKED_TOOLTIP
+			always = no
+		}
+	}
+	if = {
+		limit = {
+			tag = ROM
+			has_country_flag = ROM_bound_to_comintern_flag
+		}
+		custom_trigger_tooltip = {
+			tooltip = NO_LEAVING_COMINTERN_IF_SOVIETS_SAID_SO
 			always = no
 		}
 	}
@@ -1634,12 +1668,42 @@ DIPLOMACY_JOIN_ALLY_ENABLE_TRIGGER = {
 		limit = {
 			FROM = {
 				tag = IRQ
-				NOT = { has_country_flag = IRQ_british_occupation_flag }
+				has_country_flag = IRQ_british_occupation_flag
 			}
 			
 		}
 		custom_trigger_tooltip = {
 			tooltip = IRQ_british_occupation_diplo_tt
+			always = no
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				original_tag = JOR
+				
+				has_idea = JOR_unsupported_war
+				has_war_with = ISR
+			}
+			
+		}
+		custom_trigger_tooltip = {
+			tooltip = JOR_cant_call_allies_diplo_2
+			always = no
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				original_tag = EGY
+				
+				has_idea = JOR_unsupported_war
+				has_war_with = ISR
+			}
+			
+		}
+		custom_trigger_tooltip = {
+			tooltip = JOR_cant_call_allies_diplo_2
 			always = no
 		}
 	}
@@ -1757,12 +1821,40 @@ DIPLOMACY_CALL_ALLY_ENABLE_TRIGGER = {
 		limit = {
 			ROOT = {
 				tag = IRQ
-				NOT = { has_country_flag = IRQ_british_occupation_flag }
+				has_country_flag = IRQ_british_occupation_flag
 			}
 			
 		}
 		custom_trigger_tooltip = {
 			tooltip = IRQ_british_occupation_diplo_tt
+			always = no
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				original_tag = JOR
+				has_idea = JOR_unsupported_war
+				has_war_with = ISR
+			}
+			
+		}
+		custom_trigger_tooltip = {
+			tooltip = JOR_cant_call_allies_diplo
+			always = no
+		}
+	}
+	if = {
+		limit = {
+			ROOT = {
+				original_tag = EGY
+				has_idea = JOR_unsupported_war
+				has_war_with = ISR
+			}
+			
+		}
+		custom_trigger_tooltip = {
+			tooltip = JOR_cant_call_allies_diplo
 			always = no
 		}
 	}
