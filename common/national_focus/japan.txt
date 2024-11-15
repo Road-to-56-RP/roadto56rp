@@ -36,7 +36,6 @@ focus_tree = {
 		}
 
 		allow_branch = {
-			has_dlc = "Waking the Tiger"
 			if = {
 				limit = {
 					has_game_rule = {
@@ -63,14 +62,9 @@ focus_tree = {
 				mark_focus_tree_layout_dirty = yes
 			}
 			add_ideas = JAP_the_unthinkable_option
-			if = {
-		    	limit = {
-		    	    has_DLC = "Waking the Tiger"
-		    	}
-		    	custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = sanzo_nosaka
-				add_ideas = sanzo_nosaka
-			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = sanzo_nosaka
+			add_ideas = sanzo_nosaka
 			add_political_power = 200
 			mark_focus_tree_layout_dirty = yes
 		}
@@ -1000,7 +994,6 @@ focus_tree = {
 		}
 		allow_branch = {
 			has_dlc = "La Resistance"
-			has_dlc = "Waking the Tiger"
 			if = {
 				limit = {
 					has_game_rule = {
@@ -1636,17 +1629,14 @@ focus_tree = {
 			x = -18
 			y = 0
 			trigger = {
-				OR = {
-					NOT = { has_dlc = "Waking the Tiger" }
-					AND = {
-						has_game_rule = {
-							rule = obsolete_focus_branches_visibility
-							option = HIDE
-						}
-						OR = {
-							has_completed_focus = JAP_the_unthinkable_option
-							has_completed_focus = JAP_purge_the_kodoha_faction
-						}
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					OR = {
+						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_purge_the_kodoha_faction
 					}
 				}
 			}
@@ -1679,8 +1669,10 @@ focus_tree = {
 					limit = {
 						has_dlc = "La Resistance"
 						NOT = {
-							has_global_flag = aiyappan_recruited
-						}						
+							any_other_country = {
+								has_country_flag = aiyappan_recruited
+							}
+						}
 					}
 					#
 					create_operative_leader = {
@@ -1691,7 +1683,7 @@ focus_tree = {
 						available_to_spy_master = yes
 						nationalities = { JAP RAJ }
 					}
-					set_global_flag = aiyappan_recruited
+					set_country_flag = aiyappan_recruited
 				}
 			}
 			mark_focus_tree_layout_dirty = yes
@@ -1979,10 +1971,7 @@ focus_tree = {
 					}					
 				}
 			}			
-			if = {
-				limit = { has_dlc = "Waking the Tiger" }
-				unlock_decision_category_tooltip = prospect_for_resources
-			}
+			unlock_decision_category_tooltip = prospect_for_resources
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM}
 	}
@@ -3337,11 +3326,8 @@ focus_tree = {
 						category = aluminium_tech
 					}					
 				}
-			}			
-			if = {
-				limit = { has_dlc = "Waking the Tiger" }
-				unlock_decision_category_tooltip = prospect_for_resources
-			}
+			}	
+			unlock_decision_category_tooltip = prospect_for_resources
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM}
 	}
@@ -4117,15 +4103,32 @@ focus_tree = {
 		}
 
 		available = {
-			has_tech = atomic_research
+			nuclear_facility > 0
 		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = JAP_nishina_okochi_directive
-                bonus = 3
-                uses = 1
-                category = nuclear
-            }
+			IF = {	
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = JAP_nishina_okochi_directive
+					bonus = 1.0
+					uses = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.5
+				}
+			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.8
+				}
+			}
 			custom_effect_tooltip = available_theorist
 			show_ideas_tooltip = yoshio_nishina
 		}
@@ -4171,6 +4174,15 @@ focus_tree = {
 			    long_name = JAP_neutrality_party_kodoha_long
 			    name = JAP_neutrality_party_kodoha
 			}
+			JAP_sadao_araki={ # make araki field marshal
+				promote_leader = yes
+			}
+
+		    custom_effect_tooltip = available_chief_of_army # strongly suggest to pick one of the kodoha head as chief of the army
+			show_ideas_tooltip = JAP_jinzaburo_masaki
+			#add_ideas = JAP_jinzaburo_masaki
+			
+			
 			mark_focus_tree_layout_dirty = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4260,6 +4272,8 @@ focus_tree = {
 				remove_idea = JAP_zaibatsus
 				add_idea = JAP_zaibatsus_challenged
 			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = JAP_seigo_nakano
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 	}
@@ -4322,6 +4336,20 @@ focus_tree = {
 				remove_idea = JAP_militarism
 				add_idea = JAP_militarism_shogunate
 			}
+
+			JAP_shigeru_honjo={	
+				add_advisor_role = {
+					activate = no
+					advisor = {
+						slot = political_advisor
+						cost = 50
+						idea_token = JAP_shigeru_honjo
+						traits = {
+							JAP_jingoistic_aide_de_camp
+						}
+					}
+				}
+			}	
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_IMPROVEMENT FOCUS_FILTER_ANNEXATION FOCUS_FILTER_RESEARCH FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 	}
@@ -5411,8 +5439,6 @@ focus_tree = {
 						limit = {
 							OR = {
 								has_dlc = "Together for Victory"
-								has_dlc = "Death or Dishonor"
-								has_dlc = "Waking the Tiger"
 							}
 						}
 						add_to_tech_sharing_group = r56rp_JAP_GER_rocket_jet_research
@@ -7769,14 +7795,6 @@ focus_tree = {
 		x = 40
 		y = 0
 		offset = {
-			x = -28
-			y = 0
-			trigger = {
-				NOT = { has_dlc = "Waking the Tiger" }
-			}
-		}
-
-		offset = {
 			x = -24
 			y = 0
 			trigger = {
@@ -9195,7 +9213,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "Ho-Ni I"
@@ -9284,7 +9302,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "Ho-I"
@@ -9375,7 +9393,7 @@ focus_tree = {
 				else_if = {
 					limit = {
 						has_tech = improved_medium_tank_chassis
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "Ho-Ni III"
@@ -9655,7 +9673,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "O-I"
@@ -9764,7 +9782,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "Ho-Ri"
@@ -10227,7 +10245,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "Chi-Nu"
@@ -10321,7 +10339,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "Chi-To"

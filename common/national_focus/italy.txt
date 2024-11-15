@@ -7339,7 +7339,7 @@ focus_tree = {
 			else = {
 				has_tech = improved_destroyer
 			}
-			has_tech = decimetric_radar
+			has_tech = cavity_magnatron
 		}
 
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP FOCUS_FILTER_RESEARCH}
@@ -9950,6 +9950,21 @@ focus_tree = {
 				}
 			}
 
+			if = {
+				limit = {
+					AND = {
+						ROOT = {
+							is_ai = yes
+						}
+						ETH = {
+							is_ai = yes
+						}
+						is_historical_focus_on = yes
+					}
+				}
+				set_country_flag = r56_ITA_allow_AOI_to_form
+			}
+
 			custom_effect_tooltip = ITA_the_new_emperor_of_ethiopia_king_trait_tt
 			ITA_vittorio_emanuele_iii = { 
 				add_country_leader_trait = emperor_of_ethiopia
@@ -9999,6 +10014,15 @@ focus_tree = {
 				}
 				NOT = { has_completed_focus = ITA_defy_the_duce }
 				NOT = { has_completed_focus = ITA_convene_the_grand_council }
+			}
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = { has_completed_focus = ITA_royal_intervention }
 			}
 		}
 
@@ -10515,10 +10539,6 @@ focus_tree = {
 		cost = 10
 
 		allow_branch = {
-			OR = {
-				has_dlc = "La Resistance"
-				has_dlc = "Waking the Tiger"
-			}
 			if = {
 				limit = {
 					has_dlc = "By Blood Alone"
@@ -11027,6 +11047,30 @@ focus_tree = {
 						type = take_state_focus
 						target = 805.controller
 						generator = { 805 }
+					}
+				}
+			}
+			#R56 addition: Easy wargoal on Switzerland so you dont have to wait ages for a wargoal
+			if = {
+				limit = {
+					846 = { NOT = { is_claimed_by = ROOT } }
+				}
+				add_state_claim = 846 #Ticino
+				if = {
+					limit = {
+						846 = {
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+					}
+					create_wargoal = {
+						type = take_state_focus
+						target = 846.controller
+						generator = { 846 }
 					}
 				}
 			}
@@ -13184,11 +13228,28 @@ focus_tree = {
 				}
 				ITA_create_edgardo_sogno_operative = yes
 			}
-			add_tech_bonus = {
-				name = ITA_meritocracy
-				bonus = 1
-				uses = 1
-				category = nuclear
+			IF = {	
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = ITA_meritocracy
+					bonus = 1.0
+					uses = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.5
+				}
+			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.8
+				}
 			}
 			ITA_bop_very_low_increase_grandi_side_effect = yes
 		}
@@ -13956,11 +14017,28 @@ focus_tree = {
 				idea = ITA_nuclear_research
 				days = 1095
 			}
-			add_tech_bonus = {
-				name = ITA_new_forms_of_weaponry
-				bonus = 1.5
-				uses = 1
-				category = nuclear
+			IF = {	
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = ITA_nuclear_research
+					bonus = 1.0
+					uses = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.5
+				}
+			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.8
+				}
 			}
 		}
 	}
@@ -14662,6 +14740,91 @@ focus_tree = {
 	}
 
 	focus = {
+		id = ITA_sanction_mafia_killings
+		icon = GFX_focus_generic_conspiracy
+        prerequisite = { focus = ITA_gloria_al_regno_d_italia focus = ITA_crush_opposition focus = ITA_strengthen_the_papacy }
+		mutually_exclusive = { focus = ITA_request_soviet_aid_alternative }
+		x = 1
+		y = 1
+		relative_position_id = ITA_gloria_al_regno_d_italia
+		cost = 5
+
+		available = {
+			NOT = {
+				has_government = communism
+			}
+		}
+		
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+            add_popularity = {
+				ideology = communism
+				popularity = -0.15	#nonsense number, but to make the focus somewhat worth considering
+			}
+			115 = {
+				add_dynamic_modifier = {
+					modifier = mafia_domination
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ITA_request_soviet_aid_alternative
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+        prerequisite = { focus = ITA_gloria_al_regno_d_italia focus = ITA_crush_opposition focus = ITA_strengthen_the_papacy }
+		mutually_exclusive = { focus = ITA_sanction_mafia_killings }
+		x = 3
+		y = 1
+		relative_position_id = ITA_gloria_al_regno_d_italia
+		cost = 5
+
+		allow_branch = {
+			has_country_flag = yalta_unlock_focuses
+		}
+
+        available = {
+			is_subject = no
+            SOV = {
+				has_government = communism
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+			communism > 0.2	#cannot be increased with advisors
+        }
+		
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+            SOV = {
+				#country_event = 
+			}
+		}
+	}
+
+	focus = {
+		id = ITA_request_civil_war_support
+		icon = GFX_goal_generic_left_militia
+		prerequisite = { focus = ITA_request_soviet_aid_alternative }
+		x = 0
+		y = 1
+		cost = 5
+
+		relative_position_id = ITA_request_soviet_aid_alternative
+
+        available = {
+            communism > 0.35
+        }
+		
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+            SOV = {
+				#country_event = 
+			}
+		}
+	}
+
+	focus = {
 		id = ITA_setting_course
 		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = ITA_gloria_al_regno_d_italia focus = ITA_crush_opposition focus = ITA_strengthen_the_papacy }
@@ -14737,7 +14900,7 @@ focus_tree = {
 				limit = {
 					is_in_faction = no
 				}
-				create_faction = "italy_empire_faction"
+				create_faction = italy_empire_faction
 			}
 
 			unlock_decision_tooltip = form_roman_empire
@@ -15229,7 +15392,7 @@ focus_tree = {
 				country_event = {
 				    id = BBA_italy_interaction_events.41
 				    days = 2
-				    random = 6
+				    random_hours = 6
 				}
 			}
 			IF = {
@@ -15297,7 +15460,7 @@ focus_tree = {
 				country_event = { 
 				    id = BBA_italy_interaction_events.44
 				    days = 2
-				    random = 6
+				    random_hours = 6
 				}
 			}
 		}
@@ -15806,7 +15969,6 @@ focus_tree = {
 
 	focus = {
 		id = ITA_balkan_ambition	#claims on Yugoslavia
-		text = "Claims on Yugoslavia"	#for some reason overriding wouldnt load
 		icon = GFX_goal_BUL_divide_yugoslavia
 		prerequisite = { focus = ITA_foreign_affairs }
 		mutually_exclusive = { focus = ITA_ally_yugoslavia }
@@ -16075,21 +16237,10 @@ focus_tree = {
 
 				effect_tooltip = {
 					custom_effect_tooltip = if_they_accept_tt
-					if = {
-						limit = {
-							OR = {
-								has_dlc = "Together for Victory"
-								has_dlc = "Man the Guns"
-							}
-						}
-						set_autonomy = {
-							target = ALB
-							autonomous_state = autonomy_dominion
-							freedom_level = 0.4
-						}
-						else = {
-							puppet = ALB
-						}
+					set_autonomy = {
+						target = ALB
+						autonomous_state = autonomy_dominion
+						freedom_level = 0.4
 					}
 				}
 			}
@@ -16406,7 +16557,18 @@ focus_tree = {
 		available = {
 			country_exists = AUS
 			NOT = { has_war_with = AUS }
-		}		  
+			NOT = {
+				has_country_flag = ITA_refused_aus
+			}
+		}	
+		bypass = {
+			AUS = {
+				OR = {
+					has_completed_focus = AUS_ally_italy
+					is_ally_with = GER
+				}
+			}
+		}	  
 		select_effect = { #completes the focus instead of bypassing and granting the necessary flag
 			if = {
 				limit = {
@@ -16426,7 +16588,9 @@ focus_tree = {
 			custom_effect_tooltip = ITA_austrian_guarantees_tt
 			AUS = {	#from r56 - needs extra check - Fantom
 				set_country_flag = protected_by_the_stresa_front_flag
+				set_country_flag = AUS_italy_allied
 			}
+			set_country_flag = ITA_accepted_aus
 		}
 	}
 
@@ -16490,7 +16654,7 @@ focus_tree = {
 				country_event = {
 					id = BBA_italy_interaction_events.40
 				    days = 3
-				    random = 6
+				    random_hours = 6
 				}
 			}
 			if = {	#from r56 - helping Austrians
@@ -16922,7 +17086,7 @@ focus_tree = {
 			modifier = {
 				is_historical_focus_on = no
 				GER = {
-					has_completed_focus = GER_alliance_with_italy
+					has_completed_focus = GER_form_rome_berlin_axis
 				}
 				factor = 100
 			}
@@ -17705,7 +17869,7 @@ focus_tree = {
 				country_event = {
 				    id = BBA_italy_interaction_events.1
 				    days = 2
-				    random = 6
+				    random_hours = 6
 				}
 			}
 
@@ -20895,7 +21059,7 @@ focus_tree = {
 			hidden_effect = {
 				remove_country_leader_role = {
 					character = ITA_vittorio_emanuele_iii
-					ideology = despotism
+					ideology = constitutional_monarchy
 				}
 			}
 			ITA_remove_king_vittorio_emanuele_as_idea = yes
@@ -22699,9 +22863,18 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 70
 
+			add_breakthrough_progress = {
+				specialization = specialization_nuclear
+				value = 0.25
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.25
+			}
+
 			add_tech_bonus = {
 				name = ITA_bring_back_exiled_intellectuals
-				bonus = 1
+				bonus = 0.25
 				uses = 2
 				category = industry
 				category = electronics
@@ -23405,21 +23578,15 @@ focus_tree = {
 				category = naval_equipment
 				category = air_equipment
 			}
-
-			if = {
+			every_other_country = {
 				limit = {
-					has_dlc = "Death or Dishonor"
+					is_in_faction_with = ROOT
+					is_major = yes
 				}
-				every_other_country = {
-					limit = {
-						is_in_faction_with = ROOT
-						is_major = yes
-					}
-					ROOT = {
-						add_relation_modifier = {
-							target = PREV
-							modifier = ITA_military_agreements
-						}
+				ROOT = {
+					add_relation_modifier = {
+						target = PREV
+						modifier = ITA_military_agreements
 					}
 				}
 			}

@@ -208,7 +208,7 @@ focus_tree = {
 		cancel_if_invalid = no
 		continue_if_invalid = yes
 		
-		search_filters = {FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_USA_CONGRESS}
+		search_filters = {FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
 			add_political_power = 25
 			add_war_support = 0.03 #placeholder for better idea and concepts later - SpicyAlfredo
@@ -2248,7 +2248,7 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 		available = {
 			date > 1938.6.1
 			if = {
@@ -2469,12 +2469,28 @@ focus_tree = {
 
 		completion_reward = {
 			add_war_support = 0.05
-			add_ideas = r56_USA_over_there
+			add_timed_idea = {
+				idea = r56_USA_over_there
+				days = 490
+			}
 			if = {
 				limit = {
 					NOT = { has_idea = BEL_volunteer_corps }
 				}
 				add_ideas = BEL_volunteer_corps
+			}
+			if = {
+				limit = {
+					has_war_support < 0.4
+					has_war_support > 0.2
+				}
+				add_stability = -0.1
+			}
+			else_if = {
+				limit = {
+					has_war_support < 0.2
+				}
+				add_stability = -0.25
 			}
 			USA_congress_small_opposition = yes
 		}
@@ -2841,6 +2857,66 @@ focus_tree = {
 			}
 			if = {
 				limit = {
+					has_dlc = "By Blood Alone"
+					ROOT = {
+						has_government = democratic
+						is_major = yes
+						#diplomatic_relation = { 
+						#	country = GER
+						#	relation = embargo
+						#	active = no
+						#}
+					}
+					ENG = {
+						OR = {
+							has_war_with = FRA
+							has_war_with = GER
+						}
+						has_government = fascism
+						is_major = yes
+						NOT = {
+							is_in_faction_with = ROOT
+						}
+					}
+				}
+				send_embargo = ENG
+			}
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+					ROOT = {
+						has_government = democratic
+						is_major = yes
+						#diplomatic_relation = { 
+						#	country = GER
+						#	relation = embargo
+						#	active = no
+						#}
+					}
+					FRA = {
+						OR = {
+							has_war_with = ENG
+							has_war_with = GER
+						}
+						has_government = fascism
+						is_major = yes
+						NOT = {
+							is_in_faction_with = ROOT
+						}
+					}
+				}
+				send_embargo = FRA
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:USA_ford_motor_company_organization = {
+					add_mio_funds = 250
+				}
+			}
+			if = {
+				limit = {
 					has_war_support > 0.4
 					has_war = no
 				}
@@ -2925,6 +3001,24 @@ focus_tree = {
 								has_war_with = USA
 							}							
 						}
+						AND = { #You get it too buddy
+							is_neighbor_of = USA
+							has_government = ROOT
+							original_tag = AST
+							has_war = yes
+							NOT = {
+								has_war_with = USA
+							}							
+						}
+						AND = { #You get it too buddy
+							is_neighbor_of = USA
+							has_government = ROOT
+							original_tag = NZL
+							has_war = yes
+							NOT = {
+								has_war_with = USA
+							}							
+						}
 						AND = {
 							tag = CHI
 							CHI = {
@@ -2982,7 +3076,15 @@ focus_tree = {
 				}
 				add_timed_idea = {
 					idea = rt56_USA_cash_and_carry_away
-					days = 120
+					days = 180
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:USA_brooklyn_naval_yard_organization = {
+					add_mio_funds = 250
 				}
 			}
 			if = {
@@ -3031,7 +3133,7 @@ focus_tree = {
 					is_major = yes
 					has_government = ROOT
 					has_war = yes
-					surrender_progress > 0.10
+					surrender_progress > 0
 				}
 			}
 		}
@@ -3284,7 +3386,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ARMY_XP FOCUS_FILTER_AIR_XP FOCUS_FILTER_NAVY_XP }
 		completion_reward = {
 			navy_experience = 50
 			army_experience = 50
@@ -3736,7 +3838,7 @@ focus_tree = {
 			}
 			add_ideas = extensive_conscription
 		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ARMY_XP FOCUS_FILTER_AIR_XP FOCUS_FILTER_NAVY_XP }
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -4001,7 +4103,7 @@ focus_tree = {
 		icon = GFX_goal_generic_nuclear_energy
 		prerequisite = { focus = USA_scientist_haven }
 		
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = USA_scientist_haven
 		cost = 10
@@ -4013,12 +4115,10 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			add_tech_bonus = {
-				name = USA_manhattan_project
-				bonus = 1.0
-				uses = 2
-				category = nuclear
-			}
+			add_ideas = USA_manhattan_project_ns 
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			random_owned_controlled_state = {
 				prioritize = { 368 }
 				limit = {
@@ -4029,10 +4129,14 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
+				random_select_amount = 2
 				add_extra_state_shared_building_slots = 1
 				set_state_flag = USA_manhattan_project
 				add_dynamic_modifier = { modifier = r56_the_project }
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			random_owned_controlled_state = {
 				prioritize = { 376 }
 				limit = {
@@ -4046,6 +4150,190 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 				set_state_flag = USA_manhattan_project
 				add_dynamic_modifier = { modifier = r56_the_project } 
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			IF = {
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = USA_manhattan_project
+					bonus = 1.0
+					uses = 1
+					category = nuclear
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.5
+				}
+			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.8
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_dlc = "Gotterdammerung" 
+						has_government = democratic
+					}
+					ROOT = {
+						scoped_play_song = "apocalyptic_weapons"
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = USA_rally_the_martians
+		icon = GFX_focus_generic_university_3
+		prerequisite = { focus =  USA_manhattan_project }
+		x = 0
+		y = 1
+
+		relative_position_id =  USA_manhattan_project
+
+		allow_branch = {
+			has_dlc = "Gotterdammerung"
+		}
+		cost = 5
+
+		#ai_will_do = {
+		#	factor = 1
+		#}
+
+		available_if_capitulated = no
+
+		available = {
+			has_government = democratic
+			has_tech = atomic_research
+			custom_trigger_tooltip = {
+				tooltip = USA_rally_the_martians_trigger_tt	
+				all_country_with_original_tag = {
+					original_tag_to_check = HUN
+					OR = {
+						has_completed_focus = wuw_HUN_join_the_comintern
+						has_completed_focus = wuw_HUN_restore_the_socialist_federative_republic
+						has_completed_focus = wuw_HUN_continue_the_regency
+						has_completed_focus = wuw_HUN_reinstate_the_pragmatic_sanction
+					}
+				}
+			}
+		}
+		
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			if = {
+				limit = {
+					any_country_with_original_tag = {
+						original_tag_to_check = HUN
+						has_character = HUN_edward_teller
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = available_scientist_one_line_tt
+					CHARACTER = HUN_edward_teller
+				}	
+			}
+			if = {
+				limit = {
+					any_country_with_original_tag = {
+						original_tag_to_check = HUN
+						has_character = HUN_john_von_neumann
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = available_scientist_one_line_tt
+					CHARACTER = HUN_john_von_neumann
+				}
+			}
+			if = {
+				limit = {
+					any_country_with_original_tag = {
+						original_tag_to_check = HUN
+						has_character = HUN_leo_szilard
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = available_scientist_one_line_tt
+					CHARACTER = HUN_leo_szilard
+				}
+			}
+			hidden_effect = { #There has to be a better way to do this but I'm to lazy to find it - SpicyAlfredo
+				if = {
+					limit = {
+						any_country_with_original_tag = {
+							original_tag_to_check = HUN
+							has_character = HUN_edward_teller
+						}
+					}
+					random_other_country = {
+						limit = {
+							has_character = HUN_edward_teller
+							original_tag = HUN
+						}
+						set_nationality = {
+							target_country = USA
+							character = HUN_edward_teller
+						}
+					}
+				}
+				if = {
+					limit = {
+						any_country_with_original_tag = {
+							original_tag_to_check = HUN
+							has_character = HUN_john_von_neumann
+						}
+					}
+					random_other_country = {
+						limit = {
+							has_character = HUN_john_von_neumann
+							original_tag = HUN
+						}
+						set_nationality = {
+							target_country = USA
+							character = HUN_john_von_neumann
+						}
+					}
+				}
+				if = {
+					limit = {
+						any_country_with_original_tag = {
+							original_tag_to_check = HUN
+							has_character = HUN_john_von_neumann
+						}
+					}
+					random_other_country = {
+						limit = {
+							has_character = HUN_leo_szilard
+							original_tag = HUN
+						}
+						set_nationality = {
+							target_country = USA
+							character = HUN_leo_szilard
+						}
+					}
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_tech_bonus = {
+				name = USA_rally_the_martians
+				bonus = 0.25
+				uses = 1
+				category = electronics
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_breakthrough_progress = {
+				specialization = specialization_nuclear
+				value = 0.25
 			}
 		}
 	}
@@ -4119,6 +4407,8 @@ focus_tree = {
 				has_global_flag = r56_ww2_got_done_early_make_ai_move_toward_ww3
 			}
 		}
+		
+		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
 			if = {
 				limit = {
@@ -10121,7 +10411,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "M3 Lee"
@@ -10222,7 +10512,7 @@ focus_tree = {
 					}
 					else_if = {
 						limit = {
-							has_tech = decimetric_radar
+							has_tech = cavity_magnatron
 						}
 						create_equipment_variant = {
 							name = "M4 Sherman"
@@ -10321,7 +10611,7 @@ focus_tree = {
 					}
 					else_if = {
 						limit = {
-							has_tech = decimetric_radar
+							has_tech = cavity_magnatron
 						}
 						create_equipment_variant = {
 							name = "M4 Sherman"
@@ -10457,7 +10747,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "M6 Heavy Tank"
@@ -10519,6 +10809,10 @@ focus_tree = {
 						}
 						icon = "gfx/interface/technologies/USA_basic_heavy_tank.dds"
 					}
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_land
+					value = 0.5
 				}
 			}
 		}
@@ -10616,7 +10910,7 @@ focus_tree = {
 					}
 					else_if = {
 						limit = {
-							has_tech = decimetric_radar
+							has_tech = cavity_magnatron
 						}
 						create_equipment_variant = {
 							name = "M10 Wolverine"
@@ -10715,7 +11009,7 @@ focus_tree = {
 					}
 					else_if = {
 						limit = {
-							has_tech = decimetric_radar
+							has_tech = cavity_magnatron
 						}
 						create_equipment_variant = {
 							name = "M10 Wolverine"
@@ -10818,7 +11112,7 @@ focus_tree = {
 					}
 					else_if = {
 						limit = {
-							has_tech = decimetric_radar
+							has_tech = cavity_magnatron
 						}
 						create_equipment_variant = {
 							name = "M18 Hellcat"
@@ -10917,7 +11211,7 @@ focus_tree = {
 					}
 					else_if = {
 						limit = {
-							has_tech = decimetric_radar
+							has_tech = cavity_magnatron
 						}
 						create_equipment_variant = {
 							name = "M18 Hellcat"
@@ -11064,7 +11358,7 @@ focus_tree = {
 				}
 				else_if = {
 					limit = {
-						has_tech = decimetric_radar
+						has_tech = cavity_magnatron
 					}
 					create_equipment_variant = {
 						name = "T20 M27"
@@ -11201,7 +11495,7 @@ focus_tree = {
 					}
 					else_if = {
 						limit = {
-							has_tech = decimetric_radar
+							has_tech = cavity_magnatron
 						}
 						create_equipment_variant = {
 							name = "M24 Chaffee"
@@ -12858,7 +13152,7 @@ focus_tree = {
 					}
 					else_if = {
 						limit = {
-							has_tech = decimetric_radar
+							has_tech = cavity_magnatron
 						}
 						create_equipment_variant = {
 							name = "M3A1 Satan"
@@ -12973,7 +13267,7 @@ focus_tree = {
 						}
 						else_if = {
 							limit = {
-								has_tech = decimetric_radar
+								has_tech = cavity_magnatron
 							}
 							create_equipment_variant = {
 								name = "M4 Zippo"
@@ -13076,7 +13370,7 @@ focus_tree = {
 						}
 						else_if = {
 							limit = {
-								has_tech = decimetric_radar
+								has_tech = cavity_magnatron
 							}
 							create_equipment_variant = {
 								name = "M4 Zippo"

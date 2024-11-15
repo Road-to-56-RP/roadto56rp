@@ -2270,19 +2270,116 @@ focus_tree = {
 		allow_branch = {
 			has_government = communism
 		}
+
+		available = {
+			196 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			251 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			217 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+			245 = {
+				is_controlled_by_ROOT_or_subject = yes
+			}
+		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 
 		completion_reward = {
-			add_ideas = SOV_transformation_of_nature_idea
-			if = {
-				limit = {
-					has_full_control_of_state = 404
+
+			hidden_effect = {
+				IF = {
+					limit = {
+						has_country_leader = {
+							ruling_only = yes
+							character = SOV_iosif_stalin
+						}	
+					}
+					set_province_name = {
+						id = 3555
+						name = SOV_stalingrad_hydro_station
+					}
 				}
-				add_resource = {
-					type = rubber
-					amount = 8
-					state = 404
+				ELSE = {
+					set_province_name = {
+						id = 3555
+						name = SOV_volgograd_hydro_station
+					}
+				}
+				set_province_name = {
+					id = 6275
+					name = SOV_kuybyshev_hydro_station
+				}
+				set_province_name = {
+					id = 737
+					name = SOV_kakhovka_dam
+				}
+				set_province_name = {
+					id = 3478
+					name = SOV_tsimlyanskoye_hydroelectric_station
+				}
+			}
+
+			add_ideas = SOV_transformation_of_nature
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			217 = {	
+				add_building_construction = {
+					type = dam
+					level = 1
+					instant_build = yes
+					province = {
+						id = 3555
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = building_state_modifier|dam
+					INDENT = "    "
+				}
+			}
+			196 = {	
+				add_building_construction = {
+					type = dam
+					level = 1
+					instant_build = yes
+					province = {
+						id = 737
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = building_state_modifier|dam
+					INDENT = "    "
+				}
+			}
+			245 = {	
+				add_building_construction = {
+					type = dam
+					level = 1
+					instant_build = yes
+					province = {
+						id = 3478
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = building_state_modifier|dam
+					INDENT = "    "
+				}
+			}
+			251 = {	
+				add_building_construction = {
+					type = dam
+					level = 1
+					instant_build = yes
+					province = {
+						id = 6275
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = building_state_modifier|dam
+					INDENT = "    "
 				}
 			}
 		}
@@ -2465,6 +2562,30 @@ focus_tree = {
 			add_to_variable = { SOV_soviet_airforce_air_range_factor = 0.05 }
 			add_to_variable = { SOV_soviet_airforce_air_agility_factor = 0.05 }
 			custom_effect_tooltip = SOV_modernize_aircraft_facilities_ns_tt
+
+			custom_effect_tooltip = SOV_modernize_aircraft_facilities_tt
+			hidden_effect = {
+				IF = {
+					limit = { 
+						260 = {
+							is_fully_controlled_by = ROOT
+							air_facility < 1
+							land_facility < 1
+							naval_facility < 1
+							nuclear_facility < 1
+						}
+					}
+
+					260 = {
+						add_building_construction = {
+							type = air_facility
+							level = 1
+							instant_build = yes
+							province = 9448 # East of Voronezh
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -2843,6 +2964,7 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
+					name = SOV_long_range_aircraft
 					bonus = 0.75
 					uses = 2
 					category = heavy_air
@@ -4097,7 +4219,7 @@ focus_tree = {
 				create_equipment_variant = {
 					name = "K Class"
 					type = ship_hull_cruiser_submarine
-					name_group = SOV_SS_HISTORICAL
+					name_group = SOV_SS_CLASS_K
 					parent_version = 0
 					modules = {
 						fixed_ship_torpedo_slot = ship_torpedo_sub_2
@@ -5012,10 +5134,25 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:SOV_gaz_organization = {
+					add_mio_funds = 500
+
+					complete_mio_trait = SOV_mio_trait_katyusha_rocket_production
+				}						
+			}
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = SOV_voronezh_komintern_factory
+				custom_effect_tooltip = manufacturer_applies_bonus_instantly_tooltip				
+			}
+
+
 			add_ideas = SOV_sing_katyusha_sing
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = SOV_voronezh_komintern_factory
-			custom_effect_tooltip = manufacturer_applies_bonus_instantly_tooltip
+
 		}
 	}
 
@@ -5389,13 +5526,69 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = SOV_soviet_atomic_bomb_project_tech_bonus_name
-				bonus = 1
-				uses = 1
-				ahead_reduction = 1
-				category = nuclear
+			IF = {
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = SOV_soviet_atomic_bomb_project_tech_bonus_name
+					bonus = 1
+					uses = 1
+					ahead_reduction = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.5
+				}
 			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.8
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			IF = {
+				limit = { 
+					588 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				custom_effect_tooltip = SOV_soviet_atomic_bomb_project_tt
+			}
+			hidden_effect = {
+				IF = {
+					limit = { 
+						588 = {
+							is_fully_controlled_by = ROOT
+							air_facility < 1
+							land_facility < 1
+							naval_facility < 1
+							nuclear_facility < 1
+						}
+					}
+
+					588 = {
+						add_building_construction = {
+							type = nuclear_facility
+							level = 1
+							instant_build = yes
+							province = 7350 # Kurchatov
+						}
+						add_victory_points = {
+							province = 7350
+							value = 1
+						}	
+					}
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
 
 			if = {
 				limit = {
@@ -8245,6 +8438,11 @@ focus_tree = {
 				SOV_trigger_great_purge_moscow_trial_effect = yes #FIRST MOSCOW TRIAL -> Zinovyev & friends
 			}
 			custom_effect_tooltip = SOV_trigger_first_moscow_trial_tt
+			hidden_effect = {
+				NOR = {
+					country_event = { id = naw_norway.100 days = 60 random_days = 30 }	#condemnation of trials by Norway
+				}
+			}
 		}
 	}
 
@@ -9337,7 +9535,12 @@ focus_tree = {
 			add_political_power = 100
 			add_war_support = 0.075
 			custom_effect_tooltip = "sets your subideology to Stalinism if it isn't already"
-			set_country_leader_ideology = stalinism
+			if = {
+				limit = {
+					has_government = communism
+				}
+				set_country_leader_ideology = stalinism
+			}
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
@@ -9503,14 +9706,14 @@ focus_tree = {
 					}
 				}
 				add_tech_bonus = {
-					name = tank_bonus
+					name = SOV_they_will_know_fear
 					bonus = 2
 					uses = 1
 					technology = improved_light_td
 					technology = advanced_light_td
 				}
 				add_tech_bonus = {
-					name = tank_bonus
+					name = SOV_they_will_know_fear
 					bonus = 2
 					uses = 1
 					technology = basic_medium_td
@@ -9518,7 +9721,7 @@ focus_tree = {
 					technology = advanced_medium_td
 				}
 				add_tech_bonus = {
-					name = tank_bonus
+					name = SOV_they_will_know_fear
 					bonus = 2
 					uses = 1
 					technology = basic_heavy_td
@@ -9792,15 +9995,23 @@ focus_tree = {
 
 		completion_reward = {
 			add_country_leader_trait = stalin_great_commander
-			add_field_marshal_role = {
-				character = "SOV_iosif_stalin"
-				traits={ old_guard politically_connected media_personality harsh_leader }
-				skill=3
-				attack_skill=1
-				defense_skill=3
-				planning_skill=3
-				logistics_skill=3
-				legacy_id=0
+			if = {
+				limit = {
+					has_country_leader = {
+						character = SOV_iosif_stalin
+						ruling_only = yes
+					}
+				}
+				add_field_marshal_role = {
+					character = "SOV_iosif_stalin"
+					traits={ old_guard politically_connected media_personality harsh_leader }
+					skill=3
+					attack_skill=1
+					defense_skill=3
+					planning_skill=3
+					logistics_skill=3
+					legacy_id=0
+				}
 			}
 		}
 	}
@@ -10557,6 +10768,19 @@ focus_tree = {
 			set_rule = { can_join_factions = yes }
 			set_rule = { can_create_factions = yes }
 			create_faction = FOURTH_INTERNATIONAL_FACTION
+			hidden_effect = { #this pre-NSB event changes PRC back to its previous more pro-Trotsky leader
+				PRC = {
+					if = {
+						limit ={
+							has_government = communism
+							NOT = {
+								has_country_flag = PRC_zxl_purge
+							}
+						}
+						country_event = { id = prc.66 days = 2 }
+					}
+				}
+			}
 		}
 	}
 
@@ -16961,6 +17185,7 @@ focus_tree = {
 			add_state_claim = 601
 			add_state_claim = 324
 			add_state_claim = 323
+			add_state_claim = 1091
 			every_other_country = {
 				limit = {
 					NOT = {
@@ -16973,6 +17198,7 @@ focus_tree = {
 						controls_state = 601
 						controls_state = 324
 						controls_state = 323
+						controls_state = 1091
 					}
 				}
 				SOV = {
@@ -21835,7 +22061,7 @@ focus = {
 				desc = "POLITICS_ANDREY_VLASOV_DESC"
 				picture = "Portrait_Soviet_Andrey_Vlasov.dds"
 				expire = "1965.1.1"
-				ideology = moderatism
+				ideology = oligarchism
 				traits = {
 					resilient_nationalist
 				}
@@ -26559,7 +26785,7 @@ focus = {
     			ROOT = {
     				create_wargoal = {
 					    type = take_state_focus
-					    generator = { 9 69 70 71 72 73 74 75 664 48 211 212 801 97 85 762 90 88 92 91 95 94 86 98 89 10 96 784 93 87 104 109 103 804 802 106 105 108 107 102 803 45 764 996 }
+					    generator = { 9 69 1078 70 71 72 73 74 75 664 48 211 212 801 97 85 762 90 88 92 91 95 94 86 98 89 10 96 784 93 87 104 109 103 804 802 106 105 108 107 102 803 45 764 996 }
 					    target = PREV
 					}
 				}
@@ -27846,8 +28072,8 @@ focus = {
 					active = yes
 				}
 			}
-			PRC = {
-				set_state_owner = 745
+			745 = {
+				transfer_state_to = PRC
 			}
 		}
 	}
