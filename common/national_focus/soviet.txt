@@ -1613,13 +1613,24 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = SOV_no_time_for_peace
-				bonus = 0.75
+				bonus = 0.50
 				uses = 2
 				category = nuclear
 				category = rocketry
 			}
-
-			add_ideas = SOV_no_time_for_peace_idea
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = generic_secret_weapons_ns
+			#TODO_r56 rework this ideas modifers:
+			#add_ideas = SOV_no_time_for_peace_idea
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_breakthrough_progress = {
+				specialization = specialization_nuclear
+				value = 0.50
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.50
+			}
 		}
 	}
 
@@ -2240,17 +2251,22 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = progress_cult_focus_2
-			add_tech_bonus = {
-				name = nuclear_bonus
-				bonus = 1
-				uses = 1
-				category = nuclear
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.25
 			}
-			add_tech_bonus = {
-				name = nuclear_bonus
-				bonus = 1
-				uses = 1
-				category = rocketry
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.25
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_nuclear
+				value = 0.25
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2644,6 +2660,10 @@ focus_tree = {
 				bonus = 1.0
 				uses = 2
 				category = jet_technology
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.50
 			}
 		}
 	}
@@ -4587,20 +4607,34 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP FOCUS_FILTER_ARMY_XP}
 
 		completion_reward = {
-			set_variable = { SOV_red_fleet_naval_invasion_capacity = 10 }
-			set_variable = { SOV_red_fleet_invasion_preparation = -0.1 }
-			set_variable = { SOV_red_fleet_special_forces_cap = 0.1 }
-			custom_effect_tooltip = SOV_naval_infantry_ns_tt
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_potential_special_forces_tree = yes
+				add_doctrine_cost_reduction = {
+					name = SOV_naval_infantry
+					cost_reduction = 0.25
+					uses = 2
+					category = special_forces_doctrine
+				}
+			}
+			else = {
+				set_variable = { SOV_red_fleet_naval_invasion_capacity = 10 }
+				set_variable = { SOV_red_fleet_invasion_preparation = -0.1 }
+				set_variable = { SOV_red_fleet_special_forces_cap = 0.1 }
+				custom_effect_tooltip = SOV_naval_infantry_ns_tt
+				
+				add_tech_bonus = {
+					name = SOV_naval_infantry
+					bonus = 1
+					uses = 1
+					category = marine_tech
+				}
+			}
 
 			navy_experience = 25
 			army_experience = 25
-
-			add_tech_bonus = {
-				name = SOV_naval_infantry
-				bonus = 1
-				uses = 1
-				category = marine_tech
-			}
 		}
 	}
 
@@ -5225,6 +5259,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
+			NOT = { has_country_flag = SOV_paranoia_system_active_flag }
 			custom_trigger_tooltip = {
 				tooltip = SOV_fyp_controlled_factories_tier_4_tt
 				NOT = { num_of_controlled_factories < SOV_fyp_factory_requirement_tier_4 }
@@ -5290,6 +5325,39 @@ focus_tree = {
 					}
 				}
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = r56_SOV_development_of_tankograd_tt
+			hidden_effect = {
+				IF = {
+					limit = { 
+						572 = {
+							is_fully_controlled_by = ROOT
+							air_facility < 1
+							land_facility < 1
+							naval_facility < 1
+							nuclear_facility < 1
+						}
+					}
+
+					572 = {
+						add_building_construction = {
+							type = land_facility
+							level = 1
+							instant_build = yes
+							province = 9292 # Chelyabinsk
+						}
+					}
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = {
+				localization_key = available_scientist_one_line_tt
+				CHARACTER = SOV_joseph_yakovlevich_kotin
+			}	
 		}
 	}
 
@@ -5518,7 +5586,11 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = SOV_national_academies_of_sciences_available_tt
-				check_variable = { SOV_academy_of_sciences_research_speed_factor = SOV_academies_required_for_atomic_bomb_project compare = greater_than_or_equals }
+				set_temp_variable = { SOV_current_academies = SOV_academy_of_sciences_research_speed_factor } #This is a factor (0.X value)
+				# r56rp, why the fuck multiply this by 100?
+				# "why yes, requires 0.07 labs and is unlockable on game start!"
+				#multiply_temp_variable = { SOV_current_academies = 100 } #Now it is possible to track the current number of civs
+				check_variable = { SOV_current_academies = SOV_academies_required_for_atomic_bomb_project compare = greater_than_or_equals }
 			}
 			is_subject = no
 		}
@@ -5594,6 +5666,9 @@ focus_tree = {
 				limit = {
 					has_dlc = "La Resistance"
 				}
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+				
 				create_operative_leader = {
 					name = "Ursula Kuczynski"
 					GFX = GFX_Portrait_ursula_kuczynski
@@ -5605,7 +5680,63 @@ focus_tree = {
 				}
 				add_ideas = SOV_soviet_atomic_bomb_project_ns
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			custom_effect_tooltip = SOV_soviet_atomic_bomb_project_unlock_operation_tt
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			
+			#Junior Scientists Only, no XP for Grandpa Ioffe :(
+			if = {
+				limit = { 
+					ROOT = {
+						has_character = SOV_igor_kurchatov 
+					}
+				}
+				ROOT = { 
+					SOV_igor_kurchatov  = {
+						add_scientist_xp = {
+							experience = 250
+							specialization = specialization_nuclear
+						}
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+			if = {
+				limit = { 
+					ROOT = {
+						has_character = SOV_yulii_khariton 
+					}
+				}
+				ROOT = { 
+					SOV_yulii_khariton  = {
+						add_scientist_xp = {
+							experience = 250
+							specialization = specialization_nuclear
+						}
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+			if = {
+				limit = { 
+					ROOT = {
+						has_character = SOV_yakov_zeldovich
+					}
+				}
+				ROOT = { 
+					SOV_yakov_zeldovich  = {
+						add_scientist_xp = {
+							experience = 250
+							specialization = specialization_nuclear
+						}
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+		
 		}
 	}
 
@@ -9395,15 +9526,29 @@ focus_tree = {
 						ideology = stalinism
 						traits = { veteran_communist captain_of_industry }
 						expire = "1965.3.1.1"
-		}
+					}
 					promote_leader = yes 
-	}
-		}
+				}
+			}
 			hidden_effect = {
 				set_country_flag = purge_beria
+				SOV_georgy_malenkow = {
+					remove_country_leader_role = {
+						ideology = marxism
+					}
+					add_country_leader_role = {
+						character = SOV_georgy_malenkow
+						country_leader = {
+							ideology = stalinism
+							traits = { veteran_communist captain_of_industry }
+							expire = "1965.3.1.1"
+						}
+						promote_leader = yes 
+					}
 				}
 			}
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		}
 	}
 
 	focus = {
