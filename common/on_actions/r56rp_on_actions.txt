@@ -1234,5 +1234,61 @@ on_actions = {
 		}
 
 		
+	##################################
+	## SPR STATES NOT RESISTING FIX ##
+	##################################
+	# ad hoc, but forcibly makes spanish states resist spain after the civil war.
+	# otherwise, the decisions dont work as they should.
+
+	on_peace = {
+		effect = {
+			IF = {
+				limit = {
+					has_global_flag = scw_over
+					NOT = {
+						has_global_flag = r56rp_cw_resistance_enabled
+					}
+				}
+				THIS = {
+					set_global_flag = r56rp_cw_resistance_enabled
+				}
+				every_state = {
+					limit = {
+						OR = {
+							state = 41 
+							state = 165  
+							state = 166  
+							state = 167  
+							state = 168  
+							state = 169  
+							state = 170  
+							state = 171  
+							state = 172  
+							state = 173  
+							state = 174  
+							state = 175  
+							state = 176  
+							state = 177  
+							state = 178  
+							state = 788  
+							state = 789  
+							state = 790  
+							state = 791  
+							state = 792  
+							state = 793  
+							state = 794
+						}
+						NOT = {
+							is_core_of = SPR
+						}
+					}
+					force_enable_resistance = SPR
+					start_resistance = yes
+				}
+			}
+		}
+	}
+
+			
 
 }
