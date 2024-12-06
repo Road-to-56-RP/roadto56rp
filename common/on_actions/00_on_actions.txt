@@ -3252,13 +3252,31 @@ on_actions = {
 	# root country that invades
 	# scope state that is invaded
 	# from scope state that the invasion started
-	# r56rp - imma wilfully ignore this, damage from commando is cringe
-	# on_naval_invasion = {
-	# 	effect = {
-	# 	}
-	# }
-	
-	
+	on_naval_invasion = {
+	 	effect = {
+		 	if = {
+				limit = {
+					has_game_rule = {
+						rule = r56rp_enable_marines_special_effects
+						option = ENABLED
+					}
+					ROOT = {
+						divisions_in_state = {
+							 unit = marine_commando
+							 size > 0
+							 state = PREV
+						}
+						 has_tech = marines_commandos_demolition 
+					}
+					NOT = { has_state_flag = marines_commando_effect }
+					OWNER = { NOT = { tag = ROOT } }
+				}
+				SF_marine_demoliton_effect = yes # Note that the state flag condition is not preventing it from doing 1 damage per division 
+			}
+	 	}
+	}
+
+
 	# root country that paradrops
 	# scope state that is paradroped into
 	# from scope state that the paradrop started
@@ -3307,25 +3325,109 @@ on_actions = {
 	# root is the state that was dropped into
 	# from is the dropping country
 	# this differs from on_paradrop in that it is run once per paradrop, not once per unit dropped
-#	on_units_paradropped_in_state = {
-#		effect = {
-#			if = {
-#				limit = { 
-#					FROM = { has_tech = paras_dispersed_drop } 
-#					NOT = { has_state_flag = para_drop_effect }
-#					CONTROLLER = { NOT = { tag = FROM } }
-#				}
-#				SF_PARA_sabotage_effect = yes
-#			}
-#			if = {
-#				limit = { 
-#					FROM = { has_tech = paras_combat_drop } 
-#					NOT = { has_state_flag = para_drop_effect }
-#				}
-#				SF_PARA_combat_effect = yes
-#			}
-#		}
-#	}
+	on_units_paradropped_in_state = {
+		effect = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = r56rp_enable_para_special_effects
+						option = ENABLED
+					}
+					FROM = { has_tech = paras_dispersed_drop } 
+					NOT = { 
+						has_state_flag = {
+						    flag = para_drop_effect
+						    value = 0
+						}
+					}
+					CONTROLLER = { NOT = { tag = FROM } }
+				}
+				SF_PARA_sabotage_effect = yes
+			}
+			if = {
+				limit = { 
+					FROM = { has_tech = paras_combat_drop } 
+					NOT = { 
+						has_state_flag = {
+						    flag = para_drop_effect
+						    value = 0
+						}
+					}
+				}
+				SF_PARA_combat_effect = yes
+			}
+		}
+	}
+
+	on_peaceconference_started = {
+		effect = {
+			if = {
+				limit = {
+					295 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				295 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+
+			if = {
+				limit = {
+					538 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				538 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+
+			if = {
+				limit = {
+					888 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				888 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+
+			if = {
+				limit = {
+					889 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				889 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+
+			if = {
+				limit = {
+					890 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				890 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+
+
+			if = {
+				limit = {
+					769 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				769 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+
+			if = {
+				limit = {
+					768 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				768 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+
+			if = {
+				limit = {
+					718 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				718 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+
+			if = {
+				limit = {
+					635 = { has_state_flag = prevent_auto_flip_after_capitulation }
+				}
+				635 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			}
+		}
+	}
+
+
 
 	on_monthly_GER = {
 		effect = {
