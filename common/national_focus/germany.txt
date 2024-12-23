@@ -136,6 +136,9 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL_CHARACTER }
 
 		completion_reward = {
+			add_ideas = civilian_economy
+
+			custom_effect_tooltip = generic_skip_one_line_tt
 
 			add_stability = -0.1
 			if = {
@@ -193,6 +196,10 @@ focus_tree = {
 			
 			GER_stop_rearmament = yes
 
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			remove_ideas = r56_GER_economic_uncertainty
+
 		}
 	}
 
@@ -218,6 +225,11 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.03
+
+			add_popularity = {
+			    ideology = ROOT
+			    popularity = 0.03
+			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 			
@@ -272,7 +284,7 @@ focus_tree = {
 
 			GER_modify_industrial_modifier = yes
 			add_to_variable = { 
-				GER_industrial_consumer_goods_factor = -0.15
+				GER_industrial_consumer_goods_factor = -0.20
 				tooltip = consumer_goods_factor_tt
 			}
 		}
@@ -1745,11 +1757,15 @@ focus_tree = {
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
+			remove_ideas = r56_GER_economic_uncertainty
+
+			custom_effect_tooltip = generic_skip_one_line_tt
 
 			add_timed_idea = {
 				idea = r56_GER_four_year_plan
 				days = 1460
 			}
+
 			#Set Variables for the Descision cost of GER_coerce_the_technocrats here for tooltips reasons
 			hidden_effect = {
 				set_variable = {
@@ -2728,6 +2744,22 @@ focus_tree = {
 					type = arms_factory
 					level = 2
 					instant_build = yes
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			if = {
+				limit = {
+					51 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				51 = {
+					add_dynamic_modifier = { 
+						modifier = r56_concentrated_armament_program
+						scope = GER
+					}
 				}
 			}
 		}
@@ -7237,7 +7269,7 @@ focus_tree = {
 						state = 7
 						state = 35
 						state = 6
-						state = 977
+						state = 1094
 						state = 29
 						state = 785
 						state = 15
@@ -10233,7 +10265,7 @@ focus_tree = {
 				
 				custom_trigger_tooltip = {
 				 	tooltip = GER_anschluss_eq_trigger_tt
-				 	check_variable = { num_equipment_in_armies_k@infantry_equipment > 50 }
+				 	check_variable = { num_equipment_in_armies_k@infantry_equipment > 40 }
 				}
 			}
 			
@@ -10270,7 +10302,7 @@ focus_tree = {
 		select_effect = {
 			if = {
 				limit = {
-					has_global_flag = aus_got_focus_tree
+					has_global_flag = aus_dlc_focus_tree
 				}
 				AUS = {
 					country_event = {
@@ -12341,7 +12373,7 @@ focus_tree = {
 				expire = 0
 			}
 
-			add_state_claim = 39
+			add_state_core = 39
 			add_state_claim = 850
 			add_state_claim = 853
 			add_state_claim = 852
@@ -13692,7 +13724,7 @@ focus_tree = {
 
 					give_resource_rights = {
 						receiver = ROOT 
-						state = 918 #Västerbotten 
+						state = 1029 #Västerbotten 
 					}
 				}
 
@@ -14394,6 +14426,7 @@ focus_tree = {
 				}
 				NOT = {
 					has_completed_focus = GER_kill_hitler
+					has_completed_focus = GER_oppose_hitler_ww
 				}
 			}
 		}
@@ -17768,12 +17801,12 @@ focus_tree = {
 			IF = {
 				limit = {
 					NOT = {
-						981 = { #Barotziland
+						1097 = { #Barotziland
 							is_claimed_by = ROOT
 						}
 					}
 				}
-				add_state_claim = 981
+				add_state_claim = 1097
 			}
 			IF = {
 				limit = {
@@ -17944,7 +17977,7 @@ focus_tree = {
 							}
 						}
 					}
-					333 = { #North Borneo
+					333 = { # Sarawak
 						controller = {
 							country_event = {
 								id = wuw_GER_diplomacy.35
@@ -17958,6 +17991,90 @@ focus_tree = {
 				ELSE_IF = {
 					limit = { 333 = { NOT = { is_fully_controlled_by = ROOT}}}
 					add_state_claim = 333
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							916 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+								
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 916
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					916 = { # North Borneo
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 916 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 916
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							1014 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+								
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 1014
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					1014 = { # Brunei
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 1014 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 1014
 				}
 
 				IF = {
@@ -18000,6 +18117,83 @@ focus_tree = {
 					limit = { 334 = { NOT = { is_fully_controlled_by = ROOT}}}
 					add_state_claim = 334
 				}
+				
+				IF = {
+					limit = {
+						OR = {
+							978 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 978
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					978 = { #Eastern Kalimantan
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							977 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 977
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					977 = { #Inner Borneo
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 977 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 977
+				}
 
 				IF = {
 					limit = {
@@ -18027,7 +18221,44 @@ focus_tree = {
 							}
 						}
 					}
-					335 = { #Java
+					335 = { # Western Java
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							976 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+								
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 976
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					976 = { # Central Java
 						controller = {
 							country_event = {
 								id = wuw_GER_diplomacy.35
@@ -18039,8 +18270,50 @@ focus_tree = {
 				}
 
 				ELSE_IF = {
-					limit = { 335 = { NOT = { is_fully_controlled_by = ROOT}}}
-					add_state_claim = 335
+					limit = { 976 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 976
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							446 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+								
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 446
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					446 = { # Eastern Java
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 446 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 446
 				}
 
 				IF = {
@@ -18082,6 +18355,211 @@ focus_tree = {
 				ELSE_IF = {
 					limit = { 336 = { NOT = { is_fully_controlled_by = ROOT}}}
 					add_state_claim = 336
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							951 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 951
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					951 = { # Johor
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 951 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 951
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							915 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 915
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					915 = { # Pahang
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 915 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 915
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							960 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 960
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					960 = { # Terengganu
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 960 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 960
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							914 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 914
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					914 = { # Kedah
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 914 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 914
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							909 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 909
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					909 = { # Riau Islands
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 909 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 909
 				}
 
 				IF = {
@@ -18206,6 +18684,47 @@ focus_tree = {
 					limit = { 672 = { NOT = { is_fully_controlled_by = ROOT}}}
 					add_state_claim = 672
 				}
+				
+				IF = {
+					limit = {
+						OR = {
+							974 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 974
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					974 = { # Northern Sumatra
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 974 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 974
+				}
 
 				IF = {
 					limit = {
@@ -18247,6 +18766,48 @@ focus_tree = {
 				ELSE_IF = {
 					limit = { 673 = { NOT = { is_fully_controlled_by = ROOT}}}
 					add_state_claim = 673
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							975 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+								
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 975
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					975 = { #Sulawesi
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 975 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 975
 				}
 
 				IF = {
@@ -18575,6 +19136,88 @@ focus_tree = {
 				ELSE_IF = {
 					limit = { 737 = { NOT = { is_fully_controlled_by = ROOT}}}
 					add_state_claim = 737
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							669 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 669
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					669 = { # West Papua
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 669 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 669
+				}
+				
+				IF = {
+					limit = {
+						OR = {
+							725 = {
+								is_fully_controlled_by = CHI
+								controller = {
+									NOT = {
+										has_country_flag = {
+											flag = GER_se_asia_colony_demand_sent_flag
+										}
+										has_war_with = ROOT
+									}
+								}
+							}
+							any_other_country = {
+								is_in_faction_with = ROOT
+								controls_state = 725
+								NOT = {
+									has_country_flag = {
+										flag = GER_se_asia_colony_demand_sent_flag
+									}
+								}
+							}
+						}
+					}
+					725 = { # Nauru
+						controller = {
+							country_event = {
+								id = wuw_GER_diplomacy.35
+								hours = 6
+							}
+							set_country_flag = GER_se_asia_colony_demand_sent_flag
+						}
+					}
+				}
+
+				ELSE_IF = {
+					limit = { 725 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 725
 				}
 			}
 
@@ -19016,16 +19659,31 @@ focus_tree = {
 				name = GER_south_east_asian_natural_wealth
 			}
 
-			add_state_claim = 333 #North Borneo
-			add_state_claim = 334 #Kalimantan
-			add_state_claim = 335 #Java
-			add_state_claim = 336 #Singapore
-			add_state_claim = 667 #Lesser Sunda Islands
-			add_state_claim = 668 #Moluccas
-			add_state_claim = 672 # Sumatra
-			add_state_claim = 673 #Sulawesi
-			add_state_claim = 721 #Portugese Timor 
-			add_state_claim = 738 #Aru Islands
+			add_state_claim = 336 # Singapore
+			add_state_claim = 951 # Johor
+			add_state_claim = 915 # Pahang & Kelantan
+			add_state_claim = 960 # Terengganu
+			add_state_claim = 914 # Kedah & Perlis
+			add_state_claim = 909 # Riau Islands
+			add_state_claim = 333 # Sarawak
+			add_state_claim = 1014 # Brunei
+			add_state_claim = 916 # North Borneo
+			add_state_claim = 974 # North Sumatra
+			add_state_claim = 672 # Southern Sumatra
+			add_state_claim = 335 # Western Java
+			add_state_claim = 976 # Central Java
+			add_state_claim = 446 # Eastern Java
+			add_state_claim = 667 # Lesser Sunda Islands
+			add_state_claim = 721 # Timor
+			add_state_claim = 738 # Aru Islands
+			add_state_claim = 669 # West Papua
+			add_state_claim = 668 # Moluccas
+			add_state_claim = 975 # North Sulawesi
+			add_state_claim = 673 # South Sulawesi
+			add_state_claim = 334 # Eastern Borneo
+			add_state_claim = 978 # Western Borneo
+			add_state_claim = 977 # Inner Borneo
+			
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = GER_south_east_asian_natural_wealth_tt
@@ -20178,6 +20836,17 @@ focus_tree = {
 			show_ideas_tooltip = GER_goring_overseer_four_year_plan
 
 			custom_effect_tooltip = generic_skip_one_line_tt
+
+			if = {
+				limit = {
+					has_idea = r56_GER_four_year_plan
+				}
+				modify_timed_idea = {
+					idea = r56_GER_four_year_plan
+					days = 30
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
 
 			custom_effect_tooltip = {
 				localization_key = GER_ascension_of_character_focus_tt
@@ -22560,9 +23229,12 @@ focus_tree = {
 				}
 			}
 
-			42 = { set_demilitarized_zone = no }
-			51 = { set_demilitarized_zone = no }
-			978 = { set_demilitarized_zone = no }
+			42 = { set_demilitarized_zone = no } #RHINELAND
+			51 = { set_demilitarized_zone = no } #MOSSELLAND
+			922 = { set_demilitarized_zone = no } #FRANKFURT
+			923 = { set_demilitarized_zone = no } #BADEN
+			989 = { set_demilitarized_zone = no } #OSTRHINELAND
+			1053 = { set_demilitarized_zone = no } #SAARLAND
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
@@ -33236,11 +33908,13 @@ focus_tree = {
 						}
 					}
 					OR = {
-						state = 734 # Nendo 
+						state = 734 # Tonga
 						state = 635 # New Caledonia
 						state = 641 # Tahiti
 						state = 636 # Fiji
 						state = 726 # Samoa
+						state = 1088 # American Samoa
+						state = 1089 # Niue
 						state = 721 # Timor-Leste
 						state = 667 # Lesser Sunda Islands
 						state = 335 # Java
@@ -34149,7 +34823,9 @@ focus_tree = {
 					generator = { 769 }
 				}
 			}
-			add_state_claim = 523
+			add_state_claim = 1096
+			add_state_claim = 725
+			add_state_claim = 726
 			add_state_claim = 773
 			add_state_claim = 541
 			add_state_claim = 546
@@ -34733,7 +35409,7 @@ focus_tree = {
 			add_state_claim = 774
 			add_state_claim = 771
 			add_state_claim = 770
-			add_state_claim = 981
+			add_state_claim = 1097
 			add_state_claim = 545
 			add_state_claim = 901
 			add_state_claim = 900
@@ -35019,9 +35695,12 @@ focus_tree = {
 				GER_remove_mefo_bills = yes
 			}
 
-			42 = { set_demilitarized_zone = no }
-			51 = { set_demilitarized_zone = no }
-			978 = { set_demilitarized_zone = no }
+			42 = { set_demilitarized_zone = no } #RHINELAND
+			51 = { set_demilitarized_zone = no } #MOSSELLAND
+			922 = { set_demilitarized_zone = no } #FRANKFURT
+			923 = { set_demilitarized_zone = no } #BADEN
+			989 = { set_demilitarized_zone = no } #OSTRHINELAND
+			1053 = { set_demilitarized_zone = no } #SAARLAND
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
@@ -35744,7 +36423,9 @@ focus_tree = {
 					generator = { 769 }
 				}
 			}
-			add_state_claim = 523
+			add_state_claim = 1096
+			add_state_claim = 725
+			add_state_claim = 726
 			add_state_claim = 773
 			add_state_claim = 541
 			add_state_claim = 546
@@ -39490,7 +40171,6 @@ focus_tree = {
 				add_state_claim = 773
 				add_state_claim = 777
 			}
-			complete_national_focus = GER_prepare_france_invasion
 		}
 		search_filters = {
 			FOCUS_FILTER_ALLIANCE
@@ -41367,13 +42047,13 @@ focus_tree = {
 					546 = {
 						set_state_owner_to = GER
 					}
-					1055 = {
-						set_state_owner_to = GER
-					}
 					541 = {
 						set_state_owner_to = GER
 					}
 					737 = {
+						set_state_owner_to = GER
+					}
+					726 = {
 						set_state_owner_to = GER
 					}
 					every_country = {
