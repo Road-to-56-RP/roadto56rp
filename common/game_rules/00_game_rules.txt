@@ -70,16 +70,16 @@ DEN_focus_tree_selection = {
 	name = "DEN_FOCUS_TREE_SELECTION"
 	required_dlc = "Arms Against Tyranny"
 	group = "RULE_GROUP_CHOOSE_FOCUS_TREE"
-	default = {
-		name = R56_TREE
-		text = "RULE_OPTION_R56_TREE_R56RP_MPA"
-		desc = "RULE_OPTION_R56_TREE_DESC"
-	}
 	option = {
 		name = STANDARD_TREE
 		text = "RULE_OPTION_STANDARD_TREE_R56RP_MPB"
 		desc = "RULE_OPTION_STANDARD_TREE_DESC"
 		allow_achievements = yes
+	}
+	default = {
+		name = R56_TREE
+		text = "RULE_OPTION_R56_TREE_R56RP_MPA"
+		desc = "RULE_OPTION_R56_TREE_DESC"
 	}
 }
 
@@ -607,11 +607,89 @@ AST_ai_behavior = {
 	}
 }
 
-#-> AUS: Austria <><>
-AUS_ai_behavior = {
+AUS_AI_BEHAVIOR = {
 	name = "AUS_AI_BEHAVIOR"
 	group = "RULE_GROUP_AI_BEHAVIOR"
- 	option = {
+	required_dlc = "Gotterdammerung"
+	default = {
+		name = DEFAULT
+		text = "RULE_OPTION_DEFAULT"
+		desc = "RULE_OPTION_DEFAULT_AI_DESC"
+	}
+	option = {
+		name = HISTORICAL
+		text = "RULE_OPTION_HISTORICAL"
+		desc = "RULE_OPTION_HISTORICAL_AUS_AI_DESC"
+		allow_achievements = yes
+	}
+	option = {
+		name = AUS_MONARCHIST_PUPPET
+		text = "RULE_OPTION_MONARCHIST_PUPPET_AUS_AI"
+		desc = "RULE_OPTION_MONARCHIST_PUPPET_AUS_AI_DESC"
+		allow_achievements = no
+	}
+	option = {
+		name = AUS_MONARCHIST_ANNEX
+		text = "RULE_OPTION_MONARCHIST_ANNEX_AUS_AI"
+		desc = "RULE_OPTION_MONARCHIST_ANNEX_AUS_AI_DESC"
+		allow_achievements = no
+	}
+	option = {
+		name = AUS_NEUTRALITY_FEDERATIVE
+		text = "RULE_OPTION_AUS_NEUTRALITY_FEDERATIVE_AI"
+		desc = "RULE_OPTION_AUS_NEUTRALITY_FEDERATIVE_AI_DESC"
+		allow_achievements = no
+	}
+	option = {
+		name = AUS_COMMUNIST_SOV_ALIGNED
+		text = "RULE_OPTION_AUS_COMMUNIST_SOV_ALIGNED_AI"
+		desc = "RULE_OPTION_AUS_COMMUNIST_SOV_ALIGNED_AI_DESC"
+		allow_achievements = no
+	}
+	option = {
+		name = AUS_COMMUNIST
+		text = "RULE_OPTION_AUS_COMMUNIST_AI"
+		desc = "RULE_OPTION_AUS_COMMUNIST_AI_DESC"
+		allow_achievements = no
+	}
+	option = {
+		name = AUS_DEMOCRATIC_FEDERATIVE
+		text = "RULE_OPTION_AUS_DEMOCRATIC_FEDERATIVE_AI"
+		desc = "RULE_OPTION_AUS_DEMOCRATIC_FEDERATIVE_AI_DESC"
+		allow_achievements = no
+	}
+	option = {
+		name = AUS_DEMOCRATIC_ALLIES
+		text = "RULE_OPTION_AUS_DEMOCRATIC_ALLIES_AI"
+		desc = "RULE_OPTION_AUS_DEMOCRATIC_ALLIES_AI_DESC"
+		allow_achievements = no
+	}
+	option = {
+		name = AUS_DEMOCRATIC_ALPINE_FEDERATION
+		text = "RULE_OPTION_AUS_DEMOCRATIC_ALPINE_FEDERATION_AI"
+		desc = "RULE_OPTION_AUS_DEMOCRATIC_ALPINE_FEDERATION_AI_DESC"
+		allow_achievements = no
+	}
+
+	option = {
+		name = AUS_ANTI_ANSCLUSS_STRESS
+		text = "RULE_OPTION_AUS_ANTI_ANSCLUSS_STRESS_AI"
+		desc = "RULE_OPTION_AUS_ANTI_ANSCLUSS_STRESS_AI_DESC"
+		allow_achievements = no
+	}
+	option = {
+		name = RANDOM
+		text = "RULE_OPTION_RANDOM" 
+		desc = "RULE_OPTION_RANDOM_AI_DESC"
+		allow_achievements = no
+	}
+}
+
+#-> AUS: Austria <><>
+AUS_ai_behavior_r56 = {
+	name = "AUS_AI_BEHAVIOR_R56"
+	group = "RULE_GROUP_AI_BEHAVIOR"
+	default = {
 		name = DEFAULT
 		text = "RULE_OPTION_DEFAULT"
 		desc = "RULE_OPTION_DEFAULT_AI_DESC"
@@ -1379,15 +1457,15 @@ GER_ai_behavior = {
 		#allow_achievements = yes
 	}
 	option = {
-		name = FASCIST_AGGRESSIVE 
+		name = FASCIST 
 		text = "RULE_OPTION_FASCIST_AGGRESSIVE_GER"
 		desc = "RULE_OPTION_FASCIST_AGGRESSIVE_GER_AI_DESC"
 		allow_achievements = yes
 	}
 	option = {
-		name = FASCIST_PASSIVE
-		text = "RULE_OPTION_FASCIST_PASSIVE_GER"
-		desc = "RULE_OPTION_FASCIST_PASSIVE_GER_AI_DESC"
+		name = GER_ALT_FASCIST	#previously there was a passive option here instead of fascist hitler overthrow, that passive option could be restored later
+		text = "RULE_OPTION_GER_ALT_FASCIST"
+		desc = "RULE_OPTION_GER_ALT_FASCIST_AI_DESC"
 		#allow_achievements = yes
 	}
 	option = {
@@ -4611,7 +4689,8 @@ ideology_join_faction = {
 		desc = "RULE_IDEOLOGY_JOIN_FACTION_EVENTS_ONLY_DESC"
 	}	
 }
-# Strangely doesn't work.
+# r56rp
+# silence road scum, works perfectly well.
 starting_factions = {
 	name = "RULE_STARTING_FACTIONS"
 	group = "RULE_GROUP_GENERAL_FOREIGN_POLICY"
@@ -4775,25 +4854,6 @@ obsolete_focus_branches_visibility = {
 		name = SHOW
 		text = "RULE_OPTION_SHOW"
 		desc = "RULE_OPTION_SHOW_DESC_DESC"
-		allow_achievements = yes
-	}
-}
-
-
-renaming_of_states_setting = {
-	name = "RULE_STATES_RENAMING"
-	group = "RULE_GROUP_GENERAL_UI"
-	icon = "GFX_boosting_party_popularity"
-	default = {
-		name = ALLOW_RENAMING
-		text = "RULE_OPTION_ALLOW_RENAMING"
-		desc = "RULE_OPTION_ALLOW_RENAMING_DESC"
-		allow_achievements = yes
-	}
-	option = {
-		name = PHOHIBIT_RENAMING
-		text = "RULE_OPTION_PHOHIBIT_RENAMING"
-		desc = "RULE_OPTION_PHOHIBIT_RENAMING_DESC"
 		allow_achievements = yes
 	}
 }

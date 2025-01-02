@@ -1964,6 +1964,58 @@ on_actions = {
 	#ROOT is winner #FROM gets annexed - This will also fire on_annex
 	on_civil_war_end = {
 		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						original_tag = AFG
+						has_government = communism
+					}
+				}
+				country_event = { id = afghanistan.28 days = 7 random_days = 7 }
+			}
+			if = {
+				limit = {
+					ROOT = {
+						original_tag = AFG
+						has_government = communism
+					}
+				}
+				random_list = { # Royal Family Exiled
+					75 = {
+						if = {
+							limit = {
+								ITA = {
+									NOT = {
+										has_war_with = AFG
+										has_government = communism
+										has_government = democratic
+									}
+								}
+							}
+							ITA = {
+								country_event = { id = afghanistan.29 days = 7 random_days = 7 }
+							}
+							else_if = {
+								limit = {
+									ENG = {
+										NOT = {
+											has_war_with = AFG
+										}
+									}
+								}
+								ENG = {
+									country_event = { id = afghanistan.29 days = 7 random_days = 7 }
+								}
+							}
+						}
+					}
+					25 = { # Royal Family Captured
+						AFG = {
+							country_event = { id = afghanistan.28 days = 2 random_days = 2 }
+						}
+					}
+				}
+			}
 			if = {# The Norwegian Monarchist Civil War has ended. Norway gets to choose how to deal with the opposition leaders
 				limit = {
 					ROOT = {
@@ -2024,6 +2076,45 @@ on_actions = {
 						unlock_national_focus = AFG_power_to_the_king
 						change_tag_from = FROM
 					}
+				}
+			}
+			#Afghanistan Civil War Loss - skill issue you are monarchist now
+			if = {
+				limit = {
+					ROOT = {
+						original_tag = MEN
+						has_government = fascism
+						NOT = {
+							has_country_leader = {
+								character = MEN_prince_demchugdongrub
+								ruling_only = yes
+							}
+						}
+					}
+				}
+				ROOT = {
+					JAP = {
+						set_autonomy = {
+							target = ROOT
+							autonomy_state = autonomy_wtt_imperial_protectorate
+							end_wars = no
+							end_civil_wars = no
+						}
+					}
+					load_focus_tree = { tree = mengkukuo_focus keep_completed = yes }
+					mark_focus_tree_layout_dirty = yes
+					uncomplete_national_focus = {
+						focus = MEN_petition_nima-odsor_to_stay_in_shangbei
+						uncomplete_children = yes
+						refund_political_power = no
+					}
+					uncomplete_national_focus = {
+						focus = MEN_radicalize_the_peasants
+						uncomplete_children = yes
+						refund_political_power = no
+					}
+					unlock_national_focus = MEN_strengthen_ties_with_japan
+					change_tag_from = FROM
 				}
 			}
 			if = {
@@ -2478,17 +2569,11 @@ on_actions = {
 					}
 					FROM = {
 						has_idea = r56_YUG_little_entente
-						OR = {
-							original_tag = CZE
-							original_tag = ROM
-							original_tag = YUG
-						}
 					}
 				}
 				ROOT = {
 					custom_effect_tooltip = r56_HUN_if_we_go_to_war
 					save_event_target_as = little_entente_attacker
-					
 				}
 				log = "ROOT [ROOT.GetNameDef]"
 				log = "FROM [FROM.GetNameDef]"
@@ -2499,18 +2584,9 @@ on_actions = {
 						}
 						create_faction = "Little Entente"
 					}
-					
 					every_other_country = {
 						limit = {
 							has_idea = r56_YUG_little_entente
-							OR = {
-								original_tag = CZE
-								original_tag = ROM
-								original_tag = YUG
-							}
-							NOT = {
-								has_war_with = PREV
-							}
 						}
 						country_event = { id = yugoslavia.25 hours = 12 }
 					}
@@ -2522,13 +2598,7 @@ on_actions = {
 						tag = BUL
 					}
 					FROM = {
-						has_idea = r56_ROM_balkan_pact
-						OR = {
-							original_tag = GRE
-							original_tag = ROM
-							original_tag = TUR
-							original_tag = YUG
-						}
+						has_idea = r56_YUG_balkan_pact
 					}
 				}
 				ROOT = {
@@ -2543,16 +2613,7 @@ on_actions = {
 					}
 					every_other_country = {
 						limit = {
-							has_idea = r56_ROM_balkan_pact
-							OR = {
-								original_tag = GRE
-								original_tag = ROM
-								original_tag = TUR
-								original_tag = YUG
-							}
-							NOT = {
-								has_war_with = PREV
-							}
+							has_idea = r56_YUG_balkan_pact
 						}
 						country_event = { id = yugoslavia.27 hours = 12 }
 					}
@@ -3098,6 +3159,37 @@ on_actions = {
 					}
 				}
 			}
+			#Operation Chahar
+			if = {
+				limit = {
+					#is_historical_focus_on = yes
+					OR = {
+						AND = { tag = MEN FROM = { tag = SHX } }
+						AND = { tag = SHX FROM = { tag = MEN } }
+					}
+					MEN = {
+						is_neighbor_of = SHX
+						is_subject_of = JAP
+						has_completed_focus = MEN_prepare_the_western_front
+					}
+					SHX = {
+						exists = yes
+					}
+				}
+				hidden_effect = {
+					MEN = { add_timed_idea = { idea = MEN_operation_chahar days = 70 } }
+					if = {
+						limit = {
+							MAN = {
+								is_ally_with = MEN
+								is_neighbor_of = MEN
+								is_subject_of = JAP
+							}
+						}
+						MAN = { add_timed_idea = { idea = MEN_operation_chahar days = 70 } }
+					}
+				}
+			}
 			#Timed ww2 ideas used on AI vs AI wars to try to keep Historical AI moving along
 			if = {
 				limit = {
@@ -3336,7 +3428,6 @@ on_actions = {
 				}
 			}
 
-
 			#remove chi ger opinion
 			if = {
 				limit = {
@@ -3505,6 +3596,178 @@ on_actions = {
 			#		remove_ideas = generic_can_only_join_factions_same_ideology
 			#	}
 			#}
+			if = {	# Mengkukuo or Mongolia change ideology - lose opinion debuff
+				limit = {
+					OR = {
+						AND = {
+							original_tag = MEN
+							OR = {
+								has_government = communism
+								has_government = democratic
+							}
+							MON = {
+								OR = {
+									has_government = communism
+									has_government = democratic
+								}
+							}
+						}
+						AND = {
+							original_tag = MON
+							OR = {
+								has_government = neutrality
+								has_government = fascism
+							}
+							MEN = {
+								OR = {
+									has_government = neutrality
+									has_government = fascism
+								}
+							}
+						}
+					}
+				}
+				MEN = {
+					remove_opinion_modifier = {
+						target = MON
+						modifier = political_rivalry
+					}
+				}
+				MON = {
+					remove_opinion_modifier = {
+						target = MEN
+						modifier = political_rivalry
+					}
+				}
+			}
+			if = {	# Turkey or Afghanistan change ideology - cancel defense agreement
+				limit = {
+					AFG = {
+						has_guaranteed = TUR
+					}
+					TUR = {
+						has_guaranteed = AFG
+					}
+					OR = {
+						AND = {
+							original_tag = AFG
+							has_government = communism
+							TUR = {
+								NOT = {
+									has_government = communism
+								}
+							}
+						}
+						AND = {
+							original_tag = TUR
+							has_government = communism
+							AFG = {
+								NOT = {
+									has_government = communism
+								}
+							}
+						}
+						AND = {
+							original_tag = AFG
+							has_government = fascism
+							TUR = {
+								NOT = {
+									has_government = fascism
+								}
+							}
+						}
+						AND = {
+							original_tag = TUR
+							has_government = fascism
+							AFG = {
+								NOT = {
+									has_government = fascism
+								}
+							}
+						}
+					}
+				}
+				AFG = {
+					diplomatic_relation = {
+						country = TUR
+						relation = non_aggression_pact
+						active = no
+					}
+					diplomatic_relation = {
+						country = TUR
+						relation = guarantee
+						active = no
+					}
+					add_ai_strategy = {
+						type = befriend
+						id = TUR
+						value = -45
+					}
+					add_ai_strategy = {
+						type = support
+						id = TUR
+						value = -35
+					}
+					add_ai_strategy = {
+						type = diplo_action_acceptance
+						id = TUR
+						value = -20
+					}
+					add_ai_strategy = {
+						type = alliance
+						id = TUR
+						value = -15
+					}
+				}
+				TUR = {
+					diplomatic_relation = {
+						country = AFG
+						relation = guarantee
+						active = no
+					}
+					add_ai_strategy = {
+						type = befriend
+						id = AFG
+						value = -45
+					}
+					add_ai_strategy = {
+						type = support
+						id = AFG
+						value = -35
+					}
+					add_ai_strategy = {
+						type = diplo_action_acceptance
+						id = AFG
+						value = -20
+					}
+					add_ai_strategy = {
+						type = alliance
+						id = AFG
+						value = -15
+					}
+				}
+			}
+			if = {
+				limit = {
+					original_tag = AFG
+					has_government = democratic
+					NOT = {
+						has_completed_focus = AFG_form_watan_party
+					}
+					has_country_leader = {
+						character = AFG_ghulam_muhammad_ghubar
+						ruling_only = yes
+					}
+				}
+				remove_trait = {
+					character = AFG_ghulam_muhammad_ghubar
+					trait = AFG_exiled
+				}
+				set_portraits = {
+					character = AFG_ghulam_muhammad_ghubar
+					civilian = { small = "GFX_idea_AFG_advisor_muhammad_ghulam_ghobar" }
+				}
+			}
 			if = {	# communists first congress
 				limit = {
 					original_tag = BUL
@@ -3514,7 +3777,6 @@ on_actions = {
 					id = axis_minors_bulgaria.57 days = 14 random_days = 7			#will take some time to organize
 				}
 			}
-
 			if = {	# communist takeover queen reacts
 				limit = {
 					original_tag = HOL
@@ -3667,6 +3929,20 @@ on_actions = {
 					}
 					country_event = {
 						id = r56_on_action_event.1
+						hours = 12
+					}
+				}
+			}
+			if = {
+				limit = {
+					tag = USA
+				}
+				every_other_country = {
+					limit = {
+						has_country_leader_with_trait = likes_usa
+					}
+					country_event = {
+						id = r56_on_action_event.2
 						hours = 12
 					}
 				}
@@ -3944,12 +4220,12 @@ on_actions = {
 
 ###---> On New Term Election <><> <><> <><>
 	on_new_term_election = {
-		random_events = {		#costa rica elections of 1936
-			100 = costa_rica.1
-		}
-		random_events = {
-			100 = panama.1		#panama elections of 1936
-		}
+		# random_events = {		# Costa Rica elections of 1936 - in COS history file
+		# 	100 = costa_rica.1
+		# }
+		# random_events = {
+		# 	100 = panama.1		# Panama elections of 1936 - in PAN history file
+		# }
 		effect = {
 			if = {
 				limit = {
@@ -6451,7 +6727,7 @@ on_actions = {
 					}
 					NOT = {
 						has_country_leader = {
-							character = RAJ_v._d._savarkar
+							character = RAJ_v_d_savarkar
 							ruling_only = no
 						}
 					}
@@ -9423,6 +9699,70 @@ on_actions = {
 ###---> On Startup <><> <><> <><>
 	on_startup = {
 		effect = {
+			### Balkan Pact ###
+			every_country = {
+				limit = {
+					has_idea = r56_YUG_balkan_pact
+				}
+				add_opinion_modifier = {
+					target = BUL
+					modifier = BFTB_balkan_pact_enemy
+				}
+				every_other_country = {
+					limit = {
+						has_idea = r56_YUG_balkan_pact
+					}
+					add_opinion_modifier = {
+						target = PREV
+						modifier = BFTB_balkan_pact_ally
+					}
+					if = {
+						limit = {
+							NOT = {
+								has_non_aggression_pact_with = PREV
+							}
+						}
+						diplomatic_relation = {
+							country = PREV
+							relation = non_aggression_pact
+							active = yes
+						}
+					}
+				}
+			}
+
+			### Little Entente ###
+			every_country = {
+				limit = {
+					has_idea = r56_YUG_little_entente
+				}
+				add_opinion_modifier = {
+					target = HUN
+					modifier = YUG_little_entente_enemy
+				}
+				every_other_country = {
+					limit = {
+						has_idea = r56_YUG_little_entente
+					}
+					add_opinion_modifier = {
+						target = PREV
+						modifier = YUG_little_entente_ally
+					}
+					if = {
+						limit = {
+							NOT = {
+								has_non_aggression_pact_with = PREV
+							}
+						}
+						diplomatic_relation = {
+							country = PREV
+							relation = non_aggression_pact
+							active = yes
+						}
+					}
+				}
+			}
+
 			#Initializing array featuring ALL STATES to use for showcasing formable nations states + trying to improve user-friendly showcase - Fantom
 			every_state = {
 				add_to_array = { global.r56_formables_states_array = THIS.id }
@@ -10287,11 +10627,6 @@ on_actions = {
 						producer = ITA
 					}
 					add_equipment_to_stockpile = {
-						type = light_tank_equipment_1
-						amount = 9
-						producer = USA
-					}
-					add_equipment_to_stockpile = {
 						type = gw_tank_equipment
 						amount = 10
 						producer = FRA
@@ -10397,6 +10732,13 @@ on_actions = {
 						producer = ENG
 					}
 				}
+				PER = {
+					add_equipment_to_stockpile = {
+						type = gw_tank_equipment
+						amount = 84
+						producer = FRA
+					}
+				}
 				PHI = {
 					add_equipment_to_stockpile = {
 						type = gw_tank_equipment
@@ -10429,11 +10771,6 @@ on_actions = {
 						amount = 5
 						producer = ITA
 						variant_name = "L3/35"
-					}
-					add_equipment_to_stockpile = {
-						type = light_tank_chassis_1
-						amount = 9
-						producer = AFG
 					}
 					add_equipment_to_stockpile = {
 						type = light_tank_chassis_0
@@ -10537,6 +10874,13 @@ on_actions = {
 						producer = USA
 					}
 				}
+				PER = {
+					add_equipment_to_stockpile = {
+						type = light_tank_chassis_0
+						amount = 84
+						producer = FRA
+					}
+				}
 				POL = {
 					add_equipment_to_stockpile = {
 						type = light_tank_chassis_0
@@ -10629,12 +10973,12 @@ on_actions = {
 							AND = {
 								is_historical_focus_on = no
 								has_game_rule = {
-									rule = AUS_ai_behavior
+									rule = AUS_ai_behavior_r56
 									option = DEFAULT
 								}
 							}
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = RANDOM
 							}
 						}
@@ -10678,13 +11022,13 @@ on_actions = {
 							AND = {
 								is_historical_focus_on = yes
 								has_game_rule = {
-									rule = AUS_ai_behavior
+									rule = AUS_ai_behavior_r56
 									option = DEFAULT
 								}
 							}
 							has_country_flag = AUS_AI_RANDOM_AUSTROFASCIST
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_AUSTROFASCIST
 							}
 						}
@@ -10696,17 +11040,17 @@ on_actions = {
 						OR = {
 							has_country_flag = AUS_AI_RANDOM_HEIMWEHR
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_HEIMWEHR
 							}
 							has_country_flag = AUS_AI_RANDOM_EMPIRE
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_DESTROY_COMPROMISE
 							}
 							has_country_flag = AUS_AI_RANDOM_AUSHUN
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_AUSTRIA_HUNGARY
 							}
 						}
@@ -10718,12 +11062,12 @@ on_actions = {
 						OR = {
 							has_country_flag = AUS_AI_RANDOM_INQUART
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_INQUART_NAZI
 							}
 							has_country_flag = AUS_AI_RANDOM_LEOPOLD
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_LEOPOLD_NAZI
 							}
 						}
@@ -10735,27 +11079,27 @@ on_actions = {
 						OR = {
 							has_country_flag = AUS_AI_RANDOM_MODERATE_RESTORATION
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_MODERATE_HABSBURG
 							}
 							has_country_flag = AUS_AI_RANDOM_SCHUSCHNIGG_REFORM
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_SCHUSCHNIGG_REFORM
 							}
 							has_country_flag = AUS_AI_RANDOM_FIGL
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_FIGL
 							}
 							has_country_flag = AUS_AI_RANDOM_RENNER
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_RENNER
 							}
 							has_country_flag = AUS_AI_RANDOM_BAUER
 							has_game_rule = {
-								rule = AUS_ai_behavior
+								rule = AUS_ai_behavior_r56
 								option = AUS_BAUER
 							}
 						}
@@ -10888,15 +11232,48 @@ on_actions = {
 			RAJ = {
 				if = {
 					limit = {
-						has_game_rule = {
-							rule = RAJ_ai_behavior
-							option = RANDOM
+						OR = {
+							AND = {
+								is_historical_focus_on = no
+								has_game_rule = {
+									rule = RAJ_ai_behavior
+									option = DEFAULT
+								}
+							}
+							has_game_rule = {
+								rule = RAJ_ai_behavior
+								option = RANDOM
+							}
+						}
+						AFG = { # Making India independent if Afghanistan is a player
+							is_ai = yes
 						}
 					}
 					random_list = {
-						50 = { set_country_flag = PROVINCIAL_ELECTIONS }	#Party Affiliation is already Random
+						50 = { set_country_flag = PROVINCIAL_ELECTIONS }	# Party Affiliation is already Random
 						35 = { set_country_flag = LORD_LINLITHGOW }
 						15 = { set_country_flag = FREE_INDIA }
+					}
+				}
+				else_if = {
+					limit = {
+						OR = {
+							AND = {
+								is_historical_focus_on = no
+								has_game_rule = {
+									rule = RAJ_ai_behavior
+									option = DEFAULT
+								}
+							}
+							has_game_rule = {
+								rule = RAJ_ai_behavior
+								option = RANDOM
+							}
+						}
+					}
+					random_list = {
+						75 = { set_country_flag = PROVINCIAL_ELECTIONS }	# Party Affiliation is already Random
+						25 = { set_country_flag = FREE_INDIA }
 					}
 				}
 			}
@@ -15800,8 +16177,8 @@ on_actions = {
 				259 = { add_core_of = POL }
 				POL = { transfer_state = 259 }
 
-#				188 = { add_core_of = POL } #Memel. A remnant from the other start date.
-#				POL = { transfer_state = 188 }
+				#188 = { add_core_of = POL } #Memel. A remnant from the other start date.
+				#POL = { transfer_state = 188 }
 			}
 
 			if = {
