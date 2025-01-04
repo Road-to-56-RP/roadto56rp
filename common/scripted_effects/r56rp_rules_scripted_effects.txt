@@ -1,0 +1,114 @@
+r56rp_rules_count_faction_points_se = {
+	every_country = {
+		# ensure no leftovers during regen.
+		clear_array = r56rp_rules_fp_alliance_array
+		set_variable = { r56rp_rules_fp_faction_summed = 0 }
+	}
+	every_country = {
+		# target the effect from the point of any faction leader
+		limit = {
+			is_faction_leader = yes
+		}
+		IF = {
+			limit = {
+				NOT = {
+					is_in_array = {
+						array = THIS.r56rp_rules_fp_alliance_array
+						value = THIS.id
+					}
+				}
+			}
+			# add the leader to the counted array and add the leader's points to the faction max
+			add_to_array = {
+				array = THIS.r56rp_rules_fp_alliance_array
+				value = THIS.id
+			}
+			add_to_variable = { r56rp_rules_fp_faction_summed = r56rp_rules_fp_controlled }
+		}
+		
+		every_other_country = {
+			# add allies and subjects to the array
+			# add their points to the faction leader's array
+			limit = {
+				is_ally_with = PREV
+				NOT = {
+					is_in_array = {
+						array = PREV.r56rp_rules_fp_alliance_array
+						value = THIS.id
+					}
+				}
+			}
+			add_to_array = {
+				array = PREV.r56rp_rules_fp_alliance_array
+				value = THIS.id
+			}
+			IF = {
+				limit = {
+					# puppet player counts for half points, rounded up
+					is_ai = no
+					is_subject = yes # is_puppet is wonkier, it relies on a flag is_puppet = yes to be set
+				}
+				set_temp_variable = { r56rp_temp_1 = r56rp_rules_fp_controlled }
+				divide_temp_variable = { r56rp_temp_1 = 2 }
+				round_temp_variable = r56rp_temp_1
+				add_to_variable = { PREV.r56rp_rules_fp_faction_summed = r56rp_temp_1 }
+			}
+			ELSE_IF = {
+				# indep player is full points.
+				limit = {
+					is_ai = no
+					is_subject = no # is_puppet is wonkier, it relies on a flag is_puppet = yes to be set
+				}
+				add_to_variable = { PREV.r56rp_rules_fp_faction_summed = r56rp_rules_fp_controlled }
+			}
+			ELSE_IF = {
+				# ai is not counted for points.
+				# yes, leave this empty otherwise wonky shit happens.
+				limit = {
+					is_ai = yes
+				}
+			}
+		}
+		# calculate free faction points.
+		# shows leftover points and is used for the diplomacy action override.
+		set_variable = { r56rp_rules_fp_faction_free = global.r56rp_rules_fp_maxallowed }
+		subtract_from_variable = { r56rp_rules_fp_faction_free = r56rp_rules_fp_faction_summed }
+
+		every_other_country = {
+			limit = {
+				is_ally_with = PREV
+			}
+			# copy points summed on the faction leader into faction memebers.
+			set_variable = { r56rp_rules_fp_faction_summed = PREV.r56rp_rules_fp_faction_summed }
+			set_variable = { r56rp_rules_fp_faction_free = PREV.r56rp_rules_fp_faction_free }
+			# make sure joining nations dont just keep an array for no reason.
+			# mostly just to not have redundant code when these nations are not faction master.
+			clear_array = r56rp_rules_fp_alliance_array
+		}
+	}
+}
+
+r56rp_rules_formable_to_4_points_se = {
+	IF = {
+		limit = {
+			check_variable = {
+				r56rp_rules_fp_controlled < 4
+			}
+			has_game_rule = { 
+				rule = r56rp_choose_cp_type 
+				option = STATIC_TABLE 
+			}
+		}
+		custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+		set_variable = { r56rp_rules_fp_controlled = 4 }
+		set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+		set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+		IF = {
+			limit = {
+				is_in_faction = yes
+			}
+			# now im wondering if this recursivity will work, lmao.
+			r56rp_rules_count_faction_points_se = yes
+		}
+	}
+}

@@ -1,0 +1,719 @@
+# base treshold for embargo has to be set to 0 in the goddamned fucking defines first
+# then can you add a separate condition
+DIPLOMACY_EMBARGO_ENABLE_TRIGGER = {
+	threat > 0.25
+}
+
+DIPLOMACY_CREATE_FACTION_ENABLE_TRIGGER = {
+	IF = {
+		limit = {
+			OR = {
+				ROOT = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+				FROM = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = r566rp_cannot_declare_on_disabled_continent
+			always = no
+		}
+	}
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
+			}
+		}
+		IF = { # AI can invite ai
+			limit = {
+				is_ai = yes
+			}
+			ROOT = { #sender
+				OR = {
+					has_war = no
+					has_war_together_with = FROM
+				}
+			}
+			FROM = { #recipient
+				is_ai = yes
+				OR = {
+					has_war = no
+					has_war_together_with = ROOT
+				}
+			}
+		}
+		ELSE_IF = { # Players can invite players
+			limit = {
+				is_ai = no
+			}
+			ROOT = { #sender
+				OR = {
+					has_war = no
+					has_war_together_with = FROM
+				}
+			}
+			FROM = { #recipient
+				OR = {
+					is_subject_of = ROOT
+					AND = {
+						is_ai = no
+						OR = {
+							has_war = no
+							has_war_together_with = ROOT
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+DIPLOMACY_JOIN_FACTION_ENABLE_TRIGGER = {
+	IF = {
+		limit = {
+			OR = {
+				ROOT = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+				FROM = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = r566rp_cannot_declare_on_disabled_continent
+			always = no
+		}
+	}
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
+			}
+		}
+		# cannot join if alliance is over points
+		IF = {
+			limit = {
+				check_variable = {
+					ROOT.r56rp_rules_fp_controlled > FROM.r56rp_rules_fp_faction_free
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56rp_rules_alliance_over_points_tt
+				check_variable = {
+					var = ROOT.r56rp_rules_fp_controlled
+					value = FROM.r56rp_rules_fp_faction_free
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		
+		# 2 majors per faction
+		IF = {
+			limit = {
+				ROOT = {
+					OR = {
+						original_tag = SOV
+						original_tag = GER
+						original_tag = FRA
+						original_tag = ENG
+						original_tag = ITA
+						original_tag = JAP
+						original_tag = CHI
+						original_tag = USA
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56rp_rules_2_majors_per_alliance_tt
+				NOT = {
+					count_triggers = {
+						amount = 2
+						SOV = {
+							is_ally_with = FROM
+						}
+						GER = {
+							is_ally_with = FROM
+						}
+						FRA = {
+							is_ally_with = FROM
+						}
+						ENG = {
+							is_ally_with = FROM
+						}
+						ITA = {
+							is_ally_with = FROM
+						}
+						JAP = {
+							is_ally_with = FROM
+						}
+						CHI = {
+							is_ally_with = FROM
+						}
+						USA = {
+							is_ally_with = FROM
+						}
+					}
+				}
+			}
+		}
+
+		# "if ai" logic stuff.
+		IF = {
+			limit = {
+				ROOT = { #sender
+					is_ai = no
+				}
+			}
+			FROM = { #recipient
+				OR = {
+					is_ai = no
+					is_subject_of = ROOT
+				}
+			}
+		}
+		ELSE_IF = {
+			AND = { # AI can invite ai
+				ROOT = { #sender
+					is_ai = yes
+				}
+				FROM = { #recipient
+					is_ai = yes
+				}
+			}
+		}
+	}
+}
+
+DIPLOMACY_OFFER_JOIN_FACTION_ENABLE_TRIGGER = {
+	IF = {
+		limit = {
+			OR = {
+				ROOT = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+				FROM = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = r566rp_cannot_declare_on_disabled_continent
+			always = no
+		}
+	}
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
+			}
+		}
+
+		# cannot join if alliance is over points
+		IF = {
+			limit = {
+				check_variable = {
+					ROOT.r56rp_rules_fp_controlled > FROM.r56rp_rules_fp_faction_free
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56rp_rules_alliance_over_points_2_tt
+				check_variable = {
+					var = ROOT.r56rp_rules_fp_controlled
+					value = FROM.r56rp_rules_fp_faction_free
+					compare = greater_than_or_equals
+				}
+			}
+		}
+
+		# 2 majors per faction
+		IF = {
+			limit = {
+				ROOT = {
+					OR = {
+						original_tag = SOV
+						original_tag = GER
+						original_tag = FRA
+						original_tag = ENG
+						original_tag = ITA
+						original_tag = JAP
+						original_tag = CHI
+						original_tag = USA
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56rp_rules_2_majors_per_alliance_tt
+				NOT = {
+					count_triggers = {
+						amount = 2
+						SOV = {
+							is_ally_with = FROM
+						}
+						GER = {
+							is_ally_with = FROM
+						}
+						FRA = {
+							is_ally_with = FROM
+						}
+						ENG = {
+							is_ally_with = FROM
+						}
+						ITA = {
+							is_ally_with = FROM
+						}
+						JAP = {
+							is_ally_with = FROM
+						}
+						CHI = {
+							is_ally_with = FROM
+						}
+						USA = {
+							is_ally_with = FROM
+						}
+					}
+				}
+			}
+		}
+
+		# AI cannot invite players and vice versa.
+		IF = { # AI can invite ai
+			limit = {
+				ROOT = { #sender
+					is_ai = yes
+					OR = {
+						has_war = no
+						has_war_together_with = FROM
+					}
+				}
+			}
+			FROM = { #recipient
+				is_ai = yes
+				OR = {
+					has_war = no
+					has_war_together_with = ROOT
+				}
+			}
+		}
+		ELSE_IF = { # Players can invite players
+			limit = {
+				ROOT = { #sender
+					is_ai = no
+					OR = {
+						has_war = no
+						has_war_together_with = FROM
+					}
+				}
+			}
+			FROM = { #recipient
+				OR = {
+					is_subject_of = ROOT
+					AND = {
+						is_ai = no
+						OR = {
+							has_war = no
+							has_war_together_with = FROM
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#sender ROOT
+#target FROM
+DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
+	IF = {
+		limit = {
+			OR = {
+				ROOT = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+				FROM = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = r566rp_cannot_declare_on_disabled_continent
+			always = no
+		}
+	}
+	IF = { # this doesent have to be under baked in rules, its host tool anyways.
+		limit = {
+			OR = {
+				has_idea = r56rp_ht_no_volunteers_idea
+				FROM = {
+					has_idea = r56rp_ht_no_volunteers_idea
+				}
+			}
+		}
+		NOT = {
+			OR = {
+				ROOT = {
+					has_idea = r56rp_ht_no_volunteers_idea
+				}
+				FROM = {
+					has_idea = r56rp_ht_no_volunteers_idea
+				}
+			}
+		}
+	}
+}
+
+DIPLOMACY_GENERATE_WARGOAL_ENABLE_TRIGGER = {
+	IF = {
+		limit = {
+			OR = {
+				ROOT = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+				FROM = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = r566rp_cannot_declare_on_disabled_continent
+			always = no
+		}
+	}
+}
+
+DIPLOMACY_WAR_ENABLE_TRIGGER = {
+	IF = {
+		limit = {
+			OR = {
+				ROOT = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+				FROM = {
+					OR = {
+						tag = X01
+						tag = X02
+						tag = X03
+						tag = X04
+						tag = X05
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = r566rp_cannot_declare_on_disabled_continent
+			always = no
+		}
+	}
+
+	IF = { # this doesent have to be under baked in rules, its host tool anyways.
+		limit = {
+			OR = {
+				has_idea = r56rp_ht_freeze_nation_idea
+				FROM = {
+					has_idea = r56rp_ht_freeze_nation_idea
+				}
+			}
+		}
+		NOT = {
+			OR = {
+				ROOT = {
+					has_idea = r56rp_ht_freeze_nation_idea
+				}
+				FROM = {
+					has_idea = r56rp_ht_freeze_nation_idea
+				}
+			}
+		}
+	}
+
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
+			}
+		}
+
+		# cannot declare war if over points
+		IF = {
+			limit = {
+				check_variable = {
+					ROOT.r56rp_rules_fp_faction_summed > global.r56rp_rules_fp_maxallowed
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56rp_rules_alliance_over_points_3_tt
+				check_variable = {
+					var = ROOT.r56rp_rules_fp_faction_summed
+					value = global.r56rp_rules_fp_maxallowed
+					compare = less_than_or_equals
+				}
+			}
+		}
+		
+		IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 5
+					compare = greater_than_or_equals
+				}
+			}
+			date > 1939.7.1
+			#FROM = { #depracated for now AKA cant be bothered
+			#	NOT = { has_idea = r56rp_anti_dogpile_rule }
+			#}
+		}
+
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 4
+					compare = equals
+				}
+			}
+
+			IF = {
+				limit = {
+					tag = JAP
+					FROM = {
+						tag = CHI
+					}
+				}
+				OR = {
+					date > 1939.1.1
+					AND = {
+						has_completed_focus = JAP_intervene_in_china
+					}
+				}
+			}
+			ELSE_IF = { #china can declare on 2 warlords.
+				limit = {
+					tag = CHI
+					FROM = {
+						OR = {
+							tag = GXC
+							tag = MEN
+							tag = SHX
+							tag = XSM
+							tag = SIK
+							tag = TNG
+							tag = YUN
+							tag = PRC
+						}
+						is_ai = yes
+					}
+				}
+				OR = {
+					date > 1939.1.1
+					custom_trigger_tooltip = {
+						tooltip = r56rp_scripdip_1
+						NOT = {
+							AND = { #theese flags are applied with an on_action when war is declared.
+								has_country_flag = r56rp_chi_declared_on_warlord_early_1
+								has_country_flag = r56rp_chi_declared_on_warlord_early_2
+							}
+						}
+					}					
+				}
+			}
+			ELSE_IF = { # PRC as a 4 pointer can declare on other warlords
+				limit = {
+					tag = PRC
+					FROM = {
+						OR = {
+							tag = GXC
+							tag = MEN
+							tag = SHX
+							tag = PRC
+							tag = XSM
+							tag = SIK
+							tag = TNG
+							tag = YUN
+						}
+					}
+				}
+
+				OR = {
+					date > 1939.1.1
+					custom_trigger_tooltip = {
+						tooltip = r56rp_scripdip_2
+						FROM = {
+							OR = {
+								tag = GXC
+								tag = MEN
+								tag = SHX
+								tag = PRC
+								tag = XSM
+								tag = SIK
+								tag = TNG
+								tag = YUN
+							}
+						}
+					}
+				}
+			}
+			ELSE = {
+				date > 1939.1.1
+			}
+		}
+
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 3
+					compare = equals
+				}
+			}
+			date > 1938.1.1
+		}
+
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 2
+					compare = equals
+				}
+			}
+			IF = { #this if for "all warlords can declare on other warlords always"
+				limit = {
+					ROOT = {
+						OR = {
+							tag = GXC
+							tag = MEN
+							tag = SHX
+							tag = PRC
+							tag = XSM
+							tag = SIK
+							tag = TNG
+							tag = YUN
+						}
+					}
+				}
+
+				OR = {
+					date > 1937.1.1
+					custom_trigger_tooltip = {
+						tooltip = r56rp_scripdip_2
+						FROM = {
+							OR = {
+								tag = GXC
+								tag = MEN
+								tag = SHX
+								tag = PRC
+								tag = XSM
+								tag = SIK
+								tag = TNG
+								tag = YUN
+							}
+						}
+					}
+				}
+			}
+			ELSE = {
+				date > 1937.1.1
+			}
+		}
+
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 1
+					compare = equals
+				}
+			}
+			date > 1936.1.1
+		}
+
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 0
+					compare = equals
+				}
+			}
+			date > 1936.1.1
+		}
+
+		ELSE = {
+			date > 1937.1.1
+		}
+	}
+}

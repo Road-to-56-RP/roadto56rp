@@ -1,0 +1,307 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
+## Edited by Comrade Warlider
+ideas = {
+
+	r56i_laws_leadership = { 
+	
+		law = yes
+
+		use_list_view = yes
+		
+		#Power and Politics 
+		#r56i_laws_leadership_politics = {
+		#	
+		#	available = {
+		#		NOT = {
+		#			has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+		#		}
+		#	}
+		#
+		#	modifier = {
+		#		political_power_gain = 0.
+		#		stability_factor = -0.02
+		#	}
+		#
+		#	cost = 150
+		#	
+		#	cancel_if_invalid = no
+		#	
+		#	ai_will_do = {
+		#		   factor = 1.5
+
+				# Always good to pic IMO
+				#	modifier = {
+				#		has_government = fascism
+				#		factor = 2
+				#	}
+			   #}
+			
+			#}
+		
+		#Personality Cult
+		r56i_laws_leadership_cult = {
+
+			available = {
+				OR = {
+					is_subject = no
+					OVERLORD = {	
+						has_government = fascism
+					}					
+				}
+				NOT = {
+					hidden_trigger = {
+						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+					}
+				}
+			}
+
+
+			modifier = {
+				democratic_drift = -0.05		#present also in communist countries, surely won't contribute to liberalization of society 
+				justify_war_goal_time = -0.10
+				war_stability_factor = 0.1
+				political_power_cost = 0.05
+			}
+
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+				factor = 0
+
+				modifier = {
+					OR = {
+						AND = {
+							fascism > 0.5
+							date > 1939.01.01
+						}
+						
+						has_idea_with_trait = fascist_demagogue						
+						has_government = fascism
+						AND = {
+							has_idea = nationalism
+							NOT = {
+								is_puppet = yes
+								if = {
+									limit = {
+										is_puppet = yes
+									}
+									ROOT = {
+										OVERLORD = {
+											NOT = {	
+												has_government = fascism
+											}
+										}
+									}									
+								}
+						 	}
+					 	}
+					}
+					add = 3
+				}
+			}
+		}
+		
+		#Secular Institutions
+		r56i_laws_leadership_secular = {
+
+			available = {
+				NOT = {
+					has_government = neutrality
+					is_puppet = yes
+					hidden_trigger = {
+						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+					}
+				}
+			}
+			
+			modifier = {
+				neutrality_drift = -0.05		#to represent an absolute power + theocratic states VS civilian authorities
+				research_speed_factor = 0.05
+				political_power_cost = 0.05
+			}
+
+			cost = 150
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+   				factor = 0
+				   modifier = {
+					OR = {
+						AND = {
+							democratic > 0.5
+							date > 1939.01.01
+						}
+						has_idea_with_trait = democratic_reformer						
+						
+						AND = {
+							has_government = democratic
+							date > 1939.01.01
+						}						
+						AND = {
+							has_idea = GEN_Strenghten_Democracy_I
+							NOT = {
+								is_puppet = yes
+								if = {
+									limit = {
+										is_puppet = yes
+									}
+									ROOT = {
+										OVERLORD = {
+											NOT = {	
+												has_government = democratic
+											}
+										}
+									}									
+								}
+						 	}
+					 	}
+					}
+					add = 5
+				}				
+   			}
+		}
+		
+		#Divine Inspiration
+		r56i_laws_leadership_divine = {
+		
+			available = {
+				NOT = {
+					OR = {
+						has_government = communism
+						is_puppet = yes
+						has_idea = internationalism
+						has_idea = nationalism						
+						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+						has_country_leader = {
+							name = "Anarchist Commune"
+							ruling_only = yes
+						}					
+					}
+				}
+			}
+			
+			modifier = {
+				political_power_cost = 0.05	
+				communism_drift = -0.05			#stalinists and trotskyist and their stance on religion
+				weekly_casualties_war_support = 0.001
+				weekly_convoys_war_support = 0.001
+				weekly_bombing_war_support = 0.001
+			}
+
+			cost = 150
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+				factor = 0
+				modifier = {
+				 OR = {
+					 AND = {
+						 neutrality > 0.5
+						 date > 1939.01.01
+					 }
+
+					 has_idea_with_trait = staunch_monarchist
+					 has_idea_with_trait = staunch_traditionalist	
+					 has_idea_with_trait = staunch_aristocrat					
+					 
+					 AND = {
+						 has_government = neutrality
+						 date > 1939.01.01
+					 }						
+					 AND = {
+						 has_idea = GEN_Strenghten_Monarchy_I
+						 NOT = {
+							 is_puppet = yes
+							 if = {
+								 limit = {
+									 is_puppet = yes
+								 }
+								 ROOT = {
+									 OVERLORD = {
+										 NOT = {	
+											 has_government = neutrality
+										 }
+									 }
+								 }									
+							 }
+						  }
+					  }
+				 }
+				 add = 3
+			 }				
+			}
+		}
+		
+		#Will of the People
+		r56i_laws_leadership_people = {
+
+			available = {
+				NOT = {
+					has_government = fascism
+					is_puppet = yes
+					hidden_trigger = {
+						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+					}
+				}
+			}
+			
+			modifier = {
+				fascism_drift = -0.05				#Sounds very pro-communist, historically some people might've applied to it too though
+				supply_consumption_factor = -0.05
+				weekly_manpower = 250
+				political_power_cost = 0.05
+			}
+
+			cost = 150
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+				factor = 0
+			}
+		}
+
+		#Communal Decision Making
+		r56i_laws_leadership_communal_decision_making = {
+			picture = SPR_collectivized_society
+			available = {
+				OR = {
+					has_country_leader = {
+						name = "Anarchist Commune"
+						ruling_only = yes
+					}
+					has_idea = SPR_collectivized_society
+				}
+				NOT = {
+					hidden_trigger = {
+						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+					}
+				}
+			}
+			
+			modifier = {
+				democratic_drift = -0.02		#more communes, a bit more communism too on top
+				fascism_drift = -0.02
+				conscription_factor = 0.05
+				research_speed_factor = 0.05
+				political_power_cost = 0.05	
+			}
+
+			cost = 150
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+				factor = 10
+			}
+		}		
+	}
+}
+
+#####---------------------------------------------------------------------> End
