@@ -423,6 +423,7 @@ entity = {
 		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
 		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
 	}
+	
 	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
 		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
 		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
@@ -963,11 +964,6 @@ entity = {
 	}
 }
 
-
-
-
-
-
 entity = {
 	name = "ITA_light_armor_entity"
 	pdxmesh = "ITA_tank_light_mesh"
@@ -1102,8 +1098,6 @@ entity = {
 		texture_anim_speed = 0.5
 	}
 }
-
-
 
 entity = {
 	name = "JAP_light_armor_entity"
@@ -2529,35 +2523,75 @@ entity = {
 }
 
 entity = {
-	clone = "ITA_heavy_armor_entity"
 	name = "western_european_gfx_heavy_armor_1_entity"
+	pdxmesh = "ITA_tank_heavy_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = heavy_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = heavy_armour_fire } } 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = heavy_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = heavy_armour_fire } } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = heavy_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = heavy_armour_fire } } 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+
+	scale = 1
+	
+	game_data = {
+		texture_anim_speed = 0.5
+	}
 }
+
+
 #entity = {
-#	clone = "ITA_heavy_armor_entity"
+#	clone = "western_european_gfx_heavy_armor_1_entity"
 #	name = "western_european_gfx_heavy_armor_2_entity"
 #}
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "southamerican_gfx_heavy_armor_1_entity"
 }
 #entity = {
-#	clone = "ITA_heavy_armor_entity"
+#	clone = "western_european_gfx_heavy_armor_1_entity"
 #	name = "southamerican_gfx_heavy_armor_2_entity"
 #}
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "african_gfx_heavy_armor_1_entity"
 }
 #entity = {
-#	clone = "ITA_heavy_armor_entity"
+#	clone = "western_european_gfx_heavy_armor_1_entity"
 #	name = "african_gfx_heavy_armor_2_entity"
 #}
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "middle_eastern_gfx_heavy_armor_1_entity"
 }
 #entity = {
-#	clone = "ITA_heavy_armor_entity"
+#	clone = "western_european_gfx_heavy_armor_1_entity"
 #	name = "middle_eastern_gfx_heavy_armor_2_entity"
 #}
 #repeat use of general heavy tanks for some countries for specific models otherwise they are crushed by more specific reference even if it's for culture group, pretty stupid if you ask me
@@ -2565,20 +2599,90 @@ entity = {
 #	clone = "USA_heavy_armor_entity"
 #	name = "USA_heavy_armor_2_entity"
 #}
-entity = {
-	clone = "GER_heavy_armor_entity"
-	name = "GER_heavy_armor_entity"
-}
 
 
 ##Luxembourg
 entity = {
-	clone = "FRA_light_armor_entity"
 	name = "LUX_light_armor_entity"
+	pdxmesh = "FRA_tank_light_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } }
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } }
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } }
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } }
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } }
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } }
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 1
+	
+	game_data = {
+		texture_anim_speed = 0.25
+	}
 }
+# literary just french tank straight into luxembourg
 entity = {
-	clone = "FRA_medium_armor_entity"
 	name = "LUX_medium_armor_entity"
+	pdxmesh = "FRA_tank_medium_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 1.1
+	
+	game_data = {
+		texture_anim_speed = 0.5
+	}
 }
 entity = {
 	clone = "FRA_heavy_armor_entity"
@@ -2586,81 +2690,81 @@ entity = {
 }
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_2_entity"
 	version = 2
 }
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_3_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_3_entity"
 	version = 2
 }
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_4_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_4_entity"
 	version = 2
 }
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_5_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LUX_light_armor_5_entity"
 	version = 2
 }
 
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LUX_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LUX_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LUX_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LUX_medium_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "LUX_heavy_armor_1_entity"
 	version = 1
 }
@@ -2707,7 +2811,7 @@ entity = {
 	name = "BEL_light_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "BEL_medium_armor_entity"
 }
 entity = {
@@ -2759,7 +2863,7 @@ entity = {
 	name = "COG_light_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "COG_medium_armor_entity"
 }
 ## Flanders
@@ -2769,7 +2873,7 @@ entity = {
 	name = "FLA_light_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "FLA_medium_armor_entity"
 }
 ## Wallonia
@@ -2779,7 +2883,7 @@ entity = {
 	name = "WLL_light_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "WLL_medium_armor_entity"
 }
 
@@ -3925,51 +4029,85 @@ entity = {
 
 ###GERMAN MINORS - COPY GERMANY
 entity = {
-	clone = "GER_light_armor_entity"
 	name = "BAY_light_armor_entity"
+	pdxmesh = "GER_tank_light_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "rifle_muzzle_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } } 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "rifle_muzzle_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0 node="barrel" particle = "rifle_muzzle_particle"  keep_particle = yes sound = { soundeffect = light_armour_fire } } 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+
+	
+	scale = 0.7
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
 }
+
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "BAY_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "BAY_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "BAY_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "BAY_light_armor_2_entity"
 	version = 2
 }
 
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "PRE_light_armor_entity"
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "PRE_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "PRE_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "PRE_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "PRE_light_armor_2_entity"
 	version = 2
 }
@@ -4001,77 +4139,115 @@ entity = {
 }
 
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "WGR_light_armor_entity"
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "WGR_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "WGR_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "WGR_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "WGR_light_armor_2_entity"
 	version = 2
 }
 
-
 entity = {
-	clone = "GER_medium_armor_entity"
 	name = "BAY_medium_armor_entity"
+	pdxmesh = "GER_tank_medium_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 0.95
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
 }
+
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "BAY_medium_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "BAY_medium_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "BAY_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "BAY_medium_armor_2_entity"
 	version = 2
 }
 
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "PRE_medium_armor_entity"
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "PRE_medium_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "PRE_medium_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "PRE_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "PRE_medium_armor_2_entity"
 	version = 2
 }
@@ -4102,76 +4278,116 @@ entity = {
 	version = 2
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "WGR_medium_armor_entity"
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "WGR_medium_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "WGR_medium_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "WGR_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "WGR_medium_armor_2_entity"
 	version = 2
 }
 
 entity = {
-	clone = "GER_heavy_armor_entity"
 	name = "BAY_heavy_armor_entity"
+	pdxmesh = "GER_tank_heavy_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes} 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes} 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_particle"  keep_particle = yes light = "muzzle_flash" sound = { soundeffect = heavy_armour_fire }} 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_smoke_particle"  keep_particle = yes light = "muzzle_flash" sound = { soundeffect = heavy_armour_fire }} 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_particle"  keep_particle = yes light = "muzzle_flash" sound = { soundeffect = heavy_armour_fire }} 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_smoke_particle"  keep_particle = yes light = "muzzle_flash" sound = { soundeffect = heavy_armour_fire }} 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_particle"  keep_particle = yes light = "muzzle_flash" sound = { soundeffect = heavy_armour_fire }} 
+		event = { time = 0 node="barrel" particle = "heavy_tank_attack_barrel_smoke_particle"  keep_particle = yes light = "muzzle_flash" sound = { soundeffect = heavy_armour_fire }} 
+	}
+	state = { name = "death"			animation = "death" animation_blend_time = 0.3 }
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+	
+	scale = 0.9
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
 }
+
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "BAY_heavy_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "BAY_heavy_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "BAY_heavy_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "BAY_heavy_armor_2_entity"
 	version = 2
 }
 
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "PRE_heavy_armor_entity"
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "PRE_heavy_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "PRE_heavy_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "PRE_heavy_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "PRE_heavy_armor_2_entity"
 	version = 2
 }
@@ -4202,26 +4418,26 @@ entity = {
 	version = 2
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "WGR_heavy_armor_entity"
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "WGR_heavy_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "WGR_heavy_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "WGR_heavy_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "WGR_heavy_armor_2_entity"
 	version = 2
 }
@@ -4273,12 +4489,12 @@ entity = {
 
 
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "BAY_super_heavy_armor_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "PRE_super_heavy_armor_entity"
 	version = 1
 }
@@ -4289,17 +4505,17 @@ entity = {
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "WGR_super_heavy_armor_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "BAY_super_heavy_armor_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "PRE_super_heavy_armor_entity"
 	version = 2
 }
@@ -4309,7 +4525,7 @@ entity = {
 	version = 2
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "WGR_super_heavy_armor_entity"
 	version = 2
 }
@@ -4317,17 +4533,17 @@ entity = {
 ##  French subcountries
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "FRA_light_armor_3_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "FRA_light_armor_4_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "FRA_light_armor_5_entity"
 	version = 2
 }
@@ -4336,31 +4552,31 @@ entity = {
 ## French State AKA Vichy France
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "EFR_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "EFR_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "EFR_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "EFR_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "EFR_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "EFR_medium_armor_entity"
 }
 entity = {
@@ -4368,22 +4584,22 @@ entity = {
 	name = "EFR_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "EFR_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "EFR_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "EFR_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "EFR_medium_armor_2_entity"
 	version = 2
 }
@@ -4431,31 +4647,31 @@ entity = {
 ## Occitania
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "OCC_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "OCC_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "OCC_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "OCC_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "OCC_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "OCC_medium_armor_entity"
 }
 entity = {
@@ -4463,22 +4679,22 @@ entity = {
 	name = "OCC_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "OCC_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "OCC_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "OCC_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "OCC_medium_armor_2_entity"
 	version = 2
 }
@@ -4526,31 +4742,31 @@ entity = {
 ## Brittany
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "BRI_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "BRI_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "BRI_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "BRI_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "BRI_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "BRI_medium_armor_entity"
 }
 entity = {
@@ -4558,22 +4774,22 @@ entity = {
 	name = "BRI_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "BRI_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "BRI_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "BRI_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "BRI_medium_armor_2_entity"
 	version = 2
 }
@@ -4620,31 +4836,31 @@ entity = {
 ## Corsica
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "COR_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "COR_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "COR_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "COR_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "COR_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "COR_medium_armor_entity"
 }
 entity = {
@@ -4652,22 +4868,22 @@ entity = {
 	name = "COR_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "COR_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "COR_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "COR_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "COR_medium_armor_2_entity"
 	version = 2
 }
@@ -4714,31 +4930,31 @@ entity = {
 
 ## indochina
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "FRI_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "FRI_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "FRI_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "FRI_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "FRI_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "FRI_medium_armor_entity"
 }
 entity = {
@@ -4746,22 +4962,22 @@ entity = {
 	name = "FRI_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "FRI_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "FRI_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "FRI_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "FRI_medium_armor_2_entity"
 	version = 2
 }
@@ -4809,31 +5025,31 @@ entity = {
 ## Occitania
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SYR_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SYR_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SYR_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SYR_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SYR_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SYR_medium_armor_entity"
 }
 entity = {
@@ -4841,22 +5057,22 @@ entity = {
 	name = "SYR_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SYR_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SYR_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SYR_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SYR_medium_armor_2_entity"
 	version = 2
 }
@@ -4904,31 +5120,31 @@ entity = {
 ## Occitania
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LEB_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LEB_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LEB_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LEB_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "LEB_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LEB_medium_armor_entity"
 }
 entity = {
@@ -4936,22 +5152,22 @@ entity = {
 	name = "LEB_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LEB_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LEB_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LEB_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "LEB_medium_armor_2_entity"
 	version = 2
 }
@@ -4998,31 +5214,31 @@ entity = {
 
 ## Guyana
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GYA_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GYA_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GYA_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GYA_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GYA_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GYA_medium_armor_entity"
 }
 entity = {
@@ -5030,22 +5246,22 @@ entity = {
 	name = "GYA_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GYA_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GYA_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GYA_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GYA_medium_armor_2_entity"
 	version = 2
 }
@@ -5092,31 +5308,31 @@ entity = {
 ## Cayenne
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAY_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAY_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAY_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAY_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAY_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAY_medium_armor_entity"
 }
 entity = {
@@ -5124,22 +5340,22 @@ entity = {
 	name = "CAY_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAY_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAY_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAY_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAY_medium_armor_2_entity"
 	version = 2
 }
@@ -5185,31 +5401,31 @@ entity = {
 }
 ## Guadeloupe
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GDL_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GDL_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GDL_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GDL_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GDL_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GDL_medium_armor_entity"
 }
 entity = {
@@ -5217,22 +5433,22 @@ entity = {
 	name = "GDL_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GDL_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GDL_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GDL_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GDL_medium_armor_2_entity"
 	version = 2
 }
@@ -5280,31 +5496,31 @@ entity = {
 ## Djibouti
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DJI_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DJI_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DJI_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DJI_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DJI_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DJI_medium_armor_entity"
 }
 entity = {
@@ -5312,22 +5528,22 @@ entity = {
 	name = "DJI_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DJI_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DJI_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DJI_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DJI_medium_armor_2_entity"
 	version = 2
 }
@@ -5375,31 +5591,31 @@ entity = {
 ## French Congo
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "RCG_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "RCG_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "RCG_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "RCG_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "RCG_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "RCG_medium_armor_entity"
 }
 entity = {
@@ -5407,22 +5623,22 @@ entity = {
 	name = "RCG_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "RCG_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "RCG_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "RCG_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "RCG_medium_armor_2_entity"
 	version = 2
 }
@@ -5469,31 +5685,31 @@ entity = {
 ## Central africa
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAR_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAR_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAR_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAR_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CAR_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAR_medium_armor_entity"
 }
 entity = {
@@ -5501,22 +5717,22 @@ entity = {
 	name = "CAR_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAR_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAR_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAR_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CAR_medium_armor_2_entity"
 	version = 2
 }
@@ -5564,31 +5780,31 @@ entity = {
 ## Morocco
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MOR_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MOR_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MOR_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MOR_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MOR_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MOR_medium_armor_entity"
 }
 entity = {
@@ -5596,22 +5812,22 @@ entity = {
 	name = "MOR_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MOR_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MOR_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MOR_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MOR_medium_armor_2_entity"
 	version = 2
 }
@@ -5658,31 +5874,31 @@ entity = {
 ## Algeria
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "ALG_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "ALG_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "ALG_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "ALG_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "ALG_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "ALG_medium_armor_entity"
 }
 entity = {
@@ -5690,22 +5906,22 @@ entity = {
 	name = "ALG_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "ALG_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "ALG_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "ALG_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "ALG_medium_armor_2_entity"
 	version = 2
 }
@@ -5752,31 +5968,31 @@ entity = {
 ## Tunisia
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TUN_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TUN_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TUN_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TUN_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TUN_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TUN_medium_armor_entity"
 }
 entity = {
@@ -5784,22 +6000,22 @@ entity = {
 	name = "TUN_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TUN_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TUN_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TUN_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TUN_medium_armor_2_entity"
 	version = 2
 }
@@ -5847,31 +6063,31 @@ entity = {
 ## Cameroon
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CMR_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CMR_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CMR_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CMR_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "CMR_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CMR_medium_armor_entity"
 }
 entity = {
@@ -5879,22 +6095,22 @@ entity = {
 	name = "CMR_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CMR_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CMR_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CMR_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "CMR_medium_armor_2_entity"
 	version = 2
 }
@@ -5941,31 +6157,31 @@ entity = {
 ## Dahomey
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DAH_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DAH_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DAH_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DAH_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "DAH_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DAH_medium_armor_entity"
 }
 entity = {
@@ -5973,22 +6189,22 @@ entity = {
 	name = "DAH_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DAH_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DAH_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DAH_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "DAH_medium_armor_2_entity"
 	version = 2
 }
@@ -6036,31 +6252,31 @@ entity = {
 ## Guinea
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GNA_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GNA_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GNA_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GNA_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "GNA_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GNA_medium_armor_entity"
 }
 entity = {
@@ -6068,22 +6284,22 @@ entity = {
 	name = "GNA_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GNA_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GNA_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GNA_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "GNA_medium_armor_2_entity"
 	version = 2
 }
@@ -6130,31 +6346,31 @@ entity = {
 ## Mali
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MLI_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MLI_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MLI_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MLI_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MLI_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MLI_medium_armor_entity"
 }
 entity = {
@@ -6162,22 +6378,22 @@ entity = {
 	name = "MLI_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MLI_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MLI_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MLI_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MLI_medium_armor_2_entity"
 	version = 2
 }
@@ -6224,31 +6440,31 @@ entity = {
 ## Mauritania
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MRT_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MRT_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MRT_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MRT_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MRT_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MRT_medium_armor_entity"
 }
 entity = {
@@ -6256,22 +6472,22 @@ entity = {
 	name = "MRT_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MRT_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MRT_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MRT_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MRT_medium_armor_2_entity"
 	version = 2
 }
@@ -6318,31 +6534,31 @@ entity = {
 ## Niger
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MGR_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MGR_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MGR_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MGR_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "MGR_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MGR_medium_armor_entity"
 }
 entity = {
@@ -6350,22 +6566,22 @@ entity = {
 	name = "MGR_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MGR_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MGR_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MGR_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "MGR_medium_armor_2_entity"
 	version = 2
 }
@@ -6412,31 +6628,31 @@ entity = {
 ## Senegal
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SEN_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SEN_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SEN_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SEN_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SEN_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SEN_medium_armor_entity"
 }
 entity = {
@@ -6444,22 +6660,22 @@ entity = {
 	name = "SEN_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SEN_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SEN_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SEN_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "SEN_medium_armor_2_entity"
 	version = 2
 }
@@ -6506,31 +6722,31 @@ entity = {
 ## Togo
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TOG_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TOG_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TOG_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TOG_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "TOG_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TOG_medium_armor_entity"
 }
 entity = {
@@ -6538,22 +6754,22 @@ entity = {
 	name = "TOG_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TOG_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TOG_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TOG_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "TOG_medium_armor_2_entity"
 	version = 2
 }
@@ -6600,31 +6816,31 @@ entity = {
 ## Upper volta
 
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "VOL_light_armor_entity"
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "VOL_light_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "VOL_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "VOL_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "VOL_light_armor_2_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "VOL_medium_armor_entity"
 }
 entity = {
@@ -6632,22 +6848,22 @@ entity = {
 	name = "VOL_heavy_armor_entity"
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "VOL_medium_armor_1_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "VOL_medium_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "VOL_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "FRA_medium_armor_entity"
+	clone = "LUX_medium_armor_entity"
 	name = "VOL_medium_armor_2_entity"
 	version = 2
 }
@@ -8091,111 +8307,195 @@ entity = {
 
 ### subcountries
 
-entity = { 
-	clone = "ITA_light_armor_entity"
+entity = {
 	name = "NAP_light_armor_entity"
+	pdxmesh = "ITA_tank_light_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_light_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="left_barrel" particle = "mg_muzzle_particle"  keep_particle = yes light = "mg_muzzle_flash" sound = { soundeffect = ITA_light_armour_fire } } 
+		event = { time = 0 node="left_barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes light = "mg_muzzle_flash" sound = { soundeffect = ITA_light_armour_fire } } 
+		event = { time = 0.1 node="right_barrel" particle = "mg_muzzle_particle"  keep_particle = yes light = "mg_muzzle_flash" } 
+		event = { time = 0.1 node="right_barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes light = "mg_muzzle_flash" } 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="left_barrel" particle = "mg_muzzle_particle"  keep_particle = yes light = "mg_muzzle_flash" sound = { soundeffect = ITA_light_armour_fire } } 
+		event = { time = 0 node="left_barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes light = "mg_muzzle_flash" sound = { soundeffect = ITA_light_armour_fire } } 
+		event = { time = 0.1 node="right_barrel" particle = "mg_muzzle_particle"  keep_particle = yes light = "mg_muzzle_flash" } 
+		event = { time = 0.1 node="right_barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes light = "mg_muzzle_flash" } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0 node="left_barrel" particle = "mg_muzzle_particle"  keep_particle = yes light = "mg_muzzle_flash" sound = { soundeffect = ITA_light_armour_fire } } 
+		event = { time = 0 node="left_barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes light = "mg_muzzle_flash" sound = { soundeffect = ITA_light_armour_fire } } 
+		event = { time = 0.1 node="right_barrel" particle = "mg_muzzle_particle"  keep_particle = yes light = "mg_muzzle_flash" } 
+		event = { time = 0.1 node="right_barrel" particle = "mg_muzzle_smoke_particle"  keep_particle = yes light = "mg_muzzle_flash" } 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+
+	scale = 0.83
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
 }
+
 entity = { 
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "SIC_light_armor_entity"
 }
 entity = { 
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "SAD_light_armor_entity"
 }
 entity = { 
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "VNZ_light_armor_entity"
 }
+
 entity = {
-	clone = "ITA_medium_armor_entity"
 	name = "NAP_medium_armor_entity"
+	pdxmesh = "ITA_tank_medium_mesh"
+	
+	state = { name = "idle"				animation = "idle"   animation_blend_time = 0.3 }
+	state = { name = "move"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "retreat"				animation = "move"   animation_blend_time = 0.3 
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes } 
+		event = { time = 0 node="left_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { time = 0 node="right_tracks" particle = "tank_moving_tracks_particle"  keep_particle = no trigger_once = yes}
+		event = { trigger_once = yes sound = { soundeffect = "tank_engine_medium_move" } }
+	}
+	state = { name = "attack"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "defend"			animation = "attack" animation_blend_time = 0.3 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "support_attack"	animation = "attack" animation_blend_time = 0.3  
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+		event = { time = 0 node="barrel" particle = "light_tank_attack_barrel_smoke_particle"  keep_particle = yes sound = { soundeffect = medium_armour_fire } } 
+	}
+	state = { name = "training"				animation = "idle" 			animation_blend_time = 0.3 animation_speed = 1.0
+		event = { time = 0 node="right_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+		event = { time = 0 node="left_exhaust" particle = "tank_exhaust_particle"  keep_particle = no trigger_once = yes }
+	}
+
+	scale = 1.25
+
+	game_data = {
+		texture_anim_speed = 0.5
+	}
 }
 entity = {
-	clone = "ITA_medium_armor_entity"
+	clone = "NAP_medium_armor_entity"
 	name = "SIC_medium_armor_entity"
 }
 entity = {
-	clone = "ITA_medium_armor_entity"
+	clone = "NAP_medium_armor_entity"
 	name = "SAD_medium_armor_entity"
 }
 entity = {
-	clone = "ITA_medium_armor_entity"
+	clone = "NAP_medium_armor_entity"
 	name = "VNZ_medium_armor_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "NAP_heavy_armor_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "SIC_heavy_armor_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "SAD_heavy_armor_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "VNZ_heavy_armor_entity"
 }
 ## Ethiopia
 
 entity = { #they had 3 ITA GW tanks + captured stuffs
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "ETH_light_armor_0_entity"
 }
 entity = {
-	clone = "ITA_medium_armor_entity"
+	clone = "NAP_medium_armor_entity"
 	name = "ETH_medium_armor_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "ETH_heavy_armor_entity"
 }
 
 ## Lybia
 
 entity = { 
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "LBA_light_armor_0_entity"
 }
 entity = {
-	clone = "ITA_medium_armor_entity"
+	clone = "NAP_medium_armor_entity"
 	name = "LBA_medium_armor_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "LBA_heavy_armor_entity"
 }
 
 ## Eritrea
 
 entity = { 
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "ERI_light_armor_0_entity"
 }
 entity = {
-	clone = "ITA_medium_armor_entity"
+	clone = "NAP_medium_armor_entity"
 	name = "ERI_medium_armor_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "ERI_heavy_armor_entity"
 }
 
 ## Somalia
 
 entity = { 
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "SOM_light_armor_0_entity"
 }
 entity = {
-	clone = "ITA_medium_armor_entity"
+	clone = "NAP_medium_armor_entity"
 	name = "SOM_medium_armor_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "SOM_heavy_armor_entity"
 }
 
@@ -8208,24 +8508,24 @@ entity = {
 }
 
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "CHI_heavy_armor_1_entity"
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "CHI_heavy_armor_2_entity"
 }
 
 
 #Light tank 1 will use Panzer II because it's close enough to the Panzer I without requiring Dlcs.
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "CHI_light_armor_0_entity"
 	version = 1
 }
 #for dlc owners use Panzer I
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "CHI_light_armor_0_entity"
 	version = 2
 }
@@ -8573,7 +8873,7 @@ entity = {
 ## Iraq
 #Used L3 Italian tankettes
 entity = {
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "IRQ_light_armor_0_entity"
 }
 
@@ -8598,82 +8898,82 @@ entity = {
 
 
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "AUS_light_armor_entity"
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "AUS_light_armor_0_entity"
 	version = 1
 }
 #Used L3 Italian tankettes
 entity = {
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "AUS_light_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "AUS_light_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_light_armor_entity"
+	clone = "BAY_light_armor_entity"
 	name = "AUS_light_armor_2_entity"
 	version = 2
 }
 
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "AUS_medium_armor_entity"
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "AUS_medium_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "AUS_medium_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "AUS_medium_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "AUS_medium_armor_2_entity"
 	version = 2
 }
 
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "AUS_heavy_armor_entity"
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "AUS_heavy_armor_0_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "AUS_heavy_armor_0_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "AUS_heavy_armor_1_entity"
 	version = 2
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "AUS_heavy_armor_2_entity"
 	version = 1
 }
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "AUS_heavy_armor_2_entity"
 	version = 2
 }
@@ -8690,13 +8990,13 @@ entity = {
 }
 
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "AUS_super_heavy_armor_entity"
 	version = 1
 }
 
 entity = {
-	clone = "GER_heavy_armor_entity"
+	clone = "BAY_heavy_armor_entity"
 	name = "AUS_super_heavy_armor_entity"
 	version = 2
 }
@@ -8888,14 +9188,14 @@ entity = {
 	}
 }
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "BUL_heavy_armor_1_entity"
 }
 
 
 #Used L3 Italian tankettes
 entity = {
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "BUL_light_armor_0_entity"
 }
 
@@ -8935,7 +9235,7 @@ entity = { #Bought pz38(t) for testing
 	version = 2
 }
 entity = { #Hotchkiss 35 even if it's the modeld of the Renault R35
-	clone = "FRA_light_armor_entity"
+	clone = "LUX_light_armor_entity"
 	name = "SWI_light_armor_entity"
 }
 
@@ -8943,7 +9243,7 @@ entity = { #Hotchkiss 35 even if it's the modeld of the Renault R35
 
 #Used L3 Italian tankettes
 entity = {
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "GRE_light_armor_0_entity"
 }
 
@@ -8957,7 +9257,7 @@ entity = {
 
 #Used L3 Italian tankettes
 entity = {
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "CRO_light_armor_0_entity"
 }
 
@@ -8989,7 +9289,7 @@ entity = {
 
 # Italian heavy tank is the closest thing available.
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "YUG_heavy_armor_entity"
 }
 
@@ -9019,7 +9319,7 @@ entity = {
 
 
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "BOS_heavy_armor_entity"
 }
 # Croatia
@@ -9047,7 +9347,7 @@ entity = {
 }
 
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "CRO_heavy_armor_entity"
 }
 
@@ -9076,7 +9376,7 @@ entity = {
 }
 
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "MCD_heavy_armor_entity"
 }
 
@@ -9106,7 +9406,7 @@ entity = {
 }
 
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "MNT_heavy_armor_entity"
 }
 
@@ -9185,7 +9485,7 @@ entity = {
 
 # Italian heavy tank is the closest thing available.
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "SER_heavy_armor_entity"
 }
 
@@ -9205,7 +9505,7 @@ entity = {
 
 
 entity = {
-	clone = "ITA_heavy_armor_entity"
+	clone = "western_european_gfx_heavy_armor_1_entity"
 	name = "ROM_heavy_armor_1_entity"
 	version = 4
 }
@@ -9353,7 +9653,7 @@ entity = {
 
 #Used L3 Italian tankettes
 entity = {
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "NIC_light_armor_0_entity"
 }
 
@@ -9379,7 +9679,7 @@ entity = {
 
 #Used Italian tankettes
 entity = {
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "BRA_light_armor_0_entity"
 }
 #Used M3 Stuart govered by american
@@ -9436,7 +9736,7 @@ entity = {
 
 #Used Italian tankettes
 entity = {
-	clone = "ITA_light_armor_entity"
+	clone = "NAP_light_armor_entity"
 	name = "VEN_light_armor_0_entity"
 }
 
@@ -9647,7 +9947,7 @@ entity = {
 	version = 1
 }
 entity = {
-	clone = "GER_medium_armor_entity"
+	clone = "BAY_medium_armor_entity"
 	name = "SPR_nationalist_spain_medium_armor_2_entity"
 	version = 4
 }

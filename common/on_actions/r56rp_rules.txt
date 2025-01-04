@@ -86,31 +86,35 @@ on_actions = {
 		effect = {
 			# attacker
 			ROOT = {
-				limit = {
-					has_civil_war = yes
-					NOT = {
-						has_variable = r56rp_rules_normalwargoaldeclaration
-						has_variable = r56rp_rules_focuswargoaldeclaration
-						has_variable = r56rp_rules_fp_controlled
+				IF = {
+					limit = {
+						has_civil_war = yes
+						NOT = {
+							has_variable = r56rp_rules_normalwargoaldeclaration
+							has_variable = r56rp_rules_focuswargoaldeclaration
+							has_variable = r56rp_rules_fp_controlled
+						}
 					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = FROM.r56rp_rules_normalwargoaldeclaration }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = FROM.r56rp_rules_focuswargoaldeclaration }
+					set_variable = { r56rp_rules_fp_controlled = FROM.r56rp_rules_fp_controlled }
 				}
-				set_variable = { r56rp_rules_normalwargoaldeclaration = FROM.r56rp_rules_normalwargoaldeclaration }
-				set_variable = { r56rp_rules_focuswargoaldeclaration = FROM.r56rp_rules_focuswargoaldeclaration }
-				set_variable = { r56rp_rules_fp_controlled = FROM.r56rp_rules_fp_controlled }
 			}
 			# defender
 			FROM = {
-				limit = {
-					has_civil_war = yes
-					NOT = {
-						has_variable = r56rp_rules_normalwargoaldeclaration
-						has_variable = r56rp_rules_focuswargoaldeclaration
-						has_variable = r56rp_rules_fp_controlled
+				IF = {
+					limit = {
+						has_civil_war = yes
+						NOT = {
+							has_variable = r56rp_rules_normalwargoaldeclaration
+							has_variable = r56rp_rules_focuswargoaldeclaration
+							has_variable = r56rp_rules_fp_controlled
+						}
 					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = ROOT.r56rp_rules_normalwargoaldeclaration }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = ROOT.r56rp_rules_focuswargoaldeclaration }
+					set_variable = { r56rp_rules_fp_controlled = ROOT.r56rp_rules_fp_controlled }
 				}
-				set_variable = { r56rp_rules_normalwargoaldeclaration = ROOT.r56rp_rules_normalwargoaldeclaration }
-				set_variable = { r56rp_rules_focuswargoaldeclaration = ROOT.r56rp_rules_focuswargoaldeclaration }
-				set_variable = { r56rp_rules_fp_controlled = ROOT.r56rp_rules_fp_controlled }
 			}
 		}
 	}
