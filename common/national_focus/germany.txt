@@ -12169,92 +12169,88 @@ focus_tree = {
 		}
 	}
 
-	#focus = {
-	#	id = GER_second_vienna_award
-	#	icon = GFX_goal_generic_cavalry
-	#	prerequisite = { focus = GER_fate_of_czechoslovakia focus = GER_integrate_czechoslovakia }
-#
-	#	x = -2
-	#	y = 1
-	#	relative_position_id = GER_fate_of_czechoslovakia
-	#	cost = 4
-	#	
-	#	bypass = {
-	#		OR = {
-	#			AND = {
-	#				OR = {
-	#					HUN = {
-	#						NOT = { has_government = fascism }
-	#						is_friend_or_potential_friend_of_GER = no
-	#					}
-	#					ROM = {
-	#						OR = {
-	#							AND = {
-	#								NOT = { controls_state = 76 }
-	#								NOT = { controls_state = 83 }
-	#								NOT = { controls_state = 84 }
-	#							}
-	#							has_war_with = HUN
-	#							AND = {
-	#								is_in_faction_with = GER
-	#								HUN = { NOT = { is_in_faction_with = GER } }#GER should not want to give #territory to Hungary if Romania joined the axis early.
-	#							}
-	#						}
-	#					}
-	#				}
-	#				OR = {
-	#					BUL = { is_friend_or_potential_friend_of_GER = no }
-	#					ROM = {
-	#						OR = {
-	#							NOT = { controls_state = 77 }
-	#							has_war_with = BUL					
-	#						}
-	#					}					
-	#				}
-	#			}
-	#			HUN = { exists = no } 
-	#			ROM = { exists = no	}
-	#			HUN = { has_capitulated = yes }
-	#			ROM = { has_capitulated = yes }
-	#			HUN = { is_subject_of = ROM } #just rude
-	#		}
-	#	}
-#
-	#	available = {
-	#		is_subject = no
-	#		is_faction_leader = yes
-	#		has_army_manpower = { size > 749999 }
-	#		custom_trigger_tooltip = {
-	#		 	tooltip = GER_second_vienna_award_eq_trigger_tt
-	#		 	check_variable = { num_equipment_in_armies_k@infantry_equipment > 60 }
-	#		}
-	#		has_capitulated = no
-	#	}
-#
-	#	ai_will_do = {
-	#		factor = 10
-	#	}
-	#	
-	#	search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_POLITICAL }
-	#
-	#	completion_reward = {
-	#	custom_effect_tooltip = "TODO_Manu: Effects are underwhelming, need something new"
-	#		if = {
-	#			limit = {
-	#				HUN = {
-	#					is_friend_or_potential_friend_of_GER = yes
-	#				}
-	#				ROM = {
-	#					controls_state = 76
-	#					NOT = { has_war_with = HUN }
-	#				}
-	#			}
-	#			country_event = { 
-	#				id = germany.20 
-	#			}
-	#		}
-	#	}
-	#}
+	focus = {
+		id = GER_second_vienna_award	#R56: was disabled in vanilla, consider adding in focuses around it
+		icon = GFX_goal_generic_cavalry
+		prerequisite = { focus = GER_fate_of_czechoslovakia focus = GER_integrate_czechoslovakia }
+
+		x = -3
+		y = 1
+		relative_position_id = GER_fate_of_czechoslovakia
+		cost = 4
+		
+		# bypass = {	#currently no focuses below it
+		# 	OR = {
+		# 		AND = {
+		# 			OR = {
+		# 				HUN = {
+		# 					NOT = { has_government = fascism }
+		# 					is_friend_or_potential_friend_of_GER = no
+		# 				}
+		# 				ROM = {
+		# 					OR = {
+		# 						AND = {
+		# 							NOT = { controls_state = 76 }
+		# 							NOT = { controls_state = 83 }
+		# 							NOT = { controls_state = 84 }
+		# 						}
+		# 						has_war_with = HUN
+		# 						AND = {
+		# 							is_in_faction_with = GER
+		# 							HUN = { NOT = { is_in_faction_with = GER } }#GER should not want to give #territory to Hungary if Romania joined the axis early.
+		# 						}
+		# 					}
+		# 				}
+		# 			}
+		# 			OR = {
+		# 				BUL = { is_friend_or_potential_friend_of_GER = no }
+		# 				ROM = {
+		# 					OR = {
+		# 						NOT = { controls_state = 77 }
+		# 						has_war_with = BUL					
+		# 					}
+		# 				}					
+		# 			}
+		# 		}
+		# 		HUN = { exists = no } 
+		# 		ROM = { exists = no	}
+		# 		HUN = { has_capitulated = yes }
+		# 		ROM = { has_capitulated = yes }
+		# 		HUN = { is_subject_of = ROM } #just rude
+		# 	}
+		# }
+
+		available = {
+			is_subject = no
+			is_faction_leader = yes
+			has_army_manpower = { size > 749999 }
+			custom_trigger_tooltip = {
+			 	tooltip = GER_second_vienna_award_eq_trigger_tt
+			 	check_variable = { num_equipment_in_armies_k@infantry_equipment > 60 }
+			}
+			has_capitulated = no
+
+			HUN = {
+				is_friend_or_potential_friend_of_GER = yes
+			}
+			ROM = {
+				controls_state = 76
+				NOT = { has_war_with = HUN }
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+		
+		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_POLITICAL }
+	
+		completion_reward = {
+			country_event = { 
+				id = germany.20 
+			}
+		}
+	}
 
 	focus = {
 		id = GER_form_rome_berlin_axis
