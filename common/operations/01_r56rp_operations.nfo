@@ -3,146 +3,146 @@
 ### 2) required network strength
 ### eg. 1/70 comes before 2/40
 
-operation_r56rp_military_assasination = {
-	icon = GFX_operations_targeted_sabotage
-	map_icon = GFX_operations_targeted_sabotage_map
-	name = operation_targeted_sabotage_industry
-	desc = operation_targeted_sabotage_industry_desc
-	priority = 14
-	
-	days = 90
-	network_strength = 60
-	operatives = 2
-
-	visible = {
-		num_of_operatives > 1
-		network_national_coverage = {
-			target = FROM
-			value > 0
-		}
-
-
-		has_operation_token = {
-			tag = FROM
-			token = token_army
-		}
-	}
-	# check number of entries in an array -> army_leaders^num
-	# array -> army_leaders
-
-	requirements = {
-		FROM = {
-			check_variable = { army_leaders^num > 6 }
-		}
-	}
-	selection_target = {
-		targets = { FROM }
-	}
-
-	required_tokens = { token_army }
-	
-	equipment = {
-		
-	}
-
-	risk_chance = 0.2
-	experience = 2
-	outcome_extra_chance = 0.25
-	outcome_modifiers = { target_sabotage_factor operation_risk }
-	risk_modifiers = { target_sabotage_risk operation_outcome }
-	cost_modifiers = { target_sabotage_cost operation_cost }
-	outcome_execute = {
-		FROM.FROM = {
-			add_to_variable = {
-				var = targeted_sabotage_industry
-				value = 5
-			}
-			custom_effect_tooltip = targeted_sabotage_industry_2_tt
-		}
-		ROOT = {
-			remove_operation_token = {
-				tag = FROM
-				token = token_resistance_contacts
-			}
-			country_event = {
-				id = lar_operative_event.21
-			}	
-		}
-		
-	}
-	outcome_extra_execute = { # SCOPE_OPERATION
-		
-		FROM.FROM = {
-			add_to_variable = {
-				var = targeted_sabotage_industry
-				value = 8
-			}
-			custom_effect_tooltip = targeted_sabotage_industry_3_tt
-		}
-		ROOT = {
-			country_event = {
-				id = lar_operative_event.21
-			}			
-		}
-				
-	}
-
-	outcome_potential = {
-		custom_effect_tooltip = operation_outcome_sabotage_industry_tt
-		custom_effect_tooltip = operation_outcome_consumes_token_tt
-	}
-
-	phases = { #infiltration
-		infiltration_border = { base = 25 }
-		infiltration_submarine = { base = 25 }
-		infiltration_paradrop = { 
-			base = 25 
-			modifier = {
-				ROOT = { 
-					has_equipment = {
-						transport_plane_equipment < 1
-					}
-				}
-				factor = 0
-			}
-		}
-		infiltration_diplomatic = {
-			base = 25
-			modifier = {
-				factor = 20
-				ROOT = { has_war = no }
-				FROM = {
-					has_war = no
-				}
-			}
-			modifier = {
-				FROM = {
-					has_war_with = ROOT
-				}
-				factor = 0
-			}
-		}
-	}
-	phases = { #exfiltration
-		targeted_sabotage_plant_explosives = { base = 90 }
-		targeted_sabotage_organize_more_meetings = { base = 10 }
-	}
-	phases = { #exfiltration
-		exfiltration_air_pickup = { 
-			base = 15 
-			modifier = {
-				ROOT = { 
-					has_equipment = {
-						transport_plane_equipment < 1
-					}
-				}
-				factor = 0
-			}
-		}
-		exfiltration_border = { base = 30 }
-		exfiltration_go_to_ground = { base = 30 }
-		exfiltration_submarine_pickup = { base = 25 }
-	}
-}
-
-
+#operation_r56rp_military_assasination = {
+#	icon = GFX_operations_targeted_sabotage
+#	map_icon = GFX_operations_targeted_sabotage_map
+#	name = operation_targeted_sabotage_industry
+#	desc = operation_targeted_sabotage_industry_desc
+#	priority = 14
+#	
+#	days = 90
+#	network_strength = 60
+#	operatives = 2
+#
+#	visible = {
+#		num_of_operatives > 1
+#		network_national_coverage = {
+#			target = FROM
+#			value > 0
+#		}
+#
+#
+#		has_operation_token = {
+#			tag = FROM
+#			token = token_army
+#		}
+#	}
+#	# check number of entries in an array -> army_leaders^num
+#	# array -> army_leaders
+#
+#	requirements = {
+#		FROM = {
+#			check_variable = { army_leaders^num > 6 }
+#		}
+#	}
+#	selection_target = {
+#		targets = { FROM }
+#	}
+#
+#	required_tokens = { token_army }
+#	
+#	equipment = {
+#		
+#	}
+#
+#	risk_chance = 0.2
+#	experience = 2
+#	outcome_extra_chance = 0.25
+#	outcome_modifiers = { target_sabotage_factor operation_risk }
+#	risk_modifiers = { target_sabotage_risk operation_outcome }
+#	cost_modifiers = { target_sabotage_cost operation_cost }
+#	outcome_execute = {
+#		FROM.FROM = {
+#			add_to_variable = {
+#				var = targeted_sabotage_industry
+#				value = 5
+#			}
+#			custom_effect_tooltip = targeted_sabotage_industry_2_tt
+#		}
+#		ROOT = {
+#			remove_operation_token = {
+#				tag = FROM
+#				token = token_resistance_contacts
+#			}
+#			country_event = {
+#				id = lar_operative_event.21
+#			}	
+#		}
+#		
+#	}
+#	outcome_extra_execute = { # SCOPE_OPERATION
+#		
+#		FROM.FROM = {
+#			add_to_variable = {
+#				var = targeted_sabotage_industry
+#				value = 8
+#			}
+#			custom_effect_tooltip = targeted_sabotage_industry_3_tt
+#		}
+#		ROOT = {
+#			country_event = {
+#				id = lar_operative_event.21
+#			}			
+#		}
+#				
+#	}
+#
+#	outcome_potential = {
+#		custom_effect_tooltip = operation_outcome_sabotage_industry_tt
+#		custom_effect_tooltip = operation_outcome_consumes_token_tt
+#	}
+#
+#	phases = { #infiltration
+#		infiltration_border = { base = 25 }
+#		infiltration_submarine = { base = 25 }
+#		infiltration_paradrop = { 
+#			base = 25 
+#			modifier = {
+#				ROOT = { 
+#					has_equipment = {
+#						transport_plane_equipment < 1
+#					}
+#				}
+#				factor = 0
+#			}
+#		}
+#		infiltration_diplomatic = {
+#			base = 25
+#			modifier = {
+#				factor = 20
+#				ROOT = { has_war = no }
+#				FROM = {
+#					has_war = no
+#				}
+#			}
+#			modifier = {
+#				FROM = {
+#					has_war_with = ROOT
+#				}
+#				factor = 0
+#			}
+#		}
+#	}
+#	phases = { #exfiltration
+#		targeted_sabotage_plant_explosives = { base = 90 }
+#		targeted_sabotage_organize_more_meetings = { base = 10 }
+#	}
+#	phases = { #exfiltration
+#		exfiltration_air_pickup = { 
+#			base = 15 
+#			modifier = {
+#				ROOT = { 
+#					has_equipment = {
+#						transport_plane_equipment < 1
+#					}
+#				}
+#				factor = 0
+#			}
+#		}
+#		exfiltration_border = { base = 30 }
+#		exfiltration_go_to_ground = { base = 30 }
+#		exfiltration_submarine_pickup = { base = 25 }
+#	}
+#}
+#
+#
