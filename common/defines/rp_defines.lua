@@ -36,7 +36,7 @@ NDefines.NMilitary.COMMANDER_LEVEL_UP_STAT_WEIGHTS = {3, 4, 3, 4} --less likley 
 NDefines.NMilitary.NAVY_LEADER_LEVEL_UP_STAT_WEIGHTS = {3, 4, 3, 4} --less likley to level up attack. fuck your meta.
 NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_IMPACT = -0.20         -- [vanilla -0.35] effect on defense due to enemy air superiorty
 NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_DEFENSE = 0.80	     -- [vanilla 0.70] more AA attack will approach this amount of help (diminishing returns)
-NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_DEFENSE_STEEPNESS = 60 -- [vanilla 112] how quickly defense approaches the max impact diminishing returns curve
+NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_DEFENSE_STEEPNESS = 112 -- [vanilla 112] how quickly defense approaches the max impact diminishing returns curve
 NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_SPEED_IMPACT = -0.2    -- [vanilla -0.3] effect on speed due to enemy air superiority
 -- NDefines.NMilitary.PLANNING_DECAY = 0.01				--[vanilla 0.01]
 NDefines.NMilitary.PLAYER_ORDER_PLANNING_DECAY = 0.04	--[vanilla 0.03]
@@ -92,9 +92,13 @@ NDefines.NAir.MISSION_FUEL_COSTS = {  -- CHECK ROAD fuel cost per plane for each
 	0,0, -- NUCLEAR
 	0,0, -- SAM
 }
+
 NDefines.NAir.ANTI_AIR_PLANE_DAMAGE_CHANCE = 0.2				-- [vanilla 0.1] Anti Air Gun hit chance
-NDefines.NAir.ANTI_AIR_ATTACK_TO_DAMAGE_REDUCTION_FACTOR = 1.2	-- [vanilla 1.0] Balancing value to convert equipment stat anti_air_attack to the damage reduction modifier apply to incoming air attacks against units with AA.
-NDefines.NAir.ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.95	-- [vanilla 0.75] Maximum damage reduction factor applied to incoming air attacks against units with AA.
+NDefines.NAir.ANTI_AIR_ATTACK_TO_DAMAGE_REDUCTION_FACTOR = 0.3	-- [vanilla 1.0] Balancing value to convert equipment stat anti_air_attack to the damage reduction modifier apply to incoming air attacks against units with AA.
+NDefines.NAir.ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.85	-- [vanilla 0.75] Maximum damage reduction factor applied to incoming air attacks against units with AA.
+-- air damage reduction for rp should be maxed out at about 40.4 averaged air attack.
+-- math for cas incoming damage reduction for vanilla \/
+-- ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.75 / ANTI_AIR_ATTACK_TO_DAMAGE_REDUCTION_FACTOR = 1.0 / ANTI_AIR_TARGETTING_TO_CHANCE = 0.2
 
 -- ### NNavy ##
 NDefines.NNavy.GUN_HIT_PROFILES = { -- hit profiles for guns, if target ih profile is lower the gun will have lower accuracy
