@@ -5130,16 +5130,30 @@ country_event = {
 	fire_only_once = yes
 
 	trigger = {
-		has_country_leader = { character = GER_adolf_hitler }
-		tag = GER
-		AND = {
-			CZE = { has_capitulated = no }
-			country_exists = CZE # Should only trigger if CZE hasn't fallen
+
+		# NEW TRIGGERS 
+		check_variable = {
+		    var = GER_hitlers_blunders_variable
+		    value = 2 # Or should this maybe be three? 
+		    compare = greater_than_or_equals
 		}
-		has_war_with = CZE
-		has_war_with = FRA
-		has_war_with = ENG
-		has_country_flag = allies_support_czechs
+
+		has_country_leader = { 
+			character = GER_adolf_hitler 
+			ruling_only = yes 
+		}
+
+		original_tag = GER
+
+		# OLD NOW UNUSED TRIGGERS
+		#AND = {
+		#	CZE = { has_capitulated = no }
+		#	country_exists = CZE # Should only trigger if CZE hasn't fallen
+		#}
+		#has_war_with = CZE
+		#has_war_with = FRA
+		#has_war_with = ENG
+		#has_country_flag = allies_support_czechs
 	}
 
 	mean_time_to_happen = {
@@ -5148,13 +5162,17 @@ country_event = {
 
 	option = {
 		name = germany.70.a
+		ai_chance = {
+			base = 100
+		}
+
 		add_stability = -0.2
 		hidden_effect = {
 			if = {
 				limit = { NOT = { any_war_score < 39 } }
 				random_list = {
-					20 = { country_event = { hours = 6 id = germany.71 } } # Conspiracy defeated, but Hitler dead
-					75 = { country_event = { hours = 6 id = germany.72 } } # Conspiracy defeated, Hitler survives
+					15 = { country_event = { hours = 6 id = germany.71 } } # Conspiracy defeated, but Hitler dead
+					80 = { country_event = { hours = 6 id = germany.72 } } # Conspiracy defeated, Hitler survives
 					5 = { country_event = { hours = 6 id = germany.73 } } # Conspiracy successful, Civil War
 				}
 			}
@@ -5165,6 +5183,26 @@ country_event = {
 					33 = { country_event = { hours = 6 id = germany.72 } } # Conspiracy defeated, Hitler survives
 					33 = { country_event = { hours = 6 id = germany.73 } } # Conspiracy successful, Civil War
 				}
+			}
+		}
+	}
+
+	option = {
+		name = germany.70.b
+		ai_chance = {
+			base = 0
+		}
+
+		add_stability = -0.3
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.05
+		}		
+
+		hidden_effect = {
+			random_list = {
+				10 = { country_event = { hours = 6 id = germany.71 } } # Conspiracy defeated, but Hitler dead
+				90 = { country_event = { hours = 6 id = germany.73 } } # Conspiracy successful, Civil War
 			}
 		}
 	}
@@ -5194,25 +5232,25 @@ country_event = {
 				}
 			}
 		}
+
+		#Manage Inner Circle
 		hidden_effect = {
-			random_list = {
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.1 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.2 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.4 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.5 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.6 } }
-				9 = { news_event = { hours = 4 id = r56.kill_hitler.7 } }
-				10 = { news_event = { hours = 4 id = r56.kill_hitler.8 } }
-				1 = { news_event = { hours = 4 id = r56.kill_hitler.3 } }
-			}
-			news_event = { hours = 8 id = news.28 }
+			GER_remove_himmler_effects = yes
 		}
+
+		hidden_effect = {
+			news_event = { hours = 6 id = news.28 }
+		}
+
 	}
+
 	option = { # Göring
 		name = germany.71.b
 		# Göring becomes the new Fascist leader of Germany
 		kill_country_leader = yes
+
 		add_stability = 0.1
+
 		GER_hermann_goring = {
 			add_country_leader_role = {
 				promote_leader = yes
@@ -5222,19 +5260,36 @@ country_event = {
 					traits = {famous_aviator}
 				}
 			}
-		}		
+		}
+
+		#Manage Inner Circle
 		hidden_effect = {
-			random_list = {
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.1 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.2 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.4 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.5 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.6 } }
-				9 = { news_event = { hours = 4 id = r56.kill_hitler.7 } }
-				10 = { news_event = { hours = 4 id = r56.kill_hitler.8 } }
-				1 = { news_event = { hours = 4 id = r56.kill_hitler.3 } }
+			GER_remove_goring_effects = yes
+			GER_replace_goring_as_prevailing_industrialist = yes
+		}
+
+		hidden_effect = {
+			news_event = { hours = 6 id = news.29 }
+		}
+
+	}
+
+	option = { # Braun
+		name = germany.71.c
+		# Braun becomes the new Fascist leader of Germany
+		kill_country_leader = yes
+
+		add_stability = 0.1
+
+		GER_eva_braun = {
+			add_country_leader_role = {
+				promote_leader = yes
+				country_leader = {
+					ideology = nazism
+					expire = "1965.1.1.1"
+					traits = { GER_iron_maiden }
+				}
 			}
-			news_event = { hours = 8 id = news.29 }
 		}
 	}
 }
@@ -5271,13 +5326,14 @@ country_event = {
 		trigger = { is_ai = no }
 		set_country_flag = german_rebels
 		kill_country_leader = yes
-		GER_heinrich_himmler = {
+
+		GER_wilhelm_iv = {
 			add_country_leader_role = {
 				promote_leader = yes
 				country_leader = {
-					ideology = nazism
-					expire = "1965.1.1"
-					traits = {prince_of_terror}
+					ideology = despotism
+					expire = "1965.1.1.1"
+					traits = { }
 				}
 			}
 		}
@@ -5292,54 +5348,109 @@ country_event = {
 				ruling_party = neutrality
 				ideology = fascism
 				size = 0.5
-			}
-			GER_ludwig_beck = {
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = military_junta
-						expire = "1965.1.1"
-						traits = {
-							army_connections
+				keep_all_characters = yes
+				PREV = {	# Original country
+					GER_heinrich_himmler = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walter_model = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_hermann_hoth = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walter_kruger = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_paul_hausser = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_sepp_dietrich = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_felix_steiner = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+				}
+
+				PREV.PREV = {
+					set_variable = { GER_military_army_org_factor = 0.05 }
+					set_variable = { GER_military_planning_speed = 0.25 }
+					set_variable = { GER_military_supply_factor = -0.15 }
+					set_variable = { GER_military_equipment_capture = 0 }
+					set_variable = { GER_military_initiative_factor = 0 }
+					set_variable = { GER_military_army_fuel_consumption_factor = 0 }
+					set_variable = { GER_military_coordination_bonus = 0 }
+					set_variable = { GER_military_air_superiority_bonus_in_combat = 0 }
+					set_variable = { GER_military_max_dig_in_factor = 0 }
+					set_variable = { GER_military_army_artillery_defence_factor = 0 }
+					set_variable = { GER_military_special_forces_cap = 0 }
+					set_variable = { GER_military_acclimatization_hot_climate_gain_factor = 0 }
+					set_variable = { GER_military_acclimatization_cold_climate_gain_factor = 0 }
+					set_variable = { GER_military_land_doctrine_cost_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_attack_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_defence_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_max_org_factor = 0 }
+					set_variable = { GER_military_experience_gain_army_factor = 0 }
+					set_variable = { GER_military_army_morale_factor = 0 }
+					set_variable = { GER_military_mobilization_speed = 0 }
+					set_variable = { GER_military_minimum_training_level = 0 }
+					set_variable = { GER_military_unit_leader_as_advisor_cp_cost_factor = 0 }
+					set_variable = { GER_military_command_power_gain_mult = 0 }
+					add_dynamic_modifier = { modifier = GER_army_modifier }
+
+					set_variable = { GER_military_naval_heavy_gun_hit_chance_factor = 0 }
+					set_variable = { GER_military_screening_efficiency = 0 }
+					set_variable = { GER_military_screening_without_screens = 0 }
+					set_variable = { GER_military_navy_max_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_navy_fascist_modifier }
+
+					set_variable = { GER_military_air_accidents_factor = 0.10 }
+					set_variable = { GER_military_air_manpower_requirement_factor = 0.10 }
+					set_variable = { GER_military_air_agility_factor = 0 }
+					set_variable = { GER_military_air_ace_generation_chance_factor = 0 }
+					set_variable = { GER_military_air_nav_efficiency = 0 }
+					set_variable = { GER_military_air_cas_efficiency = 0 }
+					set_variable = { GER_military_air_strategic_bomber_bombing_factor = 0 }
+					set_variable = { GER_military_air_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_airforce_modifier }
+				}
+
+				IF = {
+					limit = {
+						PREV.PREV = {
+							NOT = {
+								has_country_leader = {
+									ruling_only = yes
+									character = GER_heinrich_himmler
+								}
+							}
+							has_civil_war = yes
+						}
+					}
+					PREV.PREV = {
+						GER_heinrich_himmler = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = nazism
+									expire = "1965.1.1.1"
+									traits = {}
+								}
+							}
 						}
 					}
 				}
-			}		
-			set_politics = {
-				ruling_party = neutrality
-				elections_allowed = no
 			}
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.5
-			}
-			create_field_marshal = {
-				name = "Werner von Blomberg"
-				picture = "r56_portrait_GER_Werner_von_Blomberg.dds"
-				traits = {  infantry_leader  }
-				skill = 3
-				attack_skill = 3
-				defense_skill = 2
-				planning_skill = 2
-				logistics_skill = 3
-			}
-			create_field_marshal = {
-				name = "Werner von Fritsch"
-				picture = "r56_portrait_GER_Werner_von_Fritsch.dds"
-				traits = { infantry_leader skilled_staffer expert_delegator }
-				skill = 3
-				attack_skill = 2
-				defense_skill = 3
-				planning_skill = 3
-				logistics_skill = 2
-			}						
-			add_popularity = {
-				ideology = fascism
-				popularity = -1
-			}
-			hidden_effect = { set_cosmetic_tag = GER_provisional_gvt }	
 		}
-		if = {
+		else_if = {
 			limit =  {
 				NOT = {
 					any_war_score < 39
@@ -5350,67 +5461,115 @@ country_event = {
 				ruling_party = neutrality
 				ideology = fascism
 				size = 0.7
-			}
-			GER_ludwig_beck = {
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = military_junta
-						expire = "1965.1.1"
-						traits = {
-							army_connections
+				keep_all_characters = yes
+				PREV = {	# Original country
+					GER_heinrich_himmler = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walter_model = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_hermann_hoth = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walter_kruger = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_paul_hausser = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_sepp_dietrich = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_felix_steiner = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+				}
+
+				PREV.PREV = {
+					set_variable = { GER_military_army_org_factor = 0.05 }
+					set_variable = { GER_military_planning_speed = 0.25 }
+					set_variable = { GER_military_supply_factor = -0.15 }
+					set_variable = { GER_military_equipment_capture = 0 }
+					set_variable = { GER_military_initiative_factor = 0 }
+					set_variable = { GER_military_army_fuel_consumption_factor = 0 }
+					set_variable = { GER_military_coordination_bonus = 0 }
+					set_variable = { GER_military_air_superiority_bonus_in_combat = 0 }
+					set_variable = { GER_military_max_dig_in_factor = 0 }
+					set_variable = { GER_military_army_artillery_defence_factor = 0 }
+					set_variable = { GER_military_special_forces_cap = 0 }
+					set_variable = { GER_military_acclimatization_hot_climate_gain_factor = 0 }
+					set_variable = { GER_military_acclimatization_cold_climate_gain_factor = 0 }
+					set_variable = { GER_military_land_doctrine_cost_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_attack_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_defence_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_max_org_factor = 0 }
+					set_variable = { GER_military_experience_gain_army_factor = 0 }
+					set_variable = { GER_military_army_morale_factor = 0 }
+					set_variable = { GER_military_mobilization_speed = 0 }
+					set_variable = { GER_military_minimum_training_level = 0 }
+					set_variable = { GER_military_unit_leader_as_advisor_cp_cost_factor = 0 }
+					set_variable = { GER_military_command_power_gain_mult = 0 }
+					add_dynamic_modifier = { modifier = GER_army_modifier }
+
+					set_variable = { GER_military_naval_heavy_gun_hit_chance_factor = 0 }
+					set_variable = { GER_military_screening_efficiency = 0 }
+					set_variable = { GER_military_screening_without_screens = 0 }
+					set_variable = { GER_military_navy_max_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_navy_fascist_modifier }
+
+					set_variable = { GER_military_air_accidents_factor = 0.10 }
+					set_variable = { GER_military_air_manpower_requirement_factor = 0.10 }
+					set_variable = { GER_military_air_agility_factor = 0 }
+					set_variable = { GER_military_air_ace_generation_chance_factor = 0 }
+					set_variable = { GER_military_air_nav_efficiency = 0 }
+					set_variable = { GER_military_air_cas_efficiency = 0 }
+					set_variable = { GER_military_air_strategic_bomber_bombing_factor = 0 }
+					set_variable = { GER_military_air_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_airforce_modifier }
+				}
+
+				IF = {
+					limit = {
+						PREV.PREV = {
+							NOT = {
+								has_country_leader = {
+									ruling_only = yes
+									character = GER_heinrich_himmler
+								}
+							}
+							has_civil_war = yes
+						}
+					}
+					PREV.PREV = {
+						GER_heinrich_himmler = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = nazism
+									expire = "1965.1.1.1"
+									traits = {}
+								}
+							}
 						}
 					}
 				}
-			}			
-			set_politics = {
-				ruling_party = neutrality
-				elections_allowed = no
 			}
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.5
-			}
-			create_field_marshal = {
-				name = "Werner von Blomberg"
-				picture = "r56_portrait_GER_Werner_von_Blomberg.dds"
-				traits = {  infantry_leader  }
-				skill = 3
-				attack_skill = 3
-				defense_skill = 2
-				planning_skill = 2
-				logistics_skill = 3
-			}
-			create_field_marshal = {
-				name = "Werner von Fritsch"
-				picture = "r56_portrait_GER_Werner_von_Fritsch.dds"
-				traits = { infantry_leader skilled_staffer expert_delegator }
-				skill = 3
-				attack_skill = 2
-				defense_skill = 3
-				planning_skill = 3
-				logistics_skill = 2
-			}						
-			add_popularity = {
-				ideology = fascism
-				popularity = -1
-			}
-			hidden_effect = { set_cosmetic_tag = GER_provisional_gvt }			
 		}
+
 		hidden_effect = {
-			random_list = {
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.1 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.2 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.4 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.5 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.6 } }
-				9 = { news_event = { hours = 4 id = r56.kill_hitler.7 } }
-				1 = { news_event = { hours = 4 id = r56.kill_hitler.3 } }
-				10 = { news_event = { hours = 4 id = r56.kill_hitler.8 } }
-			}
-			news_event = { hours = 8 id = news.31 }
+			news_event = { hours = 6 id = news.31 }
 		}
+
 	}
+
 	option = { # Side with Himmler
 		name = germany.73.b
 		# Himmler becomes the new Fascist leader of Germany
@@ -5425,6 +5584,12 @@ country_event = {
 				}
 			}
 		}
+
+		#Manage Inner Circle
+		hidden_effect = {
+			GER_remove_himmler_effects = yes
+		}
+
 		if = {
 			limit =  {
 				OR = {
@@ -5435,57 +5600,107 @@ country_event = {
 			start_civil_war = {
 				ideology = neutrality
 				size = 0.5
-			}
-			random_other_country = {
-				limit = {
-					has_government = neutrality
-					original_tag = ROOT
+				keep_all_characters = yes
+
+				PREV = {	# Original country
+					GER_wilhelm_iv = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_wilhelm_canaris = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_hans_oster = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_ludwig_beck = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_franz_halder = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walther_von_brauchitsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_werner_von_fritsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
 				}
-				GER_ludwig_beck = {
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = military_junta
-							expire = "1965.1.1"
-							traits = {
-								army_connections
+
+				IF = {
+					limit = {
+						PREV.PREV = {
+							NOT = {
+								has_country_leader = {
+									ruling_only = yes
+									character = GER_wilhelm_iv
+								}
+							}
+							has_civil_war = yes
+						}
+					}
+					PREV.PREV = {
+						GER_wilhelm_iv = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = despotism
+									expire = "1965.1.1.1"
+									traits = {}
+								}
 							}
 						}
 					}
-				}		
-				set_politics = {
-					ruling_party = neutrality
-					elections_allowed = no
 				}
-				add_popularity = {
-					ideology = neutrality
-					popularity = 0.5
+
+				PREV.PREV = {
+					set_variable = { GER_military_army_org_factor = 0.05 }
+					set_variable = { GER_military_planning_speed = 0.25 }
+					set_variable = { GER_military_supply_factor = -0.15 }
+					set_variable = { GER_military_equipment_capture = 0 }
+					set_variable = { GER_military_initiative_factor = 0 }
+					set_variable = { GER_military_army_fuel_consumption_factor = 0 }
+					set_variable = { GER_military_coordination_bonus = 0 }
+					set_variable = { GER_military_air_superiority_bonus_in_combat = 0 }
+					set_variable = { GER_military_max_dig_in_factor = 0 }
+					set_variable = { GER_military_army_artillery_defence_factor = 0 }
+					set_variable = { GER_military_special_forces_cap = 0 }
+					set_variable = { GER_military_acclimatization_hot_climate_gain_factor = 0 }
+					set_variable = { GER_military_acclimatization_cold_climate_gain_factor = 0 }
+					set_variable = { GER_military_land_doctrine_cost_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_attack_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_defence_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_max_org_factor = 0 }
+					set_variable = { GER_military_experience_gain_army_factor = 0 }
+					set_variable = { GER_military_army_morale_factor = 0 }
+					set_variable = { GER_military_mobilization_speed = 0 }
+					set_variable = { GER_military_minimum_training_level = 0 }
+					set_variable = { GER_military_unit_leader_as_advisor_cp_cost_factor = 0 }
+					set_variable = { GER_military_command_power_gain_mult = 0 }
+					add_dynamic_modifier = { modifier = GER_army_modifier }
+
+					set_variable = { GER_military_naval_heavy_gun_hit_chance_factor = 0 }
+					set_variable = { GER_military_screening_efficiency = 0 }
+					set_variable = { GER_military_screening_without_screens = 0 }
+					set_variable = { GER_military_navy_max_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_navy_fascist_modifier }
+
+					set_variable = { GER_military_air_accidents_factor = 0.10 }
+					set_variable = { GER_military_air_manpower_requirement_factor = 0.10 }
+					set_variable = { GER_military_air_agility_factor = 0 }
+					set_variable = { GER_military_air_ace_generation_chance_factor = 0 }
+					set_variable = { GER_military_air_nav_efficiency = 0 }
+					set_variable = { GER_military_air_cas_efficiency = 0 }
+					set_variable = { GER_military_air_strategic_bomber_bombing_factor = 0 }
+					set_variable = { GER_military_air_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_airforce_modifier }
 				}
-				create_field_marshal = {
-					name = "Werner von Blomberg"
-					picture = "r56_portrait_GER_Werner_von_Blomberg.dds"
-					traits = {  infantry_leader  }
-					skill = 3
-					attack_skill = 3
-					defense_skill = 2
-					planning_skill = 2
-					logistics_skill = 3
-				}
-				create_field_marshal = {
-					name = "Werner von Fritsch"
-					picture = "r56_portrait_GER_Werner_von_Fritsch.dds"
-					traits = { infantry_leader skilled_staffer expert_delegator }
-					skill = 3
-					attack_skill = 2
-					defense_skill = 3
-					planning_skill = 3
-					logistics_skill = 2
-				}						
-				add_popularity = {
-					ideology = fascism
-					popularity = -1
-				}
-				hidden_effect = { set_cosmetic_tag = GER_provisional_gvt }				
 			}
 		}
 		if = {
@@ -5498,88 +5713,139 @@ country_event = {
 			start_civil_war = {
 				ideology = neutrality
 				size = 0.3
-			}
-			random_other_country = {
-				limit = {
-					has_government = neutrality
+				keep_all_characters = yes
+
+				PREV = {	# Original country
+					GER_wilhelm_iv = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_wilhelm_canaris = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_hans_oster = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_ludwig_beck = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_franz_halder = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walther_von_brauchitsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_werner_von_fritsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
 				}
-				GER_ludwig_beck = {
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = military_junta
-							expire = "1965.1.1"
-							traits = {
-								army_connections
+
+				IF = {
+					limit = {
+						PREV.PREV = {
+							NOT = {
+								has_country_leader = {
+									ruling_only = yes
+									character = GER_wilhelm_iv
+								}
+							}
+							has_civil_war = yes
+						}
+					}
+					PREV.PREV = {
+						GER_wilhelm_iv = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = despotism
+									expire = "1965.1.1.1"
+									traits = {}
+								}
 							}
 						}
 					}
-				}		
-				set_politics = {
-					ruling_party = neutrality
-					elections_allowed = no
 				}
-				add_popularity = {
-					ideology = neutrality
-					popularity = 0.5
+
+				PREV.PREV = {
+					set_variable = { GER_military_army_org_factor = 0.05 }
+					set_variable = { GER_military_planning_speed = 0.25 }
+					set_variable = { GER_military_supply_factor = -0.15 }
+					set_variable = { GER_military_equipment_capture = 0 }
+					set_variable = { GER_military_initiative_factor = 0 }
+					set_variable = { GER_military_army_fuel_consumption_factor = 0 }
+					set_variable = { GER_military_coordination_bonus = 0 }
+					set_variable = { GER_military_air_superiority_bonus_in_combat = 0 }
+					set_variable = { GER_military_max_dig_in_factor = 0 }
+					set_variable = { GER_military_army_artillery_defence_factor = 0 }
+					set_variable = { GER_military_special_forces_cap = 0 }
+					set_variable = { GER_military_acclimatization_hot_climate_gain_factor = 0 }
+					set_variable = { GER_military_acclimatization_cold_climate_gain_factor = 0 }
+					set_variable = { GER_military_land_doctrine_cost_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_attack_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_defence_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_max_org_factor = 0 }
+					set_variable = { GER_military_experience_gain_army_factor = 0 }
+					set_variable = { GER_military_army_morale_factor = 0 }
+					set_variable = { GER_military_mobilization_speed = 0 }
+					set_variable = { GER_military_minimum_training_level = 0 }
+					set_variable = { GER_military_unit_leader_as_advisor_cp_cost_factor = 0 }
+					set_variable = { GER_military_command_power_gain_mult = 0 }
+					add_dynamic_modifier = { modifier = GER_army_modifier }
+
+					set_variable = { GER_military_naval_heavy_gun_hit_chance_factor = 0 }
+					set_variable = { GER_military_screening_efficiency = 0 }
+					set_variable = { GER_military_screening_without_screens = 0 }
+					set_variable = { GER_military_navy_max_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_navy_fascist_modifier }
+
+					set_variable = { GER_military_air_accidents_factor = 0.10 }
+					set_variable = { GER_military_air_manpower_requirement_factor = 0.10 }
+					set_variable = { GER_military_air_agility_factor = 0 }
+					set_variable = { GER_military_air_ace_generation_chance_factor = 0 }
+					set_variable = { GER_military_air_nav_efficiency = 0 }
+					set_variable = { GER_military_air_cas_efficiency = 0 }
+					set_variable = { GER_military_air_strategic_bomber_bombing_factor = 0 }
+					set_variable = { GER_military_air_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_airforce_modifier }
 				}
-				create_field_marshal = {
-					name = "Werner von Blomberg"
-					picture = "r56_portrait_GER_Werner_von_Blomberg.dds"
-					traits = {  infantry_leader  }
-					skill = 3
-					attack_skill = 3
-					defense_skill = 2
-					planning_skill = 2
-					logistics_skill = 3
-				}
-				create_field_marshal = {
-					name = "Werner von Fritsch"
-					picture = "r56_portrait_GER_Werner_von_Fritsch.dds"
-					traits = { infantry_leader skilled_staffer expert_delegator }
-					skill = 3
-					attack_skill = 2
-					defense_skill = 3
-					planning_skill = 3
-					logistics_skill = 2
-				}						
-				add_popularity = {
-					ideology = fascism
-					popularity = -1
-				}
-				hidden_effect = { set_cosmetic_tag = GER_provisional_gvt }				
-			}			
-		}
-		hidden_effect = {
-			random_list = {
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.1 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.2 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.4 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.5 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.6 } }
-				9 = { news_event = { hours = 4 id = r56.kill_hitler.7 } }
-				1 = { news_event = { hours = 4 id = r56.kill_hitler.3 } }
-				10 = { news_event = { hours = 4 id = r56.kill_hitler.8 } }
 			}
-			news_event = { hours = 8 id = news.31 }
 		}
+
+		hidden_effect = {
+			news_event = { hours = 6 id = news.31 }
+		}
+
 	}
+
 	option = { # Side with Göring
 		name = germany.73.c
+
 		# Göring becomes the new Fascist leader of Germany
 		kill_country_leader = yes
+
 		GER_hermann_goring = {
 			add_country_leader_role = {
 				promote_leader = yes
 				country_leader = {
 					ideology = nazism
-					expire = "1965.1.1"
-					traits = {
-						famous_aviator
-					}
+					expire = "1965.1.1.1"
+					traits = {}
 				}
 			}
 		}
+
+		#Manage Inner Circle
+		hidden_effect = {
+			GER_remove_goring_effects = yes
+			GER_replace_goring_as_prevailing_industrialist = yes
+		}
+
 		if = {
 			limit =  {
 				OR = {
@@ -5588,8 +5854,109 @@ country_event = {
 				}
 			}
 			start_civil_war = {
-				ideology = democratic
+				ideology = neutrality
 				size = 0.5
+				keep_all_characters = yes
+
+				PREV = {	# Original country
+					GER_wilhelm_iv = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_wilhelm_canaris = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_hans_oster = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_ludwig_beck = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_franz_halder = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walther_von_brauchitsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_werner_von_fritsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+				}
+
+				IF = {
+					limit = {
+						PREV.PREV = {
+							NOT = {
+								has_country_leader = {
+									ruling_only = yes
+									character = GER_wilhelm_iv
+								}
+							}
+							has_civil_war = yes
+						}
+					}
+					PREV.PREV = {
+						GER_wilhelm_iv = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = despotism
+									expire = "1965.1.1.1"
+									traits = {}
+								}
+							}
+						}
+					}
+				}
+
+				PREV.PREV = {
+					set_variable = { GER_military_army_org_factor = 0.05 }
+					set_variable = { GER_military_planning_speed = 0.25 }
+					set_variable = { GER_military_supply_factor = -0.15 }
+					set_variable = { GER_military_equipment_capture = 0 }
+					set_variable = { GER_military_initiative_factor = 0 }
+					set_variable = { GER_military_army_fuel_consumption_factor = 0 }
+					set_variable = { GER_military_coordination_bonus = 0 }
+					set_variable = { GER_military_air_superiority_bonus_in_combat = 0 }
+					set_variable = { GER_military_max_dig_in_factor = 0 }
+					set_variable = { GER_military_army_artillery_defence_factor = 0 }
+					set_variable = { GER_military_special_forces_cap = 0 }
+					set_variable = { GER_military_acclimatization_hot_climate_gain_factor = 0 }
+					set_variable = { GER_military_acclimatization_cold_climate_gain_factor = 0 }
+					set_variable = { GER_military_land_doctrine_cost_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_attack_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_defence_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_max_org_factor = 0 }
+					set_variable = { GER_military_experience_gain_army_factor = 0 }
+					set_variable = { GER_military_army_morale_factor = 0 }
+					set_variable = { GER_military_mobilization_speed = 0 }
+					set_variable = { GER_military_minimum_training_level = 0 }
+					set_variable = { GER_military_unit_leader_as_advisor_cp_cost_factor = 0 }
+					set_variable = { GER_military_command_power_gain_mult = 0 }
+					add_dynamic_modifier = { modifier = GER_army_modifier }
+
+					set_variable = { GER_military_naval_heavy_gun_hit_chance_factor = 0 }
+					set_variable = { GER_military_screening_efficiency = 0 }
+					set_variable = { GER_military_screening_without_screens = 0 }
+					set_variable = { GER_military_navy_max_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_navy_fascist_modifier }
+
+					set_variable = { GER_military_air_accidents_factor = 0.10 }
+					set_variable = { GER_military_air_manpower_requirement_factor = 0.10 }
+					set_variable = { GER_military_air_agility_factor = 0 }
+					set_variable = { GER_military_air_ace_generation_chance_factor = 0 }
+					set_variable = { GER_military_air_nav_efficiency = 0 }
+					set_variable = { GER_military_air_cas_efficiency = 0 }
+					set_variable = { GER_military_air_strategic_bomber_bombing_factor = 0 }
+					set_variable = { GER_military_air_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_airforce_modifier }
+				}
 			}
 		}
 		if = {
@@ -5600,24 +5967,368 @@ country_event = {
 				}
 			}
 			start_civil_war = {
-				ideology = democratic
+				ideology = neutrality
 				size = 0.3
+				keep_all_characters = yes
+
+				PREV = {	# Original country
+					GER_wilhelm_iv = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_wilhelm_canaris = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_hans_oster = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_ludwig_beck = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_franz_halder = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walther_von_brauchitsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_werner_von_fritsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+				}
+
+				IF = {
+					limit = {
+						PREV.PREV = {
+							NOT = {
+								has_country_leader = {
+									ruling_only = yes
+									character = GER_wilhelm_iv
+								}
+							}
+							has_civil_war = yes
+						}
+					}
+					PREV.PREV = {
+						GER_wilhelm_iv = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = despotism
+									expire = "1965.1.1.1"
+									traits = {}
+								}
+							}
+						}
+					}
+				}
+
+				PREV.PREV = {
+					set_variable = { GER_military_army_org_factor = 0.05 }
+					set_variable = { GER_military_planning_speed = 0.25 }
+					set_variable = { GER_military_supply_factor = -0.15 }
+					set_variable = { GER_military_equipment_capture = 0 }
+					set_variable = { GER_military_initiative_factor = 0 }
+					set_variable = { GER_military_army_fuel_consumption_factor = 0 }
+					set_variable = { GER_military_coordination_bonus = 0 }
+					set_variable = { GER_military_air_superiority_bonus_in_combat = 0 }
+					set_variable = { GER_military_max_dig_in_factor = 0 }
+					set_variable = { GER_military_army_artillery_defence_factor = 0 }
+					set_variable = { GER_military_special_forces_cap = 0 }
+					set_variable = { GER_military_acclimatization_hot_climate_gain_factor = 0 }
+					set_variable = { GER_military_acclimatization_cold_climate_gain_factor = 0 }
+					set_variable = { GER_military_land_doctrine_cost_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_attack_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_defence_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_max_org_factor = 0 }
+					set_variable = { GER_military_experience_gain_army_factor = 0 }
+					set_variable = { GER_military_army_morale_factor = 0 }
+					set_variable = { GER_military_mobilization_speed = 0 }
+					set_variable = { GER_military_minimum_training_level = 0 }
+					set_variable = { GER_military_unit_leader_as_advisor_cp_cost_factor = 0 }
+					set_variable = { GER_military_command_power_gain_mult = 0 }
+					add_dynamic_modifier = { modifier = GER_army_modifier }
+
+					set_variable = { GER_military_naval_heavy_gun_hit_chance_factor = 0 }
+					set_variable = { GER_military_screening_efficiency = 0 }
+					set_variable = { GER_military_screening_without_screens = 0 }
+					set_variable = { GER_military_navy_max_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_navy_fascist_modifier }
+
+					set_variable = { GER_military_air_accidents_factor = 0.10 }
+					set_variable = { GER_military_air_manpower_requirement_factor = 0.10 }
+					set_variable = { GER_military_air_agility_factor = 0 }
+					set_variable = { GER_military_air_ace_generation_chance_factor = 0 }
+					set_variable = { GER_military_air_nav_efficiency = 0 }
+					set_variable = { GER_military_air_cas_efficiency = 0 }
+					set_variable = { GER_military_air_strategic_bomber_bombing_factor = 0 }
+					set_variable = { GER_military_air_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_airforce_modifier }
+				}
 			}
 		}
+
 		hidden_effect = {
-			random_list = {
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.1 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.2 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.4 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.5 } }
-				38 = { news_event = { hours = 4 id = r56.kill_hitler.6 } }
-				9 = { news_event = { hours = 4 id = r56.kill_hitler.7 } }
-				1 = { news_event = { hours = 4 id = r56.kill_hitler.3 } }
-				10 = { news_event = { hours = 4 id = r56.kill_hitler.8 } }
-			}
 			news_event = { hours = 6 id = news.31 }
 		}
+
 	}
+
+	option = { # Side with Braun
+		name = germany.73.e
+
+		# Braun becomes the new Fascist leader of Germany
+		kill_country_leader = yes
+
+		GER_eva_braun = {
+			add_country_leader_role = {
+				promote_leader = yes
+				country_leader = {
+					ideology = nazism
+					expire = "1965.1.1.1"
+					traits = { GER_iron_maiden }
+				}
+			}
+		}
+
+		if = {
+			limit =  {
+				OR = {
+					any_war_score < 39
+					has_stability < 60
+				}
+			}
+			start_civil_war = {
+				ideology = neutrality
+				size = 0.5
+				keep_all_characters = yes
+
+				PREV = {	# Original country
+					GER_wilhelm_iv = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_wilhelm_canaris = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_hans_oster = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_ludwig_beck = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_franz_halder = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walther_von_brauchitsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_werner_von_fritsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+				}
+
+				IF = {
+					limit = {
+						PREV.PREV = {
+							NOT = {
+								has_country_leader = {
+									ruling_only = yes
+									character = GER_wilhelm_iv
+								}
+							}
+							has_civil_war = yes
+						}
+					}
+					PREV.PREV = {
+						GER_wilhelm_iv = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = despotism
+									expire = "1965.1.1.1"
+									traits = {}
+								}
+							}
+						}
+					}
+				}
+
+				PREV.PREV = {
+					set_variable = { GER_military_army_org_factor = 0.05 }
+					set_variable = { GER_military_planning_speed = 0.25 }
+					set_variable = { GER_military_supply_factor = -0.15 }
+					set_variable = { GER_military_equipment_capture = 0 }
+					set_variable = { GER_military_initiative_factor = 0 }
+					set_variable = { GER_military_army_fuel_consumption_factor = 0 }
+					set_variable = { GER_military_coordination_bonus = 0 }
+					set_variable = { GER_military_air_superiority_bonus_in_combat = 0 }
+					set_variable = { GER_military_max_dig_in_factor = 0 }
+					set_variable = { GER_military_army_artillery_defence_factor = 0 }
+					set_variable = { GER_military_special_forces_cap = 0 }
+					set_variable = { GER_military_acclimatization_hot_climate_gain_factor = 0 }
+					set_variable = { GER_military_acclimatization_cold_climate_gain_factor = 0 }
+					set_variable = { GER_military_land_doctrine_cost_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_attack_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_defence_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_max_org_factor = 0 }
+					set_variable = { GER_military_experience_gain_army_factor = 0 }
+					set_variable = { GER_military_army_morale_factor = 0 }
+					set_variable = { GER_military_mobilization_speed = 0 }
+					set_variable = { GER_military_minimum_training_level = 0 }
+					set_variable = { GER_military_unit_leader_as_advisor_cp_cost_factor = 0 }
+					set_variable = { GER_military_command_power_gain_mult = 0 }
+					add_dynamic_modifier = { modifier = GER_army_modifier }
+
+					set_variable = { GER_military_naval_heavy_gun_hit_chance_factor = 0 }
+					set_variable = { GER_military_screening_efficiency = 0 }
+					set_variable = { GER_military_screening_without_screens = 0 }
+					set_variable = { GER_military_navy_max_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_navy_fascist_modifier }
+
+					set_variable = { GER_military_air_accidents_factor = 0.10 }
+					set_variable = { GER_military_air_manpower_requirement_factor = 0.10 }
+					set_variable = { GER_military_air_agility_factor = 0 }
+					set_variable = { GER_military_air_ace_generation_chance_factor = 0 }
+					set_variable = { GER_military_air_nav_efficiency = 0 }
+					set_variable = { GER_military_air_cas_efficiency = 0 }
+					set_variable = { GER_military_air_strategic_bomber_bombing_factor = 0 }
+					set_variable = { GER_military_air_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_airforce_modifier }
+				}
+			}
+		}
+		if = {
+			limit =  {
+				NOT = {
+					any_war_score < 39
+					has_stability < 60
+				}
+			}
+			start_civil_war = {
+				ideology = neutrality
+				size = 0.3
+				keep_all_characters = yes
+
+				PREV = {	# Original country
+					GER_wilhelm_iv = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_wilhelm_canaris = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_hans_oster = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_ludwig_beck = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_franz_halder = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_walther_von_brauchitsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+					GER_werner_von_fritsch = { # Character
+					    set_nationality = PREV.PREV
+					    # Transfers to breakaway
+					}
+				}
+
+				IF = {
+					limit = {
+						PREV.PREV = {
+							NOT = {
+								has_country_leader = {
+									ruling_only = yes
+									character = GER_wilhelm_iv
+								}
+							}
+							has_civil_war = yes
+						}
+					}
+					PREV.PREV = {
+						GER_wilhelm_iv = {
+							add_country_leader_role = {
+								promote_leader = yes
+								country_leader = {
+									ideology = despotism
+									expire = "1965.1.1.1"
+									traits = {}
+								}
+							}
+						}
+					}
+				}
+
+				PREV.PREV = {
+					set_variable = { GER_military_army_org_factor = 0.05 }
+					set_variable = { GER_military_planning_speed = 0.25 }
+					set_variable = { GER_military_supply_factor = -0.15 }
+					set_variable = { GER_military_equipment_capture = 0 }
+					set_variable = { GER_military_initiative_factor = 0 }
+					set_variable = { GER_military_army_fuel_consumption_factor = 0 }
+					set_variable = { GER_military_coordination_bonus = 0 }
+					set_variable = { GER_military_air_superiority_bonus_in_combat = 0 }
+					set_variable = { GER_military_max_dig_in_factor = 0 }
+					set_variable = { GER_military_army_artillery_defence_factor = 0 }
+					set_variable = { GER_military_special_forces_cap = 0 }
+					set_variable = { GER_military_acclimatization_hot_climate_gain_factor = 0 }
+					set_variable = { GER_military_acclimatization_cold_climate_gain_factor = 0 }
+					set_variable = { GER_military_land_doctrine_cost_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_attack_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_defence_factor = 0 }
+					set_variable = { GER_military_modifier_army_sub_unit_militia_max_org_factor = 0 }
+					set_variable = { GER_military_experience_gain_army_factor = 0 }
+					set_variable = { GER_military_army_morale_factor = 0 }
+					set_variable = { GER_military_mobilization_speed = 0 }
+					set_variable = { GER_military_minimum_training_level = 0 }
+					set_variable = { GER_military_unit_leader_as_advisor_cp_cost_factor = 0 }
+					set_variable = { GER_military_command_power_gain_mult = 0 }
+					add_dynamic_modifier = { modifier = GER_army_modifier }
+
+					set_variable = { GER_military_naval_heavy_gun_hit_chance_factor = 0 }
+					set_variable = { GER_military_screening_efficiency = 0 }
+					set_variable = { GER_military_screening_without_screens = 0 }
+					set_variable = { GER_military_navy_max_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_navy_fascist_modifier }
+
+					set_variable = { GER_military_air_accidents_factor = 0.10 }
+					set_variable = { GER_military_air_manpower_requirement_factor = 0.10 }
+					set_variable = { GER_military_air_agility_factor = 0 }
+					set_variable = { GER_military_air_ace_generation_chance_factor = 0 }
+					set_variable = { GER_military_air_nav_efficiency = 0 }
+					set_variable = { GER_military_air_cas_efficiency = 0 }
+					set_variable = { GER_military_air_strategic_bomber_bombing_factor = 0 }
+					set_variable = { GER_military_air_range_factor = 0 }
+					add_dynamic_modifier = { modifier = GER_airforce_modifier }
+				}
+			}
+		}
+
+		hidden_effect = {
+			news_event = { hours = 6 id = news.31 }
+		}
+
+	}
+
 }
 
 # Anschluss Preparations
@@ -5656,9 +6367,20 @@ country_event = {
 				target = ROOT
 				modifier = sov_ger_treaty_trade
 			}
+			effect_tooltip = {
+				add_breakthrough_progress = {
+					specialization = specialization_land
+					value = 1
+				}
+			}
 		}
 		# REVISIT Balance research bonus
 		give_SOV_armor_research_bonuses = yes
+		custom_effect_tooltip = generic_skip_one_line_tt
+		add_breakthrough_progress = {
+			specialization = specialization_land
+			value = 1
+		}
 	}
 
 	option = {
