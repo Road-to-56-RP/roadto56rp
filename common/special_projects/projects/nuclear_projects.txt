@@ -424,27 +424,58 @@ sp_nuclear_engines = {
 	}
 	
 	project_output = {
+
 		country_effects = {
+			if = {
+				limit = {
+					has_global_flag = r56rp_no_mtg # because pdx doesent support mtg for some reason.
+				}
+				add_equipment_bonus = {
+					name = sp_r56rp_nmtg_nuclear_engines_bonus
+					bonus = {
+						carrier_4 = {
+							naval_speed = 0.15
+							naval_range = 0.50
+							build_cost_ic = 0.25
+							fuel_consumption = -1
+							instant = yes
+						}
+						carrier_5 = {
+							naval_speed = 0.15
+							naval_range = 0.50
+							build_cost_ic = 0.25
+							fuel_consumption = -1
+							instant = yes
+						}
+					}
+				}								
+			}
 			
 		}
 
-		enable_equipment_modules = {		#equivalents in vanilla [rp "equivalent" my ass when you forget to add them in for the actual navy and bork nuclear subs]
+		enable_equipment_modules = {
+			limit = {
+				has_dlc = "Gotterdammerung"
+			}
+			sub_ship_nuclear_engine_1
 			sub_ship_engine_nuclear_1		#sub_ship_nuclear_engine_1
 			heavy_ship_engine_nuclear_1		#heavy_ship_nuclear_engine_1
 			carrier_ship_engine_nuclear_1	#carrier_ship_nuclear_engine_1
 		}
-		#Hidden for the sake of non gross looking TT
-		if = {
+
+		#Hidden for the sake of non gross looking TT	
+		#We need both :/
+		enable_equipment_modules = {
 			limit = {
-				has_dlc = "Gotterdammerung"
-			}			
-			hidden_effect = {
-				#We need both :/
-				enable_equipment_modules = {
-					sub_ship_nuclear_engine_1	
+				NOT = {
+					has_dlc = "Gotterdammerung"
 				}
 			}
+			sub_ship_engine_nuclear_1		#sub_ship_nuclear_engine_1
+			heavy_ship_engine_nuclear_1		#heavy_ship_nuclear_engine_1
+			carrier_ship_engine_nuclear_1	#carrier_ship_nuclear_engine_1	
 		}
+
 	}
 	
 	empty_reward_weight = {
