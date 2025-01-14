@@ -32,7 +32,21 @@ war_measures = {
 	icon = usa_intervention_mandate
 
 	visible = {
-		has_war = yes
+		# r56rp
+		# ported over from vanilla
+		OR = {
+			AND = {
+				has_war = yes
+				has_war_with_non_exiled_country = yes  
+			}
+			AND = {
+				OR = {
+					original_tag = COG
+					original_tag = BEL
+				}
+				has_global_flag = CONGO_independence_war_ongoing
+			}
+		}
 	}
 }
 operations = {
@@ -48,6 +62,13 @@ foreign_support = {
 prestigious_projects = {
 
 }
+
+# r56rp
+# road has it separate, moving here for easier comparing.
+#CHI_occupation_actions = {
+#	icon = generic_crisis
+#	priority = 2
+#}
 
 foreign_politics = {
 	icon = foreign_support
@@ -67,6 +88,17 @@ political_actions = {
 				original_tag = SWI
 			}
 			has_global_flag = SWI_R56_focus_tree
+		}
+		if = {
+			limit = {
+				has_dlc = "Arms Against Tyranny"
+			}
+			NOT = {
+				AND = {
+					original_tag = DEN
+					is_subject = yes
+				}
+			}
 		}
 	}
 }
