@@ -936,9 +936,13 @@ generic_medium_tanks = {
 
 	basic_medium_tank_default = {
 		priority = {
-			factor = 100
+			base = 100
 			modifier = { 
 				has_tech = improved_medium_tank_chassis
+				factor = 0 #let's not waste XP here
+			}
+			modifier = { 
+				has_tech = antitank2
 				factor = 0 #let's not waste XP here
 			}
 		}
@@ -947,16 +951,71 @@ generic_medium_tanks = {
 			match_value = 10000
 			type = medium_tank_chassis_1
 			modules = {
-				main_armament_slot = {
+				main_armament_slot = tank_medium_cannon
+				turret_type_slot = tank_medium_three_man_tank_turret
+				suspension_type_slot = tank_bogie_suspension
+				armor_type_slot = {
 					any_of = {
-						r56_tank_medium_cannon_4
-						r56_tank_medium_cannon_3
-						tank_medium_cannon_2
-						tank_medium_cannon
-						tank_small_cannon_2
-						tank_small_cannon
+						r56rp_tank_welded_sloped_armor
+						tank_welded_armor
 					}
 				}
+				engine_type_slot = {
+					any_of = {
+						r56rp_tank_petrol_powerpack_engine
+						tank_gasoline_engine
+					}
+				}
+				special_type_slot_1 = tank_radio_module
+				special_type_slot_2 = wet_ammo_storage
+				special_type_slot_3 = {
+					any_of = {
+						easy_maintenance
+						additional_machine_guns
+					}
+				}
+				special_type_slot_4 = additional_machine_guns
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 10
+				tank_nsb_armor_upgrade = 4
+			}
+		}
+
+		allowed_modules = {
+			r56_tank_medium_cannon_4
+			r56_tank_medium_cannon_3
+			tank_medium_cannon_2 
+			tank_medium_cannon 
+			tank_medium_three_man_tank_turret
+			tank_bogie_suspension
+			r56rp_tank_welded_sloped_armor
+			tank_welded_armor
+			
+			r56rp_tank_radio_4
+			tank_radio_3
+			tank_radio_2
+			tank_radio_1
+			easy_maintenance
+			wet_ammo_storage
+			additional_machine_guns
+		}
+	}
+
+	basic_medium_tank_gun_2_default = {
+		priority = {
+			base = 100
+			modifier = { 
+				has_tech = improved_medium_tank_chassis
+				factor = 0 #let's not waste XP here
+			}
+		}
+
+		target_variant = {
+			match_value = 20000
+			type = medium_tank_chassis_1
+			modules = {
+				main_armament_slot = tank_medium_cannon_2
 				turret_type_slot = tank_medium_three_man_tank_turret
 				suspension_type_slot = tank_bogie_suspension
 				armor_type_slot = {

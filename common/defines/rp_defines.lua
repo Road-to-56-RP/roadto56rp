@@ -2,6 +2,7 @@
 -- ## NGame ##
 NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 30 -- 10 Vanilla Lag days
 NDefines.NGame.LAG_DAYS_FOR_PAUSE = 90 -- pause days
+NDefines.NGame.HANDS_OFF_START_TAG = "CHI"
 -- NDefines.NGame.GAME_SPEED_SECONDS = { 2.0, 0.10, 0.05, 0.035, 0 } -- game secs
 
 -- ## NDiplomacy ##
@@ -144,10 +145,13 @@ NDefines.NNavy.SUBMARINE_ESCAPE_RATIOS = { -- subs will escape battle in convoy 
 	1.0,   -- [vanilla 0.1] I am death incarnate! 
 }
 
+NDefines.NNavy.INITIAL_ALLOWED_DOCKYARD_RATIO_FOR_REPAIRS = 1	-- [vanilla 0.25] initially countries will allocate this ratio of dockyards for repairs
+
+
 NDefines.NNavy.CARRIER_STACK_PENALTY = 6	-- Vanilla 4. Gives Carriers more power in Naval Battles and increases their power in line with the issues of Battleships being the Ultimate power of Naval Battles									
 NDefines.NNavy.CARRIER_STACK_PENALTY_EFFECT = 0.2
 NDefines.NNavy.BASE_ESCAPE_SPEED = 0.10			    -- [vanilla 0.045] daily base escape speed (gained as percentagE)
-NDefines.NNavy.SPEED_TO_ESCAPE_SPEED = 0.95			-- [vanilla 0.95] ratio to converstion from ship speed to escape speed (divided by hundred)
+-- NDefines.NNavy.SPEED_TO_ESCAPE_SPEED = 0.95			-- [vanilla 0.95] ratio to converstion from ship speed to escape speed (divided by hundred)
 NDefines.NNavy.ESCAPE_SPEED_PER_COMBAT_DAY = 0.025	-- [vanilla 0.01] daily increase in escape speed during combat duration
 NDefines.NNavy.CARRIER_ONLY_COMBAT_ACTIVATE_TIME = 0 -- [vanilla 0]
 NDefines.NNavy.CAPITAL_ONLY_COMBAT_ACTIVATE_TIME = 6 -- [vanilla 6]
@@ -155,6 +159,20 @@ NDefines.NNavy.ALL_SHIPS_ACTIVATE_TIME = 10 -- [vanilla 8] This gives capital sh
 
 -- ## NAI ##
 NDefines.NAI.GARRISON_FRACTION = 0.2 -- 20% of the troops will NOT push the enemy while advancing. will make it harder to punch trough ai lines
+NDefines.NAI.INDUSTRIAL_ORG_TRAIT_UNLOCK_RANDOMNESS = 1		-- AI will pick a random from N top traits when choosing a trait to unlock
+NDefines.NAI.INDUSTRIAL_ORG_POLICY_CHANGE_RANDOMNESS = 3	-- AI will pick a random from N top policies when choosing a policy to attach to an MIO
+NDefines.NAI.INDUSTRIAL_ORG_RESEARCH_ASSIGN_RANDOMNESS = 3	-- AI will pick a random from N top MIOs when choosing an MIO to assign to a research
+NDefines.NAI.INDUSTRIAL_ORG_PRODUCTION_ASSIGN_RANDOMNESS = 3-- AI will pick a random from N top MIOs when choosing an MIO to assign to a production line
+
+
+NDefines.NAI.PRODUCTION_CARRIER_PLANE_BUFFER_RATIO = 0.25 -- in additiona to total deck size of carriers, we want at list this ratio to buffer it
+
+NDefines.NAI.MAX_AHEAD_RESEARCH_PENALTY = 4            -- Max ahead of time penalty AI will ever consider (this also includes BASE_YEAR_AHEAD_PENALTY_FACTOR, so not the raw time)
+
+NDefines.NAI.AIFC_UNIT_OFFENSIVE_SCORE_FACTOR_BREAKTHROUGH = 20.0
+NDefines.NAI.AIFC_UNIT_OFFENSIVE_SCORE_FACTOR_SOFT_ATTACK = 15.0
+NDefines.NAI.AIFC_UNIT_OFFENSIVE_SCORE_FACTOR_HARD_ATTACK = 8.0
+NDefines.NAI.MANPOWER_RATIO_CAREFULNESS_THRESHOLD = 0.20 -- [vanilla 0.05]
 
 -- ## NFocus ##
 NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 30 -- This much progress can be saved while not having a focus selected
