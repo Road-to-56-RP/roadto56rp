@@ -4184,6 +4184,13 @@ focus_tree = {
 				category = jet_technology
 				category = rocketry
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.75
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = r56_generic_rocket_idea
 		}
 	}
 
@@ -14086,6 +14093,15 @@ focus_tree = {
 		cost = 5
 		available = {
 			is_subject = no
+			if = {
+				limit = {
+					has_country_flag = ITA_yalta_block_monarchy_focuses_until_referendum
+				}
+				custom_trigger_tooltip = {
+					tooltip = ITA_monarchy_path_unlock_by_referendum_tt		
+					always = no
+				}
+			}
 		}
 
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_BALANCE_OF_POWER}
@@ -14138,7 +14154,7 @@ focus_tree = {
 			}
 			set_politics = {
 				ruling_party = democratic
-				elections_allowed = no
+				elections_allowed = yes
 			}
 			set_party_name = {
 				ideology = democratic
@@ -14196,7 +14212,7 @@ focus_tree = {
 			}
 			set_politics = {
 				ruling_party = democratic
-				elections_allowed = no
+				elections_allowed = yes
 			}
 			if = {
 				limit = {
@@ -14241,6 +14257,12 @@ focus_tree = {
 			show_ideas_tooltip = ITA_guido_de_ruggiero
 			show_ideas_tooltip = ITA_alberto_de_stefani
 			show_ideas_tooltip = ITA_curzio_malaparte
+			if = {
+				limit = {
+					has_country_flag = ITA_yalta_block_monarchy_focuses_until_referendum
+				}
+				show_ideas_tooltip = ITA_palmiro_togliatti
+			}
 		}
 	}
 
@@ -14362,6 +14384,15 @@ focus_tree = {
 		cost = 5
 		available = {
 			neutrality > 0.5
+			if = {
+				limit = {
+					has_country_flag = ITA_yalta_block_monarchy_focuses_until_referendum
+				}
+				custom_trigger_tooltip = {
+					tooltip = ITA_monarchy_path_unlock_by_referendum_tt		
+					always = no
+				}
+			}
 		}
 
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_BALANCE_OF_POWER}
@@ -14823,14 +14854,24 @@ focus_tree = {
 					has_war_with = ROOT
 				}
 			}
-			communism > 0.2	#cannot be increased with advisors
+			communism > 0.2
+			NOT = {
+				has_idea = USA_marshall_plan_aid_idea
+			}
+			any_other_country = {
+				has_idea = USA_marshall_plan_aid_idea
+			}
         }
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
 		completion_reward = {
             SOV = {
-				#country_event = 
+				country_event = cold_war.45
 			}
+			custom_effect_tooltip = if_they_accept_tt
+			event_option_tooltip = cold_war.45.a
+			custom_effect_tooltip = if_they_refuse_tt
+			event_option_tooltip = cold_war.45.b
 		}
 	}
 
@@ -14846,12 +14887,21 @@ focus_tree = {
 
         available = {
             communism > 0.35
+			NOT = {
+				has_government = communism
+			}
+			SOV = {
+				has_government = communism
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
         }
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
 		completion_reward = {
             SOV = {
-				#country_event = 
+				country_event = cold_war.46
 			}
 		}
 	}
@@ -22240,8 +22290,8 @@ focus_tree = {
 						limit = {
 							check_variable = { ITA_democratic_neighbors < 0.1 }
 						}
+						ROOT = { add_to_variable = { ITA_defense_against_capitalism = 0.02 } }
 					}
-					ROOT = { add_to_variable = { ITA_defense_against_capitalism = 0.02 } }
 				}
 				add_war_support = ITA_democratic_neighbors
 			}
@@ -23069,12 +23119,11 @@ focus_tree = {
 				}
 			}
 			custom_effect_tooltip = ITA_aid_for_the_spanish_republic_tt
-			if = {
-				limit = {
-					NOT = { has_rule = can_only_justify_war_on_threat_country }
-				}
-				set_rule = { can_send_volunteers = yes }
-			}
+			custom_effect_tooltip = r56_newline
+			add_relation_rule_override = {
+                target = SPR
+                can_send_volunteers = yes 
+            }
 		}
 	}
 
