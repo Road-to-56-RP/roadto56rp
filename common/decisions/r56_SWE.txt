@@ -3146,6 +3146,9 @@ SWE_reintegrate_the_empire_category = {
 			190 = {
 				is_fully_controlled_by = ROOT
 			}
+			EST = {
+				is_subject_of = ROOT
+			}
 		}
 
 		available = {
@@ -3487,6 +3490,14 @@ SWE_reintegrate_the_empire_category = {
 		days_remove = 30
 
 		remove_effect = {
+			hidden_effect = {
+				146 = {
+					remove_core_of = KAR
+				}
+				147 = {
+					remove_core_of = KAR
+				}
+			}
 			release_autonomy = {
 				target = KAR
 				autonomy_state = autonomy_integrated_puppet
@@ -3498,6 +3509,14 @@ SWE_reintegrate_the_empire_category = {
 					state = 213
 					remember_old_capital = yes
 				  }
+			}
+			hidden_effect = {
+				146 = {
+					add_core_of = KAR
+				}
+				147 = {
+					add_core_of = KAR
+				}
 			}
 			set_country_flag = SWE_formed_karelian_protectorate
 		}
@@ -3702,6 +3721,102 @@ SWE_reintegrate_the_empire_category = {
 	}
 }
 SWE_our_eastern_bulwark_category = {
+	SWE_jump_start_karelian_arms_industry = {
+		
+		allowed = {
+			original_tag = SWE
+		}
+
+		visible = {
+			KAR = {
+				is_subject_of = ROOT
+			}
+		}
+
+		fire_only_once = yes
+
+		days_remove = 45
+
+		cost = 50
+		
+		modifier = {
+			civilian_factory_use = 10
+		}
+
+		remove_effect = {
+			KAR = {
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+
+	}
+	SWE_major_invest_in_karelia = {
+		
+		allowed = {
+			original_tag = SWE
+		}
+
+		visible = {
+			KAR = {
+				is_subject_of = ROOT
+			}
+		}
+
+		days_remove = 60
+
+		cost = 50
+		
+		modifier = {
+			civilian_factory_use = 10
+		}
+
+		fire_only_once = yes
+
+		remove_effect = {
+			KAR = {
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+
+	}
 	SWE_invest_in_karelia = {
 		
 		allowed = {
@@ -3735,6 +3850,44 @@ SWE_our_eastern_bulwark_category = {
 					}
 				}
 			}
+			custom_effect_tooltip = SWE_re_enabled_in_120_days_tt
+		}
+
+	}
+	SWE_fund_karelian_arms_industry = {
+		
+		allowed = {
+			original_tag = SWE
+		}
+
+		visible = {
+			KAR = {
+				is_subject_of = ROOT
+			}
+		}
+
+		days_re_enable = 120
+
+		days_remove = 45
+
+		cost = 30
+		
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		remove_effect = {
+			KAR = {
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			custom_effect_tooltip = SWE_re_enabled_in_120_days_tt
 		}
 
 	}
@@ -3765,7 +3918,7 @@ SWE_our_eastern_bulwark_category = {
 				216 = {
 					add_building_construction = {
 						type = bunker
-						level = 1
+						level = 2
 						instant_build = yes
 						province = {
 							all_provinces = yes
@@ -3776,7 +3929,7 @@ SWE_our_eastern_bulwark_category = {
 				215 = {
 					add_building_construction = {
 						type = bunker
-						level = 1
+						level = 2
 						instant_build = yes
 						province = {
 							all_provinces = yes
@@ -3785,6 +3938,7 @@ SWE_our_eastern_bulwark_category = {
 					}
 				}
 			}
+			custom_effect_tooltip = SWE_re_enabled_in_120_days_tt
 		}
 	}
 	SWE_send_rifles_to_the_karelian_armed_forces = {
@@ -3815,6 +3969,37 @@ SWE_our_eastern_bulwark_category = {
 				amount = 2000
 				target = KAR
 			}
+			custom_effect_tooltip = SWE_re_enabled_in_120_days_tt			
+		}
+	}
+	SWE_provide_the_karelians_with_support_equipment = {
+		
+		allowed = {
+			original_tag = SWE
+		}
+
+		visible = {
+			KAR = {
+				is_subject_of = ROOT
+			}
+		}
+
+		available = {
+			has_equipment = {
+				support_equipment > 1999
+			}
+		}
+
+		days_re_enable = 120
+
+		days_remove = 45
+		remove_effect = {
+			send_equipment = {
+				equipment = support_equipment
+				amount = 1000
+				target = KAR
+			}
+			custom_effect_tooltip = SWE_re_enabled_in_120_days_tt
 		}
 	}
 }
