@@ -3116,7 +3116,7 @@ SWE_reintegrate_the_empire_category = {
 				freedom_level = 0.25
 			}
 			EST = {
-				set_cosmetic_tag = EST_livonia
+				set_cosmetic_tag = EST_rp_livonia
 				set_capital = {
 					state = 808
 					remember_old_capital = yes
@@ -3131,6 +3131,9 @@ SWE_reintegrate_the_empire_category = {
 				}
 				813 = {
 					add_core_of = EST
+				}
+				EST = {
+					add_ideas = SWE_puppet_anti_russian_bulwark
 				}
 			}
 			set_country_flag = SWE_reformed_livonia
@@ -3461,7 +3464,9 @@ SWE_reintegrate_the_empire_category = {
 		}
 
 		visible = {
-			always = yes
+			NOT = {
+				has_country_flag = SWE_formed_karelian_protectorate
+			}
 		}
 
 		available = {
@@ -3516,6 +3521,9 @@ SWE_reintegrate_the_empire_category = {
 				}
 				147 = {
 					add_core_of = KAR
+				}
+				KAR = {
+					add_ideas = SWE_puppet_anti_russian_bulwark
 				}
 			}
 			set_country_flag = SWE_formed_karelian_protectorate
@@ -3583,7 +3591,13 @@ SWE_reintegrate_the_empire_category = {
 				is_subject_of = ROOT
 			}
 			722 = {
-				compliance > 20
+				OR = {
+					AND = {
+						compliance > 20
+						resistance < 20
+					}
+					is_core_of = SWE
+				}
 			}
 		}
 
@@ -3621,7 +3635,13 @@ SWE_reintegrate_the_empire_category = {
 				is_subject_of = ROOT
 			}
 			147 = {
-				compliance > 20
+				OR = {
+					AND = {
+						compliance > 20
+						resistance < 20
+					}
+					is_core_of = SWE
+				}
 			}
 		}
 
