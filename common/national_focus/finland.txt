@@ -9956,11 +9956,12 @@ focus_tree = {
 		x = 16
 		y = 0
 		relative_position_id = FIN_right_wing_policies
+		cost = 5
 
 		mutually_exclusive = { focus = FIN_right_wing_policies focus = FIN_suomalainen_sosialismi focus = FIN_finnish_neutrality }
 
 		available = {
-
+			is_subject = no
 		}
 
 		completion_reward = {
@@ -9974,6 +9975,7 @@ focus_tree = {
 		prerequisite = { focus = FIN_r56rp_reach_out_to_the_monarchists }
 		x = -1
 		y = 1
+		cost = 5
 
 		available = {
 
@@ -9990,6 +9992,7 @@ focus_tree = {
 		prerequisite = { focus = FIN_r56rp_reach_out_to_the_monarchists }
 		x = 1
 		y = 1
+		cost = 5
 
 		available = {
 
@@ -10007,13 +10010,36 @@ focus_tree = {
 		prerequisite = { focus = FIN_r56rp_rally_public_support }
 		x = 1
 		y = 1
+		cost = 5
 
 		available = {
-
+			neutrality > 0.4
 		}
 
 		completion_reward = {
-
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			if = {	#do after trait swap so that doesn't need ideology defined
+				limit = {	#if already switched to neutrality, will not be required, as mannerheim when summoned will instead add this role (except here I give him the improved trait immediately)
+					has_government = democratic
+				}
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+				add_country_leader_role = {
+					character = FIN_carl_mannerheim
+					promote_leader = yes
+					country_leader = {
+						ideology = military_junta # no party - r56: changed from oligarchism
+						expire = "1965.1.1.1"
+						id = -1
+						traits = { r56rp_the_finnish_regent }
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -10023,6 +10049,7 @@ focus_tree = {
 		prerequisite = { focus = FIN_r56rp_form_a_monarchist_party }
 		x = -2
 		y = 1
+		cost = 5
 
 		mutually_exclusive = { focus = FIN_r56rp_the_german_heir }
 
@@ -10031,7 +10058,21 @@ focus_tree = {
 		}
 
 		completion_reward = {
-
+			add_country_leader_role = {
+				character =  FIN_prince_wolfgang_von_hesse
+				promote_leader = yes
+				country_leader = {
+					ideology = absolute_monarchism
+					expire = "1965.1.1.1"
+					traits = { crown_prince_of_finland }
+				}
+			}
+			set_party_name = {
+				ideology = neutrality
+				name = r56rp_FIN_neutrality_party_swe_monarchist
+				long_name = r56rp_FIN_neutrality_party_swe_monarchist_long
+			}
+			set_cosmetic_tag = FIN_kingdom_of_finland
 		}
 	}
 	focus = {
@@ -10041,6 +10082,7 @@ focus_tree = {
 		prerequisite = { focus = FIN_r56rp_form_a_monarchist_party }
 		x = 2
 		y = 1
+		cost = 5
 
 		mutually_exclusive = { focus = FIN_r56rp_a_swedish_candidate }
 
@@ -10049,7 +10091,21 @@ focus_tree = {
 		}
 
 		completion_reward = {
-
+			add_country_leader_role = {
+				character =  FIN_prince_wolfgang_von_hesse
+				promote_leader = yes
+				country_leader = {
+					ideology = absolute_monarchism
+					expire = "1965.1.1.1"
+					traits = { crown_prince_of_finland }
+				}
+			}
+			set_party_name = {
+				ideology = neutrality
+				name = r56rp_FIN_neutrality_party_ger_monarchist
+				long_name = r56rp_FIN_neutrality_party_ger_monarchist_long
+			}
+			set_cosmetic_tag = FIN_kingdom_of_finland
 		}
 	}
 	focus = {
@@ -10175,7 +10231,12 @@ focus_tree = {
 		mutually_exclusive = { focus = FIN_r56rp_a_junior_partner }
 
 		available = {
-
+			has_government = neutrality
+			SWE = {
+				NOT = {
+					has_government = communism
+				}
+			}
 		}
 
 		completion_reward = {
@@ -10193,7 +10254,13 @@ focus_tree = {
 		mutually_exclusive = { focus = FIN_r56rp_the_two_brothers }
 
 		available = {
-
+			has_government = neutrality
+			SWE = {
+				NOT = {
+					has_government = communism
+					is_subject = yes
+				}
+			}
 		}
 
 		completion_reward = {
