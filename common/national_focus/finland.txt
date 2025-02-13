@@ -81,6 +81,7 @@ focus_tree = {
 				}
 				NOT = { has_completed_focus = FIN_finnish_neutrality }
 				NOT = { has_completed_focus = FIN_right_wing_policies }
+				NOT = { has_completed_focus = FIN_r56rp_reach_out_to_the_monarchists }
 			}
 		}
 
@@ -4623,6 +4624,7 @@ focus_tree = {
 				}
 				NOT = { has_completed_focus = FIN_suomalainen_sosialismi }
 				NOT = { has_completed_focus = FIN_right_wing_policies }
+				NOT = { has_completed_focus = FIN_r56rp_reach_out_to_the_monarchists }
 			}
 		}
 
@@ -4647,7 +4649,7 @@ focus_tree = {
 			}
 		}
 
-		mutually_exclusive = { focus = FIN_right_wing_policies focus = FIN_suomalainen_sosialismi }
+		mutually_exclusive = { focus = FIN_right_wing_policies focus = FIN_suomalainen_sosialismi focus = FIN_r56rp_reach_out_to_the_monarchists }
 		
 		cost = 5
 
@@ -5184,14 +5186,14 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = FIN_the_finnish_throne
-		icon = GFX_focus_FIN_the_finnish_throne
-		prerequisite = { focus = FIN_a_new_course_for_kokoomus }
-		x = 0
-		y = 1
-		relative_position_id = FIN_a_new_course_for_kokoomus
-		cost = 10
+	 #focus = {
+		#id = FIN_the_finnish_throne
+		#icon = GFX_focus_FIN_the_finnish_throne
+		#prerequisite = { focus = FIN_a_new_course_for_kokoomus }
+		#x = 0
+		#y = 1
+		#relative_position_id = FIN_a_new_course_for_kokoomus
+		#cost = 10
 
 		#allow_branch = {
 		#	has_dlc = "Arms Against Tyranny"
@@ -5208,53 +5210,53 @@ focus_tree = {
 		#	}
 		#}
 
-		available = {
-			has_country_leader = {
-				ruling_only = yes
-				character = FIN_pehr_evind_svinhufvud
-			}
-			neutrality > 0.5
-		}
+		#available = {
+		#	has_country_leader = {
+		#		ruling_only = yes
+		#		character = FIN_pehr_evind_svinhufvud
+		#	}
+		#	neutrality > 0.5
+		#}
 
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		#search_filters = { FOCUS_FILTER_POLITICAL }
 
-		completion_reward = {
-			set_politics = {
-				ruling_party = neutrality
-				elections_allowed = no
-			}
-			add_country_leader_role = {
-				character =  FIN_prince_wolfgang_von_hesse
-				promote_leader = yes
-				country_leader = {
-					ideology = absolute_monarchism
-					expire = "1965.1.1.1"
-					traits = { crown_prince_of_finland personal_agenda_von_hesse }
-				}
-			}
+		#completion_reward = {
+		#	set_politics = {
+		#		ruling_party = neutrality
+		#		elections_allowed = no
+		#	}
+		#	add_country_leader_role = {
+		#		character =  FIN_prince_wolfgang_von_hesse
+		#		promote_leader = yes
+		#		country_leader = {
+		#			ideology = absolute_monarchism
+		#			expire = "1965.1.1.1"
+		#			traits = { crown_prince_of_finland personal_agenda_von_hesse }
+		#		}
+		#	}
 
-			set_party_name = {
-				ideology = neutrality
-				long_name = FIN_neutrality_party_monarchist_long
-				name = FIN_neutrality_party_monarchist
-			}
+		#	set_party_name = {
+		#		ideology = neutrality
+		#		long_name = FIN_neutrality_party_monarchist_long
+		#		name = FIN_neutrality_party_monarchist
+		#	}
 
-			add_popularity = {
-				ideology = neutrality
-				popularity = -0.3
-			}
+		#	add_popularity = {
+		#		ideology = neutrality
+		#		popularity = -0.3
+		#	}
 
-			if = {
-				limit = {
-					has_completed_focus = FIN_greater_finland
-				}
-				set_cosmetic_tag = FIN_greater_kingdom_of_finland
-			}
-			else = {
-				set_cosmetic_tag = FIN_kingdom_of_finland
-			}
-		}
-	}
+		#	if = {
+		#		limit = {
+		#			has_completed_focus = FIN_greater_finland
+		#		}
+		#		set_cosmetic_tag = FIN_greater_kingdom_of_finland
+		#	}
+		#	else = {
+		#		set_cosmetic_tag = FIN_kingdom_of_finland
+		#	}
+		#}
+	 #}
 	
 	focus = {
 		id = FIN_strengthen_military_administration
@@ -7227,6 +7229,7 @@ focus_tree = {
 				}
 				NOT = { has_completed_focus = FIN_finnish_neutrality }
 				NOT = { has_completed_focus = FIN_suomalainen_sosialismi }
+				NOT = { has_completed_focus = FIN_r56rp_reach_out_to_the_monarchists }
 			}
 		}
 
@@ -9958,6 +9961,40 @@ focus_tree = {
 		relative_position_id = FIN_right_wing_policies
 		cost = 5
 
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = { has_completed_focus = FIN_suomalainen_sosialismi }
+				NOT = { has_completed_focus = FIN_right_wing_policies }
+				NOT = { has_completed_focus = FIN_finnish_neutrality }
+			}
+		}
+
+		offset = {
+			x = -14
+			y = 0
+			trigger = {
+				NOT = { has_dlc = "Arms Against Tyranny" }
+			}
+		}
+
+		offset = {
+			x = -38
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FIN_r56rp_reach_out_to_the_monarchists
+			}
+		}
+
 		mutually_exclusive = { focus = FIN_right_wing_policies focus = FIN_suomalainen_sosialismi focus = FIN_finnish_neutrality }
 
 		available = {
@@ -9965,7 +10002,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-
+			mark_focus_tree_layout_dirty = yes
 		}
 	}
 	focus = {
@@ -10268,6 +10305,14 @@ focus_tree = {
 
 		completion_reward = {
 			set_cosmetic_tag = FIN_rp_grand_duchy_of_finland
+			SWE = {
+				set_autonomy = {
+					target = FIN
+					autonomous_state = autonomy_dominion
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
 		}
 	}
 	focus = {
@@ -10434,29 +10479,50 @@ focus_tree = {
 		id = FIN_enhance_southern_infrastructure
 		icon = GFX_goal_generic_construct_infrastructure
 
-		x = 24
+		x = 8
 		y = 0
-		relative_position_id = FIN_right_wing_policies
+		relative_position_id = FIN_r56rp_reach_out_to_the_monarchists
 
 		offset = {
-			x = -14
+			x = -10
 			y = 0
 			trigger = {
-				OR = {
-					NOT = { has_dlc = "Arms Against Tyranny" }
-					AND = {
-						has_game_rule = {
-							rule = obsolete_focus_branches_visibility
-							option = HIDE
-						}
-						has_completed_focus = FIN_finnish_neutrality
-					}
+				NOT = { has_dlc = "Arms Against Tyranny" }
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
 				}
+				has_completed_focus = FIN_finnish_neutrality
 			}
 		}
 
 		offset = {
-			x = -27
+			x = -24
+			y = 0
+			trigger = {
+				has_dlc = "Arms Against Tyranny"
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FIN_finnish_neutrality
+			}
+		}
+
+		offset = {
+			x = -11
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = FIN_right_wing_policies
+			}
+		}
+
+		offset = {
+			x = -36
 			y = 0
 			trigger = {
 				has_game_rule = {
