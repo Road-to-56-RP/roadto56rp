@@ -96,7 +96,7 @@ NDefines.NAir.MISSION_FUEL_COSTS = {  -- CHECK ROAD fuel cost per plane for each
 
 NDefines.NAir.ANTI_AIR_PLANE_DAMAGE_CHANCE = 0.2				-- [vanilla 0.1] Anti Air Gun hit chance
 NDefines.NAir.ANTI_AIR_ATTACK_TO_DAMAGE_REDUCTION_FACTOR = 0.3	-- [vanilla 1.0] Balancing value to convert equipment stat anti_air_attack to the damage reduction modifier apply to incoming air attacks against units with AA.
-NDefines.NAir.ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.80	-- [vanilla 0.75] Maximum damage reduction factor applied to incoming air attacks against units with AA.
+NDefines.NAir.ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.85	-- [vanilla 0.75] Maximum damage reduction factor applied to incoming air attacks against units with AA.
 -- air damage reduction for rp should be maxed out at about 40.4 averaged air attack.
 -- math for cas incoming damage reduction for vanilla \/
 -- ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.75 / ANTI_AIR_ATTACK_TO_DAMAGE_REDUCTION_FACTOR = 1.0 / ANTI_AIR_TARGETTING_TO_CHANCE = 0.2
