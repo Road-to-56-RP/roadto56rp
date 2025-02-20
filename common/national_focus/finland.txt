@@ -10174,14 +10174,55 @@ focus_tree = {
 		prerequisite = { focus = FIN_r56rp_the_german_heir focus = FIN_r56rp_a_swedish_candidate }
 		x = -2
 		y = 1
-		cost = 10
+		cost = 5
 
 		available = {
 
 		}
 
 		completion_reward = {
-
+			if = {
+				limit = {
+					has_country_flag = FIN_r56rp_chose_german_king
+				}
+				GER = {
+					reverse_add_opinion_modifier = {
+						target = FIN
+						modifier = large_increase
+					}
+					diplomatic_relation = {
+						country = FIN
+						relation = non_aggression_pact
+						active = yes
+					}
+				}
+				add_relation_modifier = {
+					target = GER
+					modifier = FIN_r56rp_dynastic_ties_license
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = FIN_r56rp_chose_swedish_king
+				}
+				SWE = {
+					reverse_add_opinion_modifier = {
+						target = FIN
+						modifier = large_increase
+					}
+					diplomatic_relation = {
+						country = FIN
+						relation = non_aggression_pact
+						active = yes
+					}
+				}
+				add_relation_modifier = {
+					target = SWE
+					modifier = FIN_r56rp_dynastic_ties_license
+				}
+			}
+			add_political_power = 50
+			
 		}
 	}
 	focus = {
@@ -10198,7 +10239,38 @@ focus_tree = {
 		}
 
 		completion_reward = {
-
+			random_core_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -10215,7 +10287,38 @@ focus_tree = {
 		}
 
 		completion_reward = {
-
+			random_core_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -10232,7 +10335,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			army_experience = 50
+			add_command_power = 25
 			add_ideas = FIN_r56rp_generalstab
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
 		}
 	}
 	focus = {
@@ -10249,6 +10359,29 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = FIN_r56rp_generalstab
+				add_idea = FIN_r56rp_generalstab_upgrade
+			}
+			add_doctrine_cost_reduction = {
+				name = GER_stormtroopers
+				cost_reduction = 0.25
+				uses = 1
+				category = land_doctrine
+			}
+			add_tech_bonus = {
+				name = GER_stormtroopers
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}
+			add_tech_bonus = {
+				name = GER_stormtroopers
+				bonus = 0.5
+				uses = 1
+				category = r56_shock_infantry_tech
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = GER_sturmtruppe_battalion_tt
 			hidden_effect = {
 				set_technology = { sturmtruppe_battalion_tech = 1 popup = no }
@@ -10401,6 +10534,7 @@ focus_tree = {
 
 		available = {
 			has_government = neutrality
+			is_subject = no
 			SWE = {
 				NOT = {
 					has_government = communism
@@ -10471,6 +10605,7 @@ focus_tree = {
 
 		available = {
 			has_government = neutrality
+			is_subject = no
 			SWE = {
 				NOT = {
 					has_government = communism
