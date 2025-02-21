@@ -21,6 +21,30 @@ focus_tree = {
 	continuous_focus_position = { x = 3600 y = 1200 }
 	default = no
 
+	shortcut = {
+		name = USA_lend_lease_act_r56rp_shortcut
+		target = USA_lend_lease_act
+		scroll_wheel_factor = 0.9
+	}
+
+	shortcut = {
+		name = USA_intervention_in_europe_r56rp_shortcut
+		target = USA_intervention_in_europe
+		scroll_wheel_factor = 0.9
+	}
+
+	shortcut = {
+		name = USA_armored_infantry_r56rp_shortcut
+		target = USA_armored_infantry
+		scroll_wheel_factor = 0.85
+	}
+
+	shortcut = {
+		name = USA_fund_the_navy_r56rp_shortcut
+		target = USA_fund_the_navy
+		scroll_wheel_factor = 0.87
+	}
+
 	focus = {
 		id = USA_continue_the_new_deal
 		icon = GFX_Goal_USA_new_deal
@@ -10192,31 +10216,48 @@ focus_tree = {
 		}
 	}
 	
-	focus = {
-		id = USA_build_the_pentagon
-		icon = GFX_focus_usa_build_the_pentagon
-		x = -1
-		y = 1
-		prerequisite = { focus = USA_war_department }
-		relative_position_id = USA_war_department
-		cost = 5
+    focus = {
+        id = USA_build_the_pentagon
+        icon = GFX_focus_usa_build_the_pentagon
+        x = -1
+        y = 1
+        prerequisite = { focus = USA_war_department }
+        relative_position_id = USA_war_department
+        cost = 5
 
-		ai_will_do = {
-			factor = 1
-		}
+        available = {
+            has_full_control_of_state = 362 #virginia
+        }
 
-		completion_reward = {
-			add_ideas = USA_the_pentagon
-			if = {
-				limit = {
-					has_full_control_of_state = 361
-				}
-				361 = {
-					add_extra_state_shared_building_slots = 1
-				}
-			}
-		}
-	}
+        ai_will_do = {
+            factor = 1
+        }
+
+        completion_reward = {
+            IF = {
+                limit = {
+                    has_dlc = "Gotterdammerung"
+                }
+                custom_effect_tooltip = USA_r56rp_build_pentagon_tt
+                hidden_effect = {
+                    362 = {
+                        add_building_construction = {
+                            type = landmark_r56rp_pentagon
+                            level = 1
+                            instant_build = yes
+                            province = 873 #arlington
+                        }
+                    }
+                }
+            }
+            ELSE = {
+                add_ideas = USA_the_pentagon
+                362 = { #virginia
+                    add_extra_state_shared_building_slots = 1
+                }
+            }
+        }
+    }
 	focus = {
 		id = USA_support_rock_island
 		icon = GFX_goal_generic_army_artillery

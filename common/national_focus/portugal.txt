@@ -217,42 +217,22 @@ focus_tree = {
 					POR = { set_country_flag = POR_released_mozambique_flag }
 				}
 			}
-
-			if = {
-				limit = {
-					OR = {
-						has_dlc = "Together for Victory"
-						has_dlc = "Man the Guns"
-					}
-				}
-
-				POR = {
-					if = {
-						limit = { has_country_flag = POR_released_angola_flag }
-						set_autonomy = {
-						    target = ANG
-						    autonomy_state = autonomy_integrated_puppet
-						}
-					}
-					if = {
-						limit = { has_country_flag = POR_released_mozambique_flag }
-						set_autonomy = {
-						    target = MZB
-						    autonomy_state = autonomy_integrated_puppet
-						}
-					}
-				}
-			}
-			else = {
+			POR = {
 				if = {
 					limit = { has_country_flag = POR_released_angola_flag }
-					POR = { puppet = ANG }
+					set_autonomy = {
+						target = ANG
+						autonomy_state = autonomy_integrated_puppet
+					}
 				}
 				if = {
 					limit = { has_country_flag = POR_released_mozambique_flag }
-					POR = { puppet = MZB }
+					set_autonomy = {
+						target = MZB
+						autonomy_state = autonomy_integrated_puppet
+					}
 				}
-			}			
+			}
 
 			every_other_country = {
 				limit = { has_government = democratic }
@@ -953,7 +933,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = POR_military_vehicles
-			    bonus = 2.0
+			    bonus = 1.0
 			    uses = 1
 			    category = motorized_equipment
 			}
@@ -1046,7 +1026,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = available_mio_tt
 				show_mio_tooltip = POR_fma_organization
-				mio:HOL_daf_organization = {
+				mio:POR_fma_organization = {
 					add_mio_funds = 500
 				}
 			}
@@ -1146,7 +1126,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = POR_armor_focus
-			    bonus = 2.0
+			    bonus = 1.0
 			    uses = 1
 			    category = armor
 			}
@@ -1166,7 +1146,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = POR_mechanized_focus
-			    bonus = 2.0
+			    bonus = 1.0
 			    uses = 1
 			    category = cat_mechanized_equipment
 			}
@@ -1238,7 +1218,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = POR_advanced_light_aircraft
-			    bonus = 2.0
+			    bonus = 1.0
 			    uses = 1
 			    category = light_air
 			}
@@ -1261,9 +1241,13 @@ focus_tree = {
 			air_experience = 25
 			add_tech_bonus = {
 				name = POR_jet_research
-			    bonus = 2.0
+			    bonus = 1.0
 			    uses = 1
 			    category = jet_technology
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.25
 			}
 		}
 	}
@@ -2658,7 +2642,7 @@ focus_tree = {
 
 	focus = {
 		id = POR_expand_the_intelligence_services
-		icon = GFX_goal_CAN_CAMP_X
+		icon = GFX_goal_generic_spy_connection
 		cost = 5
 		prerequisite = {
 			focus = POR_communist_secret_police
@@ -6595,7 +6579,7 @@ focus_tree = {
 				name = "Dom Duarte Nuno"
 				picture = "gfx/leaders/POR/portrait_por_duarte_nuno.dds"
 				expire = "1976.12.24"
-				ideology = despotism
+				ideology = constitutional_monarchy
 				traits = {
 					constitutional_monarch_minor
 				}
