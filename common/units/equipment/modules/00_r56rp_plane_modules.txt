@@ -501,26 +501,177 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_turret
 		parent = air_air_radar_2
 
-		add_stats = {
-			build_cost_ic = 8
-			weight = 1
-		}
-		
-		mission_type_stats = {
-			limit = {
-				interception
-				air_superiority
-			}
 			add_stats = {
-				night_penalty = -0.50
+				build_cost_ic = 8
+				weight = 1
 			}
-			multiply_stats = {
-				air_superiority = 0.1
-				air_defence = 0.1
+			
+			mission_type_stats = {
+				limit = {
+					interception
+					air_superiority
+				}
+				add_stats = {
+					night_penalty = -0.50
+				}
+				multiply_stats = {
+					air_superiority = 0.1
+					air_defence = 0.1
+				}
 			}
+			xp_cost = 1
 		}
-		xp_cost = 1
-	}
+	## END
+
+	## TURRETS
+
+		r56rp_hmg_aglt_turret_x1 = { #automatic gun-laying turret
+			abbreviation = "aglt"
+			category = plane_special_module_defense_turret
+			sfx = sfx_ui_sd_module_turret
+
+			add_stats = {
+				build_cost_ic = 5
+				weight = 2
+			}
+
+			mission_type_stats = {
+				limit = {
+					naval_bomber
+					port_strike
+					strategic_bomber
+					naval_patrol
+					cas
+					attack_logistics
+					naval_mines_planting
+				}
+
+				add_stats = {
+					air_agility = 2.5
+					air_attack = 10
+					air_defence = 5
+				}
+			}
+
+			multiply_stats = {
+				maximum_speed = -0.02
+			}
+
+			dismantle_cost_ic = 2
+			can_convert_from = {
+				module_category = plane_special_module_defense_turret
+				convert_cost_ic = 4.5
+			}
+			can_convert_from = {
+				module = lmg_defense_turret
+				convert_cost_ic = 3
+			}
+			can_convert_from = {
+				module = cannon_defense_turret
+				convert_cost_ic = 4
+			}
+			xp_cost = 1
+		}
+
+		r56rp_hmg_remote_turret_x1 = { #remote turret. just better hmg with no speed debuff.
+			abbreviation = "hmgrt"
+			category = plane_special_module_defense_turret
+			sfx = sfx_ui_sd_module_turret
+
+			add_stats = {
+				build_cost_ic = 4
+				weight = 1
+			}
+
+			mission_type_stats = {
+				limit = {
+					naval_bomber
+					port_strike
+					strategic_bomber
+					naval_patrol
+					cas
+					attack_logistics
+					naval_mines_planting
+				}
+
+				add_stats = {
+					air_agility = 2.5
+					air_attack = 3
+					air_defence = 2
+				}
+			}
+
+			dismantle_cost_ic = 2
+
+			can_convert_from = {
+				module_category = plane_special_module_defense_turret
+				convert_cost_ic = 3
+			}
+			can_convert_from = {
+				module = lmg_defense_turret
+				convert_cost_ic = 2
+			}
+			can_convert_from = {
+				module = cannon_defense_turret
+				convert_cost_ic = 2
+			}
+			can_convert_from = {
+				module = hmg_defense_turret
+				convert_cost_ic = 1
+			}
+			xp_cost = 1
+		}
+
+		r56rp_hmg_remote_turret_x2 = { #remote turret. just better hmg with no speed debuff.
+			abbreviation = "hmgrt2"
+			category = plane_special_module_defense_turret
+			sfx = sfx_ui_sd_module_turret
+
+			add_stats = {
+				build_cost_ic = 8
+				weight = 1
+			}
+
+			mission_type_stats = {
+				limit = {
+					naval_bomber
+					port_strike
+					strategic_bomber
+					naval_patrol
+					cas
+					attack_logistics
+					naval_mines_planting
+				}
+
+				add_stats = {
+					air_agility = 5
+					air_attack = 6
+					air_defence = 4
+				}
+			}
+
+			dismantle_cost_ic = 4
+			
+			can_convert_from = {
+				module_category = plane_special_module_defense_turret
+				convert_cost_ic = 6
+			}
+			can_convert_from = {
+				module = lmg_defense_turret_2x
+				convert_cost_ic = 4
+			}
+			can_convert_from = {
+				module = cannon_defense_turret_2x
+				convert_cost_ic = 4
+			}
+			can_convert_from = {
+				module = hmg_defense_turret_2x
+				convert_cost_ic = 2
+			}
+			xp_cost = 1
+		}
+
+	## END
 
 	## MISC
 
@@ -556,18 +707,40 @@ equipment_modules = {
 			air_ground_attack = 0.10
 		}
 
-		mission_type_stats = {
-			limit = {
-				cas
-				naval_bomber
-				port_strike
+			mission_type_stats = {
+				limit = {
+					cas
+					naval_bomber
+					port_strike
+				}
+				add_stats = {
+					naval_strike_targetting = 4
+					air_defence = 8
+				}
 			}
-			add_stats = {
-				naval_strike_targetting = 4
-				air_defence = 8
-			}
+			dismantle_cost_ic = 2
+			xp_cost = 1
 		}
-		dismantle_cost_ic = 2 #you essentially have to redesign part of the wing
-		xp_cost = 1
-	}
+
+		r56rp_jato_x1 = {
+			abbreviation = "rpjato"
+			category = plane_special_module_medium
+			sfx = sfx_ui_sd_module_turret
+
+			#forbid_module_categories = {
+			#	nav_bomber_weapon
+			#}
+
+			add_stats = {
+				thrust = 5
+				build_cost_ic = 3
+				weight = 1
+				fuel_consumption = 2
+			}
+
+			dismantle_cost_ic = 2 
+			xp_cost = 1
+		}
+
+	## END
 }
