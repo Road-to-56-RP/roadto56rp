@@ -9,7 +9,7 @@ FIN_r56rp_finno_swedish_war_games_categories = {
 		}
 	
 		visible = {
-		#	has_completed_focus = FIN_r56rp_finno_swedish_war_games
+			has_completed_focus = FIN_r56rp_finno_swedish_war_games
 		}
 
 		available = {
@@ -74,7 +74,7 @@ FIN_r56rp_finno_swedish_war_games_categories = {
 		}
 	
 		visible = {
-		#	has_completed_focus = FIN_r56rp_finno_swedish_war_games
+			has_completed_focus = FIN_r56rp_finno_swedish_war_games
 		}
 
 		available = {
@@ -131,3 +131,71 @@ FIN_r56rp_finno_swedish_war_games_categories = {
 		}
 	}
 }	
+FIN_r56rp_the_finnish_bear_trap_category = {
+	FIN_r56rp_prepare_karelian_sabotage = {
+
+		visible = {
+			#has_completed_focus = FIN_r56rp_the_finnish_bear_trap
+			has_war = no
+			#has_equipment = {
+			#	infantry_equipment > 350
+			#}
+			#has_equipment = {
+			#	artillery_equipment > 5
+			#}
+			#has_equipment = {
+			#	support_equipment > 5
+			#}
+		}
+
+        state_target = yes
+        target_trigger = {
+            FROM = {
+				is_core_of = SOV
+                is_owned_and_controlled_by = SOV
+				OR	 = {
+					state = 213 #Murmansk
+					state = 215 #Onega
+					state = 216 #Olonets
+				}
+            }
+        }
+        fire_only_once = yes
+
+		custom_cost_text = r56_15_command_power_cost
+		custom_cost_trigger = {
+			command_power > 15
+		}		
+
+		complete_effect = {
+			add_command_power = -15
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -300
+				producer = FIN
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = -1
+				producer = FIN
+			}	
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -1
+				producer = FIN
+			}					
+		}
+
+        days_remove = 14
+        on_map_mode = map_and_decisions_view
+
+		remove_effect = {
+			FROM = { 
+				set_state_flag = prepared_karelian_sabotage
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}		
+	}
+}

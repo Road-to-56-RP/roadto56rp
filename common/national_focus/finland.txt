@@ -10840,6 +10840,97 @@ focus_tree = {
 			}
 			navy_experience = 25
 		}
+		if = {
+			limit = {
+				OR = {
+					is_in_faction_with = SWE
+					is_subject_of = SWE
+				}
+			}
+			SWE = {
+				add_breakthrough_progress = {
+					specialization = specialization_naval
+					value = 0.75
+				}
+				if = {
+					limit = {
+						666 = {
+							naval_facility < 1
+						}
+					}
+					666 = {
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = dockyard
+							level = 2
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = naval_facility
+							level = 1
+							instant_build = yes
+							province = 9108
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						1029 = {
+							naval_facility < 1
+						}
+					}
+					1029 = {
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = dockyard
+							level = 2
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = naval_facility
+							level = 1
+							instant_build = yes
+							province = 6132
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						141 = {
+							naval_facility < 1
+						}
+					}
+					141 = {
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = dockyard
+							level = 2
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = naval_facility
+							level = 1
+							instant_build = yes
+							province = 6050
+						}
+					}
+				}
+				else = {
+					add_tech_bonus = {
+						bonus = 1
+						uses = 1
+						category = naval_equipment
+					}
+					navy_experience = 25
+				}
+				add_tech_bonus = {
+					bonus = 1
+					uses = 1
+					category = naval_equipment
+				}
+				navy_experience = 25
+			}
+		}
 	}
 	focus = {
 		id = FIN_r56rp_towards_a_greater_finland
@@ -10849,14 +10940,13 @@ focus_tree = {
 		prerequisite = { focus = FIN_r56rp_lockdown_the_baltic focus = FIN_r56rp_prepare_the_russian_border }
 		x = 2
 		y = 1
-		cost = 10
+		cost = 5
 
 		available = {
 
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = FIN_heimosodat_dec_tt
 			213 = {
 				add_claim_by = ROOT
 			}
@@ -10866,6 +10956,7 @@ focus_tree = {
 			216 = {
 				add_claim_by = ROOT
 			}
+			add_political_power = 50
 		}
 	}
 	focus = {
@@ -10883,7 +10974,25 @@ focus_tree = {
 		}
 
 		completion_reward = {
-		
+			add_timed_idea = {
+				days = 800
+				idea = FIN_r56rp_the_call_to_arms_idea
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2500
+				producer = FIN
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 500
+				producer = FIN
+			}	
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 500
+				producer = FIN
+			}
 		}
 	}
 	focus = {
@@ -10901,6 +11010,25 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			unlock_decision_category_tooltip = FIN_r56rp_the_finnish_bear_trap_category
+		}
+	}
+	focus = {
+		id = FIN_r56rp_strike_the_russian_bear
+		icon = GFX_focus_attack_soviet
+
+		relative_position_id = FIN_r56rp_the_finnish_bear_trap
+		prerequisite = { focus = FIN_r56rp_the_finnish_bear_trap }
+		prerequisite = { focus = FIN_r56rp_a_call_to_arms }
+		x = 1
+		y = 1
+		cost = 10
+
+		available = {
+
+		}
+
+		completion_reward = {
 		
 		}
 	}
@@ -10908,14 +11036,22 @@ focus_tree = {
 		id = FIN_r56rp_greater_finland_achieved
 		icon = GFX_focus_FIN_greater_finland
 
-		relative_position_id = FIN_r56rp_the_finnish_bear_trap
-		prerequisite = { focus = FIN_r56rp_the_finnish_bear_trap focus = FIN_r56rp_a_call_to_arms }
-		x = 1
+		relative_position_id = FIN_r56rp_strike_the_russian_bear
+		prerequisite = { focus = FIN_r56rp_strike_the_russian_bear }
+		x = 0
 		y = 1
 		cost = 10
 
 		available = {
-
+			213 = {
+				is_owned_and_controlled_by = ROOT
+			}
+			215 = {
+				is_owned_and_controlled_by = ROOT
+			}
+			216 = {
+				is_owned_and_controlled_by = ROOT
+			}
 		}
 
 		completion_reward = {
