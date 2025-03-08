@@ -2839,12 +2839,32 @@ country_event = {
 			add_to_tech_sharing_group = GER_anglo_german_naval_development_group
 			GER = {
 				add_to_tech_sharing_group = GER_anglo_german_naval_development_group
+				if = {
+					limit = {
+						has_idea = GER_redirecting_naval_production
+					}
+					swap_ideas = {
+						remove_idea = GER_redirecting_naval_production
+						add_idea = GER_redirecting_naval_production_2
+					}	
+				}
 			}
 		}
 
 		add_breakthrough_progress = {
 			specialization = specialization_naval
 			value = 0.5
+		}
+		
+		custom_effect_tooltip = generic_skip_one_line_tt
+
+		FROM = {
+			# FROM Accepts the Deal
+			country_event = {
+				id = wuw_GER_diplomacy.51
+				hours = 12
+				random_hours = 24
+			}	
 		}
 	}
 	option = { # No cooperation with the Krauts!
@@ -2880,10 +2900,24 @@ country_event = {
 		ai_chance = {
 			base = 100
 		}
+		# FROM = { # R56
+		# 	add_to_tech_sharing_group = GER_anglo_german_naval_development_group
+		# }
+
+		# custom_effect_tooltip = generic_skip_one_line_tt # R56
 		
 		add_to_tech_sharing_group = GER_anglo_german_naval_development_group
 		ENG = {
 			add_to_tech_sharing_group = GER_anglo_german_naval_development_group
+		}
+		if = {
+			limit = {
+				has_idea = GER_redirecting_naval_production
+			}
+			swap_ideas = {
+				remove_idea = GER_redirecting_naval_production
+				add_idea = GER_redirecting_naval_production_2
+			}	
 		}
 
 		add_breakthrough_progress = {
@@ -4707,7 +4741,7 @@ country_event = { #Germany demands integration
 
 				FROM = {
 					transfer_state = 69
-					transfer_state = 972
+					transfer_state = 1078
 					transfer_state = 9
 					transfer_state = 75
 					transfer_state = 74
@@ -5016,7 +5050,7 @@ country_event = { #After War SOV/GER hands over states to GER/SOV
 				}
 
 				transfer_state = 69
-				transfer_state = 972
+				transfer_state = 1078
 				transfer_state = 9
 				transfer_state = 75
 				transfer_state = 74
@@ -6419,7 +6453,7 @@ country_event = {
 					is_owned_and_controlled_by = CZE
 					OR = {
 						state = 69
-						state = 972
+						state = 1078
 						state = 74
 					}
 				}
@@ -6459,7 +6493,7 @@ country_event = {
 
 		FROM = { # FROM Rejects
 			country_event = { 
-				id = wuw_GER_diplomacy.118
+				id = wuw_GER_diplomacy.119
 				hours = 5 
 				random_hours = 6
 			}
@@ -6490,7 +6524,7 @@ country_event = {
 			limit = {
 				OR = {
 					state = 69
-					state = 972
+					state = 1078
 					state = 74
 				}
 			}
@@ -6599,7 +6633,7 @@ country_event = {
 				is_owned_and_controlled_by = CZE
 				OR = {
 					state = 69
-					state = 972
+					state = 1078
 					state = 74
 				}
 			}
@@ -6807,25 +6841,26 @@ country_event = {
 			}
 		}
 		effect_tooltip = {
-			every_state = {
-				limit = {
-					is_owned_and_controlled_by = ROOT
-					OR = {
-						state = 777
-						state = 773
-						state = 895
-						state = 894
-						state = 541
-						state = 893
-						state = 768
-						state = 769
-						state = 546
+			ROOT = {
+				every_state = { # R56
+					limit = {
+						is_owned_and_controlled_by = ROOT # R56
+						OR = {
+							state = 777
+							state = 773
+							state = 895
+							state = 894
+							state = 541
+							state = 893
+							state = 768
+							state = 769
+							state = 546
+						}
 					}
+					transfer_state_to = FROM
 				}
-				transfer_state_to = FROM
 			}
 		}
-		
 	}
 
 	option = { # No, they are ours now
@@ -7098,8 +7133,41 @@ country_event = {
 					random_days = 2 
 				}
 			}
+
+			custom_effect_tooltip = if_they_accept_tt
+			effect_tooltip = {
+				every_state = {
+					limit = {
+						OR = {
+							state = 888
+							state = 889
+						}
+						OR = {
+							is_fully_controlled_by = BEL
+							is_fully_controlled_by = COG
+						}
+					}
+					transfer_state_to = ENG
+				}
+				every_state = {
+					limit = {
+						OR = {
+							state = 295
+							state = 538
+							state = 718
+							state = 890
+							state = 768
+							state = 769
+						}
+						OR = {
+							is_fully_controlled_by = BEL
+							is_fully_controlled_by = COG
+						}
+					}
+					transfer_state_to = GER
+				}
+			}
 		}
-		
 	}
 
 	option = { # We will not sponsor this aggression
@@ -7125,7 +7193,6 @@ country_event = {
 				random_days = 2 
 			}
 		}
-
 	}
 }
 
@@ -9233,7 +9300,7 @@ country_event = {
 				BLR = {
 					set_nationality = {
 					    target_country = RKO
-					    character = BLR_radislau_astrouski
+					    character = BLR_radaslau_astrouski #R56
 					}
 				}
 			}
@@ -9264,7 +9331,7 @@ country_event = {
 				RKO = {
 					set_nationality = {
 					    target_country = BLR
-					    character = BLR_radislau_astrouski
+					    character = BLR_radaslau_astrouski #R56
 					}
 				}
 			}
@@ -9286,7 +9353,7 @@ country_event = {
 		}		
 		
 		RKO = {
-			BLR_radislau_astrouski = {
+			BLR_radaslau_astrouski = { #R56
 				add_country_leader_role = {
 					promote_leader = yes
 					country_leader = {
@@ -10686,7 +10753,7 @@ country_event = {
 			}
 		}
 		ai_chance = {
-			base = ´45
+			base = 45 # R56 vanilla fix
 		}		
 		
 		RKC = {
@@ -16601,7 +16668,8 @@ country_event = {
 				}
 			}
 		}
-
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = probably_lead_to_war_with_ger_tt
 	}
 }
 
@@ -17553,11 +17621,10 @@ country_event = {
 					transfer_troops = yes
 				}
 			}
-			every_state = {
-				limit = {
-					is_core_of = ROOT
+			ROOT = {
+				every_core_state = {		
+					add_core_of = FROM
 				}
-				add_core_of = FROM
 			}
 
 			AUS = {
@@ -17649,12 +17716,15 @@ country_event = {
 
 		custom_effect_tooltip =  generic_skip_one_line_tt
 		
-		every_state = {
-			limit = {
-				is_core_of = FROM
+		FROM = {
+			every_core_state = {		
+				add_core_of = ROOT
 			}
-			add_core_of = ROOT
 		}
+
+		GER_anschluss_modify_mefo_bills_or_economy_of_conquest = yes
+		GER_seize_gold_reserves_in_europe_peacefully = yes
+		add_to_variable = { var = GER_mefo_bill_counter value = -10 }
 
 		IF = {
 			limit = { AUS = { has_completed_focus = AUS_bring_generals_out_of_retirement } }
@@ -18297,7 +18367,7 @@ country_event = {
 					state = 155
 					state = 43
 					state = 973
-					state = 974
+					state = 1104
 					state = 154
 				}
 			}
@@ -18339,7 +18409,7 @@ country_event = {
 					state = 155
 					state = 43
 					state = 973
-					state = 974
+					state = 1104
 					state = 154
 				}
 				is_owned_by = FROM
@@ -18350,8 +18420,13 @@ country_event = {
 
 		custom_effect_tooltip = generic_skip_one_line_tt
 
-		FROM = {
-			add_to_faction = ROOT
+		if = {
+			limit = {
+				NOT = { is_in_faction_with = FROM }
+			}
+			FROM = {
+				add_to_faction = ROOT
+			}
 		}
 
 		custom_effect_tooltip = generic_skip_one_line_tt
@@ -18474,7 +18549,7 @@ country_event = { # FROM accepts our faction invitation - event for GER
 						state = 155
 						state = 43
 						state = 973
-						state = 974
+						state = 1104
 						state = 154
 					}
 				}
@@ -18516,7 +18591,7 @@ country_event = { # FROM accepts our faction invitation - event for GER
 						state = 155
 						state = 43
 						state = 973
-						state = 974
+						state = 1104
 						state = 154
 					}
 					is_owned_by = ROOT
@@ -18688,19 +18763,24 @@ country_event = {
 	option = { # Great
 		name = wuw_GER_realpolitik.47.a
 		
-		every_state = {
+		every_state = { # R56
 			limit = {
-				is_owned_by = CZE
+				is_owned_by = CZE # R56
 				OR = {
 					state = 69
 					state = 9
 					state = 75
 					state = 74
-					state = 972
+					state = 1078 # R56
 				}
 			}
 			transfer_state_to = ROOT
 		}
+
+		GER_czechoslovakia_modify_mefo_bills_or_economy_of_conquest = yes
+		GER_seize_gold_reserves_in_europe_peacefully = yes
+
+		add_to_variable = { var = GER_mefo_bill_counter value = -10 }
 
 		IF = {
 			limit = {
@@ -20112,31 +20192,22 @@ country_event = { #Spartacus leader election
 		}
 	}
 
-	#option = { #Grotewohl #TODO_DANNE reinstate this if/when the rest of the content takes democracy into account
-	#	name = wuw_GER_german_politics.02.c
-	#	ai_chance = {
-	#		base = 0
-	#	}
-#
-	#	set_politics = {
-	#		ruling_party = democratic
-	#		elections_allowed = no
-	#		last_election = "1933.3.5"
-	#		election_frequency = 48
-	#		long_name = GER_democratic_socialist_party_long
-	#		name = GER_democratic_socialist_party
-	#	}
-#
-	#	add_country_leader_role = {
-	#		character = GER_otto_grotewohl
-	#		promote_leader = yes
-	#		country_leader = {
-	#			ideology = socialism
-	#			expire = 1965.1.1
-	#			traits = { GER_pragmatic_socialist } 
-	#		}
-	#	}
-	#}
+	option = {
+		name = wuw_GER_german_politics.02.c
+		ai_chance = {
+			base = 1
+		}
+
+		add_country_leader_role = {
+			character = GER_otto_grotewohl
+			promote_leader = yes
+			country_leader = {
+				ideology = marxism
+				expire = 1965.1.1
+				traits = { GER_pragmatic_socialist } 
+			}
+		}
+	}
 }
 
 
