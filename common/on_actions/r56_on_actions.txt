@@ -10394,28 +10394,18 @@ on_actions = {
 					}
 				}
 			}
-			ARG = {
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = ARG_ai_behavior
-							option = RANDOM
-						}
-					}
-					random_list = {
-						70 = { set_country_flag = ARG_AI_RANDOM_NON_ALIGNED_HISTORICAL }
-						10 = { set_country_flag = ARG_AI_RANDOM_DEMOCRATIC }
-						10 = { set_country_flag = ARG_AI_RANDOM_COMMUNIST}
-						10 = { set_country_flag = ARG_AI_RANDOM_FASCIST }
-					}
-				}
-			}
+			
+			#ARG  Removed the RT56 ARG Block because it's what semingly fucks the AI plans for this country.
+
 			BRA = {
 				if = {
 					limit = {
 						has_game_rule = {
 							rule = BRA_ai_behavior
 							option = RANDOM
+						}
+						NOT = {
+							has_dlc = "Trial of Allegiance" # Added this as whoever imported this from vanilla to RT56  was dumb
 						}
 					}
 					random_list = {
@@ -10504,6 +10494,9 @@ on_actions = {
 							rule = FIN_ai_behavior
 							option = RANDOM
 						}
+						NOT = {
+							has_dlc = "Arms Against Tyranny" # Added this as whoever imported this from vanilla to RT56  was dumb
+						}
 					}
 					random_list = {
 						70 = { set_country_flag = FIN_AI_RANDOM_NON_ALIGNED_HISTORICAL }
@@ -10513,16 +10506,6 @@ on_actions = {
 					}
 				}
 			}
-			# commented to prevent weird error in log when loading any save after game start
-			# ITA = {
-			# 	create_production_license = {
-			# 		target = POL
-			# 		equipment = {
-			# 			type = motorized_equipment_1
-			# 		}
-			# 		cost_factor = 0
-			# 	}
-			# }
 			PER = {
 				if = {
 					limit = {
@@ -10693,31 +10676,28 @@ on_actions = {
 			SWE = {
 				if = {
 					limit = {
-						has_game_rule = {
-							rule = R56_SWE_ai_behavior
-							option = RANDOM
+						OR = {
+							AND = {
+								is_historical_focus_on = no
+								has_game_rule = {
+									rule = SWE_AI_BEHAVIOR
+									option = DEFAULT
+								}
+							}
+							has_game_rule = {
+								rule = R56_SWE_ai_behavior
+								option = RANDOM
+							}
 						}
 					}
 					random_list = {
-						20 = { set_country_flag = SWE_AI_RANDOM_DEMOCRATIC_HISTORICAL }
 						25 = { set_country_flag = SWE_AI_RANDOM_DEMOCRATIC_AHISTORICAL }
-						30 = { set_country_flag = SWE_AI_RANDOM_MONARCHIST_TAKE_OVER }
-						30 = { set_country_flag = SWE_AI_RANDOM_FASCIST_COUP }
-						30 = { set_country_flag = SWE_AI_RANDOM_COMMUNIST_COUP }
+						25 = { set_country_flag = SWE_AI_RANDOM_MONARCHIST_TAKE_OVER }
+						25 = { set_country_flag = SWE_AI_RANDOM_FASCIST_COUP }
+						25 = { set_country_flag = SWE_AI_RANDOM_COMMUNIST_COUP }
 					}
 				}
 			}
-			###Give Sweden anti-tank tech
-			# commented to prevent weird error in log when loading any save after game start
-			# SWE = {
-			# 	create_production_license = {
-			# 		target = POL
-			# 		equipment = {
-			# 			type = anti_tank_equipment_1
-			# 		}
-			# 		cost_factor = 0
-			# 	}
-			# }
 			FRA = {
 				create_production_license = {
 					target = ROM
@@ -10737,26 +10717,6 @@ on_actions = {
 				remove_ideas = TUR_disorganized_armed_forces_idea_dud
 				remove_ideas = TUR_kemalist_army_officers_limited_power_loyal_dud
 			}
-
-			#if = {
-			#	limit = {
-			#		has_dlc = "La Resistance"
-			#	}
-			#	POL = {
-			#		add_equipment_to_stockpile = { #120 kegresse but then 87 remade into armored carks use the generic mdoel btw
-			#			type = gw_armored_car_equipment
-			#			amount = 87
-			#			producer = FRA
-			#		}
-			#		add_equipment_to_stockpile = { #captured 1920, estimation of what was left in 1939
-			#			type = gw_armored_car_equipment
-			#			amount = 10
-			#			producer = SOV
-			#		}
-			#	}
-			#}
-			#moved from a badly triggered starting event
-			#armor car cause issue, tell Abbus first if you want to enable it
 			POL = {
 				add_equipment_to_stockpile = {
 					type = motorized_equipment_1
@@ -11300,6 +11260,9 @@ on_actions = {
 						has_game_rule = {
 							rule = CHL_ai_behavior
 							option = RANDOM
+						}
+						NOT = {
+							has_dlc = "Trial of Allegiance" # Added this as whoever imported this from vanilla to RT56  was dumb
 						}
 					}
 					random_list = {
