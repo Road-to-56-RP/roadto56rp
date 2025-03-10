@@ -35,7 +35,7 @@ CHI_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = mountaineers
-		value = 5
+		value = 20
 	}
 
 	ai_strategy = {
@@ -92,7 +92,7 @@ CHI_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = capital_ship
-		value = 25 # from 15 to 25
+		value = -50 # from 15 to 25
 	}
 
 	ai_strategy = {
@@ -104,13 +104,13 @@ CHI_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = screen_ship
-		value = 20
+		value = -50
 	}
 
 	ai_strategy = {
 		type = unit_ratio
 		id = convoy
-		value = 20
+		value = 5
 	}
 	
 	ai_strategy = {
@@ -122,13 +122,13 @@ CHI_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 35
+		value = 50
 	}
 	
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 25
+		value = 10
 	}
 	
 	ai_strategy = {
@@ -137,9 +137,313 @@ CHI_unit_production = {
 		value = 0
 	}
 	
+	#ai_strategy = {
+	#	type = ignore_army_incompetence
+	#	value = 10
+	#}
+
 	ai_strategy = {
-		type = ignore_army_incompetence
-		value = 50
+		type = equipment_production_min_factories_archetype
+		id = infantry_equipment
+		value = 11
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = artillery_equipment
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 0
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = train_equipment
+		value = 0
+	}
+}
+
+CHI_r56rp_mobilize_on_border_of_shanxi_for_focus = {
+	allowed = {
+		original_tag = CHI
+	}
+	enable = {
+		country_exists = SHX
+		focus_progress = {
+			focus = KMT_SHX_offer
+			progress > 0.01
+		}
+	}
+	abort = {
+		NOT = {
+			country_exists = SHX
+			SHX = {
+				is_puppet_of = ROOT
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = SHX
+		value = 100
+	}
+	ai_strategy = {
+		type = consider_weak
+		id = SHX
+		value = 100
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = SHX
+		value = 100
+	} 
+	ai_strategy = { #EAT THAT SWEET INDUSTRY IMMIDIETLY.
+		type = declare_war
+		id = SHX
+		value = 100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = SHX
+		value = 150
+	}
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			tag = SHX
+		}
+		ordertype = front
+		priority = 5
+		execution_type = rush
+		execute_order = yes
+		manual_attack = yes
+	}
+
+}
+
+CHI_r56rp_readying_to_murder_prc = {
+	allowed = {
+		original_tag = CHI
+	}
+	enable = {
+		country_exists = PRC
+		focus_progress = {
+			focus = KMT_strike_PRC
+			progress > 0.01
+		}
+	}
+	abort = {
+		NOT = {
+			has_completed_focus = KMT_strike_PRC
+		}
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = PRC
+		value = 100
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = PRC
+		value = 100
+	} 
+	ai_strategy = { #EAT THAT SWEET INDUSTRY IMMIDIETLY.
+		type = declare_war
+		id = PRC
+		value = 100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = PRC
+		value = 250 # lets put more units, should be safe
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = MON
+		value = 25 # to combat the northern spawnins.
+	}
+
+
+
+}
+
+CHI_r56rp_army_not_reforming_push = {
+	allowed = {
+		original_tag = CHI
+	}
+	enable = {
+		NOT = {
+			has_decision = CHI_improve_the_NRA
+		}
+		country_exists = PRC
+
+	}
+	abort = {
+		OR = {
+			has_decision = CHI_improve_the_NRA
+			country_exists = PRC
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = PRC
+		value = 250 # lets put more units, should be safe
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = MON
+		value = 25 # to combat the northern spawnins.
+	}
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			tag = PRC
+		}
+		ordertype = front
+		ratio = 0.5
+		priority = 100
+		execution_type = rush #bumfuck rush them, any attempt at solidifying defence or moving about is an increase of gun drain
+		execute_order = yes # from 2k to 6+k
+		manual_attack = yes
+	}
+
+}
+
+CHI_r56rp_stop_pushing_while_army_reforming = {
+	allowed = {
+		original_tag = CHI
+	}
+	enable = {
+		has_decision = CHI_improve_the_NRA
+	}
+	abort = {
+		NOT = {
+			has_decision = CHI_improve_the_NRA
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = PRC
+		value = 250 # lets put more units, should be safe
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = MON
+		value = 25 # to combat the northern spawnins.
+	}
+
+	ai_strategy = {
+		type = front_control
+
+		country_trigger = {
+			original_tag = PRC
+		}
+
+		execute_order = no
+		manual_attack = no
+	}
+
+}
+
+CHI_r56rp_agency_is_a_drain = {
+	allowed = {
+		original_tag = CHI
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		num_of_civilian_factories_available_for_projects < 30
+	}
+	abort = {
+		num_of_civilian_factories_available_for_projects > 30
+	}
+	ai_strategy = {
+		type = intelligence_agency_usable_factories
+		value = -20
+	}
+}
+
+CHI_r56rp_line_up_on_borders_during_unification = {
+	allowed = {
+		original_tag = CHI
+	}
+	enable = {
+		focus_progress = {
+			focus = KMT_warlord
+			progress > 0.01
+		}
+	}
+	abort = {
+		has_completed_focus = KMT_warlord
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = GXC
+		value = 50 # lets put more units, should be safe
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = YUN
+		value = 25 # lets put more units, should be safe
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = XSM
+		value = 50 # lets put more units, should be safe
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = MEN
+		value = 25 # lets put more units, should be safe
+	}
+}
+
+CHI_r56rp_dont_spend_axp_while_army_incompetent = {
+	# dont spend xp before you solve incompetency.
+	allowed = {
+		original_tag = CHI
+	}
+	enable = {
+		OR = {
+			has_idea = KMT_weak_army
+			has_idea = KMT_weak_army_lesser
+		}
+	}
+	abort = {
+			OR = {
+				has_idea = KMT_weak_army_lesserer
+				NOT = {
+					has_idea = KMT_weak_army
+					has_idea = KMT_weak_army_lesser
+				}
+			}
+	}
+
+	ai_strategy = {
+		type = land_xp_spend_priority
+		id = division_template
+		value = -1
+	}
+	ai_strategy = {
+		type = land_xp_spend_priority
+		id = unlock_doctrine
+		value = -200
+	}
+	ai_strategy = {
+		type = land_xp_spend_priority
+		id = equipment_variant
+		value = -200
+	}
+	ai_strategy = {
+		type = land_xp_spend_priority
+		id = army_spirit
+		value = -200
 	}
 }
 
