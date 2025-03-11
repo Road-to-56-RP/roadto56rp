@@ -1071,7 +1071,7 @@ focus_tree = {
 		id = MAN_mukden_arsenal
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = MAN_total_economic_coherence }
-		x = -3
+		x = -4
 		y = 1
 		relative_position_id = MAN_total_economic_coherence
 
@@ -1102,7 +1102,7 @@ focus_tree = {
 		id = MAN_mamc
 		icon = GFX_goal_MAN_coa_air_force
 		prerequisite = { focus = MAN_mukden_arsenal }
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = MAN_mukden_arsenal
 
@@ -1141,6 +1141,56 @@ focus_tree = {
 				show_ideas_tooltip = MAN_mamc_light
 				show_ideas_tooltip = MAN_mamc_medium
 				show_ideas_tooltip = MAN_mamc_heavy
+			}
+		}
+	}
+
+	focus = {
+		id = MAN_r56rp_domestic_tank_plants
+		icon = GFX_focus_generic_tank_assembly
+		prerequisite = { focus = MAN_mukden_arsenal }
+		x = -1
+		y = 1
+		relative_position_id = MAN_mukden_arsenal
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			IF = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				has_tech = gwtank_chassis
+			}
+			ELSE = {
+				has_tech = gw_tank
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			# lays groundworks for creating tank designers.
+			# maybe choose one for free?
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+
+				custom_effect_tooltip = MAN_r56rp_domestic_tank_plants_tt
+				show_mio_tooltip = MAN_r56rp_manchurian_heavy_tank_design_division
+				show_mio_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
+				show_mio_tooltip = MAN_r56rp_manchurian_light_tank_design_division
+
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = MAN_r56rp_manchurian_heavy_tank_designer
+				show_ideas_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
+				show_ideas_tooltip = MAN_r56rp_manchurian_light_tank_design_division
 			}
 		}
 	}
@@ -3405,7 +3455,7 @@ focus_tree = {
 		icon = GFX_goal_MAN_assertiveness
 		prerequisite = { focus = MAN_trade_delegation }
 		mutually_exclusive = { focus = MAN_obedience }
-		x = 2
+		x = 7
 		y = 4
 		relative_position_id = MAN_trade_delegation
 
@@ -3492,7 +3542,18 @@ focus_tree = {
 					target = MAN
 					autonomy_state = autonomy_wtt_imperial_subject
 				}
-			}			
+			}
+			hidden_effect = {
+				mio:MAN_r56rp_manchurian_heavy_tank_design_division = {
+					set_mio_name_key = MAN_r56rp_qing_heavy_tank_design_division
+				}
+				mio:MAN_r56rp_manchurian_infantry_tank_design_division = {
+					set_mio_name_key = MAN_r56rp_qing_infantry_tank_design_division
+				}
+				mio:MAN_r56rp_manchurian_light_tank_design_division = {
+					set_mio_name_key = MAN_r56rp_qing_light_tank_design_division
+				}
+			}
 		}
 	}
 
@@ -4162,7 +4223,7 @@ focus_tree = {
 		id = MAN_imperial_university
 		icon = GFX_focus_research
 		prerequisite = { focus = MAN_imperial_divinity }
-		x = 1
+		x = -2
 		y = 1
 		relative_position_id = MAN_imperial_divinity
 
@@ -4181,11 +4242,151 @@ focus_tree = {
 	}
 
 	focus = {
+		id = MAN_r56rp_imperial_domestic_tank_plants
+		icon = GFX_focus_generic_tank_assembly
+		prerequisite = { focus = MAN_imperial_university }
+		x = -1
+		y = 1
+		relative_position_id = MAN_imperial_university
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			IF = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				has_tech = gwtank_chassis
+			}
+			ELSE = {
+				has_tech = gw_tank
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = { 328 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			# lays groundworks for creating tank designers.
+			# maybe choose one for free?
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+
+				custom_effect_tooltip = MAN_r56rp_domestic_tank_plants_tt
+				show_mio_tooltip = MAN_r56rp_manchurian_heavy_tank_design_division
+				show_mio_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
+				show_mio_tooltip = MAN_r56rp_manchurian_light_tank_design_division
+
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = MAN_r56rp_manchurian_heavy_tank_designer
+				show_ideas_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
+				show_ideas_tooltip = MAN_r56rp_manchurian_light_tank_design_division
+			}
+		}
+	}
+
+	focus = {
+		id = MAN_r56rp_imperial_mamc
+		icon = GER_aerodynamic_research_institute
+		prerequisite = { focus = MAN_imperial_university }
+		x = 1
+		y = 1
+		relative_position_id = MAN_imperial_university
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			IF = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				has_tech = gwtank_chassis
+			}
+			ELSE = {
+				has_tech = gw_tank
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			# lays groundworks for creating tank designers.
+			# maybe choose one for free?
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+
+				custom_effect_tooltip = MAN_r56rp_domestic_tank_plants_tt
+				show_mio_tooltip = MAN_r56rp_manchurian_heavy_tank_design_division
+				show_mio_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
+				show_mio_tooltip = MAN_r56rp_manchurian_light_tank_design_division
+
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = MAN_r56rp_manchurian_heavy_tank_designer
+				show_ideas_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
+				show_ideas_tooltip = MAN_r56rp_manchurian_light_tank_design_division
+			}
+		}
+	}
+
+	focus = {
+		id = MAN_imperial_army_research_centre
+		icon = GFX_focus_research
+		prerequisite = { focus = MAN_imperial_university }
+		x = 0
+		y = 2
+		relative_position_id = MAN_imperial_university
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available_if_capitulated = yes
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			# based on event choice, spawns army air or navy facility.
+			# adds idea boosting xp gain
+		}
+	}
+
+	focus = {
 		id = MAN_move_capitals
 		icon = GFX_goal_MAN_restore_the_empire
 		prerequisite = { focus = MAN_imperial_divinity }
 		prerequisite = { focus = MAN_reclaim_the_empire }
-		x = 6
+		x = 1
 		y = 1
 		relative_position_id = MAN_imperial_divinity
 
@@ -4348,8 +4549,8 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MAN_reclaim_the_entierty_of_manchuria
 		}		
-		x = -2
-		y = 2
+		x = 6
+		y = 1
 		cost = 5
 
 		ai_will_do = {
@@ -4378,33 +4579,19 @@ focus_tree = {
 			is_in_faction_with = SOV
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					SOV = {
-						OR = {
-							has_government = fascism
-							has_government = neutrality
-						}
-						is_faction_leader = yes
-						has_capitulated = no
-						NOT = { has_war_with = ROOT }
-					}
-				}
-				SOV = {
-					country_event = generic.2
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = medium_increase
-					}
-				}
-				ROOT = {
-					add_opinion_modifier = {
-						target = SOV
-						modifier = medium_increase
-					}
+			SOV = {
+				country_event = generic.2
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = medium_increase
 				}
 			}
-			
+			ROOT = {
+				add_opinion_modifier = {
+					target = SOV
+					modifier = medium_increase
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
@@ -4502,12 +4689,12 @@ focus_tree = {
 	focus = {
 		id = MAN_reclaim_the_entierty_of_manchuria
 		icon = GFX_goal_generic_occupy_states_ongoing_war
-		prerequisite = {  focus = MAN_offer_vassalization }
+		prerequisite = {  focus = MAN_reclaim_the_empire }
 		mutually_exclusive = {
 			focus = MAN_qing_romanov_alliance
 		}
-		relative_position_id = MAN_offer_vassalization
-		x = 0
+		relative_position_id = MAN_reclaim_the_empire
+		x = 4
 		y = 1
 		cost = 10
 
@@ -4523,7 +4710,6 @@ focus_tree = {
 			NOT = {
 				is_in_faction_with = SOV
 			}
-		
 			OR = {
 				has_war = no
 				has_war_with = SOV
@@ -4531,11 +4717,10 @@ focus_tree = {
 				has_war_with = GUK
 				has_war_with = FER
 			}
-			
 		}
-		bypass = {
-			is_in_faction_with = SOV
-		}
+		#bypass = {
+		#	is_in_faction_with = SOV
+		#}
 		completion_reward = {
 			add_state_claim = 408
 			add_state_claim = 409
@@ -4544,6 +4729,98 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
+	focus = {
+		id = MAN_r56rp_sabotage_transyberian_railroad_lar
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = {  focus = MAN_reclaim_the_entierty_of_manchuria }
+		relative_position_id = MAN_reclaim_the_entierty_of_manchuria
+		x = -1
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_intelligence_agency = yes
+		}
+		#bypass = {
+		#	is_in_faction_with = SOV
+		#}
+		completion_reward = {
+			# unlock special mission to prepare to blow up the trans syberian railroad
+		
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+	focus = {
+		id = MAN_r56rp_sabotage_ammunition_stockpiles_lar
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = {  focus = MAN_reclaim_the_entierty_of_manchuria }
+		relative_position_id = MAN_reclaim_the_entierty_of_manchuria
+		x = 1
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_intelligence_agency = yes
+		}
+		#bypass = {
+		#	is_in_faction_with = SOV
+		#}
+		completion_reward = {
+			# unlock special mission to sabotage russian ammo stockpiles
+			# giving russia a big debuff against resisting manchuria for a brief time
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+	focus = {
+		id = MAN_r56rp_launch_the_reclamation
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = {  focus = MAN_reclaim_the_entierty_of_manchuria }
+		relative_position_id = MAN_reclaim_the_entierty_of_manchuria
+		x = 0
+		y = 2
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			has_intelligence_agency = yes
+		}
+		#bypass = {
+		#	is_in_faction_with = SOV
+		#}
+		completion_reward = {
+			# effects vary based on focuses previously accomplished
+
+			# this should unlock decisions to core manchuria
+
+			# this should unlock decisions to launch border war against
+			# vladivostok to transfer ownership of state, then launch the war after its done
+			# or to give a conquest wargoal
+
+			# if ralroad sabotage prepared, upon eruption of war, damage big chunk of transiberian railroad
+			# so manchuria has a snowballs chance
+
+			# if ammo sabotaged, local modifier against russian troops
+			# if that not possible, simply targeted modifier biased towards manchuria
+		
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+
+
+
+
+
+
+
 	shared_focus = CHI_renegotiate_the_unequal_treaties
 	
 }
