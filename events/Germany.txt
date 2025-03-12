@@ -384,78 +384,60 @@ country_event = {
 		}
 		add_opinion_modifier = { target = GER modifier = MR_pact }# pact		
 		custom_effect_tooltip = germany.11.a.tt
-		add_state_claim = 96
-		add_state_claim = 11
-		add_state_claim = 12
-		add_state_claim = 13
-		add_state_claim = 190
-		add_state_claim = 191
-		add_state_claim = 146
-		add_state_claim = 147
-		add_state_claim = 722
-		add_state_claim = 189
-		add_state_claim = 78
-		add_state_claim = 89
-		add_state_claim = 91
-		add_state_claim = 93
-		add_state_claim = 94
-		add_state_claim = 95
-		add_state_claim = 96
-		add_state_claim = 97
-		add_state_claim = 80
-		add_state_claim = 784
-		add_state_claim = 766
-		add_state_claim = 935
-		add_state_claim = 936
-		if = {
+		#r56rp
+		# looks better on a tooltip.
+		every_state = {
 			limit = {
-				NOT = { owns_state = 808 }
+				OR = {
+					state = 96
+					state = 11
+					state = 12
+					state = 13
+					state = 190
+					state = 191
+					state = 146
+					state = 147
+					state = 722
+					state = 189
+					state = 78
+					state = 89
+					state = 91
+					state = 93
+					state = 94
+					state = 95
+					state = 96
+					state = 97
+					state = 80
+					state = 784
+					state = 766
+					state = 935
+					state = 936
+
+					state = 808
+					state = 809
+					state = 810
+					state = 811
+					state = 813
+					state = 812
+					state = 814
+					state = 815
+				}
+				NOT = {
+					is_owned_by = SOV
+				}
 			}
-			add_state_claim = 808 #RIGA (LAT)
+			add_claim_by = SOV
 		}
-		if = {
-			limit = {
-				NOT = { owns_state = 809 }
-			}
-			add_state_claim = 809 #ZEMGALE (LAT)
+		
+		# r56rp
+		# trade discount, as molotov also had trade stuff in it.
+		GER = {
+			add_ideas = GER_r56rp_molotov_ribbentrop_pact
 		}
-		if = {
-			limit = {
-				NOT = { owns_state = 810 }
-			}
-			add_state_claim = 810 #LATGALE (LAT)
-		}		
-		if = {
-			limit = {
-				NOT = { owns_state = 811 }
-			}
-			add_state_claim = 811 #SAAREMAA (EST)
+		SOV = {
+			add_ideas = SOV_molotov_ribbentrop_pact
 		}
-		if = {
-			limit = {
-				NOT = { owns_state = 813 }
-			}
-			add_state_claim = 813 #VIRUMAA (EST)
-		}
-		if = {
-			limit = {
-				NOT = { owns_state = 812 }
-			}
-			add_state_claim = 812 #TALLIN (EST)
-		}
-		if = {
-			limit = {
-				NOT = { owns_state = 814 }
-			}
-			add_state_claim = 814 #SUDUVA (LIT)
-		}
-		if = {
-			limit = {
-				NOT = { owns_state = 815 }
-			}
-			add_state_claim = 815 #AUKSTAITIJA (LIT)
-		}				
-		hidden_effect =  { add_timed_idea = { idea = SOV_molotov_ribbentrop_pact days = 730 } }
+
 		GER = {
 			country_event = { days = 1 id = germany.12 }
 			effect_tooltip = {
@@ -1690,6 +1672,12 @@ country_event = {
 					target = GER
 				}
 			}
+		}
+		SOV = {
+			remove_ideas = SOV_molotov_ribbentrop_pact
+		}
+		GER = {
+			remove_ideas = GER_r56rp_molotov_ribbentrop_pact
 		}
 	}
 }
