@@ -1115,32 +1115,23 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			# lays groundworks for creating tank designers.
+			# maybe choose one for free?
 			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
-				custom_effect_tooltip = available_mio_tt
-				
+				custom_effect_tooltip = MAN_r56rp_domestic_tank_plants_tt
 				show_mio_tooltip = MAN_mamc_light_organization
-				mio:MAN_mamc_light_organization = {
-					add_mio_funds = 500
-				}
-				custom_effect_tooltip = r56rp_newline_available_mio_tt
 				show_mio_tooltip = MAN_mamc_medium_organization
-				mio:MAN_mamc_medium_organization = {
-					add_mio_funds = 500
-				}
-				custom_effect_tooltip = r56rp_newline_available_mio_tt
 				show_mio_tooltip = MAN_mamc_heavy_organization
-				mio:MAN_mamc_heavy_organization = {
-					add_mio_funds = 500
-				}
+
 			}
 			ELSE = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = MAN_mamc_light
-				show_ideas_tooltip = MAN_mamc_medium
-				show_ideas_tooltip = MAN_mamc_heavy
+				custom_effect_tooltip = MAN_r56rp_domestic_tank_plants_tt
+				show_ideas_tooltip = MAN_r56rp_manchurian_heavy_tank_designer
+				show_ideas_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
+				show_ideas_tooltip = MAN_r56rp_manchurian_light_tank_design_division
 			}
 		}
 	}
@@ -4249,7 +4240,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = MAN_imperial_university
 
-		cost = 10
+		cost = 7.2
 
 		ai_will_do = {
 			factor = 1
@@ -4342,44 +4333,42 @@ focus_tree = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
-
 				custom_effect_tooltip = MAN_r56rp_domestic_tank_plants_tt
-				show_mio_tooltip = MAN_r56rp_manchurian_heavy_tank_design_division
-				show_mio_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
-				show_mio_tooltip = MAN_r56rp_manchurian_light_tank_design_division
-
+				show_mio_tooltip = MAN_mamc_light_organization
+				show_mio_tooltip = MAN_mamc_medium_organization
+				show_mio_tooltip = MAN_mamc_heavy_organization
 			}
-			ELSE = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = MAN_r56rp_manchurian_heavy_tank_designer
-				show_ideas_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
-				show_ideas_tooltip = MAN_r56rp_manchurian_light_tank_design_division
-			}
+			#ELSE = {
+			#	custom_effect_tooltip = available_designer
+			#	show_ideas_tooltip = MAN_r56rp_manchurian_heavy_tank_designer
+			#	show_ideas_tooltip = MAN_r56rp_manchurian_infantry_tank_design_division
+			#	show_ideas_tooltip = MAN_r56rp_manchurian_light_tank_design_division
+			#}
 		}
 	}
 
-	focus = {
-		id = MAN_imperial_army_research_centre
-		icon = GFX_focus_research
-		prerequisite = { focus = MAN_imperial_university }
-		x = 0
-		y = 2
-		relative_position_id = MAN_imperial_university
+	#focus = {
+	#	id = MAN_r56rp_imperial_army_research_centre
+	#	icon = GFX_focus_research
+	#	prerequisite = { focus = MAN_imperial_university }
+	#	x = 0
+	#	y = 2
+	#	relative_position_id = MAN_imperial_university
+#
+	#	cost = 5
 
-		cost = 5
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
 
-		ai_will_do = {
-			factor = 5
-		}
+	#	available_if_capitulated = yes
 
-		available_if_capitulated = yes
-
-		search_filters = { FOCUS_FILTER_RESEARCH }
-		completion_reward = {
-			# based on event choice, spawns army air or navy facility.
-			# adds idea boosting xp gain
-		}
-	}
+	#	search_filters = { FOCUS_FILTER_RESEARCH }
+	#	completion_reward = {
+	#		# based on event choice, spawns army air or navy facility.
+	#		# adds idea boosting xp gain
+	#	}
+	#}
 
 	focus = {
 		id = MAN_move_capitals
@@ -4549,7 +4538,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MAN_reclaim_the_entierty_of_manchuria
 		}		
-		x = 6
+		x = 5
 		y = 1
 		cost = 5
 
@@ -4694,7 +4683,7 @@ focus_tree = {
 			focus = MAN_qing_romanov_alliance
 		}
 		relative_position_id = MAN_reclaim_the_empire
-		x = 4
+		x = 3
 		y = 1
 		cost = 10
 
@@ -4738,6 +4727,10 @@ focus_tree = {
 		y = 1
 		cost = 10
 
+		allow_branch = {
+			is_debug = yes
+		}
+
 		ai_will_do = {
 			factor = 1
 		}
@@ -4762,6 +4755,10 @@ focus_tree = {
 		y = 1
 		cost = 10
 
+		allow_branch = {
+			is_debug = yes
+		}
+
 		ai_will_do = {
 			factor = 1
 		}
@@ -4785,6 +4782,10 @@ focus_tree = {
 		x = 0
 		y = 2
 		cost = 10
+
+		allow_branch = {
+			is_debug = yes
+		}
 
 		ai_will_do = {
 			factor = 1
