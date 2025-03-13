@@ -16017,8 +16017,8 @@ country_event = {
 
 			set_party_name = {
 				ideology = neutrality
-				long_name = FIN_neutrality_party_monarchist_long
-				name = FIN_neutrality_party_monarchist
+				name = r56rp_FIN_neutrality_party_ger_monarchist
+				long_name = r56rp_FIN_neutrality_party_ger_monarchist_long
 			}
 
 			add_popularity = {
@@ -16026,15 +16026,7 @@ country_event = {
 				popularity = 0.1
 			}
 
-			IF = {
-				limit = {
-					has_completed_focus = FIN_greater_finland
-				}
-				set_cosmetic_tag = FIN_greater_kingdom_of_finland
-			}
-			ELSE = {
-				set_cosmetic_tag = FIN_kingdom_of_finland
-			}
+			set_cosmetic_tag = FIN_rp_grand_duchy_of_finland_GER
 			
 		}
 
@@ -16081,44 +16073,66 @@ country_event = {
 			base = 100
 		}
 		
-		puppet = FROM
+		GER = {
+			set_autonomy = {
+				target = FIN
+				autonomous_state = autonomy_dominion
+				end_wars = no
+				end_civil_wars = no
+			}
+		}
 		
-		FROM = {
+		FIN = {
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			set_cosmetic_tag = FIN_rp_grand_duchy_of_finland_GER
 			add_country_leader_role = {
 				character =  FIN_prince_wolfgang_von_hesse
 				promote_leader = yes
 				country_leader = {
 					ideology = despotism
 					expire = "1965.1.1.1"
-					traits = { crown_prince_of_finland personal_agenda_von_hesse }
+					traits = { FIN_r56rp_the_german_king }
 				}
 			}
 
 			set_party_name = {
 				ideology = neutrality
-				long_name = FIN_neutrality_party_monarchist_long
-				name = FIN_neutrality_party_monarchist
+				name = r56rp_FIN_neutrality_party_ger_monarchist
+				long_name = r56rp_FIN_neutrality_party_ger_monarchist_long
 			}
 
+			
+			
+			hidden_effect = {
+				if = {
+					FIN = {
+						has_completed_focus = FIN_suomalainen_sosialismi
+					}
+					FIN_uncomplete_communist_branch = yes
+				}
+				if = {
+					FIN = {
+						has_completed_focus = FIN_finnish_neutrality
+					}
+					FIN_uncomplete_neutrality_branch = yes
+				}
+				if = {
+					FIN = {
+						has_completed_focus = FIN_right_wing_policies
+					}
+					FIN_uncomplete_fascist_branch = yes
+				}
+				FIN_german_event_puppet = yes
+			}
 			add_popularity = {
 				ideology = neutrality
 				popularity = 0.1
 			}
-
-			IF = {
-				limit = {
-					has_completed_focus = FIN_greater_finland
-				}
-				set_cosmetic_tag = FIN_greater_kingdom_of_finland
-			}
-			ELSE = {
-				set_cosmetic_tag = FIN_kingdom_of_finland
-			}
-		} 
-		
-
+		} 	
 	}
-
 }
 
 # Finland rejects our demands - event for GER
