@@ -11029,7 +11029,51 @@ focus_tree = {
 		}
 
 		completion_reward = {
-		
+			FIN = {
+				declare_war_on = {
+					target = SOV
+					type = take_state_focus
+				}
+			}
+			every_state = {
+				limit = {
+					has_state_flag = prepared_karelian_sabotage
+				}
+				if = {
+					limit = {
+						FROM = {
+							num_of_factories > 0
+						}
+					}
+					damage_building = {
+						type = industrial_complex
+						damage = 1
+						repair_speed_modifier = -0.75
+					}
+				}
+				if = {
+					limit = {
+						FROM = {
+							naval_base > 0
+						}
+					}
+					damage_building = {
+						type = naval_base
+						damage = 1
+						repair_speed_modifier = -0.75
+					}
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 1
+					repair_speed_modifier = -0.75
+				}
+				damage_building = {
+					type = supply_node
+					damage = 1
+					repair_speed_modifier = -0.75
+				}														
+			}			
 		}
 	}
 	focus = {
@@ -11040,124 +11084,252 @@ focus_tree = {
 		prerequisite = { focus = FIN_r56rp_strike_the_russian_bear }
 		x = 0
 		y = 1
-		cost = 10
+		cost = 5
 
 		available = {
 			213 = {
-				is_owned_and_controlled_by = ROOT
+				is_controlled_by = ROOT
 			}
 			215 = {
-				is_owned_and_controlled_by = ROOT
+				is_controlled_by = ROOT
 			}
 			216 = {
-				is_owned_and_controlled_by = ROOT
+				is_controlled_by = ROOT
 			}
 		}
 
 		completion_reward = {
-		
+			213 = {
+				add_core_of = ROOT
+			}
+			215 = {
+				add_core_of = ROOT
+			}
+			216 = {
+				add_core_of = ROOT
+			}
 		}
 	}
 	focus = {
 		id = FIN_r56rp_industrialize_our_new_lands
 		icon = GFX_goal_r56rp_goal_FIN_industrialize_our_new_lands_icon
-
 		relative_position_id = FIN_r56rp_greater_finland_achieved
 		prerequisite = { focus = FIN_r56rp_greater_finland_achieved  }
 		x = 2
 		y = 1
+		cost = 10
 
 		available = {
 
 		}
 
 		completion_reward = {
-		
+			213 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			215 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			216 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}												
 		}
 	}
 	focus = {
-		id = FIN_r56rp_industrialize_our_new_lands2
-		icon = GFX_goal_r56rp_goal_FIN_industrialize_our_new_lands_icon
-
+		id = FIN_r56rp_shorter_border_longer_peace
+		icon = GFX_goal_r56rp_goal_FIN_shorter_border_longer_peace_icon	
+		mutually_exclusive = { focus = FIN_r56rp_lay_claim_to_ingria }
 		relative_position_id = FIN_r56rp_industrialize_our_new_lands
 		prerequisite = { focus = FIN_r56rp_industrialize_our_new_lands  }
 		x = 2
 		y = 1
-
+		cost = 10
 		available = {
 
 		}
 
 		completion_reward = {
-		
+			add_ideas = FIN_r56rp_shorter_border_longer_peace_idea
+			216 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border_country = SOV
+					}
+				}
+			}
+			215 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border_country = SOV
+					}
+				}
+			}	
 		}
 	}
 	focus = {
-		id = FIN_r56rp_industrialize_our_new_lands4
-		icon = GFX_goal_r56rp_goal_FIN_industrialize_our_new_lands_icon
+		id = FIN_r56rp_return_of_the_ingrian_finns
+		icon = GFX_goal_generic_citizens
 
-		relative_position_id = FIN_r56rp_industrialize_our_new_lands2
-		prerequisite = { focus = FIN_r56rp_industrialize_our_new_lands2 }
+		relative_position_id = FIN_r56rp_shorter_border_longer_peace
+		prerequisite = { focus = FIN_r56rp_shorter_border_longer_peace }
 		x = 0
 		y = 1
+		cost = 5
 
 		available = {
 
 		}
 
 		completion_reward = {
-		
+			195 = {
+				add_manpower = -140000
+			}
+			111 = {
+				add_manpower = 140000
+			}
 		}
 	}
 	focus = {
-		id = FIN_r56rp_industrialize_our_new_lands3
-		icon = GFX_goal_r56rp_goal_FIN_industrialize_our_new_lands_icon
-
+		id = FIN_r56rp_lay_claim_to_ingria
+		icon = GFX_goal_r56rp_goal_FIN_lay_claim_to_ingria_icon
+		mutually_exclusive = { focus = FIN_r56rp_shorter_border_longer_peace }
 		relative_position_id = FIN_r56rp_industrialize_our_new_lands
 		prerequisite = { focus = FIN_r56rp_industrialize_our_new_lands  }
 		x = -1
 		y = 1
+		cost = 2
 
 		available = {
 
 		}
 
 		completion_reward = {
-		
+			195 = {
+				add_claim_by = ROOT
+			}
+			208 = {
+				add_claim_by = ROOT
+			}		
 		}
 	}
 	focus = {
-		id = FIN_r56rp_industrialize_our_new_lands5
-		icon = GFX_goal_r56rp_goal_FIN_industrialize_our_new_lands_icon
-
-		relative_position_id = FIN_r56rp_industrialize_our_new_lands3
-		prerequisite = { focus = FIN_r56rp_industrialize_our_new_lands3 }
+		id = FIN_r56rp_develop_murmansk_ship_building
+		icon = GFX_focus_SOV_reinforce_northern_naval_bases
+		relative_position_id = FIN_r56rp_lay_claim_to_ingria
+		prerequisite = { focus = FIN_r56rp_lay_claim_to_ingria }
 		x = -1
 		y = 1
+		cost = 10
 
 		available = {
 
 		}
 
 		completion_reward = {
-		
+			213 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = {
+						limit_to_coastal = yes
+						limit_to_victory_point = yes
+					}
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = {
+						limit_to_coastal = yes
+						limit_to_victory_point = yes
+					}
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			213 = {
+				increase_state_category = yes
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			navy_experience = 25
 		}
 	}
 	focus = {
-		id = FIN_r56rp_industrialize_our_new_lands6
-		icon = GFX_goal_r56rp_goal_FIN_industrialize_our_new_lands_icon
-
-		relative_position_id = FIN_r56rp_industrialize_our_new_lands3
-		prerequisite = { focus = FIN_r56rp_industrialize_our_new_lands3 }
+		id = FIN_r56rp_railway_expansion_project
+		icon = GFX_focus_GER_kriegslokomotive
+		relative_position_id = FIN_r56rp_lay_claim_to_ingria
+		prerequisite = { focus = FIN_r56rp_lay_claim_to_ingria }
 		x = 1
 		y = 1
+		cost = 5
 
 		available = {
 
 		}
 
 		completion_reward = {
-		
+			build_railway = {
+				level = 2
+				path = { 6146 7 6098 11054 11096 36 11045 3189 }
+				start_province = 6146
+				target_province = 3189
+			}
+			build_railway = {
+				level = 2
+				path = { 3187 6052 9176 9078 2994 11159 }
+				start_province = 3187
+				target_province = 11159
+			}
+			build_railway = {
+				level = 2
+				path = { 9140 6117 11183 3134 }
+				start_province = 9140
+				target_province = 3134
+			}		
 		}
 	}		
 	focus = {
