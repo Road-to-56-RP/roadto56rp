@@ -663,4 +663,49 @@ ideas = {
 		}
 
 	}
+
+	economy = {
+		law = yes
+		use_list_view = yes
+
+		JAP_r56rp_communist_war_mobilisation = {
+			name = JAP_r56rp_communist_war_mobilisation
+			icon = GFX_idea_SOV_soviet_railways
+		    
+			allowed = {
+				always = no
+			}
+		
+			visible = {
+				original_tag = JAP
+				has_government  = communism
+			}
+
+			allowed_to_remove = {
+                OR = {
+                    surrender_progress > 0.75
+                    NOT = { has_government = communism }
+                }
+            }
+		
+		
+			ai_will_do = {
+				factor = 0  # AI cannot pick this manually
+			}
+		
+			cost = 150
+			removal_cost = -1
+		
+			modifier = {
+				consumer_goods_expected_value = 0.1225  # 0.15 -> 0.1425 (-5% more)
+				conscription = -0.0355  # -0.03 -> -0.0315 (5% better)
+				production_speed_arms_factory_factor = 0.355  # 0.3 -> 0.315 (5% better)
+				conversion_cost_civ_to_mil_factor = -0.355  # -0.3 -> -0.315 (5% better)
+				conversion_cost_mil_to_civ_factor = -0.355  # -0.3 -> -0.315 (5% better)
+			}
+		
+			cancel_if_invalid = no
+		}
+	}
+		
 }
