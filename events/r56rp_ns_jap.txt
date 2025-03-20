@@ -16,7 +16,7 @@ country_event = { # japan asks germany for joint rocket research
 	option = { 	# yes, we agree to joint research on rocket and jets
 		name = r56rp_jap.1.a
 		ai_chance = {
-			factor = 50
+			base = 50
 
 		}
 
@@ -49,7 +49,7 @@ country_event = { # japan asks germany for joint rocket research
 	option = { 	# no, no joint rocket research.
 		name = r56rp_jap.1.b
 		ai_chance = {
-			factor = 10
+			base = 10
 		}
 
 		FROM = {
@@ -74,7 +74,7 @@ country_event = {
     option = {
         name = JAP_r56rp_yonai_takeover.1.a
         ai_chance = {
-            factor = 99
+            base = 99
         }
         set_country_flag = JAP_r56rp_cooperation_with_democrats_event
         add_political_power = 50
@@ -85,7 +85,7 @@ country_event = {
     option = {
         name = JAP_r56rp_yonai_takeover.1.b
         ai_chance = {
-            factor = 99
+            base = 99
         }
         custom_effect_tooltip = JAP_r56rp_tooltip_miyagi_yonai_descison
         set_country_flag = JAP_r56rp_no_deal_with_democrats_event
@@ -107,7 +107,7 @@ country_event = {
     option = {
         name = JAP_r56rp_yonai_takeover.2.a
         ai_chance = {
-            factor = 99
+            base = 99
         }
         set_country_flag = JAP_r56rp_no_cooperation_flag
         mark_focus_tree_layout_dirty = yes
@@ -128,7 +128,7 @@ country_event = {
     option = {
         name = JAP_r56rp_yonai_takeover.3.a
         ai_chance = {
-            factor = 99
+            base = 99
         }
         add_political_power = 50
 		add_stability = 0.075
@@ -153,7 +153,7 @@ country_event = {
 
     option = {
         name = JAP_r56rp_japanchuria_ev.1.a # Send Proposal
-        ai_chance = { factor = 99 }
+        ai_chance = { base = 99 }
         set_country_flag = JAP_r56rp_proposed_japanchuria
         KOR = { 
             country_event = { id = JAP_r56rp_japanchuria_ev.2 days = 2 }
@@ -176,20 +176,20 @@ country_event = {
 
     option = {
         name = JAP_r56rp_japanchuria_ev.2.a # Accept
-        ai_chance = { factor = 50 }
-        set_country_flag = JAP_r56rp_KOR_accept
+        ai_chance = { base = 80 }
+        JAP = { set_country_flag = JAP_r56rp_KOR_accept }
     }
 
     option = {
         name = JAP_r56rp_japanchuria_ev.2.b # Demand Autonomy
-        ai_chance = { factor = 30 }
-        set_country_flag = JAP_r56rp_KOR_autonomy
+        ai_chance = { base = 19 }
+        JAP = { set_country_flag = JAP_r56rp_KOR_autonomy }
     }
 
     option = {
         name = JAP_r56rp_japanchuria_ev.2.c # Decline
-        ai_chance = { factor = 20 }
-        set_country_flag = JAP_r56rp_KOR_reject
+        ai_chance = { base = 1 }
+        JAP = { set_country_flag = JAP_r56rp_KOR_reject }
     }
 }
 
@@ -204,20 +204,20 @@ country_event = {
 
     option = {
         name = JAP_r56rp_japanchuria_ev.3.a # Accept
-        ai_chance = { factor = 50 }
-        set_country_flag = JAP_r56rp_MAN_accept
+        ai_chance = { base = 80 }
+        JAP = { set_country_flag = JAP_r56rp_MAN_accept }
     }
 
     option = {
         name = JAP_r56rp_japanchuria_ev.3.b # Demand Autonomy
-        ai_chance = { factor = 30 }
-        set_country_flag = JAP_r56rp_MAN_autonomy
+        ai_chance = { base = 19 }
+        JAP = { set_country_flag = JAP_r56rp_MAN_autonomy }
     }
 
     option = {
         name = JAP_r56rp_japanchuria_ev.3.c # Decline
-        ai_chance = { factor = 20 }
-        set_country_flag = JAP_r56rp_MAN_reject
+        ai_chance = { base = 1 }
+        JAP = { set_country_flag = JAP_r56rp_MAN_reject }
     }
 }
 
@@ -225,53 +225,103 @@ country_event = {
 country_event = {
     id = JAP_r56rp_japanchuria_ev.4
     title = JAP_r56rp_japanchuria_ev.4.t
-    desc = JAP_r56rp_japanchuria_ev.4.d
     picture = GFX_report_event_ITA_democratic_parlament
-
     is_triggered_only = no
-    trigger = {
-        has_country_flag = JAP_r56rp_proposed_japanchuria
-        OR = {
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc1     # BOTH ACCEPT ANNEXATION
+        trigger = {
+            has_country_flag = JAP_r56rp_MAN_accept
+            has_country_flag = JAP_r56rp_KOR_accept     
+        }
+    }
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc2     # Manchu Annexation, Korea Autonomy
+        trigger = { 
+            has_country_flag = JAP_r56rp_MAN_accept
+            has_country_flag = JAP_r56rp_KOR_autonomy     
+        }
+    }
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc3     # BOTH AUTONOMY
+        trigger = {
+            has_country_flag = JAP_r56rp_MAN_autonomy
+            has_country_flag = JAP_r56rp_KOR_autonomy     
+        }
+    }
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc4     # Korea Annexation, Manchu Autonomy
+        trigger = {
+            has_country_flag = JAP_r56rp_MAN_autonomy
+            has_country_flag = JAP_r56rp_KOR_accept     
+        }
+    }
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc5     # Manchu Autonomy, Korea no
+        trigger = {
+            has_country_flag = JAP_r56rp_MAN_autonomy
+            has_country_flag = JAP_r56rp_KOR_reject   
+        }
+    }
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc6     # Korea Autonomy, Manchu no
+        trigger = {
+            has_country_flag = JAP_r56rp_MAN_reject
+            has_country_flag = JAP_r56rp_KOR_autonomy  
+        }
+    }
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc7     # Manchu Annexation, Korea no
+        trigger = {
+            has_country_flag = JAP_r56rp_MAN_accept
+            has_country_flag = JAP_r56rp_KOR_autonomy  
+        }
+    }
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc8     # Korea Annexation, Manchu no
+        trigger = {
+            has_country_flag = JAP_r56rp_MAN_reject
             has_country_flag = JAP_r56rp_KOR_accept
-            has_country_flag = JAP_r56rp_KOR_autonomy
+        }
+    }
+    desc = {
+        text = JAP_r56rp_japanchuria_ev.4.desc9     # BOTH NO
+        trigger = {
+            has_country_flag = JAP_r56rp_MAN_reject
             has_country_flag = JAP_r56rp_KOR_reject
         }
-        OR = {
-            has_country_flag = JAP_r56rp_MAN_accept
-            has_country_flag = JAP_r56rp_MAN_autonomy
-            has_country_flag = JAP_r56rp_MAN_reject
-        }
     }
-
     option = {
         name = JAP_r56rp_japanchuria_ev.4.a # Full Unification
-        ai_chance = { factor = 100 }
+        ai_chance = { base = 100 }
         trigger = {
             has_country_flag = JAP_r56rp_KOR_accept
             has_country_flag = JAP_r56rp_MAN_accept
         }
-        annex_country = KOR
-        annex_country = MAN
+        annex_country = { 
+            target = KOR
+            transfer_troops = yes 
+        }
+        annex_country = { 
+            target = MAN
+            transfer_troops = yes 
+        }
         set_cosmetic_tag = JAP_r56rp_JAPMAN
     }
-
-    option = {
-        name = JAP_r56rp_japanchuria_ev.4.b # Both Demand Autonomy
-        ai_chance = { factor = 100 }
-        trigger = {
-            has_country_flag = JAP_r56rp_KOR_autonomy
-            has_country_flag = JAP_r56rp_MAN_autonomy
-        }
-        add_dynamic_modifier = { modifier = JAP_r56rp_autonomous_puppets days = -1 }
-    }
-
     option = {
         name = JAP_r56rp_japanchuria_ev.4.c # Mixed Responses
-        ai_chance = { factor = 100 }
+        ai_chance = { base = 100 }
         trigger = {
+            NOT = {
+                AND = {
+                    has_country_flag = JAP_r56rp_KOR_accept
+                    has_country_flag = JAP_r56rp_MAN_accept
+                }
+            }
             OR = {
-                AND = { has_country_flag = JAP_r56rp_KOR_accept has_country_flag = JAP_r56rp_MAN_autonomy }
-                AND = { has_country_flag = JAP_r56rp_MAN_accept has_country_flag = JAP_r56rp_KOR_autonomy }
+                has_country_flag = JAP_r56rp_MAN_accept
+                has_country_flag = JAP_r56rp_KOR_accept
+                has_country_flag = JAP_r56rp_MAN_autonomy
+                has_country_flag = JAP_r56rp_KOR_autonomy
             }
         }
         if = {
@@ -282,12 +332,27 @@ country_event = {
             limit = { has_country_flag = JAP_r56rp_MAN_accept }
             annex_country = MAN
         }
-        add_dynamic_modifier = { modifier = JAP_r56rp_autonomous_puppets days = -1 }
+        if = {
+            limit = { has_country_flag = JAP_r56rp_MAN_autonomy }
+            #MAN = { add_ideas = blah_blah put idea in here }        
+        }
+        if = {
+            limit = { has_country_flag = JAP_r56rp_KOR_autonomy }
+            #KOR = { add_ideas = blah_blah put idea in here }        
+        }
+        if = {
+            limit = { has_country_flag = JAP_r56rp_MAN_reject }
+            release = MAN
+        }
+        if = {
+            limit = { has_country_flag = JAP_r56rp_KOR_reject }
+            release = KOR
+        }
     }
 
     option = {
         name = JAP_r56rp_japanchuria_ev.4.d # Both Reject
-        ai_chance = { factor = 100 }
+        ai_chance = { base = 100 }
         trigger = {
             has_country_flag = JAP_r56rp_KOR_reject
             has_country_flag = JAP_r56rp_MAN_reject
