@@ -540,6 +540,9 @@ focus_tree = {
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_puppetgaintooltip
+		}
 		prerequisite = { focus = JAP_r56rp_birth_of_the_kakumei_kenpeitai  } prerequisite = { focus = JAP_r56rp_japanese_social_teachings  }
 	}
 	
@@ -1020,28 +1023,45 @@ focus_tree = {
 		relative_position_id = JAP_r56rp_provide_social_subsidies
 		x = 0
 		y = 2
-		cost = 5
+		cost = 10
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
 		completion_reward = {
 			random_core_state = {
 				prioritize = { 532 282 } 
-			   limit = {
+			   	limit = {
 				   is_owned_and_controlled_by = ROOT
 				   free_building_slots = {
 					   building = industrial_complex
-					   size > 5
+					   size > 3
 					   include_locked = yes
 				   }
 			   }
-			   add_extra_state_shared_building_slots = 5
+			   add_extra_state_shared_building_slots = 3
 			   add_building_construction = {
 				   type = industrial_complex
-				   level = 5
+				   level = 3
 				   instant_build = yes
 			   }
 		   }
+		   random_core_state = {
+			prioritize = { 532 282 } 
+			   limit = {
+			   is_owned_and_controlled_by = ROOT
+			   free_building_slots = {
+				   building = industrial_complex
+				   size > 2
+				   include_locked = yes
+			   }
+		   }
+		   add_extra_state_shared_building_slots = 2
+		   add_building_construction = {
+			   type = industrial_complex
+			   level = 2
+			   instant_build = yes
+		   }
+	   }
 		   random_core_state = {
 			prioritize = { 532 282 } 
 		   limit = {
@@ -1081,14 +1101,14 @@ focus_tree = {
 				   is_owned_and_controlled_by = ROOT
 				   free_building_slots = {
 					   building = industrial_complex
-					   size > 7
+					   size > 3
 					   include_locked = yes
 				   }
 			   }
-			   add_extra_state_shared_building_slots = 7
+			   add_extra_state_shared_building_slots = 3
 			   add_building_construction = {
 				   type = industrial_complex
-				   level = 7
+				   level = 3
 				   instant_build = yes
 			   }
 		   }
@@ -1097,15 +1117,32 @@ focus_tree = {
 		   limit = {
 			   is_owned_and_controlled_by = ROOT
 			   free_building_slots = {
-				   building = arms_factory
-				   size > 5
+				   building = industrial_complex
+				   size > 3
 				   include_locked = yes
 			   }
 		   }
-		   add_extra_state_shared_building_slots = 5
+		   add_extra_state_shared_building_slots = 3
+		   add_building_construction = {
+			   type = industrial_complex
+			   level = 3
+			   instant_build = yes
+		   }
+	   }
+		   random_core_state = {
+			prioritize = { 532 282 531 529 530 528 } 
+		   limit = {
+			   is_owned_and_controlled_by = ROOT
+			   free_building_slots = {
+				   building = arms_factory
+				   size > 3
+				   include_locked = yes
+			   }
+		   }
+		   add_extra_state_shared_building_slots = 3
 		   add_building_construction = {
 			   type = arms_factory
-			   level = 5
+			   level = 3
 			   instant_build = yes
 		   }
 	   }				
@@ -1217,6 +1254,16 @@ focus_tree = {
 		cost = 10
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			every_state = {
+				limit = { 
+					is_core_of = JAP
+				}
+				add_dynamic_modifier = {
+					modifier = JAP_r56rp_communist_new_eco_plan
+				}
+			}
 		}
 		prerequisite = { focus = JAP_r56rp_a_modern_industrial_complex  }
 		mutually_exclusive = { focus = JAP_r56rp_the_third_3_year_plan  }
@@ -2451,7 +2498,7 @@ focus_tree = {
 					#
 					create_operative_leader = {
 						name = "Aiyappan Pillai Madhavan Nair"
-						portrait_path = gfx/leaders/India/portrait_india_generic_operative_male_3.dds 
+#						portrait_path = gfx/leaders/India/portrait_india_generic_operative_male_3.dds 
 						traits = {  operative_demolition_expert operative_natural_orator }
 						bypass_recruitment = no
 						available_to_spy_master = yes
