@@ -60,7 +60,7 @@ country_event = { # japan asks germany for joint rocket research
 		}
 	}
 }
-
+# Miyagi
 add_namespace = JAP_r56rp_yonai_takeover
 
 country_event = {
@@ -138,5 +138,157 @@ country_event = {
         }
     }
     
+}
+
+add_namespace = JAP_r56rp_japanchuria_ev
+
+# JAPAN PROPOSES UNIFICATION
+country_event = {
+    id = JAP_r56rp_japanchuria_ev.1
+    title = JAP_r56rp_japanchuria_ev.1.t
+    desc = JAP_r56rp_japanchuria_ev.1.d
+    picture = GFX_report_event_ITA_democratic_parlament
+
+    is_triggered_only = yes
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.1.a # Send Proposal
+        ai_chance = { factor = 99 }
+        set_country_flag = JAP_r56rp_proposed_japanchuria
+        country_event = { id = JAP_r56rp_japanchuria_ev.2 days = 2 target = KOR }
+        country_event = { id = JAP_r56rp_japanchuria_ev.3 days = 2 target = MAN }
+    }
+}
+
+# KOREA'S RESPONSE
+country_event = {
+    id = JAP_r56rp_japanchuria_ev.2
+    title = JAP_r56rp_japanchuria_ev.2.t
+    desc = JAP_r56rp_japanchuria_ev.2.d
+    picture = GFX_report_event_KOR_japanchuria
+
+    is_triggered_only = yes
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.2.a # Accept
+        ai_chance = { factor = 50 }
+        set_country_flag = JAP_r56rp_KOR_accept
+    }
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.2.b # Demand Autonomy
+        ai_chance = { factor = 30 }
+        set_country_flag = JAP_r56rp_KOR_autonomy
+    }
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.2.c # Decline
+        ai_chance = { factor = 20 }
+        set_country_flag = JAP_r56rp_KOR_reject
+    }
+}
+
+# MANCHURIA'S RESPONSE
+country_event = {
+    id = JAP_r56rp_japanchuria_ev.3
+    title = JAP_r56rp_japanchuria_ev.3.t
+    desc = JAP_r56rp_japanchuria_ev.3.d
+    picture = GFX_report_event_MAN_japanchuria
+
+    is_triggered_only = yes
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.3.a # Accept
+        ai_chance = { factor = 50 }
+        set_country_flag = JAP_r56rp_MAN_accept
+    }
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.3.b # Demand Autonomy
+        ai_chance = { factor = 30 }
+        set_country_flag = JAP_r56rp_MAN_autonomy
+    }
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.3.c # Decline
+        ai_chance = { factor = 20 }
+        set_country_flag = JAP_r56rp_MAN_reject
+    }
+}
+
+# JAPAN RECEIVES FINAL DECISION
+country_event = {
+    id = JAP_r56rp_japanchuria_ev.4
+    title = JAP_r56rp_japanchuria_ev.4.t
+    desc = JAP_r56rp_japanchuria_ev.4.d
+    picture = GFX_report_event_ITA_democratic_parlament
+
+    is_triggered_only = no
+    trigger = {
+        has_country_flag = JAP_r56rp_proposed_japanchuria
+        OR = {
+            has_country_flag = JAP_r56rp_KOR_accept
+            has_country_flag = JAP_r56rp_KOR_autonomy
+            has_country_flag = JAP_r56rp_KOR_reject
+        }
+        OR = {
+            has_country_flag = JAP_r56rp_MAN_accept
+            has_country_flag = JAP_r56rp_MAN_autonomy
+            has_country_flag = JAP_r56rp_MAN_reject
+        }
+    }
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.4.a # Full Unification
+        ai_chance = { factor = 100 }
+        trigger = {
+            has_country_flag = JAP_r56rp_KOR_accept
+            has_country_flag = JAP_r56rp_MAN_accept
+        }
+        annex_country = KOR
+        annex_country = MAN
+        set_cosmetic_tag = JAP_r56rp_JAPMAN
+    }
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.4.b # Both Demand Autonomy
+        ai_chance = { factor = 100 }
+        trigger = {
+            has_country_flag = JAP_r56rp_KOR_autonomy
+            has_country_flag = JAP_r56rp_MAN_autonomy
+        }
+        add_dynamic_modifier = { modifier = JAP_r56rp_autonomous_puppets days = -1 }
+    }
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.4.c # Mixed Responses
+        ai_chance = { factor = 100 }
+        trigger = {
+            OR = {
+                AND = { has_country_flag = JAP_r56rp_KOR_accept has_country_flag = JAP_r56rp_MAN_autonomy }
+                AND = { has_country_flag = JAP_r56rp_MAN_accept has_country_flag = JAP_r56rp_KOR_autonomy }
+            }
+        }
+        if = {
+            limit = { has_country_flag = JAP_r56rp_KOR_accept }
+            annex_country = KOR
+        }
+        if = {
+            limit = { has_country_flag = JAP_r56rp_MAN_accept }
+            annex_country = MAN
+        }
+        add_dynamic_modifier = { modifier = JAP_r56rp_autonomous_puppets days = -1 }
+    }
+
+    option = {
+        name = JAP_r56rp_japanchuria_ev.4.d # Both Reject
+        ai_chance = { factor = 100 }
+        trigger = {
+            has_country_flag = JAP_r56rp_KOR_reject
+            has_country_flag = JAP_r56rp_MAN_reject
+        }
+        release = KOR
+        release = MAN
+    }
 }
 
