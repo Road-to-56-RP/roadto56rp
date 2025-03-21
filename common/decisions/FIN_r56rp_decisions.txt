@@ -209,7 +209,7 @@ FIN_r56rp_an_ally_not_a_subject_category = {
 		}
 	
 		visible = {
-			has_completed_focus = FIN_r56rp_an_ally_not_a_subject
+			#has_completed_focus = FIN_r56rp_an_ally_not_a_subject
 		}
 
 		available = {
@@ -221,33 +221,13 @@ FIN_r56rp_an_ally_not_a_subject_category = {
 		cost = 25
 
 		remove_effect = {
+			OVERLORD = {
+				country_event = { id = FIN_r56rp_independence.4 hours = 6 }
+			}
 			add_political_power = 100
 		}
 	}
 	FIN_r56rp_demand_independence_from_overlord = {
-		priority = 10
-	
-		allowed = {
-			original_tag = FIN
-		}
-	
-		visible = {
-			has_completed_focus = FIN_r56rp_an_ally_not_a_subject
-		}
-
-		available = {
-			is_subject = yes
-		}
-		
-		days_remove = 30
-
-		cost = 25
-
-		remove_effect = {
-			add_political_power = 100
-		}
-	}
-	FIN_r56rp_guarantee_loyalty_post_independence = {
 		priority = 10
 	
 		allowed = {
@@ -267,9 +247,40 @@ FIN_r56rp_an_ally_not_a_subject_category = {
 		cost = 25
 
 		remove_effect = {
-			custom_effect_tooltip = FIN_R56RP_bound_to_faction_warning_tt
-			set_country_flag = FIN_R56RP_bound_to_faction
+			custom_effect_tooltip = raj_may_lead_to_war
+			OVERLORD = {
+				country_event = { id = FIN_r56rp_independence.3 hours = 6 }
+			}
 			add_political_power = 100
+		}
+	}
+	FIN_r56rp_guarantee_loyalty_post_independence = {
+		priority = 10
+	
+		allowed = {
+			original_tag = FIN
+		}
+	
+		visible = {
+			#has_completed_focus = FIN_r56rp_an_ally_not_a_subject
+		}
+
+		available = {
+			is_subject = yes
+			NOT = {
+				has_country_flag = FIN_r56rp_promised_absolute_neutrality
+			}
+		}
+		
+		days_remove = 30
+
+		cost = 25
+
+		remove_effect = {
+			custom_effect_tooltip = FIN_R56RP_bound_to_faction_warning_tt
+			OVERLORD = {
+				country_event = { id = FIN_r56rp_independence.1 hours = 6 }
+			}
 		}
 	}
 	FIN_r56rp_independence_in_exchange_for_neutrality = {
@@ -280,11 +291,14 @@ FIN_r56rp_an_ally_not_a_subject_category = {
 		}
 	
 		visible = {
-			has_completed_focus = FIN_r56rp_an_ally_not_a_subject
+			#has_completed_focus = FIN_r56rp_an_ally_not_a_subject
 		}
 
 		available = {
 			is_subject = yes
+			NOT = {
+				has_country_flag = FIN_r56rp_promised_future_alliance
+			}
 		}
 		
 		days_remove = 30
@@ -292,7 +306,10 @@ FIN_r56rp_an_ally_not_a_subject_category = {
 		cost = 25
 
 		remove_effect = {
-			add_political_power = 100
+			custom_effect_tooltip = FIN_R56RP_absolute_neutrality_warning_tt
+			OVERLORD = {
+				country_event = { id = FIN_r56rp_independence.2 hours = 6 }
+			}
 		}
 	}		
 }

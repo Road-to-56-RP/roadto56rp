@@ -11335,9 +11335,9 @@ focus_tree = {
 	focus = {
 		id = FIN_r56rp_an_ally_not_a_subject
 		icon = GFX_goal_r56rp_goal_FIN_an_ally_not_a_subject_icon
-
 		relative_position_id = FIN_r56rp_greater_finland_achieved
-		prerequisite = { focus = FIN_r56rp_greater_finland_achieved  }
+		prerequisite = { focus = FIN_r56rp_greater_finland_achieved }
+		cost = 5
 		x = -2
 		y = 1
 
@@ -11346,24 +11346,62 @@ focus_tree = {
 		}
 
 		completion_reward = {
-		
+			unlock_decision_category_tooltip = FIN_r56rp_an_ally_not_a_subject_category
+			add_political_power = 25
 		}
 	}
 	focus = {
 		id = FIN_r56rp_independence_war
-		icon = GFX_goal_r56rp_goal_FIN_an_ally_not_a_subject_icon
+		icon = GFX_goal_r56rp_goal_FIN_anti_overlord_icon
 		mutually_exclusive = { focus = FIN_r56rp_strengthen_our_alliance }
 		relative_position_id = FIN_r56rp_an_ally_not_a_subject
-		prerequisite = { focus = FIN_r56rp_an_ally_not_a_subject  }
+		prerequisite = { focus = FIN_r56rp_an_ally_not_a_subject }
+		cost = 2
 		x = 1
 		y = 1
 
 		available = {
 			is_subject = yes
+			has_country_flag = FIN_r56rp_overlord_denied_demand
 		}
 
 		completion_reward = {
-		
+			custom_effect_tooltip = FIN_r56rp_independence_war_tt
+			hidden_effect = {
+				if = {
+					FIN = {
+						has_country_flag = FIN_R56RP_bound_to_neutrality
+					}
+					clr_country_flag = FIN_R56RP_bound_to_neutrality
+				}
+				if = {
+					FIN = {
+						has_country_flag = FIN_R56RP_bound_to_faction
+					}
+					clr_country_flag = FIN_R56RP_bound_to_faction
+				}
+				OVERLORD = {
+					set_country_flag = FIN_r56rp_old_overlord
+					set_autonomy = {
+						target = ROOT
+						autonomous_state = autonomy_free
+					}				
+				}
+				every_country = {
+					limit = {
+						has_country_flag = FIN_r56rp_old_overlord
+					}
+					ROOT = {
+						declare_war_on = {
+							target = PREV
+							type = independence_war
+						}
+					}
+					PREV = {
+						clr_country_flag = FIN_r56rp_old_overlord
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -11376,7 +11414,8 @@ focus_tree = {
 		y = 1
 
 		available = {
-			is_subject = yes
+			is_subject = no
+			is_in_faction = yes
 		}
 
 		completion_reward = {
@@ -11393,7 +11432,6 @@ focus_tree = {
 		y = 1
 
 		available = {
-			is_subject = yes
 		}
 
 		completion_reward = {
