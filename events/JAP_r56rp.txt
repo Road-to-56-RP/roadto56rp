@@ -1,0 +1,537 @@
+###########################
+# r56rp JAP Events
+###########################
+
+add_namespace = r56rp_jap
+add_namespace = JAP_r56rp_japanchuria_ev
+
+country_event = { # japan asks germany for joint rocket research
+	id = r56rp_jap.1
+	title = r56rp_jap.1.t
+	desc = r56rp_jap.1.desc
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+
+	option = { 	# yes, we agree to joint research on rocket and jets
+		name = r56rp_jap.1.a
+		ai_chance = {
+		base = 50
+
+		}
+
+		FROM = {
+			add_tech_bonus = {
+				name = JAP_german_rocketry
+				ahead_reduction = 1
+				bonus = 1
+				uses = 1
+				category = rocketry
+			}
+
+			add_ideas = JAP_german_rocketry
+
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Together for Victory"
+						has_dlc = "Death or Dishonor"
+						has_dlc = "Waking the Tiger"
+					}
+				}
+				FROM = { add_to_tech_sharing_group = r56rp_JAP_GER_rocket_jet_research }
+				ROOT = { add_to_tech_sharing_group = r56rp_JAP_GER_rocket_jet_research }
+			}
+		}
+	}
+
+	option = { 	# no, no joint rocket research.
+		name = r56rp_jap.1.b
+		ai_chance = {
+			base = 10
+		}
+
+		FROM = {
+			add_opinion_modifier = {
+				target = GER
+				modifier = r56rp_JAP_GER_refused_rocket
+			}
+		}
+	}
+}
+# Miyagi
+add_namespace = JAP_r56rp_yonai_takeover
+
+country_event = {
+	id = JAP_r56rp_yonai_takeover.1
+	title = JAP_r56rp_yonai_takeover.1.t
+	desc = JAP_r56rp_yonai_takeover.1.d
+	picture = GFX_report_event_ITA_democratic_parlament
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_yonai_takeover.1.a
+		ai_chance = {
+			base = 99
+		}
+		set_country_flag = JAP_r56rp_cooperation_with_democrats_event
+		add_political_power = 50
+		add_stability = 0.075
+	}
+
+
+	option = {
+		name = JAP_r56rp_yonai_takeover.1.b
+		ai_chance = {
+		base = 99
+		}
+		custom_effect_tooltip = JAP_r56rp_tooltip_miyagi_yonai_descison
+		set_country_flag = JAP_r56rp_no_deal_with_democrats_event
+		add_political_power = -100
+		add_stability = -0.20
+	}
+}
+
+country_event = {
+	id = JAP_r56rp_yonai_takeover.2
+	title = JAP_r56rp_yonai_takeover.2.t
+	desc = JAP_r56rp_yonai_takeover.2.d
+	picture = GFX_report_event_japanese_army_parade
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_yonai_takeover.2.a
+		ai_chance = {
+			base = 99
+		}
+		set_country_flag = JAP_r56rp_no_cooperation_flag
+		mark_focus_tree_layout_dirty = yes
+		add_political_power = -50
+		add_stability = -0.075
+	}
+}
+
+country_event = {
+	id = JAP_r56rp_yonai_takeover.3
+	title = JAP_r56rp_yonai_takeover.3.t
+	desc = JAP_r56rp_yonai_takeover.3.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_yonai_takeover.3.a
+		ai_chance = {
+			base = 99
+		}
+			add_political_power = 50
+			add_stability = 0.075
+			add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
+	}
+}
+
+country_event = {
+	id = JAP_r56rp_japanchuria_ev.1
+	title = JAP_r56rp_japanchuria_ev.1.t
+	desc = JAP_r56rp_japanchuria_ev.1.d
+	picture = GFX_report_event_ITA_democratic_parlament
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_japanchuria_ev.1.a # Send Proposal
+		ai_chance = { base = 99 }
+		KOR = { 
+			country_event = { id = JAP_r56rp_japanchuria_ev.2 hours = 6 }
+		}
+		MAN = { 
+			country_event = { id = JAP_r56rp_japanchuria_ev.2 hours = 6 }
+		}
+		hidden_effect = {
+			ROOT = {
+				country_event = { id = JAP_r56rp_japanchuria_ev.6 days = 16 }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = JAP_r56rp_japanchuria_ev.2
+	title = JAP_r56rp_japanchuria_ev.2.t
+	desc = JAP_r56rp_japanchuria_ev.2.d
+	picture = GFX_report_event_ITA_democratic_parlament
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_japanchuria_ev.1.a # We accept Glorious Nippon Steel
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value > 50
+				}
+			}
+			modifier = {
+				factor = 2
+				is_in_faction_with = FROM
+			}
+			modifier = {
+				factor = 2
+				has_government = FROM
+			}
+			modifier = {
+				factor = 10
+				is_subject_of = FROM
+			}						
+		}
+
+		custom_effect_tooltip = GAME_OVER_TT
+		set_country_flag = JAP_communism_puppet_annex
+		FROM = {
+			country_event = { id = JAP_r56rp_japanchuria_ev.3 hours = 6 }
+		}
+	}
+	option = {
+		name = JAP_r56rp_japanchuria_ev.1.b # We would prever autonomous status
+		ai_chance = {
+			base = 2
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value > 15
+				}
+			}
+			modifier = {
+				factor = 2
+				is_in_faction_with = FROM
+			}
+			modifier = {
+				factor = 2
+				has_government = FROM
+			}
+			modifier = {
+				factor = 10
+				is_subject_of = FROM
+			}						
+		}
+		set_country_flag = JAP_communism_puppet_puppet
+		FROM = {
+			country_event = { id = JAP_r56rp_japanchuria_ev.4 hours = 6 }
+		}
+	}
+	option = {
+		name = JAP_r56rp_japanchuria_ev.1.c # Piss off
+		ai_chance = {
+			base = 2
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value < 0
+				}
+			}
+			modifier = {
+				factor = 2
+				is_in_faction_with = FROM
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					has_war = yes
+				}
+			}
+			modifier = {
+				factor = 4
+				NOT = {
+					has_government = FROM
+				}
+			}						
+		}
+		set_country_flag = JAP_communism_puppet_free
+		FROM = {
+			country_event = { id = JAP_r56rp_japanchuria_ev.5 hours = 6 }
+		}
+	}
+}
+country_event = { # Annexation Event
+	id = JAP_r56rp_japanchuria_ev.3
+	title = JAP_r56rp_japanchuria_ev.3.t
+	desc = JAP_r56rp_japanchuria_ev.3.d
+	picture = GFX_report_event_MAN_japanchuria
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_japanchuria_ev.3.a # Annexation
+		ai_chance = { base = 80 }
+		custom_effect_tooltip = JAP_r56rp_japanchuria_conclusion_tt
+		if = {
+			limit = {
+				FROM = {
+					original_tag = KOR
+				}
+			}
+			ROOT = {
+				set_country_flag = JAP_r56rp_japanchuria_KOR_answer
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = MAN
+				}
+			}
+			ROOT = {
+				set_country_flag = JAP_r56rp_japanchuria_MAN_answer
+			}
+		}
+		effect_tooltip = {
+			JAP = {
+				annex_country = {
+					target = FROM
+					transfer_troops = yes
+				}
+			}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = KOR
+					original_tag = MAN
+					}
+				}
+			}
+		}
+	}
+}
+country_event = { # Puppet Event 
+	id = JAP_r56rp_japanchuria_ev.4
+	title = JAP_r56rp_japanchuria_ev.4.t
+	desc = JAP_r56rp_japanchuria_ev.4.d
+	picture = GFX_report_event_MAN_japanchuria
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_japanchuria_ev.4.a # Puppet Status
+		ai_chance = { base = 19 }
+		custom_effect_tooltip = JAP_r56rp_japanchuria_conclusion_tt
+		effect_tooltip = {
+			JAP = {
+				set_autonomy = {
+					target = FROM
+					autonomous_state = autonomy_dominion
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = KOR
+				}
+			}
+			ROOT = {
+				set_country_flag = JAP_r56rp_japanchuria_KOR_answer
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = MAN
+				}
+			}
+			ROOT = {
+				set_country_flag = JAP_r56rp_japanchuria_MAN_answer
+			}
+		}
+	}
+}
+country_event = { # Free Event
+	id = JAP_r56rp_japanchuria_ev.5
+	title = JAP_r56rp_japanchuria_ev.5.t
+	desc = JAP_r56rp_japanchuria_ev.5.d
+	picture = GFX_report_event_MAN_japanchuria
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_japanchuria_ev.5.a # Decline
+		ai_chance = { base = 1 }
+		custom_effect_tooltip = JAP_r56rp_japanchuria_conclusion_tt
+		if = {
+			limit = {
+				FROM = {
+					original_tag = KOR
+				}
+			}
+			ROOT = {
+				set_country_flag = JAP_r56rp_japanchuria_KOR_answer
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = MAN
+				}
+			}
+			ROOT = {
+				set_country_flag = JAP_r56rp_japanchuria_MAN_answer
+			}
+		}
+		effect_tooltip = {
+			every_other_country = {
+				limit = {
+					has_country_flag = JAP_communism_puppet_free
+					is_subject_of = JAP
+				}
+				JAP = {
+					set_autonomy = {
+						target = PREV
+						autonomous_state = autonomy_free
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = JAP_r56rp_japanchuria_ev.6
+	title = JAP_r56rp_japanchuria_ev.6.t
+	desc = JAP_r56rp_japanchuria_ev.6.d
+	picture = GFX_report_event_ITA_democratic_parlament
+
+	is_triggered_only = yes
+
+	option = { # Conclusion of the Conference
+		name = JAP_r56rp_japanchuria_ev.6.a # Send Proposal
+		ai_chance = { base = 99 }
+		every_other_country = {
+			limit = {
+				has_country_flag = JAP_communism_puppet_free
+				is_subject_of = JAP
+			}
+			JAP = {
+				set_autonomy = {
+					target = PREV
+					autonomous_state = autonomy_free
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
+			if = {
+				limit = {
+					original_tag = KOR
+					has_country_flag = JAP_communism_puppet_free
+				}
+				KOR = {
+					clr_country_flag = JAP_communism_puppet_free
+				}
+			}
+			if = {
+				limit = {
+					original_tag = MAN
+					has_country_flag = JAP_communism_puppet_free
+				}
+				MAN = {
+					clr_country_flag = JAP_communism_puppet_free
+				}
+			}
+		}
+		every_other_country = {
+			limit = {
+				has_country_flag = JAP_communism_puppet_puppet
+			}
+			JAP = {
+				set_autonomy = {
+					target = PREV
+					autonomous_state = autonomy_dominion
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
+			if = {
+				limit = {
+					original_tag = KOR
+					has_country_flag = JAP_communism_puppet_puppet
+				}
+				KOR = {
+					clr_country_flag = JAP_communism_puppet_puppet
+				}
+			}
+			if = {
+				limit = {
+					original_tag = MAN
+					has_country_flag = JAP_communism_puppet_puppet
+				}
+				MAN = {
+					clr_country_flag = JAP_communism_puppet_puppet
+				}
+			}
+		}
+		every_other_country = {
+			limit = {
+				has_country_flag = JAP_communism_puppet_annex
+			}
+			JAP = {
+				annex_country = {
+					target = PREV
+					transfer_troops = yes
+				}
+			}
+			if = {
+				limit = {
+					original_tag = KOR
+					has_country_flag = JAP_communism_puppet_annex
+				}
+				KOR = {
+					clr_country_flag = JAP_communism_puppet_annex
+				}
+			}
+			if = {
+				limit = {
+					original_tag = MAN
+					has_country_flag = JAP_communism_puppet_annex
+				}
+				MAN = {
+					clr_country_flag = JAP_communism_puppet_annex
+				}
+			}
+		}
+		if = {
+			limit = {
+				525 = {
+					is_owned_and_controlled_by = ROOT
+				}
+				328 = {
+					is_owned_and_controlled_by = ROOT
+				}
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = KOR
+				}
+				add_core_of = ROOT
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = MAN
+				}
+				add_core_of = ROOT
+			}
+			set_cosmetic_tag = JAP_r56rp_JAPMAN
+		}
+	}
+}
