@@ -6311,13 +6311,11 @@ hungarian_expansionism_decision_category = {	#Shit for Hungary to core/claim
 
 bul_become_yugoslavia = {	#Shit for Bulgaria's Reworked Yugoslavia Formable
 	icon = generic_formable_nations
-	
+	allowed = { original_tag = BUL }
 	visible = {
-		original_tag = BUL
 		has_country_flag = yugoslavia_bul_shown
 	}
 	available = {
-		original_tag = BUL
 		OR = {
 			has_government = democratic
 			has_government = communism
@@ -6353,9 +6351,8 @@ bul_become_yugoslavia = {	#Shit for Bulgaria's Reworked Yugoslavia Formable
 
 bul_demcom_integrate_the_yugoslav_states = {	#Communist/Democratic Integration Stuff for Bulgaria -> Yugo
 	icon = generic_formable_nations
-
+	allowed = { original_tag = BUL }
 	visible = {
-		original_tag = BUL
 		has_cosmetic_tag = YUG
 		OR = {
 			has_government = democratic
@@ -6366,9 +6363,8 @@ bul_demcom_integrate_the_yugoslav_states = {	#Communist/Democratic Integration S
 
 bul_become_byzantine = {	#Shit for Bulgaria's Reworked Byzantine Formable
 	icon = generic_formable_nations
-	
+	allowed = { original_tag = BUL }
 	visible = {
-		original_tag = BUL
 		has_country_flag = byzantium_bul_shown
 	}
 
@@ -6403,8 +6399,8 @@ bul_become_byzantine = {	#Shit for Bulgaria's Reworked Byzantine Formable
 
 bul_autfas_integrate_the_balkan_states = {		#Fascist/Authoritarian Integration Stuff for Bulgaria -> Byzantine
 	icon = generic_formable_nations
+	allowed = { original_tag = BUL }
 	visible = {
-		original_tag = BUL
 		has_cosmetic_tag = FORM_BYZ
 		NOT = {
 			has_completed_focus = BUL_bulgarian_administration_of_the_balkans
@@ -6418,8 +6414,8 @@ bul_autfas_integrate_the_balkan_states = {		#Fascist/Authoritarian Integration S
 
 yug_expanding_belgrades_reach = {	#Shit for Yugoslavias Reworked  Greater Yugoslavia Formable
 	icon = formable_nations_greater_yugoslavia
+	allowed = { original_tag = YUG }
 	visible = {
-		original_tag = YUG
 		has_country_flag = greater_yugoslavia_extra_shown
 	}
 }
@@ -6428,10 +6424,10 @@ POR_expansionism_decision_category = {	##Shit for Portugal to core/claim a few t
 	icon = generic_formable_nations
 	allowed = {
 		original_tag = POR
-		has_global_flag = por_lar_focus_tree
 	}
 	visible = {
 		has_country_flag = portugal_shown
+		has_global_flag = por_lar_focus_tree
 	}
 }
 
@@ -6443,10 +6439,7 @@ unify_iberia_decision_category = {
 			original_tag = SPA
 			original_tag = ADR
 			original_tag = CAT
-			AND = {
-				original_tag = POR
-				has_global_flag = por_lar_focus_tree
-			}
+			original_tag = POR
 		}
 	}
 
@@ -6454,6 +6447,10 @@ unify_iberia_decision_category = {
 		if = {
 			limit = { original_tag = ADR }
 			has_cosmetic_tag = CAT
+		}
+		if = {
+			limit = { original_tag = POR }
+			has_global_flag = por_lar_focus_tree
 		}
 		has_country_flag = iberian_ambitions
 	}
@@ -6623,13 +6620,14 @@ formable_nations_west_africa_category = {
 
 formable_nations_alamannia_category = {
 	icon = generic_formable_nations
-
-	visible = {
+	allowed = {
 		OR = {
 			original_tag = AUS
 			original_tag = SWI
 			original_tag = LIE
 		}
+	}
+	visible = {
 		has_country_flag = alamannia_shown
 	}
 
