@@ -4,6 +4,7 @@
 
 add_namespace = r56rp_jap
 add_namespace = JAP_r56rp_japanchuria_ev
+add_namespace = JAP_r56rp_japanchuria_colonial
 
 country_event = { # japan asks germany for joint rocket research
 	id = r56rp_jap.1
@@ -532,6 +533,96 @@ country_event = {
 				add_core_of = ROOT
 			}
 			set_cosmetic_tag = JAP_r56rp_JAPMAN
+		}
+	}
+}
+
+country_event = {
+	id = JAP_r56rp_japanchuria_colonial.1
+	title = JAP_r56rp_japanchuria_colonial.1.t
+	desc = JAP_r56rp_japanchuria_colonial.1.desc
+	picture = GFX_report_event_japanese_parade
+
+	is_triggered_only = yes
+	
+	# They deserve freedom
+	option = {
+		name = JAP_r56rp_japanchuria_colonial.1.a
+		ai_chance = {
+			base = 1
+		}
+		set_autonomy = { target = MAL autonomy_state = autonomy_free }
+		JAP = { country_event = { id = JAP_r56rp_japanchuria_colonial.2 days = 1 } }
+		"MAL" = { country_event = { id = JAP_r56rp_japanchuria_colonial.4 days = 1 } }
+	}
+
+	# Never!
+	option = {
+		name = JAP_r56rp_japanchuria_colonial.1.b
+		ai_chance = {
+			base = 0
+		}
+		JAP = { country_event = { id = wtt_japan.106 days = 1 } }
+	}
+}
+
+# Notification event for Japan upon USA giving full sovereignty to the Phillipines
+country_event = {
+	id = JAP_r56rp_japanchuria_colonial.2
+	title = JAP_r56rp_japanchuria_colonial.2.t
+	desc = JAP_r56rp_japanchuria_colonial.2.desc
+	picture = GFX_report_event_generic_usa_treaty
+
+	is_triggered_only = yes
+	
+	option = {
+		name = JAP_r56rp_japanchuria_colonial.2.a
+		ai_chance = {
+			base = 1
+		}
+		effect_tooltip = {
+			FROM = { set_autonomy = { target = MAL autonomy_state = autonomy_free } }
+		}
+	}
+}
+
+# Notification event for Japan upon USA denying full sovereignty to the Phillipines
+country_event = {
+	id = JAP_r56rp_japanchuria_colonial.3
+	title = JAP_r56rp_japanchuria_colonial.3.t
+	desc = JAP_r56rp_japanchuria_colonial.3.desc
+	picture = GFX_report_event_generic_usa_treaty
+
+	is_triggered_only = yes
+	
+	option = {
+		name = JAP_r56rp_japanchuria_colonial.3.a
+		ai_chance = {
+			base = 1
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = FROM
+		}
+	}
+}
+
+# Notification event for Phillipines upon USA giving full sovereignty to the Phillipines
+country_event = {
+	id = JAP_r56rp_japanchuria_colonial.4
+	title = JAP_r56rp_japanchuria_colonial.4.t
+	desc = JAP_r56rp_japanchuria_colonial.4.desc
+	picture = GFX_report_event_generic_usa_treaty
+
+	is_triggered_only = yes
+	
+	option = {
+		name = JAP_r56rp_japanchuria_colonial.4.a
+		ai_chance = {
+			base = 1
+		}
+		effect_tooltip = {
+			FROM = { set_autonomy = { target = MAL autonomy_state = autonomy_free } }
 		}
 	}
 }
