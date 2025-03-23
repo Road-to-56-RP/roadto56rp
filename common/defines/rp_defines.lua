@@ -41,7 +41,7 @@ NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_DEFENSE_STEEPNESS = 112 -- [vanilla 112
 NDefines.NMilitary.ENEMY_AIR_SUPERIORITY_SPEED_IMPACT = -0.2    -- [vanilla -0.3] effect on speed due to enemy air superiority
 -- NDefines.NMilitary.PLANNING_DECAY = 0.01				--[vanilla 0.01]
 NDefines.NMilitary.PLAYER_ORDER_PLANNING_DECAY = 0.04	--[vanilla 0.03]
-NDefines.NMilitary.PLANNING_GAIN = 0.01				--[vanilla 0.02] anything lower will introduce problems to mobile warfare, with "0 prc planning gain"
+NDefines.NMilitary.PLANNING_GAIN = 0.02				--[vanilla 0.02] anything lower will introduce problems to mobile warfare, with "0 prc planning gain"
 
 NDefines.NMilitary.PLAN_CONSIDERED_GOOD = 0.50					-- [vanilla 0.25] Plan evaluations above this value are considered more or less safe
 NDefines.NMilitary.PLAN_CONSIDERED_BAD = -0.05					-- [vanilla -0.25] Plan evaluations below this value are considered unsafe
@@ -94,7 +94,7 @@ NDefines.NAir.MISSION_FUEL_COSTS = {  -- CHECK ROAD fuel cost per plane for each
 	0,0, -- SAM
 }
 
-NDefines.NAir.ANTI_AIR_PLANE_DAMAGE_CHANCE = 0.2				-- [vanilla 0.1] Anti Air Gun hit chance
+NDefines.NAir.ANTI_AIR_PLANE_DAMAGE_CHANCE = 0.10				-- [vanilla 0.1] Anti Air Gun hit chance
 NDefines.NAir.ANTI_AIR_ATTACK_TO_DAMAGE_REDUCTION_FACTOR = 0.3	-- [vanilla 1.0] Balancing value to convert equipment stat anti_air_attack to the damage reduction modifier apply to incoming air attacks against units with AA.
 NDefines.NAir.ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.80	-- [vanilla 0.75] Maximum damage reduction factor applied to incoming air attacks against units with AA.
 -- air damage reduction for rp should be maxed out at about 40.4 averaged air attack.
