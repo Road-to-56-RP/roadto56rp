@@ -1,0 +1,104 @@
+LIT_meta_default_start = {
+	name = "Lithuanian Meta Start plan - Vanilla Tree"
+	desc = "AI will do Industrial Focuses First then choose a path depending on Germany and Soviet Union"
+
+	allowed = {
+		original_tag = LIT
+	}
+
+	enable = {
+		has_dlc = "No Step Back"
+		has_game_rule = {
+			rule = LIT_focus_tree_selection
+			option = STANDARD_TREE
+		}
+		OR = {
+			AND = {
+				is_historical_focus_on = no
+				has_game_rule = {
+					rule = LIT_ai_behavior
+					option = DEFAULT
+				}
+			}
+		}
+	}
+
+	abort = {
+
+	}
+
+	ai_national_focuses = {
+		BALTIC_rejoin_the_railways
+		BALTIC_modernize_industry
+		BALTIC_attract_workers_to_capital
+		BALTIC_natural_resources
+		BALTIC_renew_allied_trade
+		BALTIC_ford_motors
+		BALTIC_crossley_motors
+		BALTIC_british_designers
+		BALTIC_rebuild_forts
+		BALTIC_arm_the_nation
+		BALTIC_domestic_motors
+		BALTIC_original_designs
+		BALTIC_defence_of_our_nation
+		BALTIC_arms_industry
+		BALTIC_trade_with_neighbors
+		BALTIC_unchain_education
+	}
+}
+
+LIT_meta_follow_up_communism = {
+	name = "Lithuanian Meta Follow Up Plan - Communism - Vanilla Tree"
+	desc = "AI will now follow the Communist Tree to ally with the Soviets since they are going Historical"
+
+	allowed = {
+		original_tag = LIT
+	}
+
+	enable = {
+		has_dlc = "No Step Back"
+		has_game_rule = {
+			rule = LIT_focus_tree_selection
+			option = STANDARD_TREE
+		}
+		OR = {
+			AND = {
+				is_historical_focus_on = no
+				has_game_rule = {
+					rule = LIT_ai_behavior
+					option = DEFAULT
+				}
+			}
+		}
+		SOV = {
+			has_completed_focus = SOV_the_centre
+		}
+	}
+
+	abort = {
+		ROOT = {
+			is_subject = yes
+			NOT = {
+				has_government = communism
+			}
+		}
+	}
+
+	ai_national_focuses = {
+		BALTIC_restore_workers_republic
+		BALTIC_seek_support_of_soviets
+		BALTIC_soviet_equipment
+		BALTIC_soviet_volunteer_forces
+		BALTIC_soviet_military_staff
+		BALTIC_overthrow_the_government
+		BALTIC_sieze_the_means_of_production
+		BALTIC_squash_resistance
+		BALTIC_purge_of_our_own
+		BALTIC_crush_forest_brothers
+		BALTIC_red_army
+		BALTIC_influence_neighbours
+		BALTIC_arm_baltic_reds
+		BALTIC_united_baltic_ssr
+		BALTIC_align_paramilitarists
+	}
+}

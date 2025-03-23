@@ -1,0 +1,208 @@
+### Industry
+r56rp_LIT_wants_civ = {
+	allowed = {
+		original_tag = LIT
+	}
+	enable = {
+		date < 1938.1.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = 100
+	}
+}
+r56rp_LIT_it_is_1938_now_we_need_mils = {
+	allowed = {
+		original_tag = LIT
+	}
+	enable = {
+		date > 1938.1.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 100
+	}
+	ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = -100
+	}
+}
+r56rp_LIT_buy_less_stuff_save_IC = {
+	allowed = {
+		original_tag = LIT
+	}
+	enable = {
+		date < 1940.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_spend_factories
+		value = -75
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -30k guns to buy them before 1940.1.1
+		id = infantry_equipment
+		value = -30000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k artillery to buy them before 1940.1.1
+		id = artillery_equipment
+		value = -2000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k anti-air to buy them before 1940.1.1
+		id = anti_air_equipment
+		value = -2000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k anti-tank to buy them before 1940.1.1
+		id = anti_tank_equipment
+		value = -2000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k trucks to buy them before 1940.1.1
+		id = motorized_equipment
+		value = -2000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k mech to buy them before 1940.1.1
+		id = mechanized_equipment
+		value = -2000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k small fighters to buy them before 1940.1.1
+		id = small_plane_fighter_airframe
+		value = -2000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k small cas to buy them before 1940.1.1
+		id = small_plane_cas_airframe
+		value = -2000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k medium fighter to buy them before 1940.1.1
+		id = medium_plane_fighter_airframe
+		value = -2000
+	}
+	ai_strategy = {
+		type = equipment_market_buying_threshold # Need at least -2k naval patrol to buy them before 1940.1.1
+		id = large_plane_maritime_patrol_plane_airframe
+		value = -2000
+	}
+}
+r56rp_LIT_we_do_not_need_spies = {
+	allowed = {
+		original_tag = LIT
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = intelligence_agency_usable_factories
+		value = -50
+	}
+}
+r56rp_do_not_build_in_memel = { # We are just going to lose the territory anyway
+	allowed = {
+		original_tag = LIT
+	}
+	enable = {
+		date < 1942.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { # Memel
+		type = factory_build_score_factor
+		target = 188
+		value = -45
+	}    
+}
+### Equipment
+r56rp_LIT_train_and_support_equipment_minimum = {
+	allowed = {
+		original_tag = LIT
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = support_equipment 
+		value = 1
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = train
+		value = 1
+	}
+}
+r56rp_LIT_less_tank_production_early_please = {
+	allowed = {
+		original_tag = LIT
+	}
+	enable = {
+		num_of_military_factories < 10
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_factor 
+		id = armor
+		value = -50
+	}
+	ai_strategy = {
+		type = equipment_variant_production_factor 
+		id = light_tank_chassis
+		value = -99
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = -100
+	}	
+}
+
+### Army
+r56rp_LIT_unit_production = {
+	allowed = {
+		original_tag = LIT
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 75
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = paratroopers
+		value = -100
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = -100
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = -100
+	}
+}
