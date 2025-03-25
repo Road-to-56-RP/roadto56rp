@@ -33,7 +33,7 @@ focus_tree = {
 
 	shortcut = {
 		name = JAP_the_unthinkable_option_r56rp_shortcut
-		target = JAP_the_unthinkable_option
+		target = JAP_r56rp_the_rice_rebellion
 		scroll_wheel_factor = 0.9
 	}
 
@@ -73,16 +73,33 @@ focus_tree = {
 	focus = {
 		id = JAP_r56rp_the_rice_rebellion
 		icon = GFX_r56rp_goal_JAP_the_rice_rebellion_icon
-		relative_position_id = JAP_support_the_kodoha_faction
-		mutually_exclusive = {
-			focus = JAP_purge_the_kodoha_faction focus = JAP_support_the_kodoha_faction focus = JAP_strengthen_civilian_government
-		}
-		x = -25
+		mutually_exclusive = { focus = JAP_purge_the_kodoha_faction focus = JAP_support_the_kodoha_faction focus = JAP_strengthen_civilian_government }
+		relative_position_id = JAP_purge_the_kodoha_faction
+		x = -13
 		y = 0
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = JAP_purge_the_kodoha_faction
+						has_completed_focus = JAP_support_the_kodoha_faction
+						has_completed_focus = JAP_strengthen_civilian_government
+					}
+				}
+			}
+		}
 	
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
 			add_political_power = -50
 			add_popularity = { ideology = communism popularity = 0.10 }
 			# Set political party name for communism
@@ -2099,7 +2116,7 @@ focus_tree = {
 	focus = {
 		id = JAP_purge_the_kodoha_faction
 		icon = GFX_goal_JAP_tojo_purge
-		mutually_exclusive = { focus = JAP_the_unthinkable_option focus = JAP_support_the_kodoha_faction focus = JAP_strengthen_civilian_government }
+		mutually_exclusive = { focus = JAP_r56rp_the_rice_rebellion focus = JAP_support_the_kodoha_faction focus = JAP_strengthen_civilian_government }
 		allow_branch = {
 			if = {
 				limit = {
@@ -2110,15 +2127,14 @@ focus_tree = {
 				}
 				NOT = {
 					OR = {
-						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_r56rp_the_rice_rebellion
 						has_completed_focus = JAP_strengthen_civilian_government
 					}
 				}
 			}
 		}
-		x = 9
+		x = 0
 		y = 0
-		relative_position_id = JAP_the_unthinkable_option
 		offset = {
 			x = -18
 			y = 0
@@ -2129,7 +2145,7 @@ focus_tree = {
 						option = HIDE
 					}
 					OR = {
-						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_r56rp_the_rice_rebellion
 						has_completed_focus = JAP_purge_the_kodoha_faction
 					}
 				}
@@ -4471,7 +4487,7 @@ focus_tree = {
 					}
 				}
 				NOT = {
-					has_completed_focus = JAP_the_unthinkable_option
+					has_completed_focus = JAP_r56rp_the_rice_rebellion
 					has_completed_focus = JAP_strengthen_civilian_government
 				}
 			}
@@ -4648,13 +4664,13 @@ focus_tree = {
 				}
 				NOT = {
 					OR = {
-						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_r56rp_the_rice_rebellion
 						has_completed_focus = JAP_strengthen_civilian_government
 					}
 				}
 			}
 		}
-		mutually_exclusive = { focus = JAP_purge_the_kodoha_faction focus = JAP_the_unthinkable_option focus = JAP_strengthen_civilian_government }
+		mutually_exclusive = { focus = JAP_purge_the_kodoha_faction focus = JAP_r56rp_the_rice_rebellion focus = JAP_strengthen_civilian_government }
 		x = 10
 		y = 0
 		relative_position_id = JAP_purge_the_kodoha_faction
@@ -5959,7 +5975,7 @@ focus_tree = {
 	focus = {
 		id = JAP_strengthen_civilian_government
 		icon = GFX_goal_JAP_strenghten_the_civilian_government
-		mutually_exclusive = { focus = JAP_purge_the_kodoha_faction focus = JAP_support_the_kodoha_faction focus = JAP_the_unthinkable_option }
+		mutually_exclusive = { focus = JAP_purge_the_kodoha_faction focus = JAP_support_the_kodoha_faction focus = JAP_r56rp_the_rice_rebellion }
 		x = 8
 		y = 0
 		relative_position_id = JAP_support_the_kodoha_faction
@@ -5981,7 +5997,7 @@ focus_tree = {
 				}
 				NOT = {
 					OR = {
-						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_r56rp_the_rice_rebellion
 						has_completed_focus = JAP_purge_the_kodoha_faction
 						has_completed_focus = JAP_support_the_kodoha_faction
 					}
@@ -6000,7 +6016,7 @@ focus_tree = {
 				OR = {
 					has_completed_focus = JAP_strengthen_civilian_government
 					#as the manchurian project and army/navy are linked to this focus, I can move them left by moving this one left even while it is hidden
-					has_completed_focus = JAP_the_unthinkable_option
+					has_completed_focus = JAP_r56rp_the_rice_rebellion
 				}
 			}
 		}
@@ -8288,10 +8304,11 @@ focus_tree = {
 	focus = {
 		id = JAP_the_manchurian_project
 		icon = GFX_focus_jap_manchurian_project
-		x = 40
+		x = 10
 		y = 0
+		relative_position_id = JAP_strengthen_civilian_government
 		offset = {
-			x = -24
+			x = 0
 			y = 0
 			trigger = {
 				has_game_rule = {
@@ -8302,18 +8319,18 @@ focus_tree = {
 			}
 		}
 		offset = {
-			x = -29
+			x = -6
 			y = 0
 			trigger = {
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
 				}
-				has_completed_focus = JAP_the_unthinkable_option
+				has_completed_focus = JAP_r56rp_the_rice_rebellion
 			}
 		}
 		offset = {
-			x = -30
+			x = -12
 			y = 0
 			trigger = {
 				has_game_rule = {
