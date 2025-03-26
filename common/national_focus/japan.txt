@@ -140,7 +140,7 @@ focus_tree = {
 	#Soviet And Unionist Support
 	focus = {
 		id = JAP_r56rp_soviet_and_unionist_support
-		icon = GFX_goal_JAP_the_unthinkable_option_shine
+		icon = GFX_goal_JAP_the_unthinkable_option
 		relative_position_id =  JAP_r56rp_the_rice_rebellion
 		x = 1
 		y = 1
@@ -1866,38 +1866,40 @@ focus_tree = {
 					is_debug = yes
 					has_country_flag =  JAP_r56rp_no_cooperation_flag 
 				}
-		   }
-		   completion_reward = {
-			if = {	
-				limit = {
-					NOT = { has_government = neutrality }
-				}
-				set_cosmetic_tag = JAP_r56rp_NAOP
-				add_popularity = { ideology = neutrality popularity = 0.80 }
-				hidden_effect = {
-					add_dynamic_modifier = {
-						modifier = r56rp_JAP_navy_coup_power
-					}
-				}
-				set_politics = {
-					ruling_party = neutrality
-					elections_allowed = no
-					long_name = JAP_r56rp_navaladmin_party
-					name = JAP_r56rp_navaladmin_party
-				}
-				add_country_leader_role = {
-					character = r56rp_JAP_communist_leaders_navyleader_yonai
-					promote_leader = yes
-					country_leader = {
-						ideology = despotism
-						traits = { dictator }
-						expire = "1950.9.12.6"
-					}
-				}
-			}	
-		}	   
+			}
 			available = { has_country_flag = JAP_r56rp_no_cooperation_flag }	
-	
+			completion_reward = {
+				if = {	
+					limit = {
+						NOT = { has_government = neutrality }
+					}
+					set_cosmetic_tag = JAP_r56rp_NAOP
+					add_popularity = { ideology = neutrality popularity = 0.80 }
+					hidden_effect = {
+						add_dynamic_modifier = {
+							modifier = r56rp_JAP_navy_coup_power
+						}
+					}
+					set_politics = {
+						ruling_party = neutrality
+						elections_allowed = no
+						long_name = JAP_r56rp_navaladmin_party
+						name = JAP_r56rp_navaladmin_party
+					}
+					add_country_leader_role = {
+						character = r56rp_JAP_communist_leaders_navyleader_yonai
+						promote_leader = yes
+						country_leader = {
+							ideology = despotism
+							traits = { dictator }
+							expire = "1950.9.12.6"
+						}
+					}
+				}	
+				effect_tooltip = {
+					add_ideas = JAP_militarism
+				}
+			}
 		}
 	
 	
@@ -1911,14 +1913,12 @@ focus_tree = {
 			search_filters = {
 				FOCUS_FILTER_POLITICAL
 			}
-			completion_reward = {
-				swap_ideas = {
-					remove_idea = r56rp_JAP_navy_coup_power
-					add_idea = r56rp_JAP_navy_coup_power_1
-				}
-			}
 			prerequisite = {
 				focus = JAP_r56rp_navy_plot_c
+			}
+			completion_reward = {
+				custom_effect_tooltip = JAP_r56rp_establish_yonai_tt
+				add_to_variable = { JAP_navy_coup_stability_factor = 0.15 }
 			}
 		}
 	
