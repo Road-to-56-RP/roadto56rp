@@ -94,7 +94,7 @@ NDefines.NAir.MISSION_FUEL_COSTS = {  -- CHECK ROAD fuel cost per plane for each
 	0,0, -- SAM
 }
 
-NDefines.NAir.ANTI_AIR_PLANE_DAMAGE_CHANCE = 0.2				-- [vanilla 0.1] Anti Air Gun hit chance
+NDefines.NAir.ANTI_AIR_PLANE_DAMAGE_CHANCE = 0.10				-- [vanilla 0.1] Anti Air Gun hit chance
 NDefines.NAir.ANTI_AIR_ATTACK_TO_DAMAGE_REDUCTION_FACTOR = 0.3	-- [vanilla 1.0] Balancing value to convert equipment stat anti_air_attack to the damage reduction modifier apply to incoming air attacks against units with AA.
 NDefines.NAir.ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.80	-- [vanilla 0.75] Maximum damage reduction factor applied to incoming air attacks against units with AA.
 -- air damage reduction for rp should be maxed out at about 40.4 averaged air attack.
@@ -149,13 +149,20 @@ NDefines.NNavy.INITIAL_ALLOWED_DOCKYARD_RATIO_FOR_REPAIRS = 1	-- [vanilla 0.25] 
 
 
 NDefines.NNavy.CARRIER_STACK_PENALTY = 6	-- Vanilla 4. Gives Carriers more power in Naval Battles and increases their power in line with the issues of Battleships being the Ultimate power of Naval Battles									
-NDefines.NNavy.CARRIER_STACK_PENALTY_EFFECT = 0.2
+NDefines.NNavy.CARRIER_STACK_PENALTY_EFFECT = 0.1
 NDefines.NNavy.BASE_ESCAPE_SPEED = 0.10			    -- [vanilla 0.045] daily base escape speed (gained as percentagE)
 -- NDefines.NNavy.SPEED_TO_ESCAPE_SPEED = 0.95			-- [vanilla 0.95] ratio to converstion from ship speed to escape speed (divided by hundred)
-NDefines.NNavy.ESCAPE_SPEED_PER_COMBAT_DAY = 0.025	-- [vanilla 0.01] daily increase in escape speed during combat duration
+NDefines.NNavy.ESCAPE_SPEED_PER_COMBAT_DAY = 0.03	-- [vanilla 0.01] daily increase in escape speed during combat duration
 NDefines.NNavy.CARRIER_ONLY_COMBAT_ACTIVATE_TIME = 0 -- [vanilla 0]
-NDefines.NNavy.CAPITAL_ONLY_COMBAT_ACTIVATE_TIME = 6 -- [vanilla 6]
-NDefines.NNavy.ALL_SHIPS_ACTIVATE_TIME = 10 -- [vanilla 8] This gives capital ships more time to fire increasing thier importance.
+NDefines.NNavy.CAPITAL_ONLY_COMBAT_ACTIVATE_TIME = 22 -- [vanilla 6]
+NDefines.NNavy.ALL_SHIPS_ACTIVATE_TIME = 30 -- [vanilla 8] This gives capital ships more time to fire increasing thier importance.
+
+NDefines.NNavy.HIGHER_SHIP_RATIO_POSITIONING_PENALTY_FACTOR = 0.45; -- R56RP Increasing the Penalty factor on positioning from 0.25 if you have more ships than the other guy
+NDefines.NNavy.MAX_POSITIONING_PENALTY_FROM_HIGHER_SHIP_RATIO = 1.25; -- R56RP Increasing the Cap on the Penalty from 0.75 
+NDefines.NNavy.DAMAGE_PENALTY_ON_MINIMUM_POSITIONING = 0.45; -- R56RP Reduced the floor from 0.5
+NDefines.NNavy.SCREENING_EFFICIENCY_PENALTY_ON_MINIMUM_POSITIONING = 1; -- R56RP Increased Screening Efficiency from 0.5
+NDefines.NNavy.AA_EFFICIENCY_PENALTY_ON_MINIMUM_POSITIONING = 0.5; -- R56RP Reduced Vanilla value from 0.7
+NDefines.NNavy.BASE_POSITIONING = 0.5 -- R56RP Reduced from 1
 
 -- ## NAI ##
 NDefines.NAI.GARRISON_FRACTION = 0.2 -- 20% of the troops will NOT push the enemy while advancing. will make it harder to punch trough ai lines
