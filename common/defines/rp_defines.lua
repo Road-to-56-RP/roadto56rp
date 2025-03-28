@@ -20,6 +20,8 @@ NDefines.NCountry.BASE_FUEL_GAIN = 10.0       -- upped to 10, for industrial oil
 NDefines.NCountry.BASE_FUEL_GAIN_PER_OIL = 5  -- [vanilla 2]
 NDefines.NCountry.BASE_FUEL_CAPACITY = 150000 -- [vanilla 50000]
 
+NDefines.NCountry.RESISTANCE_TARGET_BASE = 45.0 -- [vanilla 35.0] base resistance target percentage
+
 -- ## NProduction ##
 NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 3 --VANILLA - 2.5
 NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 10
