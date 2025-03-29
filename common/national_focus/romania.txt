@@ -50,7 +50,7 @@ focus_tree = {
 	}
 	focus = {
 		id = ROM_r56rp_oppose_tatarescus_regime
-		icon = GFX_goal_ROM_government
+		icon = GFX_focus_SWE_organize_a_putsch
 		relative_position_id = ROM_tatarescus_regime
 		mutually_exclusive = { focus = ROM_tatarescus_regime }
 		x = 8
@@ -78,8 +78,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
-		id = ROM_r56rp_gather_the_discenters
-		icon = GFX_goal_constitution
+		id = ROM_r56rp_gather_the_dissenters
+		icon = GFX_focus_NOR_empower_sivorg
 		prerequisite = { focus = ROM_r56rp_oppose_tatarescus_regime }
 		relative_position_id = ROM_r56rp_oppose_tatarescus_regime		
 		x = 1
@@ -93,14 +93,14 @@ focus_tree = {
 		completion_reward = {
 			add_timed_idea = {
 				days = 365
-				idea = r56_ROM_tatarescus_tax_reforms
+				idea = ROM_r56rp_gather_the_dissenters_idea
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ROM_r56rp_critize_the_regime
-		icon = GFX_goal_constitution
+		icon = GFX_SOV_great_commander_ccp_2d_sov_compatibility
 		prerequisite = { focus = ROM_r56rp_oppose_tatarescus_regime }
 		relative_position_id = ROM_r56rp_oppose_tatarescus_regime		
 		x = -1
@@ -112,22 +112,36 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_timed_idea = {
-				days = 365
-				idea = r56_ROM_tatarescus_tax_reforms
+			add_stability = -0.05
+			add_political_power = 50
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
 			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.05
+			}			
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.05
+			}	
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ROM_r56rp_radicalize_the_opposition
-		icon = GFX_goal_constitution
+		icon = GFX_focus_generic_conspiracy
 		prerequisite = { focus = ROM_r56rp_critize_the_regime }
-		prerequisite = { focus = ROM_r56rp_gather_the_discenters }
+		prerequisite = { focus = ROM_r56rp_gather_the_dissenters }
 		relative_position_id = ROM_r56rp_critize_the_regime		
 		x = 1
 		y = 1
-		cost = 5
+		cost = 3
 
 		ai_will_do = {
 			factor = 1
@@ -135,15 +149,15 @@ focus_tree = {
 
 		completion_reward = {
 			add_timed_idea = {
-				days = 365
-				idea = r56_ROM_tatarescus_tax_reforms
+				days = 180
+				idea = ROM_r56rp_radicalize_the_opposition_idea
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ROM_r56rp_denounce_tatarescus_ideals
-		icon = GFX_goal_constitution
+		icon = GFX_focus_renounce_the_treaty_of_trianon
 		prerequisite = { focus = ROM_r56rp_radicalize_the_opposition }
 		relative_position_id = ROM_r56rp_radicalize_the_opposition		
 		x = 1
@@ -155,16 +169,18 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			add_political_power = 75
+			add_stability = -0.05
 			add_timed_idea = {
-				days = 365
-				idea = r56_ROM_tatarescus_tax_reforms
+				days = 70
+				idea = ROM_r56rp_denounce_tatarescus_ideals_idea
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
 		id = ROM_r56rp_smear_campaign_against_the_crown
-		icon = GFX_goal_constitution
+		icon = GFX_focus_rom_parties_end
 		prerequisite = { focus = ROM_r56rp_radicalize_the_opposition }
 		relative_position_id = ROM_r56rp_radicalize_the_opposition		
 		x = -1
@@ -176,9 +192,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			add_political_power = -25
 			add_timed_idea = {
-				days = 365
-				idea = r56_ROM_tatarescus_tax_reforms
+				days = 120
+				idea = ROM_r56rp_smear_campaign_against_the_crown_idea
 			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -425,7 +442,7 @@ focus_tree = {
 		icon = GFX_focus_usa_voter_registration_act
 		x = -1
 		y = 2
-		cost = 10
+		cost = 5
 		mutually_exclusive = { focus = ROM_the_general_election }
 		prerequisite = { focus = ROM_r56rp_smear_campaign_against_the_crown }
 		prerequisite = { focus = ROM_r56rp_denounce_tatarescus_ideals }
@@ -452,12 +469,37 @@ focus_tree = {
 					}
 					add_ideas = partial_economic_mobilisation
 				}
+				if = {
+					limit = {
+						has_idea = ROM_r56rp_gather_the_dissenters_idea
+					}
+					remove_ideas = ROM_r56rp_gather_the_dissenters_idea
+				}
+				if = {
+					limit = {
+						has_idea = ROM_r56rp_radicalize_the_opposition_idea
+					}
+					remove_ideas = ROM_r56rp_radicalize_the_opposition_idea
+				}
+				if = {
+					limit = {
+						has_idea = ROM_r56rp_smear_campaign_against_the_crown_idea
+					}
+					remove_ideas = ROM_r56rp_smear_campaign_against_the_crown_idea
+				}
+				if = {
+					limit = {
+						has_idea = ROM_r56rp_denounce_tatarescus_ideals_idea
+					}
+					remove_ideas = ROM_r56rp_denounce_tatarescus_ideals_idea
+				}
+
 			}
 			if = {
 				limit = {
 					date < 1937.6.1
 				}
-				add_stability = -0.15
+				add_stability = -0.05
 			}
 			country_event = { id = rt56.rom_general_election.8 hours = 6 }
         }
@@ -7426,6 +7468,51 @@ focus_tree = {
 
 		completion_reward = {
 			add_research_slot = 1
+			if = {
+				limit = {
+					46 = {
+						land_facility < 1
+					}
+				}
+				46 = {
+					add_building_construction = {
+						type = land_facility
+						level = 1
+						instant_build = yes
+						province = 9617
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					81 = {
+						land_facility < 1
+					}
+				}
+				81 = {
+					add_building_construction = {
+						type = land_facility
+						level = 1
+						instant_build = yes
+						province = 3645
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					84 = {
+						land_facility < 1
+					}
+				}
+				84 = {
+					add_building_construction = {
+						type = land_facility
+						level = 1
+						instant_build = yes
+						province = 690
+					}
+				}
+			}	
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
