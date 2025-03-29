@@ -23,6 +23,7 @@ focus_tree = {
 	focus = {
 		id = ROM_tatarescus_regime
 		icon = GFX_goal_ROM_government
+		mutually_exclusive = { focus = ROM_r56rp_oppose_tatarescus_regime }
 		x = 0
 		y = 0
 		cost = 5
@@ -30,12 +31,159 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
+		
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = { has_completed_focus = ROM_r56rp_oppose_tatarescus_regime }
+			}
+		}
         completion_reward = {
 			add_political_power = 100
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
-    }
-    focus = {
+	}
+	focus = {
+		id = ROM_r56rp_oppose_tatarescus_regime
+		icon = GFX_goal_ROM_government
+		relative_position_id = ROM_tatarescus_regime
+		mutually_exclusive = { focus = ROM_tatarescus_regime }
+		x = 8
+		y = 0
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = { has_completed_focus = ROM_tatarescus_regime }
+			}
+		}
+		completion_reward = {
+			add_political_power = 100
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ROM_r56rp_gather_the_discenters
+		icon = GFX_goal_constitution
+		prerequisite = { focus = ROM_r56rp_oppose_tatarescus_regime }
+		relative_position_id = ROM_r56rp_oppose_tatarescus_regime		
+		x = 1
+		y = 1
+		cost = 2
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			add_timed_idea = {
+				days = 365
+				idea = r56_ROM_tatarescus_tax_reforms
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ROM_r56rp_critize_the_regime
+		icon = GFX_goal_constitution
+		prerequisite = { focus = ROM_r56rp_oppose_tatarescus_regime }
+		relative_position_id = ROM_r56rp_oppose_tatarescus_regime		
+		x = -1
+		y = 1
+		cost = 2
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			add_timed_idea = {
+				days = 365
+				idea = r56_ROM_tatarescus_tax_reforms
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ROM_r56rp_radicalize_the_opposition
+		icon = GFX_goal_constitution
+		prerequisite = { focus = ROM_r56rp_critize_the_regime }
+		prerequisite = { focus = ROM_r56rp_gather_the_discenters }
+		relative_position_id = ROM_r56rp_critize_the_regime		
+		x = 1
+		y = 1
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			add_timed_idea = {
+				days = 365
+				idea = r56_ROM_tatarescus_tax_reforms
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ROM_r56rp_denounce_tatarescus_ideals
+		icon = GFX_goal_constitution
+		prerequisite = { focus = ROM_r56rp_radicalize_the_opposition }
+		relative_position_id = ROM_r56rp_radicalize_the_opposition		
+		x = 1
+		y = 1
+		cost = 2
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			add_timed_idea = {
+				days = 365
+				idea = r56_ROM_tatarescus_tax_reforms
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = ROM_r56rp_smear_campaign_against_the_crown
+		icon = GFX_goal_constitution
+		prerequisite = { focus = ROM_r56rp_radicalize_the_opposition }
+		relative_position_id = ROM_r56rp_radicalize_the_opposition		
+		x = -1
+		y = 1
+		cost = 2
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			add_timed_idea = {
+				days = 365
+				idea = r56_ROM_tatarescus_tax_reforms
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
 		id = ROM_finalize_the_tax_reforms
 		icon = GFX_goal_constitution
 		prerequisite = { focus = ROM_tatarescus_regime }
@@ -48,14 +196,14 @@ focus_tree = {
 			factor = 1
 		}
 
-        completion_reward = {
+		completion_reward = {
 			add_timed_idea = {
 				days = 365
 				idea = r56_ROM_tatarescus_tax_reforms
 			}
-        }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
-    }
+		}
+	search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+	}
 	focus = {
 		id = ROM_privatize_state_owned_enterprises
 		icon = GFX_goal_generic_light_industry
@@ -235,7 +383,7 @@ focus_tree = {
 	focus = {
 		id = ROM_the_general_election
 		icon = GFX_goal_ROM_general_election
-		x = -1
+		x = 0
 		y = 1
 		cost = 10
 		mutually_exclusive = { focus = ROM_hold_emergency_election }
@@ -244,32 +392,6 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 1
-		}
-
-		allow_branch = {
-			if = {
-				limit = {
-					has_game_rule = {
-						rule = obsolete_focus_branches_visibility
-						option = HIDE
-					}
-				}
-				NOT = {
-					has_completed_focus = ROM_hold_emergency_election
-				}
-			}
-		}
-
-		offset = {
-			x = 1
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = ROM_the_general_election
-			}
 		}
 
 		available = {
@@ -301,41 +423,16 @@ focus_tree = {
 	focus = {
 		id = ROM_hold_emergency_election
 		icon = GFX_focus_usa_voter_registration_act
-		x = 1
-		y = 1
+		x = -1
+		y = 2
 		cost = 10
 		mutually_exclusive = { focus = ROM_the_general_election }
-		prerequisite = { focus = ROM_a_flawed_democracy }
-		relative_position_id = ROM_a_flawed_democracy
+		prerequisite = { focus = ROM_r56rp_smear_campaign_against_the_crown }
+		prerequisite = { focus = ROM_r56rp_denounce_tatarescus_ideals }
+		relative_position_id = ROM_r56rp_denounce_tatarescus_ideals
 
 		ai_will_do = {
 			factor = 1
-		}
-
-		allow_branch = {
-			if = {
-				limit = {
-					has_game_rule = {
-						rule = obsolete_focus_branches_visibility
-						option = HIDE
-					}
-				}
-				NOT = {
-					has_completed_focus = ROM_the_general_election
-				}
-			}
-		}
-
-		offset = {
-			x = -1
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = ROM_hold_emergency_election
-			}
 		}
 
         completion_reward = {
@@ -376,12 +473,25 @@ focus_tree = {
 		icon = GFX_focus_rom_abdicate
 		prerequisite = { focus = ROM_hold_emergency_election }
 		relative_position_id = ROM_hold_emergency_election
+		mutually_exclusive = { focus = ROM_dissolve_the_parliament }
 		cost = 5
-		x = 10
+		x = 4
 		y = 1
 
 		ai_will_do = {
 			factor = 1
+		}
+
+		offset = {
+			x = -4
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_r56rp_oppose_tatarescus_regime
+			}
 		}
 
 		available = {
@@ -422,31 +532,14 @@ focus_tree = {
 		prerequisite = { focus = ROM_oppose_the_royal_dictatorship }
 		relative_position_id = ROM_oppose_the_royal_dictatorship
 		mutually_exclusive = { focus = ROM_deadlock_in_election }
-		x = -2
+		x = -8
 		y = 1
 		cost = 5
-		offset = {
-			x = -5
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				#has_completed_focus = ROM_hold_emergency_election
-			}
+
+		ai_will_do = {
+			factor = 1
 		}
-		offset = {
-			x = 7
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = ROM_the_iron_guard
-			}
-		}
+
 		allow_branch = {
 			if = {
 				limit = {
@@ -455,17 +548,19 @@ focus_tree = {
 						option = HIDE
 					}
 				}
-				NOT = {
-					has_completed_focus = ROM_tatarescus_regime
-				}
-				NOT = {
-					has_completed_focus = ROM_deadlock_in_election
-				}
+				NOT = { has_completed_focus = ROM_deadlock_in_election }
 			}
 		}
-
-		ai_will_do = {
-			factor = 1
+		offset = {
+			x = 8
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_the_iron_guard
+			}
 		}
 
         completion_reward = {
@@ -1576,7 +1671,189 @@ focus_tree = {
 			}			            
         }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
-    }		
+    }
+	focus = {
+		id = ROM_purchase_axis_designs_and_equipment
+		icon = GFX_goal_generic_german_equipment
+		prerequisite = { focus = ROM_seize_foreign_companies }
+		relative_position_id = ROM_seize_foreign_companies
+		x = 0
+		y = 2
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			OR = {
+				ITA = {
+					exists = yes
+					has_government = fascism
+					NOT = {
+						has_war_with = ROOT
+					}
+					has_civil_war = no
+				}
+				GER = {
+					exists = yes
+					has_government = fascism
+					NOT = {
+						has_war_with = ROOT
+					}
+					has_civil_war = no
+				}
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					ITA = {
+						exists = yes
+						has_government = fascism
+						NOT = {
+							has_war_with = ROOT
+						}
+						has_civil_war = no
+					}
+				}
+				add_relation_modifier = {
+					target = ITA
+					modifier = ROM_r56rp_design_and_equipment_license
+				}
+			}
+			if = {
+				limit = {
+					GER = {
+						exists = yes
+						has_government = fascism
+						NOT = {
+							has_war_with = ROOT
+						}
+						has_civil_war = no
+					}
+				}
+				add_relation_modifier = {
+					target = GER
+					modifier = ROM_r56rp_design_and_equipment_license
+				}
+			}
+			add_tech_bonus = {
+				name = infantry_weapons_bonus
+				bonus = 0.5
+				uses = 1
+				category = armor
+			}
+			add_tech_bonus = {
+				name = infantry_weapons_bonus
+				bonus = 0.5
+				uses = 1
+				category = artillery
+			}		
+		}
+	}
+	focus = {
+		id = ROM_joint_oil_exploitation
+		icon = GFX_goal_oil
+		prerequisite = { focus = ROM_purchase_axis_designs_and_equipment }
+		relative_position_id = ROM_purchase_axis_designs_and_equipment
+		x = 0
+		y = 1
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			OR = {
+				ITA = {
+					exists = yes
+					has_government = fascism
+					NOT = {
+						has_war_with = ROOT
+					}
+					has_civil_war = no
+					is_in_faction_with = ROOT
+				}
+				GER = {
+					exists = yes
+					has_government = fascism
+					NOT = {
+						has_war_with = ROOT
+					}
+					has_civil_war = no
+					is_in_faction_with = ROOT
+				}
+			}
+			46 = {
+				is_owned_and_controlled_by = ROM
+			}
+			81 = {
+				is_owned_and_controlled_by = ROM
+			}
+		}
+
+		completion_reward = {
+			46 = {
+			add_extra_state_shared_building_slots = 2 }
+			46 = {
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 2
+					instant_build = yes
+				}
+			}			            
+			81 = {
+			add_extra_state_shared_building_slots = 2 }
+			81 = {
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 2
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					GER = {
+						is_in_faction_with = ROOT
+					}
+				}
+				GER = {
+					random_owned_controlled_state = {
+						limit = {
+							GER = { has_full_control_of_state = PREV }
+						}
+						add_building_construction = {
+							type = synthetic_refinery
+							level = 2
+							instant_build = yes
+						}
+					}
+				}			
+			}
+			if = {
+				limit = {
+					ITA = {
+						is_in_faction_with = ROOT
+					}
+				}
+				ITA = {
+					random_owned_controlled_state = {
+						limit = {
+							ITA = { has_full_control_of_state = PREV }
+						}
+						add_building_construction = {
+							type = synthetic_refinery
+							level = 2
+							instant_build = yes
+						}
+					}
+				}			
+			}
+		}
+    }			
 	focus = {
 		id = ROM_christian_education_centers
 		icon = GFX_focus_generic_military_academy
@@ -1982,31 +2259,14 @@ focus_tree = {
 		prerequisite = { focus = ROM_oppose_the_royal_dictatorship }
 		relative_position_id = ROM_oppose_the_royal_dictatorship
 		mutually_exclusive = { focus = ROM_the_iron_guard }
-		x = 12
+		x = 8
 		y = 1
 		cost = 5
-		offset = {
-			x = -5
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				#has_completed_focus = ROM_hold_emergency_election
-			}
+
+		ai_will_do = {
+			factor = 1
 		}
-		offset = {
-			x = -7
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = ROM_deadlock_in_election
-			}
-		}
+
 		allow_branch = {
 			if = {
 				limit = {
@@ -2015,17 +2275,19 @@ focus_tree = {
 						option = HIDE
 					}
 				}
-				NOT = {
-					has_completed_focus = ROM_the_iron_guard
-				}
-				NOT = {
-					has_completed_focus = ROM_tatarescus_regime
-				}
+				NOT = { has_completed_focus = ROM_the_iron_guard }
 			}
 		}
-
-		ai_will_do = {
-			factor = 1
+		offset = {
+			x = -8
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_deadlock_in_election
+			}
 		}
 
         completion_reward = {
@@ -4198,13 +4460,11 @@ focus_tree = {
 		icon = GFX_focus_rom_royal_dictatorship
 		prerequisite = { focus = ROM_the_general_election }
 		relative_position_id = ROM_the_general_election
+		mutually_exclusive = { focus = ROM_oppose_the_royal_dictatorship }
+		cost = 5
 		x = -10
 		y = 1
-		cost = 5
 
-		
-
-		
 		ai_will_do = {
 			factor = 1
 		}
@@ -4212,8 +4472,25 @@ focus_tree = {
 		available = {
 			is_subject = no
 		}
+
+		offset = {
+			x = 10
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_tatarescus_regime
+			}
+		}
 		
         completion_reward = {
+			mark_focus_tree_layout_dirty = yes
+            swap_ideas = {
+                remove_idea = r56_ROM_flawed_democracy_1
+                add_idea = r56_ROM_political_instability_1
+            }			
 			custom_effect_tooltip = ROM_tooltip_spacer_tt 
 			promote_character = ROM_dissolved_parliament
 			hidden_effect = {
@@ -4855,34 +5132,11 @@ focus_tree = {
 	focus = {
 		id = ROM_purchase_german_designs_and_equipment
 		icon = GFX_goal_generic_german_equipment
-		prerequisite = { focus = ROM_axis_membership focus = ROM_alliance_with_the_germans }
+		prerequisite = { focus = ROM_axis_membership }
 		relative_position_id = ROM_axis_membership
-		x = 2
-		y = 2
+		x = 1
+		y = 1
 		cost = 5
-
-		offset = {
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = ROM_hold_emergency_election
-			}
-			x = -14
-			y = -2
-		}
-		offset = {
-			x = 7
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = ROM_the_iron_guard
-			}
-		}
 
 		ai_will_do = {
 			factor = 1
