@@ -10322,6 +10322,26 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = FIN_r56rp_royal_institute_of_technology
+		icon = GFX_focus_research
+		prerequisite = { focus = FIN_r56rp_industrial_support }
+		prerequisite = { focus = FIN_r56rp_military_support }
+		relative_position_id = FIN_r56rp_industrial_support
+
+		x = 1
+		y = 1
+		cost = 10
+		available = {
+			num_of_factories > 25
+		}
+
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_STABILITY }
+
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
 		id = FIN_r56rp_generalstab_reform
 		icon = GFX_goal_GER_support_the_freikorps
 		relative_position_id = FIN_r56rp_the_german_heir
@@ -11120,7 +11140,9 @@ focus_tree = {
 		cost = 10
 
 		available = {
-
+			NOT = {
+				has_war_with = SOV
+			}
 		}
 
 		completion_reward = {
@@ -11175,7 +11197,12 @@ focus_tree = {
 		y = 1
 		cost = 10
 		available = {
-
+			216 = {
+				is_owned_and_controlled_by = ROOT
+			}
+			215 = {
+				is_owned_and_controlled_by = ROOT
+			}
 		}
 
 		completion_reward = {
@@ -11238,7 +11265,28 @@ focus_tree = {
 		cost = 2
 
 		available = {
-
+			216 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border_country = SOV
+					}
+				}
+			}
+			215 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+						limit_to_border_country = SOV
+					}
+				}
+			}
 		}
 
 		completion_reward = {
@@ -11343,6 +11391,9 @@ focus_tree = {
 
 		available = {
 			is_subject = yes
+			NOT = {
+				has_war_with = SOV
+			}
 		}
 
 		completion_reward = {
