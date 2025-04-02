@@ -11048,6 +11048,8 @@ focus_tree = {
 
 		}
 
+		will_lead_to_war_with = SOV
+
 		completion_reward = {
 			FIN = {
 				declare_war_on = {
@@ -11119,6 +11121,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			capital_scope = { set_state_flag = formable_nations_old_capital }
 			213 = {
 				add_core_of = ROOT
 			}
@@ -11128,6 +11131,7 @@ focus_tree = {
 			216 = {
 				add_core_of = ROOT
 			}
+			r56rp_rules_formable_to_4_points_se = yes
 		}
 	}
 	focus = {
@@ -11399,6 +11403,9 @@ focus_tree = {
 		completion_reward = {
 			unlock_decision_category_tooltip = FIN_r56rp_an_ally_not_a_subject_category
 			add_political_power = 25
+			OVERLORD = {
+				set_country_flag = FIN_r56rp_old_overlord
+			}
 		}
 	}
 	focus = {
@@ -11432,7 +11439,6 @@ focus_tree = {
 					clr_country_flag = FIN_R56RP_bound_to_faction
 				}
 				OVERLORD = {
-					set_country_flag = FIN_r56rp_old_overlord
 					set_autonomy = {
 						target = ROOT
 						autonomous_state = autonomy_free
@@ -11452,41 +11458,107 @@ focus_tree = {
 						clr_country_flag = FIN_r56rp_old_overlord
 					}
 				}
+				FIN = {
+					set_cosmetic_tag = FIN_rp_kingdom_of_finland
+				}
 			}
 		}
 	}
 	focus = {
 		id = FIN_r56rp_strengthen_our_alliance
-		icon = GFX_goal_r56rp_goal_FIN_an_ally_not_a_subject_icon
+		icon = GFX_goal_generic_gun_purchase
 		mutually_exclusive = { focus = FIN_r56rp_independence_war }
 		relative_position_id = FIN_r56rp_an_ally_not_a_subject
 		prerequisite = { focus = FIN_r56rp_an_ally_not_a_subject  }
+		cost = 10
 		x = -1
 		y = 1
 
 		available = {
 			is_subject = no
-			is_in_faction = yes
+			custom_trigger_tooltip = {
+				tooltip = FIN_r56rp_is_in_faction_with_old_overlord_tt
+				any_country = {
+					limit = {
+						has_country_flag = FIN_r56rp_old_overlord
+					}
+					is_in_faction_with = ROOT
+				}
+			}
 		}
 
 		completion_reward = {
-		
-		}
-	}
-	focus = {
-		id = FIN_r56rp_
-		icon = GFX_goal_r56rp_goal_FIN_an_ally_not_a_subject_icon
-
-		relative_position_id = FIN_r56rp_strengthen_our_alliance
-		prerequisite = { focus = FIN_r56rp_strengthen_our_alliance }
-		x = 0
-		y = 1
-
-		available = {
-		}
-
-		completion_reward = {
-		
+			random_core_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			any_other_country = {
+				limit = {
+					has_country_flag = FIN_r56rp_old_overlord
+					is_in_faction_with = ROOT
+				}
+				random_core_state = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_core_state = {
+					limit = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				clr_country_flag = FIN_r56rp_old_overlord
+			}
 		}
 	}
 
