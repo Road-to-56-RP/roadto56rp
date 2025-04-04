@@ -1071,6 +1071,9 @@ focus_tree = {
 				NOT = { has_war_with = ROOT }
 			}
 			NOT = { has_country_flag = FIN_soviet_refused_finno_soviet_pact_flag }
+			NOT = {
+				has_completed_focus = FIN_r56rp_appeal_to_moscow
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY_CHARACTER }
@@ -11565,7 +11568,7 @@ focus_tree = {
 
 	focus = {
 		id = FIN_r56rp_appeal_to_moscow
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_goal_GENERIC_submit_to_moscow
 		prerequisite = { focus = FIN_towards_a_red_government }
 		relative_position_id = FIN_towards_a_red_government
 		mutually_exclusive = { focus = FIN_the_second_finnish_civil_war }
@@ -11580,17 +11583,23 @@ focus_tree = {
 
 		available = {
 			is_subject = no
+			NOT = {
+				has_completed_focus = FIN_approach_the_soviets
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
 		}
 	}
 	focus = {
 		id = FIN_r56rp_the_second_finnish_revolution
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_goal_generic_war_with_comintern
 		prerequisite = { focus = FIN_r56rp_appeal_to_moscow }
 		relative_position_id = FIN_r56rp_appeal_to_moscow
 		x = 0
@@ -11609,12 +11618,14 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-
+			show_unit_leaders_tooltip = FIN_emil_vaateri
+			show_unit_leaders_tooltip = FIN_eyolf_mattsson
+			show_unit_leaders_tooltip = FIN_toivo_antikainen
 		}
 	}
 	focus = {
 		id = FIN_r56rp_root_out_counter_revolutionaries
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_focus_SOV_the_last_purge
 		prerequisite = { focus = FIN_r56rp_the_second_finnish_revolution }
 		relative_position_id = FIN_r56rp_the_second_finnish_revolution
 		x = -1
@@ -11633,12 +11644,19 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-
+			retire_character = FIN_jukka_lehtosaari
+			retire_character = FIN_carl_mannerheim
+			retire_character = FIN_kyosti_kallio
+			retire_character = FIN_pehr_evind_svinhufvud
+			retire_character = FIN_arvo_tuominen
+			retire_character = FIN_risto_heikki_ryti
+			retire_character = FIN_vilho_annala
+			retire_character = FIN_miina_sillanpaa
 		}
 	}
 	focus = {
 		id = FIN_r56rp_stabilize_the_new_regime
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_focus_SWE_socialist_reforms
 		prerequisite = { focus = FIN_r56rp_the_second_finnish_revolution }
 		relative_position_id = FIN_r56rp_the_second_finnish_revolution
 		x = 1
@@ -11662,7 +11680,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FIN_r56rp_establishment_of_the_fssr
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_focus_SWE_finnish_communists
 		prerequisite = { focus = FIN_r56rp_stabilize_the_new_regime }
 		prerequisite = { focus = FIN_r56rp_root_out_counter_revolutionaries }
 		relative_position_id = FIN_r56rp_stabilize_the_new_regime
@@ -11682,12 +11700,12 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-
+			set_cosmetic_tag = FIN_rp_finnish_ssr
 		}
 	}
 	focus = {
 		id = FIN_r56rp_found_the_finnish_red_army
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_goal_generic_red_commando
 		prerequisite = { focus = FIN_r56rp_establishment_of_the_fssr }
 		relative_position_id = FIN_r56rp_establishment_of_the_fssr
 		x = -2
@@ -11711,7 +11729,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FIN_r56rp_establish_the_finnish_guard_corps
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_focus_SOV_the_glory_of_the_red_army_communism
 		prerequisite = { focus = FIN_r56rp_found_the_finnish_red_army }
 		relative_position_id = FIN_r56rp_found_the_finnish_red_army
 		x = -1
@@ -11735,7 +11753,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FIN_r56rp_pc_of_heavy_industry
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_SOV_architect_of_communism_ccp_2d_sov_compatibility
 		prerequisite = { focus = FIN_r56rp_establishment_of_the_fssr }
 		relative_position_id = FIN_r56rp_establishment_of_the_fssr
 		x = 2
@@ -11759,7 +11777,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FIN_r56rp_commissariat_of_finnish_affairs
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_focus_generic_self_management
 		prerequisite = { focus = FIN_r56rp_establishment_of_the_fssr }
 		relative_position_id = FIN_r56rp_establishment_of_the_fssr
 		x = 0
@@ -11783,7 +11801,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FIN_r56rp_remodel_the_constitution
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_generic_goal_communist_reforms
 		prerequisite = { focus = FIN_r56rp_commissariat_of_finnish_affairs }
 		relative_position_id = FIN_r56rp_commissariat_of_finnish_affairs
 		x = 0
@@ -11807,7 +11825,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FIN_r56rp_propose_karelo_finnish_ssr
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_goal_FIN_propose_karelo_finnish_ssr
 		prerequisite = { focus = FIN_r56rp_remodel_the_constitution }
 		prerequisite = { focus = FIN_r56rp_found_the_finnish_red_army }
 		relative_position_id = FIN_r56rp_remodel_the_constitution
@@ -11832,7 +11850,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FIN_r56rp_into_scandinavia
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_goal_r56rp_cp_control_scandanavia_saulgoofball
 		prerequisite = { focus = FIN_r56rp_propose_karelo_finnish_ssr }
 		prerequisite = { focus = FIN_r56rp_establish_the_finnish_guard_corps }
 		relative_position_id = FIN_r56rp_propose_karelo_finnish_ssr
@@ -11857,7 +11875,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FIN_r56rp_introduce_collectivization
-		icon = GFX_focus_generic_join_comintern
+		icon = GFX_goal_generic_industrial_unionism
 		prerequisite = { focus = FIN_r56rp_remodel_the_constitution }
 		prerequisite = { focus = FIN_r56rp_pc_of_heavy_industry }
 		relative_position_id = FIN_r56rp_remodel_the_constitution
