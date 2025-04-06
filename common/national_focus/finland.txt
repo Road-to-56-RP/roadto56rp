@@ -11881,20 +11881,30 @@ focus_tree = {
 		cost = 5
 
 		available = {
+			has_civil_war = no
 			has_government = communism
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-			retire_character = FIN_jukka_lehtosaari
-			retire_character = FIN_carl_mannerheim
-			retire_character = FIN_kyosti_kallio
-			retire_character = FIN_pehr_evind_svinhufvud
-			retire_character = FIN_arvo_tuominen
-			retire_character = FIN_risto_heikki_ryti
-			retire_character = FIN_vilho_annala
-			retire_character = FIN_miina_sillanpaa
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_political_power = 50
+			add_stability = -0.05
+			custom_effect_tooltip = FIN_r56rp_purge
+			hidden_effect = {
+				retire_character = FIN_jukka_lehtosaari
+				retire_character = FIN_carl_mannerheim
+				retire_character = FIN_kyosti_kallio
+				retire_character = FIN_pehr_evind_svinhufvud
+				retire_character = FIN_arvo_tuominen
+				retire_character = FIN_risto_heikki_ryti
+				retire_character = FIN_vilho_annala
+				retire_character = FIN_miina_sillanpaa
+			}
 		}
 	}
 	focus = {
@@ -11907,6 +11917,7 @@ focus_tree = {
 		cost = 5
 
 		available = {
+			has_civil_war = no
 			has_government = communism
 		}
 
@@ -11936,6 +11947,27 @@ focus_tree = {
 		
 		completion_reward = {
 			set_cosmetic_tag = FIN_rp_finnish_ssr
+			custom_effect_tooltip = generic_skip_one_line_tt
+			remove_country_leader_role = {
+				character = FIN_aimo_aaltonen
+				ideology = marxism
+			}
+			custom_effect_tooltip = FIN_r56rp_otto_willie_kuusinen
+			set_party_name = {
+				ideology = communism
+				name = r56rp_FIN_communist_party
+				long_name = r56rp_FIN_communist_party_long
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			hidden_effect = {
+				promote_character = FIN_otto_wille_kuusinen
+				FIN_otto_wille_kuusinen = {
+					remove_trait = {
+						ideology = stalinism
+						trait = FIN_stalins_puppet_kuusinen
+					}
+				}
+			}
 			delete_unit_template_and_units = {
 				division_template = "Soviet Volunteers"
 				disband = yes
@@ -11950,17 +11982,17 @@ focus_tree = {
 		relative_position_id = FIN_r56rp_establishment_of_the_fssr
 		x = -2
 		y = 1
-		cost = 5
+		cost = 10
 
 
 		available = {
 			has_government = communism
 		}
 
-		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-
+			add_ideas = FIN_r56rp_the_finnish_red_army
 		}
 	}
 	focus = {
@@ -11970,7 +12002,7 @@ focus_tree = {
 		relative_position_id = FIN_r56rp_found_the_finnish_red_army
 		x = -1
 		y = 1
-		cost = 5
+		cost = 10
 
 		available = {
 			has_government = communism
@@ -11979,7 +12011,27 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = FIN_r56rp_the_finnish_red_army
+				add_idea = FIN_r56rp_the_finnish_guard_corps	
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = shocktroops
+					}
+				}
+				set_technology = {
+					shocktroops = 1
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					bonus = 2
+					uses = 1
+					category = r56_shock_infantry_tech
+				}
+			}
 		}
 	}
 	focus = {
@@ -11998,66 +12050,142 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-
-		}
-	}
-	focus = {
-		id = FIN_r56rp_commissariat_of_finnish_affairs
-		icon = GFX_focus_generic_self_management
-		prerequisite = { focus = FIN_r56rp_establishment_of_the_fssr }
-		relative_position_id = FIN_r56rp_establishment_of_the_fssr
-		x = 0
-		y = 1
-		cost = 5
-
-		available = {
-			has_government = communism
-		}
-
-		search_filters = { FOCUS_FILTER_POLITICAL }
-
-		completion_reward = {
-
+			add_ideas = FIN_r56rp_pc_of_heavy_industry_idea
+			random_core_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
 		id = FIN_r56rp_remodel_the_constitution
 		icon = GFX_generic_goal_communist_reforms
-		prerequisite = { focus = FIN_r56rp_commissariat_of_finnish_affairs }
-		relative_position_id = FIN_r56rp_commissariat_of_finnish_affairs
+		prerequisite = { focus = FIN_r56rp_establishment_of_the_fssr }
+		relative_position_id = FIN_r56rp_establishment_of_the_fssr
+		x = 0
+		y = 1
+		cost = 5
+		
+		available = {
+			has_government = communism
+		}
+		
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		
+		completion_reward = {
+			add_ideas = FIN_r56rp_remodel_the_constitution_idea
+		}
+	}
+	focus = {
+		id = FIN_r56rp_commissariat_of_finnish_affairs
+		icon = GFX_goal_generic_communist_officer
+		prerequisite = { focus = FIN_r56rp_remodel_the_constitution }
+		relative_position_id = FIN_r56rp_remodel_the_constitution
 		x = 0
 		y = 1
 		cost = 5
 
 		available = {
 			has_government = communism
+			has_country_flag = {
+				flag = FIN_r56rp_drafted_new_constitution
+				days > 120
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56_USA_legislation_drafted_days_tt
+				has_country_flag = {
+					flag = FIN_r56rp_drafted_new_constitution
+					days > 120
+				}
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = FIN_r56rp_remodel_the_constitution_idea
+				add_idea = FIN_r56rp_commissariat_of_finnish_affairs_idea
+			}
 		}
 	}
 	focus = {
 		id = FIN_r56rp_propose_karelo_finnish_ssr
 		icon = GFX_goal_FIN_propose_karelo_finnish_ssr
-		prerequisite = { focus = FIN_r56rp_remodel_the_constitution }
+		prerequisite = { focus = FIN_r56rp_commissariat_of_finnish_affairs }
 		prerequisite = { focus = FIN_r56rp_found_the_finnish_red_army }
-		relative_position_id = FIN_r56rp_remodel_the_constitution
+		relative_position_id = FIN_r56rp_commissariat_of_finnish_affairs
 		x = -1
 		y = 1
-
 		cost = 5
 
 		available = {
 			has_government = communism
+			has_army_manpower = { size > 150000 }
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			set_cosmetic_tag = FIN_rp_karelo_finnish_ssr
+			SOV = {
+				country_event = { id = FIN_r56rp_ssr.1 hours = 3 }
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = if_they_accept
+			effect_tooltip = {
+				213 = {
+					transfer_state_to = FIN
+					add_core_of = FIN
+					remove_core_of = SOV
+				}
+				215 = {
+					transfer_state_to = FIN
+					add_core_of = FIN
+					remove_core_of = SOV
+				}
+				216 = {
+					transfer_state_to = FIN
+					add_core_of = FIN
+					remove_core_of = SOV
+				}
+				FIN = {
+					set_cosmetic_tag = FIN_rp_karelo_finnish_ssr
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				set_party_name = {
+					ideology = communism
+					name = r56rp_FIN_KFSSR_communist_party
+					long_name = r56rp_FIN_KFSSR_communist_party_long
+				}
+			}
 		}
 	}
 	focus = {
@@ -12077,18 +12205,17 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-
+			unlock_decision_category_tooltip = FIN_r56rp_into_scandinavia_category
 		}
 	}
 	focus = {
-		id = FIN_r56rp_introduce_collectivization
-		icon = GFX_goal_generic_industrial_unionism
-		prerequisite = { focus = FIN_r56rp_remodel_the_constitution }
+		id = FIN_r56rp_socialist_universities
+		icon = GFX_goal_SOV_education_initiative
 		prerequisite = { focus = FIN_r56rp_pc_of_heavy_industry }
-		relative_position_id = FIN_r56rp_remodel_the_constitution
-		x = 1
+		relative_position_id = FIN_r56rp_pc_of_heavy_industry
+		x = 0
 		y = 1
-		cost = 5
+		cost = 10
 
 		available = {
 			has_government = communism
@@ -12097,9 +12224,644 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-
+			add_research_slot = 1
 		}
 	}
+	focus = {
+		id = FIN_r56rp_introduce_collectivization
+		icon = GFX_goal_generic_industrial_unionism
+		prerequisite = { focus = FIN_r56rp_commissariat_of_finnish_affairs }
+		prerequisite = { focus = FIN_r56rp_pc_of_heavy_industry }
+		relative_position_id = FIN_r56rp_commissariat_of_finnish_affairs
+		x = 1
+		y = 1
+		cost = 10
+
+		available = {
+			has_government = communism
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			add_timed_idea = {
+				days = 180
+				idea = SWE_collectivization_idea
+			}
+			random_owned_controlled_state = {
+				prioritize = {
+					111
+				}
+				add_extra_state_shared_building_slots = 4
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 4
+				prioritize = {
+					1036
+				}
+			}
+		}
+	}
+	focus = {
+		id = FIN_r56rp_develop_sweden
+		icon = GFX_goal_FIN_develop_red_sweden
+		prerequisite = { focus = FIN_r56rp_introduce_collectivization }
+		relative_position_id = FIN_r56rp_introduce_collectivization
+		x = 1
+		y = 1
+		cost = 10
+
+		available = {
+			has_government = communism
+			custom_trigger_tooltip = {
+				tooltip = FIN_r56rp_all_european_swedish_lands_tt
+				OR = {
+					AND = {
+						124 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						138 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						139 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						140 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						969 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1030 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1026 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						38 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1028 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						968 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1029 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						666 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			custom_effect_tooltip = FIN_r56rp_develop_puppet_territory
+			if = {
+				limit = {
+					SWE = {
+						is_subject_of = ROOT
+					}
+				}
+				random_core_state = {
+					limit = {
+						is_controlled_by = SWE
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_core_state = {
+					limit = {
+						is_controlled_by = SWE
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = SWE
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_compliance = 30
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = SWE
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_compliance = 30
+				}
+			}
+		}
+	}
+	focus = {
+		id = FIN_r56rp_develop_denmark
+		icon = GFX_focus_SWE_danish_communists
+		prerequisite = { focus = FIN_r56rp_introduce_collectivization }
+		relative_position_id = FIN_r56rp_introduce_collectivization
+		x = 3
+		y = 1
+		cost = 10
+
+		available = {
+			has_government = communism
+			custom_trigger_tooltip = {
+				tooltip = FIN_r56rp_all_european_danish_lands_tt
+				OR = {
+					AND = {
+						99 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1025 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						37 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1024 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			custom_effect_tooltip = FIN_r56rp_develop_puppet_territory
+			if = {
+				limit = {
+					DEN = {
+						is_subject_of = ROOT
+					}
+				}
+				random_core_state = {
+					limit = {
+						is_controlled_by = DEN
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_core_state = {
+					limit = {
+						is_controlled_by = DEN
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = DEN
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_compliance = 30
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = DEN
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_compliance = 30
+				}
+			}
+		}
+	}
+	focus = {
+		id = FIN_r56rp_develop_norway
+		icon = GFX_focus_SWE_norwegian_communists
+		prerequisite = { focus = FIN_r56rp_introduce_collectivization }
+		relative_position_id = FIN_r56rp_introduce_collectivization
+		x = -1
+		y = 1
+		cost = 10
+
+		available = {
+			has_government = communism
+			custom_trigger_tooltip = {
+				tooltip = FIN_r56rp_all_european_norwegian_lands_tt
+				OR = {
+					AND = {
+						110 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1031 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1032 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						967 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						142 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						143 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1033 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						144 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1028 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1034 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+						1035 = {
+							OR = {
+								is_controlled_by = ROOT
+								controller = { is_subject_of = ROOT }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			custom_effect_tooltip = FIN_r56rp_develop_puppet_territory
+			if = {
+				limit = {
+					NOR = {
+						is_subject_of = ROOT
+					}
+				}
+				random_core_state = {
+					limit = {
+						is_controlled_by = NOR
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_core_state = {
+					limit = {
+						is_controlled_by = NOR
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = NOR
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_compliance = 30
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = NOR
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_compliance = 30
+				}
+			}
+		}
+	}
+	focus = {
+		id = FIN_r56rp_form_the_nssf
+		icon = GFX_goal_FIN_nordic_soviet_socialist_federation
+		prerequisite = { focus = FIN_r56rp_develop_sweden focus = FIN_r56rp_develop_norway focus = FIN_r56rp_develop_denmark }
+		relative_position_id = FIN_r56rp_develop_sweden
+		x = 0
+		y = 1
+		cost = 5
+
+		available = {
+			has_government = communism
+			DEN = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+			SWE = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+			NOR = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			set_cosmetic_tag = FIN_rp_nordic_ssf
+			custom_effect_tooltip = generic_skip_one_line_tt
+			set_party_name = {
+				ideology = communism
+				name = r56rp_FIN_NSSF_communist_party
+				long_name = r56rp_FIN_NSSF_communist_party_long
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					37 = {
+						OR = {
+							is_owned_and_controlled_by = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+				every_state = {
+					limit = {
+						is_core_of = DEN
+					}
+					add_core_of = ROOT
+				}
+			}
+			if = {
+				limit = {
+					141 = {
+						OR = {
+							is_owned_and_controlled_by = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+				every_state = {
+					limit = {
+						is_core_of = SWE
+					}
+					add_core_of = ROOT
+				}
+			}
+			if = {
+				limit = {
+					110 = {
+						OR = {
+							is_owned_and_controlled_by = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+				every_state = {
+					limit = {
+						is_core_of = NOR
+					}
+					add_core_of = ROOT
+				}
+			}
+			if = {
+				limit = {
+					NOR = {
+						is_subject_of = ROOT
+					}
+				}
+				FIN = {
+					annex_country = {
+						target = NOR
+						transfer_troops = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					DEN = {
+						is_subject_of = ROOT
+					}
+				}
+				FIN = {
+					annex_country = {
+						target = DEN
+						transfer_troops = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					SWE = {
+						is_subject_of = ROOT
+					}
+				}
+				FIN = {
+					annex_country = {
+						target = SWE
+						transfer_troops = yes
+					}
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			r56rp_rules_formable_to_4_points_se = yes
+		}
+	}
+
+
 #### ##    ## ########  ##     ##  ######  ######## ########  ####    ###    ##          ########  ########     ###    ##    ##  ######  ##     ## 
  ##  ###   ## ##     ## ##     ## ##    ##    ##    ##     ##  ##    ## ##   ##          ##     ## ##     ##   ## ##   ###   ## ##    ## ##     ## 
  ##  ####  ## ##     ## ##     ## ##          ##    ##     ##  ##   ##   ##  ##          ##     ## ##     ##  ##   ##  ####  ## ##       ##     ## 
