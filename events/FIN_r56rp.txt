@@ -1,60 +1,101 @@
 add_namespace = FIN_r56rp_monarchist
 add_namespace = FIN_r56rp_independence
+add_namespace = FIN_r56rp_ssr
+#### Monarchist
+	country_event = {
+		id = FIN_r56rp_monarchist.1
+		title = FIN_r56rp_monarchist.1.t
+		desc = FIN_r56rp_monarchist.1.d
+		picture = GFX_report_event_operatives
 
-country_event = {
-	id = FIN_r56rp_monarchist.1
-	title = FIN_r56rp_monarchist.1.t
-	desc = FIN_r56rp_monarchist.1.d
-	picture = GFX_report_event_operatives
-
-	is_triggered_only = yes
-	
-	option = { # New Elite, more constitutional monarchy
-		name = FIN_r56rp_monarchist.1.a
+		is_triggered_only = yes
 		
-		add_popularity = {
-			ideology = neutrality
-			popularity = 0.05
-		}			
-		add_political_power = 25
-		add_stability = 0.05
-		add_ideas = FIN_r56rp_a_constitutional_crown
-		
-		ai_chance = {
-			factor = 1
-		}
-	}
-	option = { # More power to the king, less popular among conservatives
-		name = FIN_r56rp_monarchist.1.b
-
-		add_popularity = {
-			ideology = neutrality
-			popularity = 0.05
-		}			
-		add_political_power = -50
-		add_stability = -0.05
-		add_ideas = FIN_r56rp_crown_authority
-
-		ai_chance = {
-			factor = 1
-		}
-	}
-}
-country_event = {
-	id = FIN_r56rp_monarchist.2
-	title = FIN_r56rp_monarchist.2.t
-	desc = FIN_r56rp_monarchist.2.d
-	picture = GFX_report_event_king_overrules_sweden
-
-	is_triggered_only = yes
-	
-	option = { # Welcome new Grand Duchy
-		name = FIN_r56rp_monarchist.2.a
-		
-		effect_tooltip = {
-			FIN = {
-				set_cosmetic_tag = FIN_rp_grand_duchy_of_finland_SWE
+		option = { # New Elite, more constitutional monarchy
+			name = FIN_r56rp_monarchist.1.a
+			
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}			
+			add_political_power = 25
+			add_stability = 0.05
+			add_ideas = FIN_r56rp_a_constitutional_crown
+			
+			ai_chance = {
+				factor = 1
 			}
+		}
+		option = { # More power to the king, less popular among conservatives
+			name = FIN_r56rp_monarchist.1.b
+
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}			
+			add_political_power = -50
+			add_stability = -0.05
+			add_ideas = FIN_r56rp_crown_authority
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = FIN_r56rp_monarchist.2
+		title = FIN_r56rp_monarchist.2.t
+		desc = FIN_r56rp_monarchist.2.d
+		picture = GFX_report_event_king_overrules_sweden
+
+		is_triggered_only = yes
+		
+		option = { # Welcome new Grand Duchy
+			name = FIN_r56rp_monarchist.2.a
+			
+			effect_tooltip = {
+				FIN = {
+					set_cosmetic_tag = FIN_rp_grand_duchy_of_finland_SWE
+				}
+				SWE = {
+					set_autonomy = {
+						target = FIN
+						autonomous_state = autonomy_dominion
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+			}
+			FROM = {
+				country_event = { id = FIN_r56rp_monarchist.3 hours = 6 }
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+		option = { # Eh, no thank you.
+			name = FIN_r56rp_monarchist.2.b
+
+			FROM = {
+				country_event = {id = FIN_r56rp_monarchist.4 hours = 6 }
+			}
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = { # We are now the Grand Duchy of Finland
+		id = FIN_r56rp_monarchist.3
+		title = FIN_r56rp_monarchist.3.t
+		desc = FIN_r56rp_monarchist.3.d
+		picture = GFX_report_event_king_overrules_sweden
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_monarchist.3.a
+			
 			SWE = {
 				set_autonomy = {
 					target = FIN
@@ -63,263 +104,807 @@ country_event = {
 					end_civil_wars = no
 				}
 			}
-		}
-		FROM = {
-			country_event = FIN_r56rp_monarchist.3 hours = 6
-		}
+			set_cosmetic_tag = FIN_rp_grand_duchy_of_finland_SWE
+			FIN = {
+				hidden_effect = {
+					set_politics = {
+						ruling_party = neutrality
+						elections_allowed = no
+					}
+				}
+			}
 		
-		ai_chance = {
-			factor = 1
-		}
-	}
-	option = { # Eh, no thank you.
-		name = FIN_r56rp_monarchist.2.b
-
-		FROM = {
-			country_event = FIN_r56rp_monarchist.4
-		}
-
-		ai_chance = {
-			factor = 1
-		}
-	}
-}
-country_event = { # We are now the Grand Duchy of Finland
-	id = FIN_r56rp_monarchist.3
-	title = FIN_r56rp_monarchist.3.t
-	desc = FIN_r56rp_monarchist.3.d
-	picture = GFX_report_event_king_overrules_sweden
-
-	is_triggered_only = yes
-	
-	option = { 
-		name = FIN_r56rp_monarchist.3.a
-		
-		SWE = {
-			set_autonomy = {
-				target = FIN
-				autonomous_state = autonomy_dominion
-				end_wars = no
-				end_civil_wars = no
+			ai_chance = {
+				factor = 1
 			}
 		}
-		set_cosmetic_tag = FIN_rp_grand_duchy_of_finland_SWE
-		FIN = {
-			hidden_effect = {
-				set_politics = {
-					ruling_party = neutrality
-					elections_allowed = no
+	}
+	country_event = { # We are still the Kingdom of Finland
+		id = FIN_r56rp_monarchist.4
+		title = FIN_r56rp_monarchist.4.t
+		desc = FIN_r56rp_monarchist.4.d
+		picture = GFX_report_event_ryti_radio
+
+		is_triggered_only = yes
+		
+		option = { # Welcome new Grand Duchy
+			name = FIN_r56rp_monarchist.4.a
+			
+			add_political_power = 100
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = { # Rally Public Support
+		id = FIN_r56rp_monarchist.5
+		title = FIN_r56rp_monarchist.5.t
+		desc = FIN_r56rp_monarchist.5.d
+		picture = GFX_r56i_generic_event_08
+
+		is_triggered_only = yes
+		
+		option = { # Make some public concessions to the peasants
+			name = FIN_r56rp_monarchist.5.a
+			
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}			
+			add_political_power = -50
+			add_stability = 0.05
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+#### Independence - Monarchist
+	country_event = { # Finland Promises to not leave faction
+		id = FIN_r56rp_independence.1
+		title = FIN_r56rp_independence.1.t
+		desc = FIN_r56rp_independence.1.d
+		picture = GFX_r56i_generic_event_06
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_independence.1.a
+					
+			add_political_power = 25
+
+			FIN = {
+				set_country_flag = FIN_R56RP_bound_to_faction
+			}
+			FIN = {
+				custom_effect_tooltip = FIN_R56RP_bound_to_faction_warning_tt
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = { # Finland Promises absolute neutrality in exchange for independence
+		id = FIN_r56rp_independence.2
+		title = FIN_r56rp_independence.2.t
+		desc = FIN_r56rp_independence.2.d
+		picture = GFX_report_event_bbc_radio
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_independence.2.a
+					
+			add_political_power = 25
+
+			FIN = {
+				set_country_flag = FIN_R56RP_bound_to_neutrality
+			}
+			FIN = {
+				custom_effect_tooltip = FIN_R56RP_absolute_neutrality_warning_tt
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = { # Finland Demands Independence
+		id = FIN_r56rp_independence.3
+		title = FIN_r56rp_independence.3.t
+		desc = FIN_r56rp_independence.3.d
+		picture = GFX_report_event_swedification
+
+		is_triggered_only = yes
+		
+		option = { # Hah, no.
+			name = FIN_r56rp_independence.3.a
+					
+			add_political_power = 25
+
+			FIN = {
+				set_country_flag = FIN_r56rp_overlord_denied_demand
+			}
+			
+			ai_chance = {
+				factor = 2
+			}
+		}
+
+		option = { # Eh, sure, whatever
+			name = FIN_r56rp_independence.3.b
+					
+			add_political_power = 25
+			
+			ai_chance = {
+				factor = 7
+			}
+		}
+	}
+	country_event = { # Finland Lobbies for Independence
+		id = FIN_r56rp_independence.4
+		title = FIN_r56rp_independence.4.t
+		desc = FIN_r56rp_independence.4.d
+		picture = GFX_r56w_generic_event_07
+
+		is_triggered_only = yes
+		
+		option = { # Hmm, sure.
+			name = FIN_r56rp_independence.4.a
+					
+			add_political_power = 25
+			
+			ai_chance = {
+				base = 9
+				modifier = {
+					FROM = {
+						has_country_flag = FIN_r56rp_promise_loyalty
+					}
+					add = 2
+				}
+				modifier = {
+					FROM = {
+						has_country_flag = FIN_r56rp_promise_absolute_neutrality
+					}
+					add = 2
 				}
 			}
 		}
-	
-		ai_chance = {
-			factor = 1
-		}
-	}
-}
-country_event = { # We are still the Kingdom of Finland
-	id = FIN_r56rp_monarchist.4
-	title = FIN_r56rp_monarchist.4.t
-	desc = FIN_r56rp_monarchist.4.d
-	picture = GFX_report_event_ryti_radio
 
-	is_triggered_only = yes
-	
-	option = { # Welcome new Grand Duchy
-		name = FIN_r56rp_monarchist.4.a
+		option = { # Eh, nah.
+			name = FIN_r56rp_independence.4.b
+					
+			add_political_power = 25
 		
-		add_political_power = 100
-
-		ai_chance = {
-			factor = 1
-		}
-	}
-}
-country_event = { # Rally Public Support
-	id = FIN_r56rp_monarchist.5
-	title = FIN_r56rp_monarchist.5.t
-	desc = FIN_r56rp_monarchist.5.d
-	picture = GFX_r56i_generic_event_08
-
-	is_triggered_only = yes
-	
-	option = { # Make some public concessions to the peasants
-		name = FIN_r56rp_monarchist.5.a
-		
-		add_popularity = {
-			ideology = neutrality
-			popularity = 0.05
-		}			
-		add_political_power = -50
-		add_stability = 0.05
-		
-		ai_chance = {
-			factor = 1
-		}
-	}
-}
-country_event = { # Finland Promises to not leave faction
-	id = FIN_r56rp_independence.1
-	title = FIN_r56rp_independence.1.t
-	desc = FIN_r56rp_independence.1.d
-	picture = GFX_r56i_generic_event_06
-
-	is_triggered_only = yes
-	
-	option = { 
-		name = FIN_r56rp_independence.1.a
-				
-		add_political_power = 25
-
-		FIN = {
-			set_country_flag = FIN_R56RP_bound_to_faction
-		}
-		FIN = {
-			custom_effect_tooltip = FIN_R56RP_bound_to_faction_warning_tt
-		}
-		
-		ai_chance = {
-			factor = 1
-		}
-	}
-}
-country_event = { # Finland Promises absolute neutrality in exchange for independence
-	id = FIN_r56rp_independence.2
-	title = FIN_r56rp_independence.2.t
-	desc = FIN_r56rp_independence.2.d
-	picture = GFX_report_event_bbc_radio
-
-	is_triggered_only = yes
-	
-	option = { 
-		name = FIN_r56rp_independence.2.a
-				
-		add_political_power = 25
-
-		FIN = {
-			set_country_flag = FIN_R56RP_bound_to_neutrality
-		}
-		FIN = {
-			custom_effect_tooltip = FIN_R56RP_absolute_neutrality_warning_tt
-		}
-		
-		ai_chance = {
-			factor = 1
-		}
-	}
-}
-country_event = { # Finland Demands Independence
-	id = FIN_r56rp_independence.3
-	title = FIN_r56rp_independence.3.t
-	desc = FIN_r56rp_independence.3.d
-	picture = GFX_report_event_swedification
-
-	is_triggered_only = yes
-	
-	option = { # Hah, no.
-		name = FIN_r56rp_independence.3.a
-				
-		add_political_power = 25
-
-		FIN = {
-			set_country_flag = FIN_r56rp_overlord_denied_demand
-		}
-		
-		ai_chance = {
-			factor = 2
-		}
-	}
-
-	option = { # Eh, sure, whatever
-		name = FIN_r56rp_independence.3.b
-				
-		add_political_power = 25
-		
-		ai_chance = {
-			factor = 7
-		}
-	}
-}
-country_event = { # Finland Lobbies for Independence
-	id = FIN_r56rp_independence.4
-	title = FIN_r56rp_independence.4.t
-	desc = FIN_r56rp_independence.4.d
-	picture = GFX_r56w_generic_event_07
-
-	is_triggered_only = yes
-	
-	option = { # Hmm, sure.
-		name = FIN_r56rp_independence.4.a
-				
-		add_political_power = 25
-		
-		ai_chance = {
-			base = 9
-			modifier = {
-				FROM = {
-					has_country_flag = FIN_r56rp_promise_loyalty
-				}
-				add = 2
+			ai_chance = {
+				factor = 1
 			}
-			modifier = {
-				FROM = {
-					has_country_flag = FIN_r56rp_promise_absolute_neutrality
-				}
-				add = 2
+		}
+	}
+	country_event = { # Finland is granted independence
+		id = FIN_r56rp_independence.5
+		title = FIN_r56rp_independence.5.t
+		desc = FIN_r56rp_independence.5.d
+		picture = GFX_report_event_stockholm_conference
+
+		is_triggered_only = yes
+		
+		option = { # Hmm, sure.
+			name = FIN_r56rp_independence.5.a
+					
+			FIN = {
+				set_cosmetic_tag = FIN_rp_kingdom_of_finland
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = { # Finland is denied independence
+		id = FIN_r56rp_independence.6
+		title = FIN_r56rp_independence.6.t
+		desc = FIN_r56rp_independence.6.d
+		picture = GFX_report_event_denmark_ultimatum
+
+		is_triggered_only = yes
+		
+		option = { # Hmm, sure.
+			name = FIN_r56rp_independence.6.a
+					
+			add_political_power = 25
+
+			FIN = {
+				set_country_flag = FIN_r56rp_overlord_denied_demand
+			}
+			
+			ai_chance = {
+				factor = 1
 			}
 		}
 	}
 
-	option = { # Eh, nah.
-		name = FIN_r56rp_independence.4.b
-				
-		add_political_power = 25
-	
-		ai_chance = {
-			factor = 1
-		}
-	}
-}
-country_event = { # Finland is granted independence
-	id = FIN_r56rp_independence.5
-	title = FIN_r56rp_independence.5.t
-	desc = FIN_r56rp_independence.5.d
-	picture = GFX_report_event_stockholm_conference
+#### Karelo-Finnish SSR
+	country_event = {
+		id = FIN_r56rp_ssr.1
+		title = FIN_r56rp_ssr.1.t
+		desc = FIN_r56rp_ssr.1.d
+		picture = GFX_report_event_operatives
 
-	is_triggered_only = yes
-	
-	option = { # Hmm, sure.
-		name = FIN_r56rp_independence.5.a
-				
-		FIN = {
-			set_cosmetic_tag = FIN_rp_kingdom_of_finland
-		}
+		is_triggered_only = yes
 		
-		ai_chance = {
-			factor = 1
+		option = { 
+			name = FIN_r56rp_ssr.1.a
+			
+			effect_tooltip = {
+				213 = {
+					transfer_state_to = FIN
+					add_core_of = FIN
+					remove_core_of = ROOT
+				}
+				215 = {
+					transfer_state_to = FIN
+					add_core_of = FIN
+					remove_core_of = ROOT
+				}
+				216 = {
+					transfer_state_to = FIN
+					add_core_of = FIN
+					remove_core_of = ROOT
+				}
+				FIN = {
+					set_cosmetic_tag = FIN_rp_karelo_finnish_ssr
+				}
+				FIN = {
+					add_autonomy_score = {
+						value = -250
+					}
+				}
+			}
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.2 hours = 3 }
+			}
+			ai_chance = {
+				base = 1
+				modifier = {
+					FIN = {
+						has_army_manpower = {
+							size > 175000
+						}
+					}
+					add = 10
+				}
+				modifier = {
+					ROOT = {
+						has_war = no
+					}
+					add = 5
+				}
+			}
+		}
+		option = {
+			name = FIN_r56rp_ssr.1.b
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.3 hours = 3 }
+			}
+
+			ai_chance = {
+				factor = 1
+			}
 		}
 	}
-}
-country_event = { # Finland is denied independence
-	id = FIN_r56rp_independence.6
-	title = FIN_r56rp_independence.6.t
-	desc = FIN_r56rp_independence.6.d
-	picture = GFX_report_event_denmark_ultimatum
+	country_event = {
+		id = FIN_r56rp_ssr.2
+		title = FIN_r56rp_ssr.2.t
+		desc = FIN_r56rp_ssr.2.d
+		picture = GFX_report_event_operatives
 
-	is_triggered_only = yes
-	
-	option = { # Hmm, sure.
-		name = FIN_r56rp_independence.6.a
-				
-		add_political_power = 25
-
-		FIN = {
-			set_country_flag = FIN_r56rp_overlord_denied_demand
-		}
+		is_triggered_only = yes
 		
-		ai_chance = {
-			factor = 1
+		option = { 
+			name = FIN_r56rp_ssr.2.a
+			213 = {
+				transfer_state_to = FIN
+				add_core_of = FIN
+				remove_core_of = FROM
+			}
+			215 = {
+				transfer_state_to = FIN
+				add_core_of = FIN
+				remove_core_of = FROM
+			}
+			216 = {
+				transfer_state_to = FIN
+				add_core_of = FIN
+				remove_core_of = FROM
+			}
+			FIN = {
+				set_cosmetic_tag = FIN_rp_karelo_finnish_ssr
+				set_party_name = {
+					ideology = communism
+					name = r56rp_FIN_KFSSR_communist_party
+					long_name = r56rp_FIN_KFSSR_communist_party_long
+				}
+			}
+			FIN = {
+				add_autonomy_score = {
+					value = -250
+				}
+			}
 		}
 	}
-}
+	country_event = {
+		id = FIN_r56rp_ssr.3
+		title = FIN_r56rp_ssr.3.t
+		desc = FIN_r56rp_ssr.3.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.3.a
+		}
+	}
+
+#### Invade Scandinavia
+	# Sweden
+	country_event = {
+		id = FIN_r56rp_ssr.4
+		title = FIN_r56rp_ssr.4.t
+		desc = FIN_r56rp_ssr.4.d
+		picture = GFX_report_event_SOV_purge_aircraft_2
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.4.a
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.5 hours = 3 }
+			}
+			ai_chance = {
+				base = 1
+				modifier = {
+					FIN = {
+						has_army_manpower = {
+							size > 175000
+						}
+					}
+					add = 10
+				}
+				modifier = {
+					ROOT = {
+						has_war = no
+					}
+					add = 5
+				}
+			}
+		}
+		option = {
+			name = FIN_r56rp_ssr.4.b
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.6 hours = 3 }
+			}
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = FIN_r56rp_ssr.5
+		title = FIN_r56rp_ssr.5.t
+		desc = FIN_r56rp_ssr.5.d
+		picture = GFX_report_event_bul_ff_troops_yugoslavia
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.5.a
+			FROM = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = SWE
+				}
+			}
+		}
+	}
+	# Norway
+	country_event = {
+		id = FIN_r56rp_ssr.7
+		title = FIN_r56rp_ssr.7.t
+		desc = FIN_r56rp_ssr.7.d
+		picture = GFX_report_event_canada_army
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.7.a
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.8 hours = 3 }
+			}
+			ai_chance = {
+				base = 1
+				modifier = {
+					FIN = {
+						has_army_manpower = {
+							size > 175000
+						}
+					}
+					add = 10
+				}
+				modifier = {
+					ROOT = {
+						has_war = no
+					}
+					add = 5
+				}
+			}
+		}
+		option = {
+			name = FIN_r56rp_ssr.7.b
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.6 hours = 3 }
+			}
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = FIN_r56rp_ssr.8
+		title = FIN_r56rp_ssr.8.t
+		desc = FIN_r56rp_ssr.8.d
+		picture = GFX_report_event_bul_ff_troops_yugoslavia
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.8.a
+			FROM = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = NOR
+				}
+			}
+		}
+	}
+	# Denmark
+	country_event = {
+		id = FIN_r56rp_ssr.9
+		title = FIN_r56rp_ssr.9.t
+		desc = FIN_r56rp_ssr.9.d
+		picture = GFX_report_event_chinese_soldiers_01
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.9.a
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.10 hours = 3 }
+			}
+			ai_chance = {
+				base = 1
+				modifier = {
+					FIN = {
+						has_army_manpower = {
+							size > 175000
+						}
+					}
+					add = 10
+				}
+				modifier = {
+					ROOT = {
+						has_war = no
+					}
+					add = 5
+				}
+			}
+		}
+		option = {
+			name = FIN_r56rp_ssr.9.b
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.6 hours = 3 }
+			}
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = FIN_r56rp_ssr.10
+		title = FIN_r56rp_ssr.10.t
+		desc = FIN_r56rp_ssr.10.d
+		picture = GFX_report_event_bul_ff_troops_yugoslavia
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.10.a
+			FROM = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = DEN
+				}
+			}
+		}
+	}
+	# No War
+	country_event = {
+		id = FIN_r56rp_ssr.6
+		title = FIN_r56rp_ssr.6.t
+		desc = FIN_r56rp_ssr.6.d
+		picture = GFX_report_event_SOV_young_builders_of_communism
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.6.a
+		}
+	}
+#### Puppet Scandinavia
+	# Sweden
+	country_event = {
+		id = FIN_r56rp_ssr.11
+		title = FIN_r56rp_ssr.11.t
+		desc = FIN_r56rp_ssr.11.d
+		picture = GFX_report_event_SOV_purge_aircraft_2
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.11.a
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.12 hours = 3 } 
+			}
+			ai_chance = {
+				base = 1
+				modifier = {
+					FIN = {
+						has_army_manpower = {
+							size > 175000
+						}
+					}
+					add = 10
+				}
+				modifier = {
+					ROOT = {
+						has_war = no
+					}
+					add = 5
+				}
+			}
+		}
+		option = {
+			name = FIN_r56rp_ssr.11.b
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.13 hours = 3 }
+			}
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = FIN_r56rp_ssr.12
+		title = FIN_r56rp_ssr.12.t
+		desc = FIN_r56rp_ssr.12.d
+		picture = GFX_report_event_bul_ff_troops_yugoslavia
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.12.a
+			FROM = {
+				if = {
+					limit = {
+						SWE = {
+							is_subject_of = SOV
+						}
+					}
+					set_autonomy = {
+						target = SWE
+						autonomous_state = autonomy_free
+					}
+					FIN = {
+						set_autonomy = {
+							target = SWE
+							autonomous_state = autonomy_puppet
+						}
+					}
+				}
+				else_if = {
+					every_state = {
+						limit = {
+							is_core_of = SWE
+							is_owned_and_controlled_by = SOV
+						}
+						transfer_state_to = FIN
+					}
+				}
+			}
+		}
+	}
+	# Norway
+	country_event = {
+		id = FIN_r56rp_ssr.14
+		title = FIN_r56rp_ssr.14.t
+		desc = FIN_r56rp_ssr.14.d
+		picture = GFX_report_event_canada_army
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.14.a
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.15 hours = 3 }
+			}
+			ai_chance = {
+				base = 1
+				modifier = {
+					FIN = {
+						has_army_manpower = {
+							size > 175000
+						}
+					}
+					add = 10
+				}
+				modifier = {
+					ROOT = {
+						has_war = no
+					}
+					add = 5
+				}
+			}
+		}
+		option = {
+			name = FIN_r56rp_ssr.14.b
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.12 hours = 3 }
+			}
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = FIN_r56rp_ssr.15
+		title = FIN_r56rp_ssr.15.t
+		desc = FIN_r56rp_ssr.15.d
+		picture = GFX_report_event_bul_ff_troops_yugoslavia
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.15.a
+			FROM = {
+				if = {
+					limit = {
+						NOR = {
+							is_subject_of = SOV
+						}
+					}
+					set_autonomy = {
+						target = NOR
+						autonomous_state = autonomy_free
+					}
+					FIN = {
+						set_autonomy = {
+							target = NOR
+							autonomous_state = autonomy_puppet
+						}
+					}
+				}
+				else_if = {
+					every_state = {
+						limit = {
+							is_core_of = NOR
+							is_owned_and_controlled_by = SOV
+						}
+						transfer_state_to = FIN
+					}
+				}
+			}
+		}
+	}
+	# Denmark
+	country_event = {
+		id = FIN_r56rp_ssr.16
+		title = FIN_r56rp_ssr.16.t
+		desc = FIN_r56rp_ssr.16.d
+		picture = GFX_report_event_chinese_soldiers_01
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.16.a
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.17 hours = 3 }
+			}
+			ai_chance = {
+				base = 1
+				modifier = {
+					FIN = {
+						has_army_manpower = {
+							size > 175000
+						}
+					}
+					add = 10
+				}
+				modifier = {
+					ROOT = {
+						has_war = no
+					}
+					add = 5
+				}
+			}
+		}
+		option = {
+			name = FIN_r56rp_ssr.16.b
+			FROM = {
+				country_event = { id = FIN_r56rp_ssr.13 hours = 3 }
+			}
+
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = FIN_r56rp_ssr.17
+		title = FIN_r56rp_ssr.17.t
+		desc = FIN_r56rp_ssr.17.d
+		picture = GFX_report_event_bul_ff_troops_yugoslavia
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.17.a
+			FROM = {
+				if = {
+					limit = {
+						DEN = {
+							is_subject_of = SOV
+						}
+					}
+					set_autonomy = {
+						target = DEN
+						autonomous_state = autonomy_free
+					}
+					FIN = {
+						set_autonomy = {
+							target = DEN
+							autonomous_state = autonomy_puppet
+						}
+					}
+				}
+				else_if = {
+					every_state = {
+						limit = {
+							is_core_of = DEN
+							is_owned_and_controlled_by = SOV
+						}
+						transfer_state_to = FIN
+					}
+				}
+			}
+		}
+	}
+	# No War
+	country_event = {
+		id = FIN_r56rp_ssr.13
+		title = FIN_r56rp_ssr.13.t
+		desc = FIN_r56rp_ssr.13.d
+		picture = GFX_report_event_SOV_young_builders_of_communism
+
+		is_triggered_only = yes
+		
+		option = { 
+			name = FIN_r56rp_ssr.13.a
+		}
+	}
