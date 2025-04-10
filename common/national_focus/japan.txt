@@ -32,7 +32,7 @@ focus_tree = {
 	}
 
 	shortcut = {
-		name = JAP_the_unthinkable_option_r56rp_shortcut
+		name = JAP_r56rp_the_rice_rebellion_shortcut
 		target = JAP_r56rp_the_rice_rebellion
 		scroll_wheel_factor = 0.9
 	}
@@ -172,6 +172,101 @@ focus_tree = {
 		}
 	
 		completion_reward = {
+			if = {
+				limit = {
+					MAN = {
+						is_subject_of = JAP
+					}
+				}
+				JAP = {
+					set_autonomy = {
+						target = MAN
+						autonomous_state = autonomy_free
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+			}
+			else_if = {
+				every_other_state = {
+					limit = {
+						is_core_of = MAN
+						is_owned_and_controlled_by = JAP
+					}
+				}
+				release = MAN
+			}
+			if = {
+				limit = {
+					609 = {
+						is_owned_and_controlled_by = JAP
+					}
+				}
+				609 = {
+					transfer_state_to = MAN
+				}
+			}
+			if = {
+				limit = {
+					745 = {
+						is_owned_and_controlled_by = JAP
+					}
+				}
+				745 = {
+					transfer_state_to = MAN
+				}
+			}
+			if = {
+				limit = {
+					KOR = {
+						is_subject_of = JAP
+					}
+				}
+				JAP = {
+					set_autonomy = {
+						target = KOR
+						autonomous_state = autonomy_free
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+			}
+			else_if = {
+				every_other_state = {
+					limit = {
+						is_core_of = KOR
+						is_owned_and_controlled_by = JAP
+					}
+				}
+				release = KOR
+			}
+			if = {
+				limit = {
+					524 = {
+						is_owned_and_controlled_by = JAP
+					}
+					CHI = {
+						exists = yes
+					}
+				}
+				524 = {
+					transfer_state_to = CHI
+				}
+			}
+			else_if = {
+				limit = {
+					CHI = {
+						exists = no
+					}
+					PRC = {
+						exists = yes
+					}
+				}
+				524 = {
+					transfer_state_to = PRC
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			# Start a civil war where the fascists rebel and the player remains communist
 			start_civil_war = {
 				ideology = fascism
@@ -179,6 +274,7 @@ focus_tree = {
 				unit_ratio = 0.35
 				keep_unit_leaders_ratio = 0.25
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			# Set the ruling party to communism (player remains communist)
 			set_politics = {
 				ruling_party = Communism
@@ -187,24 +283,22 @@ focus_tree = {
 				name = Socialrevoltjapan
 			}
 			add_popularity = { ideology = communism popularity = 0.55 }
+			custom_effect_tooltip = generic_skip_one_line_tt
 			# Set the country name and color
 			set_cosmetic_tag = JAP_r56rp_NRAP
-			release = KOR
-			release = MAN
-			release = CHI
-			remove_ideas = state_shintoism
-			remove_ideas = JAP_hirohito
 			hidden_effect = {
+				remove_ideas = state_shintoism
+				remove_ideas = JAP_hirohito
 				remove_ideas = JAP_r56rp_uncertain_military_direction_idea
+				swap_ideas = {
+					remove_idea = JAP_militarism
+					add_idea = JAP_r56rp_militarism_rampage
+				}
+				swap_ideas = {
+					remove_idea = JAP_zaibatsus
+					add_idea = JAP_r56rp_zaibatsu_broke_civil_war
+				}	
 			}
-			swap_ideas = {
-				remove_idea = JAP_militarism
-				add_idea = JAP_r56rp_militarism_rampage
-			}
-			swap_ideas = {
-				remove_idea = JAP_zaibatsus
-				add_idea = JAP_r56rp_zaibatsu_broke_civil_war
-		}	
 		}
 	}
 	
