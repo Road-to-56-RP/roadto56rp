@@ -10721,7 +10721,7 @@ focus_tree = {
 				can_create_factions = yes
 			}
 			SWE = {
-				country_event = FIN_r56rp_monarchist.2 hours = 8
+				country_event = { id = FIN_r56rp_monarchist.2 hours = 8 }
 			}
 			custom_effect_tooltip = if_they_accept_tt
 			effect_tooltip = {
@@ -10941,83 +10941,90 @@ focus_tree = {
 				category = naval_equipment
 			}
 			navy_experience = 25
-		}
-		if = {
-			limit = {
-				OR = {
-					is_in_faction_with = SWE
-					is_subject_of = SWE
+	
+			if = {
+				limit = {
+					OR = {
+						is_in_faction_with = SWE
+						is_subject_of = SWE
+					}
 				}
-			}
-			SWE = {
-				add_breakthrough_progress = {
-					specialization = specialization_naval
-					value = 0.75
-				}
-				if = {
-					limit = {
+				SWE = {
+					add_breakthrough_progress = {
+						specialization = specialization_naval
+						value = 0.75
+					}
+					if = {
+						limit = {
+							666 = {
+								naval_facility < 1
+							}
+						}
 						666 = {
-							naval_facility < 1
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = dockyard
+								level = 2
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = naval_facility
+								level = 1
+								instant_build = yes
+								province = 9108
+							}
 						}
 					}
-					666 = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-							type = dockyard
-							level = 2
-							instant_build = yes
+					else_if = {
+						limit = {
+							1029 = {
+								naval_facility < 1
+							}
 						}
-						add_building_construction = {
-							type = naval_facility
-							level = 1
-							instant_build = yes
-							province = 9108
-						}
-					}
-				}
-				else_if = {
-					limit = {
 						1029 = {
-							naval_facility < 1
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = dockyard
+								level = 2
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = naval_facility
+								level = 1
+								instant_build = yes
+								province = 6132
+							}
 						}
 					}
-					1029 = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-							type = dockyard
-							level = 2
-							instant_build = yes
+					else_if = {
+						limit = {
+							141 = {
+								naval_facility < 1
+							}
 						}
-						add_building_construction = {
-							type = naval_facility
-							level = 1
-							instant_build = yes
-							province = 6132
-						}
-					}
-				}
-				else_if = {
-					limit = {
 						141 = {
-							naval_facility < 1
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+								type = dockyard
+								level = 2
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = naval_facility
+								level = 1
+								instant_build = yes
+								province = 6050
+							}
 						}
 					}
-					141 = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-							type = dockyard
-							level = 2
-							instant_build = yes
+					else = {
+						add_tech_bonus = {
+							bonus = 1
+							uses = 1
+							category = naval_equipment
 						}
-						add_building_construction = {
-							type = naval_facility
-							level = 1
-							instant_build = yes
-							province = 6050
-						}
+						navy_experience = 25
 					}
-				}
-				else = {
 					add_tech_bonus = {
 						bonus = 1
 						uses = 1
@@ -11025,12 +11032,6 @@ focus_tree = {
 					}
 					navy_experience = 25
 				}
-				add_tech_bonus = {
-					bonus = 1
-					uses = 1
-					category = naval_equipment
-				}
-				navy_experience = 25
 			}
 		}
 	}
@@ -11351,28 +11352,29 @@ focus_tree = {
 		cost = 2
 
 		available = {
-			216 = {
-				add_building_construction = {
-					type = bunker
-					level = 2
-					instant_build = yes
-					province = {
-						all_provinces = yes
-						limit_to_border_country = SOV
-					}
-				}
-			}
-			215 = {
-				add_building_construction = {
-					type = bunker
-					level = 2
-					instant_build = yes
-					province = {
-						all_provinces = yes
-						limit_to_border_country = SOV
-					}
-				}
-			}
+			# r56rp warlider's bughunting inquisition #001
+			#216 = {
+			#	add_building_construction = {
+			#		type = bunker
+			#		level = 2
+			#		instant_build = yes
+			#		province = {
+			#			all_provinces = yes
+			#			limit_to_border_country = SOV
+			#		}
+			#	}
+			#}
+			#215 = {
+			#	add_building_construction = {
+			#		type = bunker
+			#		level = 2
+			#		instant_build = yes
+			#		province = {
+			#			all_provinces = yes
+			#			limit_to_border_country = SOV
+			#		}
+			#	}
+			#}
 		}
 
 		completion_reward = {
@@ -11509,14 +11511,18 @@ focus_tree = {
 			custom_effect_tooltip = FIN_r56rp_independence_war_tt
 			hidden_effect = {
 				if = {
-					FIN = {
-						has_country_flag = FIN_R56RP_bound_to_neutrality
+					limit = {
+						FIN = {
+							has_country_flag = FIN_R56RP_bound_to_neutrality
+						}
 					}
 					clr_country_flag = FIN_R56RP_bound_to_neutrality
 				}
 				if = {
-					FIN = {
-						has_country_flag = FIN_R56RP_bound_to_faction
+					limit = {
+						FIN = {
+							has_country_flag = FIN_R56RP_bound_to_faction
+						}
 					}
 					clr_country_flag = FIN_R56RP_bound_to_faction
 				}
@@ -11533,7 +11539,7 @@ focus_tree = {
 					ROOT = {
 						declare_war_on = {
 							target = PREV
-							type = independence_war
+							type = independence_wargoal
 						}
 					}
 					PREV = {
@@ -11561,9 +11567,7 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = FIN_r56rp_is_in_faction_with_old_overlord_tt
 				any_country = {
-					limit = {
-						has_country_flag = FIN_r56rp_old_overlord
-					}
+					has_country_flag = FIN_r56rp_old_overlord
 					is_in_faction_with = ROOT
 				}
 			}
@@ -11602,7 +11606,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			any_other_country = {
+			random_other_country = {
 				limit = {
 					has_country_flag = FIN_r56rp_old_overlord
 					is_in_faction_with = ROOT
@@ -12833,7 +12837,9 @@ focus_tree = {
 					37 = {
 						OR = {
 							is_owned_and_controlled_by = ROOT
-							is_subject_of = ROOT
+							CONTROLLER = {
+								is_subject_of = ROOT
+							}
 						}
 					}
 				}
@@ -12849,7 +12855,9 @@ focus_tree = {
 					141 = {
 						OR = {
 							is_owned_and_controlled_by = ROOT
-							is_subject_of = ROOT
+							CONTROLLER = {
+								is_subject_of = ROOT
+							}
 						}
 					}
 				}
@@ -12865,7 +12873,9 @@ focus_tree = {
 					110 = {
 						OR = {
 							is_owned_and_controlled_by = ROOT
-							is_subject_of = ROOT
+							CONTROLLER = {
+								is_subject_of = ROOT
+							}
 						}
 					}
 				}
