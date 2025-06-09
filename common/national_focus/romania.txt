@@ -957,7 +957,7 @@ focus_tree = {
 				}
 			}
 			else = {
-				create_faction = "Bucharest Pact"
+				create_faction = bucharest_pact
 				every_other_country = {
 					limit = {
 						is_in_faction = no
@@ -1050,7 +1050,7 @@ focus_tree = {
 				}
 			}
 			else = {
-				create_faction = "Balkan Sphere"
+				create_faction = balkan_sphere
 				HUN = {
 					country_event = { days = 2 id = generic.5 }
 				}
@@ -1210,7 +1210,7 @@ focus_tree = {
 				}
 			}
 			else = {
-				create_faction = "Bucharest Pact"
+				create_faction = bucharest_pact
 				every_other_country = {
 					limit = {
 						is_in_faction = no
@@ -1234,9 +1234,15 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-			factor = 1
+			base = 0	#Anti AI Crash-Into-Wall
+			modifier = {
+				add = 1
+				surrender_progress < 0.1
+				has_army_manpower = { size > 349999 }
+			}
 		}
 
+		will_lead_to_war_with = YUG
         completion_reward = {
 			if = {
 				limit = {
@@ -1992,7 +1998,7 @@ focus_tree = {
 			set_rule = {
 				can_create_factions = yes
 			}
-			create_faction = "Legion of the Archangel Mihail"
+			create_faction = legion_of_the_archangel_mihail
 			every_country = {
 				limit = {
 					is_subject = no	
@@ -2060,7 +2066,16 @@ focus_tree = {
 		cost = 10
 	
 		ai_will_do = {
-			factor = 20
+			base = 0	#Anti AI Crash-Into-Wall
+			modifier = {
+				add = 20
+				surrender_progress < 0.1
+				has_army_manpower = { size > 349999 }
+				OR = {
+					106 = { is_controlled_by_ROOT_or_ally = yes }	#Makedonija, Yugoslavia
+					212 = { is_controlled_by_ROOT_or_ally = yes } 	#Plovdiv, Bulgaria
+				}
+			}
 		}
 	
 		available = {
@@ -2069,6 +2084,7 @@ focus_tree = {
 			}
 		}
 	
+		will_lead_to_war_with = GRE
 	
 	
 		completion_reward = {
@@ -2091,17 +2107,25 @@ focus_tree = {
 		cost = 10
 	
 		ai_will_do = {
-			factor = 20
+			base = 0	#Anti AI Crash-Into-Wall
+			modifier = {
+				add = 20
+				surrender_progress < 0.1
+				has_army_manpower = { size > 349999 }
+			}
 		}
 	
 		available = {
+			is_subject = no
 			YUG = {
 				has_government = communism
+				NOT = { is_ally_with = ROOT }
 			}
 		}
 	
 	
 	
+		will_lead_to_war_with = YUG
 		completion_reward = {
 			create_wargoal = {
 				target = YUG
@@ -2122,17 +2146,25 @@ focus_tree = {
 		cost = 10
 	
 		ai_will_do = {
-			factor = 20
+			base = 0	#Anti AI Crash-Into-Wall
+			modifier = {
+				add = 20
+				surrender_progress < 0.1
+				has_army_manpower = { size > 349999 }
+			}
 		}
 	
 		available = {
+			is_subject = no
 			BUL = {
 				has_government = communism
+				NOT = { is_ally_with = ROOT }
 			}
 		}
 	
 	
 	
+		will_lead_to_war_with = BUL
 		completion_reward = {
 			create_wargoal = {
 				target = BUL
@@ -2153,7 +2185,16 @@ focus_tree = {
 		cost = 10
 	
 		ai_will_do = {
-			factor = 20
+			base = 0	#Anti AI Stalemate Death-War
+			modifier = {
+				add = 20
+				surrender_progress < 0.1
+				has_army_manpower = { size > 399999 }
+				OR = {
+					184 = { is_controlled_by_ROOT_or_ally = yes }	#Thrace, Greece
+					211 = { is_controlled_by_ROOT_or_ally = yes } 	#Burgas, Bulgaria
+				}
+			}
 		}
 	
 		available = {
@@ -2178,6 +2219,7 @@ focus_tree = {
 			}
 		}
 	
+		will_lead_to_war_with = TUR
 		completion_reward = {
 			every_other_country = {
 				limit = {
@@ -2209,7 +2251,16 @@ focus_tree = {
 		cost = 10
 	
 		ai_will_do = {
-			factor = 20
+			base = 20	#Fascists should rarely fight fascists
+			modifier = {
+				factor = 0
+				2 = { 
+					controller = {
+						is_subject = no
+						has_government = fascism
+					}
+				}
+			}
 		}
 	
 		available = {
@@ -2230,6 +2281,8 @@ focus_tree = {
 	
 	
 	
+		will_lead_to_war_with = ITA
+		will_lead_to_war_with = PAP
 		completion_reward = {
 			every_other_country = {
 				limit = {
@@ -2262,9 +2315,29 @@ focus_tree = {
 		cost = 10
 	
 		ai_will_do = {
-			factor = 20
+			base = 0	#AI should never start a war with the UK alone.
+			modifier = {
+				add = 20
+				surrender_progress < 0.1
+				has_army_manpower = { size > 399999 }
+				OR = {
+					has_war_with = ENG	#If they're currently fighting, they can do this for claims ig
+					AND = {		#Should be capable of fighting in the ME
+						344 = { is_controlled_by_ROOT_or_ally = yes }	#Malatya, Turkey
+						1016 = { 
+							controller = {
+								NOT = { is_subject_of = ENG }
+							}
+						}
+					}
+				}
+			}
 		}
 		
+		will_lead_to_war_with = MPL
+		will_lead_to_war_with = ISR
+		will_lead_to_war_with = PAL
+		available = { is_subject = no }		
 		completion_reward = {
             every_other_country = {
                 limit = {
@@ -3241,7 +3314,7 @@ focus_tree = {
 							is_faction_leader = no
 						}
 					}
-					create_faction = "The Little Entente"
+					create_faction = little_entente
 				}
 				every_other_country = {
 					limit = {
@@ -3323,7 +3396,7 @@ focus_tree = {
 							is_faction_leader = no
 						}
 					}
-					create_faction = "Balkan Defense Pact"
+					create_faction = balkan_defense_pact
 				}
 				every_other_country = {
 					limit = {
@@ -3638,16 +3711,30 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
+			base = 0	#Anti AI Crash-Into-Wall / Stalemate
+			modifier = {
+				add = 21
+				has_war_with_major = no
+				surrender_progress < 0.1
+				has_army_manpower = { size > 399999 }
+				OR = {
+					9 = { is_controlled_by_ROOT_or_ally = yes }	#Prague, Czechoslovakia
+					155 = { is_controlled_by_ROOT_or_ally = yes }	#North Transdanubia, Hungary
+				}
+			}
 		}
 
 		available = {
 			is_subject = no
-			NOT = {
-				is_in_faction_with = GER
+			GER = {
+				NOT = { is_ally_with = ROOT }
+				OR = {
+					has_government = fascism
+					has_government = communism
+				}
 			}
 		}
-
+		will_lead_to_war_with = GER
 		completion_reward = {
             create_wargoal = {
                 target = GER
@@ -3666,16 +3753,26 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
+			base = 0	#Anti AI Crash-Into-Wall
+			modifier = {
+				add = 1		#Factor is low because Romania should clear out Germany, followed by Italy, followed by Soviets
+				has_war_with_major = no
+				surrender_progress < 0.1
+				has_army_manpower = { size > 399999 }
+			}
 		}
 
 		available = {
 			is_subject = no
-			NOT = {
-				is_in_faction_with = SOV
+			SOV = {
+				NOT = { is_ally_with = ROOT }
+				OR = {
+					has_government = fascism
+					has_government = communism
+				}
 			}
 		}
-
+		will_lead_to_war_with = SOV
 		completion_reward = {
             create_wargoal = {
                 target = SOV
@@ -3694,16 +3791,31 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
+			base = 0	#Anti AI Crash-Into-Wall / Stalemate
+			modifier = {
+				add = 20
+				has_war_with_major = no
+				surrender_progress < 0.1
+				has_army_manpower = { size > 399999 }
+				OR = {
+					958 = { is_controlled_by_ROOT_or_ally = yes }	#Fiume, Yugoslavia
+					1054 = { is_controlled_by_ROOT_or_ally = yes }	#Steiermark, Austria
+				}
+			}
 		}
 
 		available = {
 			is_subject = no
-			NOT = {
-				is_in_faction_with = ITA
+			ITA = {
+				NOT = { is_ally_with = ROOT }
+				OR = {
+					has_government = fascism
+					has_government = communism
+				}
 			}
 		}
 
+		will_lead_to_war_with = ITA
 		completion_reward = {
             create_wargoal = {
                 target = ITA
@@ -4203,7 +4315,7 @@ focus_tree = {
 		}
 
 		available = {
-			has_offensive_war_with = SOV
+			has_war_with = SOV
 			any_controlled_state = {
 				is_core_of = UKR
 				NOT = {
@@ -5371,8 +5483,8 @@ focus_tree = {
 		}
 
 		available = {
-			has_offensive_war_with = SOV
-			has_war_together_with = GER
+			has_war_with = SOV
+			GER = { has_war_with = SOV }
 
 		}
 
@@ -5510,7 +5622,7 @@ focus_tree = {
 			OR = {	
 				GER = {
 					exists = yes
-					has_offensive_war_with = SOV
+					has_war_with = SOV
 				}
 				GER = {
 					exists = no
@@ -5811,6 +5923,7 @@ focus_tree = {
 
         completion_reward = {
 			add_ideas = r56_ROM_balkan_trade_capital
+			custom_effect_tooltip = CHL_skip_one_line_tt
 			every_other_country = {
 				limit = {
 					r56_is_balkan_country = yes
@@ -5915,6 +6028,7 @@ focus_tree = {
 				days = 120
 				idea = r56_ROM_communist_rearrangement
 			}
+			custom_effect_tooltip = CHL_skip_one_line_tt
 			remove_ideas = r56_ROM_michael_idea
         }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -6011,19 +6125,26 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
+			base = 0	#Anti AI Crash-Into-Wall
 			modifier = {
-				is_historical_focus_on = yes 
-				factor = 0
-			}			
+				is_historical_focus_on = no
+				add = 1
+				surrender_progress < 0.1
+				has_army_manpower = { size > 349999 }
+			}
 		}
 
 		available = {
 			is_subject = no
-			country_exists = BUL
-			NOT = { is_in_faction_with = BUL }
+			BUL = {
+				NOT = {
+					is_ally_with = ROOT 
+					has_government = democratic 
+				}
+			}
 		}
 
+		will_lead_to_war_with = BUL
         completion_reward = {
 			create_wargoal = {
 				type = puppet_wargoal_focus
@@ -6048,6 +6169,10 @@ focus_tree = {
 				is_historical_focus_on = yes 
 				factor = 0
 			}
+		}
+
+		available = {
+			BUL = { is_in_faction = no }
 		}
 
         completion_reward = {
@@ -6158,7 +6283,7 @@ focus_tree = {
 			set_rule = {
 				can_create_factions = yes
 			}
-			create_faction = "The Balkan Entente"
+			create_faction = balkan_entente
 			every_other_country = {
 				limit = {
 					OR = {
@@ -6168,6 +6293,8 @@ focus_tree = {
 					}
 					NOT = {
 						has_war_with = ROOT
+						is_in_faction = yes
+						is_subject = yes
 					}
 				}
 				country_event = { days = 3 id = rt56.balkan_pact.7 }
@@ -6234,16 +6361,25 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			country_exists = HUN
-			NOT = {
-				is_in_faction_with = HUN
+			base = 0	#Anti AI Crash-Into-Wall
+			modifier = {
+				add = 20
+				surrender_progress < 0.1
+				has_army_manpower = { size > 349999 }
 			}
 		}
 
+		available = {
+			is_subject = no
+			HUN = {
+				NOT = {
+					has_government = democratic
+					is_ally_with = ROOT
+				}
+			}
+		}
+
+		will_lead_to_war_with = HUN
         completion_reward = {
 			create_wargoal = {
 				type = puppet_wargoal_focus
@@ -6370,13 +6506,27 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
+			base = 0	#Anti AI Crash-Into-Wall
+			modifier = {
+				add = 20
+				surrender_progress < 0.1
+				has_army_manpower = { size > 349999 }
+			}
 		}
 		will_lead_to_war_with = HUN
 
 		bypass = {
 			154 = {
 				controls_or_subject_of = yes
+			}
+		}
+
+		available = {
+			HUN = {
+				NOT = {
+					is_ally_with = ROOT
+					has_government = democratic
+				}
 			}
 		}
 
@@ -6452,7 +6602,7 @@ focus_tree = {
 				}
 			}
 			else = {
-				create_faction = "The Peace Front"
+				create_faction = peace_front
 				YUG = {
 					country_event = { days = 2 id = generic.5 }
 				}
@@ -6470,11 +6620,26 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
+			base = 0	#Anti AI Crash-Into-Wall
+			modifier = {
+				add = 20
+				surrender_progress < 0.1
+				has_army_manpower = { size > 349999 }
+			}
+		}
+
+		available = {
+			is_subject = no
+			BUL = {
+				NOT = {
+					has_government = democratic
+					is_ally_with = ROOT
+				}
+			}
 		}
 		
 		bypass = {
-			is_in_faction_with = GER
+			BUL = { is_ally_with = ROOT }
 		}
 
         completion_reward = {			            
@@ -6515,6 +6680,7 @@ focus_tree = {
 					add_timed_idea = { idea = democratic_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = democratic }
@@ -6530,6 +6696,7 @@ focus_tree = {
 					add_timed_idea = { idea = fascist_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = fascism }
@@ -6545,6 +6712,7 @@ focus_tree = {
 					add_timed_idea = { idea = neutrality_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = neutrality }
@@ -6578,6 +6746,7 @@ focus_tree = {
 					add_timed_idea = { idea = democratic_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = democratic }
@@ -6593,6 +6762,7 @@ focus_tree = {
 					add_timed_idea = { idea = fascist_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = fascism }
@@ -6608,6 +6778,7 @@ focus_tree = {
 					add_timed_idea = { idea = neutrality_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = neutrality }
@@ -6651,6 +6822,7 @@ focus_tree = {
 					add_timed_idea = { idea = democratic_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = democratic }
@@ -6666,6 +6838,7 @@ focus_tree = {
 					add_timed_idea = { idea = fascist_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = fascism }
@@ -6681,6 +6854,7 @@ focus_tree = {
 					add_timed_idea = { idea = neutrality_influence days = 1095 }
 					country_event = { id = generic.1 }
 				}
+				custom_effect_tooltip = CHL_skip_one_line_tt
 				every_other_country = {
 					limit = { 
 						NOT = { has_government = neutrality }
@@ -7550,6 +7724,7 @@ focus_tree = {
 			factor = 1
 		}
 
+		available_if_capitulated = yes
         completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
@@ -8353,6 +8528,7 @@ focus_tree = {
 			factor = 1
 		}
 
+		available_if_capitulated = yes
 		completion_reward = {
 			custom_effect_tooltip = ROM_improve_the_ground_attack_role_tt
 			add_to_variable = { ROM_romanian_air_force_modifier_air_cas_efficiency = 0.05 }

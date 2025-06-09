@@ -31,8 +31,6 @@ focus_tree = {
 		modifier = {
 			add = 15
 			tag = FIN
-			#in vanilla the neutrality tree is still free, maybe check if we wanna use parts
-			has_global_flag = FIN_use_DLC_tree
 		}
 	}
 	
@@ -7529,6 +7527,9 @@ focus_tree = {
 		bypass = {
 			has_government = fascism
 		}
+		bypass_effect = {	#56
+			add_dynamic_modifier = { modifier = FIN_fascist_regime }
+		}
 
 		available = {
 			is_subject = no
@@ -14235,7 +14236,32 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			threat > 0.7
+			OR = {	#56 - Needs more conditons, focus is often impossible to do pre-WW.
+				threat > 0.7
+				if = {
+					limit = { has_global_flag = sov_old_focus_tree }
+					SOV = {
+						OR = {
+							has_completed_focus = SOV_claims_in_baltic_old
+							has_completed_focus = SOV_respect_baltic_self_determination_old
+							has_completed_focus = SOV_imperial_legacy_old
+						}
+					}
+				}
+				else = {
+					SOV = {
+						OR = {
+							has_completed_focus = SOV_claims_in_baltic
+							has_completed_focus = SOV_respect_baltic_self_determination
+							if = {
+								limit = { has_dlc = "No Step Back" }
+								has_completed_focus = SOV_westward_bound
+							}
+							else = { has_completed_focus = SOV_imperial_legacy }
+						}
+					}
+				}
+			}
 			145 = { #ÅLAND
 				is_demilitarized_zone = yes
 			}
