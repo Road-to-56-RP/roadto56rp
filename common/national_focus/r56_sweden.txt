@@ -6062,6 +6062,56 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_HISTORICAL }
 	}
 	focus = {
+		id = SWE_bofors_tank_development_division
+		icon = GFX_goal_SWE_bofors
+		relative_position_id = SWE_bofors_kanoner
+		prerequisite = { focus = SWE_bofors_kanoner }
+		x = 1
+		y = 1
+		cost = 10
+
+		completion_reward = {
+			army_experience = 25
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT					
+				}				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				#TANKS
+				every_military_industrial_organization = {
+					limit = {
+						has_mio_trait = SWE_r56rp_bofors_tank_facilities #All Tank MIOs have this trait
+					}
+					unlock_mio_trait_tooltip = SWE_r56rp_bofors_tank_facilities
+				}
+			}
+			else = {
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = ROOT					
+					}				
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
 		id = SWE_stockholms_orlogsvarv
 		icon = GFX_goal_SWE_coa_navy
 		relative_position_id = SWE_bofors_kanoner
