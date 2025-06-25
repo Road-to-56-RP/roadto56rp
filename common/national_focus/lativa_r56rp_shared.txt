@@ -1,6 +1,6 @@
 shared_focus = {
 	id = LAT_r56rp_give_von_schack_a_seat
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_chi_mission_to_germany
 	x = 30
 	y = 0
 
@@ -10,17 +10,41 @@ shared_focus = {
 		factor = 1
 	}
 
+	allow_branch = {
+		if = {
+			limit = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+			has_country_flag = LAT_r56rp_pro_german_government
+		}
+	}
+
+	offset = {
+		x = 4
+		y = 0
+		trigger = {
+			has_game_rule = {
+				rule = obsolete_focus_branches_visibility
+				option = HIDE
+			}
+			has_country_flag = LAT_r56rp_pro_german_government
+		}
+	}
+
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-
+		mark_focus_tree_layout_dirty = yes
 	}
 }
 shared_focus = {
 	id = LAT_r56rp_rally_the_officers_behind_schack
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_generic_military_mission
 	relative_position_id = LAT_r56rp_give_von_schack_a_seat
 	prerequisite = { focus = LAT_r56rp_give_von_schack_a_seat }
-	x = 1
+	x = 0
 	y = 1
 
 	cost = 10
@@ -36,7 +60,7 @@ shared_focus = {
 }
 shared_focus = {
 	id = LAT_r56rp_gather_further_military_support
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_generic_full_employment
 	relative_position_id = LAT_r56rp_rally_the_officers_behind_schack
 	prerequisite = { focus = LAT_r56rp_rally_the_officers_behind_schack }
 	x = 1
@@ -55,7 +79,7 @@ shared_focus = {
 }
 shared_focus = {
 	id = LAT_r56rp_secure_logistical_support
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_generic_reinforcing_the_supply_network
 	relative_position_id = LAT_r56rp_rally_the_officers_behind_schack
 	prerequisite = { focus = LAT_r56rp_rally_the_officers_behind_schack }
 	x = -1
@@ -74,27 +98,44 @@ shared_focus = {
 }
 shared_focus = {
 	id = LAT_r56rp_march_on_riga
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_generic_full_social_mobilization
 	relative_position_id = LAT_r56rp_gather_further_military_support
 	prerequisite = { focus = LAT_r56rp_gather_further_military_support }
 	prerequisite = { focus = LAT_r56rp_secure_logistical_support }	
 	x = -1
 	y = 1
 
-	cost = 10
-
-	ai_will_do = {
-		factor = 1
-	}
+	cost = 5
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		if = {
+			limit = {
+				GER = {
+					has_government = fascism
+				}
+			}
+			promote_character = {
+				character = LAT_protector_general_von_schack
+				ideology = fascism_ideology
+			}
+		}
+		promote_character = {
+			character =  LAT_protector_general_von_schack
+			ideology = military_junta
+		}
+		set_party_name = {
+			ideology = neutrality
+			name = r56rp_LAT_neutrality_party_german_baltics
+			long_name = r56rp_LAT_neutrality_party_german_baltics_long
+		}
+		add_political_power = 25
+		remove_ideas = democratic_opposition
 	}
 }
 shared_focus = {
 	id = LAT_r56rp_establish_a_new_government
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_ger_revive_kaiserreich
 	relative_position_id = LAT_r56rp_march_on_riga
 	prerequisite = { focus = LAT_r56rp_march_on_riga }	
 	x = 0
@@ -108,12 +149,29 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		GER = {
+			set_autonomy = {
+				target = LAT
+				autonomous_state = autonomy_reichsprotektorat
+				end_wars = no
+				end_civil_wars = no	
+			}
+		}
+		custom_effect_tooltip = LAT_r56rp_root_out_communists_tt
+		hidden_effect = {
+			retire_character = LAT_alberts_kvesis
+			retire_character = LAT_fricis_menders
+			retire_character = LAT_karlis_ozolins
+			retire_character = LAT_vilis_lacis
+			retire_character = LAT_emilija_veinberga
+			retire_character = LAT_janis_rudzutaks
+			retire_character = LAT_karlis_baumanis
+		}
 	}
 }
 shared_focus = {
 	id = LAT_r56rp_restructure_the_officer_corps
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_GER_appease_the_wehrmacht
 	relative_position_id = LAT_r56rp_establish_a_new_government
 	prerequisite = { focus = LAT_r56rp_establish_a_new_government }	
 	x = 2
@@ -132,7 +190,7 @@ shared_focus = {
 }
 shared_focus = {
 	id = LAT_r56rp_forest_warfare_experts
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_SWE_varnplikt
 	relative_position_id = LAT_r56rp_restructure_the_officer_corps
 	prerequisite = { focus = LAT_r56rp_restructure_the_officer_corps }	
 	x = 0
@@ -151,7 +209,7 @@ shared_focus = {
 }
 shared_focus = {
 	id = LAT_r56rp_the_kingdom_of_the_baltic
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_generic_monarchy_1
 	relative_position_id = LAT_r56rp_establish_a_new_government
 	prerequisite = { focus = LAT_r56rp_establish_a_new_government }	
 	x = -1
@@ -165,12 +223,14 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		hidden_effect = {
+			set_country_flag = nation_formed
+		}
 	}
 }
 shared_focus = {
 	id = LAT_r56rp_offer_a_hand
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_generic_baltic_entente
 	relative_position_id = LAT_r56rp_the_kingdom_of_the_baltic
 	prerequisite = { focus = LAT_r56rp_the_kingdom_of_the_baltic }	
 	mutually_exclusive = { focus = LAT_r56rp_prevent_baltic_communism }	
@@ -190,7 +250,7 @@ shared_focus = {
 }
 shared_focus = {
 	id = LAT_r56rp_prevent_baltic_communism
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_goal_SOV_baltic_aggression
 	relative_position_id = LAT_r56rp_the_kingdom_of_the_baltic
 	prerequisite = { focus = LAT_r56rp_the_kingdom_of_the_baltic }
 	mutually_exclusive = { focus = LAT_r56rp_offer_a_hand }	
@@ -210,10 +270,316 @@ shared_focus = {
 }
 shared_focus = {
 	id = LAT_r56rp_the_brothers_united
-	icon = GFX_focus_LAT_suspend_constitution_of_latvia
+	icon = GFX_focus_generic_forest_brothers
 	relative_position_id = LAT_r56rp_prevent_baltic_communism
 	prerequisite = { focus = LAT_r56rp_prevent_baltic_communism focus = LAT_r56rp_offer_a_hand }
 	x = -1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_baltic_royal_university
+	icon = GFX_focus_research
+	relative_position_id = LAT_r56rp_the_brothers_united
+	prerequisite = { focus = LAT_r56rp_the_brothers_united }
+	x = 0
+	y = 1
+
+	cost = 10
+
+	available = {
+		num_of_factories > 25
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		add_research_slot = 1
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_establish_the_baltischer_rustungsstab
+	icon = GFX_focus_generic_military_industry
+	relative_position_id = LAT_r56rp_the_brothers_united
+	prerequisite = { focus = LAT_r56rp_the_brothers_united }
+	x = -3
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_joint_german_standardization
+	icon = GFX_focus_secret_rearmament
+	relative_position_id = LAT_r56rp_establish_the_baltischer_rustungsstab
+	prerequisite = { focus = LAT_r56rp_establish_the_baltischer_rustungsstab }
+	x = -1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_krupp_licensed_heavy_guns
+	icon = GFX_goal_SWE_bofors_kanoner
+	relative_position_id = LAT_r56rp_joint_german_standardization
+	prerequisite = { focus = LAT_r56rp_joint_german_standardization }
+	x = 0
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_foundation_of_baltic_heavy_industry
+	icon = GFX_focus_generic_reorient_production
+	relative_position_id = LAT_r56rp_establish_the_baltischer_rustungsstab
+	prerequisite = { focus = LAT_r56rp_establish_the_baltischer_rustungsstab }
+	x = 1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_study_german_heavy_machinery
+	icon = GFX_focus_generic_tank_assembly
+	relative_position_id = LAT_r56rp_foundation_of_baltic_heavy_industry
+	prerequisite = { focus = LAT_r56rp_foundation_of_baltic_heavy_industry }
+	x = 0
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_sturmgeschutz_project
+	icon = GFX_goal_HUN_assault_gun
+	relative_position_id = LAT_r56rp_study_german_heavy_machinery
+	prerequisite = { focus = LAT_r56rp_study_german_heavy_machinery }
+	prerequisite = { focus = LAT_r56rp_krupp_licensed_heavy_guns }
+	x = -1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_breakthrough_machines
+	icon = GFX_focus_generic_mass_production
+	relative_position_id = LAT_r56rp_study_german_heavy_machinery
+	prerequisite = { focus = LAT_r56rp_study_german_heavy_machinery }
+	x = 1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_baltic_stormtroopers
+	icon = GFX_focus_CHL_departemento_de_las_tropas_nacistas_de_asalto
+	relative_position_id = LAT_r56rp_krupp_licensed_heavy_guns
+	prerequisite = { focus = LAT_r56rp_krupp_licensed_heavy_guns }
+	x = -1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_establish_the_baltischer_generalstab
+	icon = GFX_focus_GER_prussian_legacy
+	relative_position_id = LAT_r56rp_the_brothers_united
+	prerequisite = { focus = LAT_r56rp_the_brothers_united }
+	x = 3
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_lay_claim_to_polish_ruthenia
+	icon = GFX_focus_generic_attack_poland
+	relative_position_id = LAT_r56rp_establish_the_baltischer_generalstab
+	prerequisite = { focus = LAT_r56rp_establish_the_baltischer_generalstab }
+	x = -1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_secure_the_eastern_marches
+	icon = GFX_focus_generic_public_works
+	relative_position_id = LAT_r56rp_lay_claim_to_polish_ruthenia
+	prerequisite = { focus = LAT_r56rp_lay_claim_to_polish_ruthenia }
+	x = -1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_claim_russian_ruthenia
+	icon = GFX_focus_eng_expose_the_belly_of_the_bear
+	relative_position_id = LAT_r56rp_secure_the_eastern_marches
+	prerequisite = { focus = LAT_r56rp_secure_the_eastern_marches }
+	prerequisite = { focus = LAT_r56rp_prepare_the_russian_border }
+	x = 1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_strengthen_the_state
+	icon = GFX_goal_generic_gun_purchase
+	relative_position_id = LAT_r56rp_establish_the_baltischer_generalstab
+	prerequisite = { focus = LAT_r56rp_establish_the_baltischer_generalstab }
+	x = 1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_prepare_the_russian_border
+	icon = GFX_focus_SWE_hedgehog_defense
+	relative_position_id = LAT_r56rp_strengthen_the_state
+	prerequisite = { focus = LAT_r56rp_strengthen_the_state }
+	x = -1
+	y = 1
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = LAT_r56rp_the_baltischer_heer
+	icon = GFX_focus_ger_oppose_hitler
+	relative_position_id = LAT_r56rp_strengthen_the_state
+	prerequisite = { focus = LAT_r56rp_strengthen_the_state }
+	x = 1
 	y = 1
 
 	cost = 10
