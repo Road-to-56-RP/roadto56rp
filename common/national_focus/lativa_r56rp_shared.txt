@@ -37,6 +37,11 @@ shared_focus = {
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
 		mark_focus_tree_layout_dirty = yes
+		add_political_power = 50
+		swap_ideas = {
+			remove_idea = democratic_opposition
+			add_idea = LAT_r56rp_democratic_opposition
+		}
 	}
 }
 shared_focus = {
@@ -55,7 +60,7 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		add_ideas = LAT_r56rp_military_support_1
 	}
 }
 shared_focus = {
@@ -74,7 +79,25 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		add_manpower = 5000
+		if = {
+			limit = {
+				has_idea = LAT_r56rp_military_support_3_1
+			}
+			swap_ideas = {
+				remove_idea = LAT_r56rp_military_support_3_1
+				add_idea = LAT_r56rp_military_support_2_2
+			}
+		}
+		if = {
+			limit = {
+				has_idea = LAT_r56rp_military_support_1
+			}
+			swap_ideas = {
+				remove_idea = LAT_r56rp_military_support_1
+				add_idea = LAT_r56rp_military_support_2_1
+			}
+		}
 	}
 }
 shared_focus = {
@@ -93,7 +116,39 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = GER
+		}
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 250
+			producer = GER
+		}	
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 250
+			producer = GER
+		}
+		if = {
+			limit = {
+				has_idea = LAT_r56rp_military_support_2_1
+			}
+			swap_ideas = {
+				remove_idea = LAT_r56rp_military_support_2_1
+				add_idea = LAT_r56rp_military_support_3_2
+			}
+		}
+		if = {
+			limit = {
+				has_idea = LAT_r56rp_military_support_1
+			}
+			swap_ideas = {
+				remove_idea = LAT_r56rp_military_support_1
+				add_idea = LAT_r56rp_military_support_3_1
+			}
+		}		
 	}
 }
 shared_focus = {
@@ -109,16 +164,14 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		if = {
-			limit = {
-				GER = {
-					has_government = fascism
-				}
-			}
-			promote_character = {
-				character = LAT_protector_general_von_schack
-				ideology = fascism_ideology
-			}
+		promote_character = {
+			character = LAT_protector_general_von_schack
+			ideology = fascism_ideology
+		}
+		set_party_name = {
+			ideology = fascism
+			name = r56rp_LAT_neutrality_party_german_baltics
+			long_name = r56rp_LAT_neutrality_party_german_baltics_long
 		}
 		promote_character = {
 			character =  LAT_protector_general_von_schack
@@ -130,7 +183,19 @@ shared_focus = {
 			long_name = r56rp_LAT_neutrality_party_german_baltics_long
 		}
 		add_political_power = 25
-		remove_ideas = democratic_opposition
+		remove_ideas = LAT_r56rp_democratic_opposition
+		if = {
+			limit = {
+				has_idea = LAT_r56rp_military_support_2_2
+			}
+			remove_ideas = LAT_r56rp_military_support_2_2
+		}
+		if = {
+			limit = {
+				has_idea = LAT_r56rp_military_support_3_2
+			}
+			remove_ideas = LAT_r56rp_military_support_3_2
+		}
 	}
 }
 shared_focus = {
@@ -159,6 +224,12 @@ shared_focus = {
 		}
 		custom_effect_tooltip = LAT_r56rp_root_out_communists_tt
 		hidden_effect = {
+			set_popularities = {
+				democratic = 0
+				neutrality = 50
+				fascism = 50
+				communism = 0
+			}
 			retire_character = LAT_alberts_kvesis
 			retire_character = LAT_fricis_menders
 			retire_character = LAT_karlis_ozolins
@@ -204,7 +275,13 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		add_tech_bonus = {
+			bonus = 1.5
+			uses = 2
+			category = r56_jaeger_infantry_tech
+		}
+		set_technology = { LAT_r56rp_forest_warfare_experts_tech = 1 }
+		custom_effect_tooltip = LAT_r56rp_forest_warfare_experts_tech_tt
 	}
 }
 shared_focus = {
@@ -223,8 +300,18 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
+		set_cosmetic_tag = LAT_rp_the_kingdom_of_the_baltic
 		hidden_effect = {
 			set_country_flag = nation_formed
+		}
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = LIT
+					is_core_of = EST
+				}
+			}
+			add_claim_by = LAT
 		}
 	}
 }
@@ -265,7 +352,14 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		create_wargoal = {
+			type = annex_everything
+			target = EST
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = LIT
+		}
 	}
 }
 shared_focus = {
@@ -284,7 +378,16 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		add_ideas = LAT_r56rp_brothers_united
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = LIT
+					is_core_of = EST
+				}
+			}
+			add_core_of = LAT
+		}		
 	}
 }
 shared_focus = {
@@ -494,7 +597,15 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		every_state = {
+			limit = {
+				AND = {
+					is_core_of = BLR
+					is_core_of = POL
+				}
+			}
+			add_claim_by = LAT
+		}
 	}
 }
 shared_focus = {
@@ -513,7 +624,15 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		every_state = {
+			limit = {
+				AND = {
+					is_core_of = BLR
+					is_core_of = POL
+				}
+			}
+			add_core_of = LAT
+		}
 	}
 }
 shared_focus = {
@@ -533,7 +652,21 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		every_state = {
+			limit = {
+				AND = {
+					is_core_of = BLR
+					is_core_of = SOV
+				}
+			}
+			add_core_of = LAT
+		}
+		209 = {
+			add_core_of = LAT
+		}
+		210 = {
+			add_core_of = LAT
+		}
 	}
 }
 shared_focus = {
@@ -590,6 +723,9 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
-		
+		custom_effect_tooltip = GER_sturmtruppe_battalion_tt
+		hidden_effect = {
+			set_technology = { sturmtruppe_battalion_tech = 1 popup = no }
+		}
 	}
 }
