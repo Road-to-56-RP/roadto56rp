@@ -99,11 +99,28 @@ BEL_renault_organization = {
 		original_tag = BEL
 	}
 
-    available = {
-        FROM = { 
-        	NOT = { has_war_with = FRA } 
-    	} 
-    }	
+	available = {
+		FROM = { 
+			NOT = { has_war_with = FRA } 
+	    	} 
+	}	
+	# R56
+	initial_trait = {
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+		name = generic_mio_initial_trait_infantry_tanks_designer
+		
+		limit_to_equipment_type = { 
+			armor
+		}
+		
+		equipment_bonus = {
+			armor_value = 0.05
+			maximum_speed =-0.05
+		}
+	}
+	###
 
 	add_trait = { 
 		token = BEL_mio_trait_fonderie_royale_canons
@@ -149,10 +166,10 @@ BEL_renault_organization = {
 		icon = GFX_generic_mio_trait_icon_breakthrough
 		special_trait_background = yes
 		
-		position = { x=0 y=4 }  
-		relative_position_id = generic_mio_trait_heavy_tank_improvements
+		position = { x=1 y=1 }  
+		relative_position_id = generic_mio_trait_single_engine
 		
-		any_parent = { generic_mio_trait_heavy_tank_improvements }
+		any_parent = { generic_mio_trait_single_engine generic_mio_trait_dual_engine_redundancy }
 		
 		limit_to_equipment_type = { heavy_tank_chassis }
 		
@@ -435,6 +452,9 @@ BEL_renard_organization = {
 			FROM = { NOT = { has_war_with = BEL } }
 		}
 	}
+	
+	# r56rp
+	# do not import the trait, so its left as a high agility designer.
 
 	add_trait = { 
 		token = BEL_mio_trait_all_metal_expertise
@@ -763,8 +783,20 @@ BEL_minerva_imperia_armored_car_organization = {
 			original_tag = BEL
 			original_tag = COG
 		}
-		has_dlc = "Gotterdammerung"
 		has_dlc = "La Resistance"
+	}
+
+	available = {
+		owner = {
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "Gotterdammerung"
+					}
+				}
+				has_completed_focus = BEL_restore_the_auto_canon_unit
+			}
+		}
 	}
 
 	initial_trait = {

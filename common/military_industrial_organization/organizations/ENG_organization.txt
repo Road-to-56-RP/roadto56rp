@@ -231,6 +231,10 @@ ENG_vauxhall_organization = {
 	}
 }
 
+# r56rp
+# england doesent need a heavy tank designer, when it already has an infantry tank designer.
+# ENG_vulcan_foundry_organization
+
  ######  ##     ## #### ########   ######  
 ##    ## ##     ##  ##  ##     ## ##    ## 
 ##       ##     ##  ##  ##     ## ##       
@@ -451,7 +455,7 @@ ENG_yarrow_shipbuilders_organization = {
 	
 	allowed = {	
 		OR = {
-			tag = ENG 
+			tag = ENG
 			tag = sco
 			AND = {
 				tag = BUL
@@ -680,15 +684,12 @@ ENG_hawker_organization = {
 	icon = GFX_idea_hawker
 	allowed = {	
 		OR = {
-			AND = {
-		tag = ENG
-		has_dlc = "Arms Against Tyranny"
-	}
-			AND = {
-				tag = AFG
-				has_dlc = "Arms Against Tyranny"
-			}
+			tag = ENG
+			tag = AFG
+			tag = SAF # had a license for the Hawker Hartbees biplane, maybe make that the first SAF air focus
+			
 		}
+		has_dlc = "Arms Against Tyranny"
 	}
 
 	available = {
@@ -867,7 +868,7 @@ ENG_rsaf_enfield_organization = {
 					original_TAG = LIT
 					original_TAG = EST
 				}
-				has_dlc = "No Step Back"
+				#has_dlc = "No Step Back"	#R56, we have trees with focus's of our own that can suitably unlock this1
 			}
 			AND = {
 				tag = AFG
@@ -884,15 +885,29 @@ ENG_rsaf_enfield_organization = {
 			}
 			FROM = { NOT = { has_war_with = ENG } }
 		}
+		
+		if = {		#56
+			limit = {
+				FROM = { original_tag = LAT }
+			}
+			FROM = { has_completed_focus = LAT_study_foreign_firearm_prototypes }
+		}
+
+		if = {		#56
+			limit = {
+				FROM = { original_tag = EST }
+			}
+			FROM = { has_completed_focus = EST_foreign_cooperation }
+		}
 
 		if = {
 			limit = {
 				FROM = {
-					OR = {
-						original_TAG = LAT
+					#OR = {
+						#original_TAG = LAT		#Neither LAT focus tree in the mod uses the shared_baltic branch
 						original_TAG = LIT
-						original_TAG = EST
-					}
+						#original_TAG = EST		#Neither EST focus tree in the mod uses the shared_baltic branch
+					#}
 				}
 			}
 			FROM = {
@@ -970,10 +985,7 @@ ENG_vauxhall_automotive_organization = {
 		OR = {
 			tag = ENG
 			tag = POL # If Poland sets up a local one
-			AND = {
-				tag = ROM
-				has_dlc = "Death or Dishonor"
-			}
+			tag = ROM
 			AND = {
 				tag = BUL
 				has_dlc = "Battle for the Bosporus"
@@ -1035,15 +1047,38 @@ ENG_vauxhall_automotive_organization = {
 				NOT = { has_completed_focus = BUL_nationalization }
 			}
 		}
-		if = {
-			limit = { FROM = { original_tag = ROM } }
-			FROM = { has_country_flag = ENG_mot_chosen }
-		}	
 	}
 	
 	initial_trait = {
 		equipment_bonus = {
 			maximum_speed = 0.05
+		}
+	}
+}
+
+ENG_morris_motors_organization = { #made the truck that the UK starts as motorized tech, vauxhall is still tank designer
+	name = "Morris Motors"
+	include = generic_motorized_mechanized_organization
+	icon = GFX_idea_generic_industrial_concern_2
+	allowed = {
+		original_tag = ENG
+	}
+	visible = {
+	}
+	available = {
+	}
+	initial_trait = {
+		name = generic_mio_initial_trait_motorized_mechanized_manufacturer
+		limit_to_equipment_type = {
+			motorized_equipment
+			mechanized_equipment
+			motorized_rocket_equipment
+		}
+		equipment_bonus = {
+			reliability = 0.05
+		}
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
 		}
 	}
 }
@@ -1060,7 +1095,7 @@ ENG_royal_arsenal_organization = {
 					original_TAG = LIT
 					original_TAG = EST
 				}
-				has_dlc = "No Step Back"
+				#has_dlc = "No Step Back"	#R56, we have trees with focus's of our own that can suitably unlock this
 			}
 		}
 	}
@@ -1074,14 +1109,28 @@ ENG_royal_arsenal_organization = {
 			FROM = { NOT = { has_war_with = ENG } }
 		}
 
+		if = {		#56
+			limit = {
+				FROM = { original_tag = LAT }
+			}
+			FROM = { has_completed_focus = LAT_artillery_modernization }
+		}
+
+		if = {		#56
+			limit = {
+				FROM = { original_tag = EST }
+			}
+			FROM = { has_completed_focus = EST_foreign_cooperation }
+		}
+
 		if = {
 			limit = {
 				FROM = {
-					OR = {
-						original_TAG = LAT
+					#OR = {
+						#original_TAG = LAT		#Neither LAT focus tree in the mod uses the shared_baltic branch
 						original_TAG = LIT
-						original_TAG = EST
-					}
+						#original_TAG = EST		#Neither EST focus tree in the mod uses the shared_baltic branch
+					#}
 				}
 			}
 			FROM = {

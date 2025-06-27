@@ -6062,6 +6062,82 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_HISTORICAL }
 	}
 	focus = {
+		id = SWE_bofors_tank_development_division
+		icon = GFX_goal_SWE_bofors
+		relative_position_id = SWE_bofors_kanoner
+		prerequisite = { focus = SWE_bofors_kanoner }
+		x = 1
+		y = 1
+		cost = 10
+
+		completion_reward = {
+			army_experience = 25
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT					
+				}				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = SWE_r56rp_bofors_tank_development_division_organization
+				mio:SWE_r56rp_bofors_tank_development_division_organization = {
+					add_mio_funds = 1000
+					add_mio_research_bonus = 0.1
+					add_mio_design_team_assign_cost = -0.5
+					add_mio_size = 1								
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					create_equipment_variant = {
+						name = "Bofors Tornvagn fm/75"
+						type = medium_tank_chassis_1
+						design_team = mio:SWE_r56rp_bofors_tank_development_division_organization
+						parent_version = 0
+						show_position = no
+						modules = {
+							main_armament_slot = tank_medium_cannon
+							turret_type_slot = tank_medium_three_man_tank_turret
+							suspension_type_slot = tank_torsion_bar_suspension
+							armor_type_slot = tank_welded_armor
+							engine_type_slot = tank_gasoline_engine
+							special_type_slot_1 = tank_radio_1
+							special_type_slot_2 = additional_machine_guns
+							special_type_slot_3 = empty
+						}
+						icon = "GFX_SWE_basic_medium_tank_chassis_medium"
+					}
+				}
+			}
+			else = {
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = ROOT					
+					}				
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
 		id = SWE_stockholms_orlogsvarv
 		icon = GFX_goal_SWE_coa_navy
 		relative_position_id = SWE_bofors_kanoner
