@@ -74,7 +74,8 @@ AUS_graz_organization = {
 	}	
 }
 
-#GOT 
+# Wuw Ports
+
 AUS_ansaldo_organization = {
 	name = AUS_ansaldo_organization
 	include = generic_tank_organization
@@ -83,7 +84,7 @@ AUS_ansaldo_organization = {
 		original_TAG = AUS
 		has_dlc = "Arms Against Tyranny" 
 		has_dlc = "Gotterdammerung"
-		has_global_flag = aus_dlc_focus_tree
+		has_global_flag = aus_dlc_focus_tree # R56RP - DO NOT FUCKING MOVE THIS. ALLOWED IS CHECKED ONCE, VISIBLE IS CHECKED DAILY. IF I SEE SOMEBODY TOUCH THIS AND IMPORT ROAD SHIT OVER IT, I WILL FIRE THAT GUY ON THE SPOT.
 	}
 	available = {
 		owner = { has_completed_focus = AUS_invite_foreign_tank_designers }
@@ -111,7 +112,8 @@ AUS_triesteshipyards_organization = { #has atlantic_fleet_naval_manufacturer pre
 			original_tag = CZE
 			original_tag = CRO
 		}
-		NOT = {
+		# R56RP - DO NOT FUCKING MOVE THIS. ALLOWED IS CHECKED ONCE, VISIBLE IS CHECKED DAILY. IF I SEE SOMEBODY TOUCH THIS AND IMPORT ROAD SHIT OVER IT, I WILL FIRE THAT GUY ON THE SPOT.
+		NOT = { 
 			has_global_flag = aus_dlc_focus_tree
 		}
 		
@@ -144,7 +146,6 @@ AUS_triesteshipyards_organization = { #has atlantic_fleet_naval_manufacturer pre
 		}
 	}
 
-	# reuse reduction of ic?
 }
 
 #WuW ports
@@ -158,7 +159,6 @@ AUS_ELIN_organization = {
 				original_TAG = AUS
 				has_dlc = "Arms Against Tyranny" 
 				has_dlc = "Gotterdammerung"
-				has_global_flag = aus_dlc_focus_tree
 			}
 			AND = {
 				tag = HUN 
@@ -179,9 +179,20 @@ AUS_ELIN_organization = {
 	available = {
 		IF = {
 			limit = {
-				FROM = { original_tag = AUS } 
+				FROM = { 
+					original_tag = AUS 
+					has_global_flag = aus_dlc_focus_tree
+				} 
 			}
 			FROM = { has_completed_focus = AUS_elin }
+		}
+		else_if = {
+			limit = {
+				FROM = { 
+					original_tag = AUS
+				} 
+			}
+			FROM = { has_completed_focus = AUS_a_stealthier_approach }
 		}
 	}
 
@@ -258,105 +269,6 @@ AUS_ELIN_organization = {
 	}
 }
 
-###### GOT
-
-AUS_stabilimento_tecnico_triestino_organization = {
-	name = AUS_stabilimento_tecnico_triestino_organization
-	include = generic_battle_line_ship_organization
-	icon = GFX_idea_AUS_stabilimento_tecnico_triestino
-	allowed = {
-		OR = {
-			AND = {
-				original_TAG = AUS
-				has_dlc = "Arms Against Tyranny" 
-				has_dlc = "Gotterdammerung"
-				has_global_flag = aus_dlc_focus_tree
-			}
-			AND = {
-				tag = HUN 
-				has_dlc = "Gotterdammerung"
-			}
-		}
-	}
-
-	visible = {
-		IF = {
-			limit = {
-				FROM = { original_tag = HUN } 
-			}
-			FROM = { has_completed_focus = wuw_HUN_integrate_bohemian_and_austrian_industries }
-		}
-	}
-
-	available = {
-		IF = {
-			limit = {
-				FROM = { original_tag = AUS } 
-			}
-			FROM = { has_completed_focus = AUS_revive_stt }
-		}
-	}
-
-	override_trait = {
-		token = generic_mio_trait_combat_information_center
-		
-		position = { x=-1 y=2 }
-
-		mutually_exclusive = { AUS_mio_trait_range_speed }
-
-		all_parents = {  generic_mio_trait_secondary_fire_director_control }
-		any_parent =  { generic_mio_trait_super_heavy_shells generic_mio_trait_semi_armor_piercing_shells generic_mio_trait_high_velocity_guns }
-
-		production_bonus = {
-			production_efficiency_gain_factor = 0.1
-		}
-		
-	}
-
-	add_trait = { 
-		token = AUS_mio_trait_range_speed
-		name = AUS_mio_trait_range_speed
-		icon = GFX_generic_mio_department_icon_ship_capital_ship_quality
-		special_trait_background = yes
-
-		position = { x=2 y=0 }
-		relative_position_id = generic_mio_trait_combat_information_center
-
-		all_parents = { generic_mio_trait_secondary_fire_director_control }
-		any_parent =  { generic_mio_trait_super_heavy_shells generic_mio_trait_semi_armor_piercing_shells generic_mio_trait_high_velocity_guns }
-
-		mutually_exclusive = { generic_mio_trait_combat_information_center }
-
-		equipment_bonus = {
-			naval_speed = 0.05
-			naval_range = 0.05
-		}
-
-		production_bonus = {
-			production_efficiency_gain_factor = 0.05
-		}
-	}
-
-	add_trait = { 
-		token = AUS_mio_trait_production_speed
-		name = AUS_mio_trait_production_speed
-		icon = GFX_generic_mio_department_icon_ship_capital_ship_production
-		special_trait_background = yes
-
-		position = { x=2 y=1 }
-		relative_position_id = generic_mio_trait_hardened_critical_components
-
-		all_parents = { generic_mio_trait_secondary_fire_director_control generic_mio_trait_hardened_critical_components }
-		
-
-
-		production_bonus = {
-			production_efficiency_gain_factor = 0.1
-		}
-	}
-
-}
-
 ###########################
 
 ###  #    ##  #  # ###  ## 
@@ -375,9 +287,6 @@ AUS_lohner_organization = { # just to avoid generic, it's a first world war manu
 	icon = GFX_idea_generic_motorized_equipment_manufacturer_1
 	allowed = { 
 		original_tag = AUS
-		NOT = {
-			has_global_flag = aus_dlc_focus_tree
-		}
 	}
 	initial_trait = {
 		name = generic_mio_initial_trait_general_aircraft_designer
@@ -398,9 +307,6 @@ AUS_wiener_neustadter_flughafenbetriebs_gmbh_organization = { #
 	icon = GFX_idea_generic_air_manufacturer_1
 	allowed = { 
 		original_tag = AUS
-		NOT = {
-			has_global_flag = aus_dlc_focus_tree
-		}
 	}
 	initial_trait = {
 		name = generic_mio_initial_trait_light_aircraft_designer
@@ -413,9 +319,6 @@ AUS_wiener_neustadter_flughafenbetriebs_gmbh_organization = { #
 	}	
 }
 
-
-######################### GOT
-
 AUS_phonix_fleugzeugwerke_organization = {
 	name = AUS_phonix_fleugzeugwerke_organization
 	include = generic_light_aircraft_organization
@@ -424,6 +327,8 @@ AUS_phonix_fleugzeugwerke_organization = {
 		original_TAG = AUS
 		has_dlc = "Arms Against Tyranny" 
 		has_dlc = "Gotterdammerung"
+		# R56RP - DO NOT FUCKING MOVE THIS. ALLOWED IS CHECKED ONCE, VISIBLE IS CHECKED DAILY. IF I SEE SOMEBODY TOUCH THIS AND IMPORT ROAD SHIT OVER IT, I WILL FIRE THAT GUY ON THE SPOT.
+		FROM = { has_focus_tree = austria_focus_tree }
 	}
 
 	equipment_type = {
@@ -595,6 +500,9 @@ AUS_osterreichische_fleugzeugfabrik_organization = {
 			}
 			FROM = { has_completed_focus = wuw_HUN_integrate_bohemian_and_austrian_industries }
 		}
+		# r56rp 
+		# whats the fucking point of an else here, if you only check for a goddamned focus?
+		# you already do that in the allow block you moron
 	}
 
 	add_trait = { 
@@ -690,6 +598,7 @@ AUS_steyr_mannlicher_organization = {
 	icon = GFX_idea_AUS_steyr_mannlicher
 	allowed = { 
 		original_tag = AUS
+
 		NOT = {
 			has_dlc = "Gotterdammerung"
 		}
@@ -739,55 +648,8 @@ AUS_steyr_daimler_puch_mot_organization = {
 	}	
 }
 
-AUS_r56_hirtenberger_organization = {
-	name = AUS_hirtenberger
-	include = generic_artillery_organization
-	icon = GFX_idea_AUS_hirtenberger
-	allowed = {	
-		original_tag = AUS
-		NOT = {
-			has_dlc = "Gotterdammerung"
-		}
-	}
-	initial_trait = {
-		name = generic_mio_initial_trait_artillery_manufacturer
-
-		organization_modifier = {
-			military_industrial_organization_research_bonus = 0.05
-		}
-		production_bonus = {
-			production_cost_factor = -0.03
-		}
-	}	
-}
-
-AUS_lokomotivfabrik_floridsdorf_orgnanization = { 
-	name = "Lokomotivfabrik Floridsdorf"
-	include = generic_train_organization_r56_NSB
-	icon = GFX_idea_generic_train_manufacturer_r56
-	allowed = {
-		OR = {
-			original_tag = AUS
-			original_tag = GER
-		}
-	}
-
-	available = {
-		if = {
-			limit = {
-				owner = {
-					original_tag = GER
-				}
-			}
-			owner = {
-				owns_state = 4
-			}
-		}
-	}
-}
-
-############################# GOT
-
+# r56rp
+# road chose to use a stripped down basic bitch version for both dlc and non dlc
 AUS_hirtenberger_organization = {
 	name = AUS_hirtenberger_organization
 	include = generic_artillery_organization
@@ -795,7 +657,7 @@ AUS_hirtenberger_organization = {
 	allowed = {
 		original_TAG = AUS
 		has_dlc = "Arms Against Tyranny" 
-		has_dlc = "Gotterdammerung"
+		#has_dlc = "Gotterdammerung" #r56rp
 	}
 
 	add_trait = { 
@@ -840,7 +702,6 @@ AUS_hirtenberger_organization = {
 	
 }
 
-
 AUS_steyr_organization = {
 	name = AUS_steyr_organization
 	include = generic_infantry_equipment_organization
@@ -850,7 +711,9 @@ AUS_steyr_organization = {
 		has_dlc = "Arms Against Tyranny" 
 		has_dlc = "Gotterdammerung"
 	}
-
+	# r56rp
+	# again, why the fuck do you run a daily check for something that only happens on game start?
+	# what fucking retard tought this is a good idea?
 	add_trait = { 
 		token = AUS_mio_trait_innovative_riflemaking
 		name = AUS_mio_trait_innovative_riflemaking
@@ -875,123 +738,34 @@ AUS_steyr_organization = {
 	}
 
 }
-AUS_graf_and_stift_organization = {
-	name = AUS_graf_and_stift_organization
-	include = generic_motorized_mechanized_organization
-	icon = GFX_idea_AUS_graf_and_stift
+
+AUS_lokomotivfabrik_floridsdorf_orgnanization = { 
+	name = "Lokomotivfabrik Floridsdorf"
+	include = generic_train_organization_r56_NSB
+	icon = GFX_idea_generic_train_manufacturer_r56
 	allowed = {
-		original_tag = AUS
-		has_dlc = "Arms Against Tyranny" 
-		has_dlc = "Gotterdammerung"
-		has_global_flag = aus_dlc_focus_tree
+		OR = {
+			original_tag = AUS
+			# r56rp
+			# pointless, since germany has its own designer with no caveats from game start.
+			#original_tag = GER
+		}
 	}
+
 	available = {
-		owner = { has_completed_focus = AUS_graf_und_stift_focus }
-	}
-
-	visible = {
-		owner = { NOT = { has_completed_focus = AUS_saurerwerke } }
-	}
-
-	initial_trait = {
-		name = AUS_graf_und_stift_initial_mio_trait_speed_focused_organization
-
-		equipment_bonus = {
-			maximum_speed = 0.05
+		if = {
+			limit = {
+				owner = {
+					original_tag = GER
+				}
+			}
+			owner = {
+				owns_state = 4
+			}
 		}
 	}
-
-	override_trait = {
-		token = generic_mio_trait_medium_machinegun_mounts
-
-		name = AUS_mio_trait_improved_suspensions
-
-		equipment_bonus = {
-			maximum_speed = 0.05
-		}
-	}
-
-	override_trait = {
-		token = generic_mio_trait_attached_wood_gas_generator
-
-		name = AUS_mio_trait_fuel_effeicient_engines
-
-		position = { x=-1 y=2 }
-		relative_position_id = generic_mio_trait_medium_machinegun_mounts
-
-		all_parents = { generic_mio_trait_medium_machinegun_mounts }
-	}
-
-	override_trait = {
-		token = generic_mio_trait_high_powered_engine
-
-		position = { x=1 y=2 }
-		relative_position_id = generic_mio_trait_medium_machinegun_mounts
-
-		all_parents = { generic_mio_trait_medium_machinegun_mounts }
-	}
-
-	override_trait = {
-		token = generic_mio_trait_advanced_artillery_racks
-
-		position = { x=0 y=2 }
-		relative_position_id = generic_mio_trait_attached_wood_gas_generator
-
-		any_parent = { generic_mio_trait_attached_wood_gas_generator generic_mio_trait_high_powered_engine }
-	}
-
-	override_trait = {
-		token = generic_mio_trait_heavy_machinegun_mount
-
-		position = { x=2 y=2 }
-		relative_position_id = generic_mio_trait_attached_wood_gas_generator
-
-		any_parent = { generic_mio_trait_attached_wood_gas_generator generic_mio_trait_high_powered_engine }
-	}
-
-	add_trait = {
-		token = AUS_mio_trait_thorough_construction
-		name = AUS_mio_trait_thorough_construction
-		icon = GFX_generic_mio_trait_icon_hardness
-		special_trait_background = yes
-
-		mutually_exclusive = { AUS_mio_trait_modular_construction }
-
-		position = {x=-1 y=2}
-		relative_position_id = generic_mio_trait_all_wheel_drive
-
-		all_parents = { generic_mio_trait_all_wheel_drive }
-
-		equipment_bonus = {
-			hardness = 0.05
-			reliability = 0.05
-			build_cost_ic = 0.05
-		}
-
-	}
-
-	add_trait = {
-		token = AUS_mio_trait_modular_construction
-		name = AUS_mio_trait_modular_construction
-		icon = GFX_generic_mio_trait_icon_build_cost_ic
-		special_trait_background = yes
-
-		mutually_exclusive = { AUS_mio_trait_thorough_construction }
-
-		position = {x=1 y=2}
-		relative_position_id = generic_mio_trait_all_wheel_drive
-
-		all_parents = { generic_mio_trait_all_wheel_drive }
-
-		equipment_bonus = {
-			build_cost_ic = -0.15
-			reliability = -0.07
-		}
-
-	}
-
-	remove_trait = { generic_mio_trait_armored_pulpit_mount }
 }
+
 
 AUS_osterreichische_saurerwerke_organization = {
 	name = AUS_osterreichische_saurerwerke_organization
@@ -1002,6 +776,7 @@ AUS_osterreichische_saurerwerke_organization = {
 		has_dlc = "Arms Against Tyranny" 
 		has_dlc = "Gotterdammerung"
 		has_dlc = "La Resistance"
+		# R56RP - DO NOT FUCKING MOVE THIS. ALLOWED IS CHECKED ONCE, VISIBLE IS CHECKED DAILY. IF I SEE SOMEBODY TOUCH THIS AND IMPORT ROAD SHIT OVER IT, I WILL FIRE THAT GUY ON THE SPOT.
 		has_global_flag = aus_dlc_focus_tree
 
 	}
@@ -1149,6 +924,7 @@ AUS_osterreichische_saurerwerke_organization_no_lar = {
 		has_dlc = "Arms Against Tyranny" 
 		has_dlc = "Gotterdammerung"
 		NOT = { has_dlc = "La Resistance" }
+		# R56RP - DO NOT FUCKING MOVE THIS. ALLOWED IS CHECKED ONCE, VISIBLE IS CHECKED DAILY. IF I SEE SOMEBODY TOUCH THIS AND IMPORT ROAD SHIT OVER IT, I WILL FIRE THAT GUY ON THE SPOT.
 		has_global_flag = aus_dlc_focus_tree
 	}
 	available = {
@@ -1236,5 +1012,220 @@ AUS_osterreichische_saurerwerke_organization_no_lar = {
 	}
 
 	remove_trait = { generic_mio_trait_advanced_artillery_racks }
+
+}
+
+AUS_graf_and_stift_organization = {
+	name = AUS_graf_and_stift_organization
+	include = generic_motorized_mechanized_organization
+	icon = GFX_idea_AUS_graf_and_stift
+	allowed = {
+		original_tag = AUS
+		has_dlc = "Arms Against Tyranny" 
+		has_dlc = "Gotterdammerung"
+		has_global_flag = aus_dlc_focus_tree
+	}
+	available = {
+		owner = { has_completed_focus = AUS_graf_und_stift_focus }
+	}
+
+	visible = {
+		owner = { NOT = { has_completed_focus = AUS_saurerwerke } }
+	}
+
+	initial_trait = {
+		name = AUS_graf_und_stift_initial_mio_trait_speed_focused_organization
+
+		equipment_bonus = {
+			maximum_speed = 0.05
+		}
+	}
+
+	override_trait = {
+		token = generic_mio_trait_medium_machinegun_mounts
+
+		name = AUS_mio_trait_improved_suspensions
+
+		equipment_bonus = {
+			maximum_speed = 0.05
+		}
+	}
+
+	override_trait = {
+		token = generic_mio_trait_attached_wood_gas_generator
+
+		name = AUS_mio_trait_fuel_effeicient_engines
+
+		position = { x=-1 y=2 }
+		relative_position_id = generic_mio_trait_medium_machinegun_mounts
+
+		all_parents = { generic_mio_trait_medium_machinegun_mounts }
+	}
+
+	override_trait = {
+		token = generic_mio_trait_high_powered_engine
+
+		position = { x=1 y=2 }
+		relative_position_id = generic_mio_trait_medium_machinegun_mounts
+
+		all_parents = { generic_mio_trait_medium_machinegun_mounts }
+	}
+
+	override_trait = {
+		token = generic_mio_trait_advanced_artillery_racks
+
+		position = { x=0 y=2 }
+		relative_position_id = generic_mio_trait_attached_wood_gas_generator
+
+		any_parent = { generic_mio_trait_attached_wood_gas_generator generic_mio_trait_high_powered_engine }
+	}
+
+	override_trait = {
+		token = generic_mio_trait_heavy_machinegun_mount
+
+		position = { x=2 y=2 }
+		relative_position_id = generic_mio_trait_attached_wood_gas_generator
+
+		any_parent = { generic_mio_trait_attached_wood_gas_generator generic_mio_trait_high_powered_engine }
+	}
+
+	add_trait = {
+		token = AUS_mio_trait_thorough_construction
+		name = AUS_mio_trait_thorough_construction
+		icon = GFX_generic_mio_trait_icon_hardness
+		special_trait_background = yes
+
+		mutually_exclusive = { AUS_mio_trait_modular_construction }
+
+		position = {x=-1 y=2}
+		relative_position_id = generic_mio_trait_all_wheel_drive
+
+		all_parents = { generic_mio_trait_all_wheel_drive }
+
+		equipment_bonus = {
+			hardness = 0.05
+			reliability = 0.05
+			build_cost_ic = 0.05
+		}
+
+	}
+
+	add_trait = {
+		token = AUS_mio_trait_modular_construction
+		name = AUS_mio_trait_modular_construction
+		icon = GFX_generic_mio_trait_icon_build_cost_ic
+		special_trait_background = yes
+
+		mutually_exclusive = { AUS_mio_trait_thorough_construction }
+
+		position = {x=1 y=2}
+		relative_position_id = generic_mio_trait_all_wheel_drive
+
+		all_parents = { generic_mio_trait_all_wheel_drive }
+
+		equipment_bonus = {
+			build_cost_ic = -0.15
+			reliability = -0.07
+		}
+
+	}
+
+	remove_trait = { generic_mio_trait_armored_pulpit_mount }
+}
+
+AUS_stabilimento_tecnico_triestino_organization = {
+	name = AUS_stabilimento_tecnico_triestino_organization
+	include = generic_battle_line_ship_organization
+	icon = GFX_idea_AUS_stabilimento_tecnico_triestino
+	allowed = {
+		OR = {
+			AND = {
+				original_TAG = AUS
+				has_dlc = "Arms Against Tyranny" 
+				has_dlc = "Gotterdammerung"
+				has_global_flag = aus_dlc_focus_tree
+			}
+			AND = {
+				tag = HUN 
+				has_dlc = "Gotterdammerung"
+			}
+		}
+	}
+
+	visible = {
+		IF = {
+			limit = {
+				FROM = { original_tag = HUN } 
+			}
+			FROM = { has_completed_focus = wuw_HUN_integrate_bohemian_and_austrian_industries }
+		}
+	}
+
+	available = {
+		IF = {
+			limit = {
+				FROM = { original_tag = AUS } 
+			}
+			FROM = { has_completed_focus = AUS_revive_stt }
+		}
+	}
+
+	override_trait = {
+		token = generic_mio_trait_combat_information_center
+		
+		position = { x=-1 y=2 }
+
+		mutually_exclusive = { AUS_mio_trait_range_speed }
+
+		all_parents = {  generic_mio_trait_secondary_fire_director_control }
+		any_parent =  { generic_mio_trait_super_heavy_shells generic_mio_trait_semi_armor_piercing_shells generic_mio_trait_high_velocity_guns }
+
+		production_bonus = {
+			production_efficiency_gain_factor = 0.1
+		}
+		
+	}
+
+	add_trait = { 
+		token = AUS_mio_trait_range_speed
+		name = AUS_mio_trait_range_speed
+		icon = GFX_generic_mio_department_icon_ship_capital_ship_quality
+		special_trait_background = yes
+
+		position = { x=2 y=0 }
+		relative_position_id = generic_mio_trait_combat_information_center
+
+		all_parents = { generic_mio_trait_secondary_fire_director_control }
+		any_parent =  { generic_mio_trait_super_heavy_shells generic_mio_trait_semi_armor_piercing_shells generic_mio_trait_high_velocity_guns }
+
+		mutually_exclusive = { generic_mio_trait_combat_information_center }
+
+		equipment_bonus = {
+			naval_speed = 0.05
+			naval_range = 0.05
+		}
+
+		production_bonus = {
+			production_efficiency_gain_factor = 0.05
+		}
+	}
+
+	add_trait = { 
+		token = AUS_mio_trait_production_speed
+		name = AUS_mio_trait_production_speed
+		icon = GFX_generic_mio_department_icon_ship_capital_ship_production
+		special_trait_background = yes
+
+		position = { x=2 y=1 }
+		relative_position_id = generic_mio_trait_hardened_critical_components
+
+		all_parents = { generic_mio_trait_secondary_fire_director_control generic_mio_trait_hardened_critical_components }
+		
+
+
+		production_bonus = {
+			production_efficiency_gain_factor = 0.1
+		}
+	}
 
 }
