@@ -2,7 +2,7 @@
 -- ## NGame ##
 NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 30 -- 10 Vanilla Lag days
 NDefines.NGame.LAG_DAYS_FOR_PAUSE = 90 -- pause days
-NDefines.NGame.HANDS_OFF_START_TAG = "CHI"
+NDefines.NGame.HANDS_OFF_START_TAG = "YEM"
 -- NDefines.NGame.GAME_SPEED_SECONDS = { 2.0, 0.10, 0.05, 0.035, 0 } -- game secs
 
 -- ## NDiplomacy ##
