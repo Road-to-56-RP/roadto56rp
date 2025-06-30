@@ -1,0 +1,431 @@
+add_namespace = LAT_r56rp_ger_junta
+add_namespace = LAT_r56rp_purchase_stugs
+add_namespace = LAT_r56rp_purchase_tanks
+
+### Offer a Hand
+	country_event = {
+		id = LAT_r56rp_ger_junta.1
+		title = LAT_r56rp_ger_junta.1.t
+		desc = LAT_r56rp_ger_junta.1.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_ger_junta.1.a
+
+			custom_effect_tooltip = GAME_OVER_TT
+
+			effect_tooltip = {
+				FROM = {
+					annex_country = {
+						target = ROOT
+						transfer_troops = yes
+					}
+				}
+			}
+
+			FROM = {
+				country_event = { id = LAT_r56rp_ger_junta.2 hours = 6 }
+			}
+			
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 0
+					ROOT = {
+						OR = {
+							is_in_faction_with = SOV
+							is_in_faction_with = GER
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					has_opinion = {
+						target = FROM
+						value > 25
+					}
+				}
+			}
+		}
+		option = { # We disagree
+			name = LAT_r56rp_ger_junta.1.b
+
+			effect_tooltip = {
+				FROM = {
+					create_wargoal = {
+						type = annex_everything
+						target = ROOT
+					}
+				}
+			}
+
+			FROM = {
+				country_event = { id = LAT_r56rp_ger_junta.3 hours = 6 }
+			}
+
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 2
+					ROOT = {
+						OR = {
+							is_in_faction_with = SOV
+							is_in_faction_with = GER
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					has_opinion = {
+						target = FROM
+						value < -25
+					}
+				}
+			}
+		}
+	}
+	country_event = {
+		id = LAT_r56rp_ger_junta.2
+		title = LAT_r56rp_ger_junta.2.t
+		desc = LAT_r56rp_ger_junta.2.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_ger_junta.2.a
+
+			ROOT = {
+				annex_country = {
+					target = FROM
+					transfer_troops = yes
+				}
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = LAT_r56rp_ger_junta.3
+		title = LAT_r56rp_ger_junta.3.t
+		desc = LAT_r56rp_ger_junta.3.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We disagree
+			name = LAT_r56rp_ger_junta.3.a
+
+			ROOT = {
+				create_wargoal = {
+					type = annex_everything
+					target = FROM
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						orignial_tag = LIT
+					}
+				}
+				188 = {
+					add_compliance = 35
+				}
+				189 = {
+					add_compliance = 35
+				}
+				815 = {
+					add_compliance = 35
+				}
+				11 = {
+					add_compliance = 35
+				}
+				814 = {
+					add_compliance = 35
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						original_tag = EST
+					}
+				}
+				811 = {
+					add_compliance = 35
+				}
+				13 = {
+					add_compliance = 35
+				}
+				812 = {
+					add_compliance = 35
+				}
+				813 = {
+					add_compliance = 35
+				}
+				191 = {
+					add_compliance = 35
+				}
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+### Lay Claim to Polish Ruthenia
+	country_event = {
+		id = LAT_r56rp_ger_junta.4
+		title = LAT_r56rp_ger_junta.4.t
+		desc = LAT_r56rp_ger_junta.4.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_ger_junta.4.a
+
+			effect_tooltip = {
+				ROOT = {
+					94 = {
+						transfer_state_to = FROM
+					}
+					95 = {
+						transfer_state_to = FROM
+					}
+					96 = {
+						transfer_state_to = FROM
+					}
+					784 = {
+						transfer_state_to = FROM
+					}
+					935 = {
+						transfer_state_to = FROM
+					}
+					936 = {
+						transfer_state_to = FROM
+					}
+
+				}
+			}
+
+			FROM = {
+				country_event = { id = LAT_r56rp_ger_junta.5 hours = 6 }
+			}
+			
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 0
+					ROOT = {
+						OR = {
+							is_in_faction_with = SOV
+							is_in_faction_with = GER
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					has_opinion = {
+						target = FROM
+						value > 25
+					}
+				}
+			}
+		}
+		option = { # We disagree
+			name = LAT_r56rp_ger_junta.4.b
+
+			effect_tooltip = {
+				FROM = {
+					create_wargoal = {
+						type = annex_everything
+						target = ROOT
+					}
+				}
+			}
+
+			FROM = {
+				country_event = { id = LAT_r56rp_ger_junta.6 hours = 6 }
+			}
+
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 2
+					ROOT = {
+						OR = {
+							is_in_faction_with = SOV
+							is_in_faction_with = GER
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					has_opinion = {
+						target = FROM
+						value < -25
+					}
+				}
+			}
+		}
+	}
+	country_event = {
+		id = LAT_r56rp_ger_junta.5
+		title = LAT_r56rp_ger_junta.5.t
+		desc = LAT_r56rp_ger_junta.5.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_ger_junta.5.a
+
+			FROM = {
+				94 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				95 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				96 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				784 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				935 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				936 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = LAT_r56rp_ger_junta.6
+		title = LAT_r56rp_ger_junta.6.t
+		desc = LAT_r56rp_ger_junta.6.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_ger_junta.6.a
+
+			ROOT = {
+				create_wargoal = {
+					type = annex_everything
+					target = FROM
+				}
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+### Stürmgeschutz Projekt
+	country_event = {
+		id = LAT_r56rp_purchase_stugs.1
+		title = LAT_r56rp_purchase_stugs.1.t
+		desc = LAT_r56rp_purchase_stugs.1.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = {
+			name = LAT_r56rp_purchase_stugs.1.a
+
+			add_equipment_to_stockpile = {
+				type = heavy_tank_artillery_chassis_1
+				amount = 250
+				variant_name = "Panzer Selbstfahrlafette V"
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = { # They have had enough, build your own
+		id = LAT_r56rp_purchase_stugs.2
+		title = LAT_r56rp_purchase_stugs.2.t
+		desc = LAT_r56rp_purchase_stugs.2.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = {
+			name = LAT_r56rp_purchase_stugs.2.a
+
+			add_equipment_to_stockpile = {
+				type = heavy_tank_artillery_chassis_1
+				amount = 250
+				variant_name = "Panzer Selbstfahrlafette V"
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+### Breakthrough Machines
+	country_event = {
+		id = LAT_r56rp_purchase_tanks.1
+		title = LAT_r56rp_purchase_tanks.1.t
+		desc = LAT_r56rp_purchase_tanks.1.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = {
+			name = LAT_r56rp_purchase_tanks.1.a
+
+			add_equipment_to_stockpile = {
+				type = heavy_tank_chassis_1
+				amount = 250
+				variant_name = "VK 30.01 (P)"
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = { # They have had enough, build your own
+		id = LAT_r56rp_purchase_tanks.2
+		title = LAT_r56rp_purchase_tanks.2.t
+		desc = LAT_r56rp_purchase_tanks.2.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = {
+			name = LAT_r56rp_purchase_tanks.2.a
+
+			add_equipment_to_stockpile = {
+				type = heavy_tank_chassis_1
+				amount = 250
+				variant_name = "VK 30.01 (P)"
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
