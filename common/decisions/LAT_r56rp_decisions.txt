@@ -48,7 +48,7 @@ LAT_r56rp_order_german_armored_vehicles = {
 		}
 
 		visible = {
-			#has_completed_focus = LAT_r56rp_sturmgeschutz_project
+			has_completed_focus = LAT_r56rp_sturmgeschutz_project
 		}
 
 		available = {
@@ -64,7 +64,42 @@ LAT_r56rp_order_german_armored_vehicles = {
 
 		complete_effect = {
 			set_country_flag = LAT_r56rp_recently_purchased_stugs
-			add_political_power = 5
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+					NOT = {
+						has_tech = basic_medium_tank_chassis
+					}
+				}
+				set_technology = { basic_medium_tank_chassis = 1 }
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+						NOT = {
+							has_tech = basic_heavy_tank_chassis
+						}
+					}
+					set_technology = { basic_heavy_tank_chassis = 1 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+						has_tech = basic_medium_tank
+					}
+				}
+				set_technology = { basic_medium_tank = 1 }
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+						has_tech = basic_heavy_tank
+					}
+				}
+				set_technology = { basic_heavy_tank = 1 }
+			}
 			add_to_variable = {
 				var = ordered_stugs
 				value = 1
@@ -104,7 +139,7 @@ LAT_r56rp_order_german_armored_vehicles = {
 		}
 
 		visible = {
-			#has_completed_focus = LAT_r56rp_breakthrough_machines
+			has_completed_focus = LAT_r56rp_breakthrough_machines
 		}
 
 		available = {
@@ -120,7 +155,42 @@ LAT_r56rp_order_german_armored_vehicles = {
 
 		complete_effect = {
 			set_country_flag = LAT_r56rp_recently_purchased_tanks
-			add_political_power = 5
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+					NOT = {
+						has_tech = basic_medium_tank_chassis
+					}
+				}
+				set_technology = { basic_medium_tank_chassis = 1 }
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+						NOT = {
+							has_tech = basic_heavy_tank_chassis
+						}
+					}
+					set_technology = { basic_heavy_tank_chassis = 1 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+						has_tech = basic_medium_tank
+					}
+				}
+				set_technology = { basic_medium_tank = 1 }
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+						has_tech = basic_heavy_tank
+					}
+				}
+				set_technology = { basic_heavy_tank = 1 }
+			}
 			add_to_variable = {
 				var = ordered_tanks
 				value = 1
