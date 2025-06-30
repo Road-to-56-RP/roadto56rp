@@ -206,17 +206,20 @@ duplicate_archetypes = {
 		archetype = large_plane_airframe
 		type = strategic_bomber
 		air_map_icon_frame = 10
-	}	
-	
-	strat_maritime_equipment = {
-		only_duplicate_archetype = yes
-		module_slots = none		
-		archetype = large_plane_airframe
-		type = maritime_patrol_plane	
-		air_map_icon_frame = 14
-		interface_overview_category_index = 8
 	}
-
+	# R56 - @thinking_waffle: disabled this to clear this error:
+	# [equipment.cpp:2951]: Asked to duplicate large_plane_airframe into strat_maritime_equipment which is already defined
+	# no idea what the consequences are in game, but error is gone and no new errors
+	# checked with and without BBA and all looks good for large maritime patrol
+	# strat_maritime_equipment = {
+	# 	only_duplicate_archetype = yes
+	# 	module_slots = none		
+	# 	archetype = large_plane_airframe
+	# 	type = maritime_patrol_plane	
+	# 	air_map_icon_frame = 14
+	# 	interface_overview_category_index = 8
+	# }
+	# R56
 	med_maritime = {
 		only_duplicate_archetype = yes
 		module_slots = none		
@@ -465,10 +468,6 @@ equipments = {
 		parent = jet_fighter_equipment_2
 		priority = 30
 
-		can_convert_from = {
-			jet_fighter_equipment_2
-			cv_jet_fighter_equipment_x
-		}
 
 		air_range = 2500
 		maximum_speed = 1250
@@ -479,6 +478,11 @@ equipments = {
 		air_superiority = 2 #1
 		# Air vs Navy
 		naval_strike_attack = 8
+
+		can_convert_from = {
+			jet_fighter_equipment_2
+			cv_jet_fighter_equipment_x
+		}
 		build_cost_ic = 35
 		resources = {
 			aluminium = 4
