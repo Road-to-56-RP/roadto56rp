@@ -207,7 +207,7 @@ shared_focus = {
 	x = 0
 	y = 1
 
-	cost = 10
+	cost = 4
 
 	ai_will_do = {
 		factor = 1
@@ -404,7 +404,7 @@ shared_focus = {
 	x = 1
 	y = 1
 
-	cost = 10
+	cost = 5
 
 	ai_will_do = {
 		factor = 1
@@ -412,6 +412,7 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
+		add_political_power = 50
 		create_wargoal = {
 			type = annex_everything
 			target = EST
@@ -552,6 +553,8 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
+		custom_effect_tooltip = LAT_r56rp_germany_infantry_39_tt
+		custom_effect_tooltip = generic_skip_one_line_tt
 		army_experience = 10
 		if = {
 			limit = {
@@ -652,15 +655,37 @@ shared_focus = {
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
 		808 = { #KYME
-			add_extra_state_shared_building_slots = 2
+			add_extra_state_shared_building_slots = 3
 			add_building_construction = {
 				type = industrial_complex
 				level = 2
 				instant_build = yes
 			}
+			add_building_construction = {
+				type = steel_mill
+				level = 1
+				instant_build = yes
+			}
 			add_resource = {
 				type = steel
-				amount = 12
+				amount = 3
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_tech = steel_production_1
+					}
+				}
+				set_technology = { steel_production_1 = 1 }
+				else = {
+					add_tech_bonus = {
+						name = industrial_bonus
+						ahead_reduction = 2
+						bonus = 1
+						uses = 1
+						category = steel_tech
+					}
+				}
 			}
 		}
 		add_tech_bonus = {
@@ -687,6 +712,9 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = LAT_r56rp_germany_medium_tank_tt
+		custom_effect_tooltip = generic_skip_one_line_tt
 		add_tech_bonus = {
 			name = FIN_foreign_armor
 			bonus = 0.5
@@ -701,6 +729,12 @@ shared_focus = {
 						GER = {
 							has_tech = basic_medium_tank_chassis
 						}
+
+						ROOT = {
+							NOT = {
+								has_tech = basic_heavy_tank_chassis
+							}
+						}
 					}
 					AND = {
 						NOT = {
@@ -709,18 +743,65 @@ shared_focus = {
 						GER = {
 							has_tech = basic_medium_tank
 						}
+						ROOT = {
+							NOT = {
+								has_tech = basic_medium_tank
+							}
+						}
+						ROOT = {
+							NOT = {
+								has_tech = basic_heavy_tank
+							}
+						}
 					}
 				}
 			}
 			if = {
 				limit = {
 					has_dlc = "No Step Back"
+					ROOT = {
+						NOT = {
+							has_tech = basic_medium_tank_chassis
+						}
+					}
 				}
 				set_technology = { basic_medium_tank_chassis = 1 }
+			}
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+					ROOT = {
+						NOT = {
+							has_tech = basic_heavy_tank_chassis
+						}
+					}
+				}
 				set_technology = { basic_heavy_tank_chassis = 1 }
 			}
-			else_if = {
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+					}
+				}
+				ROOT = {
+					NOT = {
+						has_tech = basic_medium_tank
+					}
+				}
 				set_technology = { basic_medium_tank = 1 }
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+					}
+				}
+				ROOT = {
+					NOT = {
+						has_tech = basic_heavy_tank
+					}
+				}
 				set_technology = { basic_heavy_tank = 1 }
 			}
 		}
@@ -759,6 +840,8 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
+		unlock_decision_category_tooltip = LAT_r56rp_order_german_armored_vehicles
+		custom_effect_tooltip = generic_skip_one_line_tt
 		add_tech_bonus = {
 			ahead_reduction = 1
 			bonus = 1
@@ -772,10 +855,9 @@ shared_focus = {
 			custom_effect_tooltip = available_mio_tt
 			show_mio_tooltip = LAT_r56rp_alkett_organization
 			mio:LAT_r56rp_alkett_organization = {
-				add_mio_funds = 1000
 				add_mio_research_bonus = 0.1
 				add_mio_design_team_assign_cost = -0.5
-				add_mio_size = 1								
+				add_mio_size = 2								
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 		}
@@ -791,6 +873,27 @@ shared_focus = {
 					instant_build = yes
 				}
 			}
+		}
+		if = {
+			limit = {
+				has_dlc = "No Step Back"
+			}
+			create_equipment_variant = {
+				name = "Panzer Selbstfahrlafette V"
+				type = heavy_tank_artillery_chassis_1
+				design_team = mio:LAT_r56rp_alkett_organization
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_heavy_howitzer
+					turret_type_slot = tank_heavy_fixed_superstructure_turret
+					suspension_type_slot = tank_interleaved_suspension
+					armor_type_slot = tank_welded_armor
+					engine_type_slot = tank_gasoline_engine
+					special_type_slot_1 = tank_radio_1
+					special_type_slot_2 = additional_machine_guns
+				}
+				icon = "GFX_GER_basic_heavy_td_medium"
+			}			
 		}
 	}
 }
@@ -810,6 +913,8 @@ shared_focus = {
 
 	search_filters = { FOCUS_FILTER_POLITICAL }
 	completion_reward = {
+		unlock_decision_category_tooltip = LAT_r56rp_order_german_armored_vehicles
+		custom_effect_tooltip = generic_skip_one_line_tt
 		add_tech_bonus = {
 			ahead_reduction = 1
 			bonus = 1
@@ -823,10 +928,9 @@ shared_focus = {
 			custom_effect_tooltip = available_mio_tt
 			show_mio_tooltip = LAT_r56rp_porsche_organization
 			mio:LAT_r56rp_porsche_organization = {
-				add_mio_funds = 1000
 				add_mio_research_bonus = 0.1
 				add_mio_design_team_assign_cost = -0.5
-				add_mio_size = 1								
+				add_mio_size = 2								
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 		}
@@ -842,6 +946,27 @@ shared_focus = {
 					instant_build = yes
 				}
 			}
+		}
+		if = {
+			limit = {
+				has_dlc = "No Step Back"
+			}
+			create_equipment_variant = {
+				name = "VK 30.01 (P)"
+				type = heavy_tank_chassis_1
+				design_team = mio:LAT_r56rp_porsche_organization
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_heavy_cannon
+					turret_type_slot = tank_heavy_three_man_tank_turret
+					suspension_type_slot = tank_interleaved_suspension
+					armor_type_slot = tank_welded_armor
+					engine_type_slot = tank_petrol_electric_engine
+					special_type_slot_1 = tank_radio_1
+					special_type_slot_2 = additional_machine_guns
+				}
+				icon = "GFX_generic_heavy_ACA"
+			}			
 		}
 	}
 }
@@ -1106,7 +1231,7 @@ shared_focus = {
 	x = 1
 	y = 1
 
-	cost = 10
+	cost = 15
 
 	ai_will_do = {
 		factor = 1
@@ -1120,6 +1245,7 @@ shared_focus = {
 					is_core_of = BLR
 					NOT = {
 						is_core_of = POL
+						is_core_of = LAT
 					}
 				}
 			}

@@ -39,3 +39,117 @@ LAT_r56rp_foreign_servitude_category = {
 		}
 	}
 }
+LAT_r56rp_order_german_armored_vehicles = {
+	LAT_r56rp_order_sturmgeschuts = {
+		priority = 100 
+
+		allowed = {
+			original_tag = LAT
+		}
+
+		visible = {
+			#has_completed_focus = LAT_r56rp_sturmgeschutz_project
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = LAT_r56rp_recently_purchased_stugs
+			}
+			check_variable = { ordered_stugs < 5}
+		}
+
+		cost = 25
+
+		days_remove = 120
+
+		complete_effect = {
+			set_country_flag = LAT_r56rp_recently_purchased_stugs
+			add_political_power = 5
+			add_to_variable = {
+				var = ordered_stugs
+				value = 1
+			}
+			if = {
+				limit = {
+					check_variable = { ordered_stugs < 4 }
+				}
+				country_event = { id = LAT_r56rp_purchase_stugs.1 hours = 24 }
+			}
+			else = {
+				country_event = { id = LAT_r56rp_purchase_stugs.2 hours = 24 }
+			}
+			effect_tooltip = {
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					add_equipment_to_stockpile = {
+						type = heavy_tank_artillery_chassis_1
+						amount = 250
+						variant_name = "Panzer Selbstfahrlafette V"
+					}			
+				}	
+			}
+		}
+
+		remove_effect = {
+			clr_country_flag = LAT_r56rp_recently_purchased_stugs
+		}
+	}
+	LAT_r56rp_order_heavy_tanks = {
+		priority = 100 
+
+		allowed = {
+			original_tag = LAT
+		}
+
+		visible = {
+			#has_completed_focus = LAT_r56rp_breakthrough_machines
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = LAT_r56rp_recently_purchased_tanks
+			}
+			check_variable = { ordered_tanks < 5}
+		}
+
+		cost = 25
+
+		days_remove = 120
+
+		complete_effect = {
+			set_country_flag = LAT_r56rp_recently_purchased_tanks
+			add_political_power = 5
+			add_to_variable = {
+				var = ordered_tanks
+				value = 1
+			}
+			if = {
+				limit = {
+					check_variable = { ordered_tanks < 4 }
+				}
+				country_event = { id = LAT_r56rp_purchase_tanks.1 hours = 24 }
+			}
+			else = {
+				country_event = { id = LAT_r56rp_purchase_tanks.2 hours = 24 }
+			}
+			effect_tooltip = {
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					add_equipment_to_stockpile = {
+						type = heavy_tank_chassis_1
+						amount = 250
+						variant_name = "VK 30.01 (P)"
+					}			
+				}	
+			}
+		}
+
+		remove_effect = {
+			clr_country_flag = LAT_r56rp_recently_purchased_tanks
+		}
+	}
+}
