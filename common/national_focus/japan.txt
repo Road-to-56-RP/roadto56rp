@@ -2955,18 +2955,21 @@ focus_tree = {
 		prerequisite = { focus = JAP_r56rp_the_social_democratic_republic_of_japan  }
 		x = 0
 		y = 2
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
+		cost = 5
+
 		available = {
 			has_government = communism
 		}
+
 		completion_reward = {
 			add_political_power = 50
 			army_experience = 10
 			navy_experience = 10
 			air_experience = 10
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
 		}
 	}
 	
@@ -3212,16 +3215,29 @@ focus_tree = {
 			custom_effect_tooltip = JAP_r56rp_tooltip_miyagi_asanuma_stalinst_thought
 			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = JAP_r56rp_one_nation_one_path
+					}
+				}
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = JAP_r56rp_stalin_the_nation_state
+						add_idea = JAP_r56rp_stalin_the_nation_state_2
+					}
+				}
+			}
+			if = {
 				limit = { has_completed_focus = JAP_r56rp_one_nation_one_path }
 				swap_ideas = {
 					remove_idea = JAP_r56rp_stalin_the_nation_state
 					add_idea = JAP_r56rp_stalin_the_nation_state_2
 				}
-				else = {
-					add_political_power = 50
-					army_experience = 5
-				}	
 			}
+			else = {
+				add_political_power = 50
+				army_experience = 5
+			}	
 		}	
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -3389,7 +3405,7 @@ focus_tree = {
 		prerequisite = { focus = JAP_r56rp_mass_nationalization }
 		x = 0
 		y = 1
-		cost = 12
+		cost = 5
 
 		completion_reward = {
 			custom_effect_tooltip = mio_jap_miyagi_test
@@ -3407,7 +3423,8 @@ focus_tree = {
 		prerequisite = { focus = JAP_r56rp_a_nation_reborn  }
 		x = 1
 		y = 1
-		cost = 10
+		cost = 5
+
 		completion_reward = {
 			add_doctrine_cost_reduction = {
 				uses = 2
@@ -3425,6 +3442,8 @@ focus_tree = {
 				category = air_doctrine
 			}
 		}
+
+
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -3460,6 +3479,7 @@ focus_tree = {
 		
 		completion_reward = {
 			add_ideas = JAP_r56rp_communist_war_mobilisation
+			custom_effect_tooltip = generic_skip_one_line_tt
 			set_rule = {
 				can_create_factions = yes
 			}
@@ -3666,7 +3686,7 @@ focus_tree = {
 		icon = GFX_focus_ITA_workers_unions
 		relative_position_id = JAP_r56rp_the_3_year_plan
 		prerequisite = { focus = JAP_r56rp_the_3_year_plan  }
-		cost = 10
+		cost = 5
 		x = 0
 		y = 2
 		completion_reward = {
@@ -3944,6 +3964,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			remove_ideas = JAP_r56rp_zaibatsu_dragon_sleeps
+			custom_effect_tooltip = generic_skip_one_line_tt
 			swap_ideas = {
 				remove_idea = JAP_r56rp_zaibatsu_workers_unions_1
 				add_idea = JAP_r56rp_zaibatsu_workers_unions_2
@@ -3964,6 +3985,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			remove_ideas = JAP_r56rp_zaibatsu_dragon_sleeps
+			custom_effect_tooltip = generic_skip_one_line_tt
 			random_core_state = {
 				prioritize = { 531 529 530 528 } 
 				limit = {
@@ -3974,6 +3996,7 @@ focus_tree = {
 					   include_locked = yes
 					}
 			   }
+
 			   add_extra_state_shared_building_slots = 2
 			   add_building_construction = {
 				   type = industrial_complex
@@ -4259,7 +4282,7 @@ focus_tree = {
 		prerequisite = { focus = JAP_r56rp_a_true_commune_in_asia } 
 		x = 1
 		y = 1
-		cost = 10
+		cost = 5
 
 		bypass = {
 			custom_trigger_tooltip = {
@@ -4286,7 +4309,7 @@ focus_tree = {
 		prerequisite = { focus = JAP_r56rp_a_true_commune_in_asia } 
 		x = -1
 		y = 1
-		cost = 10
+		cost = 5
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = JAP_r56rp_ussar_manchuria_tt
