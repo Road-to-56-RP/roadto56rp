@@ -110,6 +110,7 @@ country_event = {
 			base = 99
 		}
 		set_country_flag = JAP_r56rp_no_cooperation_flag
+		complete_national_focus = JAP_r56rp_navy_plot_c
 		mark_focus_tree_layout_dirty = yes
 		add_political_power = -50
 		add_stability = -0.075
@@ -553,8 +554,9 @@ country_event = {
 			base = 1
 		}
 		set_autonomy = { target = MAL autonomy_state = autonomy_free }
+		MAL = { leave_faction = yes }
 		JAP = { country_event = { id = JAP_r56rp_japanchuria_colonial.2 days = 1 } }
-		"MAL" = { country_event = { id = JAP_r56rp_japanchuria_colonial.4 days = 1 } }
+		MAL = { country_event = { id = JAP_r56rp_japanchuria_colonial.4 days = 1 } }
 	}
 
 	# Never!
@@ -638,10 +640,16 @@ country_event = {
 
 	option = {
 		name = JAP_r56rp_yonai_find_new_ifamily.1.a
+		trigger = {
+			NOT = {
+				GER = { has_completed_focus = GER_oppose_hitler_ww }
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 		JAP = {
+			add_stability = -0.25
 			add_country_leader_role = {
 				character = JAP_wilhelm_iii
 				promote_leader = yes
@@ -654,10 +662,16 @@ country_event = {
 	}
 	option = {
 		name = JAP_r56rp_yonai_find_new_ifamily.1.b
+		trigger = {
+			NOT = {
+				ENG = { has_completed_focus = ENG_the_kings_party }
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 		JAP = {
+			add_stability = -0.25
 			add_country_leader_role = {
 				character = JAP_george_vi
 				promote_leader = yes
@@ -670,10 +684,16 @@ country_event = {
 	}
 	option = {
 		name = JAP_r56rp_yonai_find_new_ifamily.1.c
+		trigger = {
+			NOT = {
+				SOV = { has_completed_focus = SOV_beaten_but_not_defeated }
+			}
+		}
 		ai_chance = {
 			base = 1
 		}
 		JAP = {
+			add_stability = -0.25
 			add_country_leader_role = {
 				character = JAP_tsar_vladimir_kirillovich
 				promote_leader = yes
