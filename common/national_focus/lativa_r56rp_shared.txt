@@ -2,7 +2,7 @@
 	shared_focus = {
 		id = LAT_r56rp_give_von_schack_a_seat
 		icon = GFX_focus_chi_mission_to_germany
-		x = 30
+		x = 32
 		y = 0
 
 		cost = 10
@@ -19,7 +19,10 @@
 						option = HIDE
 					}
 				}
-				has_country_flag = LAT_r56rp_pro_german_government
+				OR = {
+					has_country_flag = LAT_r56rp_debug_flag
+					has_country_flag = LAT_r56rp_pro_german_government
+				}
 			}
 		}
 
@@ -1563,7 +1566,10 @@
 						option = HIDE
 					}
 				}
-				has_country_flag = LAT_r56rp_pro_tsar_government
+				OR = {
+					has_country_flag = LAT_r56rp_pro_tsar_government
+					has_country_flag = LAT_r56rp_debug_flag
+				}
 			}
 		}
 
@@ -1576,6 +1582,18 @@
 					option = HIDE
 				}
 				has_country_flag = LAT_r56rp_pro_tsar_government
+			}
+		}
+
+		offset = {
+			x = 12
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_country_flag = LAT_r56rp_debug_flag
 			}
 		}
 
@@ -1815,11 +1833,83 @@
 		}
 	}
 	shared_focus = {
-		id = LAT_r56rp_the_new_baltic_armed_forcess
+		id = LAT_r56rp_reinvigorate_the_economy
 		icon = GFX_goal_MAN_contact_rfp
 		prerequisite = { focus = LAT_r56rp_restoration_of_the_baltic_governate }
 		relative_position_id = LAT_r56rp_restoration_of_the_baltic_governate
 		x = -2
+		y = 1
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
+			add_political_power = 50
+			swap_ideas = {
+				remove_idea = democratic_opposition
+				add_idea = LAT_r56rp_democratic_opposition
+			}
+		}
+	}
+	shared_focus = {
+		id = LAT_r56rp_saint_barbaras_fire
+		icon = GFX_goal_MAN_contact_rfp
+		prerequisite = { focus = LAT_r56rp_reinvigorate_the_economy }
+		relative_position_id = LAT_r56rp_reinvigorate_the_economy
+		x = -2
+		y = 1
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
+			add_political_power = 50
+			swap_ideas = {
+				remove_idea = democratic_opposition
+				add_idea = LAT_r56rp_democratic_opposition
+			}
+		}
+	}
+	shared_focus = {
+		id = LAT_r56rp_russian_styled_war_industry
+		icon = GFX_goal_MAN_contact_rfp
+		prerequisite = { focus = LAT_r56rp_reinvigorate_the_economy }
+		relative_position_id = LAT_r56rp_reinvigorate_the_economy
+		x = 1
+		y = 1
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
+			add_political_power = 50
+			swap_ideas = {
+				remove_idea = democratic_opposition
+				add_idea = LAT_r56rp_democratic_opposition
+			}
+		}
+	}
+	shared_focus = {
+		id = LAT_r56rp_open_zavod_217_artillery_plant
+		icon = GFX_goal_MAN_contact_rfp
+		prerequisite = { focus = LAT_r56rp_russian_styled_war_industry }
+		relative_position_id = LAT_r56rp_russian_styled_war_industry
+		x = 0
 		y = 1
 
 		cost = 10
