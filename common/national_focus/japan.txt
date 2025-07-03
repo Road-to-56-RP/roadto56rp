@@ -4278,33 +4278,7 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 	}	
-	focus = {
-		id = JAP_r56rp_invade_korea_communist
-		icon = GFX_goal_JAP_the_korean_question
-		relative_position_id = JAP_r56rp_a_true_commune_in_asia
-		prerequisite = { focus = JAP_r56rp_a_true_commune_in_asia } 
-		x = 1
-		y = 1
-		cost = 5
-
-		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = JAP_r56rp_ussar_korea_tt
-				JAP_controls_korea = yes
-			}
-		}
-
-		completion_reward = {
-			create_wargoal = {
-				target = KOR
-				type = annex_everything
-			}			
-		}
-
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-	}	
+	
 	focus = {
 		id = JAP_r56rp_invade_manchuria_communist
 		icon = GFX_goal_JAP_attack_manchukuo
@@ -4324,6 +4298,10 @@ focus_tree = {
 				target = MAN
 				type = annex_everything
 			}			
+			create_wargoal = {
+				target = KOR
+				type = annex_everything
+			}		
 		}	
 
 		search_filters = {
@@ -4337,7 +4315,7 @@ focus_tree = {
 		relative_position_id = JAP_r56rp_invade_manchuria_communist
 		prerequisite = { focus = JAP_r56rp_invade_korea_communist }  
 		prerequisite = { focus =  JAP_r56rp_invade_manchuria_communist	}
-		x = 1
+		x = 0
 		y = 1
 		cost = 5
 
@@ -4352,7 +4330,11 @@ focus_tree = {
 			create_wargoal = {
 				target = CHI
 				type = annex_everything
-			}			
+			}
+			create_wargoal = {
+				target = PRC
+				type = annex_everything
+			}				
 		}	
 
 		search_filters = {
@@ -4363,17 +4345,26 @@ focus_tree = {
 	focus = {
 		id = JAP_r56rp_invade_colonial_british_communist
 		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
-		relative_position_id = JAP_r56rp_invade_china_c
-		prerequisite = { focus = JAP_r56rp_invade_china_c } 
-		x = -1
+		relative_position_id = JAP_r56rp_a_true_commune_in_asia
+		prerequisite = { focus = JAP_r56rp_a_true_commune_in_asia } 
+		x = 1
 		y = 1
 		cost = 5
 		completion_reward = {
 			create_wargoal = {
-				target = ENG
+				target = FRI
+				type = annex_everything
+			}	
+			create_wargoal = {
+				target = SIA
+				type = annex_everything
+			}
+			create_wargoal = {
+				target = PHI
 				type = annex_everything
 			}			
 		}
+		
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -4381,16 +4372,20 @@ focus_tree = {
 	focus = {
 		id = JAP_r56rp_invade_colonial_dutch_communist
 		icon = GFX_focus_GER_south_east_asian_natural_wealth
-		relative_position_id = JAP_r56rp_invade_china_c
-		prerequisite = { focus = JAP_r56rp_invade_china_c } 
-		x = 1
+		relative_position_id = JAP_r56rp_invade_colonial_british_communist
+		prerequisite = { focus = JAP_r56rp_invade_colonial_british_communist } 
+		x = 0
 		y = 1
 		cost = 5
 		completion_reward = {
 			create_wargoal = {
 				target = INS
 				type = annex_everything
-			}			
+			}	
+			create_wargoal = {
+				target = MAL
+				type = annex_everything
+			}		
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -4401,10 +4396,10 @@ focus_tree = {
 		icon = GFX_focus_generic_attack_usa
 		relative_position_id = JAP_r56rp_invade_colonial_dutch_communist
 		prerequisite = { focus = JAP_r56rp_invade_colonial_dutch_communist }  
-		prerequisite = { focus =  JAP_r56rp_invade_colonial_british_communist	}
+		prerequisite = { focus =  JAP_r56rp_invade_china_c	}
 		mutually_exclusive = { focus = JAP_r56rp_form_ussar }
 		x = 1
-		y = 2
+		y = 1
 		cost = 10
 
 		completion_reward = {
@@ -4425,12 +4420,12 @@ focus_tree = {
 	focus = {
 		id = JAP_r56rp_form_ussar
 		icon = GFX_focus_SOV_the_supreme_soviet
-		relative_position_id = JAP_r56rp_invade_colonial_dutch_communist
-		prerequisite = { focus = JAP_r56rp_invade_colonial_dutch_communist }  
-		prerequisite = { focus = JAP_r56rp_invade_colonial_british_communist } 
+		relative_position_id = JAP_r56rp_invade_china_c
+		prerequisite = { focus = JAP_r56rp_invade_china_c }  
+		prerequisite = { focus = JAP_r56rp_invade_colonial_dutch_communist } 
 		mutually_exclusive = { focus = JAP_r56rp_invade_usa_c }
-		x = -3
-		y = 2
+		x = -1
+		y = 1
 		cost = 10
 		
 		available = {
@@ -4911,61 +4906,6 @@ focus_tree = {
 				target = MAN
 				type = puppet_wargoal_focus
 			}
-		}
-	}
-
-	focus = {
-		id = JAP_r56rp_attack_the_french_c
-		icon = GFX_focus_attack_france
-		relative_position_id = JAP_r56rp_invade_china_c
-		prerequisite = { focus = JAP_r56rp_invade_china_c  }				
-		x = 3
-		y = 1
-		cost = 5
-		completion_reward = {
-			create_wargoal = {
-				target = FRI
-				type = annex_everything
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-	}
-	focus = {
-		id = JAP_r56rp_attack_siam_c
-		icon = GFX_focus_generic_naval_invasion
-		relative_position_id = JAP_r56rp_invade_china_c
-		prerequisite = { focus = JAP_r56rp_invade_china_c  }				
-		x = -3
-		y = 1
-		cost = 5
-		completion_reward = {
-			create_wargoal = {
-				target = SIA
-				type = annex_everything
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-	}
-	focus = {
-		id = JAP_r56rp_attack_the_philipines
-		icon = GFX_goal_generic_amphibious_assault
-		relative_position_id = JAP_r56rp_invade_china_c
-		prerequisite = { focus = JAP_r56rp_invade_china_c  }				
-		x = 0
-		y = 2
-		cost = 5
-		completion_reward = {
-			create_wargoal = {
-				target = PHI
-				type = annex_everything
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
 		}
 	}
 	focus = {
