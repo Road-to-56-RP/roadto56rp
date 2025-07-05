@@ -18,989 +18,7 @@ focus_tree = {
 		x = 0
 		y = 1200
 	}
-	focus = {
-		id = KMT_internal_stability
-		icon = GFX_goal_kmt_china
-		mutually_exclusive = { focus = KMT_external_defense }
-		available = {
-			NOT = { has_war_with = JAP }
-			OR = {
-				country_exists = SHX
-				country_exists = YUN
-				country_exists = XSM
-				country_exists = GXC
-				country_exists = TNG
-				country_exists = SIK
-				country_exists = PRC
-			}
-		}
-		cancel = {
-			has_war_with = JAP
-		}
-		
-		x = 2
-		y = 0
-		cost = 10
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				JAP = {
-					OR = {
-						focus_progress = {
-							focus = JAP_support_the_kodoha_faction
-							progress > 0.6
-						}
-						focus_progress = {
-							focus = JAP_r56rp_the_rice_rebellion
-							progress > 0.4
-						}						
-						focus_progress = {
-							focus = JAP_strengthen_civilian_government
-							progress > 0.4
-						}
-					}
-				
-				}
-				factor = 25
-			}			
-			modifier = {
-				is_historical_focus_on = yes
-				NOT = {
-					JAP = {
-						OR = {
-							focus_progress = {
-								focus = JAP_support_the_kodoha_faction
-								progress > 0.6
-							}
-							focus_progress = {
-								focus = JAP_r56rp_the_rice_rebellion
-								progress > 0.4
-							}
-						}
-										
-					}					
-				}
-				factor = 0
-			}
-		}
-		
-		completion_reward = {
-			add_political_power = 125
-			add_war_support = 0.10
-			custom_effect_tooltip = KMT_no_united_front_unless_xian_incident_agreed_tt																			 
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}
 
-	focus = {
-		id = KMT_SHX_offer
-		icon = GFX_goal_CHI_the_shanxi_offer
-		prerequisite = { focus = KMT_internal_stability }
-		available = {
-			is_subject = no
-			SHX = {
-				exists = yes
-				NOT = {
-					has_war_with = ROOT
-				}
-				OR = {
-					is_in_faction = no
-					is_in_faction_with = CHI
-				}
-			}
-			
-		}
-		cancel = {
-			OR = {
-				is_subject = yes
-				SHX = { exists = no }
-				has_war_with = SHX
-				SHX = { is_subject = yes }
-			}
-		}
-		bypass = {
-			OR = {
-				original_tag = SHX
-				SHX = { exists = no }
-				SHX = { 
-					is_subject = yes
-				}
-			}
-		}
-		
-		x = 2
-		y = 1
-		cost = 5
-		completion_reward = {
-			SHX = { country_event = { id = kmt.1  hours = 8 }}
-		}
-	}
-	
-	focus = { 
-		id = KMT_preparation
-		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = KMT_internal_stability}
-		available = {
-			NOT = { has_war_with = PRC }
-			NOT = { PRC = { is_in_faction_with = ROOT }}
-		}
-		bypass = {
-			PRC = { exists = no }
-		}
-		x = 0
-		y = 1
-		cost = 10
-		completion_reward = {
-			if = {
-				limit = {
-					has_full_control_of_state = 615
-					has_full_control_of_state = 621
-				}
-				621 = {
-					add_building_construction = { 
-						type = supply_node
-						level = 1
-						province = 2087
-						instant_build = yes
-					}
-				}
-				build_railway = { 
-					path = { 1519 4174 12300 10507 7631 4525 2087  }				
-				}
-			}
-			custom_effect_tooltip = KMT_prep_tt
-			hidden_effect = {
-				every_state = {
-					limit = {
-						OR = {
-							is_controlled_by = ROOT
-							owner = {
-								is_subject_of = ROOT
-							}
-						}
-						any_neighbor_state = {
-							is_controlled_by = PRC
-						}
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-		
-	
-	focus = {
-		id = KMT_strike_PRC
-		icon = GFX_Goal_USA_HUAC
-		prerequisite = { focus = KMT_preparation }
-		
-		x = 0
-		y = 2
-		cost = 5
-		
-		available = { 
-			PRC = {
-				exists = yes
-			}
-		}		
-		
-		bypass = { 
-			OR = {
-				has_global_flag = PRC_yes_truce
-				PRC = {
-					r56_script_standard_bypass = yes
-				}
-				NOT = { country_exists = PRC }
-			}
-		}
-		
-		completion_reward = {
-			every_country = {
-				limit = {
-					OR = {
-						original_tag = PRC
-						original_tag = SHX
-						original_tag = XSM
-						original_tag = SIK
-						original_tag = YUN
-						original_tag = GXC
-					}
-					has_government = communism
-					NOT = { is_in_faction_with = ROOT }
-				}
-				ROOT = {
-					create_wargoal = {
-						target = PREV
-						type = annex_everything
-						expire = 0
-					}
-				}
-				add_opinion_modifier = { target = ROOT modifier = no_collaboration_with_CHI_COM }
-			}
-			army_experience = 5
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.8
-				uses = 1
-				category = land_doctrine
-			}
-			custom_effect_tooltip = KMT_civil_war_tt
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_RESEARCH }
-	}
-	
-	focus = {
-		id = KMT_warlord
-		icon = GFX_goal_CHI_defeat_the_warlords
-		prerequisite = { focus = KMT_strike_PRC focus = KMT_SHX_offer }
-		available = {
-			is_subject = no
-			OR = {
-				country_exists = SHX
-				country_exists = XSM
-				country_exists = GXC
-				country_exists = YUN
-				country_exists = TNG
-			}
-			OR = {
-				has_global_flag = PRC_yes_truce
-				NOT = {
-					country_exists = PRC
-				}
-			}
-		}
-		bypass = {
-			OR = {
-				NOT = {
-					country_exists = SHX
-					country_exists = XSM
-					country_exists = GXC
-					country_exists = YUN
-					country_exists = TNG
-				}
-				has_global_flag = PRC_yes_truce
-			}
-		}
-		x = 2
-		y = 3
-		cost = 10
-		
-		completion_reward = {
-			every_other_country = {
-				limit = {
-					OR = {
-						original_tag = SHX
-						original_tag = XSM
-						original_tag = YUN
-						original_tag = GXC
-						original_tag = MEN
-						original_tag = TNG
-						#original_tag = PGR #is this even used?
-					}
-					exists = yes
-					OR = {
-						is_subject = no
-						is_subject_of = ROOT
-						is_in_faction_with = ROOT
-					}
-					NOT = { is_subject_of = JAP }
-				}
-				country_event = { id = kmt.74 hours = 12 }
-			}
-			custom_effect_tooltip = KMT_civil_war_tt
-			set_country_flag = CHI_hostile_against_warlords
-		}
-	}	
-	
-	focus = {
-		id = KMT_external_defense
-		icon = GFX_goal_CHI_focus_on_external_threats
-		mutually_exclusive = { focus = KMT_internal_stability }
-		available = {
-			NOT = {
-				has_war_with = PRC
-				has_war_with = SHX
-				has_war_with = XSM
-				has_war_with = YUN
-				has_war_with = GXC
-				has_war_with = TNG
-				is_in_faction_with = JAP
-				is_subject_of = JAP
-			}
-		}
-		cancel = {
-			OR = {
-				has_war_with = SHX
-				has_war_with = YUN
-				has_war_with = XSM
-				has_war_with = GXC
-				has_war_with = SHX
-				has_war_with = TNG
-				is_in_faction_with = JAP
-				is_subject_of = JAP				  
-			}
-		}
-		
-		bypass = {
-			has_war_with = JAP
-		}
-		x = 4
-		y = 0
-		cost = 5
-		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 2
-			}
-			modifier = {
-				PRC = {
-					is_ai = no
-				}
-				factor = 3
-			}
-		}
-		
-		completion_reward = {
-			add_stability = 0.05
-			add_political_power = 100
-			set_global_flag = KMT_united_front_enabled
-			custom_effect_tooltip = KMT_enables_united_front_tt			 
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}
-	
-	focus = {
-		id = KMT_fortify_land
-		icon = GFX_goal_generic_fortify_city
-		prerequisite = { focus = KMT_external_defense }
-		available = {
-			NOT = {
-				has_war_with = PRC
-				has_war_with = SHX
-				has_war_with = GXC
-				has_war_with = XSM
-				has_war_with = YUN
-				has_war_with = TNG
-				is_in_faction_with = JAP
-			}
-		}
-		bypass = {
-			OR = {
-				NOT = {
-					608 = {
-						is_fully_controlled_by = ROOT
-					}
-					613 = {
-						is_fully_controlled_by = ROOT
-					}
-				}
-				is_in_faction_with = JAP
-			}
-		}
-		
-		x = 4
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			army_experience = 10
-			if = {
-				limit = {
-					613 = {
-						is_fully_controlled_by = ROOT
-					}
-				}
-				613 = {
-					custom_effect_tooltip = kmt_forts_in_shanghai_tt
-					hidden_effect = {
-						add_building_construction = {
-							type = bunker
-							level = 3
-							province = 7014
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							level = 3
-							province = 11913
-							instant_build = yes
-						}
-					}
-					add_building_construction = {
-						type = anti_air_building
-						level = 3
-						instant_build = yes
-					}
-				}
-			}
-			effect_tooltip = {
-				if = {
-					limit = {
-						608 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					608 = {
-						custom_effect_tooltip = KMT_fortify_land_tt
-						hidden_effect = {
-							add_building_construction = {
-								type = bunker
-								level = 3
-								province = 9843
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 3
-								province = 10068
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 2
-								province = 11761
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 2
-								province = 12026
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 2
-								province = 6828
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 2
-								province = 4140
-								instant_build = yes
-							}
-						}
-					}
-				}
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						has_idea = german_advisors
-					}
-					country_event = { id = kmt.218 }
-				}
-				if = {
-					limit = {
-						NOT = { has_idea = german_advisors }
-					}
-					if = {
-						limit = {
-							608 = {
-								is_fully_controlled_by = ROOT
-							}
-						}
-						608 = {
-							add_building_construction = {
-								type = bunker
-								level = 3
-								province = 9843
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 3
-								province = 10068
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 2
-								province = 11761
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 2
-								province = 12026
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 2
-								province = 6828
-								instant_build = yes
-							}
-							add_building_construction = {
-								type = bunker
-								level = 2
-								province = 4140
-								instant_build = yes
-							}
-						}
-					}
-				}
-			}
-		}	
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	
-	focus = {
-		id = KMT_fortify_coast
-		icon = GFX_focus_generic_coastal_fort
-		prerequisite = { focus = KMT_external_defense }
-		available = {
-			NOT = {
-				has_war_with = PRC
-				has_war_with = SHX
-				has_war_with = GXC
-				has_war_with = XSM
-				has_war_with = YUN
-				has_war_with = TNG
-				is_in_faction_with = JAP
-			}
-			any_state = {
-				OR = {
-					state = 597
-					state = 613
-					state = 596
-					state = 595
-				}
-				is_fully_controlled_by = ROOT
-			}
-		}
-		bypass = {
-			NOT = {
-				AND = {
-					597 = { is_fully_controlled_by = ROOT }
-					613 = { is_fully_controlled_by = ROOT }
-					596 = { is_fully_controlled_by = ROOT }
-					595 = { is_fully_controlled_by = ROOT }
-				}
-			}
-			is_in_faction_with = JAP
-		}
-		
-		x = 6
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			army_experience = 10
-			597 = {
-				if = {
-					limit = {
-						597 = { 
-							is_fully_controlled_by = ROOT
-						}
-					}
-					custom_effect_tooltip = kmt_coastal_bunker_sd_tt
-					hidden_effect = {
-						add_building_construction = {
-							type = coastal_bunker
-							level = 2
-							province = 4205
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = coastal_bunker
-							level = 2
-							province = 10000
-							instant_build = yes
-						}
-					}
-				}
-			}
-			613 = {
-				if = {
-					limit = {
-						613 = { is_fully_controlled_by = ROOT }
-					}
-					custom_effect_tooltip = kmt_coastal_bunker_sh_tt
-					hidden_effect = {
-						add_building_construction = {
-							type = coastal_bunker
-							level = 4
-							province = 7014
-							instant_build = yes
-						}
-					}
-				}
-			}
-			596 = {
-				if = {
-					limit = {
-						596 = { is_fully_controlled_by = ROOT }
-					}
-					custom_effect_tooltip = kmt_coastal_bunker_zhej_tt
-					hidden_effect = {
-						add_building_construction = {
-							type = coastal_bunker
-							level = 2
-								province = 7191
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = coastal_bunker
-							level = 3
-							province = 1055
-							instant_build = yes
-							}
-						add_building_construction = {
-							type = coastal_bunker
-							level = 2
-							province = 9974
-							instant_build = yes
-						}
-					}
-				}
-			}	
-			595 = {
-				if = {
-					limit = {
-						595 = { is_fully_controlled_by = ROOT }
-					}
-					custom_effect_tooltip = kmt_coastal_bunker_fj_tt
-					hidden_effect = {
-						add_building_construction = {
-							type = coastal_bunker
-							level = 2
-							province = 4196
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = coastal_bunker
-							level = 2
-							province = 7071
-							instant_build = yes
-						}
-					}
-				}
-			}
-			608 = {
-				if = {
-					limit = {
-						608 = { is_fully_controlled_by = ROOT }
-					}
-					custom_effect_tooltip = kmt_coastal_bunker_tj_tt
-					hidden_effect = {
-						add_building_construction = {
-							type = coastal_bunker
-							level = 2
-							province = 10068
-							instant_build = yes
-						}
-					}
-				}
-			}
-		}	
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	
-	focus = {
-		id = KMT_national_def_propaganda
-		icon = GFX_goal_CHI_national_defence_propaganda
-		prerequisite = { focus = KMT_fortify_coast focus = KMT_fortify_land }
-		available = {
-			NOT = {
-				has_war_with = PRC
-				has_war_with = SHX
-				has_war_with = GXC
-				has_war_with = XSM
-				has_war_with = YUN
-				has_war_with = TNG
-				is_in_faction_with = JAP
-			}
-		}
-		x = 4
-		y = 3
-		cost = 10
-		
-		ai_will_do = {
-			factor = 20
-		}
-
-		completion_reward = {
-			add_political_power = 100
-			if = {
-				limit = {
-					NOT = {
-						has_war_with = PRC
-						has_war_with = SHX
-						has_war_with = GXC
-						has_war_with = YUN
-						has_war_with = XSM
-						has_war_with = TNG
-					}
-				}
-				add_ideas = KMT_propaganda
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.20
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
-	}
-	
-	focus = {
-		id = KMT_tibet_march
-		icon = GFX_goal_PRC_liberate_tibet
-		prerequisite = { focus = KMT_national_def_propaganda focus = KMT_warlord }
-		mutually_exclusive = { focus = KMT_tibet_friend }
-		available = {
-			is_subject = no
-			TIB = {
-				exists = yes
-				is_subject = no
-			}
-			any_neighbor_country = {
-				original_tag = TIB
-			}
-			OR = {
-				is_ai = no
-				AND = {
-					is_ai = yes
-					has_war = no
-				}
-			}
-		}
-		bypass = {
-			OR = {
-				has_war_with = TIB
-				NOT = { country_exists = TIB }
-				TIB = { is_subject_of = ROOT }
-			}
-		}
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				TIB = {
-					is_ai = yes
-				}
-				add = 0.1
-			}
-		}
-		x = 2
-		y = 5
-		cost = 10
-		
-		completion_reward = {
-			# every_state = { No cores cuz unrealistic due to their resistance even after getting occupied in 1950 and being a totally different people and religion
-			# 	limit = {
-			# 		is_core_of = TIB
-			# 		NOT = {
-			# 			is_core_of = ROOT
-			# 		}
-			# 	}
-			# 	add_core_of = ROOT
-			# }
-			TIB = { country_event = { id = kmt.8 days = 3 } }
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
-	}
-	
-	focus = {
-		id = KMT_tibet_friend
-		icon = GFX_goal_TIB_fair_treatment_dalai_lama
-		prerequisite = { focus = KMT_national_def_propaganda focus = KMT_warlord }
-		mutually_exclusive = { focus = KMT_tibet_march }
-		available = { 
-			is_subject = no
-			TIB = {
-				exists = yes
-				is_subject = no
-				NOT = { has_war_with = ROOT }
-				OR = {
-					is_in_faction = no
-					NOT = { is_in_faction_with = ROOT }
-				}
-			}
-		}
-		bypass = {
-			TIB = { is_in_faction_with = ROOT }
-		}
-		cancel = {
-			OR = {
-				NOT = { country_exists = TIB }
-				has_war_with = TIB
-			}
-		}
-		x = 4
-		y = 5
-		cost = 10
-		ai_will_do = {
-			factor = 0.1
-		}	
-		completion_reward = {
-			every_state = {
-				limit = {
-					OR = {
-						state = 322
-						state = 758
-						state = 757
-						state = 601
-						state = 604
-					}
-					is_claimed_by = ROOT
-				}
-				remove_claim_by = ROOT
-			}
-			TIB = {
-				country_event = { id = kmt.197 days = 1 }
-				add_opinion_modifier = { target = ROOT modifier = chi_tib_diplomatic_focus }
-				if = {
-					limit = {
-						ROOT = { NOT = { has_government = neutrality } }
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_government = fascism
-							}
-						}
-						add_ideas = fascist_influence
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_government = communism
-							}
-						}
-						add_ideas = communist_influence
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_government = democratic
-							}
-						}
-						add_ideas = democratic_influence
-					}
-					country_event = { id = generic.1 }
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	
-	focus = {
-		id = KMT_redraw_mcmahon
-		icon = GFX_focus_RAJ_british_investors
-		prerequisite = { focus = KMT_tibet_friend focus = KMT_tibet_march }
-		available = {
-			has_army_manpower = { size > 1999999 }				 
-			434 = { is_owned_by = RAJ }
-			NOT = {
-				is_in_faction_with = RAJ
-				has_war_with = RAJ
-			}
-			OR = {
-				NOT = { country_exists = TIB }
-				TIB = {
-					OR = {
-						is_subject_of = ROOT 
-						is_in_faction_with = ROOT 
-					}
-					NOT = {
-						has_war_with = RAJ
-					}
-				}
-			}
-			custom_trigger_tooltip = { 
-				tooltip = KMT_redraw_mcmahon_tt
-				hidden_trigger = {
-					OR = {
-						AND = {
-							322 = { is_owned_by = ROOT }
-							601 = { is_owned_by = ROOT }
-						}
-						AND = {
-							322 = { is_owned_by = TIB }
-							601 = { is_owned_by = TIB }
-						}
-						AND = {
-							322 = { is_owned_by = TIB }
-							601 = { is_owned_by = ROOT }
-						}
-						AND = {
-							322 = { is_owned_by = ROOT }
-							601 = { is_owned_by = TIB }
-						}
-					}
-				}
-			}
-		}
-		bypass = {
-			434 = {
-				is_owned_by = ROOT
-			}
-		}
-		cancel = {
-			OR = {
-				OR = {
-					TIB = { has_war_with = RAJ }
-					has_war_with = RAJ
-				}
-				NOT = { 434 = { is_owned_by = RAJ } }
-				custom_trigger_tooltip = { 
-					tooltip = KMT_redraw_mcmahon_cancel_tt
-					hidden_trigger = {
-						NOT = {
-							AND = {
-								322 = { is_owned_by = ROOT }
-								601 = { is_owned_by = ROOT }
-							}
-							AND = {
-								322 = { is_owned_by = TIB }
-								601 = { is_owned_by = TIB }
-							}
-							AND = {
-								322 = { is_owned_by = TIB }
-								601 = { is_owned_by = ROOT }
-							}
-							AND = {
-								322 = { is_owned_by = ROOT }
-								601 = { is_owned_by = TIB }
-							}
-						}
-					}
-				}
-				AND = {
-					country_exists = TIB
-					OR = {
-						NOT = {	TIB = { is_puppet_of = ROOT } }
-						NOT = {	TIB = { is_in_faction_with = ROOT } }
-					}
-				}
-			}
-		}
-		x = 3
-		y = 6
-		cost = 10
-		
-		completion_reward = {
-			add_state_core = 434
-			RAJ = { country_event = { id = kmt.11  days = 3 }}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
 	
 	focus = {
 		id = KMT_industrial_effort 
@@ -1408,7 +426,7 @@ focus_tree = {
 	focus = {
 		id = KMT_gain_control_of_the_sea 
 		icon = GFX_goal_CHI_coa_navy
-		prerequisite = { focus = KMT_fortify_coast focus = KMT_revive_jiangnan_shipyard }
+		prerequisite = { focus = KMT_revive_jiangnan_shipyard }
 		x = 7
 		y = 4
 		cost = 10
@@ -2033,7 +1051,13 @@ focus_tree = {
 	focus = {
 		id = KMT_north_plan
 		icon = GFX_goal_CHI_retake_manchuria
-		prerequisite = { focus = KMT_fortify_land focus = KMT_SHX_offer }
+
+		relative_position_id = KMT_internal_stability
+		x = -2
+		y = 4
+		cost = 10
+
+		prerequisite = { focus = KMT_warlord }
 		available = {
 			is_puppet = no
 			any_state = {
@@ -2095,9 +1119,7 @@ focus_tree = {
 				}
 			}
 		}
-		x = 3
-		y = 2
-		cost = 10
+
 		bypass = {
 			all_state = {
 				OR = {
@@ -2355,12 +1377,7 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = public_iliteracy_2
-				}
-				remove_ideas = public_iliteracy_2
-			}
+			remove_ideas = public_iliteracy_2
 			add_research_slot = 1
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2622,9 +1639,11 @@ focus_tree = {
 	}
 		
 	focus = {
-		id = KMT_political_effort
+		id = KMT_r56rp_follow_the_principles
 		icon = GFX_focus_chi_legislative_yuan
-		x = 33
+
+		mutually_exclusive = { focus = KMT_r56rp_abandon_sun_yat_sen }
+		x = 28
 		y = 0
 		cost = 10
 
@@ -2634,1193 +1653,1170 @@ focus_tree = {
 		
 		completion_reward = {
 			add_political_power = 120
-			if = {
-				limit = {
-					has_idea = KMT_corrupted_government
-				}
-				swap_ideas = {
-					remove_idea = KMT_corrupted_government
-					add_idea = KMT_corrupted_government_lesser
-				}
-			}
-			if = {
-				limit = {
-					has_idea = KMT_corrupted_government_wartime
-				}
-				swap_ideas = {
-					remove_idea = KMT_corrupted_government_wartime
-					add_idea = KMT_corrupted_government_wartime_lesser
-				}
-			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
 	}
-	
+
 	focus = {
-		id = KMT_democratic_republic
-		icon = GFX_goal_generic_national_unity
-		mutually_exclusive = { focus = KMT_unitary_semi_presidential_republic }
-		mutually_exclusive = { focus = KMT_promote_nationalism }
-		prerequisite = { focus = KMT_political_effort }
-		available = {
-			is_puppet = no
-		}
-		bypass = {
-			has_government = democratic
-			NOT = {
-				has_completed_focus = KMT_unitary_semi_presidential_republic
-			}
-		}
-		relative_position_id = KMT_political_effort
-		x = -2
+		id = KMT_internal_stability
+		icon = GFX_goal_kmt_china
+		mutually_exclusive = { focus = KMT_external_defense }
+		prerequisite = { focus = KMT_r56rp_follow_the_principles
+}
+		relative_position_id = KMT_r56rp_follow_the_principles
+		x = 0
 		y = 1
 		cost = 10
 		
-		completion_reward = {
-			add_dynamic_modifier = {
-				modifier = KMT_combined_democracy_modifier
+		available = {
+			NOT = { has_war_with = JAP }
+			OR = {
+				country_exists = SHX
+				country_exists = YUN
+				country_exists = XSM
+				country_exists = GXC
+				country_exists = TNG
+				country_exists = SIK
+				country_exists = PRC
 			}
-			add_to_variable = { KMT_combined_democracy_modifier_democratic_drift = 0.05 }
-			add_to_variable = { KMT_combined_democracy_modifier_stability_factor = 0.1 }
-			custom_effect_tooltip = KMT_democratic_republic_tt
+		}
+		cancel = {
+			has_war_with = JAP
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				JAP = {
+					OR = {
+						focus_progress = {
+							focus = JAP_support_the_kodoha_faction
+							progress > 0.6
+						}
+						focus_progress = {
+							focus = JAP_r56rp_the_rice_rebellion
+							progress > 0.4
+						}						
+						focus_progress = {
+							focus = JAP_strengthen_civilian_government
+							progress > 0.4
+						}
+					}
+				
+				}
+				factor = 25
+			}			
+			modifier = {
+				is_historical_focus_on = yes
+				NOT = {
+					JAP = {
+						OR = {
+							focus_progress = {
+								focus = JAP_support_the_kodoha_faction
+								progress > 0.6
+							}
+							focus_progress = {
+								focus = JAP_r56rp_the_rice_rebellion
+								progress > 0.4
+							}
+						}
+										
+					}					
+				}
+				factor = 0
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = 125
+			add_war_support = 0.10
+			custom_effect_tooltip = KMT_no_united_front_unless_xian_incident_agreed_tt																			 
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
-	
+
 	focus = {
-		id = KMT_unitary_semi_presidential_republic 
-		icon = GFX_goal_CHI_continue_the_peoples_tutelage
-		prerequisite = { focus = KMT_political_effort }
-		mutually_exclusive = { focus = KMT_democratic_republic }
-		mutually_exclusive = { focus = KMT_promote_nationalism }
-		available = {
-			is_puppet = no
-		}
-		relative_position_id = KMT_political_effort
-		x = -8
+		id = KMT_SHX_offer
+		icon = GFX_goal_CHI_the_shanxi_offer
+		relative_position_id = KMT_internal_stability
+		x = 1
 		y = 1
-		cost = 10
-		
-		completion_reward = {
-			add_ideas = r56rp_KMT_auth_1
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-	
-	focus = {
-		id = KMT_promote_nationalism
-		icon = GFX_goal_morale_bonus
-		prerequisite = { focus = KMT_political_effort }
-		mutually_exclusive = { focus = KMT_democratic_republic }
-		mutually_exclusive = { focus = KMT_unitary_semi_presidential_republic }
+		cost = 5
+
+		prerequisite = { focus = KMT_internal_stability }
 		available = {
+			is_subject = no
+			SHX = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+				OR = {
+					is_in_faction = no
+					is_in_faction_with = CHI
+				}
+			}
+			
+		}
+		cancel = {
 			OR = {
-				is_puppet = no
-				is_puppet_of = JAP
+				is_subject = yes
+				SHX = { exists = no }
+				has_war_with = SHX
+				SHX = { is_subject = yes }
 			}
 		}
 		bypass = {
-			has_government = fascism	
+			OR = {
+				original_tag = SHX
+				SHX = { exists = no }
+				SHX = { 
+					is_subject = yes
+				}
+			}
 		}
-		relative_position_id = KMT_political_effort
-		x = 4
-		y = 1
-		cost = 10
 		
 		completion_reward = {
-			add_ideas = r56rp_KMT_fascism_1
+			SHX = { country_event = { id = kmt.1  hours = 8 }}
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 	}
 	
-	focus = {
-		id = KMT_cbis
-		icon = GFX_goal_generic_secret_police
-		prerequisite = { focus = KMT_unitary_semi_presidential_republic }
-		x = 25
-		y = 2
-		cost = 10
-		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-					has_intelligence_agency = no
-				}
-				create_intelligence_agency = yes				
-			}			
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				add_ideas = KMT_cbis_lar
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = CHI_dai_li_advisor_lar
-			}
-			else = {
-				add_ideas = KMT_cbis
-				custom_effect_tooltip = KMT_cbis_2_tt
-				add_to_variable = { KMT_combined_despotism_modifier_encryption_factor = 0.25 }
-				add_to_variable = { KMT_combined_despotism_modifier_decryption_factor = 0.25 }
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.05
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-					
-		}
-		search_filters = { FOCUS_FILTER_ESPIONAGE FOCUS_FILTER_HISTORICAL }
-	}
+	focus = { 
+		id = KMT_preparation
+		icon = GFX_goal_generic_construct_infrastructure
 
-	focus = {
-		id = KMT_cement_control_on_the_economy
-		icon = GFX_goal_generic_state_economy
-		prerequisite = { focus = KMT_cbis }
-		x = 26
-		y = 3
+		relative_position_id = KMT_internal_stability
+		x = -1
+		y = 1
 		cost = 10
-		completion_reward = {
-			IF = {
-				limit = {
-					has_idea = r56rp_KMT_auth_3
-				}
-				swap_ideas = {
-					remove_idea = r56rp_KMT_auth_3
-					add_idea = r56rp_KMT_auth_4
-				}
-			}
-			ELSE = {
-				swap_ideas = {
-					remove_idea = r56rp_KMT_auth_1
-					add_idea = r56rp_KMT_auth_2
-				}
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.05
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
-	}
 
-	focus = {
-		id = KMT_zhonghua_minzu
-		icon = GFX_goal_generic_multinational_army
-		prerequisite = { focus = KMT_cbis }
-		x = 24
-		y = 3
-		cost = 10
-		completion_reward = {
-			IF = {
-				limit = {
-					has_idea = r56rp_KMT_auth_2
-				}
-				swap_ideas = {
-					remove_idea = r56rp_KMT_auth_2
-					add_idea = r56rp_KMT_auth_4
-				}
-			}
-			ELSE = {
-				swap_ideas = {
-					remove_idea = r56rp_KMT_auth_1
-					add_idea = r56rp_KMT_auth_3
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_MANPOWER }
-	}
-
-	focus = {
-		id = KMT_centralizing_power
-		icon = GFX_goal_generic_political
-		prerequisite = { focus = KMT_zhonghua_minzu }
-		prerequisite = { focus = KMT_cement_control_on_the_economy }
+		prerequisite = { focus = KMT_internal_stability}
 		available = {
-			has_government = neutrality
+			NOT = { has_war_with = PRC }
+			NOT = { PRC = { is_in_faction_with = ROOT }}
 		}
-		x = 25
-		y = 4
-		cost = 10
+		bypass = {
+			PRC = { exists = no }
+		}
+		
 		completion_reward = {
-			#add_ideas = KMT_central_power
-			add_country_leader_trait = headstrong
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.05
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
-	}
-	
-	focus = {
-		id = KMT_into_despotism
-		icon = GFX_goal_waking_the_tiger
-		prerequisite = { focus = KMT_centralizing_power }
-		available = {
-			has_government = neutrality
-		}
-		x = 25
-		y = 5
-		cost = 10
-		completion_reward = {
-			set_rule = { 
-				can_create_factions = yes
-				can_puppet = yes
-			}
-			swap_ideas = {
-				remove_idea = r56rp_KMT_auth_4
-				add_idea = r56rp_KMT_auth_5
-			}
 			if = {
 				limit = {
-					original_tag = CHI
+					has_full_control_of_state = 615
+					has_full_control_of_state = 621
 				}
-				hidden_effect = {
-					CHI_chiang_kai_shek = {
-						remove_country_leader_role = {
-							ideology = the_peoples_tutelage
-						}
-						add_country_leader_role = {
-							country_leader = {
-								expire = "1965.1.1"
-								ideology = despotism
-								traits = {
-									army_connections
-								}
+				621 = {
+					add_building_construction = { 
+						type = supply_node
+						level = 1
+						province = 2087
+						instant_build = yes
+					}
+				}
+				build_railway = { 
+					path = { 1519 4174 12300 10507 7631 4525 2087  }				
+				}
+			}
+			custom_effect_tooltip = KMT_prep_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_controlled_by = ROOT
+							owner = {
+								is_subject_of = ROOT
 							}
-							promote_leader = yes
+						}
+						any_neighbor_state = {
+							is_controlled_by = PRC
 						}
 					}
-				}				
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
 					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.10
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-		search_filters = {  FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
-	}
-	
-	focus = {
-		id = KMT_social_experiment
-		icon = GFX_goal_supremacy_of_will
-		prerequisite = { focus = KMT_into_despotism }
-		available = {
-			NOT = {
-				has_government = democratic
-			}
-		}
-		x = 26
-		y = 6
-		cost = 10
-		completion_reward = {
-			add_research_slot = 1
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
-	}
-	
-	focus = {
-		id = KMT_voting_rights
-		icon = GFX_goal_constitution
-		prerequisite = { focus = KMT_implement_parliamentary_system }
-		available = {
-			has_government = democratic
-		}
-		x = 32
-		y = 3
-		cost = 10
-		completion_reward = {
-			set_rule = {
-				can_generate_female_aces = yes
-			}
-			add_to_variable = { KMT_combined_democracy_modifier_political_power_factor = 0.15 }
-			add_to_variable = { KMT_combined_democracy_modifier_army_core_defence_factor = 0.05 }
-			custom_effect_tooltip = KMT_voting_rights_tt
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.10
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = KMT_georgist_tax_reform
-		icon = GFX_focus_POL_agrarian_reform
-		prerequisite = { focus = KMT_implement_parliamentary_system }
-		available = {
-			NOT = {
-				has_government = fascism
-			}
-		}
-		x = 30
-		y = 3
-		cost = 10
-		completion_reward = {
-			add_to_variable = { KMT_combined_democracy_modifier_production_speed_industrial_complex_factor = 0.1 }
-			add_to_variable = { KMT_combined_democracy_modifier_global_building_slots_factor = 0.15 }
-			custom_effect_tooltip = KMT_georgist_tax_reform_tt
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.10
-					tooltip_side = CHI_r56rp_reform_side
 				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+		
 	
 	focus = {
-		id = KMT_implement_parliamentary_system
-		icon = GFX_goal_generic_wheat
-		prerequisite = { focus = KMT_democratic_republic }
+		id = KMT_strike_PRC
+		icon = GFX_Goal_USA_HUAC
+		prerequisite = { focus = KMT_preparation }
+		
+		relative_position_id = KMT_internal_stability
+		x = -1
+		y = 2
+		cost = 5
+		
+		available = { 
+			PRC = {
+				exists = yes
+			}
+		}		
+		
+		bypass = { 
+			OR = {
+				has_global_flag = PRC_yes_truce
+				PRC = {
+					r56_script_standard_bypass = yes
+				}
+				NOT = { country_exists = PRC }
+			}
+		}
+		
+		completion_reward = {
+			every_country = {
+				limit = {
+					OR = {
+						original_tag = PRC
+						original_tag = SHX
+						original_tag = XSM
+						original_tag = SIK
+						original_tag = YUN
+						original_tag = GXC
+					}
+					has_government = communism
+					NOT = { is_in_faction_with = ROOT }
+				}
+				ROOT = {
+					create_wargoal = {
+						target = PREV
+						type = annex_everything
+						expire = 0
+					}
+				}
+				add_opinion_modifier = { target = ROOT modifier = no_collaboration_with_CHI_COM }
+			}
+			army_experience = 5
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.8
+				uses = 1
+				category = land_doctrine
+			}
+			custom_effect_tooltip = KMT_civil_war_tt
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_RESEARCH }
+	}
+	
+	focus = {
+		id = KMT_warlord
+		icon = GFX_goal_CHI_defeat_the_warlords
+
+		relative_position_id = KMT_internal_stability
+		x = 0
+		y = 3
+		cost = 10
+
+		prerequisite = { focus = KMT_strike_PRC focus = KMT_SHX_offer }
+		available = {
+			is_subject = no
+			OR = {
+				country_exists = SHX
+				country_exists = XSM
+				country_exists = GXC
+				country_exists = YUN
+				country_exists = TNG
+			}
+			OR = {
+				has_global_flag = PRC_yes_truce
+				NOT = {
+					country_exists = PRC
+				}
+			}
+		}
+		bypass = {
+			OR = {
+				NOT = {
+					country_exists = SHX
+					country_exists = XSM
+					country_exists = GXC
+					country_exists = YUN
+					country_exists = TNG
+				}
+				has_global_flag = PRC_yes_truce
+			}
+		}
+		
+		completion_reward = {
+			every_other_country = {
+				limit = {
+					OR = {
+						original_tag = SHX
+						original_tag = XSM
+						original_tag = YUN
+						original_tag = GXC
+						original_tag = MEN
+						original_tag = TNG
+						#original_tag = PGR #is this even used?
+					}
+					exists = yes
+					OR = {
+						is_subject = no
+						is_subject_of = ROOT
+						is_in_faction_with = ROOT
+					}
+					NOT = { is_subject_of = JAP }
+				}
+				country_event = { id = kmt.74 hours = 12 }
+			}
+			custom_effect_tooltip = KMT_civil_war_tt
+			set_country_flag = CHI_hostile_against_warlords
+		}
+	}	
+	
+	focus = {
+		id = KMT_external_defense
+		icon = GFX_goal_CHI_focus_on_external_threats
+		prerequisite = { focus = KMT_r56rp_follow_the_principles focus = KMT_r56rp_abandon_sun_yat_sen } 
+
+		relative_position_id = KMT_internal_stability
+		x = 4
+		y = 0
+		cost = 5
+
+		mutually_exclusive = { focus = KMT_internal_stability }
 		available = {
 			NOT = {
-				has_government = fascism
+				has_war_with = PRC
+				has_war_with = SHX
+				has_war_with = XSM
+				has_war_with = YUN
+				has_war_with = GXC
+				has_war_with = TNG
+				is_in_faction_with = JAP
+				is_subject_of = JAP
 			}
 		}
-		x = 31
-		y = 2
-		cost = 10
+		cancel = {
+			OR = {
+				has_war_with = SHX
+				has_war_with = YUN
+				has_war_with = XSM
+				has_war_with = GXC
+				has_war_with = SHX
+				has_war_with = TNG
+				is_in_faction_with = JAP
+				is_subject_of = JAP				  
+			}
+		}
+		
+		bypass = {
+			has_war_with = JAP
+		}
+		
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 2
+			}
+			modifier = {
+				PRC = {
+					is_ai = no
+				}
+				factor = 3
+			}
+		}
+		
 		completion_reward = {
-			remove_ideas = CHI_communist_uprisings
-			add_to_variable = { KMT_combined_democracy_modifier_conscription = 0.01 }
-			add_to_variable = { KMT_combined_democracy_modifier_production_factory_efficiency_gain_factor = 0.1 }
-			custom_effect_tooltip = KMT_implement_parliamentary_system_tt
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.05
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
+			add_stability = 0.05
+			add_political_power = 100
+			set_global_flag = KMT_united_front_enabled
+			custom_effect_tooltip = KMT_enables_united_front_tt			 
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
-		id = KMT_universal_sufferage
-		icon = GFX_goal_CHI_three_principes_of_the_people
-		prerequisite = { focus = KMT_voting_rights }
-		prerequisite = { focus = KMT_georgist_tax_reform }
-		available = {
-			has_government = democratic
-		}
-		x = 31
-		y = 4
+		id = KMT_fortify_land
+		icon = GFX_goal_generic_fortify_city
+
+		relative_position_id = KMT_external_defense
+		x = -1
+		y = 1
 		cost = 10
+
+		prerequisite = { focus = KMT_external_defense }
+		available = {
+			NOT = {
+				has_war_with = PRC
+				has_war_with = SHX
+				has_war_with = GXC
+				has_war_with = XSM
+				has_war_with = YUN
+				has_war_with = TNG
+				is_in_faction_with = JAP
+			}
+		}
+		bypass = {
+			OR = {
+				NOT = {
+					608 = {
+						is_fully_controlled_by = ROOT
+					}
+					613 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				is_in_faction_with = JAP
+			}
+		}
+		
 		completion_reward = {
-			add_to_variable = { KMT_combined_democracy_modifier_stability_factor = 0.1 }
-			add_to_variable = { KMT_combined_democracy_modifier_democratic_drift = 0.1 }
-			add_to_variable = { KMT_combined_democracy_modifier_consumer_goods_factor = -0.05 }
-			custom_effect_tooltip = KMT_universal_sufferage_tt
+			army_experience = 10
 			if = {
 				limit = {
-					has_dlc = "La Resistance"
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = CHI_dai_li_advisor_lar
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
+					613 = {
+						is_fully_controlled_by = ROOT
 					}
 				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.10
-					tooltip_side = CHI_r56rp_reform_side
+				613 = {
+					custom_effect_tooltip = kmt_forts_in_shanghai_tt
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 7014
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 11913
+							instant_build = yes
+						}
+					}
+					add_building_construction = {
+						type = anti_air_building
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+			effect_tooltip = {
+				if = {
+					limit = {
+						608 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					608 = {
+						custom_effect_tooltip = KMT_fortify_land_tt
+						hidden_effect = {
+							add_building_construction = {
+								type = bunker
+								level = 3
+								province = 9843
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 3
+								province = 10068
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 2
+								province = 11761
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 2
+								province = 12026
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 2
+								province = 6828
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 2
+								province = 4140
+								instant_build = yes
+							}
+						}
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_idea = german_advisors
+					}
+					country_event = { id = kmt.218 }
+				}
+				if = {
+					limit = {
+						NOT = { has_idea = german_advisors }
+					}
+					if = {
+						limit = {
+							608 = {
+								is_fully_controlled_by = ROOT
+							}
+						}
+						608 = {
+							add_building_construction = {
+								type = bunker
+								level = 3
+								province = 9843
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 3
+								province = 10068
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 2
+								province = 11761
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 2
+								province = 12026
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 2
+								province = 6828
+								instant_build = yes
+							}
+							add_building_construction = {
+								type = bunker
+								level = 2
+								province = 4140
+								instant_build = yes
+							}
+						}
+					}
+				}
+			}
+		}	
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
-		id = KMT_european_friend
-		icon = GFX_allies
-		prerequisite = { focus = KMT_universal_sufferage }
-		mutually_exclusive = { focus = KMT_alone_in_the_east }
-		x = 30
-		y = 5
+		id = KMT_fortify_coast
+		icon = GFX_focus_generic_coastal_fort
+
+		relative_position_id = KMT_external_defense
+		x = 1
+		y = 1
 		cost = 10
+
+		prerequisite = { focus = KMT_external_defense }
 		available = {
-			is_puppet = no
-			OR = {
-				ENG = {
-					NOT = { has_war_with = ROOT }
-					has_government = democratic
-					has_capitulated = no
-					is_faction_leader = yes
-					has_opinion = {
-						target = ROOT
-						value > 0
-					}					
+			NOT = {
+				has_war_with = PRC
+				has_war_with = SHX
+				has_war_with = GXC
+				has_war_with = XSM
+				has_war_with = YUN
+				has_war_with = TNG
+				is_in_faction_with = JAP
+			}
+			any_state = {
+				OR = {
+					state = 597
+					state = 613
+					state = 596
+					state = 595
 				}
-				any_other_country = {
-					is_major = yes
-					has_government = democratic
-					is_faction_leader = yes
-					NOT = { has_war_with = ROOT }
-					has_opinion = {
-						target = ROOT
-						value > 0
-					}					
+				is_fully_controlled_by = ROOT
+			}
+		}
+		bypass = {
+			NOT = {
+				AND = {
+					597 = { is_fully_controlled_by = ROOT }
+					613 = { is_fully_controlled_by = ROOT }
+					596 = { is_fully_controlled_by = ROOT }
+					595 = { is_fully_controlled_by = ROOT }
 				}
 			}
+			is_in_faction_with = JAP
+		}
+		
+		completion_reward = {
+			army_experience = 10
+			597 = {
+				if = {
+					limit = {
+						597 = { 
+							is_fully_controlled_by = ROOT
+						}
+					}
+					custom_effect_tooltip = kmt_coastal_bunker_sd_tt
+					hidden_effect = {
+						add_building_construction = {
+							type = coastal_bunker
+							level = 2
+							province = 4205
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = coastal_bunker
+							level = 2
+							province = 10000
+							instant_build = yes
+						}
+					}
+				}
+			}
+			613 = {
+				if = {
+					limit = {
+						613 = { is_fully_controlled_by = ROOT }
+					}
+					custom_effect_tooltip = kmt_coastal_bunker_sh_tt
+					hidden_effect = {
+						add_building_construction = {
+							type = coastal_bunker
+							level = 4
+							province = 7014
+							instant_build = yes
+						}
+					}
+				}
+			}
+			596 = {
+				if = {
+					limit = {
+						596 = { is_fully_controlled_by = ROOT }
+					}
+					custom_effect_tooltip = kmt_coastal_bunker_zhej_tt
+					hidden_effect = {
+						add_building_construction = {
+							type = coastal_bunker
+							level = 2
+								province = 7191
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = coastal_bunker
+							level = 3
+							province = 1055
+							instant_build = yes
+							}
+						add_building_construction = {
+							type = coastal_bunker
+							level = 2
+							province = 9974
+							instant_build = yes
+						}
+					}
+				}
+			}	
+			595 = {
+				if = {
+					limit = {
+						595 = { is_fully_controlled_by = ROOT }
+					}
+					custom_effect_tooltip = kmt_coastal_bunker_fj_tt
+					hidden_effect = {
+						add_building_construction = {
+							type = coastal_bunker
+							level = 2
+							province = 4196
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = coastal_bunker
+							level = 2
+							province = 7071
+							instant_build = yes
+						}
+					}
+				}
+			}
+			608 = {
+				if = {
+					limit = {
+						608 = { is_fully_controlled_by = ROOT }
+					}
+					custom_effect_tooltip = kmt_coastal_bunker_tj_tt
+					hidden_effect = {
+						add_building_construction = {
+							type = coastal_bunker
+							level = 2
+							province = 10068
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}	
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	
+	focus = {
+		id = KMT_national_def_propaganda
+		icon = GFX_goal_CHI_national_defence_propaganda
+
+		relative_position_id = KMT_the_big_rear_concept
+		x = -2
+		y = 1
+		cost = 10
+
+		prerequisite = { focus = KMT_the_big_rear_concept }
+		available = {
+			NOT = {
+				has_war_with = PRC
+				has_war_with = SHX
+				has_war_with = GXC
+				has_war_with = XSM
+				has_war_with = YUN
+				has_war_with = TNG
+				is_in_faction_with = JAP
+			}
+		}
+		
+		
+		ai_will_do = {
+			factor = 20
 		}
 
-		bypass = {
-			is_in_faction_with = ENG
-		}
-		
 		completion_reward = {
+			add_political_power = 100
 			if = {
 				limit = {
-					ENG = {
-						has_government = democratic
-						is_faction_leader = yes
-						NOT = {
-							has_completed_focus = ENG_a_change_in_course
-							has_completed_focus = ENG_visit_germany	
-						}
-						has_capitulated = no
-						NOT = { has_war_with = ROOT }
-					}
 					NOT = {
-						any_other_country = {
-							is_in_faction_with = ENG
-							has_war_with = ROOT
-						}
-					}					
+						has_war_with = PRC
+						has_war_with = SHX
+						has_war_with = GXC
+						has_war_with = YUN
+						has_war_with = XSM
+						has_war_with = TNG
+					}
 				}
-				ENG = {
-					country_event = { id = kmt.21 days = 3 }
+				add_ideas = KMT_propaganda
+			}
+			IF = {
+				limit = {
+					has_power_balance = {
+						id = CHI_r56rp_corruption_power_balance
+					}
+				}
+				add_power_balance_value = {
+					id = CHI_r56rp_corruption_power_balance
+					value = 0.20
+					tooltip_side = CHI_r56rp_reform_side
 				}
 			}
-			else = {
-				get_best_alliance_match_democratic_effect = yes
-				var:best_leader = {
-					country_event = generic.2
-				}
-			}		
 		}
-		search_filters = { FOCUS_FILTER_ALLIANCE }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}
 	
 	focus = {
-		id = KMT_alone_in_the_east
-		icon = GFX_goal_generic_freedom
-		prerequisite = { focus = KMT_universal_sufferage }
-		mutually_exclusive = { focus = KMT_european_friend }
-		available = {
-			has_government = democratic
-		}
-		x = 32
+		id = KMT_tibet_march
+		icon = GFX_goal_PRC_liberate_tibet
+
+		relative_position_id = KMT_internal_stability
+		x = -1
 		y = 5
 		cost = 10
+
+		prerequisite = { focus = KMT_warlord }
+		mutually_exclusive = { focus = KMT_tibet_friend }
+		available = {
+			is_subject = no
+			TIB = {
+				exists = yes
+				is_subject = no
+			}
+			any_neighbor_country = {
+				original_tag = TIB
+			}
+			OR = {
+				is_ai = no
+				AND = {
+					is_ai = yes
+					has_war = no
+				}
+			}
+		}
+		bypass = {
+			OR = {
+				has_war_with = TIB
+				NOT = { country_exists = TIB }
+				TIB = { is_subject_of = ROOT }
+			}
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				TIB = {
+					is_ai = yes
+				}
+				add = 0.1
+			}
+		}
+		
 		
 		completion_reward = {
-			set_rule = { can_create_factions = yes }
-			add_to_variable = { KMT_combined_democracy_modifier_drift_defence_factor = 0.65 }
-			custom_effect_tooltip = KMT_alone_in_the_east_tt
+			# every_state = { No cores cuz unrealistic due to their resistance even after getting occupied in 1950 and being a totally different people and religion
+			# 	limit = {
+			# 		is_core_of = TIB
+			# 		NOT = {
+			# 			is_core_of = ROOT
+			# 		}
+			# 	}
+			# 	add_core_of = ROOT
+			# }
+			TIB = { country_event = { id = kmt.8 days = 3 } }
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
+	}
+	
+	focus = {
+		id = KMT_tibet_friend
+		icon = GFX_goal_TIB_fair_treatment_dalai_lama
+
+		relative_position_id = KMT_internal_stability
+		x = 1
+		y = 5
+		cost = 10
+
+		prerequisite = {  focus = KMT_warlord }
+		mutually_exclusive = { focus = KMT_tibet_march }
+		available = { 
+			is_subject = no
+			TIB = {
+				exists = yes
+				is_subject = no
+				NOT = { has_war_with = ROOT }
+				OR = {
+					is_in_faction = no
+					NOT = { is_in_faction_with = ROOT }
+				}
+			}
+		}
+		bypass = {
+			TIB = { is_in_faction_with = ROOT }
+		}
+		cancel = {
+			OR = {
+				NOT = { country_exists = TIB }
+				has_war_with = TIB
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0.1
+		}	
+		completion_reward = {
+			every_state = {
+				limit = {
+					OR = {
+						state = 322
+						state = 758
+						state = 757
+						state = 601
+						state = 604
+					}
+					is_claimed_by = ROOT
+				}
+				remove_claim_by = ROOT
+			}
+			TIB = {
+				country_event = { id = kmt.197 days = 1 }
+				add_opinion_modifier = { target = ROOT modifier = chi_tib_diplomatic_focus }
+				if = {
+					limit = {
+						ROOT = { NOT = { has_government = neutrality } }
+					}
+					if = {
+						limit = {
+							ROOT = {
+								has_government = fascism
+							}
+						}
+						add_ideas = fascist_influence
+					}
+					if = {
+						limit = {
+							ROOT = {
+								has_government = communism
+							}
+						}
+						add_ideas = communist_influence
+					}
+					if = {
+						limit = {
+							ROOT = {
+								has_government = democratic
+							}
+						}
+						add_ideas = democratic_influence
+					}
+					country_event = { id = generic.1 }
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
-		id = KMT_knowledge_of_the_citizens
-		icon = GFX_goal_supremacy_of_will
-		prerequisite = { focus = KMT_alone_in_the_east }
-		available = {
-			has_government = democratic
-		}
-		x = 32
-		y = 6
-		cost = 10
-		
-		completion_reward = {
-			add_to_variable = { KMT_combined_democracy_modifier_research_speed_factor = 0.04 }
-			custom_effect_tooltip = KMT_knowledge_of_the_citizens_tt
-			add_research_slot = 1
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	
-	focus = {
-		id = KMT_westernization
-		icon = GFX_focus_research2
-		prerequisite = { focus = KMT_european_friend }
-		available = {
-			has_government = democratic
-		}
-		x = 30
-		y = 6
-		cost = 10
-		
-		completion_reward = {
-			add_timed_idea = {
-				idea = KMT_westernization_ns
-				days = 365
-			}
-			add_research_slot = 1
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	
-	focus = {
-		id = KMT_fascism_focus
-		icon = GFX_goal_CHI_power_to_the_blueshirts
-		prerequisite = { focus = KMT_promote_nationalism }
-		mutually_exclusive = { focus = KMT_militarism_focus }
-		relative_position_id = KMT_promote_nationalism
-		x = -1
-		y = 1
-		cost = 10
-		available = {
-			is_puppet = no
-		}
-		
-		completion_reward = {
-			set_country_flag = new_life
-			swap_ideas = {
-				remove_idea = r56rp_KMT_fascism_1
-				add_idea = r56rp_KMT_fascism_2
-			}
+		id = KMT_redraw_mcmahon
+		icon = GFX_focus_RAJ_british_investors
 
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.1
-			}
-			add_political_power = 75
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = CHI_dai_li_advisor_lar
-			}
-		}
-		search_filters = {  FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
-	}
-			
-			
-			
-	focus = {
-		id = KMT_militarism_focus
-		icon = GFX_goal_military_government
-		prerequisite = { focus = KMT_promote_nationalism }
-		mutually_exclusive = { focus = KMT_fascism_focus }
-		relative_position_id = KMT_promote_nationalism
-		x = 1
-		y = 1
+		relative_position_id = KMT_internal_stability
+		x = 0
+		y = 6
 		cost = 10
+
+		prerequisite = { focus = KMT_tibet_friend focus = KMT_tibet_march }
 		available = {
+			has_army_manpower = { size > 1999999 }				 
+			434 = { is_owned_by = RAJ }
+			NOT = {
+				is_in_faction_with = RAJ
+				has_war_with = RAJ
+			}
 			OR = {
-				is_puppet_of = JAP
-				AND = {
-					NOT = {
-						has_war_with = JAP
+				NOT = { country_exists = TIB }
+				TIB = {
+					OR = {
+						is_subject_of = ROOT 
+						is_in_faction_with = ROOT 
 					}
 					NOT = {
-						OR = {
-							JAP = {
-								focus_progress = {
-							    focus = JAP_intervene_in_china
-							    progress > 0.1
-							}
-								has_completed_focus = JAP_intervene_in_china
-							}
+						has_war_with = RAJ
+					}
+				}
+			}
+			custom_trigger_tooltip = { 
+				tooltip = KMT_redraw_mcmahon_tt
+				hidden_trigger = {
+					OR = {
+						AND = {
+							322 = { is_owned_by = ROOT }
+							601 = { is_owned_by = ROOT }
+						}
+						AND = {
+							322 = { is_owned_by = TIB }
+							601 = { is_owned_by = TIB }
+						}
+						AND = {
+							322 = { is_owned_by = TIB }
+							601 = { is_owned_by = ROOT }
+						}
+						AND = {
+							322 = { is_owned_by = ROOT }
+							601 = { is_owned_by = TIB }
 						}
 					}
 				}
 			}
 		}
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = r56rp_KMT_fascism_1
-				add_idea = r56rp_KMT_fascism_r_2
-			}
-			add_to_variable = { KMT_combined_fascism_modifier_attrition = -0.1 }
-			add_to_variable = { KMT_combined_fascism_modifier_conscription = 0.01 }
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = CHI_dai_li_advisor_lar
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.05
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = KMT_ban_communism
-		icon = GFX_goal_generic_anti_communism
-		prerequisite = { focus = KMT_fascism_focus }
-		available = {
-			NOT = {
-				has_government = communism
-			}
-		}
-		relative_position_id = KMT_fascism_focus
-		x = 0
-		y = 1
-		cost = 10
-		completion_reward = {
-			if = {
-				limit = {
-					NOT = { has_dlc = "La Resistance" }
-				}
-				swap_ideas = {
-					remove_idea = r56rp_KMT_fascism_2
-					add_idea = r56rp_KMT_fascism_4
-				}
-			}
-			else_if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				swap_ideas = {
-					remove_idea = r56rp_KMT_fascism_2
-					add_idea = r56rp_KMT_fascism_3
-				}
-			}
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.25
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.05
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = KMT_planning_our_empire
-		icon = GFX_focus_generic_china1
-		prerequisite = { focus = KMT_ban_communism }
-		available = {
-			has_government = fascism
-		}
-		relative_position_id = KMT_ban_communism
-		x = 0
-		y = 1
-		cost = 15
-		completion_reward = {
-			set_rule = { can_create_factions = yes }
-			if = {
-				limit = {
-					NOT = { has_dlc = "La Resistance" }
-				}
-				swap_ideas = {
-					remove_idea = r56rp_KMT_fascism_4
-					add_idea = r56rp_KMT_fascism_6
-				}
-			}
-			else_if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				swap_ideas = {
-					remove_idea = r56rp_KMT_fascism_3
-					add_idea = r56rp_KMT_fascism_5
-				}
-			}
-			add_political_power = 100
-			add_research_slot = 1
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.10
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}
-	
-	focus = {
-		id = KMT_isolation_tactic
-		icon = GFX_goal_generic_secret_documents
-		prerequisite = { focus = KMT_planning_our_empire }
-		available = {
-			has_government = fascism
-		}
 		bypass = {
-			is_in_faction_with = SOV
+			434 = {
+				is_owned_by = ROOT
+			}
 		}
-		relative_position_id = KMT_planning_our_empire
-		x = 0
-		y = 1
-		cost = 5
+		cancel = {
+			OR = {
+				OR = {
+					TIB = { has_war_with = RAJ }
+					has_war_with = RAJ
+				}
+				NOT = { 434 = { is_owned_by = RAJ } }
+				custom_trigger_tooltip = { 
+					tooltip = KMT_redraw_mcmahon_cancel_tt
+					hidden_trigger = {
+						NOT = {
+							AND = {
+								322 = { is_owned_by = ROOT }
+								601 = { is_owned_by = ROOT }
+							}
+							AND = {
+								322 = { is_owned_by = TIB }
+								601 = { is_owned_by = TIB }
+							}
+							AND = {
+								322 = { is_owned_by = TIB }
+								601 = { is_owned_by = ROOT }
+							}
+							AND = {
+								322 = { is_owned_by = ROOT }
+								601 = { is_owned_by = TIB }
+							}
+						}
+					}
+				}
+				AND = {
+					country_exists = TIB
+					OR = {
+						NOT = {	TIB = { is_puppet_of = ROOT } }
+						NOT = {	TIB = { is_in_faction_with = ROOT } }
+					}
+				}
+			}
+		}
 		
 		completion_reward = {
-			every_country = {
-				limit = {
-					is_in_faction_with = MON
-					is_faction_leader = yes
-				}
-				country_event = { id = kmt.25 days = 5 }
-			}
-			if = {
-				limit = {
-					MON = {
-						is_in_faction = no
-					}
-				}
-				MON = {
-					country_event = { id = kmt.27 }
-				}
-			}
-			every_country = {
-				limit = {
-					is_in_faction_with = SIK
-					is_faction_leader = yes
-				}
-				country_event = { id = kmt.28 days = 5 }
-			}
-			if = {
-				limit = {
-					SIK = {
-						is_in_faction = no
-					}
-				}
-				SIK = {
-					country_event = { id = kmt.27 }
-				}
-			}
-			every_country = {
-				limit = {
-					is_in_faction_with = TAN
-					is_faction_leader = yes
-				}
-				country_event = { id = kmt.30 days = 5 }
-			}
-			if = {
-				limit = {
-					TAN = {
-						is_in_faction = no
-					}
-				}
-				TAN = {
-					country_event = { id = kmt.27 }
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = KMT_war_propaganda
-		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = KMT_militarism_focus }
-		relative_position_id = KMT_militarism_focus
-		x = 0
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.1
-			}
-			swap_ideas = {
-				remove_idea = r56rp_KMT_fascism_r_2
-				add_idea = r56rp_KMT_fascism_r_3
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.05
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
-	}
-	
-	focus = {
-		id = KMT_military_first
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = KMT_war_propaganda }
-		available = {
-			has_government = fascism
-		}
-		relative_position_id = KMT_war_propaganda
-		x = 0
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = r56rp_KMT_fascism_r_3
-				add_idea = r56rp_KMT_fascism_r_4
-			}
-			add_research_slot = 1
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER }
-	}
-	
-	focus = {
-		id = KMT_war_fanaticism
-		icon = GFX_goal_generic_major_war
-		prerequisite = { focus = KMT_military_first }
-		relative_position_id = KMT_military_first
-		x = 0
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			set_rule = { can_create_factions = yes }
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.25
-			}
-			swap_ideas = {
-				remove_idea = r56rp_KMT_fascism_r_4
-				add_idea = r56rp_KMT_fascism_r_5
-			}
-			custom_effect_tooltip = kamikaze_focus_tooltip
-			hidden_effect = {
-				set_rule = { can_use_kamikaze_pilots = yes }
-			}
-			IF = {
-				limit = {
-					has_power_balance = {
-						id = CHI_r56rp_corruption_power_balance
-					}
-				}
-				add_power_balance_value = {
-					id = CHI_r56rp_corruption_power_balance
-					value = 0.05
-					tooltip_side = CHI_r56rp_reform_side
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_STABILITY }
-	}
-	
-	focus = {
-		id = KMT_claim_territory
-		icon = GFX_goal_generic_demand_territory
-		prerequisite = { focus = KMT_war_fanaticism focus = KMT_isolation_tactic }
-		available = {
-			has_government = fascism
-		}
-		relative_position_id = KMT_war_fanaticism
-		x = -1
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			every_state = {		#Mongolian and Tuvan states
-				limit = {
-					OR = {
-						is_core_of = MON
-						is_core_of = TAN
-					}
-					NOT = { is_claimed_by = ROOT }
-					NOT = { is_core_of = ROOT }
-				}
-				add_claim_by = ROOT
-			}
-			every_state = {		#Korea
-				limit = {
-					OR = {
-						is_core_of = KOR
-						is_core_of = NKR
-					}
-					NOT = { is_claimed_by = ROOT }
-					NOT = { is_core_of = ROOT }
-				}
-				add_claim_by = ROOT
-			}
-			every_state = {		#Indochina
-				limit = {
-					OR = {
-						is_core_of = FRI
-						is_core_of = VIN
-						is_core_of = CAM
-						is_core_of = LAO
-					}
-					NOT = { is_claimed_by = ROOT }
-					NOT = { is_core_of = ROOT }
-				}
-				add_claim_by = ROOT
-			}
-			every_state = {		#Soviet states 
-				limit = {
-					OR = {
-						is_core_of = GUK
-						is_core_of = KYR
-						is_core_of = TAJ
-						state = 586
-						state = 589
-					}
-					NOT = { is_claimed_by = ROOT }
-					NOT = { is_core_of = ROOT }
-				}
-				add_claim_by = ROOT
-			}
-			every_state = {		#Nepal + Bhutan
-				limit = {
-					OR = {
-						is_core_of = NEP
-						is_core_of = BHU
-					}
-					NOT = { is_claimed_by = ROOT }
-					NOT = { is_core_of = ROOT }
-				}
-				add_claim_by = ROOT
-			}
-			if = {
-				limit = {
-					434  = {
-						NOT = { is_core_of = ROOT }
-					}
-				}
-				add_state_core = 434
-			}
-			if = {
-				limit = {
-					787  = {
-						NOT = { is_core_of = ROOT }
-					}
-				}
-				add_state_core = 787
-			}
-			if = {
-				limit = {
-					441  = {
-						NOT = { is_core_of = ROOT }
-					}
-				}
-				add_state_core = 441
-			}
+			add_state_core = 434
+			RAJ = { country_event = { id = kmt.11  days = 3 }}
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
-
+	
 	focus = {
-		id = KMT_demand_soviet_puppets
-		icon = GFX_focus_usa_focus_on_asia
-		prerequisite = { focus = KMT_claim_territory}
-		relative_position_id = KMT_claim_territory
-		x = -1
-		y = 1
+		id = KMT_r56rp_abandon_sun_yat_sen
+		icon = GFX_focus_chi_legislative_yuan
+
+		mutually_exclusive = { focus = KMT_r56rp_follow_the_principles }
+		relative_position_id = KMT_r56rp_follow_the_principles
+		x = 8
+		y = 0
 		cost = 10
-		available = {
-			is_subject = no
-			any_state = {
-				custom_trigger_tooltip = {
-					tooltip = state_in_central_steppe_or_central_asia_tt
-					OR = {
-						state = 330
-						state = 921
-						state = 922
-						state = 923
-						state = 617
-						state = 618
-						state = 287
-						state = 619
-						state = 329
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = ROOT_is_not_controlled_by_root_or_ally_tt
-					NOT = {
-						is_controlled_by_ROOT_or_ally = yes
-					}
-				}
-			}
-		}
-		bypass = {
-			all_state = {
-				OR = {
-					NOT = {
-						custom_trigger_tooltip = {
-							tooltip = state_in_central_steppe_or_central_asia_tt
-							OR = {
-								state = 330
-								state = 921
-								state = 922
-								state = 923
-								state = 617
-								state = 618
-								state = 287
-								state = 619
-								state = 329
-							}
-						}
-					}
-					is_controlled_by_ROOT_or_ally = yes
-				}
-			}
+
+		ai_will_do = {
+			factor = 5
 		}
 		
 		completion_reward = {
-			every_other_country = {
-				limit = {
-					NOT = { is_subject_of = ROOT }
-					NOT = { is_in_faction_with = ROOT }
-					any_controlled_state = {
-						OR = {
-							region = 152
-							region = 145
-						}
-					}
-				}
-				country_event = { id = kmt.52 days = 1 }
-			}
+			add_political_power = 120
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
 	}
-	
-	
+
 	focus = {
-		id = KMT_demand_indochina
-		icon = GFX_goal_attack_indochina
-		prerequisite = { focus = KMT_claim_territory}
-		relative_position_id = KMT_claim_territory
-		x = 1
+		id = KMT_r56rp_a_new_democratic_idea
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = KMT_r56rp_abandon_sun_yat_sen }
+
+		mutually_exclusive = { 
+			#focus = KMT_r56rp_a_new_democratic_idea
+			focus = KMT_r56rp_deal_with_the_devil
+			focus = KMT_r56rp_a_han_empire
+			focus = KMT_r56rp_warlord_build_in_our_borders
+		}
+		relative_position_id = KMT_r56rp_abandon_sun_yat_sen
+		x = 0
 		y = 1
 		cost = 10
-		available = {
-			is_subject = no
-			any_state = {
-				custom_trigger_tooltip = {
-					tooltip = state_in_indochina_tt
-					OR = {
-						region = 142
-						region = 228
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = ROOT_is_not_controlled_by_root_or_ally_tt
-					NOT = {
-						is_controlled_by_ROOT_or_ally = yes
-					}
-				}
-			}
-		}
-		bypass = {
-			all_state = {
-				OR = {
-					NOT = {
-						custom_trigger_tooltip = {
-							tooltip = state_in_indochina_tt
-							OR = {
-								region = 142
-								region = 228
-							}
-						}
-					}
-					is_controlled_by_ROOT_or_ally = yes
-				}
-			}
+
+		ai_will_do = {
+			factor = 5
 		}
 		
 		completion_reward = {
-			every_other_country = {
-				limit = {
-					NOT = { is_subject_of = ROOT }
-					NOT = { is_in_faction_with = ROOT }
-					any_controlled_state = {
-						OR = {
-							region = 142
-							region = 228
-						}
-					}
-				}
-				country_event = { id = kmt.56 days = 1 }
-			}
+			# entire idea is to abandon cores on rest of china
+			# since that is a starting precept of sun yat sen's road to democracy
+			# going as far as to ignore warlords and make some weird eu-style 
+			# monstrosity in china.
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+	}
+
+	focus = {
+		id = KMT_r56rp_a_han_empire
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = KMT_r56rp_abandon_sun_yat_sen }
+
+		mutually_exclusive = { 
+			focus = KMT_r56rp_a_new_democratic_idea
+			focus = KMT_r56rp_deal_with_the_devil
+			#focus = KMT_r56rp_a_han_empire
+			focus = KMT_r56rp_warlord_build_in_our_borders
+		}
+		relative_position_id = KMT_r56rp_abandon_sun_yat_sen
+		x = 3
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+		
+		completion_reward = {
+			# you dont abandon all chinese cores
+			# but you do abandon the 5 races idea
+			# and you retain cores on han chinese people.
+			# this should be still a militant expansionist path
+			# but not over cores
+			# not to self, no genocide.
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+	}
+
+	focus = {
+		id = KMT_r56rp_deal_with_the_devil
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = KMT_r56rp_abandon_sun_yat_sen }
+
+		mutually_exclusive = { 
+			focus = KMT_r56rp_a_new_democratic_idea
+			#focus = KMT_r56rp_deal_with_the_devil
+			focus = KMT_r56rp_a_han_empire
+			focus = KMT_r56rp_warlord_build_in_our_borders
+		}
+		relative_position_id = KMT_r56rp_abandon_sun_yat_sen
+		x = 6
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+		
+		completion_reward = {
+			# serve japan
+			# give japan resource rights in exchange for
+			# assistance in unifying china.
+			# should also contain a "ask for manchuria" focus
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+	}
+
+	focus = {
+		id = KMT_r56rp_warlord_build_in_our_borders
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = KMT_r56rp_abandon_sun_yat_sen }
+
+		mutually_exclusive = { 
+			focus = KMT_r56rp_a_new_democratic_idea
+			focus = KMT_r56rp_deal_with_the_devil
+			focus = KMT_r56rp_a_han_empire
+			#focus = KMT_r56rp_warlord_build_in_our_borders
+		}
+		relative_position_id = KMT_r56rp_abandon_sun_yat_sen
+		x = 9
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+		
+		completion_reward = {
+			# serve japan
+			# give japan resource rights in exchange for
+			# assistance in unifying china.
+			# should also contain a "ask for manchuria" focus
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
 	}
 	
 
-	
-	
 	focus = {
 		id = KMT_improve_burma_road
 		icon = GFX_goal_generic_road
@@ -3951,313 +2947,6 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
-	
-	focus = {
-		id = KMT_trade_port_neutral
-		icon = GFX_focus_renounce_the_treaty_of_trianon
-		prerequisite = { focus = KMT_into_despotism }
-		ai_will_do = {
-			factor = 0
-		}
-		available = {
-			has_war = no
-			has_government = neutrality
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = kmt_neutral_tp_gzw
-					728 = {
-						NOT = {
-							is_owned_by = ROOT
-							owner = {
-								has_war_with = ROOT
-							}
-						}
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = kmt_neutral_tp_mc
-					729 = {
-						NOT = {
-							is_owned_by = ROOT
-							owner = {
-								has_war_with = ROOT
-							}
-						}
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = kmt_neutral_tp_hk
-					326 = {
-						NOT = {
-							is_owned_by = ROOT
-							owner = {
-								has_war_with = ROOT
-							}
-						}
-					}
-				}
-			}
-		}
-		x = 24
-		y = 6
-		cost = 10
-		bypass = {
-			728 = {
-				OR = {
-					is_owned_by = ROOT
-					owner = {
-						has_war_with = ROOT
-					}
-				}
-			}
-			729 = {
-				OR = {
-					is_owned_by = ROOT
-					owner = {
-						has_war_with = ROOT
-					}
-				}
-			}
-			326 = {
-				OR = {
-					is_owned_by = ROOT
-					owner = {
-						has_war_with = ROOT
-					}
-				}
-			}
-		}
-		
-		completion_reward = {
-			if = {
-				limit = {
-					728 = {
-						NOT = {
-							is_owned_by = ROOT
-						}
-					}
-				}
-				728 = {
-					owner = {
-						country_event = { id = kmt.100 }
-					}
-				}
-			}
-			if = {
-				limit = {
-					729 = {
-						NOT = {
-							is_owned_by = ROOT
-						}
-					}
-				}
-				729 = {
-					owner = {
-						country_event = { id = kmt.103 days = 1 }
-					}
-				}
-			}
-			if = {
-				limit = {
-					326 = {
-						NOT = {
-							is_owned_by = ROOT
-						}
-					}
-				}
-				326 = {
-					owner = {
-						country_event = { id = kmt.106 days = 2 }
-					}
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = KMT_trade_port_demo
-		icon = GFX_goal_naval_treaty
-		prerequisite = { focus = KMT_european_friend focus = KMT_alone_in_the_east }
-		available = {
-			has_government = democratic
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = kmt_demo_tp_gzw
-					728 = {
-						is_owned_by = FRA
-						FRA = {
-							has_civil_war = no
-							NOT = {
-								has_war_with = ROOT
-							}
-						}
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = kmt_demo_tp_mc
-					729 = {
-						is_owned_by = POR
-						POR = {
-							has_civil_war = no
-							NOT = {
-								has_war_with = ROOT
-							}
-						}
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = kmt_demo_tp_hk
-					326 = {
-						is_owned_by = ENG
-						ENG = {
-							has_civil_war = no
-							NOT = {
-								has_war_with = ROOT
-							}
-						}
-					}
-				}
-			}
-		}
-		x = 31
-		y = 7
-		cost = 10
-		bypass = {
-			728 = {
-				OR = {
-					NOT = {
-						is_owned_by = FRA
-					}
-					is_owned_by = ROOT
-					owner = {
-						has_war_with = ROOT
-					}
-				}
-			}
-			729 = {
-				OR = {
-					NOT = {
-						is_owned_by = POR
-					}
-					is_owned_by = ROOT
-					owner = {
-						has_war_with = ROOT
-					}
-				}
-			}
-			326 = {
-				OR = {
-					NOT = {
-						is_owned_by = ENG
-					}
-					is_owned_by = ROOT
-					owner = {
-						has_war_with = ROOT
-					}
-				}
-			}
-		}
-		
-		completion_reward = {
-			if = {
-				limit = {
-					OR = {
-						728 = {
-							is_owned_by = FRA
-						}
-						728 = {
-							is_owned_by = FRI
-						}
-					}
-				}
-				728 = {
-					owner = {
-						country_event = { id = kmt.109 }
-					}
-				}
-			}
-			if = {
-				limit = {
-					729 = {
-						is_owned_by = POR
-					}
-				}
-				729 = {
-					owner = {
-						country_event = { id = kmt.112 days = 1 }
-					}
-				}
-			}
-			if = {
-				limit = {
-					326 = {
-						is_owned_by = ENG
-					}
-				}
-				326 = {
-					owner = {
-						country_event = { id = kmt.115 days = 2 }
-					}
-				}
-			}
-		}
-		
-	}
-	
-	focus = {
-		id = KMT_trade_port_fascism
-		icon = GFX_goal_generic_occupy_states_coastal
-		prerequisite = { focus = KMT_claim_territory }
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				has_war = yes
-				factor = 0
-			}
-		}
-		available = {
-			has_government = fascism
-			any_state = {
-				OR = {
-					state = 745
-					state = 743
-					state = 326
-					state = 729
-					state = 728
-				}
-				NOT = {
-					is_controlled_by = ROOT
-				}
-			}
-		}
-		relative_position_id = KMT_claim_territory
-		x = 0
-		y = 2
-		cost = 10
-		bypass = {
-			all_state = {
-				OR = {
-					NOT = { 
-						OR = {
-							state = 745
-							state = 743
-							state = 326
-							state = 729
-							state = 728
-						}
-					}
-					is_controlled_by = ROOT
-				}
-			}
-		}
-		
-		completion_reward = {
-			add_political_power = 50
-			unlock_decision_category_tooltip = CHI_unequal_treaties
-		}
-	}
-	
-	
 	
 	focus = {
 		id = KMT_ledo_road
@@ -4746,48 +3435,13 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = KMT_monetary_reform
-		icon = GFX_focus_mex_privatisation
-		available = {
-			has_war = no
-			has_idea = KMT_jinyuanquan_inflation
-		}
-		prerequisite = { focus = KMT_political_effort }
-		relative_position_id = KMT_political_effort
-		x = 6
-		y = 1
-		cost = 40
-		#cost = 50
-
-		cancel_if_invalid = no
-		continue_if_invalid = yes
-		
-		completion_reward = {
-			remove_ideas = KMT_jinyuanquan_inflation
-			if = {
-				limit = {
-					OR = {
-						has_idea = KMT_corrupted_government
-						has_idea = KMT_corrupted_government_lesser
-					}
-				}
-				add_ideas = civilian_economy
-			}
-			if = {
-				limit = {
-					has_idea = KMT_corrupted_government_wartime
-				}
-				add_ideas = partial_economic_mobilisation
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	
-	focus = {
 		id = KMT_the_big_rear_concept
 		icon = GFX_goal_CHI_big_rear
-		x = 47
-		y = 0
+		prerequisite = { focus = KMT_external_defense } 
+
+		relative_position_id = KMT_external_defense
+		x = 0
+		y = 2
 		cost = 14.3
 		
 		available = {
@@ -5561,10 +4215,12 @@ focus_tree = {
 	focus = {
 		id = r56rp_KMT_nra_1939_winter_offensive
 		icon = GFX_goal_CHI_retake_manchuria
-		prerequisite = { focus = KMT_the_big_rear_concept }
-		relative_position_id = KMT_the_big_rear_concept
+		prerequisite = { focus = KMT_lure_them_in_strategy }
+
+		relative_position_id = KMT_lure_them_in_strategy
 		x = -2
 		y = 1
+
 		available = {
 			date > 1939.10.1
 		}
@@ -6622,7 +5278,115 @@ focus_tree = {
 			}
 		}	
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
-	}		
+	}
+
+	focus = {
+		id = KMT_r56rp_proclaim_chinese_unity
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = KMT_r56rp_abandon_sun_yat_sen }
+
+		mutually_exclusive = { 	}
+		#relative_position_id = KMT_r56rp_abandon_sun_yat_sen
+		x = 28
+		y = 10
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available = {
+
+		}
+		
+		completion_reward = {
+
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+	}
+
+
+	focus = {
+		id = KMT_r56rp_eternal_custodianship_of_kmt
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = KMT_r56rp_proclaim_chinese_unity }
+
+		relative_position_id = KMT_r56rp_proclaim_chinese_unity
+		x = 5
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available = {
+
+		}
+		
+		completion_reward = {
+
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+	}
+
+	focus = {
+		id = KMT_r56rp_chinese_democracy
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = KMT_r56rp_proclaim_chinese_unity }
+		mutually_exclusive = { 
+			#focus = KMT_r56rp_chinese_democracy
+			focus = KMT_r56rp_eternal_custodianship_of_kmt
+		}
+
+		relative_position_id = KMT_r56rp_proclaim_chinese_unity
+		x = 0
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available = {
+
+		}
+		
+		completion_reward = {
+			# requires first free elections.
+			# god only knows what political parties to slap here.
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+	}
+
+	focus = {
+		id = KMT_r56rp_eternal_custodianship_of_kmt
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = KMT_r56rp_proclaim_chinese_unity }
+		mutually_exclusive = { 
+			focus = KMT_r56rp_chinese_democracy
+			#focus = KMT_r56rp_eternal_custodianship_of_kmt
+		}
+
+		relative_position_id = KMT_r56rp_proclaim_chinese_unity
+		x = 5
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available = {
+
+		}
+		
+		completion_reward = {
+
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+	}
+
 	
 	focus = {
 		id = KMT_focus_on_our_own_army
@@ -6796,318 +5560,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
 	}	
 	
-	focus = {
-		id = KMT_increase_sino_german_cooperation
-		icon = GFX_goal_generic_officers
-		available = {
-			GER = {
-				is_puppet = no
-				has_opinion = {
-					target = ROOT
-					value > 9
-				}
-				has_government = fascism
-				custom_trigger_tooltip = {
-					tooltip = KMT_alone_or_peace_faction_tt
-					is_alone_or_in_faction_at_peace_with_CHI = yes
-				}
-			}
-			NOT = {
-				has_war_with = GER
-			}
-			is_puppet = no
-		}
-		prerequisite = { focus = KMT_promote_nationalism }
-		relative_position_id = KMT_promote_nationalism
-		x = 7
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			GER = {
-				country_event = { id = kmt.332 }
-			}
-			effect_tooltip = {
-				custom_effect_tooltip = needs_approval
-				GER = {
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = more_sino_german_coop
-					}
-				}
-				add_opinion_modifier = {
-					target = GER
-					modifier = more_sino_german_coop
-				}
-				if = {
-					limit = {
-						has_idea = german_advisors
-					}
-					swap_ideas = {
-						remove_idea = german_advisors
-						add_idea = KMT_sino_german_joint_research_ger_adv
-					}
-					else = {
-						add_ideas = KMT_sino_german_joint_research
-					}
-				}
-			}
-											 
-		}	
-	}		
-	
-	focus = {
-		id = KMT_support_pro_japanese_faction
-		icon = GFX_goal_CHI_support_pro_japanese_faction
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = JAP
-			}
-			JAP = {
-				exists = yes 
-				has_government = fascism
-			}
-		}
-		prerequisite = { focus = KMT_promote_nationalism }
-		relative_position_id = KMT_promote_nationalism
-		x = 3
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.15
-			}
-			add_stability = -0.15
-			add_political_power = -150		 
-			JAP = {
-				country_event = { id = kmt.220 }
-			}
-			if = {
-				limit = {
-					PRC = {
-						has_completed_focus = PRC_anti_japanese_aim
-					}
-					PRC = {
-						NOT = {
-							has_opinion_modifier = pro_jap_traitor
-						}
-					}
-				}
-				PRC = {
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = pro_jap_traitor
-					}
-				}
-			}
-			set_party_name = { ideology = fascism long_name = KMT_wjw name = KMT_wjw }
-			create_country_leader = {
-				name = "Wang Jingwei"
-				picture = "gfx/leaders/CHI/r56_portrait_CHI_Wang_Jingwei.dds"
-				expire = "1965.1.1"
-				ideology = fascism_ideology
-				traits = {
-					anti_communist
-					eager_collaborator
-				}
-			}
-		}	
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}	
-	
-	focus = {
-		id = KMT_re_elaborate_hakko_ichiu
-		icon = GFX_focus_generic_japanese_imperial_glory
-		available = {
-			is_subject = no
-			any_other_country = {
-				original_tag = JAP
-				exists = yes 
-				has_government = fascism
-				NOT = {
-					has_war_with = ROOT
-				}
-			}
-		}
-		prerequisite = { focus = KMT_support_pro_japanese_faction }
-		relative_position_id = KMT_support_pro_japanese_faction
-		x = 0
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			add_stability = -0.2
-			add_political_power = -150	 
-			if = {
-				limit = {
-					NOT = { has_government = fascism }
-				}
-				set_politics = {
-					ruling_party = fascism
-				}
-			}
-			add_popularity = {
-				ideology = fascism
-				popularity = 0.25
-			}
-			every_other_country = {
-				limit = {
-					original_tag = JAP
-					exists = yes 
-					has_government = fascism
-					NOT = {
-						has_war_with = ROOT
-					}
-				}
-				country_event = { id = kmt.221 days = 1 }
-			}
-		}	
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}
-
-	#focus = { #shelved for later
-	#	id = KMT_manchurian_question
-	#	icon = GFX_focus_jap_cast_the_die
-	#	mutually_exclusive = { focus = KMT_manchurian_offer }
-	#	available = {
-	#		is_subject = no
-	#		any_other_country = {
-	#			original_tag = JAP
-	#			exists = yes
-	#			OR = {
-	#			has_government = fascism
-	#			has_government = neutrality
-	#			}
-	#			NOT = {
-	#				has_war_with = ROOT
-	#			}
-	#		}
-	#	}
-	#	prerequisite = { focus = KMT_support_pro_japanese_faction focus = KMT_increase_sino_german_cooperation }
-	#	relative_position_id = KMT_re_elaborate_hakko_ichiu
-	#	x = 2
-	#	y = 1
-	#	cost = 5
-	#	
-	#	completion_reward = {
-	#
-	#	}	
-	#	search_filters = { FOCUS_FILTER_POLITICAL }
-	#}
-
-	#focus = {
-	#	id = KMT_manchurian_offer
-	#	icon = GFX_goal_JAP_attack_manchukuo
-	#	#mutually_exclusive = { focus = KMT_manchurian_question }
-	#	available = {
-	#		is_subject = no
-	#		any_other_country = {
-	#			original_tag = MAN
-	#			exists = yes
-	#			is_subject = no
-	#			NOT = {
-	#				has_war_with = ROOT
-	#			}
-	#		}
-	#		strength_ratio = {
-	#			tag = MAN
-	#			ratio > 1.5
-	#		}
-	#		JAP = {
-	#			OR = {
-	#				has_completed_focus = JAP_pre_emptive_coup
-	#				has_completed_focus = JAP_cast_the_die
-	#			}
-	#		}
-	#	}
-	#	prerequisite = { focus = KMT_promote_nationalism  } #focus = KMT_increase_sino_german_cooperation
-	#	relative_position_id = KMT_re_elaborate_hakko_ichiu
-	#	x = 2
-	#	y = -2
-	#	cost = 5
-	#	
-	#	completion_reward = {
-	#		add_stability = -0.10
-	#		add_political_power = -150
-	#	}	
-	#	search_filters = { FOCUS_FILTER_POLITICAL }
-	#}
-	
-	focus = {
-		id = KMT_introduce_shipbuilding_technology
-		icon = GFX_goal_generic_construct_naval_dockyard
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = JAP
-			}
-			JAP = { exists = yes}
-			is_in_faction_with = JAP
-		}
-		prerequisite = { focus = KMT_re_elaborate_hakko_ichiu }
-		relative_position_id = KMT_re_elaborate_hakko_ichiu
-		x = 1
-		y = 2
-		cost = 10
-		
-		completion_reward = {
-			JAP = {
-				country_event = { id = kmt.224 }
-				custom_effect_tooltip = needs_approval
-			}
-			effect_tooltip = {
-				custom_effect_tooltip = KMT_jap_navy_indus_assist_tt
-				add_tech_bonus = {
-					name = dd_bonus
-					ahead_reduction = 1
-					uses = 1
-					bonus = 1
-					category = naval_equipment
-				}
-				if = {
-					limit = {
-						JAP = { has_idea = the_long_lance }
-					}
-					add_ideas = the_long_lance
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_navy
-					}
-					remove_ideas = incompetent_industry_real_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_2_navy
-					}
-					remove_ideas = incompetent_industry_real_2_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_3_navy
-					}
-					remove_ideas = incompetent_industry_real_3_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_4_navy
-					}
-					remove_ideas = incompetent_industry_real_4_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_5_navy
-					}
-					remove_ideas = incompetent_industry_real_5_navy
-				}
-			}
-		}	
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}	
-	
 	#focus = {
 	#	id = KMT_force_japan_to_accept_peace
 	#	icon = GFX_goal_military_agreement_germany
@@ -7142,581 +5594,15 @@ focus_tree = {
 	#}
 	
 	focus = {
-		id = KMT_trade_deal_with_germany_1
-		icon = GFX_focus_generic_tungsten
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = GER
-			}
-			GER = {
-				is_subject = no
-			}
-			owns_state = 593 #guangdong.
-			owns_state = 592 # guangzhou
-		}
-		prerequisite = { focus = KMT_increase_sino_german_cooperation }
-		relative_position_id = KMT_increase_sino_german_cooperation
-		x = -1
-		y = 2
-		cost = 5
-		
-		completion_reward = {
-			GER = {
-				country_event = { id = chinajapanese.1 }
-				custom_effect_tooltip = needs_approval
-				
-			}
-			custom_effect_tooltip = possible_rewardsger_tt
-			effect_tooltip = {
-				give_resource_rights = {
-					receiver = GER
-					state = 593
-					resources = { tungsten chromium }
-				}
-				give_resource_rights = {
-					receiver = GER
-					state = 592
-					resources = { Tungsten chromium }
-				}
-			}
-			CHI = {
-				effect_tooltip = {
-					add_offsite_building = { 
-						type = arms_factory level = 2 
-					}
-					add_offsite_building = { 
-						type = industrial_complex
-						level = 5 
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = KMT_trade_deal_with_germany_2
-		icon = GFX_focus_manufacturers_cooperation
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = GER
-			}
-			GER = {
-				is_subject = no
-			}
-		}
-		prerequisite = { focus = KMT_trade_deal_with_germany_1 }
-		relative_position_id = KMT_trade_deal_with_germany_1
-		x = 0
-		y = 2
-		cost = 5
-		
-		completion_reward = {
-			GER = {
-				country_event = { id = chinajapanese.2 days = 1 }
-				custom_effect_tooltip = needs_approval
-			}
-			custom_effect_tooltip = possible_rewardsger_tt
-			if = {
-				limit = {
-					has_country_flag = chijapaccepted2
-				}
-				effect_tooltip = {
-					GER = {
-						add_to_tech_sharing_group = CHI_technological_cooperation_tech_group
-					}
-					CHI = {
-						add_to_tech_sharing_group = CHI_technological_cooperation_tech_group
-					}
-				}
-			}
-		}
-	
-	}
-	
-	#focus = {
-	#	id = KMT_force_japan_to_cede_land
-	#	icon = GFX_focus_generic_seek_accomodation_with_germany
-	#	available = {
-	#		is_puppet = no
-	#		NOT = {
-	#			has_war_with = GER
-	#		}
-	#		GER = {
-	#			is_in_faction_with = JAP
-	#			is_faction_leader = yes
-	#		}
-	#		custom_trigger_tooltip = {
-	#			tooltip = KMT_any_state_chi_core_jap_own_tt
-	#			any_state = {
-	#				is_core_of = ROOT
-	#				OR = {
-	#					is_owned_by = JAP
-	#					owner = {
-	#						is_puppet_of = JAP
-	#					}
-	#				}
-	#			}
-	#		}
-	#		has_government = fascism
-	#		NOT = {
-	#			has_global_flag = jap_civil_war_sf
-	#		}
-	#	}
-	#	prerequisite = { focus = KMT_force_japan_to_accept_peace }
-	#	relative_position_id = KMT_force_japan_to_accept_peace
-	#	x = 0 
-	#	y = 2
-	#	cost = 10
-	#	
-	#	completion_reward = {
-	#		GER = {
-	#			country_event = { id = kmt.240 }
-	#		}
-	#	}
-	#}	
-	
-		
-	
-	focus = {
-		id = KMT_japanese_advisors
-		icon = GFX_focus_chi_collaboration_with_the_japanese
-		available = {
-			is_in_faction_with = JAP
-		}
-		prerequisite = { focus = KMT_re_elaborate_hakko_ichiu }
-		relative_position_id = KMT_re_elaborate_hakko_ichiu
-		x = 0
-		y = 1
-		cost = 10
-		
-		completion_reward = {
-			add_ideas = KMT_jap_military_advisors
-		}
-	}			
-	
-	focus = {
-		id = KMT_draw_closer_to_the_empire
-		icon = GFX_goal_tfv_strengthen_commonwealth_ties
-		prerequisite = { focus = KMT_democratic_republic focus = KMT_unitary_semi_presidential_republic }
-		relative_position_id = KMT_democratic_republic
-		x = -3
-		y = 1
-		cost = 2
-		
-		completion_reward = {
-			add_opinion_modifier = {
-				target = ENG
-				modifier = KMT_closer_to_britain
-			}
-			ENG = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = KMT_closer_to_britain
-				}
-			}
-		}
-	}		
-	
-	focus = {
-		id = KMT_trans_pacific_friendship_focus
-		icon = GFX_focus_chi_mission_to_the_us
-		prerequisite = { focus = KMT_democratic_republic }
-		relative_position_id = KMT_democratic_republic
-		x = 3
-		y = 1
-		cost = 2
-		
-		completion_reward = {
-			add_opinion_modifier = {
-				target = USA
-				modifier = KMT_trans_pacific_friendship
-			}
-			USA = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = KMT_trans_pacific_friendship
-				}
-			}
-		}
-	}		
-	
-	focus = {
-		id = KMT_oust_the_colonizers
-		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
-		prerequisite = { focus = KMT_isolation_tactic focus = KMT_war_fanaticism }
-		relative_position_id = KMT_japanese_advisors
-		x = -2
-		y = 0
-		relative_position_id = KMT_claim_territory
-		cost = 10
-
-		available = {
-			r56_script_i_am_sane = yes
-			any_state = {
-				custom_trigger_tooltip = {
-					tooltip = state_in_indochina_malaysia_indonesia_raj_tt
-					OR = {
-						region = 190
-						region = 153
-						region = 31
-						region = 141
-						region = 189
-						region = 142
-						region = 188
-						region = 187
-						region = 158
-						region = 159
-						region = 93
-						region = 167
-						region = 160
-						state = 323
-					}
-				}
-				OR = {
-					owner = {
-						capital_scope = { NOT = { is_on_continent = asia }}
-					}
-					owner = {
-						custom_trigger_tooltip = {
-							tooltip = is_subject_extra_tt
-							is_subject = yes
-						}
-						OVERLORD = {
-							capital_scope = {
-								OR = {
-									is_on_continent = europe
-									is_on_continent = north_america
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		completion_reward = {
-			every_other_country = {
-				limit = {
-					NOT = { is_subject_of = ROOT }
-					any_owned_state = {
-						OR = {
-							region = 190
-							region = 153
-							region = 31
-							region = 141
-							region = 189
-							region = 142
-							region = 188
-							region = 187
-							region = 158
-							region = 159
-							region = 93
-							region = 167
-							region = 160
-							state = 323
-						}
-					}
-					OR = {
-						capital_scope = { NOT = { is_on_continent = asia }}
-						AND = {
-							is_subject = yes
-							overlord = {
-								capital_scope = {
-									NOT = { is_on_continent = asia }
-								}
-							}
-						}
-					}
-				}
-				ROOT = {
-					create_wargoal = {
-						target = PREV
-						type = take_state_focus
-						expire = 0
-					}
-				}
-			}
-			if = {
-				limit = {
-					any_state = {
-						is_on_continent = asia
-						is_owned_by = POR
-					}
-				}
-				POR = { country_event = { id = kmt.251 }}
-			}
-			custom_effect_tooltip = KMT_oust_the_colonizers_tt
-			unlock_decision_category_tooltip = CHI_liberation_of_asia
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}	
-	
-	focus = {
-		id = KMT_pursuade_britain
-		icon = GFX_focus_ENG_home_defense
-		available = {
-			has_defensive_war_with = JAP
-			ENG = { 
-				exists = yes
-				has_government = democratic
-			}
-			NOT = { has_idea = KMT_corrupted_government_wartime_lesser } #prequisite moves it to lesser
-			surrender_progress < 0.70
-		}
-		bypass = {
-			ENG = { has_war_with = JAP }
-		}
-		prerequisite = { focus = KMT_draw_closer_to_the_empire  }
-		x = 28
-		y = 3
-		cost = 5
-		
-		completion_reward = {
-			ENG = { country_event = { id = kmt.249 }}
-		}
-		search_filters = { FOCUS_FILTER_HISTORICAL }
-	}
-	
-	focus = {
-		id = KMT_introduce_shipbuilding_technology_usa
-		icon = GFX_goal_generic_construct_naval_dockyard
-		prerequisite = { focus = KMT_trans_pacific_friendship_focus }
-		x = 34
-		y = 3
-		cost = 10
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = USA
-			}
-			USA = {
-				has_government = democratic
-				exists = yes
-				has_opinion = {
-					target = ROOT
-					value > 9
-				}
-			}
-		}
-		
-		completion_reward = {
-			USA = {
-				country_event = { id = kmt.224 }
-				custom_effect_tooltip = needs_approval
-			}
-			effect_tooltip = {
-				custom_effect_tooltip = KMT_jap_navy_indus_assist_tt
-				add_tech_bonus = {
-					name = dd_bonus
-					ahead_reduction = 1
-					uses = 1
-					bonus = 1
-					category = naval_equipment
-				}
-				if = {
-					limit = {
-						USA = { has_idea = bureau_of_ships_focus }
-					}
-					add_ideas = bureau_of_ships_focus
-				}
-				if = {
-					limit = {
-						USA = { has_idea = liberty_ships_focus }
-					}
-					add_ideas = liberty_ships_focus
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_navy
-					}
-					remove_ideas = incompetent_industry_real_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_2_navy
-					}
-					remove_ideas = incompetent_industry_real_2_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_3_navy
-					}
-					remove_ideas = incompetent_industry_real_3_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_4_navy
-					}
-					remove_ideas = incompetent_industry_real_4_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_real_5_navy
-					}
-					remove_ideas = incompetent_industry_real_5_navy
-				}
-			}
-		}	
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	
-	focus = {
-		id = KMT_join_the_axis
-		icon = GFX_goal_generic_join_axis
-		prerequisite = { focus = KMT_increase_sino_german_cooperation }
-		relative_position_id = KMT_increase_sino_german_cooperation
-		x = 0
-		y = 1
-		cost = 10
-	 	available = {
-	 		is_puppet = no
-			is_in_faction = no
-	 		NOT = { has_war_with = GER }
-	 		OR = {
-	 			has_government = fascism
-	 			fascism > 0.4
-	 		}
-	 		
-	 		GER = {
-	 			exists = yes
-	 			has_government = fascism
- 				is_faction_leader = yes
-	 		}
-		}
-		bypass = {
-			is_in_faction_with = GER
-		}
-		
-		completion_reward = {
-			GER = { country_event = { id = kmt.247 days = 1 } }	
-		}
-	}
-
-	focus = {
-		id = KMT_force_japan_to_accept_peace
-		icon = GFX_goal_military_agreement_germany
-
-		prerequisite = { focus = KMT_increase_sino_german_cooperation }
-
-		relative_position_id = KMT_join_the_axis
-		x = 1
-		y = 1
-		cost = 10
-
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = GER
-			}
-			GER = {
-				is_in_faction_with = JAP
-				is_faction_leader = yes
-			}
-			JAP = {
-				has_war_with = ROOT
-			}
-			has_government = fascism
-			NOT = {
-				has_global_flag = jap_civil_war_sf
-			}
-		}
-
-		completion_reward = {
-			GER = {
-				country_event = { id = kmt.233 }
-			}
-		}
-	}		
-	
-	focus = {
-		id = KMT_force_japan_to_cede_land
-		icon = GFX_focus_generic_seek_accomodation_with_germany
-
-		prerequisite = { focus = KMT_force_japan_to_accept_peace }
-
-		relative_position_id = KMT_force_japan_to_accept_peace
-		x = 0
-		y = 2
-		cost = 10
-
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = GER
-			}
-			GER = {
-				is_in_faction_with = JAP
-				is_faction_leader = yes
-			}
-			custom_trigger_tooltip = {
-				tooltip = KMT_any_state_chi_core_jap_own_tt
-				any_state = {
-					is_core_of = ROOT
-					OR = {
-						is_owned_by = JAP
-						owner = {
-							is_puppet_of = JAP
-						}
-					}
-				}
-			}
-			has_government = fascism
-			NOT = {
-				has_global_flag = jap_civil_war_sf
-			}
-		}
-
-		completion_reward = {
-			GER = {
-				country_event = { id = kmt.240 }
-			}
-		}
-	}
-
-	focus = {
-		id = KMT_pincer_soviet
-		icon = GFX_goal_generic_war_with_comintern
-		
-		available = {
-			r56_script_i_am_sane = yes
-			SOV = {
-				r56_script_target_is_sane = yes
-				has_war = yes
-			}
-		}
-		
-		bypass = {
-			SOV = {
-				r56_script_standard_bypass = yes
-			}
-		}
-		
-		prerequisite = { focus = KMT_join_the_axis }
-		relative_position_id = KMT_join_the_axis
-		x = 0
-		y = 2
-		cost = 10
-		
-		completion_reward = {
-			create_wargoal = {
-				target = SOV
-				expire = 0
-				type = take_state_focus
-				generator = { 408 409 657 560 561 742 732 586 589 }
-			}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
-	
-	focus = {
 		id = KMT_deal_with_SIK
 		icon = GFX_goal_CHI_sinkiang
-		x = 3
+
+		relative_position_id = KMT_internal_stability
+		x = 0
 		y = 4
 		cost = 10
-		prerequisite = { focus = KMT_warlord focus = KMT_national_def_propaganda }
+
+		prerequisite = { focus = KMT_warlord  }
 		ai_will_do = {
 			factor = 0
 		}
