@@ -3306,19 +3306,27 @@ on_actions = {
 	# 	    set_country_flag = has_paradropped_flag
 	# 	}
 	# }
-	on_ruling_party_change = { 
-		# temp var old_ideology_token is available for effects
-		effect = {
-			every_controlled_state = {
-				limit = {
-					has_resistance = yes
-				}
-				set_temp_variable = { new_compliance = compliance }
-				multiply_temp_variable = { new_compliance = 0.5 }
-				set_compliance = new_compliance
-			}
-		}
-	}
+
+	# r56rp
+	# this causes many an issue.
+	# as an example take britain flipping to edward. This is not an "on ideaology" this is on "ruling party change".
+	# that means you get hit twice while swapping to edward, prime minister -> colapsed government -> edward.
+	# so, 100*0.5 = 50; 50*0.5 = 25. And that assumes 100% initial compliance. makes the entire british empire suddenly start
+	# resisting britain for changing from a constitutional monarchy into an absolute monarchy. stupid.
+	#
+	#on_ruling_party_change = { 
+	#	# temp var old_ideology_token is available for effects
+	#	effect = {
+	#		every_controlled_state = {
+	#			limit = {
+	#				has_resistance = yes
+	#			}
+	#			set_temp_variable = { new_compliance = compliance }
+	#			multiply_temp_variable = { new_compliance = 0.5 }
+	#			set_compliance = new_compliance
+	#		}
+	#	}
+	#}
 
 	on_add_history = { #Unit Scope
 		effect = {
