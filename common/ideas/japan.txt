@@ -1667,13 +1667,6 @@ ideas = {
 			removal_cost = -1
 
 			picture = jap_supremacy_of_technology
-
-			# r56rp
-			# fuck it, more buffs.
-			modifier = {
-				research_speed_factor = 0.10
-				special_project_speed_factor = 0.10
-			}
 			
 			research_bonus = {
 				artillery = 0.25
@@ -2504,26 +2497,6 @@ ideas = {
 			} 
 		}
 
-		JAP_r56_rat_transportation = {
-
-			allowed = {
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = no
-			}
-			
-			picture = generic_sea_focused_navy
-
-			removal_cost = -1
-
-			modifier = {
-				convoy_retreat_speed = 0.05
-				transport_capacity = -0.05
-			}
-		}
-
 		JAP_r56_nanshin_ron_player = { #player ver
 			name = JAP_r56_nanshin_ron
 
@@ -2999,41 +2972,7 @@ ideas = {
 			ai_will_do = {
 				factor = 0
 			}			
-		}	
-		JAP_kajima = {
-			name = JAP_kajima
-
-			picture = generic_industrial_concern_2
-
-			allowed = {
-				original_tag = JAP
-			}
-
-			cost = 150
-
-			research_bonus = {
-				industry = 0.1
-			}
-
-			traits = { construction_company }
-
-		}
-		JAP_japanese_government_railways = {
-			name = JAP_japanese_government_railways 
-			picture = generic_electronics_concern_2
-
-			allowed = {
-				original_tag = JAP
-			}
-
-			research_bonus = {
-				train_tech = 0.2
-			}
-			cost = 150
-			traits = { railway_company }
-
-		}
-
+		}		
 	}
 	
 	materiel_manufacturer = {
@@ -3224,9 +3163,17 @@ ideas = {
 				original_tag = JAP
 			}
 			available = {
-				OR = {
+				if = {
+					limit = {
+						has_dlc = "Waking the Tiger"
+					}
+					OR = {
+						has_completed_focus = JAP_purge_the_kodoha_faction
+						has_completed_focus = JAP_strengthen_civilian_government
+					}
+				}
+				else = {
 					has_completed_focus = JAP_purge_the_kodoha_faction
-					has_completed_focus = JAP_strengthen_civilian_government
 				}
 			}
 			

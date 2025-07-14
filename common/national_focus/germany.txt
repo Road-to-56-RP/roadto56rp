@@ -6,9 +6,6 @@
 ### search_filters = {FOCUS_FILTER_MANPOWER}
 ### search_filters = {FOCUS_FILTER_ANNEXATION}
 ### search_filters = {FOCUS_FILTER_INTERNAL_AFFAIRS}
-### search_filters = {FOCUS_FILTER_ARMY_XP}
-### search_filters = {FOCUS_FILTER_NAVY_XP}
-### search_filters = {FOCUS_FILTER_AIR_XP}
 ### search_filters = {FOCUS_FILTER_BALANCE_OF_POWER}
 ### search_filters = {FOCUS_FILTER_POLITICAL_CHARACTER}
 ### search_filters = {FOCUS_FILTER_MILITARY_CHARACTER}
@@ -126,9 +123,6 @@ focus_tree = {
 
 ##########################################
 
-
-
-
 	focus = {
 		id = GER_prioritize_economic_growth
 		icon = GFX_focus_usa_reestablish_the_gold_standard
@@ -138,12 +132,6 @@ focus_tree = {
 		y = 0
 		cost = 5
 		#relative_position_id = GER_strengthen_the_kriegsmarine
-
-		available = {
-			NOT = {
-				has_dynamic_modifier = { modifier = GER_economy_of_conquest_modifier }
-			}
-		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL_CHARACTER }
 
@@ -6319,25 +6307,25 @@ focus_tree = {
 				name = Hans
 				surname = Rudel
 				callsign = Adler #made-up-ish; "Eagle of the Eastern Front" was his real nickname
-				type = support_genius_bombing
+				type = support_genius
 			}
 			add_ace = {
 				name = Anton
 				surname = Hubsch
 				callsign = Toni
-				type = support_unique_agility
+				type = support_unique
 			}
 			add_ace = {
 				name = Gerhard
 				surname = Studemann
 				callsign = Stutz
-				type = support_unique_agility
+				type = support_unique
 			}
 			add_ace = {
 				name = Alois
 				surname = Wosnitza
 				callsign = Ritter #Made-up
-				type = support_unique_bombing
+				type = support_unique
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -6457,25 +6445,25 @@ focus_tree = {
 				name = Werner
 				surname = Baumbach
 				callsign = "Papa Bär" #made-up
-				type = bomber_unique_bombing
+				type = bomber_unique
 			}
 			add_ace = {
 				name = Bernhard
 				surname = Jope
 				callsign = Senker #made-up
-				type = bomber_unique_bombing
+				type = bomber_unique
 			}
 			add_ace = {
 				name = Anton
 				surname = Hubsch
 				callsign = Toni
-				type = support_unique_bombing
+				type = support_unique
 			}
 			add_ace = {
 				name = Gerhard
 				surname = Studemann
 				callsign = Stutz
-				type = support_unique_bombing
+				type = support_unique
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -6589,25 +6577,25 @@ focus_tree = {
 				name = Hansgeorg
 				surname = Batcher
 				callsign = Schützin #made-up
-				type = support_genius_bombing
+				type = bomber_genius
 			}
 			add_ace = {
 				name = Werner
 				surname = Baumbach
 				callsign = "Papa Bär" #made-up
-				type = bomber_unique_bombing
+				type = bomber_unique
 			}
 			add_ace = {
 				name = Bernhard
 				surname = Jope
 				callsign = Senker #made-up
-				type = bomber_unique_bombing
+				type = bomber_unique
 			}
 			add_ace = {
 				name = Horst
 				surname = Rudat
 				callsign = Mistel #made-up
-				type = bomber_unique_bombing
+				type = bomber_unique
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -10247,7 +10235,6 @@ focus_tree = {
 		continue_if_invalid = yes
 		
 		available_if_capitulated = no
-		will_lead_to_war_with = AUS	#56
 		
 		available = {
 			if = {
@@ -11535,13 +11522,7 @@ focus_tree = {
 					NOT = { CZE = { controls_state = 664 } }
 					NOT = { owns_state = 664 }
 				}
-				HUN = { 
-					OR = {
-						is_friend_or_potential_friend_of_GER = no
-						has_government = communism
-						has_government = democratic
-					}
-				}
+				HUN = { is_friend_or_potential_friend_of_GER = no }
 				CZE = { is_puppet_of = GER }
 				CZE = { is_in_faction_with = GER }
 			}
@@ -12300,7 +12281,6 @@ focus_tree = {
 					OR = {
 						NOT = { has_government = fascism }
 						is_subject = yes
-						is_in_faction = yes	#r56
 					}
 				}
 			}
@@ -12372,12 +12352,7 @@ focus_tree = {
 			NOT = { is_in_faction_with = ITA }
 			NOT = { has_guaranteed = ITA }
 			NOT = { has_non_aggression_pact_with = ITA }
-		}
-
-		bypass = {
-			is_in_faction_with = ITA
-			has_war_with = ITA
-			ITA = { is_subject_of = ROOT }
+			NOT = { ITA = { is_subject_of = ROOT } }
 		}
 
 		ai_will_do = {
@@ -13173,68 +13148,6 @@ focus_tree = {
 			}
 		}
 	}
-
-	focus = {
-		id = GER_danzig_for_slovakia
-
-		icon = GFX_goal_generic_intelligence_exchange
-
-		prerequisite = { focus = GER_befriend_poland }
-
-		x = 0
-		y = 1
-		relative_position_id = GER_befriend_poland
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0
-				OR = {
-					has_government = democratic
-					has_government = communism
-				}
-			}
-		}
-		
-		available = {
-			is_subject = no
-			OR = {
-				SLO = {
-					exists = yes
-					is_in_faction_with = GER
-				}
-				owns_state = 70
-			}
-			NOT = { owns_state = 85 }
-			NOT = { has_war_with = POL }
-			POL = { owns_state = 72 }
-		}
-
-		bypass = {
-			OR = {
-				POL = {
-					exists = no
-				}
-				owns_state = 85
-				has_war_with = POL
-			}
-		}
-
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-
-		completion_reward = {
-
-			POL = {
-				country_event = { 
-					id = germany.80 
-					days = 1 
-				}
-			}
-
-		}
-	}
 	
 	focus = {
 		id = GER_subjugate_romanian_economy
@@ -13340,8 +13253,6 @@ focus_tree = {
 		will_lead_to_war_with = HOL
 		will_lead_to_war_with = LUX
 		will_lead_to_war_with = FRA
-		will_lead_to_war_with = WLL	#56
-		will_lead_to_war_with = FLA	#56
 
 		bypass = {
 			HOL = {
@@ -13472,46 +13383,6 @@ focus_tree = {
 				add_ai_strategy = { 
 					type = conquer
 					id = LUX
-					value = 100
-				}		
-			}
-			if = {	#56 - Since they are possible lowlands tags, releasing them could theoretically cheese a German AI
-				limit = {
-					country_exists = WLL
-					NOT = { 
-						is_ally_with = WLL 
-						has_war_with = WLL
-					}
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = WLL
-					expire = 0
-					generator = { 34 }
-				}		
-				add_ai_strategy = { 
-					type = conquer
-					id = WLL
-					value = 100
-				}		
-			}
-			if = {	#56 - Since they are possible lowlands tags, releasing them could theoretically cheese a German AI
-				limit = {
-					country_exists = FLA
-					NOT = { 
-						is_ally_with = FLA 
-						has_war_with = FLA
-					}
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = FLA
-					expire = 0
-					generator = { 6 }
-				}		
-				add_ai_strategy = { 
-					type = conquer
-					id = FLA
 					value = 100
 				}		
 			}
@@ -13749,7 +13620,6 @@ focus_tree = {
 
 		icon = GFX_focus_attack_france
 		alternate_icon = GFX_focus_GER_war_with_france
-		will_lead_to_war_with = FRA	#56
 
 		prerequisite = { focus = GER_around_maginot focus = GER_operation_weserubung }
 
@@ -13827,7 +13697,6 @@ focus_tree = {
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
-		will_lead_to_war_with = SWE	#56
 
 		completion_reward = {
 			SWE = {
@@ -14290,7 +14159,6 @@ focus_tree = {
 		}
 
 		will_lead_to_war_with = IRE
-		will_lead_to_war_with = NIR	#56
 
 		available = {
 			is_subject = no
@@ -14325,10 +14193,6 @@ focus_tree = {
 				limit = {
 					IRE = {
 						exists = yes
-						NOT = { has_war_with = ROOT }
-						NOT = { is_ally_with = ROOT }
-						NOT = { is_guaranteed_by = ROOT }
-						NOT = { has_non_aggression_pact_with = ROOT }
 					}
 				}
 				create_wargoal = {
@@ -14341,10 +14205,9 @@ focus_tree = {
 				limit = {
 					NIR = {
 						exists = yes
-						NOT = { has_war_with = ROOT }
-						NOT = { is_ally_with = ROOT }
-						NOT = { is_guaranteed_by = ROOT }
-						NOT = { has_non_aggression_pact_with = ROOT }
+						NOT = {
+							is_subject_of = ROOT
+						}
 					}
 				}
 				create_wargoal = {
@@ -14823,7 +14686,7 @@ focus_tree = {
 
 			every_state = {
 				limit = {
-					is_on_continent = south_america
+					is_on_continent = south_america 
 					OWNER = {
 						capital_scope = {
 							NOT = {
@@ -15038,92 +14901,6 @@ focus_tree = {
 					}
 				}
 			}
-		}
-	}
-
-	focus = {
-		id = GER_resolve_the_balkan_flank
-		icon = GFX_focus_generic_balkan_diplomacy
-		cost = 5.00
-		prerequisite = {
-			focus = GER_anschluss
-		}
-		relative_position_id = GER_demand_slovenia
-		mutually_exclusive = {
-			focus = GER_demand_slovenia
-		}
-		x = 2
-		y = 0
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0.1
-				has_war_with = FRA
-				NOT = {
-					FRA = {
-						has_capitulated = yes
-					}
-				}
-			}
-			modifier = {
-				factor = 0.1
-				has_war_with = CZE
-				NOT = {
-					CZE = {
-						has_capitulated = yes
-					}
-				}
-			}
-			modifier = {
-				factor = 0.1
-				has_war_with = POL
-				NOT = {
-					POL = {
-						has_capitulated = yes
-					}
-				}
-			}
-		}
-
-		will_lead_to_war_with = YUG
-
-		available = {
-			has_war_with_major = yes
-			r56_script_i_am_sane = yes
-			has_army_manpower = {
-				size > 874999 
-			}
-			if = {
-				limit = {
-					is_ai = yes
-				}
-				is_neighbor_of = YUG
-				controls_state = 4
-				controls_state = 1054
-				surrender_progress < 0.01
-			}
-			YUG = {
-				r56_script_target_is_sane = yes
-			}
-		}
-
-		bypass = {
-			YUG = {
-				r56_script_standard_bypass = yes
-			}
-		}
-
-		will_lead_to_war_with = YUG
-
-		completion_reward = {
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = YUG
-				expire = 0
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_ANNEXATION
 		}
 	}
 
@@ -16338,12 +16115,7 @@ focus_tree = {
 					}
 					SOV = {
 						NOT = {
-							OR = {	#56 - Adding support for old SOV tree
-								has_completed_focus = SOV_beaten_but_not_defeated
-								has_completed_focus = SOV_counter_coup_old
-								has_completed_focus = SOV_form_a_fifth_column
-							}
-							
+							has_completed_focus = SOV_beaten_but_not_defeated
 						}
 					}
 				}
@@ -17221,7 +16993,6 @@ focus_tree = {
 				controls_state = 893
 				controls_state = 894
 				controls_state = 894
-				controls_state = 773
 			}
 		}
 
@@ -17428,104 +17199,6 @@ focus_tree = {
 				}
 				ELSE = {
 					add_state_claim = 546
-				}
-			}
-			
-			IF = { # Germany doesn't control Cameroon
-				limit = {
-					773 = {
-						NOT = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-				}
-				IF = { #TANGANYIKA
-					limit = {
-						773 = {
-							controller = {
-								is_subject = yes
-								OVERLORD = {
-									is_in_faction_with = ROOT
-									NOT = {
-										has_country_flag = GER_african_colonial_demand_sent_flag
-										original_tag = GER
-									}
-								}
-							}
-						}
-					}
-	
-					773 = {
-						controller = {
-							OVERLORD = {
-								country_event = {
-									id = wuw_GER_diplomacy.38
-									hours = 6
-								}
-								set_country_flag = GER_african_colonial_demand_sent_flag
-							}
-						}
-					}	
-				}
-				ELSE_IF = {
-					limit = {
-						773 = {
-							controller = {
-								is_in_faction_with = ROOT
-							}
-						}
-					}
-					773 = {
-						controller = {
-							country_event = {
-								id = wuw_GER_diplomacy.38
-								hours = 6
-							}
-							set_country_flag = GER_african_colonial_demand_sent_flag
-						}
-					}
-				}
-				ELSE_IF = {
-					limit = {
-						773 = {
-							controller = {
-								is_subject_of = ROOT
-							}
-						}
-					}
-					773 = {
-						controller = {
-							country_event = {
-								id = wuw_GER_diplomacy.38
-								hours = 6
-							}
-						}
-					}
-				}
-				ELSE_IF = {
-					limit = {
-						
-						773 = {
-							controller = {
-								OR = {
-									AND = {
-										is_subject = no
-										has_country_flag = GER_african_colonial_demand_sent_flag
-									}
-									AND = {
-										is_subject = yes
-										OVERLORD = {
-											has_country_flag = GER_african_colonial_demand_sent_flag
-										}
-									}
-								}
-							}
-						}
-					}
-					#this is just to prevent multiple events from being sent, and claims being sent 	erraneously
-				}
-				ELSE = {
-					add_state_claim = 773
 				}
 			}
 
@@ -17981,16 +17654,6 @@ focus_tree = {
 			IF = {
 				limit = {
 					NOT = {
-						796 = { #Lourenco Marques
-							is_claimed_by = ROOT
-						}
-					}
-				}
-				add_state_claim = 796
-			}
-			IF = {
-				limit = {
-					NOT = {
 						540 = { #Luanda
 							is_claimed_by = ROOT
 						}
@@ -18198,7 +17861,6 @@ focus_tree = {
 		cost = 5
 		available = {
 			is_subject = no
-			has_civil_war = no
 			743 = {
 				is_fully_controlled_by = CHI
 			}
@@ -19400,7 +19062,7 @@ focus_tree = {
 				IF = {
 					limit = {
 						OR = {
-							1096 = {
+							979 = {
 								is_fully_controlled_by = CHI
 								controller = {
 									NOT = {
@@ -19413,7 +19075,7 @@ focus_tree = {
 							}
 							any_other_country = {
 								is_in_faction_with = ROOT
-								controls_state = 1096
+								controls_state = 979
 								NOT = {
 									has_country_flag = {
 										flag = GER_se_asia_colony_demand_sent_flag
@@ -19422,7 +19084,7 @@ focus_tree = {
 							}
 						}
 					}
-					1096 = { #Kaiser-Wilhelmsland
+					979 = { #Kaiser-Wilhelmsland
 						controller = {
 							country_event = {
 								id = wuw_GER_diplomacy.35
@@ -19434,8 +19096,8 @@ focus_tree = {
 				}
 
 				ELSE_IF = {
-					limit = { 1096 = { NOT = { is_fully_controlled_by = ROOT}}}
-					add_state_claim = 1096
+					limit = { 979 = { NOT = { is_fully_controlled_by = ROOT}}}
+					add_state_claim = 979
 				}
 
 				IF = {
@@ -19721,7 +19383,6 @@ focus_tree = {
 
 		available = {
 			is_subject = no
-			has_civil_war = no
 			NOT = { has_war_with = JAP }
 			JAP = {
 				exists = yes
@@ -20067,7 +19728,6 @@ focus_tree = {
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
-		will_lead_to_war_with = JAP	#56
 
 		completion_reward = {
 			add_timed_idea = {

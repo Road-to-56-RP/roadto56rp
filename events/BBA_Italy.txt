@@ -1912,15 +1912,15 @@ unit_leader_event = {
 			#log = "Total CAS to produce = [?ROOT.ITA_missiolinis_cas_goal]"
 
 			#Establish goal - Bombers (Nav)
-			#log = "Naval Bombers in stockpile = [?ROOT.num_equipment@small_plane_naval_bomber_airframe]"
-			set_variable = { ITA_missiolinis_naval_bombers_goal = num_equipment@small_plane_naval_bomber_airframe }
-			#log = "Naval Bombers deployed = [?ROOT.num_deployed_planes_with_type@small_plane_naval_bomber_airframe]"
-			add_to_variable = { ITA_missiolinis_naval_bombers_goal = num_deployed_planes_with_type@small_plane_naval_bomber_airframe }
+			#log = "Naval Bombers in stockpile = [?ROOT.num_equipment@nav_bomber_equipment]"
+			set_variable = { ITA_missiolinis_naval_bombers_goal = num_equipment@nav_bomber_equipment }
+			#log = "Naval Bombers deployed = [?ROOT.num_deployed_planes_with_type@nav_bomber_equipment]"
+			add_to_variable = { ITA_missiolinis_naval_bombers_goal = num_deployed_planes_with_type@nav_bomber_equipment }
 			#Add to goal - Bombers (CV Nav)
-			#log = "Naval Bombers in stockpile = [?ROOT.num_equipment@small_plane_naval_bomber_airframe]"
-			#add_to_variable = { ITA_missiolinis_naval_bombers_goal = num_equipment@small_plane_naval_bomber_airframe }
-			#log = "Naval Bombers deployed = [?ROOT.num_deployed_planes_with_type@small_plane_naval_bomber_airframe]"
-			#add_to_variable = { ITA_missiolinis_naval_bombers_goal = num_deployed_planes_with_type@small_plane_naval_bomber_airframe }
+			#log = "Naval Bombers in stockpile = [?ROOT.num_equipment@nav_bomber_equipment]"
+			#add_to_variable = { ITA_missiolinis_naval_bombers_goal = num_equipment@nav_bomber_equipment }
+			#log = "Naval Bombers deployed = [?ROOT.num_deployed_planes_with_type@nav_bomber_equipment]"
+			#add_to_variable = { ITA_missiolinis_naval_bombers_goal = num_deployed_planes_with_type@nav_bomber_equipment }
 			#log = "Total naval bombers in country = [?ROOT.ITA_missiolinis_naval_bombers_goal]"
 			add_to_variable = { ITA_missiolinis_naval_bombers_goal = ITA_missiolinis_bombers_to_produce }
 			#log = "Total naval bombers to produce = [?ROOT.ITA_missiolinis_naval_bombers_goal]"
@@ -4875,7 +4875,6 @@ country_event = {
 		}
 		hidden_effect = {
 			FROM = { country_event = { id = BBA_italy_naval_cooperation_programs.03 hours = 1 } }
-			set_country_flag = refuse_ITA_naval_cooperation_program_research_group_flag
 		}
 	}
 }
@@ -6052,14 +6051,6 @@ country_event = {
 		ITA_civil_war_deal_with_militias = yes
 
 		ITA_anti_fascist_civil_war_deal_with_fascist_side = yes
-		
-		AUS = {
-			country_event = {
-				id = austria.135
-				days = 5
-				random_hours = 24
-			}
-		}
 	}
 	
 	#Mimimimi democratic
@@ -6083,16 +6074,6 @@ country_event = {
 		ITA_civil_war_deal_with_militias = yes
 
 		ITA_anti_fascist_civil_war_deal_with_fascist_side = yes
-
-		hidden_effect = {
-			AUS = {
-				country_event = {
-					id = austria.135
-					days = 5
-					random_hours = 24
-				}
-			}
-		}
 	}
 }
 
@@ -10949,7 +10930,7 @@ country_event = {
 		name = BBA_italy_interaction_events.26.a 
 		AUS = {
 			country_event = {
-				id = erwache.8	#used to be germany.28, road changed it
+				id = germany.28	
 				days = 1
 			}
 		}
@@ -13021,6 +13002,7 @@ country_event = {
 	picture = GFX_report_event_fascist_speech
 	
 	is_triggered_only = yes
+	fire_only_once = no
 
 	# Niceu
 	option = { 
@@ -13038,6 +13020,7 @@ country_event = {
 	picture = GFX_report_event_fascist_speech 
 	
 	is_triggered_only = yes
+	fire_only_once = no
  
 	# We can do little to change their minds...
 	option = { 
