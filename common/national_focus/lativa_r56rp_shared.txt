@@ -1599,7 +1599,6 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
 			add_political_power = 50
 			swap_ideas = {
 				remove_idea = democratic_opposition
@@ -1623,7 +1622,6 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
 			add_political_power = 50
 			swap_ideas = {
 				remove_idea = democratic_opposition
@@ -1647,7 +1645,6 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
 			add_political_power = 50
 			swap_ideas = {
 				remove_idea = democratic_opposition
@@ -1663,7 +1660,7 @@
 		x = -2
 		y = 1
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1671,11 +1668,10 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
 			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
 			}
 		}
 	}
@@ -1687,7 +1683,7 @@
 		x = -1
 		y = 1
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1695,11 +1691,23 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			custom_effect_tooltip = LAT_r56rp_covert_training_drills_tt
+			effect_tooltip = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 1000
+					producer = SOV
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 250
+					producer = SOV
+				}	
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 250
+					producer = SOV
+				}
 			}
 		}
 	}
@@ -1711,7 +1719,7 @@
 		x = 1
 		y = 1
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1719,12 +1727,7 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
-			}
+			custom_effect_tooltip = LAT_r56rp_saboteurs_prepared_tt
 		}
 	}
 	shared_focus = {
@@ -1736,7 +1739,7 @@
 		x = 1
 		y = 1
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1744,11 +1747,105 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			custom_effect_tooltip = LAT_r56rp_declare_on_both_neighbours
+			LAT = {
+				declare_war_on = {
+					target = EST
+					type = annex_everything
+				}
+			}
+			LAT = {
+				declare_war_on = {
+					target = LIT
+					type = annex_everything
+				}
+			}
+			division_template = {
+				name = "White Russian Volunteers"
+				is_locked = yes
+				priority = 1
+				division_names_group = LAT_INF_01
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+						
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+				}
+				support = {
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
+				}
+			}
+			190 = {
+				create_unit = {
+					division = "name = \"1. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 9262          
+				}
+				create_unit = {
+					division = "name = \"2. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 11246          
+				}
+			}
+			809 = {
+				create_unit = {
+					division = "name = \"3. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 6342          
+				}
+				create_unit = {
+					division = "name = \"4. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 265          
+				}
+				create_unit = {
+					division = "name = \"5. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 3255          
+				}
+				create_unit = {
+					division = "name = \"6. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 11358          
+				}
+			}
+			810 = {
+				create_unit = {
+					division = "name = \"7. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 319          
+				}
+				create_unit = {
+					division = "name = \"8. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 3298          
+				}
+			}
+			12 = {
+				create_unit = {
+					division = "name = \"9. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 11302          
+				}
+				create_unit = {
+					division = "name = \"10. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 3388          
+				}
+				create_unit = {
+					division = "name = \"11. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 9501          
+				}
+				create_unit = {
+					division = "name = \"12. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+					owner = LAT 
+					prioritize_location = 9317          
+				}
 			}
 		}
 	}
@@ -1769,11 +1866,9 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			add_timed_idea = {
+				days = 90
+				idea = LAT_r56rp_reunite_the_baltic_governate
 			}
 		}
 	}
