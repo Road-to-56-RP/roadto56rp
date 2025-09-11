@@ -18705,7 +18705,7 @@ focus_tree = {
 			}
 		}
 		
-		x = 2
+		x = 3
 		y = 1
 		
 		relative_position_id = SOV_the_eyes_fear
@@ -19240,11 +19240,10 @@ focus_tree = {
 	focus = {
 		id = SOV_rebuild_the_nation
 		icon = GFX_goal_generic_construct_civilian
-		prerequisite = { focus = SOV_consolidate_power }
-		prerequisite = { focus = SOV_reformalize_the_role_of_the_patriarchate }
+		prerequisite = { focus = SOV_the_hands_do }
 		x = 1
 		y = 1
-		relative_position_id = SOV_consolidate_power
+		relative_position_id = SOV_the_hands_do
 		cost = 5
 		
 		ai_will_do = {
@@ -19254,10 +19253,11 @@ focus_tree = {
 		available = {
 			has_damaged_buildings = yes
 		}
+		cancel_if_invalid = no
 		
-		bypass = {
-			has_damaged_buildings = no
-		}
+		#bypass = {
+		#	has_damaged_buildings = no
+		#}
 		
 		search_filters = {FOCUS_FILTER_POLITICAL}
 
@@ -19273,11 +19273,17 @@ focus_tree = {
 	focus = {
 		id = SOV_restore_the_glory_of_the_motherland
 		icon = GFX_goal_generic_construction
-		prerequisite = { focus = SOV_rebuild_the_nation }
-		x = 0
+		prerequisite = { focus = SOV_reformalize_the_role_of_the_patriarchate }
+		prerequisite = { focus = SOV_consolidate_power }
+		x = 1
 		y = 1
-		relative_position_id = SOV_rebuild_the_nation
+		relative_position_id = SOV_consolidate_power
 		cost = 10
+
+		available = {
+			has_damaged_buildings = no
+		}
+
 		ai_will_do = {
 			factor = 1
 		}
