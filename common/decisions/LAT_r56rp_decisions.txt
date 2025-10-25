@@ -287,3 +287,165 @@ LAT_r56rp_order_german_armored_vehicles = {
 		}
 	}
 }
+LAT_r56rp_prepare_russian_saboteurs_category = {
+	LAT_r56rp_prepare_border_sabotage = {
+
+		visible = {
+			has_completed_focus = LAT_r56rp_prepare_saboteurs
+			has_war = no
+			has_equipment = {
+				infantry_equipment > 350
+			}
+			has_equipment = {
+				artillery_equipment > 5
+			}
+			has_equipment = {
+				support_equipment > 5
+			}
+		}
+
+        state_target = yes
+        target_trigger = {
+            FROM = {
+				is_core_of = SOV
+                is_owned_and_controlled_by = SOV
+				OR	 = {
+					state = 207 #Vitebsk
+					state = 209 #Pskov
+					state = 210 #Nevel
+				}
+            }
+        }
+        fire_only_once = yes
+
+		custom_cost_text = r56_15_command_power_cost
+		custom_cost_trigger = {
+			command_power > 15
+		}		
+
+		complete_effect = {
+			add_command_power = -15
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -300
+				producer = LAT
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = -1
+				producer = LAT
+			}	
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -1
+				producer = LAT
+			}					
+		}
+
+        days_remove = 14
+        on_map_mode = map_and_decisions_view
+
+		remove_effect = {
+			FROM = { 
+				set_state_flag = LAT_prepared_border_sabotage
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}		
+	}
+	LAT_r56rp_join_the_anti_communist_crusade = {
+	
+		visible = {
+			has_completed_focus = LAT_r56rp_prepare_saboteurs
+		}
+
+		available = {
+			has_war = no
+			has_global_flag = SOV_soviet_civil_war
+		}
+
+		days_remove = 14
+
+		cost = 25
+
+		remove_effect = {
+			LAT = {
+				declare_war_on = {
+					target = SOS
+					type = take_state_focus
+				}
+			}
+			every_state = {
+				limit = {
+					has_state_flag = LAT_prepared_border_sabotage
+				}
+				if = {
+					limit = {
+						FROM = {
+							num_of_factories > 0
+						}
+					}
+					damage_building = {
+						type = industrial_complex
+						damage = 1
+						repair_speed_modifier = -0.75
+					}
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 1
+					repair_speed_modifier = -0.75
+				}
+				damage_building = {
+					type = supply_node
+					damage = 1
+					repair_speed_modifier = -0.75
+				}														
+			}
+			SOP = {
+				hidden_effect = {
+					division_template = {
+						name = "Latvian Saboteurs"
+						is_locked = no
+						priority = 1
+						division_names_group = LAT_INF_01
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 0 y = 2 }
+								
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+						}
+						support = {
+							engineer = { x = 0 y = 0 }
+							artillery = { x = 0 y = 1 }
+						}
+					}
+					207 = {
+						create_unit = {
+							division = "name = \"1. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+							owner = SOP 
+							prioritize_location = 11241          
+						}
+					}
+					209 = {
+						create_unit = {
+							division = "name = \"1. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+							owner = SOP 
+							prioritize_location = 11202          
+						}
+					}
+					210 = {
+						create_unit = {
+							division = "name = \"1. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+							owner = SOP 
+							prioritize_location = 11234          
+						}
+					}
+				}
+			}	
+		}
+	}
+}

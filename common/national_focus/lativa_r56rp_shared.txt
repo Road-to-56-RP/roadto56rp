@@ -1630,10 +1630,14 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			add_political_power = 25
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.025
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.075
 			}
 		}
 	}
@@ -1735,7 +1739,7 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			custom_effect_tooltip = LAT_r56rp_saboteurs_prepared_tt
+			unlock_decision_category_tooltip = LAT_r56rp_prepare_russian_saboteurs_category
 		}
 	}
 	shared_focus = {
@@ -1755,104 +1759,35 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			custom_effect_tooltip = LAT_r56rp_declare_on_both_neighbours
-			LAT = {
-				declare_war_on = {
-					target = EST
-					type = annex_everything
-				}
+			custom_effect_tooltip = LAT_r56rp_exile_anti_communist_volunteers_tt
+			custom_effect_tooltip = generic_skip_one_line_tt
+			create_wargoal = {
+				type = annex_everything
+				target = LIT
 			}
-			LAT = {
-				declare_war_on = {
-					target = LIT
-					type = annex_everything
-				}
+			create_wargoal = {
+				type = annex_everything
+				target = EST
 			}
-			division_template = {
-				name = "White Russian Volunteers"
-				is_locked = yes
-				priority = 1
-				division_names_group = LAT_INF_01
-				regiments = {
-					infantry = { x = 0 y = 0 }
-					infantry = { x = 0 y = 1 }
-					infantry = { x = 0 y = 2 }
-						
-					infantry = { x = 1 y = 0 }
-					infantry = { x = 1 y = 1 }
-					infantry = { x = 1 y = 2 }
-				}
-				support = {
-					engineer = { x = 0 y = 0 }
-					artillery = { x = 0 y = 1 }
-				}
-			}
-			190 = {
-				create_unit = {
-					division = "name = \"1. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 9262          
-				}
-				create_unit = {
-					division = "name = \"2. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 11246          
-				}
-			}
-			809 = {
-				create_unit = {
-					division = "name = \"3. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 6342          
-				}
-				create_unit = {
-					division = "name = \"4. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 265          
-				}
-				create_unit = {
-					division = "name = \"5. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 3255          
-				}
-				create_unit = {
-					division = "name = \"6. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 11358          
-				}
-			}
-			810 = {
-				create_unit = {
-					division = "name = \"7. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 319          
-				}
-				create_unit = {
-					division = "name = \"8. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 3298          
-				}
-			}
-			12 = {
-				create_unit = {
-					division = "name = \"9. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 11302          
-				}
-				create_unit = {
-					division = "name = \"10. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 3388          
-				}
-				create_unit = {
-					division = "name = \"11. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 9501          
-				}
-				create_unit = {
-					division = "name = \"12. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
-					owner = LAT 
-					prioritize_location = 9317          
+			hidden_effect = {
+				division_template = {
+					name = "White Russian Volunteers"
+					is_locked = yes
+					priority = 1
+					division_names_group = LAT_INF_01
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+							
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+					}
+					support = {
+						engineer = { x = 0 y = 0 }
+						artillery = { x = 0 y = 1 }
+					}
 				}
 			}
 		}
@@ -1874,9 +1809,70 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_timed_idea = {
-				days = 90
-				idea = LAT_r56rp_reunite_the_baltic_governate
+			set_cosmetic_tag = LAT_rp_the_baltic_governate
+			promote_character = {
+				character = LAT_imperial_protector_kolomeitsev
+				ideology = fascism_ideology
+			}
+			promote_character = {
+				character = LAT_imperial_protector_kolomeitsev
+				ideology = military_junta
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.05
+			}
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = LIT
+						is_core_of = EST
+					}
+				}
+				add_core_of = LAT
+			}
+			SOV = {
+				set_autonomy = {
+					target = LAT
+					autonomous_state = autonomy_zastava
+					end_wars = no
+					end_civil_wars = no	
+				}
+			}
+			custom_effect_tooltip = LAT_r56rp_root_out_communists_tt
+			hidden_effect = {
+				set_popularities = {
+					democratic = 0
+					neutrality = 50
+					fascism = 50
+					communism = 0
+				}
+				if = {
+					limit = {
+						SOV = {
+							has_government = democratic
+						}
+					}
+					LAT = {
+						set_politics = {
+							ruling_party = neutrality
+							elections_allowed = no
+						}
+						set_popularities = {
+							democratic = 0
+							neutrality = 50
+							fascism = 50
+							communism = 0
+						}
+					}
+				}
+				retire_character = LAT_alberts_kvesis
+				retire_character = LAT_fricis_menders
+				retire_character = LAT_karlis_ozolins
+				retire_character = LAT_vilis_lacis
+				retire_character = LAT_emilija_veinberga
+				retire_character = LAT_janis_rudzutaks
+				retire_character = LAT_karlis_baumanis
 			}
 		}
 	}
