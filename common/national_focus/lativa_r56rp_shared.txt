@@ -625,10 +625,10 @@
 			industrial_complex > 24
 		}
 
-		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			add_research_slot = 1
 		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	shared_focus = {
 		id = LAT_r56rp_establish_the_baltischer_rustungsstab
@@ -1616,7 +1616,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_reach_out_to_other_exiles
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_SOV_russian_nationalism
 		prerequisite = { focus = LAT_r56rp_offer_nikolai_kolomeitsev_sanctuary }
 		relative_position_id = LAT_r56rp_offer_nikolai_kolomeitsev_sanctuary
 		x = 2
@@ -1643,13 +1643,13 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_prepare_the_new_regime
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_cuba_support_the_confederation_of_cuban_workers
 		prerequisite = { focus = LAT_r56rp_reach_out_to_other_exiles }
 		relative_position_id = LAT_r56rp_reach_out_to_other_exiles
 		x = 0
 		y = 2
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1657,16 +1657,19 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			activate_advisor = LAT_nikolai_kolomeitsev
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_political_power = 25
+			add_stability = -0.05
+			add_popularity = {
+				ideology = communism
+				popularity = -0.05
 			}
 		}
 	}
 	shared_focus = {
 		id = LAT_r56rp_establish_contact_with_semyonovs_exiles
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_SOV_approach_semyonov
 		prerequisite = { focus = LAT_r56rp_offer_nikolai_kolomeitsev_sanctuary }
 		relative_position_id = LAT_r56rp_offer_nikolai_kolomeitsev_sanctuary
 		x = -2
@@ -1689,7 +1692,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_begin_covert_training_drills
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_generic_recruitment
 		prerequisite = { focus = LAT_r56rp_establish_contact_with_semyonovs_exiles }
 		relative_position_id = LAT_r56rp_establish_contact_with_semyonovs_exiles
 		x = -1
@@ -1725,7 +1728,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_prepare_saboteurs
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_generic_forest_warfare
 		prerequisite = { focus = LAT_r56rp_establish_contact_with_semyonovs_exiles }
 		relative_position_id = LAT_r56rp_establish_contact_with_semyonovs_exiles
 		x = 1
@@ -1744,7 +1747,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_pre_empt_baltic_communist_volunteers
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_ger_bulwark_against_bolshevism
 		prerequisite = { focus = LAT_r56rp_begin_covert_training_drills }
 		prerequisite = { focus = LAT_r56rp_prepare_saboteurs }
 		relative_position_id = LAT_r56rp_begin_covert_training_drills
@@ -1794,7 +1797,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_restoration_of_the_baltic_governate
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_SOV_imperial_eagle
 		prerequisite = { focus = LAT_r56rp_pre_empt_baltic_communist_volunteers }
 		prerequisite = { focus = LAT_r56rp_prepare_the_new_regime }
 		relative_position_id = LAT_r56rp_pre_empt_baltic_communist_volunteers
@@ -1807,15 +1810,25 @@
 			factor = 1
 		}
 
+		available = {
+			SOV = {
+				has_civil_war = no
+				NOT = {
+					has_government = communism
+				}
+			}
+			has_war = no
+		}
+
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			set_cosmetic_tag = LAT_rp_the_baltic_governate
 			promote_character = {
-				character = LAT_imperial_protector_kolomeitsev
+				character = LAT_nikolai_kolomeitsev
 				ideology = fascism_ideology
 			}
 			promote_character = {
-				character = LAT_imperial_protector_kolomeitsev
+				character = LAT_nikolai_kolomeitsev
 				ideology = military_junta
 			}
 			add_popularity = {
@@ -1878,7 +1891,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_the_new_baltic_armed_forces
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_generic_army_professionalism
 		prerequisite = { focus = LAT_r56rp_restoration_of_the_baltic_governate }
 		relative_position_id = LAT_r56rp_restoration_of_the_baltic_governate
 		x = 2
@@ -1933,7 +1946,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_reinvigorate_the_economy
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_generic_public_works
 		prerequisite = { focus = LAT_r56rp_restoration_of_the_baltic_governate }
 		relative_position_id = LAT_r56rp_restoration_of_the_baltic_governate
 		x = -2
@@ -1947,17 +1960,23 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			add_timed_idea = {
+				idea = GER_national_revitalization_ns
+				days = 365
+			}
+			808 = { #KYME
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
 			}
 		}
 	}
 	shared_focus = {
 		id = LAT_r56rp_rearrange_weapon_manufacturers
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_generic_gun_purchase
 		prerequisite = { focus = LAT_r56rp_reinvigorate_the_economy }
 		relative_position_id = LAT_r56rp_reinvigorate_the_economy
 		x = -1
@@ -1971,17 +1990,38 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:LAT_daugavpill_skrosu_rupinca_organization = {
+					add_mio_funds = 500
+					add_mio_research_bonus = 0.1
+					add_mio_design_team_assign_cost = -0.5
+					add_mio_size = 1								
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				mio:LAT_daugavpils_lokomotivju_remonta_rupnica_orgnanization = {
+					add_mio_funds = 500
+					add_mio_research_bonus = 0.1
+					add_mio_design_team_assign_cost = -0.5
+					add_mio_size = 1								
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			808 = { #KYME
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
 			}
 		}
 	}
 	shared_focus = {
 		id = LAT_r56rp_invite_russian_companies
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_r56rp_cp_train2_captainluck
 		prerequisite = { focus = LAT_r56rp_rearrange_weapon_manufacturers }
 		relative_position_id = LAT_r56rp_rearrange_weapon_manufacturers
 		x = -2
@@ -1995,17 +2035,42 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = LAT_r56rp_tula_arms_plant_organization
+				mio:LAT_r56rp_tula_arms_plant_organization = {
+					add_mio_funds = 500
+					add_mio_research_bonus = 0.1
+					add_mio_design_team_assign_cost = -0.5
+					add_mio_size = 2								
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = LAT_r56rp_gaz_organization
+				mio:LAT_r56rp_gaz_organization = {
+					add_mio_funds = 500
+					add_mio_research_bonus = 0.1
+					add_mio_design_team_assign_cost = -0.5
+					add_mio_size = 2								
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			808 = { #KYME
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
 			}
 		}
 	}
 	shared_focus = {
 		id = LAT_r56rp_expand_heavy_industry_capability
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_generic_light_industry
 		prerequisite = { focus = LAT_r56rp_rearrange_weapon_manufacturers }
 		relative_position_id = LAT_r56rp_rearrange_weapon_manufacturers
 		x = 0
@@ -2017,19 +2082,54 @@
 			factor = 1
 		}
 
-		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = steel_mill
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						NOT = {
+							ROOT = {
+								has_tech = steel_production_1
+							}
+						}
+					}
+					set_technology = { steel_production_1 = 1 }
+					else = {
+						add_tech_bonus = {
+							name = industrial_bonus
+							ahead_reduction = 2
+							bonus = 1
+							uses = 1
+							category = steel_tech
+						}
+					}
+				}
+			}
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1
+				uses = 1
+				category = industry
 			}
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	shared_focus = {
 		id = LAT_r56rp_establish_the_baltic_warfare_institute
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_research
 		prerequisite = { focus = LAT_r56rp_invite_russian_companies }
 		prerequisite = { focus = LAT_r56rp_expand_heavy_industry_capability }
 		relative_position_id = LAT_r56rp_invite_russian_companies
@@ -2042,19 +2142,20 @@
 			factor = 1
 		}
 
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
-			}
+		available = {
+			arms_factory > 19
+			industrial_complex > 24
 		}
+
+		completion_reward = {
+			unlock_decision_category_tooltip = LAT_r56rp_batlic_warfare_institute_category
+			add_research_slot = 1
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	shared_focus = {
 		id = LAT_r56rp_russian_styled_war_industry
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_social_welfare
 		prerequisite = { focus = LAT_r56rp_reinvigorate_the_economy }
 		relative_position_id = LAT_r56rp_reinvigorate_the_economy
 		x = 2
@@ -2078,7 +2179,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_open_zavod_217_artillery_plant
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_SWE_bofors_kanoner
 		prerequisite = { focus = LAT_r56rp_russian_styled_war_industry }
 		relative_position_id = LAT_r56rp_russian_styled_war_industry
 		x = 1
@@ -2102,7 +2203,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_reopen_liepaja_imperial_dockyards
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_SOV_reinforce_western_naval_bases
 		prerequisite = { focus = LAT_r56rp_open_zavod_217_artillery_plant }
 		relative_position_id = LAT_r56rp_open_zavod_217_artillery_plant
 		x = 1
@@ -2126,7 +2227,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_form_the_baltic_admirality
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = LAT_r56rp_open_zavod_217_artillery_plant }
 		relative_position_id = LAT_r56rp_open_zavod_217_artillery_plant
 		x = -1
@@ -2150,7 +2251,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_assume_the_naval_burden_of_the_empire
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_coastal_navy
 		prerequisite = { focus = LAT_r56rp_form_the_baltic_admirality }
 		prerequisite = { focus = LAT_r56rp_reopen_liepaja_imperial_dockyards }
 		relative_position_id = LAT_r56rp_form_the_baltic_admirality
@@ -2175,7 +2276,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_pride_of_the_baltic_sea
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_goal_generic_multiple_ships
 		prerequisite = { focus = LAT_r56rp_assume_the_naval_burden_of_the_empire }
 		relative_position_id = LAT_r56rp_assume_the_naval_burden_of_the_empire
 		x = 0
@@ -2199,7 +2300,7 @@
 	}				
 	shared_focus = {
 		id = LAT_r56rp_saint_barbaras_fire
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_SWE_let_fly_all_guns
 		prerequisite = { focus = LAT_r56rp_russian_styled_war_industry }
 		relative_position_id = LAT_r56rp_russian_styled_war_industry
 		x = -1
@@ -2223,7 +2324,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_truck_refit_program
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_ITA_workers_unions
 		prerequisite = { focus = LAT_r56rp_saint_barbaras_fire }
 		relative_position_id = LAT_r56rp_saint_barbaras_fire
 		x = -1
@@ -2247,7 +2348,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_press_for_polish_concessions
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_generic_attack_poland
 		prerequisite = { focus = LAT_r56rp_saint_barbaras_fire }
 		relative_position_id = LAT_r56rp_saint_barbaras_fire
 		x = 0
@@ -2271,7 +2372,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_incorporate_the_polish_lands
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_SWE_hedgehog_defense
 		prerequisite = { focus = LAT_r56rp_press_for_polish_concessions }
 		relative_position_id = LAT_r56rp_press_for_polish_concessions
 		x = -1
@@ -2295,7 +2396,7 @@
 	}
 	shared_focus = {
 		id = LAT_r56rp_lay_claim_to_the_baltic_coast
-		icon = GFX_goal_MAN_contact_rfp
+		icon = GFX_focus_POL_ban_nazi_party
 		prerequisite = { focus = LAT_r56rp_press_for_polish_concessions }
 		relative_position_id = LAT_r56rp_press_for_polish_concessions
 		x = 0

@@ -1,3 +1,5 @@
+##### Tanks
+
 LAT_r56rp_alkett_organization = {
 	name = GER_alkett_organization
 	include = generic_assault_guns_organization
@@ -266,4 +268,104 @@ LAT_r56rp_porsche_organization = {
 			base = 2
 		}
 	}
+}
+
+##### Boats
+
+
+##### Flying Things
+
+
+##### Ground Things (Not Tanks)
+LAT_r56rp_tula_arms_plant_organization = {
+	name = SOV_tula_arms_plant_organization
+	include = generic_infantry_equipment_organization	
+	icon = GFX_idea_tula_arms_plant
+	
+	allowed = {	
+		original_tag = LAT
+	}
+
+	available = {
+		IF = {
+			limit = {
+				FROM = { original_tag = LAT }
+			}
+			FROM = { has_completed_focus = LAT_r56rp_invite_russian_companies }
+		}
+	}
+
+	tree_header_text = {
+		text = mio_header_design_and_production
+		x = 2.5
+	}
+
+	tree_header_text = {
+		text = mio_header_anti_tank
+		x = 7
+	}
+
+	initial_trait = {
+		name = generic_mio_initial_trait_infantry_manufacturer
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+
+		production_bonus = {
+			production_efficiency_cap_factor = 0.03
+		}
+
+		equipment_bonus = {
+			soft_attack = 0.03
+		}
+	}
+
+	override_trait = {
+		token = generic_mio_trait_armor_piercing_rounds
+		
+		position = { x=0 y=2 }
+		relative_position_id = generic_mio_trait_quality_materials
+	}
+
+	override_trait = {
+		token = generic_mio_trait_advanced_barrel_forging
+		
+		position = { x=1 y=2 }
+		relative_position_id = generic_mio_trait_drum_pattern_sights
+	}
+
+	override_trait = {
+		token = generic_mio_trait_reinforced_stocks
+		
+		position = { x=3 y=0 }
+		relative_position_id = generic_mio_trait_drum_pattern_sights
+	}
+}
+LAT_r56rp_gaz_organization = {
+	name = SOV_gaz_organization
+	include = generic_motorized_mechanized_organization
+	icon = GFX_idea_gaz
+	
+	allowed = {	
+		original_tag = LAT
+	}
+	
+	available = {
+		IF = {
+			limit = {
+				FROM = { original_tag = LAT }
+			}
+			FROM = { has_completed_focus = LAT_r56rp_invite_russian_companies }
+		}
+	}
+
+	initial_trait = {
+		name = generic_mio_initial_trait_motorized_mechanized_manufacturer
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+	}	
+
 }
