@@ -2169,12 +2169,9 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
-			}
+			unlock_decision_category_tooltip = LAT_r56rp_russian_styled_war_industry_category
+			activate_misison = LAT_r56rp_logistical_strain
+			add_ideas = LAT_r56rp_russian_styled_war_industry_idea
 		}
 	}
 	shared_focus = {
@@ -2314,12 +2311,17 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:LAT_r56rp_gaz_organization = {
+					add_mio_funds = 500
+
+					complete_mio_trait = LAT_r56rp_mio_trait_saint_barbaras_blessing
+				}						
 			}
+			add_ideas = LAT_r56rp_saint_barbaras_blessing
 		}
 	}
 	shared_focus = {
@@ -2330,7 +2332,7 @@
 		x = -1
 		y = 1
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -2338,11 +2340,14 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
 			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+				remove_idea = LAT_r56rp_saint_barbaras_blessing
+				add_idea = LAT_r56rp_truck_refit_program_idea
+			}
+			add_tech_bonus = {
+				bonus = 1
+				uses = 1
+				category = rocketry
 			}
 		}
 	}
