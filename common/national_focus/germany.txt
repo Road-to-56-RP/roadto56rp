@@ -11967,35 +11967,29 @@ focus_tree = {
 
 		available = {
 			is_subject = no
-			LIE = {
-				fascism > 0.1
-				is_neighbor_of = ROOT
+			NOT = {
+				has_war_with = SWI
 			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			LIE = {
-				if = {
-					limit = {
-						GER = {
-							has_government = fascism
-						}
-					}
-					add_timed_idea = {
-						idea = fascist_influence
-						days = 730
-					}
-				}
-			}
-			every_owned_state = {
-				limit = { any_neighbor_state = { is_owned_and_controlled_by = LIE } }
+			997 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					controls_province = 6678
+				}
+				build_railway = { #Lietchenstein connected to Supply depot West of München
+					level = 2
+					path = { 6680 6678 11638 }
 				}
 			}
 		}
@@ -13382,7 +13376,6 @@ focus_tree = {
 				any_home_area_neighbor_country = {
 					NOT = { tag = FRA }
 					NOT = { tag = DEN }
-					NOT = { tag = LIE }
 					NOT = { tag = LUX } #You're a funny guy
 					NOT = { tag = LIT }
 					has_war_with = ROOT
@@ -13976,7 +13969,6 @@ focus_tree = {
 		cost = 10
 
 		will_lead_to_war_with = SWI
-		will_lead_to_war_with = LIE
 		
 		available = {
 			has_army_manpower = {
@@ -13990,19 +13982,10 @@ focus_tree = {
 						r56_script_target_is_sane = yes
 					}
 				}
-				AND = {
-					is_neighbor_of = LIE
-					LIE = {
-						r56_script_target_is_sane = yes
-					}
-				}
 			}
 		}
 		bypass = {
 			SWI = {
-				r56_script_standard_bypass = yes
-			}
-			LIE = {
 				r56_script_standard_bypass = yes
 			}
 		}
@@ -14029,11 +14012,6 @@ focus_tree = {
 			create_wargoal = {
 				type = annex_everything
 				target = SWI
-				expire = 0
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = LIE
 				expire = 0
 			}
 
@@ -16221,7 +16199,6 @@ focus_tree = {
 							tag = DEN 
 							tag = LUX # Or Luxenburg for that matter. 
 							tag = SWI # I hate Swiss cheese
-							tag = LIE
 							tag = MNC
 							tag = LIT #You're just a speed bump anyhow
 						}
