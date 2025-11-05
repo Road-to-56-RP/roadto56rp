@@ -16,62 +16,27 @@ characters = {
 			id = -1
 		}
 	}
-	AUS_ernst_rudiger_starhemberg_r56 = {
-		name = AUS_ernst_rudiger_starhemberg
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_ernst_rudiger_starhemberg"
-			}
-			civilian = {
-				large = "gfx/leaders/AUS/r56_portrait_AUS_Ernst_Rudiger_von_Starhemberg.dds"
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_ernst_rudiger_starhemberg_r56
-			allowed = {
-				original_tag = AUS
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-			available = {
-				NOT = {
-					has_country_leader = {
-						character = AUS_ernst_rudiger_starhemberg
-						ruling_only = yes
-					}
-				}
-				has_power_balance = {
-					id = AUS_heimwehr_power_balance
-				}
-				NOT = {
-					has_idea = AUS_president_starhemberg
-				}
-			}
-			visible = {
-				has_power_balance = {
-					id = AUS_heimwehr_power_balance
-				}
-			}
-			can_be_fired = no
-			traits = {
-				AUS_vice_chancellor
-			}
-		}
-	}
 	AUS_ernst_rudiger_starhemberg = {
 		name = AUS_ernst_rudiger_starhemberg
+
 		portraits = {
-			army = {
-				small = "GFX_idea_AUS_ernst_rudiger_starhemberg"
-			}
 			civilian = {
-				large = "gfx/leaders/AUS/r56_portrait_AUS_Ernst_Rudiger_von_Starhemberg.dds"
+				large = "GFX_portrait_AUS_ernst_rudiger_starhemberg"
+				small = "GFX_portrait_AUS_ernst_rudiger_starhemberg_civilian_small"
+			}
+
+			army = {
+				large = "GFX_portrait_AUS_ernst_rudiger_starhemberg"
+				small = "GFX_portrait_AUS_ernst_rudiger_starhemberg_military_small"
 			}
 		}
+		country_leader = {
+			ideology = despotism
+			expire = "1965.1.1.1"
+			id = -1
+			traits = { anti_communist }
+		}
+
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_ernst_rudiger_starhemberg
@@ -91,7 +56,6 @@ characters = {
 						character = AUS_ernst_rudiger_starhemberg
 					}
 				}
-				has_country_flag = aus_dlc_focus_tree
 			}
 
 			available = {
@@ -111,35 +75,35 @@ characters = {
 				base = 2
 			}
 		}
-		country_leader = {
-			ideology = clerical_fascism
-			traits = {
-				AUS_heimwehr_commander
-				dislikes_germany
-			}
-		}
-		field_marshal = {
-			skill = 2
+
+		corps_commander = {
+			traits = { militias_officer politically_connected }
+			skill = 3
 			attack_skill = 3
-			defense_skill = 1
-			planning_skill = 1
+			defense_skill = 2
+			planning_skill = 2
 			logistics_skill = 2
+			legacy_id = -1
 			visible = {
-				OR = {
-					has_country_leader = {
-						character = AUS_ernst_rudiger_starhemberg
-						ruling_only = yes
+				AND = {
+					OR = {
+						has_government = fascism
+						has_government = neutrality
 					}
-					has_completed_focus = AUS_empower_the_heimatblock
+					OR = {
+						has_completed_focus = AUS_heimwehr_support	
+						has_completed_focus = AUS_sturmscharen_support
+					}
+					NOT = {
+						has_country_leader = {
+							ruling_only = yes
+							character = AUS_ernst_rudiger_starhemberg
+						}
+					}
 				}
-			}
-			traits = {
-				aggressive_assaulter
-				trait_reckless
 			}
 		}
 	}
-	
 	AUS_karl_renner = {
 		name = AUS_karl_renner
 		portraits = {
@@ -157,21 +121,11 @@ characters = {
 		}
 	}
 	AUS_otto_bauer = {
-		name = AUS_otto_bauer
-		portraits = {
-			civilian = { 
-				large = "gfx/leaders/AUS/r56_portrait_AUS_otto_bauer.dds"
-				small = "GFX_portrait_AUS_otto_bauer_small"
-			}
-		}
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_otto_bauer
 			allowed = { 
 				original_tag = AUS
-			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
 			}
 			available = {
 				OR = {
@@ -179,16 +133,10 @@ characters = {
 					AND = {
 						has_completed_focus = AUS_pardon_political_exiles
 						has_government = democratic
-						#NOT = {	- Character doesn't exist in our files
-							#has_country_leader = {
-								#character = AUS_vinzenz_schumy
-							#}
-						#}
-					}
-					NOT = {
-						has_country_leader = {
-							character = AUS_otto_bauer
-							ruling_only = yes
+						NOT = {
+							has_country_leader = {
+								character = AUS_vinzenz_schumy
+							}
 						}
 					}
 				}
@@ -205,12 +153,10 @@ characters = {
 				}
 			}
 		}
-		country_leader = {
-			ideology = democratic_socialism
-			expire = "1938.7.4"
-			traits = {
-				anti_soviet_socialist
-				committed_anti_fascist
+		name = AUS_otto_bauer
+		portraits = {
+			civilian = {
+				small = "GFX_portrait_AUS_otto_bauer_small"
 			}
 		}
 	}
@@ -231,110 +177,84 @@ characters = {
 
 		}
 	}
-
-	AUS_arthur_seyss_inquart = {
-		name = AUS_arthur_seyss_inquart
-		portraits = {
-			civilian = {
-				large = "gfx/leaders/AUS/r56_portrait_AUS_Arthur_Seyss-Inquart.dds"
-				small = "GFX_idea_AUS_seyys_inquart"
-			}
-		}
-		country_leader = {
-			ideology = nazism
-			expire = "1965.1.1"
-			id = -1
-			traits = { nazi_sympathizer }
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_arthur_seyss-inquart
+	AUS_arthur_seyss-inquart = {
+		instance = {
 			allowed = {
-				original_tag = AUS
+				has_dlc = "Gotterdammerung"
 			}
-			available = {
-				if = {
-					limit = {
-						has_global_flag = aus_dlc_focus_tree
-						GER = {
-							has_government = fascism
-						}
-					}
+
+			name = AUS_arthur_seyss-inquart
+			portraits = {
+				civilian = {
+					large = "GFX_portrait_AUS_arthur_seyss_inquart"
+					small = "GFX_portrait_AUS_arthur_seyss_inquart_small"
+				}
+			}
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				id = -1
+				traits = { nazi_sympathizer }
+			}
+			advisor = {
+				slot = political_advisor
+				idea_token = AUS_arthur_seyss-inquart
+				allowed = {
+					original_tag = AUS
+				}
+				traits = {
+					prince_of_terror 
+				}
+				available = {
 					NOT = {
 						has_war_with = GER
 					}
 				}
-				else = {
-					OR = {
-						has_completed_focus = AUS_appoint_inquart
-						has_idea = AUS_july_agreement
-					}
-					NOT = {
-						has_country_leader = {
-							character = AUS_arthur_seyss_inquart
-							ruling_only = yes
-						}
-						has_country_leader = {
-							character = AUS_josef_leopold
-							ruling_only = yes
-						}
-						
-					}
+
+				ai_will_do = {
+					base = 0
 				}
 			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-			traits = {
-				prince_of_terror
-			}
 		}
-	}
-	
-	#Twin that is needed for scripted effects! ON PURPOSE!
-	AUS_arthur_seyss-inquart = { #Notice the '-' between seyss and inquart
-		name = AUS_arthur_seyss-inquart
-		portraits = {
-			civilian = {
-				large = "GFX_portrait_AUS_arthur_seyss_inquart"
-				small = "GFX_portrait_AUS_arthur_seyss_inquart_small"
-			}
-		}
-		country_leader = {
-			ideology = nazism
-			expire = "1965.1.1.1"
-			id = -1
-			traits = { nazi_sympathizer }
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_arthur_seyss-inquart
+
+		instance = {
+
 			allowed = {
-				original_tag = AUS
-			}
-			traits = {
-				prince_of_terror 
-			}
-			available = {
 				NOT = {
-					has_war_with = GER
+					has_dlc = "Gotterdammerung"
 				}
 			}
 
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
+			name = AUS_arthur_seyss-inquart
+			portraits = {
+				civilian = {
+					large = GFX_portrait_AUS_arthur_seyss-inquart
+					small = GFX_portrait_AUS_arthur_seyss-inquart_small
+				}
 			}
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				id = -1
+			}
+			advisor = {
+				slot = political_advisor
+				idea_token = AUS_arthur_seyss-inquart
+				allowed = {
+					original_tag = AUS
+				}
+				traits = {
+					prince_of_terror 
+				}
 
-			ai_will_do = {
-				base = 0
+				ai_will_do = {
+					base = 0
+				}
 			}
 		}
 	}
-
 	AUS_gottfried_freiherr_von_banfeld = {
-		advisor = {
+		advisor = {	
 			slot = navy_chief
 			idea_token = AUS_gottfried_freiherr_von_banfeld
 			allowed = {
@@ -362,7 +282,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_carl_heinz_birnbacher = {
 		name = AUS_carl_heinz_birnbacher
 		portraits = {
@@ -372,7 +291,7 @@ characters = {
 			}
 		}
 		navy_leader = {
-			traits = { navy_career_officer }
+			traits = {navy_career_officer}
 			skill = 3
 			attack_skill = 2
 			defense_skill = 2
@@ -387,7 +306,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_edmund_glaise_horstenau = {	#mostly here to fix some errors, presumably used rarely in the vanilla tree as no bug reports had come in
 		name = AUS_edmund_glaise_horstenau
 
@@ -402,7 +320,6 @@ characters = {
 			id = -1
 		} 
 	}
-	
 	AUS_otto_von_habsburg = {
 		#close copy of Hungary's
 		name = HUN_otto_von_habsburg
@@ -438,11 +355,7 @@ characters = {
 		}
 		
 	}
-
 	AUS_hans_pernter = {
-		allowed_civil_war = {
-			tag = AUS
-		}
 		portraits = {
 			army = {
 				small = "GFX_idea_AUS_hans_pernter"
@@ -450,54 +363,24 @@ characters = {
 		}
 		name = AUS_hans_pernter
 		advisor = {
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
 			slot = political_advisor
-			idea_token = AUS_hans_pernter
-			allowed = {
+			idea_token = AUS_hans_pertner
+			allowed = { 
 				original_tag = AUS
 			}
 			available = {
-				if = {
-					limit = {
-						has_global_flag = aus_dlc_focus_tree
-					}
-					NOT = { has_government = fascism }
-				}
-				else = {
-					OR = {
-						AND = {
-							has_government = fascism
-							
-							NOT = {
-								has_country_leader = {
-									character = AUS_arthur_seyss_inquart
-									ruling_only = yes
-								}
-								
-							}
-						}
-						has_government = neutrality
-						AND = {
-							has_government = democratic
-							OR = {
-								has_completed_focus = AUS_oust_schuschnigg
-								has_completed_focus = AUS_reform_the_constitution
-							}
-						}
-					}
-				}
+				NOT = { has_government = fascism }
 			}
 			traits = { 
-				minister_of_education
+				AUS_minister_of_education 
+			}
+
+			ai_will_do = {
+				base = 2
 			}
 		}
 	}
-
-	AUS_johannes_of_liechtenstein = { # I dunno about this
+	AUS_johannes_of_liechtenstein = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_johannes_of_liechtenstein
@@ -521,9 +404,6 @@ characters = {
 					has_completed_focus = wuw_HUN_renovato_imperii
 				}
 			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-			}
 			
 			traits = { 
 				AUS_younger_prince_of_liechtenstein
@@ -535,13 +415,10 @@ characters = {
 
 		}
 		name = AUS_johannes_of_liechtenstein
-		portraits = { # r56 ones
-			civilian={
-				large="gfx/leaders/LIE/r56_portrait_LIE_Johannes_Franz_Maria_Balthasar.dds"
-			}
-			army={
-				large="gfx/leaders/LIE/r56_portrait_LIE_Johannes_Franz_Maria_Balthasar.dds"
-				small="GFX_idea_LIE_johannes_franz_maria_balthasar"
+		portraits = {
+			army = {
+				small = "GFX_portrait_AUS_johannes_von_liechtenstein_small"
+				large = "GFX_portrait_AUS_johannes_von_liechtenstein"
 			}
 		}
 
@@ -568,8 +445,7 @@ characters = {
 			legacy_id = -1
 		}
 	}
-
-	AUS_alois_of_liechtenstein = { # I dunno about this - he can become leader apparently
+	AUS_alois_of_liechtenstein = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_alois_of_liechtenstein
@@ -593,10 +469,6 @@ characters = {
 					has_completed_focus = wuw_HUN_renovato_imperii
 				}
 			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
 			traits = { 
 				AUS_older_prince_of_liechtenstein
 			}
@@ -606,19 +478,14 @@ characters = {
 			}
 		}
 		name = AUS_alois_of_liechtenstein
-		portraits = { # r56 ones except political advisor
-			civilian={
-				large="gfx/leaders/LIE/r56_portrait_LIE_Alois_Gonzaga_Maria_Adolf.dds"
+		portraits = {
+			civilian = {
 				small = "GFX_portrait_AUS_alois_of_liechtenstein_small"
-			}
-			army={
-				large="gfx/leaders/LIE/r56_portrait_LIE_Alois_Gonzaga_Maria_Adolf.dds"
-				small="GFX_idea_LIE_alois_gonzaga_maria_adolf"
+				large = "GFX_portrait_AUS_alois_of_liechtenstein" 
 			}
 		}
 	}
-
-	AUS_heinrich_maier = { # vanilla-adjusted
+	AUS_heinrich_maier = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_heinrich_maier
@@ -638,8 +505,6 @@ characters = {
 				NOT = {
 					has_completed_focus = AUS_cut_ties_with_the_church
 				}
-				has_global_flag = aus_dlc_focus_tree
-				
 			}
 
 			ai_will_do = {
@@ -657,8 +522,7 @@ characters = {
 			}
 		}
 	}
-
-	AUS_viktor_kienbock = { # vanilla-adjusted
+	AUS_viktor_kienbock = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_viktor_kienbock
@@ -682,10 +546,6 @@ characters = {
 					has_government = fascism
 				}
 			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
 		}
 		name = AUS_viktor_kienbock
 		portraits = {
@@ -694,8 +554,7 @@ characters = {
 			}
 		}
 	}
-
-	AUS_leopold_waber = { # vanilla-adjusted
+	AUS_leopold_waber = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_leopold_waber
@@ -705,9 +564,6 @@ characters = {
 			traits = { 
 				NOR_fascist_advocate
 			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-			}
 		}
 		name = AUS_leopold_waber
 		portraits = {
@@ -716,8 +572,7 @@ characters = {
 			}
 		}
 	}
-
-	AUS_malke_schorr = { # vanilla-adjusted
+	AUS_malke_schorr = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_malke_schorr
@@ -730,10 +585,6 @@ characters = {
 			}
 			visible = {
 				has_completed_focus = AUS_establish_rote_hilfe	
-			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
 			}
 			traits = { 
 				AUS_the_red_helper
@@ -750,8 +601,7 @@ characters = {
 			}
 		}
 	}
-
-	AUS_egon_schonhof = { # vanilla-adjusted
+	AUS_egon_schonhof = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_egon_schonhof
@@ -768,11 +618,7 @@ characters = {
 			traits = { 
 				AUS_communist_lawyer
 			}
-			
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
+
 			ai_will_do = {
 				base = 1
 			}
@@ -784,8 +630,7 @@ characters = {
 			}
 		}
 	}
-
-	AUS_franz_koritschoner = { # vanilla-adjusted
+	AUS_franz_koritschoner = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_franz_koritschoner
@@ -795,11 +640,7 @@ characters = {
 			traits = { 
 				AUS_communist_revolutionary
 			}
-			
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
+
 			ai_will_do = {
 				base = 1
 				modifier = {
@@ -815,8 +656,7 @@ characters = {
 			}
 		}
 	}
-
-	AUS_adolf_scharf = { # vanilla-adjusted
+	AUS_adolf_scharf = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_adolf_scharf
@@ -825,10 +665,6 @@ characters = {
 			}
 			traits = { 
 				silent_workhorse
-			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
 			}
 			ai_will_do = {
 				base = 1
@@ -841,8 +677,7 @@ characters = {
 			}
 		}
 	}
-
-	AUS_adolf_hoch = { # vanilla-adjusted
+	AUS_adolf_hoch = {
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_adolf_hoch
@@ -850,7 +685,7 @@ characters = {
 				original_tag = AUS
 			}
 			available = {
-				has_completed_focus = AUS_architechtual_advancements #Not available in R56 tree
+				has_completed_focus = AUS_architechtual_advancements
 			}
 			traits = { 
 				AUS_reknowned_architecht
@@ -866,189 +701,8 @@ characters = {
 			}
 		}
 	}
-
-	AUS_wilhelm_taucher = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		name = AUS_wilhelm_taucher
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_wilhelm_taucher
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					AND = {
-						has_government = fascism
-						
-						NOT = {
-							has_country_leader = {
-								character = AUS_arthur_seyss_inquart
-								ruling_only = yes
-							}
-							
-						}
-					}
-					has_government = neutrality
-					AND = {
-						has_government = democratic
-						OR = {
-							has_completed_focus = AUS_oust_schuschnigg
-							has_completed_focus = AUS_reform_the_constitution
-						}
-					}
-				}
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-			traits = { 
-				minister_of_transportation
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_wilhelm_taucher"
-			}
-		}
-	}
-	AUS_karl_buresch = {
-		name = AUS_karl_buresch
-		allowed_civil_war = {
-			tag = AUS
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_karl_buresch
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					AND = {
-						has_government = fascism
-						
-						NOT = {
-							has_country_leader = {
-								character = AUS_arthur_seyss_inquart
-								ruling_only = yes
-							}
-							
-						}
-					}
-					has_government = neutrality
-					AND = {
-						has_government = democratic
-						OR = {
-							has_completed_focus = AUS_oust_schuschnigg
-							has_completed_focus = AUS_reform_the_constitution
-						}
-					}
-				}
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-			traits = { 
-				AUS_finance_minister
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_karl_buresch"
-			}
-		}
-	}
-
-	AUS_michael_skubl = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		portraits = {
-			civilian = {
-				small = "GFX_idea_AUS_michael_skubl"
-			}
-		}
-		name = AUS_michael_skubl
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_michael_skubl
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					AND = {
-						has_government = fascism
-						
-						NOT = {
-							has_country_leader = {
-								character = AUS_arthur_seyss_inquart
-								ruling_only = yes
-							}
-							
-						}
-					}
-					has_government = neutrality
-					AND = {
-						has_government = democratic
-						OR = {
-							has_completed_focus = AUS_oust_schuschnigg
-							has_completed_focus = AUS_reform_the_constitution
-						}
-					}
-				}
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-			traits = { 
-				AUS_chief_of_police
-			}
-		}
-	}
-	AUS_ludwig_stepski_doliwa = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		name = AUS_ludwig_stepski_doliwa
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_ludwig_stepski_doliwa
-			allowed = {
-				original_tag = AUS
-			}
-			traits = { 
-				captain_of_industry
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_ludwig_stepski_doliwa"
-			}
-		}
-	}
-
 	AUS_friedrich_mandl = {
 		
-		portraits = {
-			civilian = {
-				small = "GFX_idea_europe_generic_3" 
-			}
-		}
 		advisor = {
 			slot = political_advisor
 			idea_token = AUS_friedrich_mandl
@@ -1058,157 +712,75 @@ characters = {
 			traits = {
 				war_industrialist
 			}
-			visible = {
-				
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
+
 			ai_will_do = {
 				base = 0
 			}
 		}
+		portraits = {
+			civilian = {
+				small = "GFX_idea_europe_generic_5" 
+			}
+		}
 	}
+	AUS_ernst_kaltenbrunner = { 
+		instance = {
+			allowed = {
+				has_dlc = "La Resistance"
+			}
+			advisor = {
+				slot = political_advisor
+				idea_token = AUS_ernst_kaltenbrunner
+				allowed = { 
+					original_tag = AUS
+				}
+				available = {
+					has_government = fascism
+				}
+				traits = {
+					head_of_intelligence 
+				}
+
+				ai_will_do = {
+					base = 0
+				}
+			}
 	
-	AUS_peter_mandorfer = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		name = AUS_peter_mandorfer
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_peter_mandorfer
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					AND = {
-						has_government = fascism
-						
-						NOT = {
-							has_country_leader = {
-								character = AUS_arthur_seyss_inquart
-								ruling_only = yes
-							}
-							
-						}
-					}
-					has_government = neutrality
-					AND = {
-						has_government = democratic
-						OR = {
-							has_completed_focus = AUS_oust_schuschnigg
-							has_completed_focus = AUS_reform_the_constitution
-							has_completed_focus = AUS_compromise_with_conservatives
-						}
-					}
-				}
-			}
-			traits = { 
-				AUS_minister_of_agriculture
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
+			name = AUS_ernst_kaltenbrunner
+			portraits = {
+				civilian = {
+					small = "GFX_portrait_AUS_ernst_kaltenbrunner_small"
 				}
 			}
 		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_peter_mandorfer"
-			}
+
+		instance = {
+		 	allowed = {
+		 		NOT = { has_dlc = "La Resistance"}
+		 	}
+		 	advisor = {
+				slot = army_chief
+				idea_token = AUS_ernst_kaltenbrunner
+				allowed = {
+					original_tag = AUS
+				}
+				traits = {
+					army_chief_defensive_1
+				}
+				cost = 100
+				ai_will_do = {
+					base = 0
+				}
+
+		 	}
+
+		 	portraits = {
+		 		civilian = {
+		 			small = "GFX_portrait_AUS_ernst_kaltenbrunner_small"
+		 		}
+		 	}
 		}
 	}
-
-	AUS_guido_schmidt = {
-		name = AUS_guido_schmidt
-		allowed_civil_war = {
-			original_tag = AUS
-			NOT = {
-				tag = AUS
-			}
-			has_global_flag = AUS_civil_war_triggered
-			has_government = fascism
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_guido_schmidt
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					has_idea = AUS_july_agreement
-					has_country_leader = {
-						character = AUS_josef_leopold
-						ruling_only = yes
-					}
-					has_country_leader = {
-						character = AUS_arthur_seyss_inquart
-						ruling_only = yes
-					}
-				}
-			}
-			traits = { 
-				AUS_nazi_appeaser
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_guido_schmidt"
-			}
-		}
-	}
-
-	AUS_ernst_kaltenbrunner = {
-		allowed_civil_war = {
-			original_tag = AUS
-			NOT = {
-				tag = AUS
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_ernst_kaltenbrunner_advisor
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				has_government = fascism
-				OR = {
-					has_country_leader = {
-						character = AUS_josef_leopold
-						ruling_only = yes
-					}
-					has_country_leader = {
-						character = AUS_arthur_seyss_inquart
-						ruling_only = yes
-					}
-				}
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-			traits = {
-				AUS_nazi_security_minister
-			}
-		}
-		name = AUS_ernst_kaltenbrunner
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_ernst_kaltenbrunner"
-			}
-		}
-	}
-
 	AUS_maximilian_ronge = {
 		
 		advisor = {
@@ -1228,10 +800,6 @@ characters = {
 			ai_will_do = {
 				base = 0
 			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
 		}
 		portraits = {
 			civilian = {
@@ -1239,157 +807,31 @@ characters = {
 			}
 		}
 	}
-
 	AUS_richard_steidle = {
 		name = AUS_richard_steidle
-		allowed_civil_war = {
-			tag = AUS
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_richard_steidle
-			traits = { 
-				fascistic_paramilitarist
-			}
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					AND = {
-						has_government = fascism
-						NOT = {
-							has_completed_focus = AUS_integrate_frontmilliz
-						}
-					}
-					AND = {
-						OR = {
-							has_government = neutrality
-							has_government = fascism
-						}
-						has_completed_focus = AUS_utilize_paramilitaries
-					}
-				}
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
+		portraits = {
+			army = {
+				large = "GFX_portrait_AUS_richard_steidle" 
+				small = "GFX_portrait_AUS_richard_steidle_small" 
 			}
 		}
 		corps_commander = {
-			skill = 2
+			traits = { militias_officer }
+			skill = 1
 			attack_skill = 1
-			defense_skill = 3
-			planning_skill = 2
+			defense_skill = 0
+			planning_skill = 1
 			logistics_skill = 1
+			legacy_id = -1
 			visible = {
-				OR = {
-					has_country_leader = {
-						character = AUS_ernst_rudiger_starhemberg
-						ruling_only = yes
-					}
-					has_completed_focus = AUS_empower_the_heimatblock
-					has_completed_focus = AUS_eiserne_legion
-				}
-			}
-			traits = {
-				homeland_connoisseur
-				unpopular
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_richard_steidle"
-			}
-			civilian = {
-				large = "gfx/leaders/AUS/r56_portrait_AUS_richard_steidle.dds"
-			}
-		}
-	}
-	
-	AUS_walter_pfrimer = {
-		name = AUS_walter_pfrimer
-		allowed_civil_war = {
-			original_tag = AUS
-			NOT = {
-				tag = AUS
-			}
-			has_global_flag = AUS_civil_war_triggered
-			has_government = fascism
-		}
-		advisor = {
-			allowed = {
-				original_tag = AUS
-			}
-			slot = political_advisor
-			idea_token = AUS_walter_pfrimer
-			available = {
-				has_government = fascism
-				OR = {
-					has_completed_focus = AUS_empower_the_heimatblock
-					
-					has_country_leader = {
-						character = AUS_josef_leopold
-						ruling_only = yes
-					}
-					has_country_leader = {
-						character = AUS_arthur_seyss_inquart
-						ruling_only = yes
-					}
-				}
-			}
-			traits = {
-				AUS_nazi_heimwehr
-			}
-			visible = {
+				has_government = neutrality
+				has_completed_focus = AUS_eiserne_legion
 				NOT = {
-					has_global_flag = aus_dlc_focus_tree
+					original_tag = GER
 				}
-			}
-		}
-		corps_commander = {
-			skill = 2
-			attack_skill = 1
-			defense_skill = 3
-			planning_skill = 2
-			logistics_skill = 1
-			visible = {
-				OR = {
-					has_country_leader = {
-						character = AUS_josef_leopold
-						ruling_only = yes
-					}
-					has_country_leader = {
-						character = AUS_arthur_seyss_inquart
-						ruling_only = yes
-					}
-					AND = {
-						has_country_leader = {
-							character = AUS_ernst_rudiger_starhemberg
-							ruling_only = yes
-						}
-						NOT = {
-							has_global_flag = AUS_civil_war_triggered
-						}
-					}
-				}
-			}
-			traits = {
-				unpopular
-				AUS_nazi_loyalties
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_walter_pfrimer"
-			}
-			civilian = {
-				large = "gfx/leaders/AUS/r56_portrait_AUS_walter_pfrimer.dds"
 			}
 		}
 	}
-
 	AUS_karl_polheim = { # vanilla-adjusted
 		advisor = {
 			slot = political_advisor
@@ -1401,19 +843,11 @@ characters = {
 				AUS_ruthless_university_rector
 			}
 			available = {
-				if = {
-					limit = {
-						has_global_flag = aus_dlc_focus_tree
-					}
-					has_completed_focus = AUS_recruiting_the_graduates
-				}
+
+				has_completed_focus = AUS_recruiting_the_graduates
 				has_government = fascism
 			}
 			
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
 			ai_will_do = {
 				base = 1
 			}
@@ -1425,7 +859,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_marianne_pollak = { # vanilla-adjusted
 		advisor = {
 			slot = political_advisor
@@ -1438,21 +871,12 @@ characters = {
 					has_government = democratic
 					has_government = communism
 				}
-				if = {
-					limit = {
-						has_global_flag = aus_dlc_focus_tree
-					}
-					has_completed_focus = AUS_womens_education_initiative
-				}
+				has_completed_focus = AUS_womens_education_initiative
 			}
 			traits = { 
 				ARG_socialist_feminist
 			}
 
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
 			ai_will_do = {
 				base = 3
 			}
@@ -1464,7 +888,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_bruno_kreisky = { # vanilla-adjusted
 		advisor = {
 			slot = political_advisor
@@ -1478,11 +901,7 @@ characters = {
 			available = {
 				has_completed_focus = AUS_release_imprisoned_leaders
 			}
-			
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
+
 			ai_will_do = {
 				base = 1
 				modifier = {
@@ -1498,7 +917,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_theodor_innitzer = { # vanilla-adjusted
 		advisor = {
 			slot = political_advisor
@@ -1516,10 +934,6 @@ characters = {
 					has_completed_focus = AUS_cut_ties_with_the_church
 				}
 			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-			
-			}
 			traits = { #this will be changed in an event
 				AUS_fascist_cardinal 
 			}
@@ -1535,7 +949,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_elizabet_von_gutmann = { # vanilla-adjusted
 		advisor = {
 			slot = political_advisor
@@ -1552,11 +965,7 @@ characters = {
 			traits = { 
 				AUS_resourceful_princess
 			}
-			
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
-				
-			}
+
 			ai_will_do = {
 				base = 1
 				modifier = {
@@ -1573,154 +982,12 @@ characters = {
 			}
 		}
 	}
-
-	
-	AUS_emil_fey = {
-		name = AUS_emil_fey
-		portraits = {
-			civilian = {
-				small = "GFX_idea_AUS_emil_fey"
-			}
-		}
-		
-		allowed_civil_war = {
-			tag = AUS
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_emil_fey
-			available = {
-				if = {
-					limit = {
-						has_global_flag = aus_dlc_focus_tree
-					}
-					has_completed_focus = AUS_heimwehr_support
-				}
-				else = {
-					OR = {
-						has_completed_focus = AUS_utilize_paramilitaries
-						has_completed_focus = AUS_utilize_the_heimwehr
-						has_completed_focus = AUS_utilize_fey
-					}
-				}
-			}
-			traits = {
-				radical_anti_communist
-			}
-			allowed = {
-				original_tag = AUS
-			}
-			on_add = {
-				AUS = {
-					if = {
-						limit = {
-							has_power_balance = {
-								id = AUS_heimwehr_power_balance
-							}
-							NOT = {
-								has_completed_focus = AUS_utilize_fey
-							}
-						}
-						add_power_balance_value = {
-							id = AUS_heimwehr_power_balance
-							value = 0.1
-							tooltip_side = AUS_heimwehr_side
-						}
-					}
-				}
-			}
-		}
-	}
-
-	AUS_georg_thurn_valsassina = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		name = AUS_georg_thurn_valsassina
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_georg_thurn_valsassina
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					AND = {
-						has_government = fascism
-						NOT = {
-							has_completed_focus = AUS_integrate_frontmilliz
-						}
-						NOT = {
-							has_country_leader = {
-								character = AUS_arthur_seyss_inquart
-								ruling_only = yes
-							}
-							has_country_leader = {
-								character = AUS_josef_leopold
-								ruling_only = yes
-							}
-							
-						}
-					}
-					AND = {
-						has_government = neutrality
-						has_completed_focus = AUS_utilize_paramilitaries
-					}
-					
-				}
-			}
-			traits = { 
-				AUS_heimwehr_youth_organizer
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_georg_thurn_valsassina"
-			}
-		}
-	}
-
 	AUS_julius_deutsch = {
-		allowed_civil_war = {
-			tag = AUS
-		}
 		name = AUS_julius_deutsch
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_julius_deutsch
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					has_government = democratic
-					has_government = communism
-				}
-				if = {
-					limit = {
-						has_completed_focus = AUS_oust_schuschnigg
-						has_government = democratic
-					}
-					has_completed_focus = AUS_grand_coalition
-				}
-			}
-			traits = { 
-				AUS_schutzbund_paramilitarist
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-		}
 		portraits = {
 			army = {
-				small = "GFX_idea_AUS_julius_deutsch"
+				large = "GFX_portrait_AUS_julius_deutsch"
+				small = "GFX_portrait_AUS_julius_deutsch_small"
 			}
 		}
 		corps_commander = {
@@ -1738,168 +1005,97 @@ characters = {
 					has_completed_focus = AUS_properly_trained_militias
 				}
 				NOT = { original_tag = GER }
-				has_global_flag = aus_dlc_focus_tree	#56
 			}
 		}
 	}
-	
-	
-	
-	AUS_theodore_korner = {
-		name = AUS_theodore_korner
-		allowed_civil_war = {
-			tag = AUS
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_theodore_korner
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					has_government = democratic
-					has_government = communism
-				}
-				if = {
-					limit = {
-						has_completed_focus = AUS_oust_schuschnigg
-						has_government = democratic
-					}
-					has_completed_focus = AUS_grand_coalition
-				}
-			}
-			traits = { 
-				AUS_homeland_defense_socialist
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_theodore_korner"
-			}
-		}
-	}
-	AUS_berthold_konig = {
-		name = AUS_berthold_konig
-		allowed_civil_war = {
-			tag = AUS
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_berthold_konig
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					has_government = democratic
-					has_government = communism
-				}
-				if = {
-					limit = {
-						has_completed_focus = AUS_oust_schuschnigg
-						has_government = democratic
-					}
-					has_completed_focus = AUS_grand_coalition
-				}
-			}
-			traits = { 
-				trade_unionist
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_berthold_konig"
-			}
-		}
-	}
+	AUS_johann_koplenig = {
+		name = AUS_johann_koplenig
 
-	AUS_benno_von_millenkovich={
-		name="Benno von Millenkovich"
-		portraits={
-			army={
-				large="gfx/leaders/Europe/Portrait_Europe_Generic_navy_2.dds"
-				small="GFX_idea_generic_navy_europe_2"
+		portraits = { 
+			civilian = {
+				large = "GFX_portrait_AUS_johann_koplenig"
 			}
 		}
-		navy_leader={
-			traits={ old_guard_navy fleet_protector }
-			skill=3
-			attack_skill=2
-			defense_skill=3
-			maneuvering_skill=2
-			coordination_skill=2
-			legacy_id=-1
-		}
-		advisor={
-			cost = 100
-			slot = navy_chief
-			idea_token = AUS_benno_von_millenkovich
-			ledger = navy
-			allowed = {
-				original_tag = AUS
-			}
-			traits = { navy_chief_maneuver_2 }
-		}
-	}
-	AUS_paul_hermann_meixer={
-		name="Paul Hermann Meixner"
-		portraits={
-			army={
-				large="gfx/leaders/Europe/Portrait_Europe_Generic_navy_3.dds"
-				small="GFX_idea_generic_navy_europe_3"
-			}
-		}
-		navy_leader={
-			traits={ promising seawolf }
-			skill=2
-			attack_skill=2
-			defense_skill=1
-			maneuvering_skill=2
-			coordination_skill=2
-			legacy_id=-1
-		}
-		advisor={
-			cost = 100
+		country_leader = { 
+			ideology = leninism
+			expire = "1965.1.1.1"
+			id = -1
+		} 
+	}		
+	AUS_theodor_korner = {
+		advisor = {	
 			slot = high_command
-			idea_token = AUS_paul_hermann_meixer
-			ledger = navy
+			idea_token = AUS_theodor_korner
+			ledger = army
 			allowed = {
 				original_tag = AUS
 			}
-			traits = { navy_fleet_logistics_2 }
-		}
-	}
-
-	AUS_franz_von_kiel={
-		name="Franz von Keil"
-		portraits={
-			army={
-				small="GFX_idea_generic_navy_europe_1"
+			traits = {
+				army_concealment_1
+			}
+			cost = 50
+			ai_will_do = {
+				base = 1
 			}
 		}
-		advisor={
+
+		corps_commander = {
+			traits = { militias_officer }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 1
+			logistics_skill = 1
+			legacy_id = -1
+			visible = {
+				OR = {
+					has_government = communism
+					has_government = democratic
+				}
+				OR = {
+					has_completed_focus = AUS_schutzbund_support
+					has_completed_focus = AUS_properly_trained_militias
+				}
+				
+			}
+		}
+		name = AUS_theodor_korner
+		portraits = {
+			army = {
+				small = "GFX_portrait_AUS_theodor_korner_small"
+				large = "GFX_portrait_AUS_theodor_korner"
+			}
+		}
+	}
+	AUS_franz_von_keil = { 
+		advisor = {
+			slot = navy_chief
+			idea_token = AUS_franz_von_keil
+			allowed = {
+				original_tag = AUS
+			}
+			traits = {
+				navy_chief_decisive_battle_2 
+			}
 			cost = 100
-			slot = theorist
-			idea_token = AUS_franz_von_kiel
-			ledger = navy
-			allowed = {
-				original_tag = AUS
+			ai_will_do = {
+				base = 1
+				modifier = {
+					factor = 0.1
+					any_controlled_state = {
+						is_coastal = no
+					}
+				}
 			}
-			traits = { naval_theorist }
+		}
+		name = AUS_franz_von_keil
+		portraits = {
+			army = {
+				small = "GFX_portrait_AUS_franz_von_keil_small"
+
+			}
 		}
 	}
-
 	AUS_karl_eglseer = {
 		name = AUS_karl_eglseer
 		portraits = {
@@ -1919,65 +1115,6 @@ characters = {
 			planning_skill = 3
 			logistics_skill = 2
 			legacy_id = 1226
-		}
-	}
-	AUS_alexander_eifler = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		
-		name = AUS_alexander_eifler
-		portraits = {
-			army = {
-				large = "gfx/leaders/AUS/r56_portrait_AUS_alexander_eifler.dds"
-				small = "GFX_idea_AUS_alexander_eifler"
-			}
-			
-		}
-		corps_commander = {
-			skill = 3
-			attack_skill = 2
-			defense_skill = 4
-			planning_skill = 2
-			logistics_skill = 2
-			traits = {
-				homeland_connoisseur
-				
-			}
-			visible = {
-				OR = {
-					has_government = democratic
-					has_government = communism
-				}
-				if = {
-					limit = {
-						has_completed_focus = AUS_oust_schuschnigg
-						has_government = democratic
-					}
-					has_completed_focus = AUS_grand_coalition
-				}
-			}
-		}
-		advisor = {
-			slot = high_command
-			idea_token = AUS_alexander_eifler
-			traits = {
-				army_CombinedArms_2
-			}
-			available = {
-				OR = {
-					has_government = democratic
-					has_government = communism
-				}
-				if = {
-					limit = {
-						has_completed_focus = AUS_oust_schuschnigg
-						has_government = democratic
-					}
-					has_completed_focus = AUS_grand_coalition
-				}
-			}
-			cost = 100
 		}
 	}
 	AUS_eduard_barger = {
@@ -2504,36 +1641,6 @@ characters = {
 			}
 		}
 	}
-	AUS_gottfried_von_banfield = {
-		#new r56
-		allowed_civil_war = {
-			tag = AUS
-		}
-		advisor = {
-			slot = navy_chief
-			idea_token = AUS_gottfried_von_banfield
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				owns_state = 736
-				has_completed_focus = AUS_trieste_shipyards
-			}
-			traits = {
-				navy_chief_naval_aviation_2
-			}
-			cost = 100
-			ai_will_do = {
-				factor = 1
-			}
-		}
-		name = AUS_gottfried_von_banfield
-		portraits = {
-			army = {
-				small = "GFX_idea_generic_navy_europe_3"
-			}
-		}
-	}
 	AUS_otto_schobel = {
 		allowed_civil_war = {
 			tag = AUS
@@ -2650,9 +1757,15 @@ characters = {
 			}
 		}
 	}
-	
 	AUS_alfred_jansa = {
-		#new r56
+		name = AUS_alfred_jansa
+		portraits = {
+			army = {
+				large = "GFX_portrait_AUS_alfred_jansa"
+				small = "GFX_portrait_AUS_alfred_jansa_small"
+			}
+		}
+
 		advisor = {
 			slot = army_chief
 			idea_token = AUS_alfred_jansa
@@ -2660,132 +1773,138 @@ characters = {
 				original_tag = AUS
 			}
 			available = {
+				has_completed_focus = AUS_follow_the_jansa_plan
+			}
+			visible = {
 				NOT = {
-					has_completed_focus = AUS_accept_inevitable
+					OR = {
+						has_completed_focus = AUS_establish_bohme_plan 
+						original_tag = GER
+					}
 				}
 			}
 			traits = {
-				army_chief_defensive_3
+				army_chief_defensive_2
 			}
 			cost = 100
 			ai_will_do = {
-				factor = 1
+				base = 5
 			}
 		}
 		field_marshal = {
-			#resigned under German pressure because he prepared the defense of Austria against a German invasion
-			traits = {
-				defensive_doctrine
-				trait_mountaineer
-			}
+			traits = { organizer thorough_planner war_hero }
 			skill = 3
-			attack_skill = 3
+			attack_skill = 2
 			defense_skill = 4
-			planning_skill = 2
+			planning_skill = 3
 			logistics_skill = 2
-			legacy_id = 1223
+			legacy_id = -1
 			visible = {
-				if = { 
-					limit = {
-						has_global_flag = AUS_civil_war_triggered
-					}
-					NOT = {
-						has_country_leader = {
-							character = AUS_josef_leopold
-							ruling_only = yes
-						}
-						has_country_leader = {
-							character = AUS_arthur_seyss_inquart
-							ruling_only = yes
+				OR = {
+					AND = {
+						has_civil_war = yes
+						OR = {
+							has_government = democratic
+							has_government = communism
 						}
 					}
+				
+					has_civil_war = no
 				}
-			}
-		}
-		name = AUS_alfred_jansa
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_alfred_jansa"
-				large = "gfx/leaders/AUS/r56_portrait_AUS_Alfred_Jansa.dds"
+				NOT = {
+					original_tag = GER
+				}
 			}
 		}
 	}
-	# AUS_eduard_freiherr = { #lived in czechoslovakia and retired after ww2, removed
-	# 	advisor = {
-	# 		slot = army_chief
-	# 		idea_token = AUS_eduard_freiherr
-	# 		allowed = {
-	# 			original_tag = AUS
-	# 		}
-	# 		traits = {
-	# 			army_chief_offensive_2
-	# 		}
-	# 		cost = 100
-	# 		ai_will_do = {
-	# 			factor = 1
-	# 		}
-	# 	}
-	# 	name = AUS_eduard_freiherr
-	# 	portraits = {
-	# 		army = {
-	# 			small = "GFX_idea_generic_army_europe_1"
-	# 		}
-	# 	}
-	# }
 	AUS_franz_bohme = {
-		advisor = {
-			slot = army_chief
-			idea_token = AUS_franz_bohme_chief
+		instance = {
 			allowed = {
-				original_tag = AUS
+				has_dlc = "Gotterdammerung"
 			}
-			available = {
-				if = {
-					limit = {
-						has_global_flag = aus_dlc_focus_tree
-					}
+
+			advisor = {
+				slot = army_chief
+				idea_token = AUS_franz_bohme
+				allowed = {
+					original_tag = AUS
+				}
+				available = {
 					has_completed_focus = AUS_establish_bohme_plan
 				}
-			}
-			traits = {
-				army_chief_morale_2
-			}
-			cost = 100
-		}
-		field_marshal = {
-			traits = {
-				trickster
-				AUS_nazi_loyalties
-			}
-			skill = 3
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 4
-			logistics_skill = 2
-			legacy_id = 1224
-			visible = {
-				if = { 
-					limit = {
-						has_global_flag = AUS_civil_war_triggered
-					}
-					OR = {
-						has_country_leader = {
-							character = AUS_josef_leopold
-							ruling_only = yes
+
+				visible = {
+					NOT = {has_completed_focus = AUS_follow_the_jansa_plan}
+				}
+				traits = {
+					army_chief_offensive_2
+				}
+				cost = 100
+				ai_will_do = {
+					base = 1
+					modifier = {
+						factor = 10
+						original_tag = AUS
+						OR = {
+							has_completed_focus = AUS_demand_hungarian_submission
+							has_completed_focus = AUS_bring_hungary_back_into_the_fold
 						}
-						has_country_leader = {
-							character = AUS_arthur_seyss_inquart
-							ruling_only = yes
+						
+					}
+				}
+			}
+			name = AUS_franz_bohme
+			portraits = {
+				army = {
+					large = "GFX_portrait_AUS_franz_bohme"
+					small = "GFX_portrait_AUS_franz_bohme_small"
+				}
+			}
+	
+			field_marshal = {
+				traits = { brilliant_strategist harsh_leader offensive_doctrine }
+				skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 3
+				logistics_skill = 2
+				legacy_id = -1
+				visible = {
+					OR = {
+						original_tag = AUS
+						AND = {
+							original_tag = GER
+							has_country_flag = AUS_annexed
 						}
 					}
 				}
 			}
 		}
-		name = AUS_franz_bohme
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_franz_bohme"
-				large = "gfx/leaders/AUS/r56_portrait_AUS_franz_bohme.dds"
+
+		instance = {
+			allowed = {
+				NOT = { has_dlc = "Gotterdammerung" }
+			}
+			
+			advisor = {
+				slot = army_chief
+				idea_token = AUS_franz_bohme
+				allowed = {
+					original_tag = AUS
+				}
+				traits = {
+					army_chief_maneuver_2
+				}
+				cost = 100
+				ai_will_do = {
+					factor = 1.000
+				}
+			}
+			name = AUS_franz_bohme
+			portraits = {
+				army = {
+					small = "GFX_idea_generic_army_europe_1"
+				}
 			}
 		}
 	}
@@ -2837,75 +1956,21 @@ characters = {
 			}
 		}
 	}
-	# AUS_julius_raab = {
-	# 	#unrecruited
-	# 	advisor = {
-	# 		slot = political_advisor
-	# 		idea_token = AUS_julius_raab
-	# 		allowed = {
-	# 			original_tag = AUS
-	# 		}
-	# 		traits = {
-	# 			captain_of_industry
-	# 		}
-	# 	}
-	# 	name = AUS_julius_raab
-	# 	portraits = {
-	# 		army = {
-	# 			small = "GFX_idea_generic_political_advisor_europe_3"
-	# 		}
-	# 	}
-	# }
-	AUS_leopold_figl = {
+	AUS_julius_raab = {
 		advisor = {
 			slot = political_advisor
-			idea_token = AUS_leopold_figl
-			available = {
-				NOT = {
-					has_country_leader = {
-						character = AUS_arthur_seyss_inquart
-						ruling_only = yes
-					}
-					
-					has_country_leader = {
-						character = AUS_josef_leopold
-						ruling_only = yes
-					}
-					has_country_leader = {
-						character = AUS_ernst_rudiger_starhemberg
-						ruling_only = yes
-					}
-					has_country_leader = {
-						character = AUS_leopold_figl
-						ruling_only = yes
-					}
-				}
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
+			idea_token = AUS_julius_raab
 			allowed = {
 				original_tag = AUS
 			}
 			traits = {
-				AUS_pragmatic_reformer
+				captain_of_industry
 			}
 		}
-		name = AUS_leopold_figl
+		name = AUS_julius_raab
 		portraits = {
 			army = {
-				small = "GFX_idea_AUS_leopold_figl"
-			}
-			civilian = { 
-				large = "gfx/leaders/aus/r56_portrait_AUS_Leopold_Figl.dds"
-			}
-		}
-		country_leader = {
-			ideology = conservatism
-			traits = {
-				AUS_pragmatic_reformer
+				small = "GFX_idea_generic_political_advisor_europe_3"
 			}
 		}
 	}
@@ -2948,309 +2013,22 @@ characters = {
 			}
 		}
 	}
-	AUS_johann_koplenig = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		#road to 56 new
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_johann_koplenig
-			allowed = {
-				original_tag = AUS
-			}
-			visible = {
-				NOT = {
-					has_global_flag = aus_dlc_focus_tree
-				}
-			}
-			traits = {
-				communist_revolutionary
-			}
-		}
-		name = AUS_johann_koplenig
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_johann_koplenig"
-			}
-		}
-	}
-	AUS_bruno_frei = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		#road to 56 new
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_bruno_frei
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					has_government = communism
-					if = {
-						limit = {
-							has_global_flag = aus_dlc_focus_tree
-						}
-						has_completed_focus = AUS_austromarxism_focus
-					}
-					else = {
-						has_completed_focus = AUS_bring_in_left
-					}
-				}
-			}
-			traits = {
-				socialist_writer
-			}
-		}
-		name = AUS_bruno_frei
-		portraits = {
-			army = {
-				small = "GFX_idea_generic_political_advisor_europe_3"
-			}
-		}
-	}
-	AUS_ernst_fischer = {
-		allowed_civil_war = {
-			tag = AUS
-		}
-		#road to 56 new
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_ernst_fischer
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				OR = {
-					has_government = communism
-					if = {
-						limit = {
-							has_global_flag = aus_dlc_focus_tree
-						}
-						has_completed_focus = AUS_rally_the_people
-					}
-					else = {
-						has_completed_focus = AUS_bring_in_left
-					}
-				}
-			}
-			traits = {
-				anti_fascist_agent
-			}
-		}
-		name = AUS_ernst_fischer
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_ernst_fischer"
-			}
-		}
-	}
-	# AUS_ernst_fabri = {
-	# 	#road to 56 new
-	# 	advisor = {
-	# 		slot = political_advisor
-	# 		idea_token = AUS_ernst_fabri
-	# 		allowed = {
-	# 			original_tag = AUS
-	# 		}
-	# 		available = {
-	# 			has_government = communism
-	# 			has_country_flag = AUS_exiles_returned
-	# 		}
-	# 		traits = {
-	# 			captain_of_industry
-	# 		}
-	# 	}
-	# 	name = AUS_ernst_fabri
-	# 	portraits = {
-	# 		army = {
-	# 			small = "GFX_idea_generic_political_advisor_europe_5"
-	# 		}
-	# 	}
-	# }
-	# AUS_lucien_laurat = {
-	# 	#road to 56 new
-	# 	advisor = {
-	# 		slot = political_advisor
-	# 		idea_token = AUS_lucien_laurat
-	# 		allowed = {
-	# 			original_tag = AUS
-	# 		}
-	# 		available = {
-	# 			OR = {
-	# 				has_government = communism
-	# 				has_completed_focus = AUS_bring_in_left
-	# 			}
-	# 		}
-	# 		traits = {
-	# 			socialist_writer
-	# 		}
-	# 	}
-	# 	name = AUS_lucien_laurat
-	# 	portraits = {
-	# 		army = {
-	# 			small = "GFX_idea_generic_political_advisor_europe_4"
-	# 		}
-	# 	}
-	# }
-	# AUS_hermann_broch = {
-	# 	#road to 56 new
-	# 	advisor = {
-	# 		slot = political_advisor
-	# 		idea_token = AUS_hermann_broch
-	# 		allowed = {
-	# 			original_tag = AUS
-	# 		}
-	# 		available = {
-	# 			NOT = {
-	# 				has_country_flag = AUS_purged_minister
-	# 			}
-	# 		}
-	# 		traits = {
-	# 			captain_of_industry
-	# 		}
-	# 	}
-	# 	name = AUS_hermann_broch
-	# 	portraits = {
-	# 		army = {
-	# 			small = "GFX_idea_AUS_hermann_broch"
-	# 		}
-	# 	}
-	# }
 	AUS_wilhelm_miklas = {
-		#road to 56 new
-		# advisor = {
-		# 	slot = political_advisor
-		# 	idea_token = AUS_wilhelm_miklas
-		# 	allowed = {
-		# 		original_tag = AUS
-		# 	}
-		# 	available = {
-		# 		NOT = {
-		# 			has_country_flag = AUS_purged_minister
-		# 		}
-		# 	}
-		# 	traits = {
-		# 		silent_workhorse
-		# 	}
-		# }
 		name = AUS_wilhelm_miklas
+
 		portraits = {
-			army = {
-				small = "GFX_idea_AUS_wilhelm_miklas"
-			}
-		}
-	}
-	
-	
-	AUS_ernst_karl_winter = {
-		name = AUS_ernst_karl_winter
-		allowed_civil_war = {
-			tag = AUS
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_ernst_karl_winter
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				if = {
-					limit = {
-						has_global_flag = aus_dlc_focus_tree
-					}
-					has_completed_focus = AUS_reinstate_the_imperial_council
-				}
-				else = {
-					OR = {
-						has_completed_focus = AUS_bring_exiled_monarchists
-						has_completed_focus = AUS_moderate_restoration
-					}
-					OR = {
-						has_government = democratic
-						has_government = neutrality
-					}
-					NOT = {
-						has_completed_focus = AUS_utilize_paramilitaries
-					}
-				}
-			}
-			traits = { 
-				AUS_social_monarchist
-			}
-		}
-		portraits = {
-			army = {
-				small = "GFX_idea_generic_political_advisor_europe_6"
-			}
-		}
-	}
-	AUS_hans_karl_zessner_spitzenberg = {
-		name = AUS_hans_karl_zessner_spitzenberg
-		allowed_civil_war = {
-			tag = AUS
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = AUS_hans_karl_zessner_spitzenberg
-			allowed = {
-				original_tag = AUS
-			}
-			available = {
-				if = {
-					limit = {
-						has_global_flag = aus_dlc_focus_tree
-					}
-					has_completed_focus = AUS_reinstate_the_imperial_council
-				}
-				else = {
-					OR = {
-						has_completed_focus = AUS_bring_exiled_monarchists
-						has_completed_focus = AUS_moderate_restoration
-						has_government = neutrality
-					}
-					NOT = {
-						has_government = communism
-					}
-				}
+			civilian = {
+				large = "GFX_portrait_AUS_wilhelm_miklas"
 				
 			}
-			traits = { 
-				AUS_monarchist_ally
-			}
 		}
-		
-		portraits = {
-			army = {
-				small = "GFX_idea_AUS_advisor_hans_karl_zessner_spitzenburg"
-			}
-		}
+		country_leader = {
+			ideology = moderatism
+			expire = "1965.1.1.1"
+			id = -1
+			traits = { popular_figurehead2 }
+		} 
 	}
-	AUS_karl_werkmann= {
-		name="Karl Werkmann"
-		portraits={
-			army={
-				small="GFX_kr_portrait_europe_generic_6_small"
-			}
-		}
-		advisor={
-			slot = political_advisor
-			idea_token = AUS_karl_werkmann
-			allowed = {	
-				original_tag = AUS
-			}
-			traits = {
-				autocratic_journalist
-			}
-			available  = {
-				has_government = neutrality
-			}
-			cost = 150
-		}
-	}
-
 	AUS_emil_liebitzky = {
 		name = AUS_emil_liebitzky
 		portraits = {
@@ -3268,7 +2046,6 @@ characters = {
 			logistics_skill = 2
 			legacy_id = -1
 			visible = {
-				has_completed_focus = AUS_promote_the_worthy	#r56: condition added since he wasnt a general yet
 				NOT = { original_tag = GER }
 				OR = {
 					AND = {
@@ -3283,7 +2060,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_wilhelm_gebauer = {
 		name = AUS_wilhelm_gebauer
 		portraits = {
@@ -3307,9 +2083,7 @@ characters = {
 					has_completed_focus = AUS_bring_generals_out_of_retirement
 					has_completed_focus = GER_the_austrian_question
 				}
-			}
-			visible = {
-				has_global_flag = aus_dlc_focus_tree
+				
 			}
 			traits = {
 				army_chief_morale_3
@@ -3338,10 +2112,11 @@ characters = {
 						original_tag = GER
 					}
 				}
+				
+				
 			}
 		}
-	}
-	
+	}	
 	AUS_mauritz_von_wiktorin = {
 		name = AUS_mauritz_von_wiktorin
 		portraits = {
@@ -3375,8 +2150,7 @@ characters = {
 				}
 			}
 		}
-	}
-	
+	}	
 	AUS_ludwig_von_mises = {
 		advisor = {
 			slot = political_advisor
@@ -3405,53 +2179,7 @@ characters = {
 				small = "GFX_portrait_AUS_ludwig_von_mises_small"
 			}
 		}
-	}
-	
-	AUS_theodor_korner = {
-		#advisor = {	
-		#	slot = high_command
-		#	idea_token = AUS_theodor_korner
-		#	ledger = army
-		#	allowed = {
-		#		original_tag = AUS
-		#	}
-		#	traits = {
-		#		army_concealment_1
-		#	}
-		#	cost = 50
-		#	ai_will_do = {
-		#		base = 1
-		#	}
-		#}
-
-		corps_commander = {
-			traits = { militias_officer }
-			skill = 2
-			attack_skill = 2
-			defense_skill = 3
-			planning_skill = 1
-			logistics_skill = 1
-			legacy_id = -1
-			visible = {
-				OR = {
-					has_government = communism
-					has_government = democratic
-				}
-				OR = {
-					has_completed_focus = AUS_schutzbund_support
-					has_completed_focus = AUS_properly_trained_militias
-				}
-				
-			}
-		}
-		name = AUS_theodor_korner
-		portraits = {
-			army = {
-				small = "GFX_portrait_AUS_theodor_korner_small"
-				large = "GFX_portrait_AUS_theodor_korner"
-			}
-		}
-	}
+	}	
 	AUS_friedrich_materna = {
 		name = AUS_friedrich_materna
 		portraits = {
@@ -3585,7 +2313,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_valentin_feuerstein = {
 		name = AUS_valentin_feuerstein
 		portraits = {
@@ -3693,7 +2420,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_eugen_sanger = {
 		name = AUS_eugen_sanger
 		portraits = {
@@ -3715,7 +2441,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_hedy_lamarr = {
 		name = AUS_hedy_lamarr
 		portraits = {
@@ -3737,8 +2462,6 @@ characters = {
 			}
 		}
 	}
-
-
 	AUS_otto_grim = {
 		name = "Otto Grim"
 		portraits = {
@@ -3754,7 +2477,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_egon_schweidler = {
 		name = AUS_egon_schweidler
 		portraits = {
@@ -3776,7 +2498,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_paul_eisler = {
 		name = AUS_paul_eisler
 		portraits = {
@@ -3798,7 +2519,6 @@ characters = {
 			}
 		}
 	}
-
 	AUS_gunther_adolf_burstyn = {
 		name = AUS_gunther_adolf_burstyn
 		portraits = {
