@@ -403,9 +403,53 @@ ideas = {
 						#original_tag = POL 
 					}
 				}
+				## base game additions
+				modifier = {
+					add = 80
+					original_tag = SOV
+					date < 1937.1.1
+					NOT = { 
+						OR = {
+							has_idea = war_economy 
+							has_idea = tot_economic_mobilisation
+						}
+					}
+				}
+				
+				modifier = {
+					original_tag = SIA
+					NOT = { 
+						OR = {
+							has_idea = war_economy 
+							has_idea = tot_economic_mobilisation
+						}
+					}
+					add = 1200 #Prep for invasion
+				}
+
+				modifier = {
+					factor = 100
+					OR = {
+						original_tag = URG
+						original_tag = PAR
+					}
+					NOT = {
+						has_idea = war_economy
+					}
+					has_completed_focus = GUAY_coup_detat
+				}
+				## r56 addition to try to avoid the AI changing war economy needlessly
+				modifier = {
+					OR = {
+						has_idea = war_economy 
+						has_idea = tot_economic_mobilisation
+						has_idea = totaler_krieg_economy
+					}
+					has_war = yes
+					factor = 0
+				}
    			}
 		}
-	
 
 		war_economy = {
 			level = 2
@@ -481,16 +525,17 @@ ideas = {
 						}
 					}
 				}
+
 				if = {
 					limit = {
-						original_tag = USA
+						original_tag = USA	#56
 						has_completed_focus = USA_limited_intervention
 						has_defensive_war = no
 					}
 					has_war_support > 0.75
 					congress_high_support_trigger = yes
 				}
-				# if = {
+				# if = {	#56
 				# 	limit = {
 				# 		original_tag = TUR
 				# 		has_dlc = "Battle for the Bosporus"
@@ -503,7 +548,7 @@ ideas = {
 				# 		}
 				# 	}
 				# }
-				if = {
+				if = {	#56?
 					limit = {
 						original_tag = GER
 						OR = {
@@ -534,7 +579,7 @@ ideas = {
 			on_add = {
 				if = {
 					limit = {
-						original_tag = USA
+						original_tag = USA	#56
 						has_completed_focus = USA_limited_intervention
 						has_defensive_war = no
 					}
@@ -542,7 +587,7 @@ ideas = {
 				}
 			}
 			ai_will_do = {
-   				factor = 5
+   				base = 5
 
 				modifier = {
 					#High prio on production
@@ -550,7 +595,7 @@ ideas = {
 					manpower_per_military_factory >  1000
 				}
 
-				modifier = {
+				modifier = {	#56
 					factor = 20
 					original_tag = ROM
 					OR = {
@@ -581,6 +626,14 @@ ideas = {
 					has_idea = closed_economy
 					has_large_ally_not_pick_closed_economy = yes
 				}
+
+				modifier = {
+					# We will lose the war support after the war anyway
+					factor = 0
+					original_tag = GER
+					has_civil_war = yes
+					has_government = neutrality
+				}
    			}
 		}
 
@@ -591,8 +644,8 @@ ideas = {
 				has_war = yes
 				has_war_support > 0.8
 				any_enemy_country = {
-					ic_ratio = { 
-						tag = ROOT 
+					ic_ratio = {
+						tag = ROOT
 						ratio > 0.5
 					}
 				}
@@ -651,29 +704,30 @@ ideas = {
 						}
 					}
 				}
+				
 				if = {
 					limit = {
-						original_tag = USA
+						original_tag = USA	#56
 						has_completed_focus = USA_limited_intervention
 						has_defensive_war = no
 					}
 					has_war_support > 0.9
 					congress_high_support_trigger = yes
 				}
-				#if = {
-				#	limit = {
-				#		original_tag = TUR
-				#		has_dlc = "Battle for the Bosporus"
-				#	}
-				#	NOT = {
-				#		OR = {
-				#			has_active_mission = TUR_etatism_crisis_1
-				#			has_active_mission = TUR_etatism_crisis_2
-				#			has_active_mission = TUR_etatism_crisis_3
-				#		}
-				#	}
-				#}
-				if = {
+				# if = {	#56
+				# 	limit = {
+				# 		original_tag = TUR
+				# 		has_dlc = "Battle for the Bosporus"
+				# 	}
+				# 	NOT = {
+				# 		OR = {
+				# 			has_active_mission = TUR_etatism_crisis_1
+				# 			has_active_mission = TUR_etatism_crisis_2
+				# 			has_active_mission = TUR_etatism_crisis_3
+				# 		}
+				# 	}
+				# }
+				if = {	#56
 					limit = {
 						original_tag = GER
 						OR = {
@@ -692,7 +746,7 @@ ideas = {
 			on_add = {
 				if = {
 					limit = {
-						original_tag = USA
+						original_tag = USA	#56
 						has_completed_focus = USA_limited_intervention
 						has_defensive_war = no
 					}
@@ -729,7 +783,7 @@ ideas = {
 					factor = 0
 
 					tag = GER
-					NOT = { has_tech = mission_type_tactics }
+					NOT = { has_tech = mission_type_tactics }	#56?
 					has_war = yes
 					date < 1944.01.01
 				}
@@ -825,10 +879,6 @@ ideas = {
 			ai_will_do = {
    				factor = 0
    			}
-
-			on_add = {
-				log = "<R56RP_LOG_E> [THIS.GetTag] - adopted New Economic Policy 1"
-			}
 		}
 		new_economic_policy_2 = {
 			name = new_economic_policy
@@ -858,10 +908,46 @@ ideas = {
 			ai_will_do = {
    				factor = 0
    			}
+		}
 
-			on_add = {
-				log = "<R56RP_LOG_E> [THIS.GetTag] - adopted New Economic Policy 2"
+		# R56RP - Miyagi
+		JAP_communist_war_mobilisation = {
+			name = JAP_communist_war_mobilisation
+			icon = GFX_idea_SOV_soviet_railways
+		    
+			allowed = {
+				always = no
 			}
+		
+			visible = {
+				original_tag = JAP
+				has_government  = communism
+			}
+
+			allowed_to_remove = {
+                OR = {
+                    surrender_progress > 0.75
+                    NOT = { has_government = communism }
+                }
+            }
+		
+		
+			ai_will_do = {
+				factor = 0  # AI cannot pick this manually
+			}
+		
+			cost = 150
+			removal_cost = -1
+		
+			modifier = {
+				consumer_goods_expected_value = 0.1225  # 0.15 -> 0.1425 (-5% more)
+				conscription = -0.0355  # -0.03 -> -0.0315 (5% better)
+				production_speed_arms_factory_factor = 0.355  # 0.3 -> 0.315 (5% better)
+				conversion_cost_civ_to_mil_factor = -0.355  # -0.3 -> -0.315 (5% better)
+				conversion_cost_mil_to_civ_factor = -0.355  # -0.3 -> -0.315 (5% better)
+			}
+		
+			cancel_if_invalid = no
 		}
 	}
 
@@ -961,6 +1047,19 @@ ideas = {
 				}
 				if = {
 					limit = {
+						original_tag = GER
+					}
+					NOT = { has_completed_focus = GER_autarky_efforts }
+				}
+				if = {	#56
+					limit = {
+						has_completed_focus = HON_free_our_markets
+					}
+					NOT = { has_idea = r56_idea_capitalism_anarchist_society  }
+				}
+				
+				if = {	#56
+					limit = {
 						original_tag = MON
 					}
 					NOT = { has_completed_focus = MON_changes_within }
@@ -976,12 +1075,6 @@ ideas = {
 						has_completed_focus = ISR_open_economy
 						has_completed_focus = ISR_end_austerity
 					}
-				}
-				if = {
-					limit = {
-						original_tag = GER
-					}
-					NOT = { has_completed_focus = GER_autarky_efforts }
 				}
 			}
 
@@ -1032,6 +1125,7 @@ ideas = {
 		export_focus = {
 
 			available = {
+
 				if = {
 					limit = {
 						original_tag = HON
@@ -1046,13 +1140,13 @@ ideas = {
 					}
 					NOT = { has_completed_focus = SPR_all_must_bear_the_torch }
 				}
-				if = {
+				if = {	#56
 					limit = {
 						original_tag = MON
 					}
 					NOT = { has_completed_focus = MON_changes_within }
 				}
-				if = {
+				if = {	#56
 					limit = {
 						original_tag = ISR
 					}
@@ -1095,7 +1189,18 @@ ideas = {
 
 				modifier = {
 					factor = 0
-
+					num_of_military_factories > 29
+					OR = {
+						has_idea = limited_exports
+						has_idea = autarkic_economy
+						has_idea = autarkic_economy_improved
+						has_idea = closed_economy
+					}
+				
+				}
+				modifier = {
+					factor = 0
+					
 					is_major = no
 					has_war = no
 					is_in_faction = no
@@ -1142,19 +1247,30 @@ ideas = {
 							}
 						}
 					}
+					if = {
+						limit = {
+							original_tag = RAJ
+							has_global_flag = raj_dlc_focus_tree	#56 since r56-native RAJ is available to GOE owners
+						}
+						has_completed_focus = RAJ_raise_import_duties
+					}
+					else = {
+						hidden_trigger = { always = no } #NEED TO HAVE AN ALWAYS AS AN END STATEMENT IF URE USING AN IF ELSE IN AN OR STATEMENT OTHERWISE THE EVALUATION BREAKS!!
+					}
 				}
+
 				if = {
 					limit = {
-						original_tag = HON
-						has_completed_focus = HON_free_our_markets
-					}
-					NOT = { has_idea = r56_idea_capitalism_anarchist_society  }
-				}
+						original_tag = HON	#56
+						has_completed_focus = HON_free_our_markets	#56
+					}	#56
+					NOT = { has_idea = r56_idea_capitalism_anarchist_society  }	#56
+				}	#56
 				if = {
 					limit = {
-						original_tag = VEN
+						original_tag = VEN	#56
 					}
-					NOT = { has_country_flag = VEN_has_venezuelan_oil }
+					NOT = { has_country_flag = VEN_has_venezuelan_oil }	#56
 				}
 				if = {
 					limit = {
@@ -1163,7 +1279,7 @@ ideas = {
 					}
 					NOT = { has_completed_focus = SPR_all_must_bear_the_torch }
 				}
-				if = {
+				if = {	#56
 					limit = {
 						original_tag = ISR
 					}
@@ -1223,6 +1339,14 @@ ideas = {
 					# revert from closed_economy if we have large allies
 					has_idea = closed_economy
 					has_large_ally_not_pick_closed_economy = yes
+				}
+				modifier = { #Germany should keep its Autarkic Economy
+					factor = 0 # was 0.5 in the base game
+					original_tag = GER
+					OR = {
+						has_idea = autarkic_economy
+						has_idea = autarkic_economy_improved
+					}
 				}
    			}
 		}
@@ -1354,7 +1478,7 @@ ideas = {
 					NOT = { has_opinion_modifier = MR_pact }
 				}
 			}
-
+			
 			cost = 150
 			removal_cost = -1
 
@@ -1362,6 +1486,7 @@ ideas = {
 				min_export = 0
 				#civilian_intel_to_others = 0.0
 			}
+
 			
 			on_add = {
 				custom_effect_tooltip = closed_economy_TT
@@ -1396,6 +1521,39 @@ ideas = {
 					has_large_ally_not_pick_closed_economy = yes
 				}
    			}
+		}
+
+		special_economic_zones = {
+			available = {
+				always = no
+			}
+			visible = {
+				original_tag = RAJ
+				has_completed_focus = RAJ_special_economic_zones
+			}
+			available = {
+
+			}
+			picture = RAJ_special_economic_zones
+			cost = 0
+			removal_cost = -1
+
+			research_bonus = {
+				industry = 0.15
+			}
+
+			modifier = {
+				min_export = 0.9
+				industrial_capacity_factory = 0.2
+				industrial_capacity_dockyard = 0.2
+				production_speed_buildings_factor = 0.2
+				civilian_intel_to_others = 80
+				navy_intel_to_others = 30.0
+				resource_trade_cost_bonus_per_factory = 1
+			}
+
+			cancel_if_invalid = no
+
 		}
 	}
 }
