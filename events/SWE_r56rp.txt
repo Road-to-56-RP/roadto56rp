@@ -33,3 +33,71 @@ country_event = {
 		set_country_flag = SWE_bagge_was_elected_prime_minister
 	}
 }
+
+# Democratic - Defense Budget
+
+add_namespace = SWE_r56rp_budget
+country_event = {
+	id = SWE_r56rp_budget.1
+	title = SWE_r56rp_budget.1.t
+	desc = SWE_r56rp_budget.1.d
+	picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes	
+	
+	option = { # Slightly adjust the budget in preparation (Historical)
+		name = SWE_r56rp_budget.1.a
+		ai_chance = { 
+			base = 5
+			modifier = {
+				is_historical_focus_on = yes
+				add = 15
+			}
+		}
+		if = {
+			limit = {
+				has_idea = SWE_r56rp_reduced_military_budget_decreased
+			}
+			remove_ideas = SWE_r56rp_reduced_military_budget_decreased
+		}
+		if = {
+			limit = {
+				has_idea = SWE_r56rp_reduced_military_budget_base
+			}
+			swap_ideas = {
+				remove_idea = SWE_r56rp_reduced_military_budget_base
+				add_idea = SWE_r56rp_reduced_military_budget_decreased
+			}
+		}
+	}
+	
+	option = { # Move more towards Military Spending for a year (Ahistorical)
+		name = SWE_r56rp_budget.1.b
+		ai_chance = { 
+			base = 5
+			modifier = {
+				is_historical_focus_on = yes
+				add = -15
+			}
+		}
+		if = {
+			limit = {
+				has_idea = SWE_r56rp_reduced_military_budget_decreased
+			}
+			remove_ideas = SWE_r56rp_reduced_military_budget_decreased
+			add_timed_idea = {
+				idea = SWE_r56rp_reduced_military_budget_decreased_temporary_buff
+			}
+		}
+		if = {
+			limit = {
+				has_idea = SWE_r56rp_reduced_military_budget_base
+			}
+			remove_ideas = SWE_r56rp_reduced_military_budget_base
+			add_timed_idea = {
+				idea = SWE_r56rp_reduced_military_budget_base_temporary_buff
+				days = 365
+			}
+		}		
+	}
+}
