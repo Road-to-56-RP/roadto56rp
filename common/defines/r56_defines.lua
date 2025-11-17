@@ -726,7 +726,7 @@ NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 10
 NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 15
 NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 10
 NDefines.NProduction.MINIMUM_NUMBER_OF_FACTORIES_TAKEN_BY_CONSUMER_GOODS_PERCENT = 0.1
-NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 2.50  -- [vanilla 5]
+NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 3  -- [vanilla 4.5] ( Norrman adjusted value, increased by 0.5 on 25/11/17 )
 
 -- ## NTechnology ##
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 50 --BASE_RESEARCH_POINTS_SAVED
