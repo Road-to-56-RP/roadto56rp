@@ -2,9 +2,9 @@ USA_congress = {
 	USA_small_lobby_effort = {
 		icon = generic_political_discourse
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value < 0.66
+			OR = {
+				check_variable = { senators_support < senators_total }
+				check_variable = { representatives_support < representatives_total }
 			}
 			not = {
 				has_decision = USA_medium_lobby_effort
@@ -35,15 +35,15 @@ USA_congress = {
 		}
 		days_remove = 30
 		remove_effect = {
-			USA_bop_very_low_increase_effect = yes
+			USA_congress_small_support = yes
 		}
 	}
 	USA_medium_lobby_effort = {
 		icon = generic_speech
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value < 0.66
+			OR = {
+				check_variable = { senators_support < senators_total }
+				check_variable = { representatives_support < representatives_total }
 			}
 			not = {
 				has_decision = USA_small_lobby_effort
@@ -74,15 +74,15 @@ USA_congress = {
 			political_power_gain = -0.75
 		}
 		remove_effect = {
-			USA_bop_medium_increase_effect = yes
+			USA_congress_medium_support = yes
 		}
 	}
 	USA_special_measures = {
 		icon = ger_mefo_bills
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value < 0.66
+			OR = {
+				check_variable = { senators_support < senators_total }
+				check_variable = { representatives_support < representatives_total }
 			}
 		}
 		cost = 50
@@ -95,16 +95,16 @@ USA_congress = {
 		}
 		days_re_enable = 90
 		complete_effect = {
-			USA_bop_low_increase_effect = yes
+			USA_congress_small_support = yes
 		}
 	}
 	USA_use_huac = {
 		icon = oppression
 		available = {
 			has_idea = USA_joseph_mccarthy
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value < 0.66
+			OR = {
+				check_variable = { senators_support < senators_total }
+				check_variable = { representatives_support < representatives_total }
 			}
 		}
 		visible = {
@@ -120,7 +120,7 @@ USA_congress = {
 		}
 		days_re_enable = 90
 		complete_effect = {
-			USA_bop_low_increase_effect = yes
+			USA_congress_small_support = yes
 			add_stability = -0.05
 		}
 	}
@@ -141,17 +141,14 @@ USA_congress = {
 		days_re_enable = 90
 		complete_effect = {
 			add_stability = -0.1
-			USA_bop_low_increase_effect = yes
+			USA_congress_small_support = yes
 			add_popularity = { ideology = fascism popularity = 0.02 }
 		}
 	}
 	r56_USA_decision_rural_electrification_act = {
 		icon = generic_electricity
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value > 0.45
-			}
+			congress_medium_support_trigger = yes
 		}
 		visible = {has_government = democratic }
 		cost = 50
@@ -165,7 +162,7 @@ USA_congress = {
 			}
 		}
 		remove_effect = {
-			USA_bop_medium_decrease_effect = yes
+			USA_congress_medium_opposition = yes
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = USA
@@ -227,9 +224,8 @@ USA_congress = {
 	}
 	r56_USA_decision_flood_control_act = {
 		icon = generic_shovels
-		power_balance_value = {
-			id = USA_r56rp_goverment_support_power_balance
-			value < 0.45
+		available = {
+			congress_medium_support_trigger = yes
 		}
 		visible = {has_government = democratic }
 		cost = 35
@@ -246,17 +242,14 @@ USA_congress = {
 			production_speed_infrastructure_factor = 0.1
 		}
 		remove_effect = {
-			USA_bop_low_decrease_effect = yes
+			USA_congress_small_opposition = yes
 		}
 	}
 
 	r56_USA_decision_foreign_agents_registration_act = {
 		icon = generic_spy
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value > 0.45
-			}
+			congress_medium_support_trigger = yes
 			threat > 0.15
 		}
 		visible = {has_government = democratic }
@@ -276,17 +269,14 @@ USA_congress = {
 			foreign_subversive_activites = -0.15
 		}
 		remove_effect = {
-			USA_bop_medium_decrease_effect = yes
+			USA_congress_medium_opposition = yes
 		}
 	}
 
 	r56_USA_decision_second_vinson_act = {
 		icon = generic_naval
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value > 0.45
-			}
+			congress_medium_support_trigger = yes
 			threat > 0.2
 		}
 		visible = {has_government = democratic }
@@ -304,17 +294,14 @@ USA_congress = {
 			industrial_capacity_dockyard = 0.1
 		}
 		remove_effect = {
-			USA_bop_medium_decrease_effect = yes
+			USA_congress_medium_opposition = yes
 		}
 	}
 
 	r56_USA_decision_anti_price_discrimination_act = {
 		icon = generic_scales
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value > 0.45
-			}
+			congress_medium_support_trigger = yes
 		}
 		visible = {has_government = democratic }
 		cost = 15
@@ -328,7 +315,7 @@ USA_congress = {
 			}
 		}
 		remove_effect = {
-			USA_bop_medium_decrease_effect = yes
+			USA_congress_medium_opposition = yes
 			add_stability = 0.04
 		}
 	}
@@ -337,9 +324,9 @@ USA_congress = {
 		icon = hol_attract_foreign_investors
 		available = {
 			has_government = democratic
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value < 0.66
+			OR = {
+				check_variable = { senators_support < senators_total }
+				check_variable = { representatives_support < representatives_total }
 			}
 		}
 		visible = { has_completed_focus = USA_agricultural_adjustment_act }
@@ -354,16 +341,16 @@ USA_congress = {
 		days_remove = 90
 		modifier = { consumer_goods_factor = 0.06 }
 		remove_effect = {
-			USA_bop_low_increase_effect = yes
+			USA_congress_small_support = yes
 		}
 	}
 	USA_give_tax_break = {
 		icon = gre_investment_decisions
 		available = {
 			has_government = democratic
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value < 0.66
+			OR = {
+				check_variable = { senators_support < senators_total }
+				check_variable = { representatives_support < representatives_total }
 			}
 		}
 		visible = { has_completed_focus = USA_income_tax_reform }
@@ -378,16 +365,13 @@ USA_congress = {
 		days_remove = 90
 		modifier = { consumer_goods_factor = 0.06 }
 		remove_effect = {
-			USA_bop_low_increase_effect = yes
+			USA_congress_small_support = yes
 		}
 	}
 	USA_amend_the_budget = {
 		icon = ger_mefo_bills
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value > 0.45
-			}
+			congress_medium_support_trigger = yes
 		}
 		visible = {has_government = democratic }
 		cost = 25
@@ -402,16 +386,13 @@ USA_congress = {
 		}
 		modifier = { consumer_goods_factor = -0.15 }
 		remove_effect = {
-			USA_bop_medium_decrease_effect = yes
+			USA_congress_medium_opposition = yes
 		}
 	}
 	USA_research_grants = {
 		icon = generic_research
 		available = {
-			power_balance_value = {
-				id = USA_r56rp_goverment_support_power_balance
-				value > 0.45
-			}
+			congress_medium_support_trigger = yes
 		}
 		visible = {has_government = democratic }
 		cost = 25
@@ -426,7 +407,7 @@ USA_congress = {
 		}
 		modifier = { research_speed_factor = 0.08 }
 		remove_effect = {
-			USA_bop_medium_decrease_effect = yes
+			USA_congress_medium_opposition = yes
 		}
 	}
 	USA_invest_in_state_factory = {
@@ -461,7 +442,7 @@ USA_congress = {
 				clear_variable = factory_goal
 			}
 			
-			USA_bop_low_decrease_effect = yes 
+			USA_congress_small_opposition = yes 
 			clr_country_flag = USA_congress_investment
 		}
 		complete_effect = {
@@ -473,7 +454,7 @@ USA_congress = {
 				clear_variable = factory_goal
 			}
 			ROOT = {
-				USA_bop_medium_increase_effect = yes 
+				USA_congress_medium_support = yes 
 				clr_country_flag = USA_congress_investment
 			}
 			
@@ -511,7 +492,7 @@ USA_congress = {
 				clear_variable = arms_factory_goal
 			}
 			
-			USA_bop_low_decrease_effect = yes 
+			USA_congress_small_opposition = yes 
 			clr_country_flag = USA_congress_investment
 		}
 		complete_effect = {
@@ -523,7 +504,7 @@ USA_congress = {
 				clear_variable = arms_factory_goal
 			}
 			ROOT = {
-				USA_bop_medium_increase_effect = yes 
+				USA_congress_medium_support = yes 
 				clr_country_flag = USA_congress_investment
 			}
 			
@@ -560,7 +541,7 @@ USA_congress = {
 				clr_state_flag = USA_congress_build_dockyard
 				clear_variable = dockyard_goal
 			}
-			USA_bop_low_decrease_effect = yes 
+			USA_congress_small_opposition = yes 
 			clr_country_flag = USA_congress_investment
 		}
 		complete_effect = {
@@ -572,7 +553,7 @@ USA_congress = {
 				clear_variable = dockyard_goal
 			}
 			ROOT = {
-				USA_bop_medium_increase_effect = yes 
+				USA_congress_medium_support = yes 
 				clr_country_flag = USA_congress_investment
 			}
 		}
@@ -609,7 +590,7 @@ USA_congress = {
 				clear_variable = infrastructure_goal
 			}
 			
-			USA_bop_low_decrease_effect = yes 
+			USA_congress_small_opposition = yes 
 			clr_country_flag = USA_congress_investment
 		}
 		complete_effect = {
@@ -621,7 +602,7 @@ USA_congress = {
 				clear_variable = infrastructure_goal
 			}
 			ROOT = {
-				USA_bop_medium_increase_effect = yes 
+				USA_congress_medium_support = yes 
 				clr_country_flag = USA_congress_investment
 			}
 			
@@ -654,9 +635,10 @@ USA_congress = {
 			political_power_gain = -0.1
 		}
 		remove_effect = {
-			USA_bop_medium_increase_effect = yes
+			USA_congress_add_state = yes
 			add_state_core = 463
 			add_state_core = 650
+			USA_calc_stars = yes
 		}
 	}
 	USA_statehood_for_hawaii = {
@@ -686,8 +668,9 @@ USA_congress = {
 			political_power_gain = -0.1
 		}
 		remove_effect = {
-			USA_bop_medium_increase_effect = yes
+			USA_congress_add_state = yes
 			add_state_core = 629
+			USA_calc_stars = yes
 		}
 	}
 	USA_statehood_for_puerto_rico = {
@@ -717,8 +700,9 @@ USA_congress = {
 			political_power_gain = -0.1
 		}
 		remove_effect = {
-			USA_bop_medium_increase_effect = yes
+			USA_congress_add_state = yes
 			add_state_core = 686
+			USA_calc_stars = yes
 		}
 	}
 	USA_readmit_state = {
@@ -755,7 +739,7 @@ USA_congress = {
 			}
 		}
 		remove_effect = {
-			USA_bop_medium_increase_effect = yes
+			USA_congress_add_state = yes
 			random_owned_state = {
 				limit = { has_state_flag = USA_state_admit }
 				ROOT = {
@@ -776,8 +760,7 @@ USA_congress = {
 		cost = 50
 		complete_effect = {
 			add_stability = -0.05
-			USA_bop_very_high_increase_effect = yes
+			USA_return_majority = yes
 		}
 	}
 }
-
