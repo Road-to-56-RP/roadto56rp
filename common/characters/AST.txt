@@ -26,6 +26,10 @@ characters = {
 			ideology = liberalism
 			expire = "1965.1.1"
 			id = -1
+			traits = {
+				liberal_grandee
+				popular_figurehead2
+			}
 		}
 	}
 	AST_eric_campbell = {
@@ -39,6 +43,10 @@ characters = {
 			ideology = fascism_ideology
 			expire = "1965.1.1"
 			id = -1
+			traits = {
+				r56_trait_opposed_to_communism
+				fascist_militia_leader
+			}
 		}
 	}
 	AST_jack_miles = {
@@ -52,6 +60,10 @@ characters = {
 			ideology = stalinism
 			expire = "1965.1.1"
 			id = -1
+			traits = {
+				veteran_trade_unionist
+				r56_trait_opposed_to_fascism
+			}
 		}
 	}
 	AST_richard_dixon = {
@@ -66,6 +78,10 @@ characters = {
 			ideology = stalinism
 			expire = "1965.1.1"
 			id = -1
+			traits = {
+				r56_rom_staunch_stalinist
+				r56_trait_opposed_to_fascism
+			}
 		}
 	}
 	AST_earle_page = {
@@ -80,6 +96,9 @@ characters = {
 			ideology = controlled_democracy
 			expire = "1965.1.1"
 			id = -1
+			traits = {
+				gallant_doctor
+			}
 		}
 	}
 	AST_isaac_isaacs = {
@@ -93,9 +112,12 @@ characters = {
 			ideology = military_junta
 			expire = "1965.1.1"
 			id = -1
+			traits = {
+				silent_workhorse_old_guard
+				elected_monarchist_puppet
+			}
 		}
 	}
-       
 	AST_rod_hull = {
 		#unrecruited
 		name = AST_rod_hull
@@ -104,18 +126,13 @@ characters = {
 				large = GFX_portrait_AST_rod_hull
 			}
 		}
-		country_leader = {
-			ideology = despotism
-			expire = "1965.1.1"
-			id = -1
-		}
 	}
 	AST_leslie_morshead = {
 		name = AST_leslie_morshead
 		portraits = {
 			army = {
 				large = "GFX_AST_leslie_morshead"
-				small = GFX_portrait_AST_leslie_morshead_small
+				small = "GFX_idea_AST_leslie_morshead"
 			}
 		}
 		corps_commander = {
@@ -138,7 +155,7 @@ characters = {
 				small = GFX_portrait_AST_thomas_blamey_small
 			}
 		}
-		corps_commander = {
+		field_marshal = {
 			traits = {
 				decided_planner
 			}
@@ -148,18 +165,6 @@ characters = {
 			planning_skill = 3
 			logistics_skill = 3
 			legacy_id = -1
-		}
-		advisor = {
-			cost = 100
-			slot = theorist
-			idea_token = AST_thomas_blamey
-			ledger = army
-			allowed = {
-				original_tag = AST
-			}
-			traits = {
-				military_theorist
-			}
 		}
 	}
 	AST_henry_wynter = {
@@ -244,7 +249,7 @@ characters = {
 		}
 		corps_commander = {
 			traits = {
-				armor_officer
+				armor_officer career_officer
 			}
 			skill = 1
 			attack_skill = 1
@@ -557,14 +562,20 @@ characters = {
 			ai_will_do = {
 				factor = 1
 			}
+			available = {
+				OR = {
+					is_in_faction_with = ENG
+					is_puppet_of = ENG
+				}
+			}
 		}
 	}
 	AST_jack_crace = {
 		name = "John Crace"
 		portraits = {
 			army = {
-				small = "GFX_idea_AST_jack_crace"				#small="GFX_idea_generic_navy_europe_1"
-				large = "GFX_Portrait_Britain_KR_Generic_navy_3"
+				large = GFX_kr_portrait_britain_generic_navy_1
+				small = GFX_idea_AST_jack_crace
 			}
 		}
 		advisor = {
@@ -635,6 +646,12 @@ characters = {
 			cost = 100
 			ai_will_do = {
 				factor = 1
+			}
+			available = {
+				OR = {
+					is_in_faction_with = ENG
+					is_puppet_of = ENG
+				}
 			}
 		}
 	}
@@ -936,8 +953,11 @@ characters = {
 			allowed = {
 				original_tag = AST
 			}
+			available  = {
+				has_government = democratic
+			}
 			traits = {
-				war_industrialist
+				trade_unionist
 			}
 		}
 	}
@@ -998,10 +1018,7 @@ characters = {
 			ai_will_do = {
 				factor = 0
 				modifier = {
-					OR = {
-						has_idea = fascist_influence
-						has_idea = AST_abandon_the_westminster_system_fascism
-					}
+					has_idea = fascist_influence
 					NOT = {
 						OR = {
 							AND = {
@@ -1060,7 +1077,7 @@ characters = {
 		name = AST_arthur_calwell
 		portraits = {
 			army = {
-				small = "GFX_idea_AST_arthur_calwell"					#small="GFX_idea_generic_democratic_reformer_western_european_2d"
+				small = "GFX_idea_AST_arthur_calwell"
 			}
 		}
 		advisor = {
@@ -1071,6 +1088,14 @@ characters = {
 			}
 			available = {
 				has_completed_focus = AST_R56_statute_of_westminster
+				if = {
+					limit = {
+						has_dlc = "Man the Guns"
+					}
+					NOT = {
+						has_autonomy_state = autonomy_supervised_state
+					}
+				}
 			}
 			traits = {
 				democratic_reformer
@@ -1100,7 +1125,7 @@ characters = {
 				original_tag = AST
 			}
 			traits = {
-				quartermaster_general
+				war_industrialist
 			}
 		}
 	}
@@ -1432,10 +1457,10 @@ characters = {
 				has_intelligence_agency = yes
 			}
 			visible = {
-				has_dlc = "La Resistance"
 			}
 			allowed = {
 				original_tag = AST
+				has_dlc = "La Resistance"
 			}
 			traits = {
 				head_of_intelligence
@@ -1445,6 +1470,7 @@ characters = {
 	#Illusive Gentleman auto-generated
 
 	#Scientists
+
 	AST_george_hutcheson = {
 		name = "George Hutcheson"
 		portraits = {
