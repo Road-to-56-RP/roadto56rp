@@ -349,6 +349,7 @@ crisis = {
 				state = 186
 			} 
 		}
+		
 
 		on_map_mode = map_only
 
@@ -1265,8 +1266,7 @@ GRE_investment_decisions_category = {
 				ITA = {
 					has_capitulated = yes 
 					is_puppet = yes
-					has_completed_focus = ITA_war_with_greece	
-					
+					has_completed_focus = ITA_war_with_greece
 				}
 			}
 		}
@@ -1493,9 +1493,9 @@ GRE_investment_decisions_category = {
 		available = {
 			date < 1943.1.1
 			NOT = {
-				has_war_with = SOV
+				has_war_with = SOU
 				has_country_flag = GRE_soviets_rebuffed
-				SOV = {
+				SOU = {
 					has_capitulated = yes
 					is_puppet = yes
 					NOT = { has_government = communism }
@@ -1510,7 +1510,8 @@ GRE_investment_decisions_category = {
 
 		target_trigger = {
 			FROM = {
-				tag = SOV
+				tag = SOU
+				has_government = communism
 			}
 		}
 
@@ -1544,7 +1545,7 @@ GRE_investment_decisions_category = {
 		}
 
 		remove_effect = {
-			SOV = {
+			SOU = {
 				country_event = { id = bftb_greece.190 days = 10 }
 			}
 		}
@@ -1611,6 +1612,7 @@ GRE_investment_decisions_category = {
 		}
 
 		complete_effect = {
+			custom_effect_tooltip = GRE_host_soviet_bureaucrats_in_greece_tt
 			custom_effect_tooltip = GRE_soviet_influence_tt
 		}
 
@@ -1682,7 +1684,6 @@ GRE_investment_decisions_category = {
 		}
 
 		complete_effect = {
-
 		}
 
 		remove_effect = {
@@ -1795,6 +1796,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 			}
 		}
 
+
 		target_trigger = {
 			FROM = {
 				tag = ENG
@@ -1880,6 +1882,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 			}
 		}
 
+
 		target_trigger = {
 			FROM = {
 				tag = FRA
@@ -1962,6 +1965,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 				}
 			}
 		}
+
 
 		target_trigger = {
 			FROM = {
@@ -2051,6 +2055,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 				}
 			}
 		}
+
 
 		target_trigger = {
 			FROM = {
@@ -2221,6 +2226,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 				}
 			}
 		}
+
 
 		target_trigger = {
 			FROM = {
@@ -2770,9 +2776,20 @@ GRE_hellenic_academy_category = {
 
 		visible = {
 			has_completed_focus = GRE_hellenic_armed_forces
-			TUR = { 
-				has_completed_focus = TUR_pivot_to_the_past
-				has_completed_focus = TUR_reconfigure_our_foreign_policy
+			if = {	#56
+				limit = { has_global_flag = tur_bftb_focus_tree }
+				TUR = { 
+					has_completed_focus = TUR_pivot_to_the_past
+					has_completed_focus = TUR_reconfigure_our_foreign_policy
+				}
+			}
+			else = {
+				TUR = {
+					OR = {
+						has_completed_focus = TUR_overthrow_inonus_government
+						has_completed_focus = TUR_befriend_the_fascist_council
+					}
+				}
 			}
 		}
 
