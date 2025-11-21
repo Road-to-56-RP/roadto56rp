@@ -623,7 +623,6 @@ ideas = {
 					tag = MAN
 					tag = MEN
 				}
-				has_dlc = "Waking the Tiger"
 			}
 
 			available = {
@@ -652,7 +651,6 @@ ideas = {
 					tag = MAN
 					tag = MEN
 				}
-				has_dlc = "Waking the Tiger"
 			}
 
 			available = {
@@ -737,7 +735,7 @@ ideas = {
 
 		}
 		CHI_mukden_arsenal = {
-			picture = generic_infantry_equipment_manufacturer_2
+			picture = MAN_mukden_arsenal
 
 
 			allowed = {
@@ -993,6 +991,52 @@ ideas = {
 
 			traits = { medium_tank_manufacturer }
 		}
+
+		CHI_shanghai_arsenal_designer = {
+
+			picture = generic_tank_manufacturer_1
+			
+			allowed = {
+				has_dlc = "No Compromise, No Surrender"
+				OR = {
+					is_literally_china_not_prc = yes
+					tag = MAN
+				}
+			}
+			
+			available = {
+				IF = {
+					limit = {
+						FROM = { NOT = { original_tag = CHI } }
+					}
+					owner = { controls_state = CHI.mio_locations^7 } # 613 Shanghai
+				}
+				IF = {
+					limit = {
+						FROM = { original_tag = CHI }
+					}
+					OR = {
+						owner = { has_completed_focus = CHI_relocate_factories_from_the_coast }
+						owner = { controls_state = CHI.mio_locations^7 } # 613 Shanghai
+					}
+				}
+			}
+			
+			cost = 150
+			removal_cost = 10
+			
+			research_bonus = {
+				armor = 0.15
+			}
+			
+			traits = { 
+				fast_tank_manufacturer
+			}
+			ai_will_do = {
+				factor = 1
+				
+			}
+		}
 	}
 
 	aircraft_manufacturer = { #
@@ -1004,16 +1048,10 @@ ideas = {
 			picture = CHI_camco
 
 			available = {
-				if = {
-					limit = {
-						has_dlc = "Waking the Tiger"
-					}
-					has_completed_focus = CHI_camco
-				}
+				has_completed_focus = CHI_camco
 			}
 
 			allowed = {
-				has_DLC = "Waking the Tiger"
 				OR = {
 					is_literally_china = yes
 					tag = MAN
@@ -1047,16 +1085,10 @@ ideas = {
 			picture = CHI_camco
 
 			available = {
-				if = {
-					limit = {
-						has_dlc = "Waking the Tiger"
-					}
-					has_completed_focus = CHI_local_fighter_production
-				}
+				has_completed_focus = CHI_local_fighter_production
 			}
 
 			allowed = {
-				has_DLC = "Waking the Tiger"
 				OR = {
 					is_literally_china = yes
 					tag = MAN
@@ -1101,7 +1133,6 @@ ideas = {
 			}
 
 			allowed = {
-				has_DLC = "Waking the Tiger"
 				OR = {
 					is_literally_china = yes
 					tag = MAN
@@ -1230,7 +1261,6 @@ ideas = {
 			}
 
 			allowed = {
-				has_dlc = "Waking the Tiger"
 				OR = {
 					original_tag = MAN
 					is_literally_china = yes
@@ -1262,7 +1292,6 @@ ideas = {
 			}
 
 			allowed = {
-				has_DLC = "Waking the Tiger"
 				OR = {
 					original_tag = MAN
 					is_literally_china = yes
@@ -1283,10 +1312,42 @@ ideas = {
 			}
 
 		}
-		
+
+		PRC_nanjing_wireless_electronics_plant = {
+			picture = idea_PRC_nanjing_wireless_electronics_plant 
+
+			allowed = {
+				has_DLC = "No Compromise, No Surrender"
+				OR = {
+					original_tag = MAN
+					is_literally_china = yes
+				}
+			}
+
+			visible = {
+				always = yes
+			}
+
+			available = {
+				controls_state = 1035
+			}
+
+
+			traits = { electronics_concern }
+
+			research_bonus = {
+				electronics = 0.15
+			}
+
+			modifier = {
+				
+			}
+
+		}
+
 		sino_soviet_resource_surveyors = {
-		
-			picture = stalingrad_tractor_factory
+
+			picture = SOV_soviet_railways
 
 			available = {
 				NOT = {
@@ -1307,7 +1368,6 @@ ideas = {
 			}
 
 			allowed = {
-				has_DLC = "Waking the Tiger"
 				OR = {
 					original_tag = MAN
 					is_literally_china = yes
@@ -1339,7 +1399,6 @@ ideas = {
 			}
 
 			allowed = {
-				has_DLC = "Waking the Tiger"
 				OR = {
 					original_tag = MAN
 					is_literally_china = yes
@@ -1463,6 +1522,117 @@ ideas = {
 			}
 
 			traits = { electronics_concern }
+		}
+
+		CHI_china_national_aviation_corporation = {
+						
+			picture = CHI_china_national_aviation_corporation
+			
+			allowed = {
+				original_tag = CHI
+				has_dlc = "No Compromise, No Surrender"
+			}
+						
+			research_bonus = {
+				air_equipment = 0.05
+			}
+
+			ai_will_do = {
+				base = 1
+			}
+			
+			traits = { civilian_airway_company }
+		}
+
+		CHI_china_merchant_group = {
+						
+			picture = CHI_china_merchant_group
+			
+			allowed = {
+				original_tag = CHI
+				has_dlc = "No Compromise, No Surrender"
+			}
+						
+			research_bonus = {
+			}
+
+			ai_will_do = {
+				base = 1
+			}
+			
+			traits = { transport_company }
+		}
+
+		CHI_shanghai_power_company = {
+						
+			picture = CHI_shanghai_power_company
+			
+			allowed = {
+				OR = {
+					original_tag = MAN
+					is_literally_china_not_prc = yes
+				}
+				has_dlc = "No Compromise, No Surrender"
+			}
+			available = {
+				controls_state = 613
+			}
+						
+			research_bonus = {
+			}
+
+			modifier = {
+				country_resource_coal = 18
+			}
+
+			ai_will_do = {
+				base = 1
+			}
+			
+			traits = { energy_supply_company }
+		}
+
+		CHI_bank_of_china = {
+						
+			picture = CHI_bank_of_china
+			
+			allowed = {
+				is_literally_china_not_prc = yes
+				has_dlc = "No Compromise, No Surrender"
+			}
+			available = {
+				tag = event_target:WTT_current_china_leader
+			}
+
+			ai_will_do = {
+				base = 3
+			}
+			
+			traits = { monopolistic_bank }
+		}
+
+		CHI_yongli_chemical_industries = {
+						
+			picture = CHI_yongli_chemical_industries
+			
+			allowed = {
+				is_literally_china_not_prc = yes
+				has_dlc = "No Compromise, No Surrender"
+			}
+			available = {
+				tag = event_target:WTT_current_china_leader
+			}
+						
+			research_bonus = {
+				industry = 0.05
+				synth_resources = 0.15
+			}
+
+			ai_will_do = {
+				base = 1
+			}
+			
+			traits = { refinery_concern }
 		}
 	}
 }
