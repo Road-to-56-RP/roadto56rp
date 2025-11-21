@@ -630,8 +630,23 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 			SOV_paranoia_increase_purge_counter_regular = yes
+		
+			if = {
+				limit = {
+					UKR = {
+						exists = no
+						has_character = UKR_konstantin_chelpan 
+					}
+					owns_state = 221
+				}
+				UKR = {
+					retire_character = UKR_konstantin_chelpan
+				}
+			}
 		}
 	}
+
+
 
 	option = { #PURGE
 		name = NSB_soviet_paranoia_system_events.23.a
@@ -1748,7 +1763,6 @@ country_event = {
 			}
 			set_country_flag = SOV_ilyushin_design_bureau_dissolved_flag
 			unlock_decision_tooltip = SOV_reinstate_ilyushin_design_bureau
-			
 		}
 		else_if = {
 			limit = { # TUPOLEV
@@ -1772,7 +1786,6 @@ country_event = {
 			}
 			set_country_flag = SOV_tupolev_design_bureau_dissolved_flag
 			unlock_decision_tooltip = SOV_reinstate_tupolev_design_bureau
-			
 		}
 		else= { #YAKOVLEV
 			# r56rp
@@ -1789,7 +1802,6 @@ country_event = {
 			}
 			set_country_flag = SOV_yakovlev_design_bureau_dissolved_flag
 			unlock_decision_tooltip = SOV_reinstate_yakovlev_design_bureau
-			
 		}
 
 		#Update purged portraits in UI
@@ -3199,6 +3211,22 @@ country_event = {
 				factor = 100
 				is_in_faction_with = FROM
 			}
+			modifier = {	#r56
+				factor = 100
+				is_historical_focus_on = yes
+				OR = {
+					AND = {
+						has_subject = IRQ
+						IRQ = {
+							has_capitulated = no
+						}
+					}
+					controls_state = 291
+					any_allied_country = {
+						controls_state = 291
+					}
+				}
+			}
 			modifier = {
 				factor = 2
 				has_opinion = {
@@ -3361,6 +3389,19 @@ country_event = {
 		411 = { set_state_flag = SOV_soviet_resource_rights_iran_flag }
 		412 = { set_state_flag = SOV_soviet_resource_rights_iran_flag }
 		413 = { set_state_flag = SOV_soviet_resource_rights_iran_flag }
+
+		if = {
+			limit = {	#sanity check
+				has_government = communism
+			}
+			PER = {
+				set_party_name = {
+					ideology = communism
+					name = PER_communism_party_alternate
+					long_name = PER_communism_party_alternate_long
+				}				
+			}
+		}
 	}
 }
 
@@ -3388,6 +3429,19 @@ country_event = {
 		411 = { set_state_flag = SOV_soviet_resource_rights_iran_flag }
 		412 = { set_state_flag = SOV_soviet_resource_rights_iran_flag }
 		413 = { set_state_flag = SOV_british_resource_rights_iran_flag }
+
+		if = {
+			limit = {	#sanity check
+				has_government = communism
+			}
+			PER = {
+				set_party_name = {
+					ideology = communism
+					name = PER_communism_party_alternate
+					long_name = PER_communism_party_alternate_long
+				}				
+			}
+		}
 	}
 }
 
@@ -3570,6 +3624,10 @@ country_event = {
 
 		ai_chance = {
 			base = 1
+			modifier = {	#r56, fixed them very rarely accepting on historical, feel free to add in exceptions
+				factor = 0
+				is_historical_focus_on = yes
+			}
 			modifier = {
 				add = 0.5
 				has_opinion = {
@@ -4081,8 +4139,8 @@ country_event = {
 			modifier = { #Is going commie or historical
 				factor = 0
 				OR = {
-					has_completed_focus = JAP_r56rp_the_rice_rebellion
-					has_completed_focus = JAP_purge_the_kodoha_faction
+					has_completed_focus = JAP_the_unthinkable_option
+					has_completed_focus = JAP_sea_purge_the_kodoha_faction
 				}
 			}
 		}
@@ -6065,6 +6123,17 @@ country_event = {
 				add_ai_strategy = {
 					type = alliance
 					id = SHX		
+					value = 100
+				}
+			}
+			if = {	#56 probaly
+				limit = {
+					SIC = { is_faction_leader = yes }
+					NOT = { has_war_with = SIC }	
+				}
+				add_ai_strategy = {
+					type = alliance
+					id = SIC		
 					value = 100
 				}
 			}

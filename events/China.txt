@@ -254,6 +254,23 @@ country_event = {
 				event_target:CHI_united_front_leader = {set_country_flag = xsm_sumitted}
 				
 			}
+
+			if = {
+				limit = {
+					ROOT = {
+						tag = SIC
+					}
+				}
+				SIC = {
+					every_unit_leader = {
+						set_nationality = event_target:CHI_united_front_leader
+					}
+					retire_country_leader = yes #probably to be improved as it should take into account other ideologies, especially if they lose and are puppeted					
+				}					
+				event_target:CHI_united_front_leader = {
+					set_country_flag = shx_sumitted
+				}
+			}
 		}
 	}
 
@@ -283,7 +300,10 @@ country_event = {
 			modifier = {
 				add = 50
 				ROOT = {
-					has_completed_focus = CHI_opposition
+					OR = {	#56 - Changes needed to accompany r56 content
+						has_completed_focus = CHI_seek_japanese_support
+						has_completed_focus = CHI_abandon_china
+					}
 				}
 			}
 			modifier = {	#on historical, do not refuse to join
@@ -349,9 +369,50 @@ country_event = {
 				}
 				drop_cosmetic_tag = yes
 				set_cosmetic_tag = GCDsgn
-				# r56rp
-				# keep the oob. 
-				load_oob = "PRC_SOV_reinforcements"					   
+				division_template = {
+					name = "Erjinzhi Juntuán"			# Binary Infantry Corps
+					division_names_group = PRC_INF_01
+				
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							controls_state = 621
+							any_allied_country = {
+								controls_state = 621
+							}
+						}
+					}
+					621 = {
+						create_unit = { 
+							division = "name = \"Su Jun Zhiyuanjun\" division_template = \"Erjinzhi Juntuán\""
+							owner = ROOT
+							count = 1
+							allow_spawning_on_enemy_provs = yes
+							prioritize_location = 2087
+						}   
+						create_unit = { 
+							division = "name = \"Su Jun Zhiyuanjun\" division_template = \"Erjinzhi Juntuán\""
+							owner = ROOT
+							count = 3
+							allow_spawning_on_enemy_provs = yes
+							prioritize_location = 12609
+						}   
+						create_unit = { 
+							division = "name = \"Su Jun Zhiyuanjun\" division_template = \"Erjinzhi Juntuán\""
+							owner = ROOT
+							count = 1
+							allow_spawning_on_enemy_provs = yes
+							prioritize_location = 12880
+						}   
+					}
+				}
 			}
 		}
 		add_ideas = KMT_united_front
@@ -363,6 +424,7 @@ country_event = {
 					tag = XSM
 					tag = YUN
 					tag = GXC
+					tag = SIC
 				}
 				NOT = {
 					has_war_together_with = JAP
@@ -507,7 +569,62 @@ country_event = {
 		hidden_effect = {
 			add_equipment_to_stockpile = { type = artillery_equipment_1 amount = 200 producer = SOV }
 			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 6000 producer = SOV }
-			load_oob = "PRC_SOV_reinforcements_2"
+			if = {
+				limit = {
+					OR = {
+						controls_state = 621
+						CHI = {
+							OR = {
+								controls_state = 621
+								any_allied_country = {
+									controls_state = 621
+								}
+							}
+						}
+					}
+				}
+				division_template = {
+					name = "Erjinzhi Juntuán"			# Binary Infantry Corps
+					division_names_group = PRC_INF_01
+				
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+					}
+				}
+				621 = {
+					create_unit = { 
+						division = "name = \"Su Jun Zhiyuanjun\" division_template = \"Erjinzhi Juntuán\""
+						owner = ROOT
+						count = 6
+						allow_spawning_on_enemy_provs = yes
+						prioritize_location = 2087
+					}  
+					create_unit = { 
+						division = "name = \"Su Jun Zhiyuanjun\" division_template = \"Erjinzhi Juntuán\""
+						owner = ROOT
+						count = 6
+						allow_spawning_on_enemy_provs = yes
+						prioritize_location = 12609
+					}
+					create_unit = { 
+						division = "name = \"Su Jun Zhiyuanjun\" division_template = \"Erjinzhi Juntuán\""
+						owner = ROOT
+						count = 4
+						allow_spawning_on_enemy_provs = yes
+						prioritize_location = 12331
+					}
+					create_unit = { 
+						division = "name = \"Su Jun Zhiyuanjun\" division_template = \"Erjinzhi Juntuán\""
+						owner = ROOT
+						count = 4
+						allow_spawning_on_enemy_provs = yes
+						prioritize_location = 12880
+					}
+				}
+			}
 			set_global_flag = PRC_restart_CHI_war
 			if = {
 				limit = {
