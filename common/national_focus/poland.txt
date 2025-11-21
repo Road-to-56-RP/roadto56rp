@@ -5627,8 +5627,21 @@ focus_tree = {
 				limit = {
 					is_faction_leader = no
 				}
-				create_faction = POL_baltic_alliance
 				set_rule = { can_create_factions = yes }
+				IF = {
+					limit = {
+						has_dlc = "No Compromise, No Surrender"
+					}
+					create_faction_from_template = faction_template_POL_baltic_alliance
+					add_faction_initiative = 1
+				}
+				ELSE = {
+					create_faction_from_template = {
+						template = faction_template_defensive_democratic
+						name = POL_baltic_alliance
+						icon = GFX_faction_logo_generic_17
+					}
+				}
 			}
 			hidden_effect = {
 				if = {
@@ -5785,8 +5798,7 @@ focus_tree = {
 		
 		available = {
 			NOT = {
-				is_subject_of = GER
-				is_in_faction_with = GER
+				is_ally_with = GER
 			}
 			OR = {
 				NOT = { has_completed_focus = POL_plan_east }
@@ -8935,7 +8947,11 @@ focus_tree = {
 			set_rule = {
 				can_create_factions = yes
 			}
-			create_faction = POL_morges_pact
+			create_faction_from_template = {
+				template = faction_template_defensive_democratic
+				name = POL_morges_pact
+				icon = GFX_faction_logo_generic_11
+			}
 			FRA = {
 				country_event = NSB_poland_events.7
 			}
@@ -10457,7 +10473,10 @@ focus_tree = {
 				HUN = { country_event = generic.2 }
 			}
 			else = {
-				create_faction = POL_habsburg_pact
+				create_faction_from_template = {
+					template = faction_template_habsburg_alliance
+					name = POL_habsburg_pact
+				}
 				HUN = { country_event = POL_habsburg_events.2 }
 				if = {
 					limit = {
@@ -16238,7 +16257,7 @@ focus_tree = {
 		completion_reward = {
 			POL = { diplomatic_relation = { country = FRA relation = guarantee active = no} }
 			set_rule = { can_create_factions = yes }
-			create_faction = miedzymorze_faction
+			create_faction_from_template = faction_template_miedzymorze_faction
 			hidden_effect = {
 				news_event = { hours = 6 id = news.214 }
 			}
@@ -17746,7 +17765,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			create_faction = Falangist_Poland_Faction
+			create_faction_from_template = {
+				template = faction_template_anti_communist
+				name = Falangist_Poland_Faction
+				icon = GFX_faction_logo_generic_fascist
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -19196,7 +19219,7 @@ focus_tree = {
 				POL = { diplomatic_relation = { country = FRA relation = guarantee active = no} }
 			}
 			set_rule = { can_create_factions = yes }
-			create_faction = miedzymorze_faction
+			create_faction_from_template = faction_template_miedzymorze_faction
 			hidden_effect = {
 				news_event = { hours = 6 id = news.214 }
 			}
@@ -19330,7 +19353,11 @@ focus_tree = {
 		completion_reward = {
 			POL = { diplomatic_relation = { country = FRA relation = guarantee active = no} }
 			set_rule = { can_create_factions = yes }
-			create_faction = PPS_Faction
+			create_faction_from_template = {
+				template = faction_template_POR_popular_front_bloc
+				name = PPS_Faction
+				icon = GFX_faction_logo_generic_11
+			}
 			
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POL_wanda_wasilewska_advisor

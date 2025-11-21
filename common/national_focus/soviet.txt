@@ -15,6 +15,8 @@
 ### search_filters = {FOCUS_FILTER_NAVY_XP}
 ### search_filters = {FOCUS_FILTER_AIR_XP}
 # Reminder that focus filters prio has to be handled in the generic focus file :)
+#!gfx:interface\r56_goals.gfx
+# ^^ For HOI4 Mod Utilities Support - Do not delete
 
 focus_tree = {
 	id = soviet_focus
@@ -2499,19 +2501,20 @@ focus_tree = {
 					has_dlc = "La Resistance"
 				}
 				add_tech_bonus = {
-					name = scout_plane
+					name = SOV_transpolar_flights
 					bonus = 1.0
 					uses = 1
 					category = cat_scout_plane
 				}				
 			}
 			add_doctrine_cost_reduction = {
+				name = SOV_transpolar_flights
 				uses = 1
 				cost_reduction = 0.5
 				category = air_doctrine
             }
 			add_timed_idea = {
-				idea = SOV_r56rp_transpolar_flights_idea
+				idea = SOV_transpolar_flights_idea
 				days = 435
 			}
 		}
@@ -10935,7 +10938,11 @@ focus_tree = {
 			add_political_power = 100
 			set_rule = { can_join_factions = yes }
 			set_rule = { can_create_factions = yes }
-			create_faction = FOURTH_INTERNATIONAL_FACTION
+			create_faction_from_template = {
+				template = faction_template_world_revolution
+				name = FOURTH_INTERNATIONAL_FACTION
+				icon = GFX_faction_logo_4th_international
+			}
 			hidden_effect = { #this pre-NSB event changes PRC back to its previous more pro-Trotsky leader
 				PRC = {
 					if = {
@@ -12913,7 +12920,10 @@ focus_tree = {
 				limit = {
 					is_in_faction = no
 				}
-				create_faction = SOV_international_revolutionary_marxist_centre_faction_name
+				create_faction_from_template = {
+					template = faction_template_comintern
+					name = SOV_international_revolutionary_marxist_centre_faction_name
+				}
 				every_subject_country = {
 					ROOT = { add_to_faction = PREV }
 				}
@@ -21082,7 +21092,11 @@ focus_tree = {
 			set_rule = {
 				can_create_factions = yes
 			}
-			create_faction = free_russian_peoples_faction
+			create_faction_from_template = {
+				template = faction_template_generic
+				name = free_russian_peoples_faction
+				icon = GFX_faction_logo_generic_6
+			}
 			every_other_country = {
 				limit = {
 					OR = {
@@ -24423,7 +24437,11 @@ focus = {
 		set_rule = {
 			can_create_factions = yes
 		}
-		create_faction = free_russian_peoples_faction
+		create_faction_from_template = {
+			template = faction_template_generic
+			name = free_russian_peoples_faction
+			icon = GFX_faction_logo_generic_6
+		}
 		every_other_country = {
 			limit = {
 				OR = {
@@ -26684,7 +26702,10 @@ focus = {
 						}
 					}
 				}
-				create_faction = TRIPLE_ENTENTE
+				create_faction_from_template = {
+					template = faction_template_allies
+					name = TRIPLE_ENTENTE
+				}
 				ENG = {
 					country_event = { id = NSB_soviet_fascist_tsarist.16 hours = 6 }
 				}
@@ -26693,7 +26714,10 @@ focus = {
 				}
 			}
 			else = {
-				create_faction = TRIPLE_ENTENTE
+				create_faction_from_template = {
+					template = faction_template_allies
+					name = TRIPLE_ENTENTE
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE }
@@ -27167,7 +27191,10 @@ focus = {
 				limit = {
 					is_in_faction = no
 				}
-				create_faction = NPTO
+				create_faction_from_template = {
+					template = faction_template_generic_dominance
+					name = NPTO
+				}
 			}
 			effect_tooltip = {
 				every_other_country = {
