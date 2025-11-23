@@ -3192,7 +3192,7 @@ initial_show_position = {
 
 		relative_position_id = PHI_appoint_macarthur	
 		
-		x = -5
+		x = -4
 		y = 1
 	
 		cost = 5
@@ -4315,8 +4315,8 @@ initial_show_position = {
 		id = PHI_declare_military_emergency
 		icon = GFX_focus_PHI_declare_military_emergency
 
-		x = 3
-		y = 9
+		x = 1
+		y = 7
 	
 		cost = 10
 
@@ -4325,7 +4325,10 @@ initial_show_position = {
 		}
 
 		allow_branch = {
-			has_country_flag = PHI_military_emergency_flag
+			OR = {
+				is_debug = yes
+				has_country_flag = PHI_military_emergency_flag
+			}
 		}
 
 		bypass = {
@@ -4594,6 +4597,7 @@ initial_show_position = {
 		cost = 10
 
 		available = {
+			is_special_project_completed = sp:sp_nuclear_reactor 
 		}
 
 		bypass = {
@@ -4604,26 +4608,6 @@ initial_show_position = {
 		completion_reward = {
 			custom_effect_tooltip = GER_the_mannheim_project_tt
 			if = {
-				limit = {
-					NOT = { has_tech = atomic_research }
-				}
-				add_tech_bonus = {
-					name = PHI_sea_of_cobalt
-					bonus = 1.0
-					ahead_reduction = 2
-					technology = atomic_research
-				}
-			}
-			else_if = {
-				limit = {
-					NOT = { is_special_project_completed = sp:sp_nuclear_reactor }
-				}
-				add_breakthrough_progress = {
-					specialization = specialization_nuclear
-					value = 0.75
-				}
-			}
-			else_if = {
 				limit = {
 					has_tech = nuclear_reactor
 				}
@@ -4800,7 +4784,7 @@ initial_show_position = {
 		relative_position_id = PHI_sea_of_cobalt	
 		
 		x = 0
-		y = 2
+		y = 1
 	
 		cost = 10
 
@@ -8630,7 +8614,7 @@ focus = {
 		available_if_capitulated = no
 	
 		completion_reward = {
-			custom_effect_tooltip = tech_effect|PHI_battalion_combat_teams
+			#custom_effect_tooltip = tech_effect|PHI_battalion_combat_teams
 			hidden_effect = {
 				set_technology = {
 					PHI_battalion_combat_teams = 1
