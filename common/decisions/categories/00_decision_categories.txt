@@ -63,12 +63,11 @@ prestigious_projects = {
 
 }
 
-# r56rp
-# road has it separate, moving here for easier comparing.
-#CHI_occupation_actions = {
-#	icon = generic_crisis
-#	priority = 2
-#}
+
+CHI_occupation_actions = {
+	icon = generic_crisis
+	priority = 2
+}
 
 foreign_politics = {
 	icon = foreign_support
@@ -282,8 +281,19 @@ governments_in_exile = {
 	icon = generic_formable_nations
 	picture = GFX_decision_cat_picture_government_in_exile
 	allowed = {
-		has_dlc = "Man the Guns"
+		OR = {
+			has_dlc = "Man the Guns"
+			has_dlc = "By Blood Alone"
+		}
 	}
+
+	visible = {
+		NOT = {
+			has_completed_focus = NOR_the_kings_no 
+		}
+	}
+
+	priority = 7
 }
 
 category_exile_forces = {
@@ -291,7 +301,10 @@ category_exile_forces = {
 	icon = infiltration
 	picture = GFX_decision_cat_picture_government_in_exile
 	allowed = {
-		has_dlc = "Man the Guns"
+		OR = {
+			has_dlc = "Man the Guns"
+			has_dlc = "By Blood Alone"
+		}
 	}
 }
 category_test_decisions = {
@@ -323,7 +336,7 @@ lar_local_recruitment = {
 	on_map_area = {
 		state = 373
 		name = LAR_recruitment_north_america
-		zoom = 650
+		zoom = 850
 
 		target_root_trigger = {
 			OR = {
@@ -336,7 +349,7 @@ lar_local_recruitment = {
 	on_map_area = {
 		state = 487
 		name = LAR_recruitment_south_america
-		zoom = 650
+		zoom = 850
 
 		target_root_trigger = {
 			OR = {
@@ -349,7 +362,7 @@ lar_local_recruitment = {
 	on_map_area = {
 		state = 295
 		name = LAR_recruitment_africa
-		zoom = 650
+		zoom = 850
 
 		target_root_trigger = {
 			OR = {
@@ -362,7 +375,7 @@ lar_local_recruitment = {
 	on_map_area = {
 		state = 597
 		name = LAR_recruitment_asia
-		zoom = 650
+		zoom = 850
 
 		target_root_trigger = {
 			OR = {
@@ -383,7 +396,7 @@ lar_local_recruitment = {
 	on_map_area = {
 		state = 521
 		name = LAR_recruitment_oceania
-		zoom = 650
+		zoom = 850
 
 		target_root_trigger = {
 			OR = {
@@ -396,7 +409,7 @@ lar_local_recruitment = {
 	on_map_area = {
 		state = 439
 		name = LAR_recruitment_india
-		zoom = 650
+		zoom = 850
 
 		target_root_trigger = {
 			OR = {
@@ -414,7 +427,7 @@ lar_local_recruitment = {
 	on_map_area = {
 		state = 656
 		name = LAR_recruitment_middle_east
-		zoom = 650
+		zoom = 850
 
 		target_root_trigger = {
 			OR = {
@@ -500,6 +513,24 @@ generic_purchase_old_ships_category = {
 				original_tag = PAR
 				has_dlc = "Trial of Allegiance"
 			}
+
+			AND = {
+				original_tag = PER
+				has_dlc = "Graveyard of Empires"
+			}
+			AND = {
+				original_tag = RAJ
+				has_dlc = "Graveyard of Empires"
+			}
+			AND = {
+				original_tag = IRQ
+				has_dlc = "Graveyard of Empires"
+			}
+			AND = {
+				original_tag = AFG
+				has_dlc = "Graveyard of Empires"
+			}
+			original_tag = CHI
 		}
 	}
 	visible = {
@@ -518,11 +549,19 @@ generic_refit_civilian_ships_category = {
 	
 	allowed = { #Add tags here with first an OR then an AND
 		OR = {
-			original_tag = DEN
-			original_tag = FIN
-			original_tag = ICE
+			AND = {
+				OR = {
+					original_tag = DEN
+					original_tag = FIN
+					original_tag = ICE
+				}
+				has_dlc = "Arms Against Tyranny"
+			}
+			AND = {
+				original_tag = RAJ
+				has_dlc = "Graveyard of Empires"
+			}
 		}
-		has_dlc = "Arms Against Tyranny"
 	}
 	visible = {
 		has_country_flag = refit_convoy_ships_flag

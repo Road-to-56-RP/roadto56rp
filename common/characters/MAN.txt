@@ -44,6 +44,44 @@ characters={
 			}
 		}
 	}
+
+	MAN_jonjurjab = {
+		name = MAN_jonjurjab
+
+		portraits = {
+			army = {
+				large = GFX_portrait_MAN_jonjurjab
+				small = GFX_portrait_MAN_jonjurjab_small
+			}
+		}
+
+		corps_commander = {
+			traits = { cavalry_leader }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 2
+			logistics_skill = 2
+			legacy_id = -1
+		}
+
+		advisor = {
+			slot = high_command
+			idea_token = MAN_jonjurjab
+			ledger = army
+			allowed = {
+				original_tag = MAN
+			}
+			traits = {
+				army_cavalry_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
+
+	}
 	
 	MAN_zhang_jinghui={
 		name= "Zhang Jinghui"
@@ -115,9 +153,13 @@ characters={
 						ruling_only = yes 
 					} 
 				}
+				OR = {
+					is_subject_of = JAP
+					has_country_flag = MAN_shiyi_conscripted
+				}
 			}
 			traits = {
-				popular_figurehead
+				MAN_speaker_of_the_senate
 			}
 		}
 		country_leader={
@@ -125,7 +167,7 @@ characters={
 			expire="1965.1.1"
 			id=-1
 			traits={
-				army_connections popular_figurehead
+				army_connections MAN_speaker_of_the_senate
 			}
 		}
 		corps_commander = {
@@ -475,7 +517,7 @@ characters={
 		name = "Zhang Yangqing"
 		portraits={
 			civilian={
-				small = "gfx/interface/ideas/idea_generic_political_advisor_asia_3.dds"
+				small = "gfx/interface/ideas/idea_asia_generic_fascism.dds"
 			}
 		}
 		advisor = {
@@ -494,7 +536,7 @@ characters={
 		name = MAN_naoki_hoshino
 		portraits={
 			civilian={
-				small = "gfx/interface/ideas/idea_generic_political_advisor_asia_3.dds"
+				small = "gfx/interface/ideas/idea_generic_political_advisor_asia_1.dds"
 			}
 		}
 		advisor = {
@@ -691,6 +733,7 @@ characters={
 					}
 				}
 			}
+			cost = 100
 			traits = {
 				lawrence_of_manchuria
 			}
@@ -764,7 +807,7 @@ characters={
 		portraits={
 			civilian={
 				large="gfx/leaders/MAN/KR_portrait_MAN_qi_xieyuan.dds"
-				small = "gfx/interface/ideas/man/advisors/kr_idea_MAN_qi_xieyuan.dds"
+				small = GFX_idea_advisor_CHI_carsun_chang
 			}
 		}
 		country_leader={
@@ -778,6 +821,7 @@ characters={
 			allowed = {
 				original_tag = MAN
 			}
+			cost = 100
 			available = {
 				is_subject_of = JAP
 			}
@@ -851,6 +895,7 @@ characters={
 			allowed = {
 				original_tag = MAN
 			}
+			cost = 100
 			
 			available = {
 				is_subject_of = JAP
@@ -887,7 +932,7 @@ characters={
 			allowed = {
 				original_tag = MAN
 			}
-			
+			cost = 100
 			available = {
 				is_subject_of = JAP
 			}
@@ -929,6 +974,7 @@ characters={
 			traits = {
 				army_chief_organizational_2
 			}
+			cost = 100
 			on_add = {
 				owner = {
 					if = {
@@ -1095,7 +1141,7 @@ characters={
 		}
 	}
 	
-	MAN_yu_zhishan={
+	MAN_yu_zishan={
 		name= "Yu Zhishan"
 		portraits={
 			army={
@@ -1346,6 +1392,70 @@ characters={
 			logistics_skill = 2
 			legacy_id = -1
 		}
+	}
+
+	MAN_pujie = {
+		name = MAN_pujie
+
+		portraits = {
+			army = {
+				large = GFX_portrait_MAN_pujie
+				small = GFX_portrait_MAN_pujie_military_small
+			}
+			civilian = {
+				small = GFX_portrait_MAN_pujie_civilian_small
+			}
+		}
+
+		#corps_commander = {
+		#	traits = { politically_connected infantry_leader }
+		#	skill = 3
+		#	attack_skill = 2
+		#	defense_skill = 2
+		#	planning_skill = 2
+		#	logistics_skill = 4
+		#	legacy_id = -1
+		#}
+
+		advisor = {
+			cost = 100
+			slot = theorist
+			idea_token = MAN_pujie_theorist
+			ledger = army
+			allowed = {
+				original_tag = MAN
+			}
+			available = {
+				not_already_hired_except_as = theorist
+			}
+			traits = {
+				military_theorist
+			}
+		}
+
+		advisor = {
+			slot = political_advisor
+			idea_token = MAN_pujie
+
+			allowed = {
+				original_tag = MAN
+			}
+
+			visible = {
+			}
+
+			available = {
+				not_already_hired_except_as = political_advisor
+			}
+
+			traits = {
+				JAP_militarist
+			}
+			ai_will_do = {
+				base = 1
+			}
+		}
+
 	}
 	
 	MAN_zhang_haipeng={
