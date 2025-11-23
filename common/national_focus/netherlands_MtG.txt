@@ -3404,7 +3404,6 @@ focus_tree = {
 				bonus = 1
 				ahead_reduction = 2
 				uses = 2
-				category = cl_tech
 				category = ca_tech
 			}
 		}
@@ -7069,7 +7068,12 @@ focus_tree = {
 
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			create_faction = HOL_benelux
+			create_faction_from_template = {
+				template = faction_template_defensive_democratic
+				name = HOL_benelux
+				icon = GFX_faction_logo_generic_13
+			}
+			custom_effect_tooltip = r56_newline
 			BEL = {
 				custom_effect_tooltip = HOL_form_the_benelux_bel_tt
 			}
@@ -7150,18 +7154,44 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			set_faction_name = european_union
-			every_other_country = {
+			IF = {
 				limit = {
-					capital_scope = {
-						is_on_continent = europe
-					}
-					is_major = no
-					has_government = democratic
-					NOT = { is_in_faction_with = ROOT }
+					is_faction_leader = yes
 				}
-				country_event = { id = generic.5 hours = 6 }
+				set_faction_name = BEL_european_union
 			}
+
+			ELSE_IF = {
+				limit = {
+					is_in_faction = yes
+					is_faction_leader = no
+				}
+
+				leave_faction = yes
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+				create_faction_from_template = {
+					template = faction_template_european_unity
+					name = BEL_european_union
+					icon = GFX_faction_logo_eu
+				}
+			}
+
+			ELSE = {
+				create_faction_from_template = {
+					template = faction_template_european_unity
+					name = BEL_european_union
+					icon = GFX_faction_logo_eu
+				}
+			}
+
+			set_cosmetic_tag = european_union_leader
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = BEL_the_council_of_europe_tt
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = BEL_european_community_tt
+			
 			hidden_effect = { news_event = { id = mtg_news.54 days = 1 } }
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE }

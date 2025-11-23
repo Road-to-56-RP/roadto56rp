@@ -969,7 +969,7 @@ tactic_blitz = {
 			has_trait = panzer_leader
 			skill_advantage > 1
 		}
-		OWNER = { NOT = { has_tech = masterful_blitz } } #Soviet improved version of blitz will replace this
+		OWNER = { NOT = { has_tactic = tactic_masterful_blitz } } #Soviet improved version of blitz will replace this
 	}
 	
 	active = no
@@ -1020,7 +1020,7 @@ tactic_backhand_blow = { #counters breakthrough
 	trigger = {
 		is_attacker = no
 		phase = no
-		OWNER = { NOT = { has_tech = masterful_backhand_blow } } #Fin improved version of Double Envelopment will replace this
+		OWNER = { NOT = { has_tactic = tactic_masterful_backhand_blow } } #Fin improved version of Double Envelopment will replace this
 		OR = {
 			skill > 4
 			AND = {
@@ -1330,6 +1330,7 @@ tactic_banzai_charge = { #Special Japan attacker tactic
 		tag = JAP
 		is_attacker = yes
 		phase = no
+		OWNER = { NOT = { has_tactic = tactic_grand_banzai_charge } } #Japanese improved version of Banzai Charge will replace this
 	}
 	
 	active = yes
@@ -1339,8 +1340,31 @@ tactic_banzai_charge = { #Special Japan attacker tactic
 	base =  { factor = 4 }
 	picture = tactic_banzai_charge
 	
-	attacker_movement_speed = 0.15
+	attacker_movement_speed = 0.1
 	attacker = 0.25 
+	defender = 0.1
+}
+
+tactic_grand_banzai_charge = { #Special Japan attacker tactic
+	only_show_for = JAP
+
+	is_attacker = yes
+
+	trigger = {
+		tag = JAP
+		is_attacker = yes
+		phase = no
+	}
+	
+	active = yes
+	
+	countered_by = tactic_overwhelming_fire
+	
+	base =  { factor = 4 }
+	picture = tactic_banzai_charge
+	
+	attacker_movement_speed = 0.1
+	attacker = 0.3 
 	defender = 0.1
 }
 
@@ -1447,7 +1471,7 @@ tactic_double_envelopment = { #Asymmetrical warfare attacker tactic #revisit, ma
 	trigger = {
 		is_attacker = yes
 		phase = no
-		OWNER = { NOT = { has_tech = masterful_double_envelopment } } #Fin improved version of Double Envelopment will replace this
+		OWNER = { NOT = { has_tactic = masterful_double_envelopment } } #Fin improved version of Double Envelopment will replace this
 	}
 	
 	active = no
@@ -1527,6 +1551,49 @@ tactic_masterful_blitz = { #Improved version of Blitz for Soviets #revisit for b
 	combat_width = 0.1
 	attacker = 0.2
 	defender = -0.2
+}
+
+tactic_urban_defense = { 
+	is_attacker = no
+	trigger = {
+		is_attacker = no
+		is_fighting_in_terrain = urban
+		phase = no
+	}
+	
+	active = yes
+	
+	base =  {
+		factor = 2
+		modifier = {
+			factor = 0
+			NOT = { is_fighting_in_terrain = urban }
+		}
+		modifier = {
+			factor = 2
+			province_vp > 5
+		}
+		modifier = {
+			factor = 3
+			has_trait = urban_assault_specialist
+		}
+		modifier = {
+			factor = 1.5
+			has_trait = trait_engineer
+		}
+
+	} 
+	
+	picture = tactic_urban_defense
+	#countered_by = tactic_urban_defense
+	
+	phase = street_fighting #changes phase to Street Fighting
+	
+	attacker = -0.05
+	defender = 0.05
+	attacker_movement_speed = -0.05
+	attacker_org_damage_modifier = -0.1
+	#combat_width = -0.1
 }
 
 tactic_masterful_backhand_blow = { #counters breakthrough - Germany focus reward ver
@@ -2626,50 +2693,6 @@ tactic_sf_mouse_holing = { #House to House assaul, avoiding open streets where p
 	defender = -0.1
 	attacker_movement_speed = -0.05
 	defender_org_damage_modifier = -0.1
-}
-
-#Vanilla Urban Tactics
-tactic_urban_defense = { 
-	is_attacker = no
-	trigger = {
-		is_attacker = no
-		is_fighting_in_terrain = urban
-		phase = no
-	}
-	
-	active = yes
-	
-	base =  {
-		factor = 2
-		modifier = {
-			factor = 0
-			NOT = { is_fighting_in_terrain = urban }
-		}
-		modifier = {
-			factor = 2
-			province_vp > 5
-		}
-		modifier = {
-			factor = 3
-			has_trait = urban_assault_specialist
-		}
-		modifier = {
-			factor = 1.5
-			has_trait = trait_engineer
-		}
-
-	} 
-	
-	picture = tactic_urban_defense
-	#countered_by = tactic_urban_defense
-	
-	phase = street_fighting #changes phase to Street Fighting
-	
-	attacker = -0.05
-	defender = 0.05
-	attacker_movement_speed = -0.05
-	attacker_org_damage_modifier = -0.1
-	#combat_width = -0.1
 }
 
 tactic_sf_defense = { #Basic Urban defensive tactic
