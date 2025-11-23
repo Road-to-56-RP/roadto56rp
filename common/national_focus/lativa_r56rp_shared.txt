@@ -1905,11 +1905,33 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			mark_focus_tree_layout_dirty = yes
-			add_political_power = 50
-			swap_ideas = {
-				remove_idea = democratic_opposition
-				add_idea = LAT_r56rp_democratic_opposition
+			army_experience = 50
+			add_doctrine_cost_reduction = {
+				name = LAT_r56rp_restructure_the_officer_corps
+				cost_reduction = 0.95
+				uses = 2
+				category = land_doctrine
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				if = {
+					limit = {
+						NOT = {
+							OR = {
+								has_doctrine = new_mobile_warfare
+								has_doctrine = superior_firepower
+								has_doctrine = grand_battleplan
+								has_doctrine = mass_assault
+								has_doctrine = r56_guerilla_warfare
+							}
+						}
+					}
+					set_grand_doctrine = superior_firepower
+				}
+				add_ideas = state_serves_the_military_spirit
 			}
 		}
 	}
