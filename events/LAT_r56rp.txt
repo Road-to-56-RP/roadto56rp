@@ -1,6 +1,8 @@
 add_namespace = LAT_r56rp_ger_junta
 add_namespace = LAT_r56rp_purchase_stugs
 add_namespace = LAT_r56rp_purchase_tanks
+add_namespace = LAT_r56rp_sov_zastava
+add_namespace = LAT_r56rp_naval_burden
 
 ### Offer a Hand
 	country_event = {
@@ -141,7 +143,7 @@ add_namespace = LAT_r56rp_purchase_tanks
 			if = {
 				limit = {
 					FROM = {
-						orignial_tag = LIT
+						original_tag = LIT
 					}
 				}
 				188 = {
@@ -439,5 +441,202 @@ add_namespace = LAT_r56rp_purchase_tanks
 			ai_chance = {
 				factor = 1
 			}
+		}
+	}
+### Press for Polish Concessions
+	country_event = {
+		id = LAT_r56rp_sov_zastava.1
+		title = LAT_r56rp_sov_zastava.1.t
+		desc = LAT_r56rp_sov_zastava.1.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_sov_zastava.1.a
+
+			96 = {
+				add_claim_by = FROM
+			}
+			784 = {
+				add_claim_by = FROM
+			}
+			934 = {
+				add_claim_by = FROM
+			}
+			935 = {
+				add_claim_by = FROM
+			}
+			936 = {
+				add_claim_by = FROM
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = if_we_accept_tt
+			effect_tooltip = {
+				ROOT = {
+					96 = {
+						transfer_state_to = FROM
+					}
+					784 = {
+						transfer_state_to = FROM
+					}
+					934 = {
+						transfer_state_to = FROM
+					}
+					935 = {
+						transfer_state_to = FROM
+					}
+					936 = {
+						transfer_state_to = FROM
+					}
+				}
+			}
+			FROM = {
+				country_event = { id = LAT_r56rp_sov_zastava.2 hours = 6 }
+			}
+			
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 0
+					ROOT = {
+						OR = {
+							is_in_faction_with = SOV
+							is_in_faction_with = GER
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					has_opinion = {
+						target = FROM
+						value > 25
+					}
+				}
+			}
+		}
+		option = { # We disagree
+			name = LAT_r56rp_sov_zastava.1.b
+
+			effect_tooltip = {
+				FROM = {
+					create_wargoal = {
+						type = annex_everything
+						target = ROOT
+					}
+				}
+			}
+
+			FROM = {
+				country_event = { id = LAT_r56rp_sov_zastava.3 hours = 6 }
+			}
+
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 2
+					ROOT = {
+						OR = {
+							is_in_faction_with = SOV
+							is_in_faction_with = GER
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					has_opinion = {
+						target = FROM
+						value < -25
+					}
+				}
+			}
+		}
+	}
+	country_event = {
+		id = LAT_r56rp_sov_zastava.2
+		title = LAT_r56rp_sov_zastava.2.t
+		desc = LAT_r56rp_sov_zastava.2.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_sov_zastava.2.a
+
+			FROM = {
+				94 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				95 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				96 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				784 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				935 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+				936 = {
+					transfer_state_to = ROOT
+					add_compliance = 40
+				}
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+	country_event = {
+		id = LAT_r56rp_sov_zastava.3
+		title = LAT_r56rp_sov_zastava.3.t
+		desc = LAT_r56rp_sov_zastava.3.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_sov_zastava.3.a
+
+			ROOT = {
+				create_wargoal = {
+					type = annex_everything
+					target = FROM
+				}
+			}
+			
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+### Assume Naval Burden for the Empire
+	country_event = {
+		id = LAT_r56rp_naval_burden.1
+		title = LAT_r56rp_naval_burden.1.t
+		desc = LAT_r56rp_naval_burden.1.d
+		picture = GFX_report_event_operatives
+
+		is_triggered_only = yes
+		
+		option = { # We agree
+			name = LAT_r56rp_naval_burden.1.a
+			
+			add_ideas = LAT_r56rp_LAT_assumed_naval_burden
+			LAT = {
+				add_ideas = LAT_r56rp_assumed_naval_burden
+			}
+		}
+		option = { # We disagree
+			name = LAT_r56rp_naval_burden.1.b
+
 		}
 	}

@@ -331,10 +331,7 @@ focus_tree = {
 				if = {
 					limit = { #Checking if SOV is Trotskyist  
 						SOU = { 	#56 - Adding SOV old tree support
-							OR = {
-								has_completed_focus = SOV_the_left_opposition 
-								has_completed_focus = SOV_trotskyite_victory
-							}
+							has_completed_focus = SOV_the_left_opposition 
 						}
 					}
 					add_opinion_modifier = { # SOV loves Trotsky so we hate you 
@@ -434,7 +431,6 @@ focus_tree = {
 						SOU = { # SOV Not Trotskyists   
 							NOT = { 
 								has_completed_focus = SOV_the_left_opposition
-								has_completed_focus = SOV_trotskyite_victory 	#56 - Adding support for old SOV tree
 							} 
 						}
 					}
@@ -871,18 +867,9 @@ focus_tree = {
 					is_historical_focus_on = yes 
 					SOU = {
 						exists = yes 
-						if = {	#56 - Adding support for old SOV tree
-							limit = { has_global_flag = SOV_old_focus_tree }
-							NOT = { has_completed_focus = SOV_counter_coup_old }
-						}
-						else = {
-							if = {
-								limit = { has_dlc = "No Step Back" }
-								NOT = { has_completed_focus = SOV_beaten_but_not_defeated }
-							}
-							else = {
-								NOT = { has_completed_focus = SOV_form_a_fifth_column }
-							}
+						if = {
+							limit = { has_dlc = "No Step Back" }
+							NOT = { has_completed_focus = SOV_beaten_but_not_defeated }
 						}
 					}
 				}
@@ -943,18 +930,9 @@ focus_tree = {
 					is_historical_focus_on = yes 
 					SOU = {
 						exists = yes 
-						if = {	#56 - Adding support for old SOV tree
-							limit = { has_global_flag = SOV_old_focus_tree }
-							NOT = { has_completed_focus = SOV_counter_coup_old }
-						}
-						else = {
-							if = {
-								limit = { has_dlc = "No Step Back" }
-								NOT = { has_completed_focus = SOV_beaten_but_not_defeated }
-							}
-							else = {
-								NOT = { has_completed_focus = SOV_form_a_fifth_column }
-							}
+						if = {
+							limit = { has_dlc = "No Step Back" }
+							NOT = { has_completed_focus = SOV_beaten_but_not_defeated }
 						}
 					}
 				}
@@ -1332,7 +1310,10 @@ focus_tree = {
 				}
 			}
 			else = {
-				create_faction = NOR_northern_international
+				create_faction_from_template = {
+					template = faction_template_world_revolution
+					name = NORDIC_alliance_communist
+				}
 				every_other_country = {
 					limit = {
 						has_government = communism 
@@ -1415,7 +1396,10 @@ focus_tree = {
 					is_in_faction = no 
 					NORDIC_alliance_created_already = no 
 				}
-				create_faction = NORDIC_alliance_communist
+				create_faction_from_template = {
+					template = faction_template_world_revolution
+					name = NORDIC_alliance_communist
+				}
 				complete_national_focus = NORDIC_form_joint_alliance
 			}
 		}
@@ -1482,7 +1466,6 @@ focus_tree = {
 						has_government = communism
 						NOT = { 
 							has_completed_focus = SOV_the_left_opposition
-							has_completed_focus = SOV_trotskyite_victory 	#56 - Adding support for old SOV tree
 						}
 						has_capitulated = no
 					}
@@ -1570,7 +1553,6 @@ focus_tree = {
 						has_government = communism
 						NOT = { 
 							has_completed_focus = SOV_the_left_opposition
-							has_completed_focus = SOV_trotskyite_victory 	#56 - Adding support for old SOV tree
 						}
 						has_capitulated = no
 					}
@@ -1777,7 +1759,20 @@ focus_tree = {
 					is_in_faction = no 
 					NORDIC_alliance_created_already = no 
 				}
-				create_faction = NORDIC_alliance_democratic
+				IF = {
+					limit = {
+						has_dlc = "No Compromise, No Surrender"
+					}
+					set_rule = { can_create_factions = yes }
+					create_faction_from_template = faction_template_NORDIC_alliance_democratic
+					add_faction_initiative = 1
+					add_to_faction = FROM
+				}
+				ELSE = {
+					set_rule = { can_create_factions = yes }
+					create_faction = NORDIC_alliance_democratic
+					add_to_faction = FROM
+				}
 				complete_national_focus = NORDIC_form_joint_alliance
 			}
 		}
@@ -5636,7 +5631,10 @@ focus_tree = {
 					is_in_faction = no 
 					NORDIC_alliance_created_already = no 
 				}
-				create_faction = NORDIC_alliance_monarchist
+				create_faction_from_template = {
+					template = faction_template_DEN_nordic_cooperation_alliance
+					name = NORDIC_alliance_monarchist
+				}
 				complete_national_focus = NORDIC_form_joint_alliance
 			}
 		}

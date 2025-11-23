@@ -68,12 +68,6 @@ buildings = {
 			shares_slots = yes
 			state_max = 20
 		}
-		country_modifiers = {
-			modifiers = {
-				base_fuel_gain = -0.8 #per hour
-				max_fuel_building = 0.200 #k
-			}
-		}
 	}
 
 	land_facility = {
@@ -109,12 +103,6 @@ buildings = {
 		level_cap = {
 			shares_slots = yes
 			state_max = 20
-		}
-		country_modifiers = {
-			modifiers = {
-				base_fuel_gain = -0.8 #per hour
-				max_fuel_building = 0.200 #k
-			}
 		}
 	}
 
@@ -163,8 +151,9 @@ buildings = {
 		show_on_map = 1
 		show_on_map_meshes = 3
 		always_shown = yes
-		base_cost = 3000
-		spawn_point = naval_base_spawn
+		base_cost = 5000
+		per_level_extra_cost = 1000
+		spawn_point = naval_base_spawn 
 		only_costal = yes
 		is_port = yes
 		icon_frame = 6
@@ -245,13 +234,6 @@ buildings = {
 			shares_slots = yes
 			state_max = 20
 		}
-		country_modifiers = {
-			modifiers = {
-				base_fuel_gain = -0.8 #per hour
-				max_fuel_building = 0.200 #k
-			}
-		}
-		
 	}
 
 	naval_facility = {
@@ -306,7 +288,7 @@ buildings = {
 
 		country_modifiers = {
 			modifiers = {
-				fuel_gain_from_states = 4.0 #per hour
+			fuel_gain_from_states = 2.0 #per hour
 			}
 		}
 
@@ -448,6 +430,56 @@ buildings = {
 			state_max = 1
 			shares_slots = yes
 			group_by = reactors
+		}
+	}
+
+	naval_supply_hub = {
+		show_on_map = 1
+		base_cost = 12500
+		icon_frame = 28
+		disabled_in_dmz = yes
+		naval_supply_hub = yes
+		infrastructure_construction_effect = yes
+		only_costal = yes
+		tags = { naval_buildings_tag }
+		building_prerequisite = {
+			building_dependency = {
+				building = naval_base
+				level = 8
+			}
+		}
+		level_cap = {
+			province_max = 1
+		}
+	}
+	
+	naval_headquarters = {
+		dlc_allowed = { has_dlc = "No Compromise, No Surrender" }
+		show_on_map = 1
+		base_cost = 10000
+		per_controlled_building_extra_cost = 5000
+		spawn_point = naval_base_spawn
+		icon_frame = 29
+		value = 1
+		naval_headquarter = yes
+		disabled_in_dmz = yes
+		infrastructure_construction_effect = yes
+		only_costal = yes
+		is_port = yes
+		tags = { naval_buildings_tag }
+		building_prerequisite = {
+			building_dependency = {
+				building = naval_base
+				level = 8
+			}
+		}
+		level_cap = {
+			state_max = 1
+			province_max = 1
+			shares_slots = yes
+		}
+		modules = {
+			naval_leader_module
 		}
 	}
 

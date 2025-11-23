@@ -1520,7 +1520,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }	#56
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			create_faction = GRE_corfu_cooperative
+			create_faction_from_template = {
+				template = faction_template_BUL_balkan_federation_of_socialist_republics
+				name = GRE_corfu_cooperative
+			}
 			if = { 
 				limit = { 
 					YUG = { 
@@ -2390,11 +2393,7 @@ focus_tree = {
 						}
 					}
 					AUS = {
-						if = {	#56 - Support for default AUS tree
-							limit = { has_global_flag = aus_dlc_focus_tree }
-							has_completed_focus = AUS_reinstate_the_imperial_council
-						}
-						else = { has_completed_focus = AUS_past_glories }
+						has_completed_focus = AUS_reinstate_the_imperial_council
 						OR = {
 							is_in_faction = no
 							is_faction_leader = yes
@@ -2432,9 +2431,6 @@ focus_tree = {
 							is_in_faction = no
 							is_faction_leader = yes
 						}
-					}
-					AUS = {	#56
-						has_completed_focus = AUS_past_glories
 					}
 				}
 			}
@@ -2492,11 +2488,7 @@ focus_tree = {
 						is_in_faction_with = ROOT 
 					}
 					AUS = {
-						if = {	#56 - Support for default AUS tree
-							limit = { has_global_flag = aus_dlc_focus_tree }
-							has_completed_focus = AUS_reinstate_the_imperial_council
-						}
-						else = { has_completed_focus = AUS_past_glories }
+						has_completed_focus = AUS_reinstate_the_imperial_council
 						is_in_faction_with = ROOT 
 					}
 				}
@@ -2510,10 +2502,6 @@ focus_tree = {
 						}
 					HUN = {
 						has_completed_focus = HUN_invite_the_habsburg_prince	#56
-						is_in_faction_with = ROOT 
-					}
-					AUS = {
-						has_completed_focus = AUS_past_glories	#56
 						is_in_faction_with = ROOT 
 					}
 				}
@@ -2550,7 +2538,11 @@ focus_tree = {
 				}
 				GER = { 
 					set_rule = { can_create_factions = yes }
-					create_faction = GER_central_powers_faction	#56 rename for translation submods
+					create_faction_from_template = {
+						template = faction_template_GER_mitteleuropa_alliance
+						name = GER_central_powers_faction
+						icon = GFX_faction_logo_generic_13
+					}
 					country_event = { id  = generic.2 days = 7 } 
 				}
 			}
@@ -2586,16 +2578,17 @@ focus_tree = {
 						}
 					}
 				}
-				create_faction = GRE_argos_alliance
+				create_faction_from_template = {
+					template = faction_template_generic_dominance
+					name = GRE_argos_alliance
+					icon = GFX_faction_logo_generic_4
+				}
 				HUN = { country_event = { id = generic.5 days = 7 } }
 			}
 			else_if = {
 				limit = { 
 					AUS = { 
-						OR = {
-							has_completed_focus = AUS_past_glories	#56 focus
-							has_completed_focus = AUS_reinstate_the_imperial_council
-						}
+						has_completed_focus = AUS_reinstate_the_imperial_council
 						is_subject = no
 						is_faction_leader = no
 						is_in_faction = no
@@ -2607,7 +2600,11 @@ focus_tree = {
 						}
 					}
 				}
-				create_faction = GRE_argos_alliance
+				create_faction_from_template = {
+					template = faction_template_generic_dominance
+					name = GRE_argos_alliance
+					icon = GFX_faction_logo_generic_4
+				}
 				HUN = { country_event = { id = generic.5 days = 7 } }
 			}			
 			else = { 
@@ -5054,7 +5051,7 @@ focus_tree = {
 		id = GRE_the_hellenic_air_force
 		icon = GFX_goal_GRE_coa_air_force	#56
 		prerequisite = { focus = GRE_hellenic_armed_forces }
-		x = -4s	#56
+		x = -4	#56
 		y = 1
 		relative_position_id = GRE_hellenic_armed_forces
 		cost = 5
@@ -5118,7 +5115,7 @@ focus_tree = {
 		id = GRE_the_hellenic_army
 		icon = GFX_goal_GRE_coa_army	#56
 		prerequisite = { focus = GRE_hellenic_armed_forces }
-		x = 0s
+		x = 0
 		y = 1
 		relative_position_id = GRE_hellenic_armed_forces
 		cost = 5

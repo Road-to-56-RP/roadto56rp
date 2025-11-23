@@ -2475,7 +2475,7 @@ country_event = { #Other country REJECTED trade agreement
 	}
 }
 
-country_event = { #SWI or LIE offers gold trade to country 
+country_event = { #SWI offers gold trade to country 
     id = BBA_switzerland_trade.8
     title = BBA_switzerland_trade.8.t
     desc = BBA_switzerland_trade.8.desc
@@ -2493,18 +2493,6 @@ country_event = { #SWI or LIE offers gold trade to country
 				}
 				set_country_flag = {
 					flag = SWI_waiting_for_answer_timeout
-					days = 50
-					value = 1
-				}
-			}
-			if = {
-				limit = {
-					FROM = {
-						original_tag = LIE
-					}
-				}
-				set_country_flag = {
-					flag = LIE_waiting_for_answer_timeout
 					days = 50
 					value = 1
 				}
@@ -2545,14 +2533,6 @@ country_event = { #SWI or LIE offers gold trade to country
 				SWI_increase_gold_trade = yes
 			}
 		}
-		if = {
-			limit = {
-				FROM = {
-					original_tag = LIE
-				}
-			}
-			add_ideas = LIE_gold_trade_with_liechtenstein
-		}
 	}
 
 	option = { #Can't trust those filthy neutrals
@@ -2574,18 +2554,6 @@ country_event = { #SWI or LIE offers gold trade to country
 					value = 0
 				}
 			}
-			if = {
-				limit = {
-					FROM = {
-						original_tag = LIE
-					}
-				}
-				set_country_flag = {
-					flag = LIE_rejected_investment
-					days = 240
-					value = 0
-				}
-			}
 		}
 		FROM = { 
 			country_event = {
@@ -2596,7 +2564,7 @@ country_event = { #SWI or LIE offers gold trade to country
 	}
 }
 
-country_event = { #For SWI & LIE - Gold Trade accepted 
+country_event = { #For SWI - Gold Trade accepted 
     id = BBA_switzerland_trade.9
     title = BBA_switzerland_trade.9.t
     desc = BBA_switzerland_trade.9.desc
@@ -2617,19 +2585,6 @@ country_event = { #For SWI & LIE - Gold Trade accepted
 				SWI_increase_gold_trade = yes 
 			}
 		}
-		if = {
-			limit = {
-				original_tag = LIE
-			}
-			FROM = {
-				effect_tooltip = {
-					LIE_update_gold_trade_modifiers = yes
-				}
-				set_country_flag = LIE_gold_trading_partner		
-			}
-			LIE_update_gold_trade_modifiers_for_ourselves = yes
-		}
-
 	}
 }
 

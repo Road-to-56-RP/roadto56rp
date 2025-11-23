@@ -132,15 +132,7 @@ focus_tree = {
 			NOT = {
 				AUS = {
 					focus_progress = {
-						focus = AUS_moderate_restoration
-						progress > 0.001
-					}
-				}
-			}
-			NOT = {
-				AUS = {
-					focus_progress = {
-						focus = AUS_past_glories
+						focus = AUS_reinstate_the_imperial_council
 						progress > 0.001
 					}
 				}
@@ -550,20 +542,11 @@ focus_tree = {
 					}
 				}
 			}
-			OR = {
-				SWI = {
-					exists = yes
-					is_subject = no
-					NOT = {
-						has_government = fascism #was ROOT which makes no sense, description is specifically anti-fascist, other check already checks German ideology
-					}
-				}
-				LIE = {
-					exists = yes
-					is_subject = no
-					NOT = {
-						has_government = fascism
-					}
+			SWI = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_government = fascism #was ROOT which makes no sense, description is specifically anti-fascist, other check already checks German ideology
 				}
 			}
 			threat > 0.1
@@ -581,20 +564,6 @@ focus_tree = {
 					}
 				}
 				SWI = {
-					country_event = { id = austria.5006 days = 1 }
-				}
-			}
-			if = {
-				limit = {
-					LIE = {
-						exists = yes
-						is_subject = no
-						NOT = {
-							has_government = fascism #was ROOT which makes no sense, description is specifically anti-fascist, other check already checks German ideology
-						}
-					}
-				}
-				LIE = {
 					country_event = { id = austria.5006 days = 1 }
 				}
 			}
@@ -1202,14 +1171,15 @@ focus_tree = {
 				add_idea = HUN_hungarian_monarchy_democratic
 				remove_idea = HUN_hungarian_monarchy_2
 			}
-			create_country_leader = {
-				name = "Carl V Wilhelm"
-				desc = ""
-				picture = "gfx/leaders/HUN/Portrait_Hungary_Carl_V_Wilhelm.dds"
-				expire = "1965.1.1"
-				ideology = constitutional_monarchy
-				traits = {
-					popular_figurehead
+			add_country_leader_role = { #r56 converted from the legacy system
+				character = HUN_carl_wilhelm
+				country_leader = {
+					desc = ""
+					expire = "1965.1.1"
+					ideology = constitutional_monarchy
+					traits = {
+						popular_figurehead
+					}
 				}
 			}
 			add_ideas = HUN_dynastic_ties
@@ -1441,7 +1411,22 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = HUN_balkan_pact_preparation
 			set_rule = { can_create_factions = yes } 
-			create_faction = HUN_BALKAN_FACTION
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_balkan_pact
+				add_faction_initiative = 1
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = {
+					template = faction_template_generic_regional
+					name = HUN_BALKAN_FACTION
+					icon = GFX_faction_logo_generic_2
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_POLITICAL }
 	}
@@ -2433,7 +2418,7 @@ focus_tree = {
 		available = {
 
 			has_civil_war = no
-			has_country_leader = { ruling_only = yes name = "Ferenc Szalasi" }
+			has_country_leader = { ruling_only = yes character = HUN_ferenc_szalasi }
 			has_government = fascism
 			OR = {
 				has_completed_focus = HUN_war_games
@@ -2644,11 +2629,6 @@ focus_tree = {
 				}
 			}
 		}
-		bypass = {
-			AUS = {
-				has_completed_focus = AUS_renew_the_rome_protocols
-			}
-		}
 		completion_reward = {
 			set_global_flag = HUN_did_rome_protocols
 			swap_ideas = {
@@ -2808,7 +2788,11 @@ focus_tree = {
 				limit = {
 					ITA = { is_in_faction = no }
 				}
-				create_faction = "Rome Protocols"
+				create_faction_from_template = {
+					template = faction_template_generic_dominance
+					name = HUN_PACT_OF_ROME_FACTION
+					icon = GFX_faction_logo_generic_3
+				}
 				news_event = {
 					id = r56_italy.9
 					days = 2
@@ -4331,14 +4315,13 @@ focus_tree = {
 						}
 					}
 				}
-				retire_country_leader = yes
-				create_country_leader = {
-					name = "Bela Kun"
-					picture = GFX_Portrait_hungary_bela_kun
-					expire = "1965.1.1"
-					ideology = marxism
-					traits = {
-						revolutionary_author
+				add_country_leader_role = {
+					character = HUN_bela_kun
+					promote_leader = yes
+					country_leader = {
+						ideology = marxism
+						traits = { revolutionary_author }
+						expire = "1965.1.1.1"
 					}
 				}
 			}
@@ -4389,7 +4372,10 @@ focus_tree = {
             }
             else = {			
 				set_rule = { can_create_factions = yes } 
-				create_faction = HUN_FACTION_COMMIE
+				create_faction_from_template = {
+					template = faction_template_POR_popular_front_bloc
+					name = HUN_FACTION_COMMIE
+				}
 				add_political_power = 75
 			}
 			if = {
@@ -4401,14 +4387,13 @@ focus_tree = {
 						}
 					}
 				}
-				retire_country_leader = yes
-				create_country_leader = {
-					name = "Béla Kun"
-					picture = GFX_Portrait_hungary_bela_kun
-					expire = "1965.1.1"
-					ideology = marxism
-					traits = {
-						revolutionary_author
+				add_country_leader_role = {
+					character = HUN_bela_kun
+					promote_leader = yes
+					country_leader = {
+						ideology = marxism
+						traits = { revolutionary_author }
+						expire = "1965.1.1.1"
 					}
 				}
 			}
@@ -8016,7 +8001,6 @@ focus_tree = {
 				name = HUN_cruisers
 				bonus = 1
 				uses = 2
-				category = cl_tech
 				category = ca_tech
 			}
 

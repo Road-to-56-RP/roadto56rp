@@ -38,6 +38,70 @@ LAT_r56rp_foreign_servitude_category = {
 			mark_focus_tree_layout_dirty = yes
 		}
 	}
+	LAT_r56rp_offer_nikolai_kolomeitsev_sanctuary_decision = {
+		priority = 100
+
+		allowed = {
+			original_tag = LAT
+		}
+
+		visible = {
+			NOT = {
+				has_completed_focus = LAT_suspend_the_constitution
+				has_completed_focus = BALTIC_restore_workers_republic
+				has_completed_focus = LAT_enforce_the_succession_law
+				has_completed_focus = LAT_a_rejection_of_ulmanis
+			}
+		}
+
+		cost = 35
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		available = {
+			SOV = {
+				has_completed_focus = SOV_beaten_but_not_defeated
+			}
+		}
+
+		complete_effect = {
+			complete_national_focus = LAT_r56rp_offer_nikolai_kolomeitsev_sanctuary
+			set_country_flag = LAT_r56rp_pro_tsar_government
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	LAT_r56rp_foreign_servitude_show_trees_debug = {
+		priority = 1000
+		
+		visible = {
+			is_debug = yes
+			NOT = {
+				has_country_flag = LAT_r56rp_debug_flag
+			}
+		}
+
+		complete_effect = {
+			set_country_flag = LAT_r56rp_debug_flag
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+	LAT_r56rp_foreign_servitude_hide_trees_debug = {
+		priority = 1000
+		
+		visible = {
+			is_debug = yes
+			has_country_flag = LAT_r56rp_debug_flag
+		}
+
+		complete_effect = {
+			clr_country_flag = LAT_r56rp_debug_flag
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
 }
 LAT_r56rp_order_german_armored_vehicles = {
 	LAT_r56rp_order_sturmgeschuts = {
@@ -220,6 +284,370 @@ LAT_r56rp_order_german_armored_vehicles = {
 
 		remove_effect = {
 			clr_country_flag = LAT_r56rp_recently_purchased_tanks
+		}
+	}
+}
+LAT_r56rp_prepare_russian_saboteurs_category = {
+	LAT_r56rp_prepare_border_sabotage = {
+
+		visible = {
+			has_completed_focus = LAT_r56rp_prepare_saboteurs
+			has_war = no
+			has_equipment = {
+				infantry_equipment > 350
+			}
+			has_equipment = {
+				artillery_equipment > 5
+			}
+			has_equipment = {
+				support_equipment > 5
+			}
+		}
+
+        state_target = yes
+        target_trigger = {
+            FROM = {
+				is_core_of = SOV
+                is_owned_and_controlled_by = SOV
+				OR	 = {
+					state = 207 #Vitebsk
+					state = 209 #Pskov
+					state = 210 #Nevel
+				}
+            }
+        }
+        fire_only_once = yes
+
+		custom_cost_text = r56_15_command_power_cost
+		custom_cost_trigger = {
+			command_power > 15
+		}		
+
+		complete_effect = {
+			add_command_power = -15
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -300
+				producer = LAT
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = -1
+				producer = LAT
+			}	
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -1
+				producer = LAT
+			}					
+		}
+
+        days_remove = 14
+        on_map_mode = map_and_decisions_view
+
+		remove_effect = {
+			FROM = { 
+				set_state_flag = LAT_prepared_border_sabotage
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}		
+	}
+	LAT_r56rp_join_the_anti_communist_crusade = {
+	
+		visible = {
+			has_completed_focus = LAT_r56rp_prepare_saboteurs
+		}
+
+		available = {
+			has_war = no
+			has_global_flag = SOV_soviet_civil_war
+			NOT = {
+				has_global_flag = SOV_soviet_civil_war_over
+			}
+		}
+
+		days_remove = 14
+
+		cost = 25
+
+		remove_effect = {
+			LAT = {
+				declare_war_on = {
+					target = SOS
+					type = take_state_focus
+				}
+			}
+			every_state = {
+				limit = {
+					has_state_flag = LAT_prepared_border_sabotage
+				}
+				if = {
+					limit = {
+						FROM = {
+							num_of_factories > 0
+						}
+					}
+					damage_building = {
+						type = industrial_complex
+						damage = 1
+						repair_speed_modifier = -0.75
+					}
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 1
+					repair_speed_modifier = -0.75
+				}
+				damage_building = {
+					type = supply_node
+					damage = 1
+					repair_speed_modifier = -0.75
+				}														
+			}
+			SOP = {
+				hidden_effect = {
+					division_template = {
+						name = "Latvian Saboteurs"
+						is_locked = no
+						priority = 1
+						division_names_group = LAT_INF_01
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 0 y = 2 }
+								
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+						}
+						support = {
+							engineer = { x = 0 y = 0 }
+						}
+					}
+					207 = {
+						create_unit = {
+							division = "name = \"1. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+							owner = SOP 
+							prioritize_location = 11241          
+						}
+					}
+					209 = {
+						create_unit = {
+							division = "name = \"1. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+							owner = SOP 
+							prioritize_location = 11202          
+						}
+					}
+					210 = {
+						create_unit = {
+							division = "name = \"1. White Russian Volunteers\" division_template = \"White Russian Volunteers\" start_experience_factor = 0.075 start_equipment_factor = 1 " 
+							owner = SOP 
+							prioritize_location = 11234          
+						}
+					}
+				}
+			}	
+		}
+	}
+}
+LAT_r56rp_batlic_warfare_institute_category = {
+	LAT_r56rp_establish_a_land_warfare_institute = {
+
+		visible = {
+			has_completed_focus = LAT_r56rp_establish_the_baltic_warfare_institute
+			NOT = {
+				has_country_flag = LAT_r56rp_established_naval_warfare_facility
+			}
+		}
+
+		days_remove = 70
+
+		cost = 50
+
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = LAT_r56rp_established_land_warfare_facility
+		}
+
+		remove_effect = {
+			if = {
+				limit = {
+					808 = {
+						land_facility < 1
+						naval_facility < 1
+						air_facility < 1
+					}
+				}
+				808 = {
+					add_building_construction = {
+						type = land_facility
+						level = 1
+						instant_build = yes
+						province = 9340
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					11 = {
+						land_facility < 1
+						naval_facility < 1
+						air_facility < 1
+					}
+				}
+				11 = {
+					add_building_construction = {
+						type = land_facility
+						level = 1
+						instant_build = yes
+						province = 6296
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					812 = {
+						land_facility < 1
+						naval_facility < 1
+						air_facility < 1
+					}
+				}
+				812 = {
+					add_building_construction = {
+						type = land_facility
+						level = 1
+						instant_build = yes
+						province = 3152
+					}
+				}
+			}
+			generate_scientist_character = {
+				skills = {
+					specialization_land = 2
+				}
+				traits = { scientist_trait_armored_specialist scientist_trait_fast_learner }
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.50
+			}
+		}
+	}
+	LAT_r56rp_establish_a_naval_warfare_institute = {
+
+		visible = {
+			has_completed_focus = LAT_r56rp_establish_the_baltic_warfare_institute
+			NOT = {
+				has_country_flag = LAT_r56rp_established_land_warfare_facility
+			}
+		}
+
+		days_remove = 70
+
+		cost = 50
+
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = LAT_r56rp_established_naval_warfare_facility
+		}
+
+		remove_effect = {
+			if = {
+				limit = {
+					808 = {
+						land_facility < 1
+						naval_facility < 1
+						air_facility < 1
+					}
+				}
+				808 = {
+					add_building_construction = {
+						type = naval_facility
+						level = 1
+						instant_build = yes
+						province = 9340
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					189 = {
+						land_facility < 1
+						naval_facility < 1
+						air_facility < 1
+					}
+				}
+				189 = {
+					add_building_construction = {
+						type = naval_facility
+						level = 1
+						instant_build = yes
+						province = 6314
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					812 = {
+						land_facility < 1
+						naval_facility < 1
+						air_facility < 1
+					}
+				}
+				812 = {
+					add_building_construction = {
+						type = naval_facility
+						level = 1
+						instant_build = yes
+						province = 3152
+					}
+				}
+			}
+			generate_scientist_character = {
+				skills = {
+					specialization_naval = 2
+				}
+				traits = { scientist_trait_surface_ship_specialist scientist_trait_fast_learner }
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.50
+			}
+		}
+	}
+}
+LAT_r56rp_russian_styled_war_industry_category = {
+	LAT_r56rp_logistical_strain = {
+
+		activation = {
+			has_completed_focus = LAT_r56rp_russian_styled_war_industry
+		}
+
+		is_good = no
+
+		days_mission_timeout = 365
+
+		available = {
+			has_equipment = {
+				train_equipment > 99
+			}
+		}
+
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = LAT_r56rp_russian_styled_war_industry_idea
+				add_idea = LAT_r56rp_war_industry_strengthened
+			}
+		}
+
+		timeout_effect = {
+			swap_ideas = {
+				remove_idea = LAT_r56rp_russian_styled_war_industry_idea
+				add_idea = LAT_r56rp_war_industry_weakened
+			}
 		}
 	}
 }

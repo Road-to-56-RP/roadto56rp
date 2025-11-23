@@ -14,19 +14,32 @@ set_war_support = 0.5
 set_stability = 0.60 
 set_research_slots = 4
 
-add_ideas = {
-	limited_conscription
-	FIN_sisu_2
+country_event = { id = AAT_finland_political.02 days = 426 }
+
+set_party_name = { #r56
+	ideology = neutrality
+	long_name = FIN_kokoomusparty_long
+	name = FIN_kokoomusparty
 }
 
-set_power_balance = {
+set_power_balance = { #subject to change since we change starting ideology
 	id = FIN_power_balance
 	left_side = FIN_bad_side
 	right_side = FIN_good_side
-	set_value = -0.45 #Adding FIN_sisu_2 idea below
+	set_value = -0.45
 }
 
-# Characters are checked with RP's Finland Character File
+add_ideas = {
+	limited_conscription
+	FIN_sisu_2
+	FIN_communism_banned
+}
+
+store_core_states_on_game_start = yes
+
+##################
+### CHARACTERS ###
+##################
 
 recruit_character = FIN_pehr_evind_Svinhufvud	#country leader, ported alternate ideology leader role
 recruit_character = FIN_kyosti_kallio			#country leader, was right ideology, but DLC-tree traits added by on_action
@@ -144,7 +157,6 @@ set_technology = {
 	winter_clothes_gw = 1
 	steel_production_1 = 1
 	jaegers = 1
-	r56_guerilla_warfare = 1
 	
 	infantry_weapons = 1
 	infantry_weapons1 = 1
@@ -156,6 +168,7 @@ set_technology = {
 	tech_engineers = 1
 	basic_train = 1
 }
+set_grand_doctrine = r56_guerilla_warfare
 if = {
 	limit = { has_dlc = "By Blood Alone" }
 	set_technology = {

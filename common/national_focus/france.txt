@@ -3853,7 +3853,11 @@ focus_tree = {
 					}
 					is_in_faction = no
 				}
-				create_faction = french_entente_alliance
+				create_faction_from_template = {
+					template = faction_template_anti_fascist
+					name = french_entente_alliance
+					icon = GFX_faction_logo_generic_12
+				}
 				CZE = { custom_effect_tooltip = invite_to_faction_tt }
 				hidden_effect = {
 					CZE = { country_event = france.17 }
@@ -4901,7 +4905,11 @@ focus_tree = {
 				set_rule = {
 					can_create_factions = yes
 				}
-				create_faction = montreux_convention
+				create_faction_from_template = {
+					template = faction_template_european_dominance
+					name = montreux_convention
+					icon = GFX_faction_logo_generic_4
+				}
 			}
 			country_event = {
 				id = france.127
@@ -6191,44 +6199,6 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = FRA_claim_the_andorran_throne
-		icon = GFX_goal_generic_attack_andorra
-		cost = 5
-		prerequisite = {
-			focus = FRA_secure_the_crown_of_spain
-		}
-		x = -1
-		y = 1
-		available = {
-			is_subject = no
-			has_government = neutrality
-			ADR = {
-				exists = yes
-				NOT = {
-					is_in_faction_with = ROOT
-					is_subject_of = ROOT
-				}
-			}
-		}
-		will_lead_to_war_with = ADR
-		relative_position_id = FRA_secure_the_crown_of_spain
-		
-		ai_will_do = {
-			factor = 20
-		}
-		completion_reward = {
-			every_state = {
-				limit = { is_core_of = ADR }
-				add_core_of = ROOT
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = ADR
-				expire = 0
-			}
-		}
-	}
-	focus = {
 		id = FRA_proclaim_the_dual_monarchy
 		icon = GFX_goal_new_burgundy2
 		cost = 10
@@ -6261,7 +6231,7 @@ focus_tree = {
 				}
 			}
 		}
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = FRA_secure_the_crown_of_spain
 		
@@ -6497,7 +6467,11 @@ focus_tree = {
 				}
 			}
 			else = {
-				create_faction = FRA_chantilly_accord
+				create_faction_from_template = {
+					template = faction_template_european_dominance_monarchist
+					name = FRA_chantilly_accord
+					icon = GFX_faction_logo_generic_7
+				}
 			}
 			
 			add_opinion_modifier = {
@@ -6752,7 +6726,10 @@ focus_tree = {
 			set_rule = {
 				can_create_factions = yes
 			}
-			create_faction = latin_union
+			create_faction_from_template = {
+				template = faction_template_european_dominance
+				name = FRA_latin_entente
+			}
 			if = {
 				limit = {
 					NOT = {
@@ -6862,7 +6839,10 @@ focus_tree = {
 				limit = {
 					is_in_faction = no
 				}
-				create_faction = continental_system
+				create_faction_from_template = {
+					template = faction_template_european_dominance_monarchist
+					name = FRA_continental_system
+				}
 			}
 
 			remove_ideas = FRA_disjointed_government
@@ -8916,8 +8896,6 @@ focus_tree = {
 				}
 			}
 		}
-		
-		available_if_capitulated = no
 
 		completion_reward = {
 			custom_effect_tooltip = FRA_invest_in_our_weaker_allies_tt
@@ -9185,7 +9163,11 @@ focus_tree = {
 			set_rule = {
 				can_create_factions = yes
 			}
-			create_faction = humanite_unie
+			create_faction_from_template = {
+				template = faction_template_world_revolution
+				name = humanite_unie
+				icon = GFX_faction_logo_generic_9
+			} 
 			add_stability = 0.1
 			unlock_decision_category_tooltip = FRA_4th_international
 		}
@@ -10498,6 +10480,7 @@ focus_tree = {
 					has_dlc = "Arms Against Tyranny"
 				}
 				add_doctrine_cost_reduction = {
+					name = FRA_foreign_legion
 					cost_reduction = 0.5
 					uses = 1
 					category = special_forces_doctrine
@@ -10815,11 +10798,17 @@ focus_tree = {
 				idea = FRA_revising_naval_strategy
 				days = 600
 			}
+			add_mastery_bonus = {
+				name = GER_trade_interdiction
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_convoy_raiding	
+			}
 			add_doctrine_cost_reduction = {
 				name = SPR_navy_modernization
 				cost_reduction = 0.5
-				uses = 3
-				category = trade_interdiction_tree
+				uses = 2
+				category = naval_doctrine
 			}
 			if = {
 				limit = {
@@ -11021,7 +11010,7 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = dd_tech
-				category = cl_tech
+				category = ca_tech
 			}
 			if = {
 				limit = {
@@ -11245,7 +11234,7 @@ focus_tree = {
 				name = FRA_improved_screen_ships
 				bonus = 2.0
 				uses = 1
-				category = cl_tech
+				category = ca_tech
 			}
 			if = {
 				limit = {
@@ -12015,6 +12004,7 @@ focus_tree = {
 					has_dlc = "Arms Against Tyranny"
 				}
 				add_doctrine_cost_reduction = {
+					name = FRA_parachute_battalions
 					cost_reduction = 0.5
 					uses = 1
 					category = special_forces_doctrine

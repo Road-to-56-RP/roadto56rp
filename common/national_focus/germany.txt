@@ -1,4 +1,4 @@
-﻿### search_filters = {FOCUS_FILTER_POLITICAL}
+### search_filters = {FOCUS_FILTER_POLITICAL}
 ### search_filters = {FOCUS_FILTER_RESEARCH}
 ### search_filters = {FOCUS_FILTER_INDUSTRY}
 ### search_filters = {FOCUS_FILTER_STABILITY}
@@ -1146,10 +1146,10 @@ focus_tree = {
 				GER_industrial_conversion_cost_civ_to_mil_factor = -0.2
 				tooltip = conversion_cost_civ_to_mil_factor_tt
 			}
-			add_to_variable = { 
-				GER_industrial_production_factory_max_efficiency_factor = 0.05
-				tooltip = production_factory_max_efficiency_factor_tt
-			}
+			#add_to_variable = { - Removed by Norrman
+			#	GER_industrial_production_factory_max_efficiency_factor = 0.05
+			#	tooltip = production_factory_max_efficiency_factor_tt
+			#}
 			add_to_variable = { 
 				GER_industrial_production_factory_efficiency_gain_factor = 0.05
 				tooltip = production_factory_efficiency_gain_factor_tt
@@ -3303,6 +3303,11 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
+			add_mastery = {
+				amount = 150
+				track = infantry
+			}
+
 			add_doctrine_cost_reduction = {
 				name = GER_the_prussian_legacy
 				cost_reduction = 0.5
@@ -3315,6 +3320,19 @@ focus_tree = {
 			custom_effect_tooltip = GER_unlock_operational_planning_bewegungskrieg_tt
 			effect_tooltip = { #This is done for tooltip purposes
 				add_dynamic_modifier = { modifier = GER_bewegungskrieg_modifier }
+			}
+			IF = {
+				limit = { 
+					has_dlc = "No Compromise, No Surrender"
+					is_faction_leader = yes
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				add_faction_goal_slot = {
+					category  = short_term # options: short_term, medium_term, long_term 
+					value = 1 
+				}
+				add_faction_goal = faction_goal_an_infantry_army
+				
 			}
 		}
 	}
@@ -4969,6 +4987,21 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
+			add_mastery_bonus = {
+				name = GER_adopt_new_panzer_doctrine
+				bonus = 0.1
+				days = 240
+				track = armor
+				grand_doctrine = new_mobile_warfare
+			}
+			add_mastery_bonus = {
+				name = GER_adopt_new_panzer_doctrine
+				bonus = 0.1
+				days = 240
+				track = infantry
+				grand_doctrine = new_mobile_warfare
+			}
+
 			add_doctrine_cost_reduction = {
 				name = GER_adopt_new_panzer_doctrine
 				cost_reduction = 0.5
@@ -4993,6 +5026,18 @@ focus_tree = {
 			custom_effect_tooltip = GER_unlock_operational_planning_blitzkrieg_tt
 			effect_tooltip = { #This is done for tooltip purposes
 				add_dynamic_modifier = { modifier = GER_blitzkrieg_modifier }
+			}
+			IF = {
+				limit = { 
+					has_dlc = "No Compromise, No Surrender"
+					is_faction_leader = yes
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				add_faction_goal_slot = {
+					category  = short_term # options: short_term, medium_term, long_term 
+					value = 1 
+				}
+				add_faction_goal = faction_goal_an_armored_fist
 			}
 			#Lindemann lost the doctrine debate. So he falls out of favor. 
 			if = {
@@ -6270,6 +6315,13 @@ focus_tree = {
 
 		completion_reward = {
 
+			add_mastery_bonus = {
+				name = GER_dive_bombers
+				bonus = 0.2
+				days = 180
+				track = strike_aircraft
+				grand_doctrine = new_battlefield_support
+			}
 			add_doctrine_cost_reduction = {
 				name = GER_dive_bombers
 				cost_reduction = 0.25
@@ -6403,6 +6455,14 @@ focus_tree = {
 			custom_effect_tooltip = available_military_high_command
 			show_ideas_tooltip = erhard_milch
 
+			add_mastery_bonus = {
+				name = GER_tactical_bombers
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_operational_integrity
+				track = medium_aircraft
+			}
+
 			add_doctrine_cost_reduction = {
 				name = GER_tactical_bombers
 				cost_reduction = 0.25
@@ -6535,6 +6595,13 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
+			add_mastery_bonus = {
+				name = GER_uralbomber_program
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_strategic_destruction
+				track = heavy_aircraft
+			}
 			add_doctrine_cost_reduction = {
 				name = GER_uralbomber_program
 				cost_reduction = 0.25
@@ -7719,6 +7786,15 @@ focus_tree = {
 		complete_tooltip = {
 		}
 		completion_reward = {
+
+			add_mastery_bonus = {
+				name = GER_plan_z
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_fleet_in_being
+				
+			}
+
 			add_doctrine_cost_reduction = {
 				name = GER_plan_z
 				cost_reduction = 0.25
@@ -7827,12 +7903,12 @@ focus_tree = {
 						fixed_ship_secondaries_slot = ship_secondaries_2
 						fixed_ship_armor_slot = ship_armor_bb_2
 						fixed_ship_armor_scheme_slot = r56rp_ship_mixed
-						front_1_custom_slot = ship_heavy_battery_twin_3
-						front_2_custom_slot = ship_heavy_battery_twin_3
+						front_1_custom_slot = r56rp_ship_heavy_battery_twin_3
+						front_2_custom_slot = r56rp_ship_heavy_battery_twin_3
 						mid_1_custom_slot = ship_anti_air_2
 						mid_2_custom_slot = ship_secondaries_2
-						rear_1_custom_slot = ship_heavy_battery_twin_3
-						rear_2_custom_slot = ship_heavy_battery_twin_3
+						rear_1_custom_slot = r56rp_ship_heavy_battery_twin_3
+						rear_2_custom_slot = r56rp_ship_heavy_battery_twin_3
 					}
 					design_team = mio:GER_germaniawerft_organization
 				}
@@ -8842,11 +8918,19 @@ focus_tree = {
 		complete_tooltip = {
 		}
 		completion_reward = {
+			add_mastery_bonus = {
+				name = GER_trade_interdiction
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_convoy_raiding
+				
+			}
+
 			add_doctrine_cost_reduction = {
 				name = GER_trade_interdiction
 				cost_reduction = 0.25
-				uses = 2
-				category = trade_interdiction_tree	
+				uses = 1
+				category = naval_doctrine	
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -8905,7 +8989,7 @@ focus_tree = {
 				name = GER_cruiser_warfare
 				bonus = 0.5
 				uses = 1
-				category = cl_tech
+				category = ca_tech
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -9087,11 +9171,12 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_MILITARY_CHARACTER }
 
 		completion_reward = {
-			add_doctrine_cost_reduction = {
+			add_mastery_bonus = {
 				name = GER_wolfpack_tactics
-				cost_reduction = 0.25
-				uses = 1
-				category = trade_interdiction_tree	
+				bonus = 0.1
+				days = 240
+				grand_doctrine = new_convoy_raiding
+				track = submarines
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -11967,35 +12052,29 @@ focus_tree = {
 
 		available = {
 			is_subject = no
-			LIE = {
-				fascism > 0.1
-				is_neighbor_of = ROOT
+			NOT = {
+				has_war_with = SWI
 			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			LIE = {
-				if = {
-					limit = {
-						GER = {
-							has_government = fascism
-						}
-					}
-					add_timed_idea = {
-						idea = fascist_influence
-						days = 730
-					}
-				}
-			}
-			every_owned_state = {
-				limit = { any_neighbor_state = { is_owned_and_controlled_by = LIE } }
+			997 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					controls_province = 6678
+				}
+				build_railway = { #Lietchenstein connected to Supply depot West of München
+					level = 2
+					path = { 6680 6678 11638 }
 				}
 			}
 		}
@@ -13382,7 +13461,6 @@ focus_tree = {
 				any_home_area_neighbor_country = {
 					NOT = { tag = FRA }
 					NOT = { tag = DEN }
-					NOT = { tag = LIE }
 					NOT = { tag = LUX } #You're a funny guy
 					NOT = { tag = LIT }
 					has_war_with = ROOT
@@ -13976,7 +14054,6 @@ focus_tree = {
 		cost = 10
 
 		will_lead_to_war_with = SWI
-		will_lead_to_war_with = LIE
 		
 		available = {
 			has_army_manpower = {
@@ -13990,19 +14067,10 @@ focus_tree = {
 						r56_script_target_is_sane = yes
 					}
 				}
-				AND = {
-					is_neighbor_of = LIE
-					LIE = {
-						r56_script_target_is_sane = yes
-					}
-				}
 			}
 		}
 		bypass = {
 			SWI = {
-				r56_script_standard_bypass = yes
-			}
-			LIE = {
 				r56_script_standard_bypass = yes
 			}
 		}
@@ -14029,11 +14097,6 @@ focus_tree = {
 			create_wargoal = {
 				type = annex_everything
 				target = SWI
-				expire = 0
-			}
-			create_wargoal = {
-				type = annex_everything
-				target = LIE
 				expire = 0
 			}
 
@@ -16221,8 +16284,6 @@ focus_tree = {
 							tag = DEN 
 							tag = LUX # Or Luxenburg for that matter. 
 							tag = SWI # I hate Swiss cheese
-							tag = LIE
-							tag = MNC
 							tag = LIT #You're just a speed bump anyhow
 						}
 					}
@@ -16342,12 +16403,7 @@ focus_tree = {
 					}
 					SOV = {
 						NOT = {
-							OR = {	#56 - Adding support for old SOV tree
-								has_completed_focus = SOV_beaten_but_not_defeated
-								has_completed_focus = SOV_counter_coup_old
-								has_completed_focus = SOV_form_a_fifth_column
-							}
-							
+							has_completed_focus = SOV_beaten_but_not_defeated
 						}
 					}
 				}
@@ -16621,7 +16677,10 @@ focus_tree = {
 					}
 					remove_from_faction = GER
 				}
-				create_faction = the_berlin_moscow_axis
+				create_faction_from_template = {
+					template = faction_template_regional_anti_democratic
+					name = the_berlin_moscow_axis
+				}
 				add_timed_idea = {
 					idea = soviet_german_friendship
 					days = 730
@@ -24489,6 +24548,7 @@ focus_tree = {
 		available = {
 			communism > 0.5
 		}
+		continue_if_invalid = yes	#56 - Quality of Life + stopping the AI from shooting itself
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 
@@ -24943,14 +25003,22 @@ focus_tree = {
 				custom_effect_tooltip = GER_central_european_alliance_tt
 			}
 			effect_tooltip = {
-				create_faction = GER_proletarian_international_alliance
+				create_faction_from_template = {
+					template = faction_template_POR_popular_front_bloc
+					name = GER_proletarian_international_alliance
+					icon = GFX_faction_logo_generic_9
+				}
 			}
 			hidden_effect = {
 				if = {
 					limit = {
 						is_in_faction = no
 					}
-					create_faction = GER_proletarian_international_alliance
+					create_faction_from_template = {
+						template = faction_template_POR_popular_front_bloc
+						name = GER_proletarian_international_alliance
+						icon = GFX_faction_logo_generic_9
+					}
 				}
 			}
 		}
@@ -28958,6 +29026,20 @@ focus_tree = {
 	 					trait = head_of_the_abwehr_improved
 	 				}
 	 			}
+	 			hidden_effect = {
+					GER_hans_oster = {
+						remove_trait = {
+							slot = political_advisor
+							trait = anti_fascist_agent
+						}
+					}
+				}
+				GER_hans_oster = {
+	 				add_trait = { 
+	 					slot = political_advisor
+	 					trait = intelligence_service_deputy
+	 				}
+	 			}
 			}
 
 		}
@@ -28995,7 +29077,7 @@ focus_tree = {
 				custom_effect_tooltip = GER_central_european_alliance_tt
 			}
 			effect_tooltip = {
-				create_faction = GER_mitteleuropa_alliance
+				create_faction_from_template = faction_template_GER_mitteleuropa_alliance
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -29005,7 +29087,7 @@ focus_tree = {
 					limit = {
 						is_in_faction = no
 					}
-					create_faction = GER_mitteleuropa_alliance
+					create_faction_from_template = faction_template_GER_mitteleuropa_alliance
 				}
 			}
 
@@ -29031,15 +29113,17 @@ focus_tree = {
 
 		available = {
 			is_subject = no
-			OR = {
-				AUS = { 
-					is_subject_of = ROOT 
+			is_faction_leader = yes
+			NOT = { has_war_with = AUS }
+			AUS = {
+				OR = {
+					is_in_faction_with = ROOT
+					is_in_faction = no
 				}
-				AUS = {
+				OR = {
+					is_subject_of = ROOT
 					is_subject = no
 				}
-			}
-			AUS = {
 				OR = {
 					has_government = ROOT
 					has_country_flag = AUS_is_more_likely_to_accept_being_brothers_in_arms_flag
@@ -29056,6 +29140,12 @@ focus_tree = {
 					NOT = { is_subject_of = ROOT }
 				}
 				AUS = { exists = no }
+				AUS = {
+					is_in_faction = yes
+					NOT = {
+						is_in_faction_with = GER
+					}
+				}
 			}
 		}
 
@@ -29456,6 +29546,15 @@ focus_tree = {
 				exists = yes
 				is_in_faction = no
 				is_subject = no
+			}
+		}
+
+		bypass = {
+			AUS = {
+				is_in_faction = yes
+				NOT = {
+					is_in_faction_with = GER
+				}
 			}
 		}
 
@@ -36849,7 +36948,11 @@ focus_tree = {
 				limit = {
 					is_in_faction = no
 				}
-				create_faction = "GER_central_powers_faction"
+				create_faction_from_template = {
+					template = faction_template_GER_mitteleuropa_alliance
+					name = GER_central_powers_faction
+					icon = GFX_faction_logo_generic_13
+				}
 			}
 
 			if = {
@@ -37801,7 +37904,11 @@ focus_tree = {
 				limit = {
 					NOT = { is_in_faction = yes }
 				}
-				create_faction = "GER_anti_communist_bloc"
+				create_faction_from_template = {
+					template = faction_template_anti_communist
+					name = GER_anti_communist_bloc
+					icon = GFX_faction_logo_generic_10
+				}
 			}
 			create_wargoal = {
 				type = annex_everything
@@ -38038,14 +38145,22 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = GER_central_european_alliance_tt
 			effect_tooltip = {
-				create_faction = "GER_central_european_alliance"
+				create_faction_from_template = {
+					template = faction_template_GER_mitteleuropa_alliance
+					name = GER_central_european_alliance
+					icon = GFX_faction_logo_generic_2
+				}
 			}
 			hidden_effect = {
 				if = {
 					limit = {
 						is_in_faction = no
 					}
-					create_faction = "GER_central_european_alliance"
+					create_faction_from_template = {
+						template = faction_template_GER_mitteleuropa_alliance
+						name = GER_central_european_alliance
+						icon = GFX_faction_logo_generic_2
+					}
 				}
 			}
 			every_country = {
@@ -40034,13 +40149,21 @@ focus_tree = {
 				limit = {
 					is_in_faction = no
 				}
-				create_faction = "Central Powers"
+				create_faction_from_template = {
+					template = faction_template_european_dominance_monarchist
+					name = GER_central_powers_faction
+					icon = GFX_faction_logo_generic_3
+				}
 			}
 			if = {
 				limit = {
 					is_faction_leader = yes
 				}
-				set_faction_name = "Central Powers"
+				create_faction_from_template = {
+					template = faction_template_european_dominance_monarchist
+					name = GER_central_powers_faction
+					icon = GFX_faction_logo_generic_3
+				}
 			}
 			set_rule = {
 				can_create_factions = yes
@@ -40290,7 +40413,11 @@ focus_tree = {
 				}
 			}
 			else = {
-				create_faction = "Franco-German Pact"
+				create_faction_from_template = {
+					template = faction_template_european_dominance_monarchist
+					name = GER_franco_german_pact_faction
+					icon = GFX_faction_logo_generic_3
+				}
 				FRA = {
 					country_event = generic.5
 				}
@@ -40536,14 +40663,9 @@ focus_tree = {
 			OR = {
 				AUS = {
 					exists = yes
-					has_completed_focus = AUS_return_of_habsburgs
 					OR = {
 						has_government = neutrality
-						AND = {
-							has_government = democratic
-							has_completed_focus = AUS_reform_the_constitution
-						}
-						
+						has_government = democratic			
 					}
 					is_in_faction = no
 					NOT = {
@@ -40569,14 +40691,9 @@ focus_tree = {
 				limit = {
 					AUS = {
 						exists = yes
-						has_completed_focus = AUS_return_of_habsburgs
 						OR = {
 							has_government = neutrality
-							AND = {
-								has_government = democratic
-								has_completed_focus = AUS_reform_the_constitution
-							}
-							
+							has_government = democratic					
 						}
 						is_in_faction = no
 						NOT = {
@@ -41913,7 +42030,11 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			create_faction = "European Alliance" #bit generic, chose "alliance" because its close to its German word
+			create_faction_from_template = {
+				template = faction_template_european_unity
+				name = GER_european_alliance_faction
+				icon = GFX_faction_logo_eu
+			}
 		}
 		search_filters = {
 			FOCUS_FILTER_ALLIANCE
@@ -42443,13 +42564,21 @@ focus_tree = {
 						ruling_only = yes
 					}
 				}
-				create_faction = "International Right Opposition"
+				create_faction_from_template = {
+					template = faction_template_world_revolution
+					name = GER_international_right_opposition_faction
+					icon = GFX_faction_logo_generic_9
+				}
 				set_rule = {
 					can_create_factions = yes
 				}
 			}
 			else = {
-				create_faction = "Leninist Pact"
+				create_faction_from_template = {
+					template = faction_template_world_revolution
+					name = GER_leninist_pact_faction
+					icon = GFX_faction_logo_comintern
+				}
 				set_rule = {
 					can_create_factions = yes
 				}

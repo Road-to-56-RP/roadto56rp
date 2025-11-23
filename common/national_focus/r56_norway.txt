@@ -416,7 +416,7 @@ focus_tree = {
 				bonus = 1.0
 				ahead_reduction = 1
 				uses = 1
-				category = cl_tech
+				category = ca_tech
 			}
 			if = {
                 limit = {
@@ -3701,7 +3701,11 @@ focus_tree = {
 
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			create_faction = NOR_three_brothers_faction
+			create_faction_from_template = {
+				template = faction_template_defensive_democratic
+				name = NOR_three_brothers_faction
+				icon = GFX_faction_logo_generic_2
+			}
 			if = {
 				limit = {
 					DEN = { 
@@ -4539,11 +4543,7 @@ focus_tree = {
 				}
 			}
 			SOV = { 
-				if = { 
-					limit = { has_global_flag = sov_old_focus_tree }
-					has_completed_focus = SOV_improve_stalin_line
-				}
-				else = { has_completed_focus = SOV_baltic_security }
+				has_completed_focus = SOV_baltic_security
 			}
 		}
 		
@@ -4630,7 +4630,6 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					NOT = { has_global_flag = SOV_old_focus_tree }
 					SOV = { NOT = { has_completed_focus = SOV_claims_in_baltic } }
 				}
 				SOV = { unlock_national_focus = SOV_claims_in_baltic }
