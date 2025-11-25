@@ -745,6 +745,7 @@ NDefines.NMilitary.PLAN_CONSIDERED_BAD = -0.05					-- [vanilla -0.25] Plan evalu
 NDefines.NMilitary.PLAN_SPREAD_ATTACK_WEIGHT = 16.0			-- [vanilla 12] The higher the value, the less it should crowd provinces with multiple attacks.
 
 NDefines.NMilitary.FRONTLINE_EXPANSION_FACTOR = 0.4			-- [vanilla 0.6] When attacking along a frontline, how much should units spread out as they advance. 0.0 means head (more or less) directly to the drawn frontline, with no distractions
+NDefines.NDoctrines.TRAINING_MASTERY_GAIN_FACTOR = 0.05     -- [vanilla 0.1] A bit excessive with 0.1, reducing it to 0.05
 
 -- ## NSupply ##
 NDefines.NSupply.FLOATING_HARBOR_BASE_SUPPLY = 10.0
