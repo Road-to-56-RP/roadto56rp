@@ -7817,7 +7817,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_steady_as_she_goes
-		mutually_exclusive = { focus = ENG_a_change_in_course focus = ENG_visit_germany focus = ENG_opposition_to_the_national_government }
+		mutually_exclusive = { focus = ENG_a_change_in_course focus = ENG_visit_germany focus = ENG_opposition_to_the_national_government focus = ENG_r56rp_general_election_emergancy }
 		available = { 
 			if = {
 				limit = {
@@ -10115,7 +10115,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_a_change_in_course
-		mutually_exclusive = { focus = ENG_steady_as_she_goes }
+		mutually_exclusive = { focus = ENG_steady_as_she_goes focus = ENG_r56rp_general_election_emergancy }
 
 		allow_branch = {
 			has_dlc = "Man the Guns"
@@ -16229,7 +16229,7 @@ focus_tree = {
 	focus = {
 		id = ENG_opposition_to_the_national_government
 		icon = GFX_focus_eng_concessions_to_the_trade_unions
-		mutually_exclusive = { focus = ENG_steady_as_she_goes focus = ENG_visit_germany }
+		mutually_exclusive = { focus = ENG_steady_as_she_goes focus = ENG_visit_germany focus = ENG_r56rp_general_election_emergancy }
 		relative_position_id = ENG_visit_germany
 		x = 28
 		y = 0
@@ -17410,6 +17410,968 @@ focus_tree = {
 			}
 		}
 		search_filters = {  FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
-	}						
+	}
+	
+	focus = {
+		id = ENG_r56rp_general_election_emergancy
+		available = {
+		}
+		mutually_exclusive = { focus = ENG_a_change_in_course }
+		mutually_exclusive = { focus = ENG_steady_as_she_goes }
+		icon = GFX_focus_generic_election
+		x = 100
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+			set_power_balance = {
+				id = ENG_emergency_election_bop
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			set_country_flag = emergency_general_election
+			hidden_effect = {
+				retire_country_leader = yes
+			}
+			create_country_leader = {
+			name = "Fallen Government"
+			picture = "portrait_eng_fallen_government.dds"
+			expire = "1965.1.1"
+			ideology = conservatism
+			traits = {
+				cabinet_crisis
+				r56_trait_opposed_to_communism
+			}
+		}	
+	}
+	
 }
 
+	focus = {
+		id = ENG_r56rp_secure_funds
+		relative_position_id = ENG_r56rp_general_election_emergancy
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_general_election_emergancy }
+		available = {
+		}
+		icon = GFX_focus_ARG_crackdown_on_corruption
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+			add_power_balance_value = {
+			id = ENG_emergency_election_bop
+			value = 0.15
+		}
+	}
+	
+}
+
+	focus = {
+		id = ENG_r56rp_begin_election_campaign
+		relative_position_id = ENG_r56rp_general_election_emergancy
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_general_election_emergancy }
+		available = {
+		}
+		icon = GFX_focus_ARG_defense_and_democracy
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+			add_power_balance_value = {
+				id = ENG_emergency_election_bop
+				value = -0.15
+		}
+	}
+	
+}
+
+	focus = {
+		id = ENG_r56rp_who_to_support_election
+		relative_position_id = ENG_r56rp_general_election_emergancy
+		x = 0
+		y = 2
+		prerequisite = { focus = ENG_r56rp_general_election_emergancy  }
+		available = {
+		}
+		icon = GFX_focus_ETH_re-convene_the_parliament
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+			add_political_power = 250
+	}
+	
+}
+
+	focus = {
+		id = ENG_r56rp_atlee_cabinet
+		relative_position_id = ENG_r56rp_who_to_support_election
+		x = -6
+		y = 1
+		mutually_exclusive = {
+			focus = ENG_r56rp_converstive_cabinet
+			focus = ENG_r56rp_liberal_shock_cabinet
+		}
+		prerequisite = { focus = ENG_r56rp_who_to_support_election }
+		available = {
+		}
+		icon = GFX_goal_ENG_labor_victory
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+	
+}
+
+	focus = {
+		id = ENG_r56rp_converstive_cabinet
+		relative_position_id = ENG_r56rp_who_to_support_election
+		x = 6
+		y = 1
+		mutually_exclusive = {
+			focus = ENG_r56rp_atlee_cabinet
+			focus = ENG_r56rp_liberal_shock_cabinet
+		}
+		prerequisite = { focus = ENG_r56rp_who_to_support_election }
+		available = {
+		}
+		icon = GFX_goal_nic_immigration
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+	
+}
+
+
+	focus = {
+		id = ENG_r56rp_liberal_shock_cabinet
+		relative_position_id = ENG_r56rp_who_to_support_election
+		x = 0
+		y = 1
+		mutually_exclusive = {
+			focus = ENG_r56rp_atlee_cabinet
+			focus = ENG_r56rp_converstive_cabinet
+		}
+		prerequisite = { focus = ENG_r56rp_who_to_support_election }
+		available = {
+		}
+		icon = GFX_goal_nic_immigration
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+	
+}
+
+	focus = {
+		id = ENG_r56rp_labour_at_the_helm
+		relative_position_id = ENG_r56rp_atlee_cabinet
+		x = 0
+		y = 1
+		prerequisite = { focus = ENG_r56rp_atlee_cabinet }
+		available = {
+		}
+		icon = GFX_focus_eng_decolonization
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_the_peoples_mandate
+		relative_position_id = ENG_r56rp_labour_at_the_helm
+		x = 0
+		y = 2
+		prerequisite = { focus = ENG_r56rp_labour_at_the_helm }
+		available = {
+		}
+		icon = GFX_focus_PER_strengthen_the_tudeh
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_council_housing_initiative
+		relative_position_id = ENG_r56rp_labour_at_the_helm
+		x = 2
+		y = 1
+		prerequisite = { focus = ENG_r56rp_labour_at_the_helm }
+		available = {
+		}
+		icon = GFX_focus_SWE_hygienic_housing
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_industrial_modernization_act
+		relative_position_id = ENG_r56rp_council_housing_initiative
+		x = 0
+		y = 1
+		prerequisite = { focus = ENG_r56rp_council_housing_initiative }
+		available = {
+		}
+		icon = GFX_focus_ARG_capitalize_the_beef_industry
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_reform_the_establishment
+		relative_position_id = ENG_r56rp_labour_at_the_helm
+		x = -2
+		y = 1
+		prerequisite = { focus = ENG_r56rp_labour_at_the_helm }
+		available = {
+		}
+		icon = GFX_focus_ARG_strengthening_the_concordancia
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_strengthen_the_trade_unions
+		relative_position_id = ENG_r56rp_reform_the_establishment
+		x = 0
+		y = 1
+		prerequisite = { focus = ENG_r56rp_reform_the_establishment }
+		available = {
+		}
+		icon = GFX_focus_eng_concessions_to_the_trade_unions
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_labour_ascendent
+		relative_position_id = ENG_r56rp_the_peoples_mandate
+		x = 0
+		y = 1
+		prerequisite = { focus = ENG_r56rp_the_peoples_mandate }
+		prerequisite = { focus = ENG_r56rp_industrial_modernization_act }
+		prerequisite = { focus = ENG_r56rp_strengthen_the_trade_unions }
+		available = {
+		}
+		icon = GFX_focus_eng_the_sun_never_sets
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_hardliners_join_the_cabinet
+		relative_position_id = ENG_r56rp_labour_ascendent
+		x = -4
+		y = 1
+		mutually_exclusive = {	focus = ENG_r56rp_hardliners_outsted }
+		prerequisite = { focus = ENG_r56rp_labour_ascendent }
+		available = {
+		}
+		icon = GFX_goal_ENG_red_army_flag
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_hardliners_outsted
+		relative_position_id = ENG_r56rp_labour_ascendent
+		x = 4
+		y = 1
+		mutually_exclusive = { focus = ENG_r56rp_hardliners_join_the_cabinet}
+		prerequisite = { focus = ENG_r56rp_labour_ascendent }
+		available = {
+		}
+		icon = GFX_goal_ENG_social_democracy
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_restablish_party_unity
+		relative_position_id = ENG_r56rp_hardliners_outsted
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_hardliners_outsted }
+		available = {
+		}
+		icon = GFX_goal_generic_national_unity
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_enforce_democratic_socialist_principles
+		relative_position_id = ENG_r56rp_hardliners_outsted
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_hardliners_outsted }
+		available = {
+		}
+		icon = GFX_focus_ARG_keep_it_in_the_party
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_a_new_socialist_dawn
+		relative_position_id = ENG_r56rp_enforce_democratic_socialist_principles
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_enforce_democratic_socialist_principles }
+		prerequisite = { focus = ENG_r56rp_restablish_party_unity }
+		available = {
+		}
+		icon = GFX_goal_ENG_flag_united_kingdom
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_rebuild_the_working_towns
+		relative_position_id = ENG_r56rp_a_new_socialist_dawn
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_a_new_socialist_dawn }
+		available = {
+		}
+		icon = GFX_focus_generic_reinforcing_the_supply_network
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_improve_northern_industries
+		relative_position_id = ENG_r56rp_rebuild_the_working_towns
+		x = 3
+		y = 1
+		prerequisite = { focus = ENG_r56rp_rebuild_the_working_towns }
+		available = {
+		}
+		icon = GFX_focus_generic_modernize_industry
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_expand_midlands_industries
+		relative_position_id = ENG_r56rp_improve_northern_industries
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_improve_northern_industries }
+		available = {
+		}
+		icon = GFX_focus_generic_industry_3
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_revitalize_the_union_industries
+		relative_position_id = ENG_r56rp_improve_northern_industries
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_improve_northern_industries }
+		available = {
+		}
+		icon = GFX_SOV_steel_casting_industry_ccp_2d_sov_compatibility
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_education_without_barriers
+		relative_position_id = ENG_r56rp_rebuild_the_working_towns
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_rebuild_the_working_towns }
+		available = {
+		}
+		icon = GFX_focus_AUS_womens_education_initiative
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_crown_and_commonwealth_reform
+		relative_position_id = ENG_r56rp_rebuild_the_working_towns
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_rebuild_the_working_towns }
+		available = {
+		}
+		icon = GFX_focus_RAJ_the_crown_and_the_world
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_a_modern_monarchy
+		relative_position_id = ENG_r56rp_crown_and_commonwealth_reform
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_crown_and_commonwealth_reform }
+		prerequisite = { focus = ENG_r56rp_education_without_barriers }
+		available = {
+		}
+		icon = GFX_focus_generic_monarchist_sentiment
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_a_stand_against_communism
+		relative_position_id = ENG_r56rp_a_modern_monarchy
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_a_modern_monarchy }
+		available = {
+		}
+		icon = GFX_focus_GER_end_european_communism
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_responsible_rearnment
+		relative_position_id = ENG_r56rp_a_modern_monarchy
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_a_modern_monarchy }
+		available = {
+		}
+		icon = GFX_focus_generic_armored_air_support
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_a_new_britian
+		relative_position_id = ENG_r56rp_responsible_rearnment
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_responsible_rearnment }
+		prerequisite = { focus = ENG_r56rp_a_stand_against_communism }
+		available = {
+		}
+		icon = GFX_goal_ENG_uk_women_flag
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_socialism_in_the_city
+		relative_position_id = ENG_r56rp_hardliners_join_the_cabinet
+		x = 3
+		y = 1
+		mutually_exclusive = { focus = ENG_r56rp_cooperative_capitalism }
+		prerequisite = { focus = ENG_r56rp_hardliners_join_the_cabinet focus = ENG_r56rp_hardliners_outsted }
+		available = {
+		}
+		icon = GFX_goal_ENG_new_economic_plan
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_capitalism_in_the_countryside
+		relative_position_id = ENG_r56rp_socialism_in_the_city
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_socialism_in_the_city  }
+		available = {
+		}
+		icon = GFX_goal_ENG_new_economic_plan
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_trade_union_economics
+		relative_position_id = ENG_r56rp_capitalism_in_the_countryside
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_capitalism_in_the_countryside  }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialist_economics
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_equal_pay_for_workers
+		relative_position_id = ENG_r56rp_capitalism_in_the_countryside
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_capitalism_in_the_countryside  }
+		available = {
+		}
+		icon = GFX_focus_ICE_embrace_the_workers_revolution
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_nep_success
+		relative_position_id = ENG_r56rp_trade_union_economics
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_trade_union_economics  }
+		prerequisite = { focus = ENG_r56rp_equal_pay_for_workers }
+		available = {
+		}
+		icon = GFX_focus_SOV_the_comecon
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_cooperative_capitalism
+		relative_position_id = ENG_r56rp_hardliners_outsted
+		x = -3
+		y = 1
+		mutually_exclusive = {focus = ENG_r56rp_socialism_in_the_city }
+		prerequisite = { focus = ENG_r56rp_hardliners_outsted focus = ENG_r56rp_hardliners_join_the_cabinet }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialist_economics_policy
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_state_control_of_coal_and_steel
+		relative_position_id = ENG_r56rp_cooperative_capitalism
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_cooperative_capitalism  }
+		available = {
+		}
+		icon = GFX_focus_generic_coal_mining
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_expand_the_mining_boards
+		relative_position_id = ENG_r56rp_state_control_of_coal_and_steel
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_state_control_of_coal_and_steel  }
+		available = {
+		}
+		icon = GFX_focus_generic_mining_industry
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_national_motor_works
+		relative_position_id = ENG_r56rp_state_control_of_coal_and_steel
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_state_control_of_coal_and_steel  }
+		available = {
+		}
+		icon = GFX_focus_CONGO_copper_cartridges
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_unified_economic_plan
+		relative_position_id = ENG_r56rp_national_motor_works
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_expand_the_mining_boards  }
+		prerequisite = { focus = ENG_r56rp_national_motor_works  }
+		available = {
+		}
+		icon = GFX_focus_RAJ_special_economic_zones
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_establish_the_nhs
+		relative_position_id = ENG_r56rp_socialism_in_the_city
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_socialism_in_the_city focus = ENG_r56rp_cooperative_capitalism }
+		available = {
+		}
+		icon = GFX_goal_nic_immigration
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_new_politcal_thought
+		relative_position_id = ENG_r56rp_hardliners_join_the_cabinet
+		x = -2
+		y = 1
+		prerequisite = { focus = ENG_r56rp_hardliners_join_the_cabinet }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialist_in_government
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_invite_soviet_advisors
+		relative_position_id = ENG_r56rp_hardliners_join_the_cabinet
+		x = 0
+		y = 1
+		prerequisite = { focus = ENG_r56rp_hardliners_join_the_cabinet }
+		available = {
+		}
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_red_renewal_of_britain
+		relative_position_id = ENG_r56rp_new_politcal_thought
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_new_politcal_thought }
+		prerequisite = { focus = ENG_r56rp_invite_soviet_advisors }
+		available = {
+		}
+		icon = GFX_focus_AUS_danubian_socialist_communes
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_red_leagues_of_britian
+		relative_position_id = ENG_r56rp_red_renewal_of_britain
+		x = -3
+		y = 1
+		prerequisite = { focus = ENG_r56rp_red_renewal_of_britain }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialist_army
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_workers_militia_congress
+		relative_position_id = ENG_r56rp_red_leagues_of_britian
+		x = 0
+		y = 1
+		prerequisite = { focus = ENG_r56rp_red_leagues_of_britian }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialist_officer_corps
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_fair_deal_for_veterans
+		relative_position_id = ENG_r56rp_red_leagues_of_britian
+		x = -2
+		y = 1
+		prerequisite = { focus = ENG_r56rp_red_leagues_of_britian }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialist_officer_corps
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_reform_the_old_guard
+		relative_position_id = ENG_r56rp_workers_militia_congress
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_workers_militia_congress }
+		prerequisite = { focus = ENG_r56rp_fair_deal_for_veterans }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialist_officer_corps
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+	focus = {
+		id = ENG_r56rp_reshape_the_civil_service
+		relative_position_id = ENG_r56rp_red_renewal_of_britain
+		x = 0
+		y = 1
+		prerequisite = { focus = ENG_r56rp_red_renewal_of_britain }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialism_rose
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_strengthen_parliamentry_socialism
+		relative_position_id = ENG_r56rp_reshape_the_civil_service
+		x = -1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_reshape_the_civil_service }
+		available = {
+		}
+		icon = GFX_focus_AFG_parliamentary_democracy
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_abolish_hereditary_privilege
+		relative_position_id = ENG_r56rp_reshape_the_civil_service
+		x = 1
+		y = 1
+		prerequisite = { focus = ENG_r56rp_reshape_the_civil_service }
+		available = {
+		}
+		icon = GFX_focus_generic_court
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_the_peoples_consitution
+		relative_position_id = ENG_r56rp_reshape_the_civil_service
+		x = 0
+		y = 2
+		prerequisite = { focus = ENG_r56rp_reshape_the_civil_service }
+		available = {
+		}
+		icon = GFX_goal_ENG_socialist_union
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_united_socialist_isles
+		relative_position_id = ENG_r56rp_the_peoples_consitution
+		x = -1
+		y = 1
+		mutually_exclusive = { focus = ENG_r56rp_britians_second_revolution}
+		prerequisite = { focus = ENG_r56rp_the_peoples_consitution }
+		available = {
+		}
+		icon = GFX_goal_ENG_new_britian_flag
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+	focus = {
+		id = ENG_r56rp_britians_second_revolution
+		relative_position_id = ENG_r56rp_the_peoples_consitution
+		x = 1
+		y = 1
+		mutually_exclusive = { focus = ENG_r56rp_united_socialist_isles }
+		prerequisite = { focus = ENG_r56rp_the_peoples_consitution }
+		available = {
+		}
+		icon = GFX_goal_ENG_new_british_ideals
+		cost = 10
+		ai_will_do = {
+			factor = 5
+		}	
+		completion_reward = {
+	}
+}
+
+}

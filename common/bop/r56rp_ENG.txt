@@ -1,0 +1,169 @@
+ENG_emergency_election_bop = {
+    initial_value = 0.5
+    left_side = ENG_labour_side
+    right_side = ENG_conservative_side
+    decision_category = ENG_emergency_election_bop_category
+
+    ### Neutral swing zone ###
+    range = {
+        id = ENG_neutral_balance
+        min = -0.1
+        max = 0.1
+        modifier = {
+            political_power_factor = 0.05
+            stability_factor = 0.02
+        }
+        on_activate = { }
+        on_deactivate = { }
+    }
+
+    ### LABOUR SIDE ###
+    side = {
+        id = ENG_labour_side
+        icon = GFX_bop_ENG_labour      # You can swap this for any icon
+
+        ### Mild Labour Influence ###
+        range = {
+            id = ENG_low_labour_influence
+            min = -0.15
+            max = -0.35
+            modifier = {
+                stability_factor = 0.02
+                political_power_factor = 0.03
+
+                economy_cost_factor = -0.05
+                trade_laws_cost_factor = -0.05
+
+                political_advisor_cost_factor = -0.05
+            }
+            on_activate = { }
+            on_deactivate = { }
+        }
+
+        ### Strong Labour Influence ###
+        range = {
+            id = ENG_medium_labour_influence
+            min = -0.40
+            max = -0.65
+            modifier = {
+                stability_factor = 0.04
+                political_power_factor = 0.05
+
+                consumer_goods_factor = -0.03
+                economy_cost_factor = -0.10
+
+                political_advisor_cost_factor = -0.10
+            }
+            on_activate = { }
+            on_deactivate = { }
+        }
+
+        ### Labour Dominance ###
+        range = {
+            id = ENG_high_labour_influence
+            min = -0.70
+            max = -0.85
+            modifier = {
+                stability_factor = 0.06
+                political_power_factor = 0.07
+
+                consumer_goods_factor = -0.05
+                economy_cost_factor = -0.15
+
+                political_advisor_cost_factor = -0.15
+                trade_laws_cost_factor = -0.15
+            }
+            on_activate = {
+                # Optional: trigger event for Labour dominance
+                # country_event = { id = ENG_r56rp.100 }
+            }
+            on_deactivate = { }
+        }
+
+        ### Total Labour Control ###
+        range = {
+            id = ENG_total_labour_influence
+            min = -0.90
+            max = -1.0
+            modifier = {
+                stability_factor = 0.10
+                political_power_factor = 0.10
+
+                consumer_goods_factor = -0.08
+                economy_cost_factor = -0.25
+
+                political_advisor_cost_factor = -0.25
+                trade_laws_cost_factor = -0.25
+            }
+            on_activate = { }
+            on_deactivate = { }
+        }
+    }
+
+    ### CONSERVATIVE SIDE ###
+    side = {
+        id = ENG_conservative_side
+        icon = GFX_bop_ENG_conservative  # Custom icon recommended
+
+        ### Mild Conservative Influence ###
+        range = {
+            id = ENG_low_conservative_influence
+            min = 0.15
+            max = 0.35
+            modifier = {
+                political_power_factor = -0.03
+                stability_factor = 0.01
+
+                war_support_factor = 0.02
+                conscription_factor = 0.05
+
+                political_advisor_cost_factor = 0.03
+                economy_cost_factor = 0.05
+            }
+            on_activate = { }
+            on_deactivate = { }
+        }
+
+        ### Rising Conservative Influence ###
+        range = {
+            id = ENG_medium_conservative_influence
+            min = 0.40
+            max = 0.75
+            modifier = {
+                political_power_factor = -0.05
+                stability_factor = 0.02
+
+                war_support_factor = 0.04
+                conscription_factor = 0.10
+
+                political_advisor_cost_factor = 0.07
+                economy_cost_factor = 0.10
+            }
+            on_activate = { }
+            on_deactivate = { }
+        }
+
+        ### Conservative Dominance ###
+        range = {
+            id = ENG_high_conservative_influence
+            min = 0.8
+            max = 1.0
+            modifier = {
+                political_power_factor = -0.10
+                stability_factor = 0.03
+
+                war_support_factor = 0.10
+                conscription_factor = 0.15
+
+                political_advisor_cost_factor = 0.15
+                economy_cost_factor = 0.15
+                trade_laws_cost_factor = 0.15
+            }
+            on_activate = {
+                # Optional: event for Conservative dominance
+                # country_event = { id = ENG_r56rp.101 }
+            }
+            on_deactivate = { }
+        }
+    }
+}
