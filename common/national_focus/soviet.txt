@@ -8392,8 +8392,56 @@ focus_tree = {
 		y = 1
 		relative_position_id = SOV_the_path_of_marxism_leninism
 		cost = 5
-		mutually_exclusive = { focus = SOV_the_right_opposition focus = SOV_the_left_opposition focus = SOV_the_centre}
+		mutually_exclusive = { focus = SOV_the_right_opposition focus = SOV_the_left_opposition focus = SOV_the_centre }
 		icon = GFX_focus_generic_full_social_mobilization
+		completion_reward = {
+			country_event = {
+				id = NSB_soviet_paranoia_system_events.01
+				hours = 6 
+				random_hours = 24
+			}
+		}
+		offset = {
+			x = 21
+			y = 0
+			trigger = {
+				OR = {
+					has_completed_focus = SOV_r56rp_the_red_napoleon
+				}
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					AND = {
+						has_completed_focus = SOV_the_left_opposition
+						has_completed_focus = SOV_left_opposition_coup
+					}
+					AND = {
+						has_completed_focus = SOV_the_right_opposition
+						has_completed_focus = SOV_coup_detat
+					}
+					AND = {
+						has_completed_focus = SOV_beaten_but_not_defeated
+						has_completed_focus = SOV_the_hands_do
+					}
+					AND = {
+						has_completed_focus = SOV_the_centre
+					}
+					has_completed_focus = SOV_form_a_fifth_column
+				}
+			}
+		}
 	}
 
 	focus = {
@@ -8460,7 +8508,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		prerequisite = { focus = SOV_r56rp_surround_moscow }
-		icon = GFX_focus_fra_loyalty_stalin
+		icon = GFX_goal_SOV_trot_destalinization
 	}
 
 	focus = {
@@ -8470,6 +8518,10 @@ focus_tree = {
 		y = 1
 		prerequisite = { focus = SOV_r56rp_execute_the_stalinists }
 		icon = r56rp_goal_tuckachevsky
+		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.1
+		}
 	}
 
 	focus = {
@@ -8812,7 +8864,7 @@ focus_tree = {
 		relative_position_id = SOV_the_path_of_marxism_leninism
 		cost = 5
 
-		mutually_exclusive = { focus = SOV_the_right_opposition focus = SOV_the_left_opposition }
+		mutually_exclusive = { focus = SOV_the_right_opposition focus = SOV_the_left_opposition focus = SOV_r56rp_the_military }
 
 		allow_branch = {
 			if = {
@@ -8834,6 +8886,10 @@ focus_tree = {
 					AND = {
 						has_completed_focus = SOV_beaten_but_not_defeated
 						has_completed_focus = SOV_the_hands_do
+					}
+					AND = {
+						has_completed_focus = SOV_r56rp_the_military
+						has_completed_focus = SOV_r56rp_the_red_napoleon
 					}
 					has_completed_focus = SOV_form_a_fifth_column
 				}
@@ -10662,7 +10718,7 @@ focus_tree = {
 		id = SOV_the_left_opposition
 		icon = GFX_goal_SOV_trotsky_victory
 		prerequisite = { focus = SOV_the_path_of_marxism_leninism }
-		mutually_exclusive = { focus = SOV_the_right_opposition focus = SOV_the_centre }
+		mutually_exclusive = { focus = SOV_the_right_opposition focus = SOV_the_centre focus = SOV_r56rp_the_military }
 		x = 2
 		y = 1
 		offset = {
@@ -10700,6 +10756,7 @@ focus_tree = {
 				NOT = { has_completed_focus = SOV_the_centre } 
 				NOT = { has_completed_focus = SOV_beaten_but_not_defeated }
 				NOT = { has_completed_focus = SOV_form_a_fifth_column }
+				NOT = { has_completed_focus = SOV_r56rp_the_military }
 			}
 		}
 		
@@ -11684,6 +11741,7 @@ focus_tree = {
 				has_completed_focus = SOV_the_right_opposition
 				has_completed_focus = SOV_beaten_but_not_defeated
 				has_completed_focus = SOV_form_a_fifth_column
+				has_completed_focus = SOV_r56rp_the_military
 			}
 		}
 
@@ -12253,9 +12311,10 @@ focus_tree = {
 				}
 				NOT = { has_completed_focus = SOV_the_centre }
 				NOT = { has_completed_focus = SOV_beaten_but_not_defeated }
+				NOT = { has_completed_focus = SOV_r56rp_the_military }
 			}
 		}
-		mutually_exclusive = { focus = SOV_the_left_opposition focus = SOV_the_centre}
+		mutually_exclusive = { focus = SOV_the_left_opposition focus = SOV_the_centre focus = SOV_r56rp_the_military}
 		x = 15
 		y = 0
 		relative_position_id = SOV_the_left_opposition
@@ -14308,6 +14367,29 @@ focus_tree = {
 				}
 			}
 		}
+		offset = {
+			x = -26
+			y = 0
+			trigger = {
+				has_completed_focus = SOV_r56rp_the_military
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
+		offset = {
+			x = 8
+			y = 0
+			trigger = {
+				has_completed_focus = SOV_r56rp_the_military
+				has_completed_focus = SOV_r56rp_the_red_napoleon
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}		
 
 		relative_position_id = SOV_the_path_of_marxism_leninism
 		cost = 5
