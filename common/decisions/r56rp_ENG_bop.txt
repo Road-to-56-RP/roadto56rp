@@ -1,15 +1,37 @@
 decisions = {
 
-    category = {
-        name = ENG_emergency_election_bop_category
-        icon = GFX_decision_generic_political_reform
 
-        allowed = { original_tag = ENG }
+ENG_emergency_election_bop_category = {
+	    PRC_hold_speech_questioning_tradition = {
+        priority = 100
 
-        # Category MUST be visible BEFORE BoP exists,
-        # because the BoP is created by a focus.
-        visible = { original_tag = ENG }
-	}
+        ai_will_do = {
+            base = 2
+            modifier = {
+                factor = 2.5
+                has_political_power > 99
+            }
+            modifier = {
+                is_historical_focus_on = yes
+                factor = 0.2
+            }
+        }
+
+        days_remove = 90
+
+        modifier = {
+            stability_weekly_factor = 0.0025
+        }
+
+        cost = 50
+
+        remove_effect = {
+            add_power_balance_value = {
+                id = PRC_communist_power_struggle
+                value = -0.1
+            }
+        }
+    }
 }
         ########################################
         ### LABOUR DECISIONS
@@ -139,3 +161,4 @@ decisions = {
         }
 
     } # ← closes category # ← closes decisions
+}
