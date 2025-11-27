@@ -1,58 +1,141 @@
-radio_address_to_nation = {
-    name = "Radio Address to the Nation"
-    desc = "Deliver a rousing speech over the radio to energize support for your chosen party."
-    icon = GFX_bop_generic
+decisions = {
 
-    effect = { add_power_balance_value = { side = conservatives value = 0.15 } }
-    effect = { add_power_balance_value = { side = labour value = 0.15 } }
+    category = {
+        name = ENG_emergency_election_bop_category
+        icon = GFX_decision_generic_political_reform
+
+        allowed = { original_tag = ENG }
+
+        # Category MUST be visible BEFORE BoP exists,
+        # because the BoP is created by a focus.
+        visible = { original_tag = ENG }
+	}
 }
+        ########################################
+        ### LABOUR DECISIONS
+        ########################################
+decisions = {
+        ENG_push_labour_newspapers = {
+            icon = GFX_decision_propaganda
+            cost = 50
+            cooldown_days = 30
 
-grand_rally = {
-    name = "Host a Grand Rally"
-    desc = "Organize a massive public rally to excite voters and sway the BoP."
-    icon = GFX_bop_generic
-    allowed = { has_country_flag = emergency_general_election }
+            # Decision only appears WHEN the BoP exists
+            visible = { has_power_balance = ENG_emergency_election_bop }
+            available = { has_power_balance = ENG_emergency_election_bop }
 
-    effect = { add_power_balance_value = { side = conservatives value = 20 } }
-    effect = { add_power_balance_value = { side = labour value = -20 } }
-}
+            complete_effect = {
+                add_power_balance_value = {
+                    id = ENG_emergency_election_bop
+                    value = -0.05
+                    tooltip_side = ENG_labour_side
+                }
+            }
 
-appeal_to_industry = {
-    name = "Appeal to Industry Leaders"
-    desc = "Lobby influential business figures to publicly support your chosen party."
-    icon = GFX_bop_economy
-    allowed = { has_country_flag = emergency_general_election }
+            ai_will_do = { factor = 1.0 }
+        }
 
-    effect = { add_power_balance_value = { side = conservatives value = 15 } }
-    effect = { add_power_balance_value = { side = labour value = -15 } }
-}
+        ENG_union_rallies = {
+            icon = GFX_decision_strike
+            cost = 75
+            cooldown_days = 40
 
-prominent_endorsement = {
-    name = "Secure a Prominent Endorsement"
-    desc = "A respected figure endorses your chosen party, swaying the public opinion."
-    icon = GFX_bop_generic
-    allowed = { has_country_flag = emergency_general_election }
+            visible = { has_power_balance = ENG_emergency_election_bop }
+            available = { has_power_balance = ENG_emergency_election_bop }
 
-    effect = { add_power_balance_value = { side = conservatives value = 15 } }
-    effect = { add_power_balance_value = { side = labour value = -15 } }
-}
+            complete_effect = {
+                add_power_balance_value = {
+                    id = ENG_emergency_election_bop
+                    value = -0.10
+                    tooltip_side = ENG_labour_side
+                }
+                add_stability = 0.01
+            }
 
-leaked_policy_preview = {
-    name = "Leaked Policy Preview"
-    desc = "Release strategic policy details to excite the electorate in favor of your chosen party."
-    icon = GFX_bop_generic
-    allowed = { has_country_flag = emergency_general_election }
+            ai_will_do = { factor = 1.1 }
+        }
 
-    effect = { add_power_balance_value = { side = conservatives value = 15 } }
-    effect = { add_power_balance_value = { side = labour value = -15 } }
-}
+        ENG_working_class_campaign = {
+            icon = GFX_decision_generic_propaganda
+            cost = 100
+            cooldown_days = 50
 
-debate_domination = {
-    name = "National Debate Domination"
-    desc = "Win a televised debate to convince undecided voters to support your chosen party."
-    icon = GFX_bop_generic
-    allowed = { has_country_flag = emergency_general_election }
+            visible = { has_power_balance = ENG_emergency_election_bop }
+            available = { has_power_balance = ENG_emergency_election_bop }
 
-    effect = { add_power_balance_value = { side = conservatives value = 20 } }
-    effect = { add_power_balance_value = { side = labour value = -20 } }
-}
+            complete_effect = {
+                add_power_balance_value = {
+                    id = ENG_emergency_election_bop
+                    value = -0.15
+                    tooltip_side = ENG_labour_side
+                }
+                add_political_power = -25
+            }
+
+            ai_will_do = { factor = 1.2 }
+        }
+
+        ########################################
+        ### CONSERVATIVE DECISIONS
+        ########################################
+
+        ENG_push_conservative_press = {
+            icon = GFX_decision_generic_press_censorship
+            cost = 50
+            cooldown_days = 30
+
+            visible = { has_power_balance = ENG_emergency_election_bop }
+            available = { has_power_balance = ENG_emergency_election_bop }
+
+            complete_effect = {
+                add_power_balance_value = {
+                    id = ENG_emergency_election_bop
+                    value = 0.05
+                    tooltip_side = ENG_conservative_side
+                }
+            }
+
+            ai_will_do = { factor = 1.0 }
+        }
+
+        ENG_business_backing = {
+            icon = GFX_decision_generic_industry
+            cost = 75
+            cooldown_days = 40
+
+            visible = { has_power_balance = ENG_emergency_election_bop }
+            available = { has_power_balance = ENG_emergency_election_bop }
+
+            complete_effect = {
+                add_power_balance_value = {
+                    id = ENG_emergency_election_bop
+                    value = 0.10
+                    tooltip_side = ENG_conservative_side
+                }
+                add_stability = -0.01
+            }
+
+            ai_will_do = { factor = 1.1 }
+        }
+
+        ENG_wealthy_donor_fundraiser = {
+            icon = GFX_decision_generic_political_reform
+            cost = 100
+            cooldown_days = 50
+
+            visible = { has_power_balance = ENG_emergency_election_bop }
+            available = { has_power_balance = ENG_emergency_election_bop }
+
+            complete_effect = {
+                add_power_balance_value = {
+                    id = ENG_emergency_election_bop
+                    value = 0.15
+                    tooltip_side = ENG_conservative_side
+                }
+                add_political_power = 25
+            }
+
+            ai_will_do = { factor = 1.2 }
+        }
+
+    } # ← closes category # ← closes decisions
