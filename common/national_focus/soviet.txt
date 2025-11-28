@@ -8395,12 +8395,15 @@ focus_tree = {
 		mutually_exclusive = { focus = SOV_the_right_opposition focus = SOV_the_left_opposition focus = SOV_the_centre }
 		icon = GFX_focus_generic_full_social_mobilization
 		completion_reward = {
-			country_event = {
-				id = NSB_soviet_paranoia_system_events.01
-				hours = 6 
-				random_hours = 24
+				hidden_effect = {
+					country_event = {
+					id = NSB_soviet_paranoia_system_events.01
+					hours = 6 
+					random_hours = 24
+				}
 			}
 			mark_focus_tree_layout_dirty = yes
+			add_political_power = 75
 		}
 		offset = {
 			x = 21
@@ -8462,6 +8465,15 @@ focus_tree = {
 		y = 1
 		prerequisite = { focus = SOV_r56rp_the_military }
 		icon = GFX_focus_generic_whispers
+		completion_reward = {
+			SOV_paranoia_medium_increase_effect = yes 
+			SOV_iosif_stalin = {
+				swap_country_leader_traits = { remove = stalin_political_paranoia add = stalin_authority_undermined }
+			}
+			add_to_variable = { SOV_paranoia_weekly_modifiers_amount = 1 }
+			SOV_paranoia_modifier_update_gui_tooltip = yes
+			custom_effect_tooltip = SOV_undermine_stalins_authority_paranoia_tt 
+		}
 
 	}
 
@@ -8510,6 +8522,10 @@ focus_tree = {
 		y = 1
 		prerequisite = { focus = SOV_r56rp_surround_moscow }
 		icon = GFX_goal_SOV_trot_destalinization
+		completion_reward = {
+			set_country_flag = { flag = SOV_paranoia_random_purge_cooldown_from_focus_flag days = 15 }
+			SOV_remove_paranoia_effect = yes
+		}
 	}
 
 	focus = {
