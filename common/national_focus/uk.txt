@@ -17524,7 +17524,7 @@ focus_tree = {
 		available = {
 			power_balance_value = {
 				id = ENG_emergency_election_bop
-				value < -0.9
+				value < -0.65
 			}
 		}
 		icon = GFX_goal_ENG_labor_victory
@@ -17533,15 +17533,12 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
-			create_country_leader = {
-			name = "Clement Attlee"
-			picture = "r56_portrait_ENG_Clement_Attlee.dds"
-			expire = "1965.1.1"
-			ideology = socialism
-			traits = {
-				social_reformer
-			}
-		}	
+			set_party_name = {
+				ideology = democratic
+				name = "Labour Party"
+				long_name = "Labour And Co-Operative Party"
+			}			
+			promote_character = ENG_r56rp_clement_attlee
 	}
 }
 
@@ -17558,7 +17555,7 @@ focus_tree = {
 		available = {
 			power_balance_value = {
 				id = ENG_emergency_election_bop
-				value > 0.9
+				value > 0.65
 			}
 		}
 		icon = GFX_goal_nic_immigration
@@ -17626,6 +17623,7 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_country_leader_trait = attlee_peoples_mandate
 	}
 }
 
@@ -17643,6 +17641,10 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_timed_idea = {
+				idea = ENG_r56rp_social_housing_initative
+				days = 365
+			}
 	}
 }
 
@@ -17660,6 +17662,24 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 3
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 3
+				instant_build = yes
+ 				}
+			}
 	}
 }
 
@@ -17715,17 +17735,26 @@ focus_tree = {
 		prerequisite = { focus = ENG_r56rp_industrial_modernization_act }
 		prerequisite = { focus = ENG_r56rp_strengthen_the_trade_unions }
 		available = {
+			power_balance_value = {
+				id = ENG_emergency_election_bop
+				value < -0.9
+			}			
 		}
 		icon = GFX_focus_eng_the_sun_never_sets
 		cost = 10
 		ai_will_do = {
 			factor = 5
 		}	
-		completion_reward = {
+		completion_reward = {		
 			swap_ideas = {
 				remove_idea = ENG_r56rp_labour_at_the_helm_idea_3
 				add_idea = ENG_r56rp_labour_at_the_helm_idea_4
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			remove_power_balance = {
+				id = ENG_emergency_election_bop
+			}
+			country_event = ENG_r56rp_labour_victory_event.1	
 	}
 }
 
@@ -17737,6 +17766,7 @@ focus_tree = {
 		mutually_exclusive = {	focus = ENG_r56rp_hardliners_outsted }
 		prerequisite = { focus = ENG_r56rp_labour_ascendent }
 		available = {
+			always = no
 		}
 		icon = GFX_goal_ENG_red_army_flag
 		cost = 10
@@ -17755,6 +17785,7 @@ focus_tree = {
 		mutually_exclusive = { focus = ENG_r56rp_hardliners_join_the_cabinet}
 		prerequisite = { focus = ENG_r56rp_labour_ascendent }
 		available = {
+			always = no
 		}
 		icon = GFX_goal_ENG_social_democracy
 		cost = 10
@@ -18004,6 +18035,9 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_ideas = ENG_r56rp_new_economic_plan
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = limited_exports
 	}
 }
 
@@ -18021,6 +18055,10 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_new_economic_plan
+				add_idea = ENG_r56rp_new_economic_plan_2
+			}
 	}
 }
 
@@ -18038,6 +18076,10 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_labour_at_the_helm_idea_4
+				add_idea = ENG_r56rp_labour_at_the_helm_idea_5
+			}
 	}
 }
 
@@ -18055,6 +18097,42 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 2
+				instant_build = yes
+ 				}
+			}			
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = arms_factory
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
 	}
 }
 
@@ -18073,6 +18151,10 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_new_economic_plan_2
+				add_idea = ENG_r56rp_new_economic_plan_3
+			}
 	}
 }
 
@@ -18091,6 +18173,9 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_ideas = ENG_r56rp_cooperative_capitalism_idea_1
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = free_trade
 	}
 }
 
@@ -18108,6 +18193,10 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_cooperative_capitalism_idea_1
+				add_idea = ENG_r56rp_cooperative_capitalism_idea_2
+			}
 	}
 }
 
@@ -18125,6 +18214,41 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_resource = {
+				type = coal
+				amount = 64
+				state = 131
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_resource = {
+				type = steel
+				amount = 64
+				state = 131
+			}	
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_resource = {
+				type = steel
+				amount = 64
+				state = 1041
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_resource = {
+				type = coal
+				amount = 64
+				state = 1041
+			}	
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_resource = {
+				type = aluminium
+				amount = 32
+				state = 122
+			}	
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_resource = {
+				type = tungsten
+				amount = 32
+				state = 132
+			}		
 	}
 }
 
@@ -18142,6 +18266,7 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_ideas = ENG_r56rp_national_motor_works_idea
 	}
 }
 
@@ -18160,6 +18285,10 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_cooperative_capitalism_idea_2
+				add_idea = ENG_r56rp_cooperative_capitalism_idea_3
+			}
 	}
 }
 
@@ -18171,7 +18300,7 @@ focus_tree = {
 		prerequisite = { focus = ENG_r56rp_socialism_in_the_city focus = ENG_r56rp_cooperative_capitalism }
 		available = {
 		}
-		icon = GFX_goal_nic_immigration
+		icon = GFX_goal_ENG_NHS
 		cost = 10
 		ai_will_do = {
 			factor = 5
