@@ -5299,163 +5299,163 @@ country_event = {
 }
 
 #enemy close
-country_event = {
-	id = kmt.203
-	title = kmt.203.t
-	desc = kmt.203.d
-	picture = GFX_report_event_japanese_transport_soldiers
-
-	trigger = {
-		tag = CHI
-		NOT = {
-			has_country_flag = await_decision_tr
-			has_country_flag = treasures_abroad
-			has_country_flag = treasure_ransacked
-			has_country_flag = no_transfer_tr
-		}
-		event_target:KMT_treasure_state = {
-			OR = {
-				any_neighbor_state = {
-					controller = {
-						has_war_with = ROOT
-						OR = {
-							tag = JAP
-							is_puppet_of = JAP
-						}
-						has_government = fascism
-					}
-				}
-				controller = {
-					has_war_with = ROOT
-					OR = {
-						tag = JAP
-						is_puppet_of = JAP
-					}
-					has_government = fascism
-				}
-			}
-		}
-	}
-
-	mean_time_to_happen = { days = 0 }
-
-	immediate = {
-		set_country_flag = await_decision_tr
-	}
-
-	option = {
-		name = kmt.203.a
-		if = {
-			limit = {
-				event_target:KMT_treasure_state = {
-					controller = {
-						has_war_with = ROOT
-						OR = {
-							tag = JAP
-							is_puppet_of = JAP
-						}
-						has_government = fascism
-					}
-				}
-			}
-			add_timed_idea = {
-				idea = kmt_national_treasure_ransacked
-				days = 900
-			}
-			set_country_flag = treasure_ransacked
-			else = {
-				add_timed_idea = {
-					idea = kmt_defend_the_treasures
-					days = 365
-				}
-				set_country_flag = no_transfer_tr
-			}
-		}
-		clr_country_flag = await_decision_tr
-	}
-
-	option = {
-		name = kmt.203.b
-		ai_chance = { base = 100 }
-		if = {
-			limit = {
-				event_target:KMT_treasure_state = { state = 613 }
-			}
-			clear_global_event_target = KMT_treasure_state
-			605 = {
-				save_global_event_target_as = KMT_treasure_state
-				custom_effect_tooltip = KMT_will_be_destination_tt
-			}
-			else = {
-				if = {
-					limit = {
-						event_target:KMT_treasure_state = { state = 605 }
-					}
-					clear_global_event_target = KMT_treasure_state
-					325 = {
-						save_global_event_target_as = KMT_treasure_state
-						custom_effect_tooltip = KMT_will_be_destination_tt
-					}
-					else = {
-						if = {
-							limit = {
-								event_target:KMT_treasure_state = { state = 325 }
-							}
-							clear_global_event_target = KMT_treasure_state
-							add_timed_idea = {
-								idea = KMT_treasure_abroad_idea
-								days = 365
-							}
-							set_country_flag = treasures_abroad
-						}
-					}
-				}
-			}
-		}
-		clr_country_flag = await_decision_tr
-	}
-}
+#country_event = {
+#	id = kmt.203
+#	title = kmt.203.t
+#	desc = kmt.203.d
+#	picture = GFX_report_event_japanese_transport_soldiers
+#
+#	trigger = {
+#		tag = CHI
+#		NOT = {
+#			has_country_flag = await_decision_tr
+#			has_country_flag = treasures_abroad
+#			has_country_flag = treasure_ransacked
+#			has_country_flag = no_transfer_tr
+#		}
+#		event_target:KMT_treasure_state = {
+#			OR = {
+#				any_neighbor_state = {
+#					controller = {
+#						has_war_with = ROOT
+#						OR = {
+#							tag = JAP
+#							is_puppet_of = JAP
+#						}
+#						has_government = fascism
+#					}
+#				}
+#				controller = {
+#					has_war_with = ROOT
+#					OR = {
+#						tag = JAP
+#						is_puppet_of = JAP
+#					}
+#					has_government = fascism
+#				}
+#			}
+#		}
+#	}
+#
+#	mean_time_to_happen = { days = 0 }
+#
+#	immediate = {
+#		set_country_flag = await_decision_tr
+#	}
+#
+#	option = {
+#		name = kmt.203.a
+#		if = {
+#			limit = {
+#				event_target:KMT_treasure_state = {
+#					controller = {
+#						has_war_with = ROOT
+#						OR = {
+#							tag = JAP
+#							is_puppet_of = JAP
+#						}
+#						has_government = fascism
+#					}
+#				}
+#			}
+#			add_timed_idea = {
+#				idea = kmt_national_treasure_ransacked
+#				days = 900
+#			}
+#			set_country_flag = treasure_ransacked
+#			else = {
+#				add_timed_idea = {
+#					idea = kmt_defend_the_treasures
+#					days = 365
+#				}
+#				set_country_flag = no_transfer_tr
+#			}
+#		}
+#		clr_country_flag = await_decision_tr
+#	}
+#
+#	option = {
+#		name = kmt.203.b
+#		ai_chance = { base = 100 }
+#		if = {
+#			limit = {
+#				event_target:KMT_treasure_state = { state = 613 }
+#			}
+#			clear_global_event_target = KMT_treasure_state
+#			605 = {
+#				save_global_event_target_as = KMT_treasure_state
+#				custom_effect_tooltip = KMT_will_be_destination_tt
+#			}
+#			else = {
+#				if = {
+#					limit = {
+#						event_target:KMT_treasure_state = { state = 605 }
+#					}
+#					clear_global_event_target = KMT_treasure_state
+#					325 = {
+#						save_global_event_target_as = KMT_treasure_state
+#						custom_effect_tooltip = KMT_will_be_destination_tt
+#					}
+#					else = {
+#						if = {
+#							limit = {
+#								event_target:KMT_treasure_state = { state = 325 }
+#							}
+#							clear_global_event_target = KMT_treasure_state
+#							add_timed_idea = {
+#								idea = KMT_treasure_abroad_idea
+#								days = 365
+#							}
+#							set_country_flag = treasures_abroad
+#						}
+#					}
+#				}
+#			}
+#		}
+#		clr_country_flag = await_decision_tr
+#	}
+#}
 
 #ransacked artefacts
-country_event = {
-	id = kmt.204
-	title = kmt.204.t
-	desc = kmt.204.d
-	picture = GFX_report_event_japanese_transport_soldiers
-
-	trigger = {
-		tag = CHI
-		has_country_flag = no_transfer_tr
-		NOT = {
-			has_country_flag = treasure_ransacked
-		}
-		event_target:KMT_treasure_state = {
-			controller = {
-				has_war_with = ROOT
-
-				OR = {
-					tag = JAP
-					is_puppet_of = JAP
-				}
-				has_government = fascism
-			}
-		}
-	}
-
-	fire_only_once = yes
-
-	mean_time_to_happen = { days = 0 }
-
-	option = {
-		name = kmt.204.a
-		add_timed_idea = {
-			idea = kmt_national_treasure_ransacked
-			days = 900
-		}
-		remove_ideas = kmt_defend_the_treasures
-		set_country_flag = treasure_ransacked
-	}
-}
+#country_event = {
+#	id = kmt.204
+#	title = kmt.204.t
+#	desc = kmt.204.d
+#	picture = GFX_report_event_japanese_transport_soldiers
+#
+#	trigger = {
+#		tag = CHI
+#		has_country_flag = no_transfer_tr
+#		NOT = {
+#			has_country_flag = treasure_ransacked
+#		}
+#		event_target:KMT_treasure_state = {
+#			controller = {
+#				has_war_with = ROOT
+#
+#				OR = {
+#					tag = JAP
+#					is_puppet_of = JAP
+#				}
+#				has_government = fascism
+#			}
+#		}
+#	}
+#
+#	fire_only_once = yes
+#
+#	mean_time_to_happen = { days = 0 }
+#
+#	option = {
+#		name = kmt.204.a
+#		add_timed_idea = {
+#			idea = kmt_national_treasure_ransacked
+#			days = 900
+#		}
+#		remove_ideas = kmt_defend_the_treasures
+#		set_country_flag = treasure_ransacked
+#	}
+#}
 
 #jin yuan quan
 country_event = {
