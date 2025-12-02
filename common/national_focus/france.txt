@@ -10793,8 +10793,6 @@ focus_tree = {
 			}
 		}		
 		completion_reward = {
-			add_ideas = FRA_castex_strategies1_idea
-			custom_effect_tooltip = generic_skip_one_line_tt
 			add_timed_idea = {
 				idea = FRA_revising_naval_strategy
 				days = 600
@@ -10826,7 +10824,7 @@ focus_tree = {
 			}
 
 			reduce_focus_completion_cost = {
-				focus = { FRA_colonial_naval_bases }
+				focus = { FRA_colonial_naval_bases FRA_small_craft_development }
 				cost = 35
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -10836,82 +10834,38 @@ focus_tree = {
 	}
 
 	focus = {
-		id = FRA_prioritize_the_joffre
-		icon = GFX_focus_GER_graf_zeppelin
-	 	prerequisite = {
-			
-		}
+		id = FRA_intensify_torpedo_manufacturing
+		icon = GFX_focus_generic_torpedo_production
+		prerequisite = { focus = FRA_endorse_the_jeune_ecole}
+
 		x = 1
-		y = 10
+		y = 1
 		relative_position_id = FRA_endorse_the_jeune_ecole
 		cost = 10
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0.1
-				has_completed_focus = FRA_endorse_the_jeune_ecole
-			}
-		}
 		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
 		}
-		
+
+		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				custom_effect_tooltip = FRA_prioritize_the_joffre_tt
-				hidden_effect = {
-					create_equipment_variant = {
-						name = "Joffre Class"
-						type = ship_hull_carrier_1
-						name_group = FRA_CV_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_deck_slot_1 = ship_deck_space
-							fixed_ship_deck_slot_2 = ship_deck_space
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = carrier_ship_engine_2
-							fixed_ship_secondaries_slot = dp_ship_secondaries_1
-							front_1_custom_slot = empty
-						}
-					}
-					add_equipment_production = {
-						equipment = {
-							type = ship_hull_carrier_1
-							creator = "FRA" 
-							version_name = "Joffre Class"
-						}
-						requested_factories = 1
-						progress = 0.40
-						amount = 1
-					}
-				}	
-			}
-			else = {
-				add_equipment_production = {
-					equipment = {
-						type = carrier_2
-						creator = "FRA" 
-					}
-					requested_factories = 1
-					progress = 0.40
-					amount = 1
-				}
+			add_to_variable = { ITA_rm_convoy_raiding_efficiency_factor = 0.05 }
+			add_to_variable = { ITA_rm_naval_strike_attack_factor = 0.05 }
+			add_to_variable = { ITA_rm_navy_submarine_attack_factor = 0.05 }
+			custom_effect_tooltip = ITA_intensify_torpedo_manufacturing_rm_tt
+
+			add_tech_bonus = {
+				name = ITA_intensify_torpedo_manufacturing
+				bonus = 1.0
+				uses = 2
+				category = cat_torpedoes
 			}
 		}
 	}
-	
 
+	
 	focus = {
 		id = FRA_strategic_manoeuvre
-		icon = GFX_goal_defensive_position2
+		icon = GFX_goal_generic_navy_doctrines_tactics
 		x = 1
 		y = 5
 		relative_position_id = FRA_adapt_young_school_concepts
@@ -11206,6 +11160,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			add_ideas = FRA_castex_strategies1_idea
 			add_tech_bonus = {
 				name = FRA_improved_screen_ships
 				bonus = 2.0
@@ -11256,108 +11211,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = FRA_the_le_hardi_class_destroyer
-		icon = GFX_focus_generic_destroyer
-		prerequisite = {
-			focus = FRA_adapt_young_school_concepts
-		}
-		x = 1
-		y = 1
-		relative_position_id = FRA_adapt_young_school_concepts
-		cost = 10
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-		
-
-		completion_reward = {
-			if = {
-				limit = {
-					NOT = {
-						has_dlc = "Man the Guns"
-					}
-				}
-				create_equipment_variant = {
-					name = "Le Hardi Class"
-					type = destroyer_2
-					upgrades = {
-						ship_torpedo_upgrade = 1
-						destroyer_engine_upgrade = 1
-						ship_ASW_upgrade = 1
-						ship_anti_air_upgrade = 1
-					}
-				}
-				add_equipment_production = {
-					equipment = {
-						type = destroyer_2
-						creator = "FRA" 
-						version_name = "Le Hardi Class"
-					}
-					requested_factories = 1
-					progress = 0.2
-					amount = 3
-				}
-			}
-			if = {
-				limit = { has_dlc = "Man the Guns" }
-				create_equipment_variant = {
-					name = "Le Hardi Class"
-					type = ship_hull_light_2
-					name_group = FRA_DE_HISTORICAL
-					parent_version = 0
-					modules = {
-						fixed_ship_battery_slot = ship_light_battery_3
-						fixed_ship_anti_air_slot = ship_anti_air_1
-						fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-						fixed_ship_radar_slot = empty
-						fixed_ship_engine_slot = light_ship_engine_2
-						fixed_ship_torpedo_slot = ship_torpedo_2
-						mid_1_custom_slot = ship_torpedo_2
-						rear_1_custom_slot = ship_depth_charge_1
-					}
-				}
-				add_equipment_production = {
-					equipment = {
-						type = ship_hull_light_2
-						creator = "FRA" 
-						version_name = "Le Hardi Class"
-					}
-					name = "Le Hardi" 
-					requested_factories = 1
-					progress = 0.1
-					amount = 1
-				}
-				add_equipment_production = {
-					equipment = {
-						type = ship_hull_light_2
-						creator = "FRA" 
-						version_name = "Le Hardi Class"
-					}
-					name = "Fleuret" 
-					requested_factories = 1
-					progress = 0.1
-					amount = 1
-				}
-				add_equipment_production = {
-					equipment = {
-						type = ship_hull_light_2
-						creator = "FRA" 
-						version_name = "Le Hardi Class"
-					}
-					name = "Épée" 
-					requested_factories = 1
-					progress = 0.1
-					amount = 1
-				}
-			}
-		}
-	}
-
-	
-	focus = {
 		id = FRA_masters_of_the_mediterranean
 		icon = GFX_goal_FRA_darlan_doctrines
 	 	prerequisite = { focus = FRA_generic_one }
@@ -11377,6 +11230,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			add_ideas = FRA_darlan_doctrine_idea
 			add_tech_bonus = {
 				name = FRA_improved_screen_ships
 				bonus = 2.0
@@ -11398,6 +11252,79 @@ focus_tree = {
 		}
 	}
 
+	
+	focus = {
+		id = FRA_prioritize_the_joffre
+		icon = GFX_focus_GER_graf_zeppelin
+	 	prerequisite = {
+			focus = FRA_adopt_castexian_strategy
+		}
+		x = -1
+		y = 2
+		relative_position_id = FRA_adopt_castexian_strategy
+		cost = 10
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.1
+				has_completed_focus = FRA_endorse_the_jeune_ecole
+			}
+		}
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+		
+
+		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				custom_effect_tooltip = FRA_prioritize_the_joffre_tt
+				hidden_effect = {
+					create_equipment_variant = {
+						name = "Joffre Class"
+						type = ship_hull_carrier_1
+						name_group = FRA_CV_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_deck_slot_1 = ship_deck_space
+							fixed_ship_deck_slot_2 = ship_deck_space
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = carrier_ship_engine_2
+							fixed_ship_secondaries_slot = dp_ship_secondaries_1
+							front_1_custom_slot = empty
+						}
+					}
+					add_equipment_production = {
+						equipment = {
+							type = ship_hull_carrier_1
+							creator = "FRA" 
+							version_name = "Joffre Class"
+						}
+						requested_factories = 1
+						progress = 0.40
+						amount = 1
+					}
+				}	
+			}
+			else = {
+				add_equipment_production = {
+					equipment = {
+						type = carrier_2
+						creator = "FRA" 
+					}
+					requested_factories = 1
+					progress = 0.40
+					amount = 1
+				}
+			}
+		}
+	}
 
 	focus = {
 		id = FRA_the_alsace_program
@@ -11408,12 +11335,18 @@ focus_tree = {
 		relative_position_id = FRA_masters_of_the_mediterranean
 		cost = 10
 		available = {
+			custom_trigger_tooltip = {
+				tooltip = JAP_expand_hiratsuka_navy_arsenal_tt
+				NOT = {
+					has_idea = MTG_naval_treaty_adherent
+				}
+			}
 			any_state = {
 				is_coastal = yes
 				is_controlled_by = ROOT
 			}
 		}
-		available_if_capitulated = yes
+		available_if_capitulated = no
 
 		completion_reward = {
 			add_tech_bonus = {
@@ -11525,32 +11458,6 @@ focus_tree = {
 		}
 
 	}
-
-	focus = {
-		id = FRA_darlan_doctrine
-		icon = GFX_goal_FRA_darlan_doctrines
-		cost = 10
-		x = 1
-		y = 10
-		relative_position_id = FRA_heavier_naval_guns
-		ai_will_do = {
-			factor = 1
-		}
-		available = {
-			NOT = {
-				has_government = communism
-				has_completed_focus = FRA_endorse_the_jeune_ecole
-			}
-		}
-		
-		completion_reward = {
-			add_ideas = FRA_darlan_doctrine_idea
-			custom_effect_tooltip = generic_skip_one_line_tt
-			navy_experience = 50
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
 
 	focus = {
 		id = FRA_lay_down_the_jean_bart
@@ -11698,13 +11605,161 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
+	focus = {
+		id = FRA_small_craft_development
+		icon = GFX_focus_generic_navy_research_bonus
+		overlay = GFX_focus_fast_overlay_generic_clock
+		prerequisite = { focus = FRA_naval_construction_program }	
+		x = 1
+		y = 1
+		relative_position_id = FRA_naval_construction_program
+		cost = 10
+		bypass = {
+		}
+
+		available_if_capitulated = no
+	
+		completion_reward = {
+			add_tech_bonus = {
+				name = PHI_pt_boat_development
+				bonus = 1
+				ahead_reduction = 1
+				uses = 1
+				category = mio_cat_tech_all_screen_ship_and_modules
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = PHI_pt_boat_development_tt
+			custom_effect_tooltip = PHI_pt_boat_development_2_tt
+
+			hidden_effect = { #If you change these values, be sure to update PHI_pt_boat_development_tt
+				add_mastery_bonus = {
+					bonus = 0.1
+					days = 9999 #Remove when the modifier can take no timer
+					name = PHI_pt_boat_development
+
+					track = screens
+				}
+				add_mastery_bonus = {
+					bonus = 0.1
+					days = 9999 #Remove when the modifier can take no timer
+					name = PHI_pt_boat_development
+
+					sub_doctrine = patrol_boats
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = FRA_the_le_hardi_class_destroyer
+		icon = GFX_focus_generic_destroyer
+		prerequisite = {
+			focus = FRA_small_craft_development
+		}
+		x = 0
+		y = 1
+		relative_position_id = FRA_small_craft_development
+		cost = 5
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+		
+
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "Man the Guns"
+					}
+				}
+				create_equipment_variant = {
+					name = "Le Hardi Class"
+					type = destroyer_2
+					upgrades = {
+						ship_torpedo_upgrade = 1
+						destroyer_engine_upgrade = 1
+						ship_ASW_upgrade = 1
+						ship_anti_air_upgrade = 1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						type = destroyer_2
+						creator = "FRA" 
+						version_name = "Le Hardi Class"
+					}
+					requested_factories = 1
+					progress = 0.2
+					amount = 3
+				}
+			}
+			if = {
+				limit = { has_dlc = "Man the Guns" }
+				create_equipment_variant = {
+					name = "Le Hardi Class"
+					type = ship_hull_light_2
+					name_group = FRA_DE_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_light_battery_3
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+						fixed_ship_radar_slot = empty
+						fixed_ship_engine_slot = light_ship_engine_2
+						fixed_ship_torpedo_slot = ship_torpedo_2
+						mid_1_custom_slot = ship_torpedo_2
+						rear_1_custom_slot = ship_depth_charge_1
+					}
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_light_2
+						creator = "FRA" 
+						version_name = "Le Hardi Class"
+					}
+					name = "Le Hardi" 
+					requested_factories = 1
+					progress = 0.1
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_light_2
+						creator = "FRA" 
+						version_name = "Le Hardi Class"
+					}
+					name = "Fleuret" 
+					requested_factories = 1
+					progress = 0.1
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_light_2
+						creator = "FRA" 
+						version_name = "Le Hardi Class"
+					}
+					name = "Épée" 
+					requested_factories = 1
+					progress = 0.1
+					amount = 1
+				}
+			}
+		}
+	}
+
 
 	focus = {
 		id = FRA_colonial_naval_bases
 		icon = GFX_goal_generic_build_navy
 		overlay = GFX_focus_fast_overlay_generic_clock
 		prerequisite = { focus = FRA_naval_construction_program }
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = FRA_naval_construction_program
 		cost = 10
