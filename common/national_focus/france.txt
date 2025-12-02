@@ -10241,9 +10241,9 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = FRA_alpine_forts
+		id = FRA_alpine_forts # Ridicolously Underpowered
 		icon = GFX_goal_generic_construct_military
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_giraud_plan
 			focus = FRA_de_gaulle_strategy
@@ -10446,7 +10446,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FRA_foreign_legion
-		icon = GFX_goal_generic_special_forces
+		icon = GFX_focus_CHL_mobilize_the_veteran_legionaries
 		cost = 10
 		prerequisite = {
 			focus = FRA_army_reform
@@ -10747,9 +10747,9 @@ focus_tree = {
 	focus = {
 		id = FRA_CHEDN
 		icon = GFX_goal_generic_naval_effort2
-		cost = 5
+		cost = 15
 		relative_position_id = FRA_giraud_plan
-		x = 11
+		x = 12
 		y = 0
 		
 		ai_will_do = {
@@ -10760,24 +10760,27 @@ focus_tree = {
 
 		}		
 		completion_reward = {
-			add_war_support = 0.05
+			add_research_slot = 1
+			custom_effect_tooltip = generic_skip_one_line_tt
 			army_experience = 15
 			air_experience = 15
 			navy_experience = 20
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_war_support = 0.05
 		}
 	}
 	
 	focus = {
-		id = FRA_experiment_castex_strategies
+		id = FRA_endorse_the_jeune_ecole
 		icon = GFX_goal_FRA_castex_book
-		cost = 15
+		cost = 10
 		prerequisite = {
 			focus = FRA_CHEDN
 		}
 		mutually_exclusive = {
-			focus = FRA_lay_down_the_jean_bart
+			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
 		}
-		x = -3
+		x = 3
 		y = 1
 		relative_position_id = FRA_CHEDN
 		ai_will_do = {
@@ -10788,17 +10791,15 @@ focus_tree = {
 				is_coastal = yes
 				is_controlled_by = ROOT
 			}
-		}
-		bypass = {
-			amount_research_slots > 5
 		}		
 		completion_reward = {
-			add_research_slot = 1
 			add_ideas = FRA_castex_strategies1_idea
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_timed_idea = {
 				idea = FRA_revising_naval_strategy
 				days = 600
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_mastery_bonus = {
 				name = GER_trade_interdiction
 				bonus = 0.2
@@ -10811,6 +10812,7 @@ focus_tree = {
 				uses = 2
 				category = naval_doctrine
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
 				limit = {
 					has_dlc = "Man the Guns"
@@ -10822,20 +10824,98 @@ focus_tree = {
 					category = naval_minelaying
 				}	
 			}
+
+			reduce_focus_completion_cost = {
+				focus = { FRA_colonial_naval_bases }
+				cost = 35
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = PHI_clock_tt
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-	
+
 	focus = {
-		id = FRA_adapt_young_school_concepts
-		icon = GFX_goal_generic_navy_cruiser
+		id = FRA_prioritize_the_joffre
+		icon = GFX_focus_GER_graf_zeppelin
 	 	prerequisite = {
-			focus = FRA_experiment_castex_strategies
+			
 		}
-		x = -1
-		y = 1
-		relative_position_id = FRA_experiment_castex_strategies
+		x = 1
+		y = 10
+		relative_position_id = FRA_endorse_the_jeune_ecole
 		cost = 10
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.1
+				has_completed_focus = FRA_endorse_the_jeune_ecole
+			}
+		}
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+		
+
+		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				custom_effect_tooltip = FRA_prioritize_the_joffre_tt
+				hidden_effect = {
+					create_equipment_variant = {
+						name = "Joffre Class"
+						type = ship_hull_carrier_1
+						name_group = FRA_CV_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_deck_slot_1 = ship_deck_space
+							fixed_ship_deck_slot_2 = ship_deck_space
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = carrier_ship_engine_2
+							fixed_ship_secondaries_slot = dp_ship_secondaries_1
+							front_1_custom_slot = empty
+						}
+					}
+					add_equipment_production = {
+						equipment = {
+							type = ship_hull_carrier_1
+							creator = "FRA" 
+							version_name = "Joffre Class"
+						}
+						requested_factories = 1
+						progress = 0.40
+						amount = 1
+					}
+				}	
+			}
+			else = {
+				add_equipment_production = {
+					equipment = {
+						type = carrier_2
+						creator = "FRA" 
+					}
+					requested_factories = 1
+					progress = 0.40
+					amount = 1
+				}
+			}
+		}
+	}
+	
+
+	focus = {
+		id = FRA_strategic_manoeuvre
+		icon = GFX_goal_defensive_position2
+		x = 1
+		y = 5
+		relative_position_id = FRA_adapt_young_school_concepts
+		cost = 15
 		available = {
 			any_state = {
 				is_coastal = yes
@@ -10844,13 +10924,23 @@ focus_tree = {
 		}
 
 		available_if_capitulated = yes
-		
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = FRA_castex_strategies1_idea
-				add_idea = FRA_castex_strategies2_idea
+
+			custom_effect_tooltip = SOV_focus_select_effect_tt
+			effect_tooltip = {
+				add_ideas = SOV_military_reorganization_ns
 			}
+
+			#(Complete Effect)
+			custom_effect_tooltip = SOV_focus_complete_effect_tt
+			hidden_effect = {
+				swap_ideas = {
+					remove_idea = FRA_castex_strategies2_idea
+					add_idea = FRA_castex_strategies3_idea
+				}
+			}
+			
 		}
 	}
 	
@@ -10858,8 +10948,8 @@ focus_tree = {
 		id = FRA_undersea_combat
 		icon = GFX_goal_generic_navy_submarine
 	 	prerequisite = { focus = FRA_adapt_young_school_concepts }
-		x = -1
-		y = 1
+		x = 0
+		y = 2
 		relative_position_id = FRA_adapt_young_school_concepts
 		cost = 10
 		available = {
@@ -10882,119 +10972,102 @@ focus_tree = {
 		}
 	}
 	
-	focus = {
-		id = FRA_strategic_manoeuvre
-		icon = GFX_goal_defensive_position2
-	 	prerequisite = {
-			focus = FRA_adapt_young_school_concepts
-		}
-		x = 0
-		y = 2
-		relative_position_id = FRA_adapt_young_school_concepts
-		cost = 10
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
 
-		available_if_capitulated = yes
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = FRA_castex_strategies2_idea
-				add_idea = FRA_castex_strategies3_idea
-			}
-		}
-	}
-	
 	focus = {
-		id = FRA_lay_down_the_jean_bart
-		icon = GFX_goal_generic_expand_the_naval_industry
-		cost = 10
-		prerequisite = {
+		id = FRA__reaffirm_ecole_de_ligne_de_bataille
+		icon = GFX_focus_ARG_study_the_battle_of_the_river_plate
+	 	prerequisite = {
 			focus = FRA_CHEDN
 		}
 		mutually_exclusive = {
-			focus = FRA_experiment_castex_strategies
+			focus = FRA_endorse_the_jeune_ecole
 		}
-		x = 6
-		y = 0
-		relative_position_id = FRA_experiment_castex_strategies
-		ai_will_do = {
-			factor = 0.5
-		}
+		x = -3
+		y = 1
+		relative_position_id = FRA_CHEDN
+		cost = 10
 		available = {
 			any_state = {
 				is_coastal = yes
 				is_controlled_by = ROOT
 			}
 		}
-		bypass = {
-			amount_research_slots > 5
-		}		
+		
 		completion_reward = {
-			add_research_slot = 1
-			navy_experience = 25
-			random_owned_controlled_state = {
-				limit = {
-					is_coastal = yes
-					free_building_slots = {
-						building = dockyard
-						size > 0
-						include_locked = yes
-					}
-					is_core_of = ROOT
-				}
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = dockyard
-					level = 3
-					instant_build = yes
-				}
+			add_tech_bonus = {
+				name = FRA__reaffirm_ecole_de_ligne_de_bataille
+				bonus = 1
+				uses = 2
+				category = bb_tech
+				category = bc_tech
+			}
+
+
+			add_mastery_bonus = {
+				name = GER_plan_z
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_fleet_in_being
+				
+			}
+			add_doctrine_cost_reduction = {
+				name = SPR_navy_modernization
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_generic_one
+		icon = GFX_goal_FRA_darlan_doctrines
+	 	prerequisite = { focus = FRA__reaffirm_ecole_de_ligne_de_bataille }
+		x = 0
+		y = 3
+		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
+		cost = 10
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_improved_screen_ships
+				bonus = 2.0
+				uses = 1
+				category = ca_tech
 			}
 			if = {
 				limit = {
 					has_dlc = "Man the Guns"
 				}
-				add_equipment_production = {
-					equipment = {
-						type = ship_hull_heavy_2
-						creator = "FRA" 
-						version_name = "Richelieu Class"
-					}
-					requested_factories = 1
-					progress = 0.35
-					amount = 1
-				}
-			}
-			else = {
-				add_equipment_production = {
-					equipment = {
-						type = battleship_2
-						creator = "FRA" 
-					}
-					requested_factories = 1
-					progress = 0.35
-					amount = 1
+				add_tech_bonus = {
+					name = FRA_improved_screen_ships
+					bonus = 2
+					uses = 1
+					technology = improved_medium_battery
+					technology = advanced_medium_battery
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 	}
-	
+
 	focus = {
 		id = FRA_mediterranean_special_measures
 		icon = GFX_goal_navy_schematics
-		cost = 10
+		cost = 5
 		prerequisite = {
-			focus = FRA_experiment_castex_strategies
-			focus = FRA_lay_down_the_jean_bart
+			focus = FRA_adopt_castexian_strategy
+			focus = FRA_masters_of_the_mediterranean
 		}
-		x = -3
+		x = 2
 		y = 1
-		relative_position_id = FRA_lay_down_the_jean_bart
+		relative_position_id = FRA_masters_of_the_mediterranean
 		ai_will_do = {
 			factor = 1
 		}
@@ -11111,17 +11184,86 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-	
+
+
 	focus = {
-		id = FRA_the_le_hardi_class_destroyer
-		icon = GFX_focus_generic_destroyer
+		id = FRA_adopt_castexian_strategy
+		icon = GFX_goal_FRA_castex_book
+	 	prerequisite = { focus = FRA_generic_one }
+		mutually_exclusive = {
+			focus = FRA_masters_of_the_mediterranean
+		}
+		x = 2
+		y = 1
+		relative_position_id = FRA_generic_one
+		cost = 10
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_improved_screen_ships
+				bonus = 2.0
+				uses = 1
+				category = ca_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = FRA_improved_screen_ships
+					bonus = 2
+					uses = 1
+					technology = improved_medium_battery
+					technology = advanced_medium_battery
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_adapt_young_school_concepts
+		icon = GFX_goal_generic_navy_cruiser
 	 	prerequisite = {
-			focus = FRA_experiment_castex_strategies
-			focus = FRA_lay_down_the_jean_bart
+			focus = FRA_adopt_castexian_strategy
 		}
 		x = 1
 		y = 1
-		relative_position_id = FRA_experiment_castex_strategies
+		relative_position_id = FRA_adopt_castexian_strategy
+		cost = 5
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+
+		available_if_capitulated = yes
+		
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FRA_castex_strategies1_idea
+				add_idea = FRA_castex_strategies2_idea
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_the_le_hardi_class_destroyer
+		icon = GFX_focus_generic_destroyer
+		prerequisite = {
+			focus = FRA_adapt_young_school_concepts
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_adapt_young_school_concepts
 		cost = 10
 		available = {
 			any_state = {
@@ -11213,14 +11355,18 @@ focus_tree = {
 			}
 		}
 	}
+
 	
 	focus = {
-		id = FRA_improved_screen_ships
-		icon = GFX_goal_generic_navy_cruiser
-	 	prerequisite = { focus = FRA_the_le_hardi_class_destroyer }
-		x = 0
+		id = FRA_masters_of_the_mediterranean
+		icon = GFX_goal_FRA_darlan_doctrines
+	 	prerequisite = { focus = FRA_generic_one }
+		mutually_exclusive = {
+			focus = FRA_adopt_castexian_strategy
+		}
+		x = -2
 		y = 1
-		relative_position_id = FRA_the_le_hardi_class_destroyer
+		relative_position_id = FRA_generic_one
 		cost = 10
 		available = {
 			any_state = {
@@ -11251,52 +11397,15 @@ focus_tree = {
 			}
 		}
 	}
-	
-	focus = {
-		id = FRA_capital_ship_focus
-		icon = GFX_goal_generic_navy_battleship
-	 	prerequisite = {
-			focus = FRA_experiment_castex_strategies
-			focus = FRA_lay_down_the_jean_bart
-		}
-		mutually_exclusive = {
-			focus = FRA_carrier_focus
-		}
-		x = -2
-		y = 2
-		relative_position_id = FRA_lay_down_the_jean_bart
-		cost = 10
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-		
 
-		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_capital_ship_focus
-				bonus = 1
-				uses = 2
-				category = bb_tech
-				category = bc_tech
-			}
-		}
-	}
-	
+
 	focus = {
-		id = FRA_carrier_focus
-		icon = GFX_goal_generic_navy_carrier
-	 	prerequisite = {
-			focus = FRA_lay_down_the_jean_bart
-		}
-		mutually_exclusive = {
-			focus = FRA_capital_ship_focus
-		}
-		x = 0
+		id = FRA_the_alsace_program
+		icon = GFX_focus_JAP_naval_armaments_program
+	 	prerequisite = { focus = FRA_masters_of_the_mediterranean }
+		x = 1
 		y = 2
-		relative_position_id = FRA_lay_down_the_jean_bart
+		relative_position_id = FRA_masters_of_the_mediterranean
 		cost = 10
 		available = {
 			any_state = {
@@ -11308,79 +11417,204 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = FRA_carrier_focus
-				bonus = 1
-				uses = 2
-				category = cv_tech
+				name = FRA_improved_screen_ships
+				bonus = 2.0
+				uses = 1
+				category = ca_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = FRA_improved_screen_ships
+					bonus = 2
+					uses = 1
+					technology = improved_medium_battery
+					technology = advanced_medium_battery
+				}
 			}
 		}
 	}
-	
+
+
+	focus = {
+		id = FRA_improved_screen_ships
+		icon = GFX_goal_generic_navy_cruiser
+	 	prerequisite = { focus = FRA_masters_of_the_mediterranean }
+		x = -1
+		y = 1
+		relative_position_id = FRA_masters_of_the_mediterranean
+		cost = 10
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_improved_screen_ships
+				bonus = 2.0
+				uses = 1
+				category = ca_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = FRA_improved_screen_ships
+					bonus = 2
+					uses = 1
+					technology = improved_medium_battery
+					technology = advanced_medium_battery
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_heavier_naval_guns
+		icon = GFX_focus_generic_battleship_guns
+		prerequisite = { focus = FRA__reaffirm_ecole_de_ligne_de_bataille  }
+		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
+		x = 1
+		y = 1
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 3
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = JAP_expand_hiratsuka_navy_arsenal_tt
+				NOT = {
+					has_idea = MTG_naval_treaty_adherent
+				}
+			}
+		}
+
+		bypass = {
+			
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+
+			add_tech_bonus = {
+				name = JAP_sea_heavier_naval_guns
+				bonus = 0.75
+				uses = 1
+				category = cat_ship_heavy_battery
+			}	
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			JAP_add_or_modify_imperial_navy = yes
+			add_to_variable = { JAP_navy_naval_heavy_gun_hit_chance_factor = 0.1 tooltip = naval_heavy_gun_hit_chance_factor_tt }
+		}
+
+	}
+
 	focus = {
 		id = FRA_darlan_doctrine
 		icon = GFX_goal_FRA_darlan_doctrines
 		cost = 10
-		prerequisite = {
-			focus = FRA_capital_ship_focus
-			focus = FRA_carrier_focus
-		}
 		x = 1
-		y = 1
-		relative_position_id = FRA_capital_ship_focus
+		y = 10
+		relative_position_id = FRA_heavier_naval_guns
 		ai_will_do = {
 			factor = 1
 		}
 		available = {
 			NOT = {
 				has_government = communism
-				has_completed_focus = FRA_experiment_castex_strategies
+				has_completed_focus = FRA_endorse_the_jeune_ecole
 			}
 		}
 		
 		completion_reward = {
-			navy_experience = 50
 			add_ideas = FRA_darlan_doctrine_idea
+			custom_effect_tooltip = generic_skip_one_line_tt
+			navy_experience = 50
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-	
+
+
 	focus = {
-		id = FRA_carrier_planes
-		icon = GFX_goal_generic_air_fighter
-
-	 	prerequisite = { focus = FRA_carrier_focus }
-		x = 1
+		id = FRA_lay_down_the_jean_bart
+		icon = GFX_goal_generic_expand_the_naval_industry
+		cost = 5
+		prerequisite = {
+			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
+		}
+		x = -1
 		y = 1
-		relative_position_id = FRA_carrier_focus
-		cost = 10
-
-		available_if_capitulated = yes
-
+		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
+		ai_will_do = {
+			factor = 0.5
+		}
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}	
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_carrier_focus
-				bonus = 1.0
-				uses = 2
-				category = naval_air
+			navy_experience = 25
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_heavy_2
+						creator = "FRA" 
+						version_name = "Richelieu Class"
+					}
+					requested_factories = 5
+					progress = 0.35
+					amount = 1
+				}
+			}
+			else = {
+				add_equipment_production = {
+					equipment = {
+						type = battleship_2
+						creator = "FRA" 
+					}
+					requested_factories = 1
+					progress = 0.35
+					amount = 1
+				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 	}
-	
+
 	focus = {
 		id = FRA_naval_construction_program
 		icon = GFX_goal_navy_funding
 		cost = 10
 		prerequisite = {
-			focus = FRA_improved_screen_ships
-			focus = FRA_capital_ship_focus
-			focus = FRA_carrier_focus
+			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
+			focus = FRA_endorse_the_jeune_ecole
 		}
-		#prerequisite = {
-		#	focus = FRA_mediterranean_special_measures
-		#}
-		x = 1
+		x = -3
 		y = 1
-		relative_position_id = FRA_improved_screen_ships
+		relative_position_id = FRA_endorse_the_jeune_ecole
 		
 		ai_will_do = {
 			factor = 0.5
@@ -11396,48 +11630,43 @@ focus_tree = {
 				idea = FRA_naval_construction_program1_idea
 				days = 730
 			}
-			add_doctrine_cost_reduction = {
-				name = FRA_naval_construction_program
-				cost_reduction = 0.5
-				uses = 2
-				category = naval_doctrine
-			}
-			navy_experience = 25
-			21 = {
-				if = {
-					limit = { is_controlled_by = ROOT }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
 					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
 				}
 			}
-			14 = {
-				if = {
-					limit = { is_controlled_by = ROOT }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
 					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
 				}
 			}
-			21 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_building_construction = {
-						type = naval_base
-						province = 11834
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			459 = {
 				if = {
 					limit = {
@@ -11451,6 +11680,7 @@ focus_tree = {
 					}
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			14 = {
 				if = {
 					limit = {
@@ -11467,248 +11697,17 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
-	
-	focus = {
-		id = FRA_naval_gunnery
-		icon = GFX_goal_generic_admirality
-		cost = 10
-		prerequisite = {
-			focus = FRA_naval_construction_program
-		}
-		x = -1
-		y = 1
-		relative_position_id = FRA_naval_construction_program
-		ai_will_do = {
-			factor = 2
-		}
-		allow_branch = {
-			has_dlc = "Man the Guns"
-		}
-		
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = industrial_bonus
-				bonus = 1
-				uses = 1
-				category = naval_gunnery_tech
-			}
-			add_tech_bonus = {
-				name = SPR_navy_modernization
-				bonus = 1
-				uses = 2
-				category = naval_shell_tech
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	
-	focus = {
-		id = FRA_increase_repair_capabilities
-		icon = GFX_focus_generic_shipbuilding
-		prerequisite = {
-			focus = FRA_naval_construction_program
-		}
-		x = 0
-		y = 2
-		relative_position_id = FRA_naval_construction_program
 
-		cost = 10
 
-		ai_will_do = {
-			factor = 4
-		}
-
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-
-		bypass = {
-
-		}
-
-		
-		
-		
-
-		completion_reward = {		
-			add_ideas = ENG_expand_the_repair_yards
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	
-	focus = {
-		id = FRA_standardisation_engine
-		icon = GFX_goal_generic_air_naval_bomber
-		cost = 10
-		prerequisite = {
-			focus = FRA_naval_construction_program
-		}
-		x = 1
-		y = 1
-		relative_position_id = FRA_naval_construction_program
-		ai_will_do = {
-			factor = 1
-		}
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-		
-		completion_reward = {
-			add_tech_bonus = {
-				name = ss_bonus
-				bonus = 1
-				uses = 1
-				category = ss_tech
-			}		
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = SPR_navy_modernization
-					bonus = 1
-					uses = 2
-					category = torpedo_equipment
-				}
-				
-			}			
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	
-	#focus = {
-	#	id = FRA_successor_to_the_surcouf
-	#	icon = GFX_goal_generic_navy_submarine
-	#	cost = 10
-	#	prerequisite = {
-	#		focus = FRA_standardisation_engine
-	#	}
-	#	mutually_exclusive = {
-	#		focus = FRA_prioritize_the_joffre
-	#	}
-	#	x = 1
-	#	y = 1
-	#	relative_position_id = FRA_standardisation_engine
-	#	ai_will_do = {
-	#		factor = 1
-	#		modifier = {
-	#			factor = 10
-	#			has_completed_focus = FRA_lay_down_the_jean_bart
-	#		}
-	#	}
-	#	available = {
-	#		any_state = {
-	#			is_coastal = yes
-	#			is_controlled_by = ROOT
-	#		}
-	#	}
-	#	
-	#	completion_reward = {
-	#		
-	#	}
-	#	search_filters = { FOCUS_FILTER_RESEARCH }
-	#}
-	
-	focus = {
-		id = FRA_prioritize_the_joffre
-		icon = GFX_goal_carrier
-		prerequisite = {
-			focus = FRA_naval_construction_program
-			focus = FRA_carrier_focus
-		}
-		#mutually_exclusive = {
-		#	focus = FRA_successor_to_the_surcouf
-		#}
-		x = 0
-		y = 3
-		relative_position_id = FRA_carrier_focus
-		cost = 10
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0.1
-				has_completed_focus = FRA_experiment_castex_strategies
-			}
-		}
-		available = {
-			NOT = {
-				has_completed_focus = FRA_experiment_castex_strategies
-			}
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-		
-
-		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				custom_effect_tooltip = FRA_prioritize_the_joffre_tt
-				hidden_effect = {
-					create_equipment_variant = {
-						name = "Joffre Class"
-						type = ship_hull_carrier_1
-						name_group = FRA_CV_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_deck_slot_1 = ship_deck_space
-							fixed_ship_deck_slot_2 = ship_deck_space
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = carrier_ship_engine_2
-							fixed_ship_secondaries_slot = dp_ship_secondaries_1
-							front_1_custom_slot = empty
-						}
-					}
-					add_equipment_production = {
-						equipment = {
-							type = ship_hull_carrier_1
-							creator = "FRA" 
-							version_name = "Joffre Class"
-						}
-						requested_factories = 1
-						progress = 0.40
-						amount = 1
-					}
-				}	
-			}
-			else = {
-				add_equipment_production = {
-					equipment = {
-						type = carrier_2
-						creator = "FRA" 
-					}
-					requested_factories = 1
-					progress = 0.40
-					amount = 1
-				}
-			}
-		}
-	}
-	
 	focus = {
 		id = FRA_colonial_naval_bases
 		icon = GFX_goal_generic_build_navy
-	 	prerequisite = { focus = FRA_lay_down_the_jean_bart }
-		x = 2
+		overlay = GFX_focus_fast_overlay_generic_clock
+		prerequisite = { focus = FRA_naval_construction_program }
+		x = 1
 		y = 1
-		relative_position_id = FRA_lay_down_the_jean_bart
-		cost = 5
+		relative_position_id = FRA_naval_construction_program
+		cost = 10
 		available = {
 			any_state = {
 				is_coastal = yes
@@ -11792,80 +11791,7 @@ focus_tree = {
 			}
 		}
 	}
-
-	focus = {
-		id = FRA_develop_colonial_dockyards
-		icon = GFX_goal_generic_construct_naval_dockyard
-	 	prerequisite = { focus = FRA_colonial_naval_bases }
-		x = 0
-		y = 1
-		relative_position_id = FRA_colonial_naval_bases
-		cost = 10
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-		available_if_capitulated = yes
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		completion_reward = {
-			459 = {
-				if = {
-					limit = { 
-						OR = {
-							is_controlled_by = ROOT
-							CONTROLLER = {
-								is_puppet_of = ROOT
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			272 = {
-				if = {
-					limit = { 
-						OR = {
-							is_controlled_by = ROOT
-							CONTROLLER = {
-								is_puppet_of = ROOT
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			286 = {
-				if = {
-					limit = { 
-						OR = {
-							is_controlled_by = ROOT
-							CONTROLLER = {
-								is_puppet_of = ROOT
-							}
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}	
+	
 	#### AIR SECTION ####
 	focus = {
 		id = FRA_interwar_experience
@@ -11874,7 +11800,7 @@ focus_tree = {
 		#	focus = FRA_CHEDN
 		#}
 		cost = 10
-		x = 7
+		x = 8
 		y = 0
 		relative_position_id = FRA_CHEDN
 		ai_will_do = {
@@ -12030,7 +11956,7 @@ focus_tree = {
 		#prerequisite = {
 		#	focus = FRA_CHEDN
 		#}
-		x = 2
+		x = 3
 		y = 0
 		relative_position_id = FRA_interwar_experience
 		ai_will_do = {
@@ -12432,7 +12358,6 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 			focus = FRA_enact_plan_v
-			focus = FRA_naval_construction_program
 		}
 		x = -1
 		y = 2
@@ -12496,7 +12421,6 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 			focus = FRA_enact_plan_v
-			focus = FRA_naval_construction_program
 		}
 		x = -3
 		y = 2
