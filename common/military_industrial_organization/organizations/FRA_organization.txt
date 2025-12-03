@@ -334,6 +334,13 @@ FRA_morane_saulnier_organization = {
 		tag = FRA 
 		has_dlc = "Arms Against Tyranny"
 	}
+	visible = {
+		FROM = {
+			NOT = {
+				has_completed_focus = FRA_nationalize_key_aircraft_industries
+			}
+		}
+	}
 	# R56
 	initial_trait = {
 		name = generic_mio_initial_trait_light_aircraft_designer
@@ -370,6 +377,11 @@ FRA_bloch_organization = {
 				FROM = { original_tag = ETH }
 			}
 			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
+		}
+		FROM = {
+			NOT = {
+				has_completed_focus = FRA_nationalize_key_aircraft_industries
+			}
 		}
 	}
 	
@@ -425,6 +437,13 @@ FRA_amiot_organization = {
 		tag = FRA 
 		has_dlc = "Arms Against Tyranny"
 	}
+	visible = {
+		FROM = {
+			NOT = {
+				has_completed_focus = FRA_nationalize_key_aircraft_industries
+			}
+		}
+	}
 	# R56
 	initial_trait = {
 		name = generic_mio_initial_trait_heavy_aircraft_designer
@@ -449,6 +468,14 @@ FRA_levasseur_organization = {
 		tag = FRA 
 		has_dlc = "Arms Against Tyranny"
 	}
+
+	visible = {
+		FROM = {
+			NOT = {
+				has_completed_focus = FRA_nationalize_key_aircraft_industries
+			}
+		}
+	}
 	# R56
 	initial_trait = {
 		name = generic_mio_initial_trait_naval_aircraft_designer
@@ -463,9 +490,34 @@ FRA_levasseur_organization = {
 	}
 	###
 }
-
+# Heavy Airframe Production
 FRA_SNCAC_organization = {
 	name = SNCAC
+	include = generic_heavy_aircraft_organization
+	icon = GFX_idea_FRA_sncac
+	allowed = {	
+		tag = FRA 
+		has_dlc = "Arms Against Tyranny"
+	}
+	# R56
+	initial_trait = {
+		name = generic_mio_initial_trait_heavy_aircraft_designer
+
+		limit_to_equipment_type = { large_plane_airframe large_plane_maritime_patrol_plane_airframe }
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+		equipment_bonus = {
+			air_bombing = 0.05
+			air_agility = -0.05
+		}
+	}
+	###
+}
+# Light Airframe Production
+FRA_SNCAM_organization = {
+	name = SNCAM
 	include = generic_general_aircraft_organization
 	icon = GFX_idea_FRA_sncac
 	allowed = {	
@@ -473,17 +525,16 @@ FRA_SNCAC_organization = {
 		has_dlc = "Arms Against Tyranny"
 	}
 	visible = {
-		FROM = { has_country_flag = FRA_SNCAC_formed }
+	 	#FROM = { has_completed_focus = FRA_nationalize_key_industry }
 	}
 	# R56
 	initial_trait = {
-		name = generic_mio_initial_trait_general_aircraft_designer
+		name = generic_mio_initial_trait_light_aircraft_designer
 
-		organization_modifier = {
-			military_industrial_organization_research_bonus = 0.05
-		}
-		production_bonus = {
-			production_capacity_factor = 0.03
+		equipment_bonus = {
+			air_agility = 0.05
+			maximum_speed = 0.05
+			air_attack = 0.05
 		}
 	}
 	###

@@ -9970,9 +9970,6 @@ focus_tree = {
 		available = {
 			OR = {
 				threat > 0.05
-				GER = {
-					has_completed_focus = GER_remilitarize_the_rhineland
-				}
 				has_war_support > 0.2
 			}
 		}
@@ -9992,7 +9989,31 @@ focus_tree = {
 
 		}		
 		completion_reward = {
-		
+			if = {
+				limit = {
+					OR = {
+						GER = {
+							has_added_tension_amount > 5
+						}
+						ITA = {
+							has_added_tension_amount > 5
+						}
+						ENG = {
+							has_added_tension_amount > 5
+						}
+					}
+				}
+				add_war_support = 0.05
+			}
+			if = {
+				limit = {
+					has_idea = civilian_economy
+				}
+				swap_ideas = {
+					remove_idea = civilian_economy
+					add_idea = low_economic_mobilisation
+				}
+			}
 		}
 	}
 
@@ -12572,10 +12593,10 @@ focus_tree = {
 	#### AIR SECTION ####
 	focus = {
 		id = FRA_armee_de_la_air
-		icon = GFX_goal_generic_CAS
+		icon = GFX_goal_r56rp_french_air_coa
 		cost = 5
 		prerequisite = { focus = FRA_national_defence_plan }
-		x = 10
+		x = 9
 		y = 1
 		relative_position_id = FRA_national_defence_plan
 		ai_will_do = {
@@ -12585,7 +12606,7 @@ focus_tree = {
 		completion_reward = {
 			air_experience = 40
 			add_doctrine_cost_reduction = {
-				name = FRA_interwar_experience
+				name = FRA_fund_aeronautical_research_facilities
 				cost_reduction = 0.5
 				uses = 2
 				category = air_doctrine
@@ -12595,8 +12616,8 @@ focus_tree = {
 	}
 
 	focus = {
-		id = FRA_interwar_experience
-		icon = GFX_goal_generic_CAS
+		id = FRA_fund_aeronautical_research_facilities
+		icon = GFX_focus_generic_air_research_boost
 		cost = 5
 		prerequisite = { focus = FRA_armee_de_la_air }
 		x = -1
@@ -12607,7 +12628,48 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				prioritize = { 24 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			# https://en.wikipedia.org/wiki/Service_Technique_de_l%27A%C3%A9ronautique
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					air_facility < 1
+					land_facility < 1
+					naval_facility < 1
+					nuclear_facility < 1
+				}
+				prioritize = { 24 } # Can't do Southern Paris
+				add_building_construction = {
+					type = air_facility
+					level = 1
+					instant_build = yes
+					province = 6533 # Issy-les-Moulineaux 
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_tech_bonus = {
+				name = FRA_fund_aeronautical_research_facilities
+				bonus = 0.25
+				uses = 2
+				category = air_equipment
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.5
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12616,10 +12678,10 @@ focus_tree = {
 		id = FRA_ecole_de_lair
 		icon = GFX_focus_SOV_flying_clubs
 		cost = 8
-		prerequisite = { focus = FRA_interwar_experience }
+		prerequisite = { focus = FRA_fund_aeronautical_research_facilities }
 		x = -1
 		y = 1
-		relative_position_id = FRA_interwar_experience
+		relative_position_id = FRA_fund_aeronautical_research_facilities
 		ai_will_do = {
 			factor = 0.5
 		}
@@ -12688,7 +12750,7 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 			focus = FRA_form_the_first_strategic_bombing_unit
-			focus = FRA_interwar_experience
+			focus = FRA_fund_aeronautical_research_facilities
 		}
 		x = -1
 		y = 1
@@ -12731,10 +12793,8 @@ focus_tree = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}	
-				mio:JAP_kawasaki_aircraft_industries_organization = {
-					add_mio_research_bonus = 0.05
-				}
-				mio:JAP_nakajima_organization = {
+				mio:FRA_SNCAC_organization = {
+					add_mio_funds_gain_factor = 0.05
 					add_mio_research_bonus = 0.05
 				}
 				custom_effect_tooltip = generic_skip_one_line_tt
@@ -12821,7 +12881,7 @@ focus_tree = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}	
-				mio:FRA_SNCAC_organization = {
+				mio:FRA_SNCAM_organization = {
 					add_mio_funds_gain_factor = 0.05
 					add_mio_research_bonus = 0.05
 				}
@@ -13162,7 +13222,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_enact_plan_v
 		}
-		x = -3
+		x = -2
 		y = 1
 		relative_position_id = FRA_enact_plan_v
 		ai_will_do = {
