@@ -9960,7 +9960,42 @@ focus_tree = {
 			}
 		}
 	}
-	
+	# National Defence Plan
+	focus = {
+		id = FRA_national_defence_plan
+		icon = GFX_focus_fra_french_union
+		cost = 3
+		x = 90
+		y = 0
+		available = {
+			OR = {
+				threat > 0.05
+				GER = {
+					has_completed_focus = GER_remilitarize_the_rhineland
+				}
+				has_war_support > 0.2
+			}
+		}
+		bypass = {
+			OR = {
+				has_idea = low_economic_mobilisation
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		
+		bypass = {
+
+		}		
+		completion_reward = {
+		
+		}
+	}
+
 	focus = {
 		id = FRA_giraud_plan
 		icon = GFX_goal_FRA_giraud
@@ -9971,50 +10006,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_de_gaulle_strategy
 		}
-		x = 67
-		y = 0
-		offset = {
-			x = -20
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = FRA_action_francaise
-			}
-		}
-		offset = {
-			x = -18
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				OR = {
-					has_completed_focus = FRA_brumaire_movement
-					has_completed_focus = FRA_support_the_legitimatises
-					has_completed_focus = FRA_side_with_the_orleanists
-				}
-			}
-		}
-		offset = {
-			x = -47
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				OR = {
-					has_completed_focus = FRA_status_quo
-					has_completed_focus = FRA_far_right_leagues
-					has_completed_focus = FRA_radicalize_front
-				}
-			}
-		}
-		relative_position_id = FRA_rearmament
+		relative_position_id = FRA_national_defence_plan
+		x = -12
+		y = 2
 		ai_will_do = {
 			factor = 2
 		}
@@ -10748,10 +10742,11 @@ focus_tree = {
 		id = FRA_CHEDN
 		icon = GFX_goal_generic_naval_effort2
 		cost = 10
-		relative_position_id = FRA_giraud_plan
-		x = 12
-		y = 0
-		
+		prerequisite = {
+		focus = FRA_national_defence_plan}
+		x = 0
+		y = 1
+		relative_position_id = FRA_national_defence_plan
 		ai_will_do = {
 			factor = 1
 		}
@@ -10780,7 +10775,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
 		}
-		x = 4
+		x = 3
 		y = 1
 		relative_position_id = FRA_CHEDN
 		ai_will_do = {
@@ -10816,8 +10811,12 @@ focus_tree = {
 				focus = { FRA_colonial_naval_bases FRA_colonial_repair_facilities }
 				cost = 35
 			}
-			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = PHI_clock_tt
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = {
+				FRA_r56rp_marine_national_modifier_enesizepen = 0.1 tooltip =  naval_enemy_fleet_size_ratio_penalty_factor_tt
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -10858,6 +10857,8 @@ focus_tree = {
 		relative_position_id = FRA_endorse_the_jeune_ecole
 		cost = 5
 		completion_reward = {
+			# Sea Faring Torpedo Boats
+			# Le Fier class
 			add_tech_bonus = {
 				name = PHI_pt_boat_development
 				bonus = 1
@@ -10939,17 +10940,16 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			add_to_variable = { ITA_rm_convoy_raiding_efficiency_factor = 0.05 }
-			add_to_variable = { ITA_rm_naval_strike_attack_factor = 0.05 }
-			add_to_variable = { ITA_rm_navy_submarine_attack_factor = 0.05 }
-			custom_effect_tooltip = ITA_intensify_torpedo_manufacturing_rm_tt
-
 			add_tech_bonus = {
 				name = ITA_intensify_torpedo_manufacturing
 				bonus = 1.0
 				uses = 2
 				category = cat_torpedoes
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = { FRA_r56rp_marine_national_modifier_raideff = 0.05 tooltip = convoy_raiding_efficiency_factor_tt }
+			add_to_variable = { FRA_r56rp_submarine_attack_factor = 0.05  tooltip = navy_submarine_attack_factor_tt  }
 		}
 	}
 
@@ -10957,7 +10957,7 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_ecole_navale_combine
-		icon = GFX_focus_generic_torpedo_production
+		icon = GFX_focus_SMB_blue_water_fleet
 		prerequisite = {focus = FRA_intensify_torpedo_manufacturing }
 		x = 1
 		y = 1
@@ -10976,6 +10976,7 @@ focus_tree = {
 				focus = { FRA_colonial_naval_bases }
 				cost = 35
 			}
+			custom_effect_tooltip = PHI_clock_tt
 		}
 	}
 
@@ -10988,6 +10989,14 @@ focus_tree = {
 		relative_position_id = FRA_ecole_navale_combine
 		cost = 5
 		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_improved_screen_ships
+				bonus = 2.0
+				uses = 1
+				category = ca_tech
+				category = cl_tech
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			mio:FRA_acf_organization = {
 				add_mio_size = 1
 				add_mio_funds_gain_factor = 0.25
@@ -11169,12 +11178,16 @@ focus_tree = {
 					}
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = { FRA_r56rp_naval_strike_agility_factor = 0.1 tooltip =  naval_agility_factor_tt }
+			add_to_variable = {	FRA_r56rp_naval_strike_attack_factor = 0.05 tooltip = naval_strike_attack_factor_tt}
 		}
 	}
 
 	focus = {
-		id = FRA_generic_three
-		icon = GFX_focus_generic_torpedo_production
+		id = FRA_ecole_navale_asymetrique
+		icon = GFX_focus_generic_cruiser_submarines
 		prerequisite = {focus = FRA_intensify_torpedo_manufacturing }
 		mutually_exclusive = {
 			focus = FRA_ecole_navale_combine
@@ -11189,27 +11202,17 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			add_to_variable = { ITA_rm_convoy_raiding_efficiency_factor = 0.05 }
-			add_to_variable = { ITA_rm_naval_strike_attack_factor = 0.05 }
-			add_to_variable = { ITA_rm_navy_submarine_attack_factor = 0.05 }
-			custom_effect_tooltip = ITA_intensify_torpedo_manufacturing_rm_tt
 
-			add_tech_bonus = {
-				name = ITA_intensify_torpedo_manufacturing
-				bonus = 1.0
-				uses = 2
-				category = cat_torpedoes
-			}
 		}
 	}
 
 	focus = {
 		id = FRA_sanctioned_piracy
 		icon = GFX_focus_generic_piracy
-		prerequisite = {focus = FRA_generic_three }
+		prerequisite = {focus = FRA_ecole_navale_asymetrique }
 		x = 0
 		y = 2
-		relative_position_id = FRA_generic_three
+		relative_position_id = FRA_ecole_navale_asymetrique
 		cost = 10
 		available = {
 		}
@@ -11225,31 +11228,14 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = FRA_unrestricted_raiding
-		icon = GFX_focus_generic_torpedo_production
-		prerequisite = {focus = FRA_generic_three }
-		x = -1
-		y = 1
-		relative_position_id = FRA_generic_three
-		cost = 10
-		available = {
-		}
 
-		search_filters = {FOCUS_FILTER_RESEARCH}
-
-		completion_reward = {
-			
-		}
-	}
-	
 	focus = {
 		id = FRA_modernization_of_the_battlefleet
 		icon = GFX_focus_generic_refit_civilian_ships
-		prerequisite = {focus = FRA_generic_three focus = FRA_ecole_navale_combine }
+		prerequisite = {focus = FRA_ecole_navale_asymetrique focus = FRA_ecole_navale_combine }
 		x = 1
 		y = 1
-		relative_position_id = FRA_generic_three
+		relative_position_id = FRA_ecole_navale_asymetrique
 		cost = 10
 		available = {
 		}
@@ -11282,6 +11268,10 @@ focus_tree = {
 				FRA_r56rp_marine_national_modifier_raideff = 0.20
 				tooltip = convoy_raiding_efficiency_factor_tt
 			}
+			add_to_variable = {
+				FRA_r56rp_sub_retreat_speed = 0.1
+				tooltip = sub_retreat_speed_tt
+			}
 		}
 	}
 	# Masters of Hit and Run - Ending of Jeune Ecole
@@ -11296,7 +11286,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_endorse_the_jeune_ecole
 		}
-		x = -4
+		x = -3
 		y = 1
 		relative_position_id = FRA_CHEDN
 		cost = 10
@@ -11327,6 +11317,11 @@ focus_tree = {
 				cost_reduction = 0.5
 				uses = 2
 				category = naval_doctrine
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = {
+				FRA_r56rp_marine_national_ships_at_battle_start = 0.1 tooltip = ships_at_battle_start_factor_tt
 			}
 		}
 	}
@@ -11371,10 +11366,6 @@ focus_tree = {
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
-			add_to_variable = { 
-				FRA_r56rp_light_gun_hit_chance_factor = 0.05
-				tooltip = naval_light_gun_hit_chance_factor_tt
-			}
 			add_to_variable = {
 				FRA_r56rp_screening_efficiency = 0.05
 				tooltip = screening_efficiency_tt
@@ -11390,8 +11381,9 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
-		cost = 10
+		cost = 8
 		available = {
+			has_tech = improved_fire_control_system
 			any_state = {
 				is_coastal = yes
 				is_controlled_by = ROOT
@@ -11400,11 +11392,27 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = FRA_improved_screen_ships
+					bonus = 2
+					uses = 1
+					technology = fire_control_methods_1
+					technology = fire_control_methods_2
+					technology = fire_control_methods_3
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
 			add_to_variable = {
 				FRA_r56rp_spotting_chance = 0.05
 				tooltip = spotting_chance_tt
 			}
+			add_to_variable = { FRA_r56rp_light_gun_hit_chance_factor = 0.05 tooltip = naval_light_gun_hit_chance_factor_tt }
+			add_to_variable = { FRA_r56rp_heavy_gun_hit_chance_factor = 0.05 tooltip = naval_heavy_gun_hit_chance_factor_tt }
 		}
 	}
 
@@ -11513,6 +11521,10 @@ focus_tree = {
 				uses = 2
 				category = ss_tech
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = { FRA_r56rp_marine_national_modifier_raideff = 0.05 tooltip = convoy_raiding_efficiency_factor_tt }
+			add_to_variable = { FRA_r56rp_submarine_attack_factor = 0.05  tooltip = navy_submarine_attack_factor_tt  }
 		}
 	}
 
@@ -11578,23 +11590,9 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = FRA_darlan_doctrine_idea
-			add_tech_bonus = {
-				name = FRA_improved_screen_ships
-				bonus = 2.0
-				uses = 1
-				category = ca_tech
-			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = FRA_improved_screen_ships
-					bonus = 2
-					uses = 1
-					technology = improved_medium_battery
-					technology = advanced_medium_battery
-				}
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = {
+				FRA_r56rp_marine_national_modifier_orgfactor = 0.05 tooltip = navy_org_factor_tt
 			}
 		}
 	}
@@ -11622,25 +11620,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			# IDK what to do here fully, this should be for both Castex / Darlan - while Darlan pushed for anti Italian both suggested supporting and securing The shipping lanes between Africa and South France...
-			add_tech_bonus = {
-				name = FRA_improved_screen_ships
-				bonus = 1
-				uses = 1
-				category = dd_tech
-				category = ca_tech
-			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = SPR_navy_modernization
-					bonus = 1
-					uses = 2
-					category = asw_tech
-				}	
-			}			
+			# IDK what to do here fully, this should be for both Castex / Darlan - while Darlan pushed for anti Italian both suggested supporting and securing The shipping lanes between Africa and South France...		
 			21 = {
 				if = {
 					limit = {
@@ -11750,6 +11730,14 @@ focus_tree = {
 		completion_reward = {
 			# Just a throw away. No idea what to add
 			add_tech_bonus = {
+				name = FRA_improved_screen_ships
+				bonus = 1
+				uses = 1
+				category = dd_tech
+				category = ca_tech
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_tech_bonus = {
 				name = ENG_asw_warfare
 				bonus = 1.0
 				ahead_reduction = 2
@@ -11789,6 +11777,9 @@ focus_tree = {
 		completion_reward = {
 			# Heavy + Light Cruiser Push Construction Bonus
 			# Some modfiers to standing navy
+			add_to_variable = {
+				FRA_r56rp_marine_national_ships_at_battle_start = 0.05 tooltip = ships_at_battle_start_tt
+			}
 		}
 
 	}
@@ -11930,7 +11921,10 @@ focus_tree = {
 				}
 			}
 
-			add_to_variable = { JAP_airforce_sortie_efficiency = 0.1 tooltip = sortie_efficiency_tt }
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = { FRA_r56rp_naval_strike_agility_factor = 0.1 tooltip =  naval_agility_factor_tt }
+			add_to_variable = {	FRA_r56rp_naval_strike_attack_factor = 0.05 tooltip = naval_strike_attack_factor_tt}
 		}
 	}
 
@@ -12188,7 +12182,7 @@ focus_tree = {
 			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
 			focus = FRA_endorse_the_jeune_ecole
 		}
-		x = -4
+		x = -3
 		y = 1
 		relative_position_id = FRA_endorse_the_jeune_ecole
 		
@@ -12577,15 +12571,13 @@ focus_tree = {
 	
 	#### AIR SECTION ####
 	focus = {
-		id = FRA_interwar_experience
+		id = FRA_armee_de_la_air
 		icon = GFX_goal_generic_CAS
-		#prerequisite = {
-		#	focus = FRA_CHEDN
-		#}
-		cost = 10
+		cost = 5
+		prerequisite = { focus = FRA_national_defence_plan }
 		x = 10
-		y = 0
-		relative_position_id = FRA_CHEDN
+		y = 1
+		relative_position_id = FRA_national_defence_plan
 		ai_will_do = {
 			factor = 5
 		}
@@ -12601,15 +12593,30 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
+
+	focus = {
+		id = FRA_interwar_experience
+		icon = GFX_goal_generic_CAS
+		cost = 5
+		prerequisite = { focus = FRA_armee_de_la_air }
+		x = -1
+		y = 1
+		relative_position_id = FRA_armee_de_la_air
+		ai_will_do = {
+			factor = 5
+		}
+		
+		completion_reward = {
+			
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 	
 	focus = {
-		id = FRA_air_bases
-		icon = GFX_goal_generic_build_airforce
-		cost = 10
-		prerequisite = {
-			focus = FRA_interwar_experience
-			focus = FRA_form_the_first_strategic_bombing_unit
-		}
+		id = FRA_ecole_de_lair
+		icon = GFX_focus_SOV_flying_clubs
+		cost = 8
+		prerequisite = { focus = FRA_interwar_experience }
 		x = -1
 		y = 1
 		relative_position_id = FRA_interwar_experience
@@ -12617,131 +12624,22 @@ focus_tree = {
 			factor = 0.5
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				add_tech_bonus = {
-					name = FRA_air_bases
-					technology = photo_reconnaisance
-					bonus = 0.75
-					uses = 1
-				}	
-			}
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-					NOT = {
-						has_dlc = "By Blood Alone"
-					}
-				}
-				add_tech_bonus = {
-					name = scout_plane
-					bonus = 1.0
-					uses = 1
-					category = cat_scout_plane
-				}				
-			}					
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}
-			}
+			custom_effect_tooltip = FRA_r56rp_armee_de_lair_tt
+			add_to_variable = { r56rp_armee_de_lair_modifier_air_accidents_factor = -0.1 tooltip = air_accidents_factor_tt }
+			add_to_variable = { r56rp_armee_de_lair_modifier_air_wing_xp_loss_when_killed_factor = -0.1 tooltip = air_wing_xp_loss_when_killed_factor_tt }
+			add_to_variable = { r56rp_armee_de_lair_modifier_experience_gain_air_factor = 0.1 tooltip = experience_gain_air_factor_tt }
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
-		id = FRA_parachute_battalions
-		icon = GFX_focus_generic_paratrooper
-		cost = 10
-		prerequisite = {
-			focus = FRA_interwar_experience
-		}
-		x = 0
-		y = 2
-		relative_position_id = FRA_interwar_experience
-		ai_will_do = {
-			factor = 1
-		}
-		
-		
-		
-		completion_reward = {
-			add_tech_bonus = {
-                name = special_forces_bonus
-				bonus = 1
-				uses = 1
-				category = para_tech
-				category = transport_plane_tech
-			}
-			if = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				add_doctrine_cost_reduction = {
-					name = FRA_parachute_battalions
-					cost_reduction = 0.5
-					uses = 1
-					category = special_forces_doctrine
-				}
-			}
-			else = {
-				add_tech_bonus = {
-					name = special_forces_bonus
-					bonus = 0.5
-					uses = 1
-					category = r56_special_forces_training_tech 
-				}	
-			}			
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	
-	focus = {
 		id = FRA_form_the_first_strategic_bombing_unit
 		icon = GFX_goal_generic_air_doctrine
-		cost = 10
-		#prerequisite = {
-		#	focus = FRA_CHEDN
-		#}
-		x = 2
-		y = 0
-		relative_position_id = FRA_interwar_experience
+		cost = 5
+		prerequisite = { focus = FRA_armee_de_la_air }
+		x = 1
+		y = 1
+		relative_position_id = FRA_armee_de_la_air
 		ai_will_do = {
 			factor = 0.5
 		}
@@ -12750,25 +12648,43 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_form_the_first_strategic_bombing_unit
-				bonus = 1
-				uses = 1
-				category = cat_strategic_bomber
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				mio:JAP_kawasaki_aircraft_industries_organization = {
+					add_mio_research_bonus = 0.05
+				}
+				mio:JAP_nakajima_organization = {
+					add_mio_research_bonus = 0.05
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
 			}
-			#add_equipment_to_stockpile = {
-			#	type = strat_bomber_equipment_1
-			#	amount = 12
-			#	producer = FRA
-			#}
+
+			add_tech_bonus = {
+				name = JAP_modern_bombers
+				bonus = 1
+				category = medium_air
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.25
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+	
+			
 			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
-	focus = {
-		id = FRA_support_the_ecole_de_lair
-		icon = GFX_focus_generic_military_academy
+	focus = {  # Nationalize Key Industries
+		id = FRA_nationalize_key_aircraft_industries
+		icon = GFX_focus_generic_aircraft_production
 		cost = 10
 		prerequisite = {
 			focus = FRA_form_the_first_strategic_bombing_unit
@@ -12785,23 +12701,24 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_ideas = FRA_ecole_de_lair_idea
 			
-			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
-		id = FRA_faire_face
-		icon = GFX_focus_generic_military_mission
+		id = FRA_heavy_aircraft_modernisation_program
+		icon = GFX_focus_generic_long_range_aircraft
 		cost = 10
 		prerequisite = {
-			focus = FRA_support_the_ecole_de_lair
+			focus = FRA_nationalize_key_aircraft_industries
+		}
+		mutually_exclusive = {
+			focus = FRA_light_aircraft_modernisation_program
 		}
 		x = 1
 		y = 1
-		relative_position_id = FRA_support_the_ecole_de_lair
+		relative_position_id = FRA_nationalize_key_aircraft_industries
 		ai_will_do = {
 			factor = 0.5
 		}
@@ -12810,13 +12727,35 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			air_experience = 10
-			add_doctrine_cost_reduction = {
-				name = FRA_faire_face
-				cost_reduction = 0.5
-				uses = 2
-				category = air_doctrine
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				mio:JAP_kawasaki_aircraft_industries_organization = {
+					add_mio_research_bonus = 0.05
+				}
+				mio:JAP_nakajima_organization = {
+					add_mio_research_bonus = 0.05
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
 			}
+
+			add_tech_bonus = {
+				name = JAP_modern_bombers
+				bonus = 1
+				category = medium_air
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.25
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			JAP_add_or_modify_army_and_naval_air_services = yes
+			add_to_variable = { JAP_airforce_air_cas_efficiency = 0.1 tooltip = air_cas_efficiency_tt }
 			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -12825,7 +12764,7 @@ focus_tree = {
 	focus = {
 		id = FRA_purchase_american_fighters
 		icon = GFX_goal_fighters_usa
-		cost = 5
+		cost = 3
 		prerequisite = {
 			focus = FRA_form_the_first_strategic_bombing_unit
 		}
@@ -12859,13 +12798,14 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = FRA_modernisation_program
-		icon = GFX_focus_usa_escort_fighters
+		id = FRA_light_aircraft_modernisation_program
+		icon = GFX_goal_generic_air_fighter
 		cost = 10
 		prerequisite = {
-			focus = FRA_form_the_first_strategic_bombing_unit
+			focus = FRA_nationalize_key_aircraft_industries
 		}
-		x = 2
+		mutually_exclusive = { focus = FRA_heavy_aircraft_modernisation_program }
+		x = -2
 		y = 2
 		relative_position_id = FRA_form_the_first_strategic_bombing_unit
 		ai_will_do = {
@@ -12877,49 +12817,67 @@ focus_tree = {
 		
 		completion_reward = {
 			air_experience = 15
-			if = {
+			IF = {
 				limit = {
-					has_dlc = "By Blood Alone"
+					has_dlc = "Arms Against Tyranny"
+				}	
+				mio:FRA_SNCAC_organization = {
+					add_mio_funds_gain_factor = 0.05
+					add_mio_research_bonus = 0.05
 				}
-				add_tech_bonus = {
-					name = FRA_modernisation_program
-					bonus = 1
-					uses = 1
-					category = light_air
-				}
+				custom_effect_tooltip = generic_skip_one_line_tt
 			}
-			else = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech = heavy_fighter1
-						}
-					}
-					custom_effect_tooltip = FRA_finalize_the_potez_630_tt
-				}
-				else = {
-					add_tech_bonus = {
-						name = FRA_modernisation_program
-						bonus = 1
-						uses = 1
-						category = cat_heavy_fighter
-					}
-				}
-				hidden_effect = {
-					if = {
-						limit = {
-							NOT = {
-								has_tech = heavy_fighter1
-							}
-						}
-						set_technology = { heavy_fighter1 = 1 }
+		
+			add_tech_bonus = {
+				name = JAP_develop_new_fighters
+				bonus = 1
+				ahead_reduction = 0.75 
+				category = light_air
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.25
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			IF = {
+				limit = {
+					NOT = {
+						has_dlc = "By Blood Alone"
 					}
 				}
-				add_tech_bonus = {
-					name = FRA_modernisation_program
-					bonus = 1
-					uses = 1
-					category = light_fighter
+				set_technology = { cv_fighter2 = 1 } 
+			}
+			ELSE = {
+				create_equipment_variant = {
+					name = "A6M Zero-Sen"
+					type = cv_small_plane_airframe_2
+					design_team = mio:JAP_mitsubishi_organization
+					allow_without_tech = no
+					modules = {
+						fixed_main_weapon_slot = light_mg_2x
+						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
+						engine_type_slot = engine_3_1x
+						special_type_slot_1 = drop_tanks
+						special_type_slot_2 = fuel_tanks_small
+					}
+					icon = "GFX_JAP_cv_fighter2_medium"
+				}
+				create_equipment_variant = {
+					name = "Ki-43 Hayabusa"
+					type = small_plane_airframe_2
+					design_team = mio:JAP_kawanishi_aircraft_company_organization
+					allow_without_tech = no
+					modules = {
+						fixed_main_weapon_slot = light_mg_2x
+						fixed_auxiliary_weapon_slot_1 = bomb_locks
+						engine_type_slot = engine_3_1x
+						special_type_slot_1 = drop_tanks
+						special_type_slot_2 = fuel_tanks_small
+					}
+					icon = "GFX_JAP_fighter2_medium"
 				}
 			}
 		}
@@ -12930,15 +12888,14 @@ focus_tree = {
 		id = FRA_enact_plan_v
 		icon = GFX_goal_generic_air_production
 		cost = 10
-		prerequisite = {
-			focus = FRA_support_the_ecole_de_lair
-		}
-		prerequisite = {
-			focus = FRA_modernisation_program
-		}
-		x = -3
+		prerequisite = { focus = FRA_heavy_aircraft_modernisation_program }
+		prerequisite = { focus = FRA_light_aircraft_modernisation_program }
+		x = 1
 		y = 1
-		relative_position_id = FRA_modernisation_program
+		available = {
+			has_war = yes
+		}
+		relative_position_id = FRA_light_aircraft_modernisation_program
 		ai_will_do = {
 			factor = 0.5
 		}
@@ -13048,7 +13005,7 @@ focus_tree = {
 	
 	focus = {
 		id = FRA_provide_aerial_support
-		icon = GFX_goal_generic_fortify_aa
+		icon = GFX_focus_generic_radio_communication
 		cost = 10
 		prerequisite = {
 			focus = FRA_enact_plan_v
@@ -13206,7 +13163,7 @@ focus_tree = {
 			focus = FRA_enact_plan_v
 		}
 		x = -3
-		y = 2
+		y = 1
 		relative_position_id = FRA_enact_plan_v
 		ai_will_do = {
 			factor = 0.5
