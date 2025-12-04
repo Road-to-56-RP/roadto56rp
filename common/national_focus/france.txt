@@ -12,7 +12,7 @@ focus_tree = {
 	focus = {
 		id = FRA_tools_modernisation
 		icon = GFX_goal_generic_production2
-		cost = 10
+		cost = 5
 		x = 0
 		y = 0
 		ai_will_do = {
@@ -77,62 +77,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
 	}
-	focus = {
-		id = FRA_rearmament
-		icon = GFX_goal_generic_build_tank
-		cost = 10
-		x = 11
-		y = 0
-		available = {
-			OR = {
-				threat > 0.05
-				GER = {
-					has_completed_focus = GER_remilitarize_the_rhineland
-				}
-				has_war_support > 0.2
-			}
-		}
-		bypass = {
-			OR = {
-				has_idea = low_economic_mobilisation
-				has_idea = partial_economic_mobilisation
-				has_idea = war_economy
-				has_idea = tot_economic_mobilisation
-			}
-		}
-		
-		ai_will_do = {
-			factor = 2
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					OR = {
-						GER = {
-							has_added_tension_amount > 5
-						}
-						ITA = {
-							has_added_tension_amount > 5
-						}
-						ENG = {
-							has_added_tension_amount > 5
-						}
-					}
-				}
-				add_war_support = 0.05
-			}
-			if = {
-				limit = {
-					has_idea = civilian_economy
-				}
-				swap_ideas = {
-					remove_idea = civilian_economy
-					add_idea = low_economic_mobilisation
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
-	}
+
 	focus = {
 		id = FRA_radicalize_front
 		icon = GFX_goal_support_communism
@@ -142,8 +87,8 @@ focus_tree = {
 			focus = FRA_far_right_leagues
 			focus = FRA_action_francaise
 		}
-		relative_position_id = FRA_rearmament	#dont use political ones, which may be hidden
-		x = 6
+		relative_position_id = FRA_tools_modernisation	#dont use FR ones, which may be hidden
+		x = 17
 		y = 0
 		allow_branch = {
 			if = {
@@ -201,11 +146,10 @@ focus_tree = {
 			focus = FRA_action_francaise
 		}
 		available = {
-			
 			has_country_flag = FRA_1936_election
 		}
-		relative_position_id = FRA_rearmament	#dont use political ones, which may be hidden
-		x = 15
+		relative_position_id = FRA_tools_modernisation	#dont use political ones, which may be hidden
+		x = 26
 		y = 0
 		offset = {
 			x = -5
@@ -282,8 +226,8 @@ focus_tree = {
 			focus = FRA_radicalize_front
 			focus = FRA_action_francaise
 		}
-		relative_position_id = FRA_rearmament	#dont use political ones, which may be hidden
-		x = 26
+		relative_position_id = FRA_tools_modernisation	#dont use political ones, which may be hidden
+		x = 37
 		y = 0
 		offset = {
 			x = -17
@@ -339,8 +283,8 @@ focus_tree = {
 			focus = FRA_radicalize_front
 			focus = FRA_far_right_leagues
 		}
-		relative_position_id = FRA_rearmament	#dont use political ones, which may be hidden
-		x = 39
+		relative_position_id = FRA_tools_modernisation	#dont use political ones, which may be hidden
+		x = 50
 		y = 0
 		offset = {
 			x = -20
@@ -2627,329 +2571,8 @@ focus_tree = {
 			remove_worker_shortage_effect = yes
 		}
 	}
-	focus = {
-		id = FRA_war_material_licence
-		icon = GFX_goal_ammunitions
-		cost = 10
-		prerequisite = {
-			focus = FRA_rearmament
-		}
-		x = 10
-		y = 1
-		
-		ai_will_do = {
-			factor = 2
-		}
 
-		available = {
-			has_war_support > 0.2 #just making sure you aren't meta gaming
-		}
-		continue_if_invalid = yes
-		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}    
-				country_event = {
-					id = france.aat.2
-					hours = 12
-				}
-			}
-			else = {
-				country_event = {
-					id = france.130
-					hours = 12
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-					is_core_of = ROOT
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-					is_core_of = ROOT
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	focus = {
-		id = FRA_commit_automobile_manufacturer
-		icon = GFX_goal_generic_automobile
-		cost = 10
-		prerequisite = {
-			focus = FRA_rearmament
-		}
-		x = 12
-		y = 1
-		
-		ai_will_do = {
-			factor = 2
-		}
-		continue_if_invalid = yes
-		available = {
-			has_war_support > 0.2 #just making sure you aren't meta gaming
-		}
 
-		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}    
-				country_event = {
-					id = france.aat.1
-					hours = 12
-				}
-			}
-			else = {
-				country_event = {
-					id = france.131
-					hours = 12
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-					is_core_of = ROOT
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-					is_core_of = ROOT
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	focus = {
-		id = FRA_defense_national_funds
-		icon = GFX_goal_generic_national_defense_fund
-		cost = 10
-		prerequisite = {
-			focus = FRA_commit_automobile_manufacturer
-		}
-		prerequisite = {
-			focus = FRA_war_material_licence
-		}
-		continue_if_invalid = yes
-		available = {
-			has_war_support > 0.25
-			OR = {
-				threat > 0.25
-				any_home_area_neighbor_country = {
-					has_added_tension_amount > 10
-				}
-			}
-		}
-		x = 11
-		y = 2
-		bypass = {
-			has_war = yes
-		}
-		ai_will_do = {
-			factor = 2
-		}
-		completion_reward = {
-			unlock_decision_tooltip = FRA_nationalize_industy
-			add_ideas = FRA_industrial_support1
-			custom_effect_tooltip = FRA_defense_national_funds_tooltip
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = FRA_partial_mobilization
-		icon = GFX_mobilisation
-		cost = 10
-		prerequisite = {
-			focus = FRA_defense_national_funds
-		}
-		x = 11
-		y = 3
-		continue_if_invalid = yes
-		available = {
-			has_war_support > 0.25
-			OR = {
-				threat > 0.25
-				any_home_area_neighbor_country = {
-					has_added_tension_amount > 15
-				}
-			}
-		}
-		bypass = {
-			OR = {
-				has_idea = partial_economic_mobilisation
-				has_idea = war_economy
-				has_idea = tot_economic_mobilisation
-			}
-		}
-		ai_will_do = {
-			factor = 2
-		}
-		completion_reward = {
-			add_war_support = 0.05
-			add_ideas = partial_economic_mobilisation
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
-	}
-	focus = {
-		id = FRA_military_complex_nationalisation
-		icon = GFX_goal_generic_construct_mil_factory
-		cost = 10
-		prerequisite = {
-			focus = FRA_partial_mobilization
-		}
-		x = 10
-		y = 4
-		ai_will_do = {
-			factor = 1.2
-		}
-		completion_reward = {
-			unlock_decision_tooltip = FRA_nationalize_military_complex
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = paul_faure
-		}
-	}
-	focus = {
-		id = FRA_aircraft_manufacturer_nationalisation
-		icon = GFX_goal_generic_air_production
-		cost = 10
-		prerequisite = {
-			focus = FRA_partial_mobilization
-		}
-		x = 12
-		y = 4
-		ai_will_do = {
-			factor = 1
-		}
-		completion_reward = {
-			FRA_air_force_improvement = yes
-			unlock_decision_tooltip = FRA_nationalize_aircraft
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = felix_gouin
-		}
-	}
-	focus = {
-		id = FRA_war_effort_law
-		icon = GFX_goal_generic_more_territorial_claims
-		cost = 10
-		prerequisite = {
-			focus = FRA_military_complex_nationalisation
-			focus = FRA_aircraft_manufacturer_nationalisation
-		}
-		x = 11
-		y = 5
-		continue_if_invalid = yes
-		available = {
-			has_war_support > 0.30
-			threat > 0.30
-		}
-		bypass = {
-			OR = {
-				has_idea = war_economy
-				has_idea = tot_economic_mobilisation
-			}
-		}
-		ai_will_do = {
-			factor = 1.5
-		}
-		completion_reward = {
-			add_war_support = 0.05
-			add_ideas = war_economy
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
-	}
-	focus = {
-		id = FRA_wartime_organisation_act
-		icon = GFX_goal_generic_production
-		cost = 10
-		prerequisite = {
-			focus = FRA_defense_national_funds
-		}
-		continue_if_invalid = yes
-		available = {
-			OR = {
-				has_war = yes
-				AND = {
-					has_war_support > 0.5
-					has_stability > 0.5
-				}
-			}
-		}
-		x = 13
-		y = 3
-		ai_will_do = {
-			factor = 1.5
-		}
-		completion_reward = {
-			add_ideas = FRA_wartime_focus
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	focus = {
-		id = FRA_further_armament_program
-		icon = GFX_focus_secret_rearmament
-		cost = 10
-		prerequisite = {
-			focus = FRA_wartime_organisation_act
-		}
-		continue_if_invalid = yes
-		available = {
-			has_war_support > 0.35
-		}
-		x = 13
-		y = 5
-		ai_will_do = {
-			factor = 1.5
-		}
-		
-		completion_reward = {
-			add_ideas = FRA_armament_program
-		}
-	}
 	focus = {
 		id = FRA_intervention_committee
 		icon = GFX_focus_ger_great_red_menace
@@ -3404,7 +3027,7 @@ focus_tree = {
 			focus = FRA_status_quo
 			focus = FRA_radicalize_front
 		}
-		x = -5
+		x = -6
 		y = 1
 		relative_position_id = FRA_status_quo
 		ai_will_do = {
@@ -9395,7 +9018,7 @@ focus_tree = {
 	focus = {
 		id = FRA_intervention_in_spain
 		icon = GFX_focus_focus_fra_intervention_spain
-		x = 6
+		x = 5
 		y = 1
 		prerequisite = {
 			focus = FRA_status_quo
@@ -10014,6 +9637,25 @@ focus_tree = {
 					add_idea = low_economic_mobilisation
 				}
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			unlock_decision_category_tooltip = FRA_national_defence_plan_cat
+		}
+	}
+
+	focus = {
+		id = FRA_temp_enjoyers
+		icon = GFX_focus_generic_reorient_production
+		cost = 5
+		prerequisite = { focus = FRA_national_defence_plan }
+		relative_position_id = FRA_national_defence_plan
+		x = -9
+		y = 1
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+
 		}
 	}
 
@@ -10021,35 +9663,54 @@ focus_tree = {
 		id = FRA_giraud_plan
 		icon = GFX_goal_FRA_giraud
 		cost = 10
-		#prerequisite = {
-		#	focus = FRA_CHEDN
-		#}
+		prerequisite = {
+			focus = FRA_temp_enjoyers
+		}
 		mutually_exclusive = {
 			focus = FRA_de_gaulle_strategy
 		}
-		relative_position_id = FRA_national_defence_plan
-		x = -12
-		y = 2
+		relative_position_id = FRA_temp_enjoyers
+		x = 1
+		y = 1
 		ai_will_do = {
 			factor = 2
 		}
 		completion_reward = {
+			add_command_power = 25
+			army_experience = 15
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_mastery = {
+				amount = 150
+				track = infantry
+			}
+
+			add_doctrine_cost_reduction = {
+				name = GER_the_prussian_legacy
+				cost_reduction = 0.5
+				uses = 1
+				category = cat_grand_battle_plan
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
 			every_army_leader = {
 				add_defense = 1
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_chief_of_army
 			show_ideas_tooltip = maxime_weygand
 		}
 	}
 	
 	focus = {
-		id = FRA_fortification_focus
+		id = FRA_la_bataille_methodique
 		icon = GFX_goal_generic_construction2
 		cost = 5
 		prerequisite = {
 			focus = FRA_giraud_plan
 		}
-		x = -1
+		x = 3
 		y = 1
 		relative_position_id = FRA_giraud_plan
 		
@@ -10057,9 +9718,32 @@ focus_tree = {
 			factor = 2
 		}
 		completion_reward = {
-			add_ideas = FRA_fortification_focus
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_artillery_focus
+		icon = GFX_goal_generic_combined_arms_artillery_antiair_antitank
+		cost = 5
+		prerequisite = { focus = FRA_la_bataille_methodique }
+		x = -1
+		y = 1
+		relative_position_id = FRA_la_bataille_methodique
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = {
+				name = FRA_artillery_focus
+				bonus = 1
+				uses = 1
+				category = artillery
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -10067,11 +9751,11 @@ focus_tree = {
 		icon = GFX_goal_generic_position_armies
 		cost = 10
 		prerequisite = {
-			focus = FRA_fortification_focus
+			focus = FRA_la_bataille_methodique
 		}
-		x = -1
+		x = 1
 		y = 1
-		relative_position_id = FRA_fortification_focus
+		relative_position_id = FRA_la_bataille_methodique
 		ai_will_do = {
 			factor = 1
 		}
@@ -10089,86 +9773,51 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = FRA_heavy_armor_focus
-		icon = GFX_goal_generic_heavy_armour_french
-		prerequisite = { focus = FRA_commission_fortified_regions }
-		x = -1
-		y = 2
-		relative_position_id = FRA_commission_fortified_regions
-		cost = 10
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			army_experience = 5
-			add_tech_bonus = {
-				name = FRA_heavy_armor_focus
-				bonus = 1 #Effectively 0.25 years ahead of time
-				ahead_reduction = 1
-				uses = 1
-				category = cat_heavy_armor
-			}	
-		}
-	}
-	
-	focus = {
-		id = FRA_extend_the_maginot_line
-		icon = GFX_goal_generic_fortify_city
-		cost = 10
-		prerequisite = {
-			focus = FRA_commission_fortified_regions
-		}
-		x = 0
-		y = 1
-		relative_position_id = FRA_commission_fortified_regions
-		available = {
-			18 = {
-				is_controlled_by = ROOT
-			}
-			29 = {
-				is_controlled_by = ROOT
-			}
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		completion_reward = {
-			ROOT = {
-				country_event = {
-					id = france.2
-				}
-			}
-			BEL = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = FRA_extend_the_maginot_line_focus_neg
-				}
-				add_opinion_modifier = {
-					target = GER
-					modifier = FRA_extend_the_maginot_line_focus_pos
-				}
-			}
-		}
-	}
-	
-	focus = {
 		id = FRA_de_gaulle_strategy
 		icon = GFX_goal_FRA_de_gaulle
 		cost = 10
-		#prerequisite = {
-		#	focus = FRA_CHEDN
-		#}
+		prerequisite = {
+			focus = FRA_temp_enjoyers
+		}
 		mutually_exclusive = {
 			focus = FRA_giraud_plan
 		}
-		x = 2
-		y = 0
-		relative_position_id = FRA_giraud_plan
+		x = -1
+		y = 1
+		relative_position_id = FRA_temp_enjoyers
 		
 		ai_will_do = {
 			factor = 0.75
 		}
 		completion_reward = {
+			add_command_power = 25
+			army_experience = 15
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_mastery_bonus = {
+				name = GER_adopt_new_panzer_doctrine
+				bonus = 0.1
+				days = 240
+				track = armor
+				grand_doctrine = new_mobile_warfare
+			}
+			add_mastery_bonus = {
+				name = GER_adopt_new_panzer_doctrine
+				bonus = 0.1
+				days = 240
+				track = infantry
+				grand_doctrine = new_mobile_warfare
+			}
+
+			add_doctrine_cost_reduction = {
+				name = GER_adopt_new_panzer_doctrine
+				cost_reduction = 0.5
+				uses = 1
+				category = cat_mobile_warfare
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
 			every_army_leader = {
 				add_attack = 1
 			}
@@ -10183,19 +9832,42 @@ focus_tree = {
 				legacy_id=101
 			}
 			set_country_flag = de_gaulle_commander
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_chief_of_army
 			show_ideas_tooltip = maurice_gamelin
 		}
 	}
+
+	focus = {
+		id = FRA_strenghten_anti_tank_capabilities 
+		icon = GFX_focus_generic_anti_tank_guns
+		cost = 5
+		prerequisite = { focus = FRA_de_gaulle_strategy }
+		x = 0
+		y = 2
+		relative_position_id = FRA_de_gaulle_strategy
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = {
+				name = FRA_artillery_focus
+				bonus = 1
+				uses = 1
+				category = cat_anti_tank
+			}
+		}
+	}
 	
 	focus = {
-		id = FRA_motorized_focus
-		icon = GFX_goal_generic_army_motorized
+		id = FRA_la_guerra_mecanique
+		icon = GFX_focus_generic_tank_assault
 		cost = 5
 		prerequisite = {
 			focus = FRA_de_gaulle_strategy
 		}
-		x = 1
+		x = -3
 		y = 1
 		relative_position_id = FRA_de_gaulle_strategy
 		ai_will_do = {
@@ -10203,67 +9875,87 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_ideas = FRA_motorized_focus
-		}
-	}
-	
-	focus = {
-		id = FRA_the_mas38
-		icon = GFX_goal_generic_small_arms
-		cost = 5
-		prerequisite = {
-			focus = FRA_fortification_focus
-			focus = FRA_motorized_focus
-		}
-		x = 1
-		y = 2
-		relative_position_id = FRA_fortification_focus
-		ai_will_do = {
-			factor = 2
-		}
-		
-		completion_reward = {
 			army_experience = 25
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_tech_bonus = {
-				name = FRA_the_mas38
-				bonus = 1
-				uses = 1
-				category = infantry_weapons
+				name = JAP_rethink_armor_doctrine
+				bonus = 0.5
+				uses = 2
+				category = armor	
 			}
+			add_tech_bonus = {
+				name = JAP_rethink_armor_doctrine
+				bonus = 0.25
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+			add_doctrine_cost_reduction = {
+				name = JAP_rethink_armor_doctrine
+				cost_reduction = 0.25
+				uses = 1
+				category = land_doctrine
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			
+			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
+			add_to_variable = { r56rp_armee_de_terra_motorized_attack_factor = 0.05 tooltip = motorized_attack_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_mechanized_attack_factor = 0.05 tooltip = mechanized_attack_factor_tt }
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
-		id = FRA_infantry_focus
-		icon = GFX_focus_generic_army_modernizations
+		id = FRA_the_queen_of_battle
+		icon = GFX_goal_generic_march_infantry
 		cost = 5
-		prerequisite = {
-			focus = FRA_the_mas38
-		}
-		x = -1
-		y = 1
-		relative_position_id = FRA_the_mas38
+		prerequisite = { focus = FRA_artillery_focus }
+		prerequisite = { focus = FRA_commission_fortified_regions }
+		x = 0
+		y = 2
+		relative_position_id = FRA_la_bataille_methodique
 		ai_will_do = {
 			factor = 2
 		}
 		
 		completion_reward = {
-			army_experience = 5
-			add_ideas = FRA_infantry_focus
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.5
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			IF = {
+				limit = {
+					has_dlc = "Gotterdammerung"
+				}
+				JAP_add_or_modify_advanced_weapon_projects = yes
+				add_to_variable = { JAP_advanced_weapons_sp_tag_artillery_speed_factor = 0.1 tooltip = sp_tag_artillery_speed_factor_tt }
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+					has_doctrine = mass_assault
+				}
+				add_ideas = mass_assault_academy_spirit
+			}
+
+			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
+			add_to_variable = { r56rp_armee_de_terra_infantry_attack_factor = 0.1 tooltip = army_infantry_attack_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_infantry_defence_factor = 0.1 tooltip = army_infantry_defence_factor_tt }
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
-		id = FRA_alpine_forts # Ridicolously Underpowered
-		icon = GFX_goal_generic_construct_military
+		id = FRA_fortification_focus # Ridicolously Underpowered
+		icon = GFX_focus_SWI_fortify_border_with_france
 		cost = 5
 		prerequisite = {
 			focus = FRA_giraud_plan
 			focus = FRA_de_gaulle_strategy
 		}
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = FRA_giraud_plan
 		available = {
@@ -10283,141 +9975,281 @@ focus_tree = {
 			ITA = {
 				add_opinion_modifier = {
 					target = ROOT
-					modifier = FRA_alpine_forts
+					modifier = FRA_fortification_focus
+				}
+			}
+			effect_tooltip = {
+				18 = {
+					add_building_construction = {
+						type = bunker
+						province = 5291
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						province = 3560
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						province = 9472
+						level = 2
+						instant_build = yes
+					}
+				}
+				29 = {
+					add_building_construction = {
+						type = bunker
+						province = 11606
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						province = 11483
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						province = 575
+						level = 2
+						instant_build = yes
+					}
+				}
+				785 = {
+					add_building_construction = {
+						type = bunker
+						province = 3447
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			ROOT = {
+				country_event = {
+					id = france.2
+				}
+			}
+			BEL = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = FRA_extend_the_maginot_line_focus_neg
+				}
+				add_opinion_modifier = {
+					target = GER
+					modifier = FRA_extend_the_maginot_line_focus_pos
 				}
 			}
 		}
 	}
+
+
 	focus = {
-		id = FRA_artillery_focus
-		icon = GFX_goal_generic_army_artillery2
+		id = FRA_modernize_infantry_equipment
+		icon = GFX_goal_generic_small_arms
 		cost = 5
-		prerequisite = {
-			focus = FRA_fortification_focus
-			focus = FRA_motorized_focus
-		}
-		x = 2
-		y = 1
-		relative_position_id = FRA_fortification_focus
+		prerequisite = { focus = FRA_giraud_plan }
+		x = 0
+		y = 2
+		relative_position_id = FRA_giraud_plan
 		ai_will_do = {
 			factor = 2
 		}
-		
+
 		completion_reward = {
 			army_experience = 25
 			add_tech_bonus = {
-				name = FRA_artillery_focus
-				bonus = 1
+				name = infantry_weapons_bonus
+				bonus = 2
 				uses = 1
-				category = artillery
+				category = infantry_weapons
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
+
 	focus = {
-		id = FRA_infantry_tanks
-		icon = GFX_focus_generic_combined_arms
-		cost = 5
-		prerequisite = {
-			focus = FRA_fortification_focus
-			focus = FRA_motorized_focus
+		id = FRA_partial_mobilization
+		icon = GFX_focus_generic_full_social_mobilization
+		cost = 10
+		prerequisite = { focus = FRA_modernize_infantry_equipment focus = FRA_strenghten_anti_tank_capabilities }
+		x = 1
+		y = 1
+		relative_position_id = FRA_strenghten_anti_tank_capabilities
+		available = {
+			has_war_support > 0.25
+			OR = {
+				threat > 0.25
+				any_home_area_neighbor_country = {
+					has_added_tension_amount > 15
+				}
+			}
 		}
-		x = -1
-		y = 2
-		relative_position_id = FRA_motorized_focus
+		bypass = {
+			OR = {
+				has_idea = partial_economic_mobilisation
+				has_idea = war_economy
+				has_idea = tot_economic_mobilisation
+			}
+		}
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+			add_ideas = partial_economic_mobilisation
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = FRA_strenghten_anti_tank_capabilities_three
+		icon = GFX_goal_generic_national_defense_fund
+		cost = 5
+		prerequisite = { focus = FRA_partial_mobilization }
+		x = -2
+		y = 1
+		relative_position_id = FRA_partial_mobilization
+		available = {
+			has_war_support > 0.25
+			OR = {
+				threat > 0.25
+				any_home_area_neighbor_country = {
+					has_added_tension_amount > 10
+				}
+			}
+		}
 
 		ai_will_do = {
 			factor = 1
 		}
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_infantry_tanks
-				bonus = 1
-				uses = 1
-				category = armor
-			}
-			IF = {
-				limit = { has_dlc = "Arms Against Tyranny" }
-				mio:FRA_renault_organization = {
-					add_mio_funds = 2000
-				}
-			}
-			ELSE = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = FRA_hotchkiss
-			}
-
+			add_ideas = FRA_industrial_support1
 		}
 	}
+
 	focus = {
-		id = FRA_the_somua_s35
-		icon = GFX_goal_FRA_somua
+		id = FRA_kickstart_the_arms_industry
+		icon = GFX_focus_generic_reorient_production
+		cost = 5
+		prerequisite = { focus = GFX_focus_generic_reorient_production }
+		x = 0
+		y = 1
+		relative_position_id = FRA_partial_mobilization
+		available = {
+			OR = {
+				has_completed_focus = FRA_la_bataille_methodique
+				has_completed_focus = FRA_la_guerra_mecanique
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				prioritize = { 24 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				prioritize = { 21 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = FRA_infantry_focus	
+		}
+	}
+
+	focus = {
+		id = FRA_end_the_interservice_rivalry
+		icon = GFX_focus_SWI_fortify_border_with_france
+		cost = 5
+		prerequisite = { focus = FRA_partial_mobilization }
+		x = 2
+		y = 1
+		relative_position_id = FRA_partial_mobilization
+		available = {
+			735 = {
+				is_controlled_by = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		
+		}
+	}
+
+
+	focus = {
+		id = FRA_chars_de_infanterie
+		icon = GFX_focus_generic_heavy_tank
 		cost = 10
 		prerequisite = {
-			focus = FRA_infantry_tanks
+			focus = FRA_la_guerra_mecanique
+		}
+		mutually_exclusive = {
+			focus = FRA_chars_de_bataille
 		}
 		x = 1
 		y = 1
-		relative_position_id = FRA_infantry_tanks
+		relative_position_id = FRA_la_guerra_mecanique
 
 		ai_will_do = {
 			factor = 1
 		}
-		
-		bypass = {
-			has_tech = improved_medium_tank
-		}
 
 		completion_reward = {
+			army_experience = 15
 			add_tech_bonus = {
-				name = FRA_the_somua_s35
+				name = FRA_heavy_armor_focus
+				bonus = 1 #Effectively 0.25 years ahead of time
 				ahead_reduction = 1
-				bonus = 1
 				uses = 1
-				category = cat_medium_armor
-			}
+				category = cat_heavy_armor
+			}	
 		}
 	}
+
 	focus = {
 		id = FRA_army_reform
 		icon = GFX_goal_FRA_army_reform
 		cost = 10
-		prerequisite = {
-			focus = FRA_infantry_tanks
-		}
-		prerequisite = {
-			focus = FRA_the_mas38
-		}
-		prerequisite = {
-			focus = FRA_artillery_focus
-		}
+		prerequisite = { focus = FRA_strenghten_anti_tank_capabilities_three focus = FRA_end_the_interservice_rivalry }
+		prerequisite = { focus = FRA_kickstart_the_arms_industry }
 		x = 0
-		y = 2
-		relative_position_id = FRA_artillery_focus
+		y = 6
+		relative_position_id = FRA_temp_enjoyers
 		ai_will_do = {
 			factor = 5
 		}
 		
 		completion_reward = {
-			add_war_support = 0.05
 			remove_ideas = FRA_victors_of_wwi
 			add_doctrine_cost_reduction = {
 				name = FRA_army_reform
 				cost_reduction = 0.5
 				uses = 2
 				category = land_doctrine
-			}	
-			
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				mio:FRA_hotchkiss_organization = {
-					add_mio_funds = 1500
-					add_mio_research_bonus = 0.02
-				}
-			}			
+			}		
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER }
 	}
@@ -10428,7 +10260,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_army_reform
 		}
-		x = -2
+		x = 2
 		y = 1
 		relative_position_id = FRA_army_reform
 		
@@ -10581,7 +10413,7 @@ focus_tree = {
 	focus = {
 		id = FRA_division_cuirassee
 		icon = GFX_focus_generic_army_tanks2
-		x = 2
+		x = -2
 		y = 1
 		prerequisite = { focus = FRA_army_reform }
 		mutually_exclusive = { }
@@ -10658,44 +10490,44 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = FRA_mechanized_focus
-		icon = GFX_goal_mechanized_offensive
+		id = FRA_chars_de_bataille
+		icon = GFX_focus_generic_army_tanks2
 		cost = 10
 		prerequisite = {
-			focus = FRA_motorized_focus
+			focus = FRA_la_guerra_mecanique
 		}
-		x = 1
+		mutually_exclusive = {
+			focus = FRA_chars_de_infanterie
+		}
+		x = -1
 		y = 1
-		relative_position_id = FRA_motorized_focus
+		relative_position_id = FRA_la_guerra_mecanique
 		ai_will_do = {
 			factor = 1
 		}
 		completion_reward = {
+			army_experience = 15
 			add_tech_bonus = {
-				name = FRA_mechanized_focus
+				name = FRA_the_somua_s35
+				ahead_reduction = 1
 				bonus = 1
 				uses = 1
-				category = cat_mechanized_equipment
+				category = cat_medium_armor
 			}
-			#add_tech_bonus = {
-			#	bonus = 1
-			#	uses = 2
-			#	category = cat_light_armor
-			#	category = cat_medium_armor
-			#}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	focus = {
 		id = FRA_tank_modernisation
-		icon = GFX_focus_chi_army_reform
+		icon = GFX_goal_FRA_somua
 		cost = 10
 		prerequisite = {
-			focus = FRA_mechanized_focus
+			focus = FRA_chars_de_bataille
+			focus = FRA_chars_de_infanterie
 		}
-		x = 0
+		x = 1
 		y = 1
-		relative_position_id = FRA_mechanized_focus
+		relative_position_id = FRA_chars_de_bataille
 		
 		ai_will_do = {
 			factor = 1
@@ -10710,50 +10542,34 @@ focus_tree = {
 					remove_idea = FRA_protected_by_the_maginot_line
 				}
 			}
-		}
-	}
-	#focus = { #ig de Gaulle would like something like german stormtroopers or grenadiers to support armored forces in his doctrine - Darkneon312
-	#	id = FRA_shock_troops
-	#	icon = GFX_focus_generic_manpower
-	#	cost = 10
-	#	prerequisite = {
-	#		focus = FRA_tank_modernisation
-	#	}
-	#	x = -1
-	#	y = 1
-	#	relative_position_id = FRA_tank_modernisation
-	#	
-	#	ai_will_do = {
-	#		factor = 1
-	#	}
-	#	completion_reward = {
-	#		add_tech_bonus = {
-	#			name = FRA_legion
-	#			bonus = 1
-	#			uses = 2
-	#			category = r56_shock_infantry_tech
-	#		}
-	#	}
-	#}
-	focus = {
-		id = FRA_light_medium_armor
-		icon = GFX_goal_generic_tank_map
-		prerequisite = { focus = FRA_mechanized_focus }
-		x = 1
-		y = 2
-		relative_position_id = FRA_mechanized_focus
-		cost = 10
 
-		available_if_capitulated = yes
 
-		completion_reward = {
-			army_experience = 15
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.25
+			}
+
 			add_tech_bonus = {
-				name = FRA_light_medium_armor
-				bonus = 1
+				name = JAP_the_ultimate_tank
+				bonus = 0.75
 				uses = 2
-				category = cat_light_armor
-				category = cat_medium_armor
+				category = armor	
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
+			add_to_variable = { r56rp_armee_de_terra_army_armor_attack_factor = 0.1 tooltip = army_armor_attack_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_motorized_attack_factor = 0.05 tooltip = motorized_attack_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_mechanized_attack_factor = 0.05 tooltip = mechanized_attack_factor_tt }
+
+			
+
+			IF = {
+				limit = {
+					has_dlc = "Gotterdammerung"
+				}
+				add_to_variable = { JAP_advanced_weapons_sp_tag_tank_speed_factor = 0.15 tooltip = sp_tag_tank_speed_factor_tt }
+				custom_effect_tooltip = generic_skip_one_line_tt
 			}
 		}
 	}
@@ -10765,7 +10581,7 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 		focus = FRA_national_defence_plan}
-		x = 0
+		x = 9
 		y = 1
 		relative_position_id = FRA_national_defence_plan
 		ai_will_do = {
@@ -10796,7 +10612,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
 		}
-		x = 3
+		x = -3
 		y = 1
 		relative_position_id = FRA_CHEDN
 		ai_will_do = {
@@ -10934,7 +10750,7 @@ focus_tree = {
 		id = FRA_expand_naval_intelligence
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = FRA_sea_denial_doctrine }
-		x = 2
+		x = -2
 		y = 1
 		relative_position_id = FRA_sea_denial_doctrine
 		cost = 5
@@ -10980,7 +10796,7 @@ focus_tree = {
 		id = FRA_ecole_navale_combine
 		icon = GFX_focus_SMB_blue_water_fleet
 		prerequisite = {focus = FRA_intensify_torpedo_manufacturing }
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = FRA_intensify_torpedo_manufacturing
 		cost = 10
@@ -11048,7 +10864,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_supprt_the_aeronavale
 		}
-		x = 2
+		x = -2
 		y = 1
 		relative_position_id = FRA_ecole_navale_combine
 		cost = 10
@@ -11213,7 +11029,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_ecole_navale_combine
 		}
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = FRA_intensify_torpedo_manufacturing
 		cost = 10
@@ -11254,7 +11070,7 @@ focus_tree = {
 		id = FRA_modernization_of_the_battlefleet
 		icon = GFX_focus_generic_refit_civilian_ships
 		prerequisite = {focus = FRA_ecole_navale_asymetrique focus = FRA_ecole_navale_combine }
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = FRA_ecole_navale_asymetrique
 		cost = 10
@@ -11307,7 +11123,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_endorse_the_jeune_ecole
 		}
-		x = -3
+		x = 3
 		y = 1
 		relative_position_id = FRA_CHEDN
 		cost = 10
@@ -11351,7 +11167,7 @@ focus_tree = {
 		id = FRA_improved_screen_ships
 		icon = GFX_goal_generic_navy_cruiser
 	 	prerequisite = { focus = FRA__reaffirm_ecole_de_ligne_de_bataille }
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
 		cost = 10
@@ -12101,7 +11917,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
 		}
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
 		ai_will_do = {
@@ -12203,7 +12019,7 @@ focus_tree = {
 			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
 			focus = FRA_endorse_the_jeune_ecole
 		}
-		x = -3
+		x = 3
 		y = 1
 		relative_position_id = FRA_endorse_the_jeune_ecole
 		
@@ -12295,7 +12111,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_naval_construction_program
 		}
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = FRA_naval_construction_program
 		cost = 5
@@ -12397,7 +12213,7 @@ focus_tree = {
 		icon = GFX_goal_generic_build_navy
 		overlay = GFX_focus_fast_overlay_generic_clock
 		prerequisite = { focus = FRA_naval_construction_program }
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = FRA_naval_construction_program
 		cost = 20
@@ -12596,7 +12412,7 @@ focus_tree = {
 		icon = GFX_goal_r56rp_french_air_coa
 		cost = 5
 		prerequisite = { focus = FRA_national_defence_plan }
-		x = 9
+		x = 0
 		y = 1
 		relative_position_id = FRA_national_defence_plan
 		ai_will_do = {
@@ -12604,7 +12420,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			air_experience = 40
+			air_experience = 35
 			add_doctrine_cost_reduction = {
 				name = FRA_fund_aeronautical_research_facilities
 				cost_reduction = 0.5
@@ -12670,6 +12486,7 @@ focus_tree = {
 				specialization = specialization_air
 				value = 0.5
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12712,36 +12529,6 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}	
-				mio:JAP_kawasaki_aircraft_industries_organization = {
-					add_mio_research_bonus = 0.05
-				}
-				mio:JAP_nakajima_organization = {
-					add_mio_research_bonus = 0.05
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-			}
-
-			add_tech_bonus = {
-				name = JAP_modern_bombers
-				bonus = 1
-				category = medium_air
-			}
-
-			custom_effect_tooltip = generic_skip_one_line_tt
-
-			add_breakthrough_progress = {
-				specialization = specialization_air
-				value = 0.25
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-
-	
-			
-			FRA_air_force_improvement = yes
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12765,6 +12552,32 @@ focus_tree = {
 		}
 		
 		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				prioritize = { 24 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				prioritize = { 21 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
 			mio:FRA_amiot_organization = {
 				set_mio_name_key = SNCAC
 				set_mio_icon = GFX_idea_FRA_sncac
@@ -12778,8 +12591,7 @@ focus_tree = {
 					show_modifiers = yes
 				}
 			}
-			
-
+			custom_effect_tooltip = generic_skip_one_line_tt
 			mio:FRA_morane_saulnier_organization = {
 				set_mio_name_key = SNCAM
 				set_mio_icon = GFX_idea_FRA_sncac
@@ -12952,9 +12764,13 @@ focus_tree = {
 						special_type_slot_1 = empty
 						special_type_slot_2 = empty
 					}
-					icon = "GFX_JAP_cv_fighter2_medium"
+					icon = "GFX_FRA_r56_improved_fighter_01_medium"
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_armee_de_lair_tt
+			add_to_variable = { r56rp_armee_de_lair_modifier_air_superiority_efficiency = 0.1 tooltip = air_superiority_efficiency_tt }
+			add_to_variable = { r56rp_armee_de_lair_modifier_air_defence_factor = 0.05 tooltip = air_defence_factor_tt }
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12968,7 +12784,12 @@ focus_tree = {
 		x = 1
 		y = 1
 		available = {
-			has_war = yes
+			OR = {
+				has_war = yes
+				any_neighbor_country = {
+					has_added_tension_amount > 15
+				}
+			}
 		}
 		relative_position_id = FRA_light_aircraft_modernisation_program
 		ai_will_do = {
@@ -12981,13 +12802,14 @@ focus_tree = {
 				days = 730
 			}
 			
-			FRA_air_force_improvement = yes
+			# Activates Mission similiar to Mussolini's "Expand the Airforce"
+			# Level 1 - Small Bonus Level 2 - Great Bonus Level 3 - Unstoppable.
 		}
 	}
 	
 	focus = {
 		id = FRA_resolve_engine_deficiency
-		icon = GFX_goal_generic_air_bomber
+		icon = GFX_focus_generic_copy_plane_designs
 		cost = 10
 		prerequisite = {
 			focus = FRA_enact_plan_v
@@ -13009,8 +12831,7 @@ focus_tree = {
 					ahead_reduction = 1
 					bonus = 1
 					uses = 1
-					category = medium_air
-					category = heavy_air
+					category = cat_air_engine
 				}
 			}
 			else = {
@@ -13022,6 +12843,10 @@ focus_tree = {
 					category = tactical_bomber
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_armee_de_lair_tt
+			add_to_variable = { r56rp_armee_de_lair_modifier_air_fuel_consumption_factor = -0.1 tooltip = air_fuel_consumption_factor_tt }
+			add_to_variable = { r56rp_armee_de_lair_modifier_air_range_factor = 0.1 tooltip = air_range_factor_tt }
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -13034,7 +12859,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_enact_plan_v
 		}
-		x = 2
+		x = -2
 		y = 1
 		relative_position_id = FRA_enact_plan_v
 		ai_will_do = {
@@ -13051,13 +12876,6 @@ focus_tree = {
 					bonus = 0.5
 					uses = 1
 					category = medium_air
-				}
-				add_tech_bonus = {
-					name = FRA_provide_aerial_support
-					technology = aa_cannon_2
-					ahead_reduction = 0.5
-					bonus = 0.75
-					uses = 1
 				}
 			}
 			else = {
@@ -13077,7 +12895,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-	
+
 	focus = {
 		id = FRA_new_french_fighter
 		icon = GFX_goal_generic_air_fighter2
@@ -13124,9 +12942,7 @@ focus_tree = {
 		id = FRA_barrage_david
 		icon = GFX_goal_generic_radar
 		cost = 10
-		prerequisite = {
-			focus = FRA_enact_plan_v
-		}
+		prerequisite = { focus = FRA_enact_plan_v }
 		x = -1
 		y = 2
 		relative_position_id = FRA_enact_plan_v
@@ -13190,7 +13006,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_enact_plan_v
 		}
-		x = -2
+		x = 2
 		y = 1
 		relative_position_id = FRA_enact_plan_v
 		ai_will_do = {
