@@ -12,30 +12,7 @@ FRA_national_defence_plan_cat = {
 		}
 
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = FRA_strenghten_aircraft_small_procurement_tt
-				#Fighters
-				set_temp_variable = { current_fighters = num_equipment@small_plane_airframe }
-				add_to_temp_variable = { current_fighters = num_deployed_planes_with_type@small_plane_airframe }
-				check_variable = { current_fighters = FRA_fighters_to_produce compare = greater_than_or_equals }
-			}
-			custom_trigger_tooltip = {
-				tooltip = FRA_strenghten_aircraft__large_procurement_tt
-				# Close Air Support
-				set_temp_variable = { current_cas = num_equipment@small_plane_cas_airframe }
-				add_to_temp_variable = { current_cas = num_deployed_planes_with_type@small_plane_cas_airframe }
-				#Tactical Bombers
-				set_temp_variable = { current_tactical_bombers = num_equipment@medium_plane_airframe }
-				add_to_temp_variable = { current_tactical_bombers = num_deployed_planes_with_type@medium_plane_airframe }
-				OR = {
-					#CAS
-					check_variable = { current_cas = ITA_missiolinis_cas_goal compare = greater_than_or_equals }
-					#Naval Bombers
-					check_variable = { current_naval_bombers = ITA_missiolinis_naval_bombers_goal compare = greater_than_or_equals }
-					#Tactical Bombers
-					check_variable = { current_tactical_bombers = ITA_missiolinis_tactical_bombers_goal compare = greater_than_or_equals }
-				}
-			}
+			has_army_manpower = { size > 750000 }
 		}
 
 		activation = {
@@ -62,6 +39,7 @@ FRA_national_defence_plan_cat = {
 
 		}
 	}
+	
 	FRA_expand_aircraft_procurement = {
 		icon = GFX_decision_generic_merge_plant_aircraft
 
@@ -81,22 +59,22 @@ FRA_national_defence_plan_cat = {
 				add_to_temp_variable = { current_fighters = num_deployed_planes_with_type@small_plane_airframe }
 				check_variable = { current_fighters = FRA_fighters_to_produce compare = greater_than_or_equals }
 			}
+
 			custom_trigger_tooltip = {
-				tooltip = ITA_missiolini_strengthen_the_airforce_bombers_goal_tt
-				# Close Air Support
-				set_temp_variable = { current_cas = num_equipment@small_plane_cas_airframe }
-				add_to_temp_variable = { current_cas = num_deployed_planes_with_type@small_plane_cas_airframe }
+				tooltip = FRA_strenghten_aircraft_large_procurement_tt
 				#Tactical Bombers
 				set_temp_variable = { current_tactical_bombers = num_equipment@medium_plane_airframe }
 				add_to_temp_variable = { current_tactical_bombers = num_deployed_planes_with_type@medium_plane_airframe }
-				OR = {
-					#CAS
-					check_variable = { current_cas = ITA_missiolinis_cas_goal compare = greater_than_or_equals }
-					#Naval Bombers
-					check_variable = { current_naval_bombers = ITA_missiolinis_naval_bombers_goal compare = greater_than_or_equals }
-					#Tactical Bombers
-					check_variable = { current_tactical_bombers = ITA_missiolinis_tactical_bombers_goal compare = greater_than_or_equals }
-				}
+				check_variable = { current_fighters = FRA_bombers_to_produce compare = greater_than_or_equals }
+			}
+
+			custom_trigger_tooltip = {
+				tooltip = FRA_strenghten_cas_procurement_tt
+
+				# Close Air Support
+				set_temp_variable = { current_cas = num_equipment@small_plane_cas_airframe }
+				add_to_temp_variable = { current_cas = num_deployed_planes_with_type@small_plane_cas_airframe }
+				check_variable = { current_tactical_bombers = FRA_CAS_to_produce compare = greater_than_or_equals }
 			}
 		}
 
@@ -128,7 +106,7 @@ FRA_national_defence_plan_cat = {
 
 	# Dyle Plan
 	FRA_execute_the_dyle_plan = {
-		icon = generic_civil_support
+		icon = GFX_decision_SWE_set_army_budget
 
 		allowed = {
 			original_tag = FRA
@@ -152,8 +130,8 @@ FRA_national_defence_plan_cat = {
 		days_remove = 30
 		fire_only_once = yes
 		custom_cost_trigger = {
-			command_power > GER_fort_construction_cp_cost
-			has_political_power > GER_fort_construction_pp_cost
+			command_power > 25
+			has_political_power > 15
 		}
 		custom_cost_text = decision_cost_CP_25_pp_15
 
@@ -168,7 +146,57 @@ FRA_national_defence_plan_cat = {
 		}
 
 		complete_effect = {
+			activate_mission = FRA_the_dyle_mission
+		}
 
+		hidden_effect = {
+			add_command_power = -25
+			add_political_power = -15
+		}
+
+	}
+
+	FRA_the_dyle_mission = {
+		icon = GFX_decision_generic_merge_plant_aircraft
+
+		allowed = {
+			original_tag = FRA
+			NOT = {
+				B
+			}
+		}
+
+		visible = {
+			original_tag = FRA
+		}
+
+		available = {
+			divisions_in_state = {
+				size > 2
+				state = 34
+			}
+			divisions_in_state = {
+				size > 2
+				state = 1094
+			}
+		}
+
+		activation = {
+			
+		}
+
+		cancel_if_not_visible = yes
+		is_good = no #Tooltip purposes
+		selectable_mission = no
+		days_mission_timeout = 30
+
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 200
+		}
+
+		complete_effect = {
+	
 		}
 
 		hidden_effect = {
