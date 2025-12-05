@@ -17558,7 +17558,7 @@ focus_tree = {
 				value > 0.65
 			}
 		}
-		icon = GFX_goal_nic_immigration
+		icon = GFX_goal_ENG_defending_the_nation
 		cost = 10
 		ai_will_do = {
 			factor = 5
@@ -17810,6 +17810,7 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_ideas = ENG_r56rp_party_unity
 	}
 }
 
@@ -17827,6 +17828,13 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			custom_effect_tooltip = ENG_r56rp_custom_effect_tt_intelligence
+			hidden_effect = {
+				create_intelligence_agency = {
+				name = "MI6"
+				icon = GFX_intelligence_agency_logo_uk
+			}
+			}
 	}
 }
 
@@ -17845,6 +17853,16 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			custom_effect_tooltip = ENG_r56rp_labour_takeover_communism_effect_tt
+			custom_effect_tooltip = generic_skip_one_line_tt
+			set_party_name = {
+				ideology = communism
+				name = "Labour Party"
+				long_name = "The Labour Party"
+			}	
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_political_power = 50
+			
 	}
 }
 
@@ -17862,6 +17880,42 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+		 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 1
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 1
+				instant_build = yes
+ 				}
+			}			
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 1
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 1
+				instant_build = yes
+ 				}
+			}
 	}
 }
 
@@ -17879,6 +17933,24 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+        131 = {
+            add_extra_state_shared_building_slots = 1
+            add_building_construction = {
+                type = industrial_complex
+                level = 1
+                instant_build = yes
+            }
+        }
+
+       	1041 = {
+            add_extra_state_shared_building_slots = 1
+            add_building_construction = {
+                type = industrial_complex
+                level = 1
+                instant_build = yes
+            }
+        }
+
 	}
 }
 
@@ -17896,7 +17968,24 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
-	}
+        128 = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = arms_factory
+                level = 2
+                instant_build = yes
+            }
+        }
+
+       	129 = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = arms_factory
+                level = 2
+                instant_build = yes
+            }
+        }
+    }
 }
 
 	focus = {
@@ -17908,11 +17997,46 @@ focus_tree = {
 		available = {
 		}
 		icon = GFX_SOV_steel_casting_industry_ccp_2d_sov_compatibility
-		cost = 10
+		cost = 20
 		ai_will_do = {
 			factor = 5
 		}	
 		completion_reward = {
+        122 = {
+            add_extra_state_shared_building_slots = 3
+            add_building_construction = {
+                type = industrial_complex
+                level = 3
+                instant_build = yes
+            }
+        }
+
+       	121 = {
+            add_extra_state_shared_building_slots = 1
+            add_building_construction = {
+                type = arms_factory
+                level = 1
+                instant_build = yes
+            }
+        }
+
+       	133 = {
+            add_extra_state_shared_building_slots = 1
+            add_building_construction = {
+                type = arms_factory
+                level = 1
+                instant_build = yes
+            }
+        }
+
+       	119 = {
+            add_extra_state_shared_building_slots = 1
+            add_building_construction = {
+                type = arms_factory
+                level = 1
+                instant_build = yes
+            }
+        }
 	}
 }
 
@@ -17930,6 +18054,7 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_ideas = r56i_laws_gender_equality
 	}
 }
 
@@ -17947,6 +18072,14 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_ideas = ENG_r56rp_empire_reform_uk
+			custom_effect_tooltip = generic_skip_one_line_tt
+			every_subject_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				add_ideas = ENG_r56rp_empire_reform_subject
+			}
 	}
 }
 
@@ -17965,6 +18098,15 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_george_vi
+				add_idea = ENG_r56rp_george_vi_contained
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = "Monarchist Revialists"
+				name = "Monarchists"
+			}
 	}
 }
 
@@ -17982,6 +18124,16 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			every_country = {
+				limit = {
+					has_government = communism
+					NOT = { tag = ROOT }
+				}
+				create_wargoal = {
+				target = ROOT
+				type = liberate_wargoal
+				}
+			}
 	}
 }
 
@@ -17999,6 +18151,14 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+       	127 = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = arms_factory
+                level = 2
+                instant_build = yes
+            }
+        }
 	}
 }
 
@@ -18017,6 +18177,7 @@ focus_tree = {
 			factor = 5
 		}	
 		completion_reward = {
+			add_ideas = ENG_r56rp_a_new_britian
 	}
 }
 
