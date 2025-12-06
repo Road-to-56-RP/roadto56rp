@@ -11166,12 +11166,54 @@ focus_tree = {
 	}
 
 	focus = {
+		id = FRA_gunnery_mastery_efforts
+		icon = GFX_focus_generic_navy_battleship2
+	 	prerequisite = { focus = FRA__reaffirm_ecole_de_ligne_de_bataille }
+		x = 0
+		y = 2
+		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
+		cost = 8
+		available = {
+			has_tech = improved_fire_control_system
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+		available_if_capitulated = yes
+
+		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = FRA_improved_screen_ships
+					bonus = 2
+					uses = 1
+					technology = fire_control_methods_1
+					technology = fire_control_methods_2
+					technology = fire_control_methods_3
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = {
+				FRA_r56rp_spotting_chance = 0.05
+				tooltip = spotting_chance_tt
+			}
+			add_to_variable = { FRA_r56rp_light_gun_hit_chance_factor = 0.05 tooltip = naval_light_gun_hit_chance_factor_tt }
+			add_to_variable = { FRA_r56rp_heavy_gun_hit_chance_factor = 0.05 tooltip = naval_heavy_gun_hit_chance_factor_tt }
+		}
+	}
+
+	focus = {
 		id = FRA_improved_screen_ships
 		icon = GFX_goal_generic_navy_cruiser
-	 	prerequisite = { focus = FRA__reaffirm_ecole_de_ligne_de_bataille }
-		x = -1
+	 	prerequisite = { focus = FRA_gunnery_mastery_efforts }
+		x = 0
 		y = 1
-		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
+		relative_position_id = FRA_gunnery_mastery_efforts
 		cost = 10
 		available = {
 			any_state = {
@@ -11321,55 +11363,12 @@ focus_tree = {
 		}
 	}
 
-
-	focus = {
-		id = FRA_gunnery_mastery_efforts
-		icon = GFX_focus_generic_navy_battleship2
-	 	prerequisite = { focus = FRA__reaffirm_ecole_de_ligne_de_bataille }
-		x = 0
-		y = 3
-		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
-		cost = 8
-		available = {
-			has_tech = improved_fire_control_system
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-		available_if_capitulated = yes
-
-		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = FRA_improved_screen_ships
-					bonus = 2
-					uses = 1
-					technology = fire_control_methods_1
-					technology = fire_control_methods_2
-					technology = fire_control_methods_3
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
-			add_to_variable = {
-				FRA_r56rp_spotting_chance = 0.05
-				tooltip = spotting_chance_tt
-			}
-			add_to_variable = { FRA_r56rp_light_gun_hit_chance_factor = 0.05 tooltip = naval_light_gun_hit_chance_factor_tt }
-			add_to_variable = { FRA_r56rp_heavy_gun_hit_chance_factor = 0.05 tooltip = naval_heavy_gun_hit_chance_factor_tt }
-		}
-	}
-
 	focus = {
 		id = FRA_adopt_castexian_strategy
 		icon = GFX_goal_FRA_castex_book
 	 	prerequisite = { focus = FRA_gunnery_mastery_efforts }
 		x = 2
-		y = 1
+		y = 2
 		relative_position_id = FRA_gunnery_mastery_efforts
 		cost = 10
 		available = {
@@ -11521,7 +11520,7 @@ focus_tree = {
 		icon = GFX_goal_FRA_darlan_doctrines
 	 	prerequisite = { focus = FRA_gunnery_mastery_efforts }
 		x = -2
-		y = 1
+		y = 2
 		relative_position_id = FRA_gunnery_mastery_efforts
 		cost = 10
 		available = {
@@ -12028,7 +12027,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA__reaffirm_ecole_de_ligne_de_bataille
 		}
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
 		ai_will_do = {
