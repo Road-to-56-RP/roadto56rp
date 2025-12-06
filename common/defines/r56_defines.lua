@@ -881,3 +881,6 @@ NDefines.NAI.MANPOWER_RATIO_CAREFULNESS_THRESHOLD = 0.20 -- [vanilla 0.05]
 
 -- ## NFocus ##
 NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 30 -- This much progress can be saved while not having a focus selected
+
+-- ## NFactions ##
+NDefines.NFactions.FACTION_INTELLIGENCE_SHARING_SPY_SLOT_GAIN = 0 -- # Vanilla 1 # How many operative slots an advisor position unlocks, excludes the spymaster
