@@ -1,0 +1,132 @@
+add_namespace = ITA_r56rp_romania
+
+country_event = {
+	id = ITA_r56rp_romania.1
+	title = ITA_r56rp_romania.1.t
+	desc = ITA_r56rp_romania.1.d
+	picture = GFX_report_event_operatives
+
+	is_triggered_only = yes
+	
+	option = { # We agree
+		name = ITA_r56rp_romania.1.a
+
+		FROM = {
+			diplomatic_relation = {
+				country = ROOT
+				relation = non_aggression_pact
+				active = no
+			}
+			set_country_flag = ITA_r56rp_increased_italian_support
+		}
+		
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value > 25
+				}
+			}
+		}
+	}
+	option = { # We disagree
+		name = ITA_r56rp_romania.1.b
+
+		FROM = {
+			add_opinion_modifier = {
+				target = ROM
+				modifier = small_decrease
+			}
+		}
+
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value < -25
+				}
+			}
+		}
+	}
+}
+country_event = { # Demand Bulgaria become puppet
+    id = ITA_r56rp_romania.2
+    title = ITA_r56rp_romania.2.t
+    desc = ITA_r56rp_romania.2.d
+
+    picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes
+	
+    option = { # Yes answer
+        name = ITA_r56rp_romania.2.a
+        ai_chance = {
+            base = 50 
+            modifier = {
+                OR = {
+                    is_subject = yes
+                    is_in_faction = yes
+                }
+                factor = 0
+            }
+            modifier = {
+                strength_ratio = {
+                    tag = ROM
+                    ratio < 0.5
+                }
+                factor = 2
+            }
+        }
+        FROM = {
+            country_event = { id = ITA_r56rp_romania.3 hours = 6 }
+        }
+    }
+    option = { # No answer
+        name = ITA_r56rp_romania.2.b
+        ai_chance = {
+            base = 50        
+        }
+        FROM = {
+            country_event = { id = ITA_r56rp_romania.4 hours = 6 }
+        }
+    }    
+}
+country_event = { # Bulgarian Puppet
+    id = ITA_r56rp_romania.3
+    title = ITA_r56rp_romania.3.t
+    desc = ITA_r56rp_romania.3.d
+
+    picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes
+	
+    option = {
+        name = ITA_r56rp_romania.3.a
+        ROOT = {
+            puppet = FROM
+        }
+    } 
+}
+country_event = { # Hungarian War goal
+    id = ITA_r56rp_romania.4
+    title =	ITA_r56rp_romania.4.t
+    desc = ITA_r56rp_romania.4.d
+
+    picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes
+	
+    option = {
+        name = ITA_r56rp_romania.4.a
+        ROOT = {
+            create_wargoal = {
+                type = puppet_wargoal_focus
+                target = FROM
+            }
+        }
+    }  
+}
