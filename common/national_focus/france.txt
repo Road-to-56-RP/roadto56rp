@@ -9682,17 +9682,25 @@ focus_tree = {
 			army_experience = 15
 
 			custom_effect_tooltip = generic_skip_one_line_tt
-
-			add_mastery = {
-				amount = 150
-				track = infantry
+			add_mastery_bonus = {
+				name = GER_adopt_new_panzer_doctrine
+				bonus = 0.1
+				days = 240
+				track = armor
+				grand_doctrine = grand_battleplan
 			}
-
+			add_mastery_bonus = {
+				name = GER_adopt_new_panzer_doctrine
+				bonus = 0.1
+				days = 240
+				track = infantry
+				grand_doctrine = grand_battleplan
+			}
 			add_doctrine_cost_reduction = {
-				name = GER_the_prussian_legacy
-				cost_reduction = 0.5
+				name = JAP_rethink_armor_doctrine
+				cost_reduction = 0.25
 				uses = 1
-				category = cat_grand_battle_plan
+				category = land_doctrine
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -9707,7 +9715,7 @@ focus_tree = {
 	
 	focus = {
 		id = FRA_la_bataille_methodique
-		icon = GFX_goal_generic_construction2
+		icon = GFX_focus_ICE_the_armed_forces_of_iceland
 		cost = 5
 		prerequisite = {
 			focus = FRA_giraud_plan
@@ -9720,6 +9728,30 @@ focus_tree = {
 			factor = 2
 		}
 		completion_reward = {
+			army_experience = 25
+				custom_effect_tooltip = generic_skip_one_line_tt
+			add_tech_bonus = {
+				name = JAP_rethink_armor_doctrine
+				bonus = 0.5
+				uses = 2
+				category = armor	
+			}
+			add_tech_bonus = {
+				name = JAP_rethink_armor_doctrine
+				bonus = 0.25
+				uses = 1
+				category = support_tech
+			}
+			add_doctrine_cost_reduction = {
+				name = JAP_rethink_armor_doctrine
+				cost_reduction = 0.25
+				uses = 1
+				category = land_doctrine
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
+			add_to_variable = { r56rp_armee_de_terra_max_plannning_factor = 0.05 tooltip = max_planning_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_planning_speed = 0.1 tooltip = planning_speed_factor_tt }
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -9749,6 +9781,69 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = FRA_temporary_two
+		icon = GFX_goal_generic_combined_arms_artillery_antiair_antitank
+		cost = 5
+		prerequisite = { focus = FRA_artillery_focus }
+		x = -1
+		y = 1
+		relative_position_id = FRA_artillery_focus
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = {
+				name = FRA_artillery_focus
+				bonus = 1
+				uses = 1
+				category = artillery
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+		
+	focus = {
+		id = FRA_supressive_barrage
+		icon = GFX_focus_SWE_let_fly_all_guns
+		cost = 10
+		prerequisite = { focus = FRA_artillery_focus focus = FRA_commission_fortified_regions }
+		x = 1
+		y = 1
+		relative_position_id = FRA_artillery_focus
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = {
+				name = FRA_artillery_focus
+				bonus = 1
+				uses = 1
+				category = artillery
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = {
+				localization_key = SP_UNLOCK_TECH
+				TECH = siege_artillery 
+			}
+			custom_override_tooltip = {	
+				tooltip = tech_effect|siege_artillery 
+				set_technology = {
+					siege_artillery = 1
+					popup = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+
+	focus = {
 		id = FRA_commission_fortified_regions
 		icon = GFX_goal_generic_position_armies
 		cost = 10
@@ -9762,15 +9857,32 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = FRA_protected_by_the_maginot_line
-				}
-				swap_ideas = {
-					add_idea = FRA_protected_by_the_maginot_line_defense
-					remove_idea = FRA_protected_by_the_maginot_line
-				}
-			}
+
+		}
+	}
+
+	focus = {
+		id = FRA_temporary_one
+		icon = GFX_goal_medicine
+		cost = 10
+		prerequisite = {
+			focus = FRA_commission_fortified_regions
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_commission_fortified_regions
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = special_bonus
+				bonus = 1
+				uses = 2
+				technology = tech_field_hospital
+				technology = tech_field_hospital2
+				technology = tech_field_hospital3
+			}			
 		}
 	}
 	
@@ -9910,10 +10022,11 @@ focus_tree = {
 		id = FRA_the_queen_of_battle
 		icon = GFX_goal_generic_march_infantry
 		cost = 5
-		prerequisite = { focus = FRA_artillery_focus }
-		prerequisite = { focus = FRA_commission_fortified_regions }
+		prerequisite = {focus = FRA_supressive_barrage }
+		prerequisite = { focus = FRA_temporary_two }
+		prerequisite = { focus = FRA_temporary_one }
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = FRA_la_bataille_methodique
 		ai_will_do = {
 			factor = 2
@@ -10106,37 +10219,10 @@ focus_tree = {
 	}
 
 	focus = {
-		id = FRA_strenghten_anti_tank_capabilities_three
-		icon = GFX_goal_generic_national_defense_fund
-		cost = 5
-		prerequisite = { focus = FRA_partial_mobilization }
-		x = -2
-		y = 1
-		relative_position_id = FRA_partial_mobilization
-		available = {
-			has_war_support > 0.25
-			OR = {
-				threat > 0.25
-				any_home_area_neighbor_country = {
-					has_added_tension_amount > 10
-				}
-			}
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		completion_reward = {
-			add_ideas = FRA_industrial_support1
-		}
-	}
-
-	focus = {
 		id = FRA_kickstart_the_arms_industry
 		icon = GFX_focus_generic_reorient_production
 		cost = 5
-		prerequisite = { focus = GFX_focus_generic_reorient_production }
+		prerequisite = { focus = FRA_partial_mobilization }
 		x = 0
 		y = 1
 		relative_position_id = FRA_partial_mobilization
@@ -10179,27 +10265,6 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = FRA_end_the_interservice_rivalry
-		icon = GFX_focus_SWI_fortify_border_with_france
-		cost = 5
-		prerequisite = { focus = FRA_partial_mobilization }
-		x = 2
-		y = 1
-		relative_position_id = FRA_partial_mobilization
-		available = {
-			735 = {
-				is_controlled_by = ROOT
-			}
-		}
-		ai_will_do = {
-			factor = 1
-		}
-		completion_reward = {
-		
-		}
-	}
-
 
 	focus = {
 		id = FRA_chars_de_infanterie
@@ -10235,7 +10300,10 @@ focus_tree = {
 		id = FRA_army_reform
 		icon = GFX_goal_FRA_army_reform
 		cost = 10
-		prerequisite = { focus = FRA_strenghten_anti_tank_capabilities_three focus = FRA_end_the_interservice_rivalry }
+		prerequisite = {
+			focus = FRA_doctrinal_modernization
+			focus = FRA_the_queen_of_battle
+		}
 		prerequisite = { focus = FRA_kickstart_the_arms_industry }
 		x = 0
 		y = 6
@@ -10519,6 +10587,8 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
+
+
 	focus = {
 		id = FRA_tank_modernisation
 		icon = GFX_goal_FRA_somua
@@ -10527,7 +10597,7 @@ focus_tree = {
 			focus = FRA_chars_de_bataille
 			focus = FRA_chars_de_infanterie
 		}
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = FRA_chars_de_bataille
 		
@@ -10563,16 +10633,99 @@ focus_tree = {
 			add_to_variable = { r56rp_armee_de_terra_army_armor_attack_factor = 0.1 tooltip = army_armor_attack_factor_tt }
 			add_to_variable = { r56rp_armee_de_terra_motorized_attack_factor = 0.05 tooltip = motorized_attack_factor_tt }
 			add_to_variable = { r56rp_armee_de_terra_mechanized_attack_factor = 0.05 tooltip = mechanized_attack_factor_tt }
+		}
+	}
 
-			
-
-			IF = {
+	
+	focus = {
+		id = FRA_tank_modernisation_temp
+		icon = GFX_goal_FRA_somua
+		cost = 10
+		prerequisite = {
+			focus = FRA_chars_de_bataille
+			focus = FRA_chars_de_infanterie
+		}
+		x = 0
+		y = 1
+		relative_position_id = FRA_chars_de_bataille
+		
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			if = {
 				limit = {
-					has_dlc = "Gotterdammerung"
+					has_idea = FRA_protected_by_the_maginot_line
 				}
-				add_to_variable = { JAP_advanced_weapons_sp_tag_tank_speed_factor = 0.15 tooltip = sp_tag_tank_speed_factor_tt }
-				custom_effect_tooltip = generic_skip_one_line_tt
+				swap_ideas = {
+					add_idea = FRA_protected_by_the_maginot_line_attack
+					remove_idea = FRA_protected_by_the_maginot_line
+				}
 			}
+
+
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.25
+			}
+
+			add_tech_bonus = {
+				name = JAP_the_ultimate_tank
+				bonus = 0.75
+				uses = 2
+				category = armor	
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
+			add_to_variable = { r56rp_armee_de_terra_army_armor_attack_factor = 0.1 tooltip = army_armor_attack_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_motorized_attack_factor = 0.05 tooltip = motorized_attack_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_mechanized_attack_factor = 0.05 tooltip = mechanized_attack_factor_tt }
+		}
+	}
+
+	focus = {
+		id = FRA_doctrinal_modernization
+		icon = GFX_goal_FRA_somua
+		cost = 10
+		prerequisite = {
+			focus = FRA_tank_modernisation
+			focus = FRA_tank_modernisation_temp
+		}
+		x = -1
+		y = 1
+		relative_position_id = FRA_tank_modernisation
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = FRA_protected_by_the_maginot_line
+				}
+				swap_ideas = {
+					add_idea = FRA_protected_by_the_maginot_line_attack
+					remove_idea = FRA_protected_by_the_maginot_line
+				}
+			}
+
+
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.25
+			}
+
+			add_tech_bonus = {
+				name = JAP_the_ultimate_tank
+				bonus = 0.75
+				uses = 2
+				category = armor	
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
+			add_to_variable = { r56rp_armee_de_terra_max_plannning_factor = -0.15 tooltip = max_planning_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_planning_speed = 0.2 tooltip = planning_speed_factor_tt }
 		}
 	}
 	#### NAVAL SECTION ####
@@ -12997,13 +13150,43 @@ focus_tree = {
 					category = cas_bomber
 				}
 			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = FRA_end_the_interservice_rivalry_temp
+		icon = GFX_focus_generic_cas_aircraft
+		prerequisite = { focus = FRA_provide_aerial_support }
+		prerequisite = { focus = FRA_the_queen_of_battle }
+		x = 2
+		y = 1
+		relative_position_id = FRA_the_queen_of_battle
+		cost = 5
+		available = {
+		}
+
+		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_MILITARY_CHARACTER FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			add_mastery_bonus = {
+				name = GER_dive_bombers
+				bonus = 0.2
+				days = 180
+				track = strike_aircraft
+				grand_doctrine = new_battlefield_support
+			}
+			add_doctrine_cost_reduction = {
+				name = GER_dive_bombers
+				cost_reduction = 0.25
+				uses = 1
+				category = battlefield_support_tree
+			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_armee_de_lair_tt
 			add_to_variable = { r56rp_armee_de_lair_modifier_air_cas_present_factor = 0.1 tooltip = air_cas_present_factor_tt }
 			add_to_variable = { r56rp_armee_de_lair_modifier_air_cas_efficiency = 0.05 tooltip = air_cas_efficiency_tt }
-
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 
 	focus = {
