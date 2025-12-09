@@ -653,96 +653,6 @@ on_actions = {
 
 			if = {
 				limit = {
-					ROOT = {
-						OR = {
-							tag = SHX
-							tag = GXC
-							tag = XSM
-							tag = YUN
-							tag = SIK
-							tag = KHM
-							tag = SIC
-							tag = CHI
-						}
-						has_country_flag = is_warlords
-						is_in_faction_with = PRC
-						has_idea = KMT_united_front
-						has_completed_focus = CHI_cooperation_with_the_communists
-					}
-				}
-				PRC = {
-					country_event = { id = kmt.300 }
-				}
-			}
-
-			if = {
-				limit = {
-					ROOT = {
-						OR = {
-							tag = SHX
-							tag = GXC
-							tag = XSM
-							tag = YUN
-							tag = SIK
-							tag = KHM
-							tag = SIC
-							tag = CHI
-						}
-						has_country_flag = is_warlords
-						is_in_faction_with = event_target:KMT_central_gov_tag
-						has_idea = KMT_united_front
-						NOT = {
-							has_completed_focus = CHI_cooperation_with_the_communists
-						}
-					}
-				}
-				event_target:KMT_central_gov_tag = {
-					country_event = { id = kmt.300 }
-				}
-			}
-
-			if = {
-				limit = {
-					ROOT = {
-						tag = MAN
-						is_subject_of = JAP
-						has_country_leader = {
-							character = MAN_puyi
-							ruling_only = yes
-						}
-					}
-					FROM = {
-						OR = {
-							tag = CHI
-							tag = PRC
-							tag = event_target:KMT_central_gov_tag
-						}
-					}
-				}
-				FROM = {
-					country_event = { id = kmt.303 }
-				}
-			}
-
-			if = {
-				limit = {
-					ROOT = {
-						OR = {
-							tag = PGR
-							has_cosmetic_tag = HCPC
-						}
-						is_puppet_of = CHI
-					}
-				}
-				CHI = {
-					country_event = { id = kmt.300 }
-				}
-				MEN = {
-					transfer_state = 611
-				}
-			}
-			if = {
-				limit = {
 					original_tag = ITA
 					ITA = {
 						NOT = {
@@ -3565,25 +3475,6 @@ on_actions = {
 				set_global_flag = CHI_warred_with_JAP
 			}
 
-			#change to wartime corruption
-			if = {
-				limit = {
-					OR = {
-						FROM = { tag = CHI }
-						ROOT = { tag = CHI }
-					}
-					CHI = {
-						OR = {
-							has_idea = KMT_corrupted_government
-							has_idea = KMT_corrupted_government_lesser
-						}
-					}
-				}
-				CHI = {
-					country_event = { id = kmt.272 }
-				}
-			}
-
 			#get revanchism when war with jap
 			if = {
 				limit = {
@@ -4146,46 +4037,6 @@ on_actions = {
 				}
 			}
 
-			if = { #Simplified trigger
-				limit = {
-					tag = MAN
-					has_government = neutrality
-				}
-				if = {
-					limit = { country_exists = CHI }
-					CHI = { country_event = { id = kmt.275 }}
-					else = {
-						if = {
-							limit = { country_exists = PRC }
-							PRC = { country_event = { id = kmt.275 }}
-						}
-					}
-				}
-			}
-
-			
-
-			if = { # MOD. Compressed.
-				limit = { original_tag = CHI }
-				if = {
-					limit = {
-						has_government = democratic
-						NOT = {
-							has_country_flag = KMT_party_chosen
-						}
-					}
-					country_event = { id = kmt.279 }
-				}
-				else_if = {
-					limit = {
-						has_government = fascism
-						is_subject = no
-						NOT = { has_completed_focus = KMT_support_pro_japanese_faction }
-					}
-					country_event = { id = kmt.286 }	#leader change is handled in event
-				}
-			}
-
 			if = {
 				limit = {
 					original_tag = AST
@@ -4260,23 +4111,6 @@ on_actions = {
 		}
 	}
 
-###---> On Join Allies <><> <><> <><>
-	on_join_allies = {
-		effect = {
-			#change to wartime corruption
-			if = {
-				limit = {
-					tag = CHI
-					OR = {
-						has_idea = KMT_corrupted_government
-						has_idea = KMT_corrupted_government_lesser
-					}
-				}
-				country_event = { id = kmt.272 hours = 1 }
-			}
-		}
-	}
-
 ###---> On New Term Election <><> <><> <><>
 	on_new_term_election = {
 		# random_events = {		# Costa Rica elections of 1936 - in COS history file
@@ -4286,14 +4120,6 @@ on_actions = {
 		# 	100 = panama.1		# Panama elections of 1936 - in PAN history file
 		# }
 		effect = {
-			if = {
-				limit = {
-					tag = CHI
-					has_government = neutrality
-					NOT = { has_country_flag = KMT_party_chosen }
-				}
-				country_event = { id = kmt.279 }
-			}
 			if = {
 				limit = {
 					original_tag = MEX
@@ -21891,16 +21717,6 @@ on_actions = {
 					remove_claim_by = DNZ
 				}
 			}
-			#wartime corruption end	- usually for China
-			if = {
-				limit = {
-					OR = {
-						has_idea = KMT_corrupted_government_wartime_lesser
-						has_idea = KMT_corrupted_government_wartime
-					}
-				}
-				country_event = { id = kmt.273 }
-			}
 			if = {
 				limit = {
 					has_country_flag = MPL_civil_war_triggered
@@ -21934,17 +21750,6 @@ on_actions = {
 					NOT = { has_global_flag = MR_pact_broken_event_flag }
 				}
 				news_event = news.153
-			}
-			if = {	#doolitle raid by USA on Japanese mainland
-				limit = {
-					ROOT = {
-						original_tag = USA
-					}
-					FROM = {
-						original_tag = JAP
-					}
-				}
-				country_event = { id = kmt.287 days = 125 random_days = 15 }
 			}
 			if = {	#PRC getting some foreigners help
 				limit = {
