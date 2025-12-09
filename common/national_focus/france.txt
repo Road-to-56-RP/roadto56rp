@@ -8,12 +8,13 @@ focus_tree = {
 		}
 	}
 	default = no
-	continuous_focus_position = { x = 50 y = 925 }
+	continuous_focus_position = { x = 50 y = 1500 }
+
 	focus = {
-		id = FRA_tools_modernisation
-		icon = GFX_goal_generic_production2
+		id = FRA_empower_the_national_economic_council
+		icon = GFX_focus_NOR_the_stumbling_storting
 		cost = 5
-		x = 0
+		x = 5
 		y = 0
 		ai_will_do = {
 			factor = 2
@@ -26,6 +27,34 @@ focus_tree = {
 				uses = 1
 				category = industry
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_political_power = 50
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_tools_modernisation
+		icon = GFX_goal_generic_production2
+		cost = 5
+		prerequisite = { 
+			focus = FRA_empower_the_national_economic_council
+		}
+		x = -1
+		y = 1
+		relative_position_id = FRA_empower_the_national_economic_council
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1
+				uses = 1
+				category = cat_production
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			random_owned_controlled_state = {
 				prioritize = { 16 }
 				limit = {
@@ -46,13 +75,514 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
+
+	focus = {
+		id = FRA_bilateral_trade_agreements
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 5
+		prerequisite = { 
+			focus = FRA_empower_the_national_economic_council
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_empower_the_national_economic_council
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			# As a result of the world's great depression france came into deals with Poland, Belgium,Spain and Holland for cheaper trade for resources in this time.
+			# Polish Coal
+			# Belgian Steel + Other small Resources
+			# Spanish small textile and other small resources not represented by the game 
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_autoroutes
+		icon = GFX_focus_generic_improve_roads
+		cost = 5
+		prerequisite = { 
+			focus = FRA_empower_the_national_economic_council
+		}
+		x = -4
+		y = 1
+		relative_position_id = FRA_empower_the_national_economic_council
+		ai_will_do = {
+			factor = 2
+		}
+		available = {
+			any_state = {
+				OR = {
+					state = 16
+					state = 785
+					state = 30
+					state = 27
+					state = 18
+				}
+				is_controlled_by = ROOT
+			}
+		}
+
+		bypass = {
+			all_state = {
+				state = 16
+				state = 785
+				state = 30
+				state = 27
+				state = 18
+				NOT = {
+					is_controlled_by = ROOT
+				}
+			}
+		}
+
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_controlled_by = ROOT
+					OR = {
+						state = 16
+						state = 785
+						state = 30
+						state = 27
+						state = 18
+					}
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_devalue_the_franc
+		icon = GFX_focus_fra_devalue_the_franc
+		cost = 5
+		prerequisite = { 
+			focus = FRA_autoroutes
+		}
+		mutually_exclusive = { 
+			focus = FRA_ride_it_out
+		}
+		x = -1
+		y = 1
+		relative_position_id = FRA_autoroutes
+		available = { 
+			has_idea = FRA_deflation1
+		}
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			add_stability = -0.05
+			unlock_decision_category_tooltip = FRA_economic_reforms
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_ride_it_out
+		icon = GFX_focus_usa_reestablish_the_gold_standard
+		cost = 5
+		prerequisite = { 
+			focus = FRA_autoroutes
+		}
+		mutually_exclusive = { 
+			focus = FRA_devalue_the_franc
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_autoroutes
+
+		available = { 
+			has_idea = FRA_deflation1
+		}
+
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			add_stability = 0.05
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_nationalize_gas_and_electricity_sector
+		icon = GFX_focus_generic_electrification
+		cost = 8
+		prerequisite = { 
+			focus = FRA_devalue_the_franc
+			focus = FRA_ride_it_out
+		}
+		x = 1
+		y = 1
+		relative_position_id = FRA_devalue_the_franc
+		available = {
+			NOT = {
+				OR = {
+					has_idea = FRA_deflation1
+					has_idea = FRA_deflation2
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			# Both Nationalized
+			# Gas France - Gaz de France
+			# Électricité de France
+			add_tech_bonus = {
+				name = FRA_nationalize_gas_and_electricity_sector
+				bonus = 0.7
+				uses = 1
+				category = electronics
+			}
+			add_tech_bonus = {
+				name = FRA_nationalize_gas_and_electricity_sector
+				ahead_reduction = 1
+				bonus = 0.5
+				uses = 1
+				category = synth_resources
+				category = refining_tech
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				prioritize = { 16 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = energy_infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+
+	focus = {
+		id = FRA_strengthen_southern # - Consumer Goods / Excavation
+		icon = GFX_focus_generic_industry_2
+		cost = 10
+		prerequisite = { focus = FRA_nationalize_gas_and_electricity_sector }
+		mutually_exclusive = { focus = FRA_strengthen_northern }
+		x = 1
+		y = 1
+		relative_position_id = FRA_nationalize_gas_and_electricity_sector
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_strengthen_northern
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+			add_tech_bonus = {
+				name = FRA_strengthen_northern
+				bonus = 0.75
+				uses = 2
+				category = excavation_tech
+			}
+			add_tech_bonus = {
+				name = FRA_strengthen_southern
+				bonus = 0.25
+				uses = 2
+				category = metallurgy_tech
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				prioritize = { 22 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = steel_mill
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 32 25 21 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 32 25 21 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_strengthen_northern # - Manufacturing/Excavation
+		icon = GFX_focus_generic_industry_3
+		cost = 10
+		prerequisite = { focus = FRA_nationalize_gas_and_electricity_sector }
+		mutually_exclusive = { focus = FRA_strengthen_southern }
+		x = -1
+		y = 1
+		relative_position_id = FRA_nationalize_gas_and_electricity_sector
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_strengthen_northern
+				bonus = 0.35
+				uses = 2
+				category = industry
+			}
+			add_tech_bonus = {
+				name = FRA_strengthen_northern
+				bonus = 0.75
+				uses = 1
+				category = excavation_tech
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				prioritize = { 16 15 30 18 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 15 30 18 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 30 18 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_middle_bonus # - Consumer Goods / Excavation
+		icon = GFX_goal_generic_production2
+		cost = 5
+		prerequisite = { focus = FRA_strengthen_northern focus = FRA_strengthen_southern }
+		x = 1
+		y = 2
+		relative_position_id = FRA_strengthen_northern
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_expand_the_nord_de_pas_calais_mining_basin # - Manufacturing/Excavation
+		icon = GFX_focus_generic_coal_mining
+		cost = 10
+		prerequisite = { focus = FRA_strengthen_northern }
+		x = 0
+		y = 3
+		relative_position_id = FRA_strengthen_northern
+		ai_will_do = {
+			factor = 2
+		}
+		available = {
+			has_tech = excavation1
+			has_tech = excavation2
+		}
+		
+		completion_reward = {
+			add_resource = {
+				type = coal
+				amount = 15
+				state = 29
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				prioritize = { 29 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 2
+				uses = 1
+				ahead_reduction = 1
+				category = excavation_tech
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = FRA_renault_factories # - Consumer Goods / Excavation
+		icon = GFX_focus_generic_military_industry
+		cost = 10
+		prerequisite = {focus = FRA_strengthen_southern }
+		x = 0
+		y = 1
+		relative_position_id = FRA_strengthen_southern
+		ai_will_do = {
+			factor = 2
+		}
+		
+		completion_reward = {
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				mio:FRA_renault_organization = {
+					add_mio_size = 2
+					add_mio_funds_gain_factor = 0.1
+					add_mio_research_bonus = 0.05
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+			random_owned_controlled_state = {
+				prioritize = { 806 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	# Colonial Investments
+
 	focus = {
 		id = FRA_colonial_investments
 		icon = GFX_goal_generic_bills
 		cost = 5
-		x = 2
-		y = 0
-		
+		prerequisite = { 
+			focus = FRA_empower_the_national_economic_council
+		}
+		x = 4
+		y = 1
+		relative_position_id = FRA_empower_the_national_economic_council
 		ai_will_do = {
 			factor = 2
 		}
@@ -87,8 +617,8 @@ focus_tree = {
 			focus = FRA_far_right_leagues
 			focus = FRA_action_francaise
 		}
-		relative_position_id = FRA_tools_modernisation	#dont use FR ones, which may be hidden
-		x = 17
+		relative_position_id = FRA_empower_the_national_economic_council	#dont use FR ones, which may be hidden
+		x = 14
 		y = 0
 		allow_branch = {
 			if = {
@@ -148,8 +678,8 @@ focus_tree = {
 		available = {
 			has_country_flag = FRA_1936_election
 		}
-		relative_position_id = FRA_tools_modernisation	#dont use political ones, which may be hidden
-		x = 26
+		relative_position_id = FRA_empower_the_national_economic_council	#dont use political ones, which may be hidden
+		x = 22
 		y = 0
 		offset = {
 			x = -5
@@ -226,8 +756,8 @@ focus_tree = {
 			focus = FRA_radicalize_front
 			focus = FRA_action_francaise
 		}
-		relative_position_id = FRA_tools_modernisation	#dont use political ones, which may be hidden
-		x = 37
+		relative_position_id = FRA_empower_the_national_economic_council	#dont use political ones, which may be hidden
+		x = 32
 		y = 0
 		offset = {
 			x = -17
@@ -283,8 +813,8 @@ focus_tree = {
 			focus = FRA_radicalize_front
 			focus = FRA_far_right_leagues
 		}
-		relative_position_id = FRA_tools_modernisation	#dont use political ones, which may be hidden
-		x = 50
+		relative_position_id = FRA_empower_the_national_economic_council	#dont use political ones, which may be hidden
+		x = 45
 		y = 0
 		offset = {
 			x = -20
@@ -344,61 +874,36 @@ focus_tree = {
 		cost = 10
 		prerequisite = {
 			focus = FRA_tools_modernisation
-			focus = FRA_colonial_investments
 		}
 		x = 1
 		y = 1
+		relative_position_id = FRA_tools_modernisation
 		ai_will_do = {
 			factor = 2
 		}
-		available = {
-			any_state = {
-				OR = {
-					state = 16
-					state = 785
-					state = 30
-					state = 27
-					state = 18
-				}
-				is_controlled_by = ROOT
-			}
-		}
-
-		bypass = {
-			all_state = {
-				state = 16
-				state = 785
-				state = 30
-				state = 27
-				state = 18
-				NOT = {
-					is_controlled_by = ROOT
-				}
-			}
-		}
-
+		
 		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = train_equipment
-				amount = 50
+			add_tech_bonus = {
+				name = FRA_sncf
+				ahead_reduction = 1.5
+				bonus = 0.5
+				uses = 1
+				category = train_tech
+				category = railway_construction_tech
 			}
-			every_state = {
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
 				limit = {
-					is_controlled_by = ROOT
-					OR = {
-						state = 16
-						state = 785
-						state = 30
-						state = 27
-						state = 18
-					}
+					is_core_of = ROOT
 					free_building_slots = {
-						building = infrastructure
+						building = industrial_complex
 						size > 0
+						include_locked = yes
 					}
 				}
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = infrastructure
+					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
@@ -414,18 +919,27 @@ focus_tree = {
 		icon = GFX_focus_generic_decrease_unemployment
 		cost = 10
 		prerequisite = {
-			focus = FRA_sncf
-		}
-		prerequisite = {
 			focus = FRA_tools_modernisation
 		}
+		relative_position_id = FRA_tools_modernisation
 		x = 0
 		y = 2
 		ai_will_do = {
 			factor = 3
 		}
+
+		available = { # Fucked up check
+			ENG  = { has_opinion = { target = ROOT value > 79 } } 
+			USA = { has_opinion = { target = ROOT value > 79 } } 
+			NOT = {
+				USA =  {
+					has_completed_focus = USA_reestablish_the_gold_standard
+				}
+			}
+		}
+
 		completion_reward = {
-			add_stability = -0.03
+			add_stability = 0.03
 			random_owned_controlled_state = {
 				prioritize = { 14 }
 				limit = {
@@ -488,8 +1002,8 @@ focus_tree = {
 			focus = FRA_monetary_tripartite_agreement
 		}
 		x = 0
-		y = 3
-		
+		y = 1
+		relative_position_id = FRA_monetary_tripartite_agreement
 		ai_will_do = {
 			factor = 3
 		}
@@ -513,8 +1027,12 @@ focus_tree = {
 			focus = FRA_cnrs
 		}
 		x = 0
-		y = 4
-		
+		y = 1
+		relative_position_id = FRA_cnrs
+		available =  {
+			NOR = { exists = yes }
+
+		}
 		ai_will_do = {
 			factor = 1
 		}
@@ -558,8 +1076,8 @@ focus_tree = {
 			focus = FRA_buy_heavy_water
 		}
 		x = 0
-		y = 5
-		
+		y = 1
+		relative_position_id = FRA_buy_heavy_water
 		ai_will_do = {
 			factor = 3
 		}
@@ -586,9 +1104,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_vienot_agreement
 		}
-		x = 5
+		x = -1
 		y = 1
-		
+		relative_position_id = FRA_colonial_investments
 		ai_will_do = {
 			factor = 2
 		}
@@ -753,10 +1271,7 @@ focus_tree = {
 		id = FRA_develop_algeria
 		icon = GFX_goal_FRA_french_algeria
 		cost = 5
-		prerequisite = {
-			focus = FRA_continue_mandat
-			focus = FRA_sncf
-		}
+		prerequisite = { focus = FRA_continue_mandat }
 		x = -1
 		y = 1
 		relative_position_id = FRA_continue_mandat
@@ -1052,15 +1567,14 @@ focus_tree = {
 	focus = {
 		id = FRA_technology_sharing
 		icon = GFX_goal_tfv_generic_tech_sharing
-		cost = 10
-		prerequisite = {
-			focus = FRA_cnrs
-		}
+		cost = 5
 		prerequisite = {
 			focus = FRA_develop_tunisia
+			focus = FRA_develop_indochine
 		}
-		x = 4
-		y = 4
+		x = 1
+		y = 1
+		relative_position_id = FRA_develop_tunisia
 		available = {
 		}
 		
@@ -1142,6 +1656,7 @@ focus_tree = {
 				amount = 8
 				state = 513
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			459 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -1337,7 +1852,7 @@ focus_tree = {
 	focus = {
 		id = FRA_tungsten_mines
 		icon = GFX_focus_generic_tungsten
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_technology_sharing
 		}
@@ -1381,6 +1896,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
 				limit = {
 					VIN = {
@@ -1422,7 +1938,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_continue_mandat
 		}
-		x = 5
+		x = 4
 		y = 0
 		relative_position_id = FRA_continue_mandat
 		available = {
@@ -1684,7 +2200,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FRA_consolidate_african_federations
-		icon = GFX_focus_generic_self_management
+		icon = GFX_africa
 		cost = 5
 		prerequisite = {
 			focus = FRA_vienot_agreement
@@ -1748,6 +2264,7 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.05
 			add_political_power = 110
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_AFR_colonies_tt
 			if = {
 				limit = {
@@ -2097,7 +2614,7 @@ focus_tree = {
 	focus = {
 		id = FRA_the_blum_viollette_proposal
 		icon = GFX_goal_generic_improve_relations
-		x = 3
+		x = 2
 		y = 2
 		prerequisite = {
 			focus = FRA_continue_mandat
@@ -2317,9 +2834,9 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_radicalize_front
 		}
-		x = 14
+		x = -3
 		y = 1
-		
+		relative_position_id = FRA_radicalize_front
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -2343,8 +2860,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_pcf_sfio_coalition
 		}
-		x = 16
+		x = -1
 		y = 1
+		relative_position_id = FRA_radicalize_front
 		ai_will_do = {
 			factor = 2
 		}
@@ -2381,8 +2899,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_work_with_the_cgt
 		}
-		x = 18
+		x = 1
 		y = 1
+		relative_position_id = FRA_radicalize_front
 		ai_will_do = {
 			factor = 3
 		}
@@ -2401,9 +2920,9 @@ focus_tree = {
 			focus = FRA_work_with_the_cgt
 			focus = FRA_pcf_sfio_coalition
 		}
-		x = 17
-		y = 2
-		
+		x = 1
+		y = 1
+		relative_position_id = FRA_work_with_the_cgt
 		ai_will_do = {
 			factor = 3
 		}
@@ -2423,8 +2942,9 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_ideological_indoctrination
 		}
-		x = 16
-		y = 3
+		x = -1
+		y = 1
+		relative_position_id = FRA_ideological_indoctrination
 		available = {
 			is_subject = no
 			communism > 0.4
@@ -2449,8 +2969,9 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_syndicalist_revolution
 		}
-		x = 15
-		y = 4
+		x = -1
+		y = 1
+		relative_position_id = FRA_syndicalist_revolution
 		available = {
 			has_government = communism
 		}
@@ -2472,8 +2993,9 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_ideological_indoctrination
 		}
-		x = 18
-		y = 3
+		x = 1
+		y = 1
+		relative_position_id = FRA_ideological_indoctrination
 		available = {
 			is_subject = no
 			communism > 0.4
@@ -2500,8 +3022,9 @@ focus_tree = {
 			focus = FRA_syndicalist_revolution
 			focus = FRA_commune_proclamation
 		}
-		x = 17
-		y = 4
+		x = 1
+		y = 1
+		relative_position_id = FRA_syndicalist_revolution
 		available = {
 			has_government = communism
 			custom_trigger_tooltip = { 
@@ -2546,8 +3069,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_humanite_unie
 		}
-		x = 18
-		y = 5
+		x = 1
+		y = 1
+		relative_position_id = FRA_collectivisation
 		available = {
 			has_government = communism
 			is_subject = no
@@ -2595,12 +3119,12 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_commune_proclamation
 		}
-		x = 19
-		y = 4
+		x = 1
+		y = 1
+		relative_position_id = FRA_commune_proclamation
 		available = {
 			has_government = communism
 		}
-		
 		ai_will_do = {
 			factor = 4
 		}
@@ -2616,9 +3140,9 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_assistance_treaty
 		}
-		x = 19
-		y = 6
-		
+		x = 1
+		y = 1
+		relative_position_id = FRA_assistance_treaty
 		ai_will_do = {
 			factor = 4
 		}
@@ -2764,7 +3288,7 @@ focus_tree = {
 			focus = FRA_status_quo
 			focus = FRA_radicalize_front
 		}
-		x = -6
+		x = -5
 		y = 1
 		relative_position_id = FRA_status_quo
 		ai_will_do = {
@@ -8510,8 +9034,9 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_assistance_treaty
 		}
-		x = 16
-		y = 5
+		x = -1
+		y = 1
+		relative_position_id = FRA_collectivisation
 		available = {
 			is_subject = no
 			is_in_faction = no
@@ -8542,9 +9067,9 @@ focus_tree = {
 			focus = FRA_humanite_unie
 			focus = FRA_assistance_treaty
 		}
-		x = 16
-		y = 7
-
+		x = 0
+		y = 2
+		relative_position_id = FRA_humanite_unie
 		available = {
 			is_subject = no
 			any_country = {
@@ -8596,8 +9121,9 @@ focus_tree = {
 			focus = FRA_assistance_treaty
 			focus = FRA_humanite_unie
 		}
-		x = 18
-		y = 7
+		x = 0
+		y = 2
+		relative_position_id = FRA_assistance_treaty
 		available = {
 			is_subject = no
 			NOT = { is_in_faction_with = ENG }
@@ -8662,11 +9188,12 @@ focus_tree = {
 		id = FRA_help_the_spanish_republicans
 		icon = GFX_goal_FRA_help_the_spanish_republicans
 		cost = 5
-		x = 15
-		y = 6
 		prerequisite = {
 			focus = FRA_humanite_unie
 		}
+		x =  -1
+		y = 1
+		relative_position_id = FRA_humanite_unie
 		available = {
 			OR = {
 				country_exists = SPD
@@ -9843,7 +10370,7 @@ focus_tree = {
 	
 	focus = {
 		id = FRA_fortification_focus # Ridicolously Underpowered
-		icon = GFX_focus_SWI_fortify_border_with_france
+		icon = GFX_focus_BEL_koningshooikt_wavre_line
 		cost = 5
 		prerequisite = {
 			focus = FRA_giraud_plan
@@ -12569,7 +13096,7 @@ focus_tree = {
 	
 	focus = {
 		id = FRA_form_the_first_strategic_bombing_unit
-		icon = GFX_goal_generic_air_doctrine
+		icon = GFX_focus_SWE_marauder_bombers
 		cost = 5
 		prerequisite = { focus = FRA_armee_de_la_air }
 		x = 1
