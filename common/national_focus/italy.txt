@@ -17597,7 +17597,11 @@ focus_tree = {
 						}
 					}
 				}
-				create_faction = "Rome Protocols"
+				create_faction_from_template = {
+					template = faction_template_the_rome_protocols
+					name = ITA_the_rome_protocols
+					icon = GFX_faction_logo_generic_11
+				}
 				news_event = {
 					id = r56_italy.9
 					days = 3
@@ -17815,57 +17819,137 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ITA_operazione_trajan
-		icon = GFX_goal_generic_attack_romania
-		prerequisite = {  focus = ITA_militarize_the_rome_protocols }
-		x = 2
-		y = 1
+		id = ITA_r56rp_renew_the_pact_of_1926
+		icon = GFX_goal_ROM_ally_fascism
+		prerequisite = { focus = ITA_militarize_the_rome_protocols }
 		relative_position_id = ITA_militarize_the_rome_protocols
-		cost = 7.2
+		x = 3
+		y = 1
+		cost = 5
 
-		ai_will_do = {
-			factor = 4
-			modifier = {
-				any_other_country = {
-					is_major = yes
-					has_war_with = ROOT
-				}
-				factor = 0.01
-			}			
-		}
 		available = {
-			r56_script_i_am_sane = yes
+			is_faction_leader = yes
 			ROM = {
-				r56_script_target_is_sane = yes
+				OR = {
+					is_subject = no
+					is_in_faction = no
+				}
 			}
 		}
-		bypass = {
+
+		completion_reward = {
+			ITA = {
+				add_stability = 0.03
+				add_political_power = 25
+				add_opinion_modifier = {
+					target = ROM
+					modifier = small_increase
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				reverse_add_opinion_modifier = {
+					target = HUN
+					modifier = small_decrease
+				}
+				reverse_add_opinion_modifier = {
+					target = BUL
+					modifier = small_decrease
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			ROM = {
-				r56_script_standard_bypass = yes
+				add_stability = 0.03
+				add_political_power = 25
+				add_opinion_modifier = {
+					target = ITA
+					modifier = small_increase
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				reverse_add_opinion_modifier = {
+					target = HUN
+					modifier = small_decrease
+				}
+				reverse_add_opinion_modifier = {
+					target = BUL
+					modifier = small_decrease
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				add_equipment_subsidy = {
+					cic = 1000
+					equipment_Type = infantry_equipment
+					seller_tags = { ITA }
+				}
 			}
 		}
-		will_lead_to_war_with = ROM		
+	}
+
+	focus = {
+		id = ITA_r56rp_cultivate_romanian_support
+		icon = GFX_goal_ROM_bedrock_democracy
+		prerequisite = { focus = ITA_r56rp_renew_the_pact_of_1926 }
+		relative_position_id = ITA_r56rp_renew_the_pact_of_1926
+		x = 1
+		y = 1
+		cost = 2
+
+		available = {
+			is_faction_leader = yes
+			ROM = {
+				OR = {
+					is_subject = no
+					is_in_faction = no
+				}
+			}
+		}
+
 		completion_reward = {
 			ROM = {
-				country_event = r56_italy.16
+				country_event = { id = ITA_r56rp_romania.1 hours = 6 }
 			}
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
+		id = ITA_r56rp_anchor_latin_influence_in_the_balkans
+		icon = GFX_goal_FRA_latin_union
+		prerequisite = { focus = ITA_r56rp_cultivate_romanian_support }
+		relative_position_id = ITA_r56rp_cultivate_romanian_support
+		x = 0
+		y = 1
+		cost = 5
+
+		available = {
+			is_faction_leader = yes
+			ROM = {
+				OR = {
+					is_subject = no
+					is_in_faction = no
+				}
+			}
+			has_country_flag = ITA_r56rp_increased_italian_support
+		}
+
+		completion_reward = {
+
+		}
 	}
 
 	focus = {
 		id = ITA_expand_the_romanian_oil_fields
 		icon = GFX_goal_generic_oil_refinery
-		prerequisite = {  focus = ITA_operazione_trajan }
-		x = 0
+		prerequisite = {  focus = ITA_r56rp_renew_the_pact_of_1926 }
+		x = -1
 		y = 1
-		relative_position_id = ITA_operazione_trajan
+		relative_position_id = ITA_r56rp_renew_the_pact_of_1926
 		cost = 10
 
 		available = {
 			OR = {
-				has_country_flag = italy_flag_romania_accepted_ultimatum
-				controls_state = 46
+				ITA = {
+					controls_state = 46
+				}
+				ROM = {
+					controls_state = 46
+				}
 			}
 		}
 		completion_reward = {
@@ -18770,7 +18854,7 @@ focus_tree = {
 		icon = GFX_goal_generic_spanish_civil_war_soldier
 		prerequisite = { focus = ITA_foreign_affairs }
 
-		x = 6
+		x = 8
 		y = 1
 		relative_position_id = ITA_foreign_affairs
 		cost = 5

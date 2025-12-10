@@ -83,6 +83,7 @@ ideas = {
 				max_fuel_factor = -0.35
 				fuel_gain_factor = -0.5
 				agency_upgrade_time = 0.8
+				factory_energy_consumption = -0.3
 			}
 			allowed_to_remove = {
 				OR = {
@@ -114,6 +115,7 @@ ideas = {
 				max_fuel_factor = -0.25
 				fuel_gain_factor = -0.4
 				stability_factor = 0.15
+				factory_energy_consumption = -0.3
 			}
 
 			default = yes
@@ -238,6 +240,8 @@ ideas = {
 				#production_speed_infrastructure_factor = 0.1
 				fuel_gain_factor = -0.25
 				stability_factor = 0.075
+				factory_energy_consumption = -0.15
+				unit_medal_effectiveness = -0.60
 			}
 
 			cancel_if_invalid = no
@@ -461,6 +465,29 @@ ideas = {
 				OR = {
 					has_government = fascism
 					has_government = communism
+					if = {
+						limit = {
+							PHI_SEA = yes
+						}
+						if = {
+							limit = {
+								has_idea = PHI_ties_with_nationalist_spain
+							}
+							has_idea = PHI_ties_with_nationalist_spain
+						}
+						else_if = {
+							limit = {
+								has_idea = PHI_ties_with_nationalist_spain_2
+							}
+							has_idea = PHI_ties_with_nationalist_spain_2
+						}
+						else = {
+							hidden_trigger = { always = no } #NEED TO HAVE AN ALWAYS AS AN END STATEMENT IF URE USING AN IF ELSE IN AN OR STATEMENT OTHERWISE THE EVALUATION BREAKS!!
+						}
+					}
+					else = {
+						hidden_trigger = { always = no } #NEED TO HAVE AN ALWAYS AS AN END STATEMENT IF URE USING AN IF ELSE IN AN OR STATEMENT OTHERWISE THE EVALUATION BREAKS!!
+					}
 					custom_trigger_tooltip = { tooltip = or_clarification_tooltip always = no }
 					AND = {
 						has_war = yes
@@ -575,6 +602,7 @@ ideas = {
 				stability_factor = -0.1
 				conversion_cost_civ_to_mil_factor= -0.2
 				conversion_cost_mil_to_civ_factor = -0.2
+				factory_energy_consumption = 0.25
 			}
 
 			cancel_if_invalid = no
@@ -815,6 +843,7 @@ ideas = {
 				stability_factor = -0.2
 				conversion_cost_civ_to_mil_factor= -0.3
 				conversion_cost_mil_to_civ_factor = -0.3
+				factory_energy_consumption = 0.5
 			}
 
 			cancel_if_invalid = no
@@ -850,6 +879,7 @@ ideas = {
 				conversion_cost_mil_to_civ_factor = -0.3
 				industrial_capacity_factory = 0.05
 				industrial_capacity_dockyard = 0.05
+				factory_energy_consumption = 0.5
 			}
 			cancel_if_invalid = no
 		}
@@ -945,6 +975,7 @@ ideas = {
 				consumer_goods_expected_value = 0.10
 				production_speed_buildings_factor = -0.2
 				global_building_slots_factor = 0.1
+				factory_energy_consumption = 0.35
 			}
 
 			cancel_if_invalid = no
@@ -974,6 +1005,8 @@ ideas = {
 				trade_opinion_factor = 0.75
 				stability_factor = -0.15
 				political_power_factor = -0.1
+				factory_energy_consumption = 0.35
+
 			}
 
 			cancel_if_invalid = no

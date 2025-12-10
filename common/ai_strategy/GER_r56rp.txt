@@ -1,0 +1,95 @@
+#### Industrial Strategy
+########################
+	GER_r56rp_wants_civ_factories = {
+		allowed = {
+			original_tag = GER
+		}
+		enable = {
+			date < 1939.1.1
+		}
+		abort_when_not_enabled = yes
+		ai_strategy = {
+			type = building_target
+			id = industrial_complex
+			value = 100
+		}
+	}
+	GER_r56rp_wants_mils_now = {
+		allowed = {
+			original_tag = GER
+		}
+		enable = {
+			date > 1939.1.1
+		}
+		abort_when_not_enabled = yes
+		ai_strategy = {
+			type = building_target
+			id = arms_factory
+			value = 100
+		}
+	}
+	GER_r56rp_prioritize_building_in_dam_states = { # Hessen and Westfalen
+		allowed = {
+			original_tag = GER
+		}
+		enable = {
+			if = {
+				limit = {
+					original_tag = GER
+				}
+				55 = {
+					is_owned_and_controlled_by = PREV
+				}
+				57 = {
+					is_owned_and_controlled_by = PREV
+				}
+			}
+		}
+
+		abort_when_not_enabled = yes
+
+		ai_strategy = { # Hessen
+			type = factory_build_score_factor
+			target = 55
+			value = 80
+		}
+		ai_strategy = { # Westfalen
+			type = factory_build_score_factor
+			target = 57
+			value = 80
+		}
+	}
+	GER_r56rp_prioritize_building_in_dam_states = { # Rhineland
+		allowed = {
+			original_tag = GER
+		}
+		enable = {
+			if = {
+				limit = {
+					original_tag = GER
+				}
+				51 = {
+					is_owned_and_controlled_by = PREV
+					dam > 0
+				}
+			}
+		}
+
+		abort = {
+			if = {
+				limit = {
+					original_tag = GER
+				}
+				51 = {
+					NOT = {
+						is_owned_and_controlled_by = PREV
+					}
+				}
+			}
+		}
+		ai_strategy = { # Rhineland
+			type = factory_build_score_factor
+			target = 51
+			value = 80
+		}
+	}
