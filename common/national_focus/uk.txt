@@ -19316,7 +19316,9 @@ focus_tree = {
 		y = 2
 
 		prerequisite = { focus = ENG_r56rp_pm_halifax_domination_of_the_aristocracy }
-
+		available = {
+			has_completed_focus = ENG_r56rp_pm_eden_the_imperial_course
+		}
 		icon = GFX_goal_ENG_defend_the_monarchy
 		cost = 10
 
@@ -19930,110 +19932,11 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = ENG_r56rp_eden_steady_the_course_idea
+		 }
 	}	
 
-		focus = {
-		id = ENG_r56rp_pm_eden_the_conservative_way
-		relative_position_id = ENG_r56rp_pm_eden_steady_the_course
-		x = 3
-		y = 1
-
-		prerequisite = { focus = ENG_r56rp_pm_eden_steady_the_course focus = ENG_r56rp_pm_churchill_we_shall_fight  }
-		icon = GFX_focus_BEL_v_for_victory
-		cost = 10
-		available = {
-			OR = {
-			has_completed_focus = ENG_r56rp_pm_chamberlain_chamberlain_policy_eco
-			has_completed_focus = ENG_r56rp_pm_chamberlain_stick_to_party_policy
-			}
-		}
-		ai_will_do = { factor = 5 }
-
-		completion_reward = { }
-	}
-
-
-focus = {
-    id = ENG_r56rp_pm_strengthen_the_union
-    relative_position_id = ENG_r56rp_pm_eden_the_conservative_way
-    x = -1
-    y = 1
-    prerequisite = { focus = ENG_r56rp_pm_eden_the_conservative_way }
-    icon = GFX_focus_GER_strengthen_the_proletarian_international
-    cost = 10
-    ai_will_do = { factor = 5 }
-	completion_reward = {
-	}
-}
-
-focus = {
-    id = ENG_r56rp_pm_defend_traditional_values
-    relative_position_id = ENG_r56rp_pm_eden_the_conservative_way
-    x = 1
-    y = 1
-    prerequisite = { focus = ENG_r56rp_pm_eden_the_conservative_way }
-    icon = GFX_focus_RAJ_union_busting
-    cost = 10
-    ai_will_do = { factor = 5 }
-	completion_reward = {
-	}
-}
-
-focus = {
-    id = ENG_r56rp_pm_empower_local_governance
-    relative_position_id = ENG_r56rp_pm_strengthen_the_union
-    x = 1
-    y = 1
-    prerequisite = { focus = ENG_r56rp_pm_strengthen_the_union }
-    icon = GFX_focus_GER_factories_for_resources
-    cost = 10
-    ai_will_do = { factor = 5 }
-	completion_reward = {
-	}
-}
-
-focus = {
-    id = ENG_r56rp_pm_preserve_british_identity
-    relative_position_id = ENG_r56rp_pm_defend_traditional_values
-    x = 1
-    y = 1
-    prerequisite = { focus = ENG_r56rp_pm_defend_traditional_values }
-    icon = GFX_focus_BEL_expression_of_belgian_unity
-    cost = 10
-    ai_will_do = { factor = 5 }
-	completion_reward = {
-	}
-}
-
-focus = {
-    id = ENG_r56rp_pm_conservative_responsibility_act
-    relative_position_id = ENG_r56rp_pm_empower_local_governance
-    x = 1
-    y = 1
-    prerequisite = { 
-        focus = ENG_r56rp_pm_empower_local_governance
-        focus = ENG_r56rp_pm_preserve_british_identity 
-    }
-    icon = GFX_focus_generic_national_security
-    cost = 10
-    ai_will_do = { factor = 5 }
-	completion_reward = {
-	}
-}
-
-focus = {
-    id = ENG_r56rp_pm_national_continuity
-    relative_position_id = ENG_r56rp_pm_conservative_responsibility_act
-    x = 1
-    y = 1
-    prerequisite = { focus = ENG_r56rp_pm_conservative_responsibility_act }
-    icon = GFX_focus_BEL_national_redoubt_at_antwerp
-    cost = 10
-    ai_will_do = { factor = 5 }
-	completion_reward = {
-	}
-}
 
 		focus = {
 		id = ENG_r56rp_pm_eden_a_steady_hand_at_the_helm
@@ -20047,7 +19950,9 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			add_country_leader_trait = eden_a_steady_hand_at_helm_trait
+		}
 	}	
 
 		focus = {
@@ -20062,7 +19967,12 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = ENG_r56rp_eden_steady_the_course_idea
+				add_idea = ENG_r56rp_eden_eden_doctrine_idea
+			}
+		}
 	}
 	
 		focus = {
@@ -20077,7 +19987,12 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_eden_eden_doctrine_idea
+				add_idea = ENG_r56rp_eden_eden_doctrine_idea_2
+			}
+		 }
 	}	
 
 		focus = {
@@ -20098,7 +20013,98 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = anti_air_building
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = anti_air_building
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = anti_air_building
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = anti_air_building
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = anti_air_building
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = anti_air_building
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = anti_air_building
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = anti_air_building
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = anti_air_building
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = anti_air_building
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+		}
 	}
 	
 		focus = {
@@ -20113,8 +20119,16 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
-	}
+		completion_reward = {
+			 add_tech_bonus = {
+        		name = anti_air
+        		bonus = 0.75
+        		uses = 2
+        		category = anti_air_tech
+			 }
+    }
+}
+
 
 		focus = {
 		id = ENG_r56rp_pm_eden_by_god_by_king
@@ -20128,7 +20142,11 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			add_stability = 0.1
+			add_political_power = 150
+			add_war_support = 0.10
+		}
 	}
 
 
@@ -20144,7 +20162,14 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			set_party_name = {
+				ideology = democratic
+				long_name = "Reformed Conservative Party"
+				name = "Reformed Conservatives"
+			}
+			add_country_leader_trait = eden_leader_of_new_conservatives
+		}
 	}	
 
 		focus = {
@@ -20164,7 +20189,12 @@ focus = {
 		}
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_country_leader_traits = {
+				remove = eden_leader_of_new_conservatives
+				add = eden_leader_of_new_conservatives_2
+			}
+		 }
 	}	
 
 		focus = {
@@ -20179,8 +20209,27 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
-	}
+		completion_reward = { 
+  			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+		}
+		}
 	
 		focus = {
 		id = ENG_r56rp_pm_eden_fiscal_responsibility_act
@@ -20194,7 +20243,26 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = arms_factory
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+		 }
 	}	
 
 		focus = {
@@ -20209,7 +20277,9 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = ENG_r56rp_eden_treasury_and_growth_act
+		 }
 	}
 
 		focus = {
@@ -20224,7 +20294,12 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = ENG_r56rp_eden_treasury_and_growth_act
+				add_idea = ENG_r56rp_eden_treasury_and_growth_act_2
+			}
+		}
 	}
 	
 		focus = {
@@ -20239,7 +20314,44 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = arms_factory
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+		}
 	}	
 
 		focus = {
@@ -20256,7 +20368,31 @@ focus = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = arms_factory
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 3
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 3
+				instant_build = yes
+ 				}
+			}
+		custom_effect_tooltip = generic_skip_one_line_tt
+			swap_ideas = {
+				remove_idea = ENG_r56rp_eden_treasury_and_growth_act_2
+				add_idea = ENG_r56rp_eden_the_nation_act
+			}
+		 }
 	}
 
 		focus = {
