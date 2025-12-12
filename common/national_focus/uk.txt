@@ -17816,7 +17816,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { 
+		completion_reward = {
+			add_political_power = 150
+			add_war_support = 0.25
+			add_stability = -0.1 
 		}
 	}
 
@@ -17832,7 +17835,20 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_tech_bonus = {
+				name = marine_tech
+				bonus = 0.75
+				uses = 2
+				category = marine_tech
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.25
+				uses = 2
+				name = special_forces_doctrine
+				category = cat_marines_doctrine
+			}
+		 }
 	}
 
 # LEFT WAR SPIRIT PATH
@@ -17847,7 +17863,10 @@ focus_tree = {
 	    cost = 10
 
 	    ai_will_do = { factor = 5 }
-	    completion_reward = { }
+	    completion_reward = {
+			add_stability = -0.1
+			add_war_support = 0.15
+		 }
 	}
 
 	focus = {
@@ -17861,7 +17880,44 @@ focus_tree = {
 	    cost = 10
 
 	    ai_will_do = { factor = 5 }
-	    completion_reward = { }
+	    completion_reward = {
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = arms_factory
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 2
+				instant_build = yes
+ 				}
+			}	
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = dockyard
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = dockyard
+ 				level = 2
+				instant_build = yes
+ 				}
+			}		
+		 }
 	}
 
 	# RIGHT IMPERIAL AUTHORITY PATH
@@ -17876,7 +17932,13 @@ focus_tree = {
 	    cost = 10
 
 	    ai_will_do = { factor = 5 }
-	    completion_reward = { }
+	    completion_reward = {
+			add_stability = 0.05
+			every_subject_country = {
+				add_stability = 0.05
+				add_war_support = 0.10
+			}
+		 }
 	}
 
 	focus = {
@@ -17890,8 +17952,12 @@ focus_tree = {
 	    cost = 10
 
 	    ai_will_do = { factor = 5 }
-	    completion_reward = { }
-	}
+	    completion_reward = { 
+			RAJ = {
+				add_ideas = ENG_r56rp_winston_churchill_india
+				}
+			}
+		}
 
 	focus = {
 	    id = ENG_r56rp_pm_churchill_india_defence_council
@@ -17910,7 +17976,13 @@ focus_tree = {
 			}
 		}
 	    ai_will_do = { factor = 5 }
-	    completion_reward = { }
+	    completion_reward = {
+			add_ideas = ENG_r56rp_churchill_india_defence_council
+			custom_effect_tooltip = generic_skip_one_line_tt
+			RAJ = {
+				add_ideas = ENG_r56rp_churchill_india_defence_council_india
+			}
+		 }
 	}
 
 	focus = {
@@ -17924,7 +17996,12 @@ focus_tree = {
 	    cost = 10
 	
 	    ai_will_do = { factor = 5 }
-	    completion_reward = { }
+	    completion_reward = {
+			swap_country_leader_traits = {
+				remove = british_bulldog
+				add = churchill_the_great_british_bulldog
+			}
+		 }
 	}
 
 		focus = {
