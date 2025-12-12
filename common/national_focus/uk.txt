@@ -17903,7 +17903,12 @@ focus_tree = {
 	  	prerequisite = { focus = ENG_r56rp_pm_churchill_mobilise_the_isles }
 	    icon = GFX_focus_RAJ_british_investors
 	    cost = 10
-
+		available = {
+			OR = {
+			has_completed_focus = ENG_r56rp_pm_chamberlain_chamberlain_policy_eco
+			has_completed_focus = ENG_r56rp_pm_chamberlain_stick_to_party_policy
+			}
+		}
 	    ai_will_do = { factor = 5 }
 	    completion_reward = { }
 	}
@@ -18896,7 +18901,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_chamberlain_economics_party_4
+				add_idea = ENG_r56rp_chamberlain_economics_party_5
+			}
+		 }
 	}
 
 		focus = {
@@ -18926,7 +18936,10 @@ focus_tree = {
 		ai_will_do = { factor = 5 }
 
 		completion_reward = {
-
+			swap_ideas = {
+				remove_idea = ENG_r56rp_chamberlain_economics
+				add_idea = ENG_r56rp_chamberlain_economics_prime
+			}
 		 }
 	}
 
@@ -18943,7 +18956,44 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 3
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 3
+				instant_build = yes
+ 				}
+			}			
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 3
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 3
+				instant_build = yes
+ 				}
+			}
+		 }
 	}
 
 		focus = {
@@ -18959,7 +19009,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_chamberlain_economics_prime
+				add_idea = ENG_r56rp_chamberlain_economics_prime_2
+			}
+		 }
 	}
 
 		focus = {
@@ -18975,7 +19030,44 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = arms_factory
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 1
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 1
+				instant_build = yes
+ 				}
+			}			
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = arms_factory
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+		}
 	}
 
 		focus = {
@@ -18990,7 +19082,60 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			random_owned_controlled_state = {
+                prioritize = { 16 }
+                limit = {
+                    is_core_of = ROOT
+                    free_building_slots = {
+                        building = industrial_complex
+                        size > 1
+                        include_locked = yes
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = energy_infrastructure
+                    level = 2
+                    instant_build = yes
+                }
+            }
+			random_owned_controlled_state = {
+                prioritize = { 16 }
+                limit = {
+                    is_core_of = ROOT
+                    free_building_slots = {
+                        building = industrial_complex
+                        size > 1
+                        include_locked = yes
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = industrial_infrastructure
+                    level = 2
+                    instant_build = yes
+                }
+            }
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 2
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 2
+				instant_build = yes
+ 				}
+			}
+		 }
 	}
 
 		focus = {
@@ -19005,7 +19150,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = war_bonds_force
+		 }
 	}
 
 		focus = {
@@ -19020,7 +19167,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_chamberlain_economics_prime_2
+				add_idea = ENG_r56rp_chamberlain_economics_prime_3
+			}
+		 }
 	}
 
 		focus = {
@@ -19035,7 +19187,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = ENG_r56rp_chamberlain_economics_small_buisness
+		 }
 	}
 
 		focus = {
@@ -19053,7 +19207,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = ENG_r56rp_chamberlain_economics_prime_3
+				add_idea = ENG_r56rp_chamberlain_economics_prime_4
+			}
+		}
 	}
 
 
@@ -19101,7 +19260,14 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = ENG_r56rp_halifax_domination_aristocrats
+			set_party_name = {
+				ideology = neutrality
+				long_name = "Cromwellian Halifaxist Aristocrats"
+				name = "Halifaxist's"
+			}
+		 }
 	}	
 
 	focus = {
@@ -19117,7 +19283,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			add_ideas = r56i_laws_gender_patriarchy
+		}
 	}
 
 	focus = {
@@ -19133,7 +19301,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_halifax_domination_aristocrats
+				add_idea = ENG_r56rp_halifax_domination_aristocrats_2
+			}
+		 }
 	}	
 
 	focus = {
@@ -19149,7 +19322,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			country_event = ENG_conservative_halifax_the_meeting_with_the_king.1
+		 }
 	}		
 
 	focus = {
@@ -19181,7 +19356,11 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			add_ideas = closed_economy
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = ENG_r56rp_halifax_aristocratic_economy
+		}
 	}
 
 	focus = {
@@ -19196,7 +19375,44 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 4
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 4
+				instant_build = yes
+ 				}
+			}			
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 4
+ 			add_building_construction = {
+ 				type = industrial_complex
+ 				level = 4
+				instant_build = yes
+ 				}
+			}
+		 }
 	}
 
 	focus = {
@@ -19211,7 +19427,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = ENG_r56rp_halifax_overlook_bribes
+		 }
 	}
 
 	focus = {
@@ -19226,7 +19444,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_halifax_aristocratic_economy
+				add_idea = ENG_r56rp_halifax_aristocratic_economy_2
+			}
+		 }
 	}
 
 	focus = {
@@ -19242,7 +19465,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_halifax_aristocratic_economy_2
+				add_idea = ENG_r56rp_halifax_aristocratic_economy_3
+			}
+		 }
 	}
 
 	focus = {
@@ -19257,7 +19485,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_halifax_aristocratic_economy_3
+				add_idea = ENG_r56rp_halifax_aristocratic_economy_4
+			}
+		 }
 	}
 
 	focus = {
@@ -19272,7 +19505,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_research_slot = -1
+		 }
 	}
 
 	focus = {
@@ -19287,7 +19522,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = ENG_r56rp_halifax_patriot_spirit
+		 }
 	}
 
 
@@ -19303,7 +19540,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = r56i_laws_security_order
+		 }
 	}
 
 	focus = {
@@ -19318,7 +19557,11 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			add_ideas = mass_media_censorship
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = r56i_laws_social_normal
+		}
 	}
 
 
@@ -19334,7 +19577,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			add_ideas = ENG_r56rp_halifax_queen_lizzy
+		}
 	}
 
 	focus = {
@@ -19350,7 +19595,26 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+ 			random_owned_controlled_state = {
+ 				limit = {
+ 					ROOT = { has_full_control_of_state = PREV }
+ 					is_in_home_area = yes
+ 					is_core_of = ROOT
+ 					free_building_slots = {
+ 						building = industrial_complex
+						size > 1
+ 						include_locked = yes
+					}
+ 				}	
+ 			add_extra_state_shared_building_slots = 4
+ 			add_building_construction = {
+ 				type = arms_factory
+ 				level = 4
+				instant_build = yes
+ 				}
+			}			
+		 }
 	}
 
 	focus = {
@@ -19366,7 +19630,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			add_country_leader_trait = halifax_the_lion
+		}
 	}
 
 	focus = {
@@ -19381,7 +19647,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			add_country_leader_trait = halifax_lord_protector
+		}
 	}
 
 	focus = {
@@ -19397,7 +19665,19 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			create_wargoal = {
+				target = IRE
+				type = annex_everything
+			}
+			set_province_name = {
+				id = 6103
+				name = Halifax-on-Thames
+			}
+			add_state_core = 113
+			add_state_core = 134
+			add_state_core = 135
+		 }
 	}
 
 
@@ -19455,8 +19735,18 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
-	}
+		completion_reward = {
+			every_subject_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				add_opinion_modifier = {
+					target = ENG
+					modifier = r56rp_ENG_colonial_maintain
+				}
+			}			
+		}
+	 }
 
 		focus = {
 		id = ENG_r56rp_pm_eden_strengthen_dominion_trade
@@ -19470,7 +19760,16 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			add_ideas = ENG_r56rp_halifax_imperial_customs_home
+			custom_effect_tooltip = generic_skip_one_line_tt
+			every_subject_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				add_ideas = ENG_r56rp_halifax_imperial_customs_puppet
+			}
+		 }
 	}
 
 		focus = {
@@ -19485,7 +19784,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			country_event = ENG_conservative_halifax_imperial_dominions_decide.1
+		 }
 	}
 
 		focus = {
@@ -19498,12 +19799,29 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = ENG_r56rp_pm_eden_maintain_policy
 		}
+		available = {
+			has_country_flag = ENG_r56rp_exploit_the_colonial_holdings
+		}
 		icon = GFX_goal_generic_trade
 		cost = 10
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_halifax_imperial_customs_home
+				add_idea = ENG_r56rp_halifax_imperial_customs_home_exploit
+			}
+			every_subject_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				swap_ideas = {
+					remove_idea = ENG_r56rp_halifax_imperial_customs_puppet
+					add_idea = ENG_r56rp_halifax_imperial_customs_puppet_exploit
+				}
+			}
+		 }
 	}
 
 		focus = {
@@ -19518,7 +19836,21 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = ENG_r56rp_halifax_imperial_customs_home_exploit
+				add_idea = ENG_r56rp_halifax_imperial_customs_home_exploit_2
+			}
+			every_subject_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				swap_ideas = {
+					remove_idea = ENG_r56rp_halifax_imperial_customs_puppet_exploit
+					add_idea = ENG_r56rp_halifax_imperial_customs_puppet_exploit_2
+				}
+			}
+		}
 	}
 
 		focus = {
@@ -19531,12 +19863,30 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = ENG_r56rp_pm_eden_exploit_the_colonies
 		}
+		available = {
+			has_country_flag = ENG_r56rp_protect_colonial_holdings
+		}
+
 		icon = GFX_goal_generic_positive_trade_relations
 		cost = 10
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_halifax_imperial_customs_home
+				add_idea = ENG_r56rp_halifax_imperial_customs_home_maintain
+			}
+			every_subject_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				swap_ideas = {
+					remove_idea = ENG_r56rp_halifax_imperial_customs_puppet
+					add_idea = ENG_r56rp_halifax_imperial_customs_puppet_maintain
+				}
+			}
+		 }
 	}
 
 		focus = {
@@ -19551,7 +19901,21 @@ focus_tree = {
 
 		ai_will_do = { factor = 5 }
 
-		completion_reward = { }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = ENG_r56rp_halifax_imperial_customs_home_maintain
+				add_idea = ENG_r56rp_halifax_imperial_customs_home_maintain_2
+			}
+			every_subject_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				swap_ideas = {
+					remove_idea = ENG_r56rp_halifax_imperial_customs_puppet_maintain
+					add_idea = ENG_r56rp_halifax_imperial_customs_puppet_maintain_2
+				}
+			}
+		 }
 	}
 
 		focus = {
@@ -19578,7 +19942,12 @@ focus_tree = {
 		prerequisite = { focus = ENG_r56rp_pm_eden_steady_the_course focus = ENG_r56rp_pm_churchill_we_shall_fight  }
 		icon = GFX_focus_BEL_v_for_victory
 		cost = 10
-
+		available = {
+			OR = {
+			has_completed_focus = ENG_r56rp_pm_chamberlain_chamberlain_policy_eco
+			has_completed_focus = ENG_r56rp_pm_chamberlain_stick_to_party_policy
+			}
+		}
 		ai_will_do = { factor = 5 }
 
 		completion_reward = { }
@@ -19716,7 +20085,12 @@ focus = {
 		relative_position_id = ENG_r56rp_pm_eden_imperial_stewardship
 		x = 1
 		y = 1
-
+		available = {
+			OR = {
+			has_completed_focus = ENG_r56rp_pm_chamberlain_chamberlain_policy_eco
+			has_completed_focus = ENG_r56rp_pm_chamberlain_stick_to_party_policy
+			}
+		}
 		prerequisite = { focus = ENG_r56rp_pm_eden_imperial_stewardship  }
 		prerequisite = { focus = ENG_r56rp_pm_eden_national_renewal  }
 		icon = GFX_focus_FIN_coastal_defense
@@ -19782,7 +20156,12 @@ focus = {
 		prerequisite = { focus = ENG_r56rp_pm_eden_national_renewal  }
 		icon = GFX_focus_SWI_dissolve_the_federal_council
 		cost = 10
-
+		available = {
+			OR = {
+			has_completed_focus = ENG_r56rp_pm_chamberlain_chamberlain_policy_eco
+			has_completed_focus = ENG_r56rp_pm_chamberlain_stick_to_party_policy
+			}
+		}
 		ai_will_do = { factor = 5 }
 
 		completion_reward = { }
