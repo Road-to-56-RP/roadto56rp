@@ -1067,6 +1067,8 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = {
+			# This should be an event linked to Norway Co-operating giving a massive bonus to their eco
+			# - While also sanity checking if they exist etc
 			IF = {	
 				limit = {
 					NOT = {
@@ -2082,8 +2084,8 @@ focus_tree = {
 			factor = 1.5
 		}
 		completion_reward = {
-			add_stability = 0.05
-			add_political_power = 110
+			add_stability = 0.025
+			add_political_power = 50
 			if = {
 				limit = {
 					OR ={
@@ -2292,8 +2294,8 @@ focus_tree = {
 			factor = 1.5
 		}
 		completion_reward = {
-			add_stability = 0.05
-			add_political_power = 110
+			add_stability = 0.025
+			add_political_power = 50
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_AFR_colonies_tt
 			if = {
@@ -2462,8 +2464,8 @@ focus_tree = {
 			factor = 1.5
 		}
 		completion_reward = {
-			add_stability = 0.05
-			add_political_power = 110
+			add_stability = 0.025
+			add_political_power = 50
 			if = {
 				limit = {
 					FRI = {
@@ -2577,6 +2579,7 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.10
 			add_war_support = 0.05
+			custom_effect_tooltip = generic_skip_one_line_tt
 			every_country = {
 				limit = {
 					is_subject_of = ROOT
@@ -2584,6 +2587,7 @@ focus_tree = {
 				add_stability = 0.15
 				add_war_support = 0.05
 				add_political_power = 250
+				custom_effect_tooltip = generic_skip_one_line_tt
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = ENG_guiding_the_colonies
@@ -10023,7 +10027,7 @@ focus_tree = {
 	focus = {
 		id = FRA_la_bataille_methodique
 		icon = GFX_focus_ICE_the_armed_forces_of_iceland
-		cost = 5
+		cost = 10
 		prerequisite = {
 			focus = FRA_giraud_plan
 		}
@@ -10324,7 +10328,7 @@ focus_tree = {
 	focus = {
 		id = FRA_la_guerra_mecanique
 		icon = GFX_focus_generic_tank_assault
-		cost = 5
+		cost = 10
 		prerequisite = {
 			focus = FRA_de_gaulle_strategy
 		}
@@ -10411,90 +10415,37 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = FRA_giraud_plan
+
 		available = {
+			785 = {
+				is_controlled_by = ROOT
+			}
+			18  = {
+				is_controlled_by = ROOT
+			}
+			29 = {
+				is_controlled_by = ROOT
+			}
 			735 = {
 				is_controlled_by = ROOT
 			}
 		}
+
 		ai_will_do = {
 			factor = 1
 		}
+
 		completion_reward = {
-			ROOT = {
-				country_event = {
-					id = france.3
-				}
+			add_tech_bonus = {
+				name = FRA_fortification_focus
+				bonus = 0.5
+				uses = 2
+				category = cat_fortification
 			}
-			ITA = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = FRA_alpine_forts
-				}
-			}
-			effect_tooltip = {
-				18 = {
-					add_building_construction = {
-						type = bunker
-						province = 5291
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 3560
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 9472
-						level = 2
-						instant_build = yes
-					}
-				}
-				29 = {
-					add_building_construction = {
-						type = bunker
-						province = 11606
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 11483
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = bunker
-						province = 575
-						level = 2
-						instant_build = yes
-					}
-				}
-				785 = {
-					add_building_construction = {
-						type = bunker
-						province = 3447
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			ROOT = {
-				country_event = {
-					id = france.2
-				}
-			}
-			BEL = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = FRA_extend_the_maginot_line_focus_neg
-				}
-				add_opinion_modifier = {
-					target = GER
-					modifier = FRA_extend_the_maginot_line_focus_pos
-				}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_timed_idea = {
+				idea = r56rp_FRA_fortify_marianne
+				days = 730
 			}
 		}
 	}
@@ -13499,9 +13450,15 @@ focus_tree = {
 				}
 				add_tech_bonus = {
 					name = FRA_provide_aerial_support
-					bonus = 0.5
+					bonus = 0.75
 					uses = 1
 					category = medium_air
+				}
+				add_tech_bonus = {
+					name = FRA_provide_aerial_support
+					bonus = 0.5
+					uses = 1
+					category = cat_air_bombs
 				}
 			}
 			else = {
@@ -13518,7 +13475,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = FRA_end_the_interservice_rivalry_temp
+		id = FRA_end_the_interservice_rivalry
 		icon = GFX_focus_generic_cas_aircraft
 		prerequisite = { focus = FRA_provide_aerial_support }
 		prerequisite = { focus = FRA_the_queen_of_battle }
@@ -13656,7 +13613,7 @@ focus_tree = {
 	focus = {
 		id = FRA_supprt_the_aeronavale
 		icon = GFX_goal_generic_air_naval_bomber
-		cost = 5
+		cost = 10
 		prerequisite = {
 			focus = FRA_enact_plan_v
 		}
@@ -13675,8 +13632,7 @@ focus_tree = {
 				add_tech_bonus = {
 					name = FRA_supprt_the_aeronavale
 					bonus = 1
-					uses = 2
-					category = medium_air
+					uses = 1
 					category = heavy_air
 				}
 				add_tech_bonus = {
