@@ -47,6 +47,11 @@ technologies = {
 			leads_to_tech = dispersed_industry
 			research_cost_coeff = 1
 		}
+
+		path = {
+			leads_to_tech = coal_refining
+			research_cost_coeff = 1
+		}
 		
 		research_cost = 1.5
 		start_year = 1930
@@ -74,11 +79,6 @@ technologies = {
 
 		path = {
 			leads_to_tech = advanced_machine_tools 
-			research_cost_coeff = 1
-		}
-
-		path = {
-			leads_to_tech = improved_equipment_conversion
 			research_cost_coeff = 1
 		}
 		
@@ -112,6 +112,12 @@ technologies = {
 		
 		path = {
 			leads_to_tech = assembly_line_production 
+			research_cost_coeff = 1
+		}
+
+		
+		path = {
+			leads_to_tech = improved_equipment_conversion
 			research_cost_coeff = 1
 		}
 		
@@ -258,57 +264,22 @@ technologies = {
 	# r56rp - moved the modifer into normal tooling, no point having it in there
 	# seeing s the dlc is now more or less free/in the base pack.
 	improved_equipment_conversion = {
-	
-		equipment_conversion_speed = 0.40
-
-		allow_branch = { #with DoD disabled, it still applies the value nothing seems to have crashed so its just a buff that is without use if you do not have DoD
-			always = no
-		}
+		energy_gain_factor = 0.15
+		#equipment_conversion_speed = 0.40
 
 		path = {
 			leads_to_tech = advanced_equipment_conversion
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1.5
-		start_year = 1937
-		
-		folder = {
-			name = industry_folder
-			position = { x = 2 y = @1937 }
-		}
-
-		ai_will_do = {
-			factor = 1
-
-			modifier = {
-				factor = 2
-				date > "1937.1.1"
-			}
-
-			modifier = {
-				factor = 0
-				NOT = { has_government = fascism }
-			}
-		}
-		
-		categories = {
-			industry
-		}
-	}
-	
-	advanced_equipment_conversion = {
-		
-		equipment_conversion_speed = 0.40
-
-		research_cost = 1.5
+		research_cost = 2
 		start_year = 1939
 		
 		folder = {
 			name = industry_folder
 			position = { x = 2 y = @1939 }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 
@@ -318,13 +289,58 @@ technologies = {
 			}
 
 			modifier = {
-				factor = 0
-				NOT = { has_government = fascism }
+				factor = 2
+				coal > 0
+			}
+			modifier = {
+				factor = 2
+				coal > 8
 			}
 		}
 		
 		categories = {
 			industry
+			cat_production
+			construction_tech
+			excavation_tech		
+		}
+	}
+	
+	advanced_equipment_conversion = {
+		energy_gain_factor = 0.15
+		#equipment_conversion_speed = 0.40
+
+		research_cost = 2
+		start_year = 1941
+		
+		folder = {
+			name = industry_folder
+			position = { x = 2 y = 8 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				date > "1939.1.1"
+			}
+
+			modifier = {
+				factor = 2
+				coal > 0
+			}
+			modifier = {
+				factor = 2
+				coal > 8
+			}
+		}
+		
+		categories = {
+			industry
+			cat_production
+			construction_tech
+			excavation_tech	
 		}
 	}
 
@@ -1511,7 +1527,8 @@ technologies = {
 
 	excavation1 = {
 		
-		 local_resources_factor = 0.10
+		local_resources_factor = 0.10
+		local_resources_coal_factor = 0.05
 		
 		path = {
 			research_cost_coeff = 1
@@ -1557,6 +1574,7 @@ technologies = {
 					tungsten > 0
 					steel > 0
 					chromium > 0
+					coal > 0
 				}
 			}
 			
@@ -1569,6 +1587,7 @@ technologies = {
 					tungsten > 8
 					steel > 8
 					chromium > 8
+					coal > 8
 				}
 			}
 			modifier = {
@@ -1623,7 +1642,8 @@ technologies = {
 	excavation2 = {
 		
 		local_resources_factor = 0.10
-		
+		local_resources_coal_factor = 0.05
+
 		path = {
 			research_cost_coeff = 1
 		}
@@ -1654,6 +1674,7 @@ technologies = {
 					tungsten > 0
 					steel > 0
 					chromium > 0
+					coal > 0 
 				}
 			}
 			
@@ -1666,6 +1687,7 @@ technologies = {
 					tungsten > 8
 					steel > 8
 					chromium > 8
+					coal > 8
 				}
 			}
 			modifier = {
@@ -1732,7 +1754,8 @@ technologies = {
 	excavation3 = {
 		
 		local_resources_factor = 0.10
-		
+		local_resources_coal_factor = 0.05
+
 		path = {
 			research_cost_coeff = 1
 		}
@@ -1763,6 +1786,7 @@ technologies = {
 					tungsten > 0
 					steel > 0
 					chromium > 0
+					coal > 0
 				}
 			}
 			
@@ -1775,6 +1799,7 @@ technologies = {
 					tungsten > 8
 					steel > 8
 					chromium > 8
+					coal > 8
 				}
 			}
 			modifier = {
@@ -1829,7 +1854,8 @@ technologies = {
 	excavation4 = {
 		
 		local_resources_factor = 0.10
-		
+		local_resources_coal_factor = 0.05
+
 		path = {
 			research_cost_coeff = 1
 		}
@@ -1860,6 +1886,7 @@ technologies = {
 					tungsten > 0
 					steel > 0
 					chromium > 0
+					coal > 0
 				}
 			}
 			
@@ -1872,6 +1899,7 @@ technologies = {
 					tungsten > 8
 					steel > 8
 					chromium > 8
+					coal > 8
 				}
 			}
 			modifier = {
@@ -1926,7 +1954,8 @@ technologies = {
 	excavation5 = {
 		
 		local_resources_factor = 0.10
-		
+		local_resources_coal_factor = 0.05
+
 		path = {
 			research_cost_coeff = 1
 		}
@@ -1937,6 +1966,7 @@ technologies = {
 		categories = {
 			industry
 			construction_tech
+			excavation_tech
 		}
 		
 		folder = {
@@ -1956,6 +1986,7 @@ technologies = {
 					tungsten > 0
 					steel > 0
 					chromium > 0
+					coal > 0
 				}
 			}
 			
@@ -1968,6 +1999,7 @@ technologies = {
 					tungsten > 8
 					steel > 8
 					chromium > 8
+					coal > 8
 				}
 			}
 			modifier = {
