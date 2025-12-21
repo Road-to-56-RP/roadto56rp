@@ -155,50 +155,77 @@ economy_decisions = {
 			}
 		}
 	}
+}
+SOV_r56rp_formalize_ssr_category = {
+	SOV_r56rp_establish_united_baltic_ssr = {
 
-#	r56rp_SOV_ask_for_pe = { #right opposition russia, ask for planned economy
-#
-#		cost = 10
-#
-#		fire_only_once = yes
-#
-#		icon = GFX_decision_hol_exchange_intelligence_data
-#
-#		visible = {
-#			SOV = {
-#				has_dynamic_modifier = {
-#					modifier = SOV_planned_economy_dynamic_modifier
-#				}
-#				OR = {
-#					check_variable = { SOV_planned_economy_industrial_capacity_factory_initial < 0.1 }
-#					check_variable = { SOV_planned_economy_production_lack_of_resource_penalty_factor_initial > -0.1 }
-#				}
-#			}
-#			NOT = {
-#				has_country_flag = r56rp_accepted_sov_pe
-#			}
-#		}
-#
-#		available = {
-#			is_ally_of = SOV
-#		}
-#
-#		complete_effect = {
-#			SOV = {
-#				if = {
-#					limit = {
-#						check_variable = { SOV_planned_economy_industrial_capacity_factory_initial < 0.1 }
-#					}
-#					add_to_variable = { SOV_planned_economy_industrial_capacity_factory_initial = 0.01 }
-#				}
-#				if = {
-#					limit = {
-#						check_variable = { SOV_planned_economy_production_lack_of_resource_penalty_factor_initial > -0.1 }
-#					}
-#					add_to_variable = { SOV_planned_economy_production_lack_of_resource_penalty_factor_initial = -0.01 }
-#				}
-#			}
-#			set_country_flag = r56rp_accepted_sov_pe
-#		}
-#	}
+		allowed = {
+			original_tag = SOV
+		}
+
+		fire_only_once = yes
+
+		visible = {
+			OR = {
+				808 = {
+					OR = {
+						is_controlled_by = ROOT
+						CONTROLLER = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+				812 = {
+					OR = {
+						is_controlled_by = ROOT
+						CONTROLLER = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+				11 = {
+					OR = {
+						is_controlled_by = ROOT
+						CONTROLLER = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+		}
+
+		available = {
+			EST = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+			LAT = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+			LIT = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+		}
+
+		days_remove = 30
+
+		remove_effect = {
+			SOV_r56rp_no_puppets_in_baltics = yes
+			SOV_r56rp_all_my_puppets_in_baltics = yes
+			SOV_r56rp_establish_united_baltic_ssr_LAT = yes
+			SOV_r56rp_uncomplete_non_communist_focuses_LAT = yes
+			SOV_r56rp_establish_united_baltic_ssr_LIT = yes
+			SOV_r56rp_uncomplete_non_communist_focuses_EST = yes
+			SOV_r56rp_establish_united_baltic_ssr_EST = yes
+			SOV_r56rp_uncomplete_non_communist_focuses_LIT = yes
+		}
+	}
 }
