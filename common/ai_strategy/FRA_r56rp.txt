@@ -1,0 +1,85 @@
+#### Industrial Strategy
+########################
+FRA_r56rp_wants_civ_factories = {
+	allowed = {
+		original_tag = FRA
+	}
+	enable = {
+		date < 1938.1.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = 100
+	}
+}
+FRA_r56rp_wants_mils_now = {
+	allowed = {
+		original_tag = FRA
+	}
+	enable = {
+		date > 1938.1.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 100
+	}
+}
+FRA_r56rp_prioritize_building_in_auto_routes_states = { # Loire, Picardy, Champagne, Bourgone, Ile-de-France
+	allowed = {
+		original_tag = FRA
+	}
+	enable = {
+		if = {
+			limit = {
+				original_tag = FRA
+			}
+			30 = {
+				is_owned_and_controlled_by = PREV
+			}
+			785 = {
+				is_owned_and_controlled_by = PREV
+			}
+			18 = {
+				is_owned_and_controlled_by = PREV
+			}
+			27 = {
+				is_owned_and_controlled_by = PREV
+			}
+			16 = {
+				is_owned_and_controlled_by = PREV
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = { # Loire
+		type = factory_build_score_factor
+		target = 30
+		value = 80
+	}
+	ai_strategy = { # Picardy
+		type = factory_build_score_factor
+		target = 785
+		value = 80
+	}
+	ai_strategy = { # Champagne
+		type = factory_build_score_factor
+		target = 18
+		value = 80
+	}
+	ai_strategy = { # Bourgone
+		type = factory_build_score_factor
+		target = 27
+		value = 80
+	}
+	ai_strategy = { # Ile-de-France
+		type = factory_build_score_factor
+		target = 16
+		value = 80
+	}
+}
