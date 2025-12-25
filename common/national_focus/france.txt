@@ -242,6 +242,7 @@ focus_tree = {
 		
 		completion_reward = {
 			add_stability = 0.05
+			unlock_decision_category_tooltip = FRA_economic_reforms
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -10591,7 +10592,7 @@ focus_tree = {
 
 	focus = {
 		id = FRA_army_reform
-		icon = GFX_goal_FRA_army_reform
+		icon = GFX_focus_chi_army_reform
 		cost = 10
 		prerequisite = {
 			focus = FRA_doctrinal_modernization
@@ -11179,7 +11180,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_mastery_bonus = {
-				name = GER_wolfpack_tactics
+				name = FRA_sea_denial_doctrine
 				bonus = 0.1
 				days = 240
 				grand_doctrine = new_convoy_raiding
@@ -11242,7 +11243,8 @@ focus_tree = {
 	focus = {
 		id = FRA_ecole_navale_combine
 		icon = GFX_focus_SMB_blue_water_fleet
-		prerequisite = {focus = FRA_intensify_torpedo_manufacturing }
+		prerequisite = { focus = FRA_intensify_torpedo_manufacturing }
+		mutually_exclusive = { focus = FRA_ecole_navale_asymetrique }
 		x = -1
 		y = 1
 		relative_position_id = FRA_intensify_torpedo_manufacturing
@@ -11253,8 +11255,21 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			# wtf do i add here
-			# This should be a mishap, due to the fact that you're following an old doctrine only to switch up - thus if you are trying to ensure your navy is aware of the now combined doctrine effort - you'd have to retrain them
+			add_mastery_bonus = {
+				bonus = 0.25
+				days = 240
+				track = carriers 
+				name = FRA_ecole_navale_combine
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_tech_bonus = {
+				name = FRA_ecole_navale_combine
+				bonus = 1
+				ahead_reduction = 1
+				uses = 1
+				category = mio_cat_tech_all_carrier_and_modules
+			}
+
 			custom_effect_tooltip = generic_skip_one_line_tt
 			reduce_focus_completion_cost = {
 				focus = { FRA_colonial_naval_bases }
@@ -11271,7 +11286,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = FRA_ecole_navale_combine
-		cost = 5
+		cost = 10
 		completion_reward = {
 			add_tech_bonus = {
 				name = FRA_improved_screen_ships
@@ -11465,7 +11480,6 @@ focus_tree = {
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
-			add_to_variable = { FRA_r56rp_naval_strike_agility_factor = 0.1 tooltip =  naval_agility_factor_tt }
 			add_to_variable = {	FRA_r56rp_naval_strike_attack_factor = 0.05 tooltip = naval_strike_attack_factor_tt}
 		}
 	}
@@ -11474,9 +11488,7 @@ focus_tree = {
 		id = FRA_ecole_navale_asymetrique
 		icon = GFX_focus_generic_cruiser_submarines
 		prerequisite = {focus = FRA_intensify_torpedo_manufacturing }
-		mutually_exclusive = {
-			focus = FRA_ecole_navale_combine
-		}
+		mutually_exclusive = { focus = FRA_ecole_navale_combine }
 		x = 1
 		y = 1
 		relative_position_id = FRA_intensify_torpedo_manufacturing
@@ -11507,8 +11519,8 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
 			add_to_variable = {
-				FRA_r56rp_marine_national_modifier_raideff = 0.20
-				tooltip = convoy_raiding_efficiency_factor_tt
+				FRA_r56rp_sub_retreat_speed = 0.1
+				tooltip = sub_retreat_speed_tt
 			}
 		}
 	}
@@ -11541,7 +11553,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = FRA_modernization_of_the_battlefleet
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -11552,10 +11564,6 @@ focus_tree = {
 			add_to_variable = {
 				FRA_r56rp_marine_national_modifier_raideff = 0.20
 				tooltip = convoy_raiding_efficiency_factor_tt
-			}
-			add_to_variable = {
-				FRA_r56rp_sub_retreat_speed = 0.1
-				tooltip = sub_retreat_speed_tt
 			}
 		}
 	}
@@ -11618,7 +11626,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = FRA__reaffirm_ecole_de_ligne_de_bataille
-		cost = 8
+		cost = 5
 		available = {
 			has_tech = improved_fire_control_system
 			any_state = {
@@ -11710,6 +11718,7 @@ focus_tree = {
 				}
 				design_team = mio:FRA_fcm_organization
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_equipment_production = {
 				equipment = {
 					type = ship_hull_cruiser_3
@@ -11833,7 +11842,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_ideas = FRA_castex_strategies1_idea
 			add_tech_bonus = {
 				name = FRA_improved_screen_ships
 				bonus = 2.0
@@ -11884,9 +11892,10 @@ focus_tree = {
 				category = mio_cat_tech_all_screen_ship_and_modules
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
-			swap_ideas = {
-				remove_idea = FRA_castex_strategies1_idea
-				add_idea = FRA_castex_strategies2_idea
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = {
+				FRA_r56rp_marine_national_modifier_raideff = 0.1
+				tooltip = convoy_raiding_efficiency_factor_tt
 			}
 		}
 	}
@@ -12119,9 +12128,6 @@ focus_tree = {
 
 		available_if_capitulated = yes
 
-		allow_branch = {
-			has_dlc = "Man the Guns"
-		}
 		completion_reward = {
 			# Just a throw away. No idea what to add
 			add_tech_bonus = {
@@ -12170,6 +12176,13 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			add_tech_bonus = {
+				name = FRA_improved_screen_ships
+				bonus = 2.0
+				uses = 1
+				category = ca_tech
+				category = cl_tech
+			}
 			# Heavy + Light Cruiser Push Construction Bonus
 			# Some modfiers to standing navy
 			add_to_variable = {
@@ -12318,7 +12331,6 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
-			add_to_variable = { FRA_r56rp_naval_strike_agility_factor = 0.1 tooltip =  naval_agility_factor_tt }
 			add_to_variable = {	FRA_r56rp_naval_strike_attack_factor = 0.05 tooltip = naval_strike_attack_factor_tt}
 		}
 	}
@@ -12440,7 +12452,6 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		completion_reward = {
-			
 			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
@@ -12672,7 +12683,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = FRA_naval_construction_program
-		cost = 5
+		cost = 3
 		available = {
 			any_state = {
 				is_coastal = yes
@@ -12682,7 +12693,6 @@ focus_tree = {
 		
 
 		completion_reward = {
-			# This is a weak focus.
 			if = {
 				limit = {
 					NOT = {
@@ -13237,7 +13247,7 @@ focus_tree = {
 	
 	focus = {
 		id = FRA_purchase_american_fighters
-		icon = GFX_goal_fighters_usa
+		icon = GFX_focus_PHI_aircraft_requisition
 		cost = 3
 		prerequisite = {
 			focus = FRA_form_the_first_strategic_bombing_unit
@@ -13259,14 +13269,39 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = small_plane_airframe_0
-				amount = 100
-				producer = USA
-			}
 			USA = {
 				add_political_power = 50
 			}
+
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_equipment_subsidy = {
+					cic = 2500
+					equipment_type = small_plane_airframe
+					seller_tags = { USA } 
+				}
+				add_equipment_to_stockpile = {
+					equipment = small_plane_airframe_1
+					amount = 100
+					producer = USA
+					variant_name = "P-36A"
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						NOT = { has_dlc = "By Blood Alone" }
+					}
+					add_equipment_to_stockpile = {
+						type = fighter_equipment_1
+						amount = 100
+						producer = USA
+					}
+				}
+			}
+
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
