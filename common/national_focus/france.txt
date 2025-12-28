@@ -2063,7 +2063,7 @@ focus_tree = {
 
 	focus = {
 		id = FRA_end_of_the_colonial_empire
-		icon = GFX_focus_eng_decolonization
+		icon = GFX_goal_FRA_end_of_colonial_empire
 		cost = 10
 		prerequisite = {
 			focus = FRA_gueye_lamine_law
@@ -2372,7 +2372,7 @@ focus_tree = {
 		}
 		available_if_capitulated = yes
 		completion_reward = { 
-			add_ideas = POR_colonial_army_r56
+			add_ideas = FRA_colonial_army_fuck_simpy
 		}
 	}
 
@@ -2471,8 +2471,10 @@ focus_tree = {
 
 		available_if_capitulated = yes
 		completion_reward = { 
-			# Non Core
-			# 
+			swap_ideas = {
+				remove_idea = FRA_colonial_army_fuck_simpy
+				add_idea = FRA_colonial_army_fuck_simpy_2
+			}
 		}
 	}
 
@@ -2504,8 +2506,8 @@ focus_tree = {
 
 
 	focus = {
-		id = FRA_citizenship_through_service5
-		icon = GFX_goal_indochina_troupes_coloniales
+		id = FRA_equality_under_the_flag
+		icon = GFX_goal_FRA_equality_under_da_flag
 		x = -1
 		y = 1
 		prerequisite = {
@@ -2521,9 +2523,36 @@ focus_tree = {
 
 		available_if_capitulated = yes
 		completion_reward = { 
-			# Recruitable Population Factor
-			# 
+			swap_ideas = {
+				remove_idea = FRA_colonial_army_fuck_simpy_2
+				add_idea = FRA_colonial_army_fuck_simpy_3
+			}
+			swap_ideas = {
+				remove_idea = FRA_full_employment
+				add_idea = FRA_employment_issues_simpyfart
+			}
+
+			random_owned_controlled_state = {
+				prioritize = { 513 933 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				prioritize = { 513 933 }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}			
 		}
+
 	}
 
 
@@ -2866,7 +2895,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construction
 		x = -2
 		y = 2
-		prerequisite = { focus = FRA_citizenship_through_service5 }
+		prerequisite = { focus = FRA_equality_under_the_flag }
 		prerequisite = {focus = FRA_expand_the_oriental_company }
 		relative_position_id = FRA_expand_the_oriental_company
 		cost = 10
@@ -9236,11 +9265,26 @@ focus_tree = {
 		}
 
 		available = {
-			FRA_has_worker_shortage = yes
+			if = {
+				limit = { has_idea = FRA_employment_issues_simpyfart }
+				has_idea = FRA_employment_issues_simpyfart
+			}
+			else = {
+				FRA_has_worker_shortage = yes
+			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
+		if = {
+			limit = {
+				has_idea = FRA_employment_issues_simpyfart
+			}
+			remove_ideas = FRA_employment_issues_simpyfart
+		}
+		else = {
 			remove_worker_shortage_effect = yes
+		}
+
 		}
 	}
 	focus = {
