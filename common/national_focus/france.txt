@@ -9574,7 +9574,32 @@ focus_tree = {
 				has_war_support > 0.2
 			}
 		}
-		
+		offset = {
+			x = -20
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_action_francaise
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = FRA_status_quo
+					has_completed_focus = FRA_radicalize_front
+					has_completed_focus = FRA_far_right_leagues
+				}
+			}
+		}		
 		ai_will_do = {
 			factor = 1
 		}
@@ -10710,7 +10735,7 @@ focus_tree = {
 
 		}		
 		completion_reward = {
-			navy_expierience = 35
+			navy_experience = 35
 			add_doctrine_cost_reduction = {
 				name = FRA_r56rp_marine_nationale
 				cost_reduction = 0.5
@@ -11169,24 +11194,74 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
+			add_mastery_bonus = {
+				bonus = 0.25
+				days = 240
+				track = screens 
+				name = FRA_ecole_navale_combine
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_tech_bonus = {
+				name = FRA_ecole_navale_combine
+				bonus = 1
+				ahead_reduction = 1
+				uses = 1
+				category = cat_ship_light_battery
+			}
 
+			custom_effect_tooltip = generic_skip_one_line_tt
+			reduce_focus_completion_cost = {
+				focus = { FRA_colonial_naval_bases }
+				cost = 35
+			}
+			custom_effect_tooltip = PHI_clock_tt
 		}
 	}
 
 	focus = {
-		id = FRA_sanctioned_piracy
-		icon = GFX_focus_generic_piracy
+		id = FRA_further_miniaturization
+		icon = GFX_focus_generic_midget_submarines
 		prerequisite = {focus = FRA_ecole_navale_asymetrique }
 		x = 0
 		y = 2
 		relative_position_id = FRA_ecole_navale_asymetrique
-		cost = 10
+		cost = 5
 		available = {
 		}
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = { midget_submarines = 1 }
+
+				create_equipment_variant = {
+					name = "Sous-Marin Côtier Léger"
+					type = ship_hull_midget_submarine
+					name_group = ITA_SS_HISTORICAL #TODO_Manu: Namelist
+					parent_version = 0
+					modules = {
+						fixed_ship_torpedo_slot = ship_torpedo_sub_2
+						fixed_ship_engine_slot = sub_ship_engine_2
+					}
+				}
+
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_midget_submarine
+						creator = "FRA"
+						version_name = "Sous-Marin Côtier Lége"
+					}
+					name = "Oui Oui Submarine"
+					requested_factories = 1
+					progress = 0.35
+					amount = 2
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
 			add_to_variable = {
 				FRA_r56rp_sub_retreat_speed = 0.1
@@ -11277,7 +11352,7 @@ focus_tree = {
 	focus = {
 		id = FRA_masters_of_hit_and_run
 		icon = GFX_focus_generic_piracy
-		prerequisite = {focus = FRA_cruiser_raiders focus = FRA_sanctioned_piracy }
+		prerequisite = {focus = FRA_cruiser_raiders focus = FRA_further_miniaturization }
 		x = 0
 		y = 2
 		relative_position_id = FRA_modernization_of_the_battlefleet
@@ -11678,8 +11753,12 @@ focus_tree = {
 			}
 		}
 
-		available_if_capitulated = yes
-		search_filters = { FOCUS_FILTER_INDUSTRY }
+		select_effect = {
+			add_ideas = SOV_military_reorganization_ns
+		}
+		
+		available_if_capitulated = no
+
 		completion_reward = {
 
 			# This should be a mishap, due to the fact that you're following an old doctrine only to switch up - thus if you are trying to ensure your navy is aware of the now combined doctrine effort - you'd have to retrain them
