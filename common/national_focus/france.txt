@@ -1552,124 +1552,6 @@ focus_tree = {
 			}
 		}
 	}
-
-	
-	focus = {
-		id = FRA_rewrite_protectorate_treaties
-		icon = GFX_focus_renounce_the_treaty_of_trianon
-		cost = 5
-		prerequisite = {
-			focus = FRA_withdraw_from_our_contested_holdings
-		}
-		x = 0
-		y = 1
-		relative_position_id = FRA_withdraw_from_our_contested_holdings
-		available = {
-			is_subject = no
-		}
-		
-		ai_will_do = {
-			factor = 1.5
-		}
-		completion_reward = {
-			add_political_power = 50
-			custom_effect_tooltip = generic_skip_one_line_tt
-			if = {
-				limit = {
-					461 = {
-						is_fully_controlled_by = ROOT
-					}
-					462 = {
-						is_fully_controlled_by = ROOT
-					}
-				}
-				release_puppet = MOR
-				hidden_effect = {
-					MOR = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 90
-							democratic = 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					458 = {
-						is_fully_controlled_by = ROOT
-					}
-					665 = {
-						is_fully_controlled_by = ROOT
-					}
-				}
-				release_puppet = TUN
-				hidden_effect = {
-					TUN = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 90
-							democratic = 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					MOR = {
-						is_subject_of = ROOT
-					}
-				}
-				hidden_effect = {
-					MOR = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 90
-							democratic = 5
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					TUN = {
-						is_subject_of = ROOT
-					}
-				}
-				hidden_effect = {
-					TUN = {
-						set_politics = {
-							ruling_party = neutrality
-							last_election = "1936.1.1"
-							election_frequency = 48
-							elections_allowed = no
-						}
-						set_popularities = {
-							neutrality = 70
-							democratic = 30
-						}
-					}
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}
-
 	focus = {
 		id = FRA_allies_not_subjects
 		icon = GFX_goal_r56rp_goal_FIN_an_ally_not_a_subject_icon
@@ -2372,7 +2254,7 @@ focus_tree = {
 		}
 		available_if_capitulated = yes
 		completion_reward = { 
-			add_ideas = FRA_colonial_army_fuck_simpy
+			add_ideas = FRA_r56rp_colonial_army_of_france
 		}
 	}
 
@@ -2472,8 +2354,8 @@ focus_tree = {
 		available_if_capitulated = yes
 		completion_reward = { 
 			swap_ideas = {
-				remove_idea = FRA_colonial_army_fuck_simpy
-				add_idea = FRA_colonial_army_fuck_simpy_2
+				remove_idea = FRA_r56rp_colonial_army_of_france
+				add_idea = FRA_r56rp_colonial_army_of_france_2
 			}
 		}
 	}
@@ -2524,12 +2406,12 @@ focus_tree = {
 		available_if_capitulated = yes
 		completion_reward = { 
 			swap_ideas = {
-				remove_idea = FRA_colonial_army_fuck_simpy_2
-				add_idea = FRA_colonial_army_fuck_simpy_3
+				remove_idea = FRA_r56rp_colonial_army_of_france_2
+				add_idea = FRA_r56rp_colonial_army_of_france_3
 			}
 			swap_ideas = {
 				remove_idea = FRA_full_employment
-				add_idea = FRA_employment_issues_simpyfart
+				add_idea = FRA_r56rp_managed_employment
 			}
 
 			random_owned_controlled_state = {
@@ -2560,7 +2442,7 @@ focus_tree = {
 	focus = {
 		id = FRA_the_colonial_economy
 		icon = GFX_focus_generic_improve_the_administration
-		x = 5
+		x = 6
 		y = 1
 		prerequisite = {
 			focus = FRA_continue_mandat
@@ -2671,11 +2553,33 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
 	}
+	focus = {
+		id = FRA_rewrite_protectorate_treaties
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		prerequisite = { focus = FRA_continue_mandat focus = FRA_vienot_agreement }
+		relative_position_id = FRA_continue_mandat
+		cost = 5
+		x = 4
+		y = 1
+		available = {
+			is_subject = no
+		}
+		
+		ai_will_do = {
+			factor = 1.5
+		}
+		completion_reward = {
+			add_political_power = 50
+			custom_effect_tooltip = generic_skip_one_line_tt
+			unlock_decision_category_tooltip = FRA_r56rp_colonial_management_cat
+		}
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+	}
 
 	focus = {
 		id = FRA_west_african_resource_exploitation
 		icon = GFX_focus_ETH_invest_in_the_west
-		x = 0
+		x = -1
 		y = 1
 		prerequisite = {
 			focus = FRA_invest_in_north_africa
@@ -2804,7 +2708,7 @@ focus_tree = {
 	focus = {
 		id = FRA_fund_east_africa
 		icon = GFX_focus_ETH_invest_in_the_east
-		x = 0
+		x = 1
 		y = 1
 		prerequisite = {
 			focus = FRA_promote_central_african_development
@@ -2850,17 +2754,161 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = FRA_develop_indochine
+		icon = GFX_focus_PHI_pearl_of_the_orient_seas
+		prerequisite = { focus = FRA_the_colonial_economy }
+		relative_position_id = FRA_the_colonial_economy
+		cost = 10
+		x = 0
+		y = 2
+		available = {
+			670 = {
+				controls_or_subject_of = yes
+			}
+			741 = {
+				controls_or_subject_of = yes
+			}
+			671 = {
+				controls_or_subject_of = yes
+			}
+			286 = {
+				controls_or_subject_of = yes
+			}
+		}
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+			670 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					LAO = {
+						is_subject_of = ROOT
+						controls_state = 670
+					}
+				}
+				LAO = {
+					add_autonomy_ratio = {
+						value = -0.1
+						localization = FRA_ministere_de_la_france_de_outre_mer
+					}
+				}
+			}
+			741 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					CAM = {
+						is_subject_of = ROOT
+						controls_state = 741
+					}
+				}
+				CAM = {
+					add_autonomy_ratio = {
+						value = -0.1
+						localization = FRA_ministere_de_la_france_de_outre_mer
+					}
+				}
+			}
+			671 = {
+				add_building_construction = {
+					type = naval_base
+					province = 1185
+					level = 4
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			286 = {
+				add_building_construction = {
+					type = naval_base
+					province = 4401
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					VIN = {
+						is_subject_of = ROOT
+						controls_state = 671
+						controls_state = 286
+					}
+				}
+				VIN = {
+					add_autonomy_ratio = {
+						value = -0.1
+						localization = FRA_ministere_de_la_france_de_outre_mer
+					}
+				}
+			}
+			if = {
+				limit = {
+					FRI = {
+						is_subject_of = ROOT
+						controls_state = 670
+						controls_state = 741
+						controls_state = 671
+						controls_state = 286
+					}
+				}
+				FRI = {
+					add_autonomy_ratio = {
+						value = -0.1
+						localization = FRA_ministere_de_la_france_de_outre_mer
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
+	}
 
 	focus = {
 		id = FRA_expand_the_oriental_company
 		icon = GFX_focus_AFG_promote_the_counter_elite
-		x = 1
+		x = 2
 		y = 1
 		prerequisite = {
 			focus = FRA_fund_east_africa
 		}
 		prerequisite = {
 			focus = FRA_west_african_resource_exploitation
+		}
+		prerequisite = {
+			focus = FRA_develop_indochine
 		}
 		relative_position_id = FRA_west_african_resource_exploitation
 		cost = 10
@@ -3196,151 +3244,6 @@ focus_tree = {
 			}
 		}
 	}
-
-	focus = {
-		id = FRA_develop_indochine
-		icon = GFX_goal_generic_construct_naval_dockyard
-		cost = 10
-		prerequisite = {
-			focus = FRA_promote_central_african_development
-		}
-		x = 2
-		y = 1
-		relative_position_id = FRA_promote_central_african_development
-		available = {
-			670 = {
-				controls_or_subject_of = yes
-			}
-			741 = {
-				controls_or_subject_of = yes
-			}
-			671 = {
-				controls_or_subject_of = yes
-			}
-			286 = {
-				controls_or_subject_of = yes
-			}
-		}
-		ai_will_do = {
-			factor = 2
-		}
-		completion_reward = {
-			670 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			if = {
-				limit = {
-					LAO = {
-						is_subject_of = ROOT
-						controls_state = 670
-					}
-				}
-				LAO = {
-					add_autonomy_ratio = {
-						value = -0.1
-						localization = FRA_ministere_de_la_france_de_outre_mer
-					}
-				}
-			}
-			741 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			if = {
-				limit = {
-					CAM = {
-						is_subject_of = ROOT
-						controls_state = 741
-					}
-				}
-				CAM = {
-					add_autonomy_ratio = {
-						value = -0.1
-						localization = FRA_ministere_de_la_france_de_outre_mer
-					}
-				}
-			}
-			671 = {
-				add_building_construction = {
-					type = naval_base
-					province = 1185
-					level = 4
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			286 = {
-				add_building_construction = {
-					type = naval_base
-					province = 4401
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
-				}
-			}
-			if = {
-				limit = {
-					VIN = {
-						is_subject_of = ROOT
-						controls_state = 671
-						controls_state = 286
-					}
-				}
-				VIN = {
-					add_autonomy_ratio = {
-						value = -0.1
-						localization = FRA_ministere_de_la_france_de_outre_mer
-					}
-				}
-			}
-			if = {
-				limit = {
-					FRI = {
-						is_subject_of = ROOT
-						controls_state = 670
-						controls_state = 741
-						controls_state = 671
-						controls_state = 286
-					}
-				}
-				FRI = {
-					add_autonomy_ratio = {
-						value = -0.1
-						localization = FRA_ministere_de_la_france_de_outre_mer
-					}
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
-	}
-
 
 	focus = {
 		id = FRA_intervention_committee
