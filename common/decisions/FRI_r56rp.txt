@@ -60,4 +60,457 @@ FRI_r56rp_larmee_coloniale_cat = {
 			set_country_flag = FRI_r56rp_silenced_vietnamese_insurgents
 		}
 	}
+	FRI_r56rp_test_the_siamese_dec = {
+
+		icon = border_war
+
+		allowed = {
+			original_tag = FRI
+		}
+
+		visible = {
+			has_completed_focus = FRI_r56rp_test_the_siamese
+		}
+
+		available = {
+			has_war = no
+			OVERLORD = {
+				has_war = no
+			}
+		}
+
+		highlight_states = {
+			highlight_states_trigger = { 
+				OR = {
+					state = 670
+					state = 868
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 15
+
+		days_remove = 30
+
+		complete_effect = {
+			670 = {
+				save_event_target_as = FRI_SIA_attacker_isan
+				set_state_flag = border_incident_active
+			}
+			868 = {
+				save_event_target_as = FRI_SIA_defender_isan
+				set_state_flag = border_incident_active
+			}
+			868 = {
+				controller = {
+					set_country_flag = FRI_testing_siam
+					activate_targeted_decision = { target = FRI decision = FRI_r56rp_conflict_warning_SIA }
+				}
+			}
+		}
+
+		remove_effect = {
+			random_country = {
+				limit = {
+					original_tag = SIA
+					has_country_flag = FRI_testing_siam
+				}
+				FRI = {
+					activate_targeted_decision = { target = PREV decision = FRI_r56rp_border_incident_forgotten }
+					activate_targeted_decision = { target = PREV decision = FRI_r56rp_escalate_incident_to_border_conflict_SIA }
+				}
+			}
+		}
+	}
+	FRI_r56rp_conflict_warning_SIA = {
+
+		icon = border_war
+
+		allowed = { always = no } #Activated from effect
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		war_with_target_on_timeout = yes
+		ai_will_do = {
+			base = 0
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = yes
+
+		is_good = no
+		
+		timeout_effect = {
+			custom_effect_tooltip = escalation_possible_tooltip_for_defender
+			custom_effect_tooltip = effects_if_border_conflict_is_lost
+			hidden_effect = {
+				remove_targeted_decision = { target = FRI decision = FRI_r56rp_conflict_warning_SIA }
+				if = {
+					limit = { 868 = { has_border_war = no } }
+					activate_targeted_decision = { target = FRI decision = FRI_r56rp_border_conflict_escalation_warning_SIA }
+				}
+			}
+		}
+	}
+	FRI_r56rp_border_conflict_escalation_warning_SIA = {
+
+		icon = border_war
+
+		allowed = { always = no } #Activated from effect
+
+		available = {
+			#var:ROOT.defender_state_vs_@FROM = {
+			#	has_ROOT_at_least_1_div_in_current_state_scope = yes
+			#}
+			hidden_trigger = { always = no }
+		}
+		
+		visible = {
+			67 = { has_border_war = no }
+		}
+		
+		highlight_states = {
+			highlight_states_trigger = { 
+				OR = {
+					state = 670
+					state = 868
+				}
+			}
+		}
+
+		war_with_target_on_timeout = yes
+		ai_will_do = {
+			base = 0
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = yes
+
+		is_good = no
+
+		timeout_effect = {
+			custom_effect_tooltip = from_cannot_escalate
+		}
+	}
+	FRI_r56rp_border_incident_forgotten = {
+
+		icon = border_war
+
+		allowed = { always = no } #Activated from effect
+
+		available = {
+			#var:ROOT.defender_state_vs_@FROM = {
+			#	has_ROOT_at_least_1_div_in_current_state_scope = yes
+			#}
+			hidden_trigger = { always = no }
+		}
+		
+		highlight_states = {
+			highlight_states_trigger = { 
+				OR = {
+					state = 670
+					state = 868
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = yes
+
+		is_good = no
+		
+		timeout_effect = {
+			random_country =  {
+				limit = { 
+					original_tag = SIA
+					has_country_flag = FRI_testing_siam
+				}
+				FRI = {
+					remove_targeted_decision = { target = PREV decision = FRI_r56rp_escalate_incident_to_border_conflict_SIA }
+				}
+			}
+			add_political_power = -100
+			add_war_support = -0.1 #Shameful Display
+			hidden_effect = {
+				random_country =  {
+					limit = { 
+						original_tag = SIA
+						has_country_flag = FRI_testing_siam
+					}
+					remove_targeted_decision = { target = FRI decision = FRI_r56rp_escalate_incident_to_border_conflict_SIA }
+					868 = {
+						clr_state_flag = border_incident_active
+					}
+					670 = {
+						clr_state_flag = border_incident_active
+					}
+				}
+			}
+		}
+	}
+	FRI_r56rp_escalate_incident_to_border_conflict_SIA = {
+
+		icon = border_war
+
+		allowed = { always = no } #Activated from effect
+
+		available = {
+			670 = {
+				OR = {
+					is_fully_controlled_by = ROOT
+					CONTROLLER = {
+						is_subject_of = ROOT
+					}
+					CONTROLLER = {
+						is_in_faction_with = ROOT
+					}
+				}
+			}
+			divisions_in_border_state = {
+				state = 670
+				border_state = 868
+				size > 0
+			}
+		}
+		
+		highlight_states = {
+			highlight_states_trigger = { 
+				OR = {
+					state = 868
+					state = 670
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 10
+			modifier = { 
+				has_war = no
+				factor = 10
+			}
+		}
+
+		fire_only_once = yes #Reactivation handled in effect
+
+		complete_effect = {
+			random_country =  {
+				limit = { 
+					original_tag = SIA
+					has_country_flag = FRI_testing_siam
+				}
+				FRI = {
+					remove_targeted_decision = { target = PREV decision = FRI_r56rp_border_incident_forgotten }
+				}
+			}
+			start_border_war = {
+				change_state_after_war = no
+				attacker = {
+					state = 670
+					num_provinces = 4
+				}
+				
+				defender = {
+					state = 868
+					num_provinces = 4
+				}
+			}
+			random_country =  {
+				limit = { 
+					original_tag = SIA
+					has_country_flag = FRI_testing_siam
+				}
+				activate_targeted_decision = { target = FRI decision = FRI_r56rp_border_conflict_escalate_conflict }
+				activate_targeted_decision = { target = FRI decision = FRI_r56rp_border_conflict_time_until_cancelled }
+			}
+			random_country =  {
+				limit = { 
+					original_tag = SIA
+					has_country_flag = FRI_testing_siam
+				}
+				FRI = {
+					activate_targeted_decision = { target = PREV decision = FRI_r56rp_border_conflict_escalate_conflict }
+					activate_targeted_decision = { target = PREV decision = FRI_r56rp_border_conflict_time_until_cancelled }
+				}
+			}
+		}
+	}
+	FRI_r56rp_border_conflict_time_until_cancelled = {
+
+		icon = border_war
+
+		allowed = { always = no } #Activated from effect
+
+		available = {
+			868 = { has_border_war = no }
+			670 = { has_border_war = no }
+		}
+		
+		highlight_states = {
+			highlight_states_trigger = { 
+				OR = {
+					state = 670
+					state = 868
+				}
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+
+		days_mission_timeout = 90
+		is_good = no
+
+		fire_only_once = yes #Reactivation handled in effect
+
+		timeout_effect = {
+			cancel_border_war = {
+				attacker = 670
+				defender = 868
+			}
+			hidden_effect = {
+				random_country =  {
+					limit = { 
+						original_tag = SIA
+						has_country_flag = FRI_testing_siam
+					}
+					FRI = {
+						remove_targeted_decision = { target = PREV decision = FRI_r56rp_border_conflict_escalate_conflict }
+					}
+				}
+				random_country =  {
+					limit = {
+						original_tag = SIA
+						has_country_flag = FRI_testing_siam
+					}
+					remove_targeted_decision = { target = FRI decision = FRI_r56rp_border_conflict_escalate_conflict }
+				}
+			}
+		}
+	}
+	FRI_r56rp_border_conflict_escalate_conflict = {
+
+		icon = decision_generic_ignite_civil_war
+
+		allowed = { always = no } #Activated from effect
+
+		visible = {
+			has_border_war_with = FROM
+		}
+		
+		highlight_states = {
+			highlight_states_trigger = { 
+				OR = {
+					state = 670
+					state = 868
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+
+		fire_only_once = yes #Reactivation handled in effect
+
+		complete_effect = {
+			if = {
+				limit = { is_border_conflict_defender_vs_FROM = yes }
+				set_border_war_data = {
+					attacker = 670
+					defender = 868
+					defender_modifier = 0.15
+					combat_width = 100
+				}
+			}
+			else = {
+				set_border_war_data = {
+					attacker = 670
+					defender = 868
+					attacker_modifier = 0.15
+					combat_width = 100
+				}
+			}
+			random_country =  {
+				limit = { 
+					original_tag = SIA
+					has_country_flag = FRI_testing_siam
+				}
+				set_country_flag = {
+					flag = WTT_border_conflict_escalate_to_war_cooldown_@ROOT
+					days = 60
+					value = 1
+				}
+				remove_targeted_decision = { target = FRI decision = FRI_r56rp_border_conflict_escalate_conflict }
+				hidden_effect = {
+					remove_targeted_decision = { target = FRI decision = FRI_r56rp_border_conflict_escalation_warning_SIA }
+				}
+			}
+			random_country =  {
+				limit = { 
+					original_tag = SIA
+					has_country_flag = FRI_testing_siam
+				}
+				FRI = {
+					remove_targeted_decision = { target = PREV decision = FRI_r56rp_border_conflict_escalate_conflict }
+				}
+			}
+			set_country_flag = {
+				flag = WTT_border_conflict_escalate_to_war_cooldown_@GER
+				days = 60
+				value = 1
+			}
+		}
+	}
+	FRI_r56rp_border_conflict_back_out_of_conflict = {
+
+		allowed = { always = no } #Activated from effect
+
+		visible = {
+			has_border_war_with = FROM
+		}
+		
+		highlight_states = {
+			highlight_states_trigger = { 
+				OR = {
+					state = 868
+					state = 670
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+
+		fire_only_once = yes #Reactivation handled in effect
+
+		complete_effect = {
+			if = {
+				limit = { is_border_conflict_defender_vs_FROM = yes }
+				finalize_border_war = {
+					attacker_win = yes
+					attacker = 670
+					defender = 868
+				}
+			}
+			else = {
+				finalize_border_war = {
+					attacker = 670
+					defender = 868
+					defender_win = yes
+				}
+			}
+		}
+	}
 }

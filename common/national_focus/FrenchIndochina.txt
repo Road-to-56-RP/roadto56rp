@@ -1819,7 +1819,47 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = FRI_hotchkiss_coloniale_organization
+				mio:FRI_hotchkiss_coloniale_organization = {
+					add_mio_funds = 1000
+					add_mio_research_bonus = 0.1
+					add_mio_design_team_assign_cost = -0.5
+					add_mio_size = 1								
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = FRI_fcm_organization_coloniale
+				mio:FRI_fcm_organization_coloniale = {
+					add_mio_funds = 1000
+					add_mio_research_bonus = 0.1
+					add_mio_design_team_assign_cost = -0.5
+					add_mio_size = 1								
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = FRI_morane_saulnier_coloniale_organization
+				mio:FRI_morane_saulnier_coloniale_organization = {
+					add_mio_funds = 1000
+					add_mio_research_bonus = 0.1
+					add_mio_design_team_assign_cost = -0.5
+					add_mio_size = 1								
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				prioritize = { 671 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -1836,7 +1876,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			add_ideas = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
 		}
 	}
 	focus = {
@@ -1853,7 +1893,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			add_ideas = FRI_r56rp_defense_navale_dextreme_orient_idea
 		}
 	}
 	focus = {
@@ -1870,7 +1910,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			add_ideas = FRI_r56rp_defense_terrestre_dextreme_orient_idea
 		}
 	}
 	focus = {
@@ -1887,7 +1927,36 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_small_arms_planes
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_small_arms_planes
+					add_idea = FRI_r56rp_local_military_production
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_aircraft
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_aircraft
+					add_idea = FRI_r56rp_local_military_production_local_aircraft_shipyards
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_small_arms
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_small_arms
+					add_idea = FRI_r56rp_local_military_production_local_small_arms_dockyards
+				}
+			}
+			else = {
+				add_ideas = FRI_r56rp_local_military_production_local_shipyards
+			}
 		}
 	}
 	focus = {
@@ -1939,7 +2008,21 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			if = {
+				limit = {
+					has_completed_focus = FRI_r56rp_bad_weather_exercises
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
+					add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_2
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
+					add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_naval_strikes_no_exercises
+				}
+			}
 		}
 	}
 	focus = {
@@ -1956,7 +2039,21 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			if = {
+				limit = {
+					has_completed_focus = FRI_r56rp_naval_targeting_practice
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
+					add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_2
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
+					add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_no_naval_targeting
+				}
+			}
 		}
 	}
 	focus = {
@@ -1974,7 +2071,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			swap_ideas = {
+				remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_2
+				add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_3
+			}
 		}
 	}
 	focus = {
@@ -1991,7 +2091,36 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_small_arms_dockyards
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_small_arms_dockyards
+					add_idea = FRI_r56rp_local_military_production
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_shipyards
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_shipyards
+					add_idea = FRI_r56rp_local_military_production_local_aircraft_shipyards
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_small_arms
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_small_arms
+					add_idea = FRI_r56rp_local_military_production_local_small_arms_dockyards
+				}
+			}
+			else = {
+				add_ideas = FRI_r56rp_local_military_production_local_aircraft
+			}
 		}
 	}
 	focus = {
@@ -2008,7 +2137,36 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_aircraft_shipyards
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_aircraft_shipyards
+					add_idea = FRI_r56rp_local_military_production
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_aircraft
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_aircraft
+					add_idea = FRI_r56rp_local_military_production_local_aircraft
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = FRI_r56rp_local_military_production_local_shipyards
+				}
+				swap_ideas = {
+					remove_idea = FRI_r56rp_local_military_production_local_shipyards
+					add_idea = FRI_r56rp_local_military_production_local_small_arms_dockyards
+				}
+			}
+			else = {
+				add_ideas = FRI_r56rp_local_military_production_local_small_arms
+			}
 		}
 	}
 	focus = {
@@ -2090,11 +2248,38 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_country_flag = FRI_r56rp_established_french_east_asian_administrative_zone
+			728 = {
+				is_owned_and_controlled_by = ROOT
+			}
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			728 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -2107,11 +2292,11 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_country_flag = FRI_r56rp_established_french_east_asian_administrative_zone
+
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			custom_effect_tooltip = FRI_r56rp_unlock_decision_test_siamese
 		}
 	}
 	focus = {
