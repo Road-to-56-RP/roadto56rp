@@ -2363,7 +2363,27 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			add_ideas = FRA_commando_marine
+			add_tech_bonus = {
+				name = FRA_commandos_marine
+				#category = tp_tech
+				category = marine_tech
+				uses = 2
+				bonus = 1
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_doctrine_cost_reduction = {
+					name = special_forces_bonus
+					cost_reduction = 0.4
+					uses = 1
+					category = cat_marines_doctrine
+					
+				}				
+			}
+			unlock_decision_tooltip = { decision = cite_a_marine_unit show_effect_tooltip = yes } 
 		}
 	}
 	focus = {
@@ -2455,11 +2475,14 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_country_flag = FRI_r56rp_established_french_east_asian_administrative_zone
+
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			add_political_power = 50
+			SIA = {
+				country_event = { id = FRI_r56rp.4 hours = 6 }
+			}
 		}
 	}
 	focus = {
@@ -2472,11 +2495,20 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_country_flag = FRI_r56rp_established_french_east_asian_administrative_zone
+			289 = {
+				is_owned_and_controlled_by = ROOT
+			}
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			custom_effect_tooltip = FRI_r56rp_pacify_siam_tt
+			every_state = {
+				limit = {
+					is_core_of = SIA
+					is_owned_and_controlled_by = ROOT
+				}
+				add_core_of = ROOT
+			}
 		}
 	}
 	focus = {
@@ -2489,11 +2521,37 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_country_flag = FRI_r56rp_established_french_east_asian_administrative_zone
+
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			custom_effect_tooltip = AST_support_uprisings_tt
+			MAL = {
+				country_event = r56_australia.31
+				if = {
+					limit = {
+						ROOT = {
+							has_government = communism
+						}
+					}
+					add_timed_idea = { days = 730 idea = AST_r56_malayan_nationalists_c } 
+				}
+				else = {
+					add_timed_idea = { days = 730 idea = AST_r56_malayan_nationalists_f } 
+				}
+			}
+			if = {
+				limit = {
+					MAL = {
+						is_subject = yes
+					}
+				}
+				MAL = {
+					OVERLORD = {
+						country_event = r56_australia.31
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -2506,7 +2564,7 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_country_flag = FRI_r56rp_established_french_east_asian_administrative_zone
+
 		}
 
 		completion_reward = {
