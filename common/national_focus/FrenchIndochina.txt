@@ -2555,8 +2555,8 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = FRI_r56rp_approach_the_british
-		icon = GFX_focus_chi_british_cooperation
+		id = FRI_r56rp_strengthen_anti_colonial_resistance
+		icon = GFX_goal_vietnam_strike_malaysia
 		relative_position_id = FRI_r56rp_destabilize_malaya
 		prerequisite = { focus = FRI_r56rp_destabilize_malaya }
 		x = 0
@@ -2568,7 +2568,58 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -5000
+				producer = FRI
+			}
+			if = {
+				limit = {
+					MAL = {
+						is_ai = yes
+					}
+				}
+				336 = {
+					transfer_state_to = MAL
+				}
+				1014 = {
+					transfer_state_to = MAL
+				}
+				MAL = {
+					start_civil_war = {
+						ruling_party = neutrality
+						ideology = fascism
+						# Breakaway gets old ideology of ROOT
+						size = 0.8
+						capital = 915
+						states = {
+							914 915 960 336 336 1014
+						}
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = FRI_r56rp_restore_stability_to_malaya
+		icon = GFX_focus_generic_manpower
+		relative_position_id = FRI_r56rp_strengthen_anti_colonial_resistance
+		prerequisite = { focus = FRI_r56rp_strengthen_anti_colonial_resistance }
+		x = 0
+		y = 1
+		cost = 5
+
+		available = {
+			MAL = {
+				has_civil_war = no
+			}
+		}
+
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = MAL
+			}
 		}
 	}
 }	
