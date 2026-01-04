@@ -109,7 +109,7 @@ focus_tree = {
 
 	focus = {
 		id = FRA_r56rp_tackle_deflation
-		icon = GFX_focus_generic_currency_reforms
+		icon = GFX_goal_generic_financial_markets
 		cost = 5
 		prerequisite = { 
 			focus = FRA_r56rp_maintain_parliamentary_oversight
@@ -500,9 +500,13 @@ focus_tree = {
 		ai_will_do = {
 			factor = 2
 		}
-		
+
+		available = {
+			has_war = yes
+		}
+
 		completion_reward = {
-			
+			add_stability = 0.05
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -733,7 +737,7 @@ focus_tree = {
 	focus = {
 		id = FRA_r56rp_expand_state_arsenals
 		icon = GFX_focus_BEL_poudreries_reunies_de_belgique
-		cost = 5
+		cost = 10
 		prerequisite = { 
 			focus = FRA_r56rp_strengthen_northern
 			focus = FRA_r56rp_strengthen_southern
@@ -812,7 +816,7 @@ focus_tree = {
 	focus = {
 		id = FRA_r56rp_expand_the_calais_mining_basin
 		icon = GFX_focus_generic_coal_mining
-		cost = 5
+		cost = 10
 		prerequisite = { 
 			focus = FRA_r56rp_strengthen_southern
 		}
@@ -878,6 +882,24 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = { 16 15 30 18 }
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}	
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = rubber_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			modify_building_resources = {
         	   building = rubber_refinery
         	   resource = rubber
@@ -888,7 +910,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = FRA_r56rp_towards_a_war_economy_left
+		id = FRA_r56rp_towards_a_war_economy
 		icon = GFX_focus_BRA_ethical_internationalism
 		cost = 5
 		prerequisite = {
@@ -1052,44 +1074,6 @@ focus_tree = {
 	}
 
 	
-	focus = {
-		id = FRA_r56rp_promote_entrepeneurship
-		icon = GFX_goal_generic_improve_relations_industrialists
-		prerequisite = { focus = FRA_r56rp_stimulate_the_dynamic_market }
-		x = -2
-		y = 1
-		relative_position_id = FRA_r56rp_stimulate_the_dynamic_market
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-		}
-
-		bypass = {
-		}
-
-		completion_reward = {
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = FRA_r56rp_economic_status_tt
-			add_to_variable = { 
-				FRA_industrial_industrial_concern_cost_factor = -0.2
-				tooltip = industrial_concern_cost_factor_tt 
-			}
-			add_to_variable = { 
-				FRA_industrial_industrial_capacity_dockyard = 0.05
-				tooltip = industrial_capacity_dockyard_tt
-			}
-			add_to_variable = { 
-				FRA_industrial_industrial_capacity_factory = 0.05
-				tooltip = industrial_capacity_factory_tt
-			}
-		}
-	}
-
 
 	focus = {
 		id = FRA_r56rp_tax_adjustments
@@ -1283,6 +1267,9 @@ focus_tree = {
 		id = FRA_r56rp_military_focused_research
 		icon = GFX_focus_ICE_state_corporatism
 		prerequisite = {  focus = FRA_r56rp_corporate_innovations }
+		mutually_exclusive = { 
+			focus = FRA_r56rp_civilian_research
+		}
 		relative_position_id =  FRA_r56rp_corporate_innovations
 		x = -1
 		y = 1
@@ -1315,8 +1302,11 @@ focus_tree = {
 
 	focus = {
 		id = FRA_r56rp_civilian_research
-		icon = GFX_focus_ARG_develop_the_electricity_sector
+		icon = GFX_focus_hol_abandon_the_gold_standard
 		prerequisite = {  focus = FRA_r56rp_corporate_innovations }
+		mutually_exclusive = { 
+			focus = FRA_r56rp_military_focused_research
+		}
 		relative_position_id =  FRA_r56rp_corporate_innovations
 		x = 1
 		y = 1
@@ -1514,7 +1504,7 @@ focus_tree = {
 	}
 	focus = {
 		id = FRA_r56rp_empower_land_owners
-		icon = GFX_focus_generic_farmland
+		icon = GFX_focus_generic_industrialists
 		cost = 5
 		prerequisite = { 
 			focus = FRA_r56rp_laissez_faire
@@ -1588,6 +1578,45 @@ focus_tree = {
 	}
 
 	focus = {
+		id = FRA_r56rp_promote_entrepeneurship
+		icon = GFX_focus_SWE_landsverk
+		prerequisite = { focus = FRA_r56rp_empower_land_owners }
+		x = 0
+		y = 1
+		relative_position_id = FRA_r56rp_empower_land_owners
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+		}
+
+		bypass = {
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_economic_status_tt
+			add_to_variable = { 
+				FRA_industrial_industrial_concern_cost_factor = -0.2
+				tooltip = industrial_concern_cost_factor_tt 
+			}
+			add_to_variable = { 
+				FRA_industrial_industrial_capacity_dockyard = 0.05
+				tooltip = industrial_capacity_dockyard_tt
+			}
+			add_to_variable = { 
+				FRA_industrial_industrial_capacity_factory = 0.05
+				tooltip = industrial_capacity_factory_tt
+			}
+		}
+	}
+
+
+	focus = {
 		id = FRA_agricultural_protectionism
 		icon = GFX_focus_generic_modernizing_agriculture
 		prerequisite = { focus = FRA_r56rp_empower_land_owners }
@@ -1625,7 +1654,7 @@ focus_tree = {
 
 	focus = {
 		id = FRA_r56rp_reap_what_you_sow
-		icon = GFX_goal_generic_agrarian_reform
+		icon = GFX_focus_generic_farmland
 		prerequisite = { focus = FRA_r56rp_fund_landowner_projects }
 		prerequisite = { focus = FRA_agricultural_protectionism }
 		x = 1
@@ -1661,7 +1690,7 @@ focus_tree = {
 
 	focus = {
 		id = FRA_r56rp_fund_landowner_projects
-		icon = GFX_goal_generic_agrarian_reform
+		icon = GFX_focus_usa_reestablish_the_gold_standard
 		prerequisite = { focus = FRA_r56rp_empower_land_owners }
 		x = 1
 		y = 2
@@ -1702,34 +1731,34 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = FRA_r56rp_exploit_trade_dependence
-		icon = GFX_focus_GRE_Combat_depression
-		cost = 10
-		prerequisite = { focus = FRA_r56rp_empower_land_owners }
-		x = 0
-		y = 1
-		relative_position_id = FRA_r56rp_empower_land_owners
-		available = {
-			NOT = {
-				has_government = communism
-			}	
-		}
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			custom_effect_tooltip = FRA_r56rp_economic_status_tt
-			add_to_variable = { 
-				FRA_industrial_resource_trade_cost_bonus_per_factory = 1
-				tooltip = resource_trade_cost_bonus_per_factory_tt
-			}
-			
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ANNEXATION
-		}
-	}
+	#focus = {
+	#	id = FRA_r56rp_exploit_trade_dependence
+	#	icon = GFX_focus_GRE_Combat_depression
+	#	cost = 10
+	#	prerequisite = { focus = FRA_r56rp_empower_land_owners }
+	#	x = 0
+	#	y = 1
+	#	relative_position_id = FRA_r56rp_empower_land_owners
+	#	available = {
+	#		NOT = {
+	#			has_government = communism
+	#		}	
+	#	}
+	#	ai_will_do = {
+	#		factor = 10
+	#	}
+	#	completion_reward = {
+	#		custom_effect_tooltip = FRA_r56rp_economic_status_tt
+	#		add_to_variable = { 
+	#			FRA_industrial_resource_trade_cost_bonus_per_factory = 1
+	#			tooltip = resource_trade_cost_bonus_per_factory_tt
+	#		}
+	#		
+	#	}
+	#	search_filters = {
+	#		FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ANNEXATION
+	#	}
+	#}
 
 
 	focus = {
@@ -1897,16 +1926,16 @@ focus_tree = {
 	}
 
 	focus = {
-		id = FRA_r56rp_renewed_economy
+		id = FRA_r56rp_rejuvinated_economy
 		icon = GFX_goal_GENERIC_french_industry
 		cost = 10
 		prerequisite = { 
 			focus = FRA_r56rp_let_us_hope
-			focus = FRA_r56rp_towards_a_war_economy_left
+			focus = FRA_r56rp_towards_a_war_economy
 		}
 		x = 7
 		y = 1
-		relative_position_id = FRA_r56rp_towards_a_war_economy_left
+		relative_position_id = FRA_r56rp_towards_a_war_economy
 		ai_will_do = {
 			factor = 2
 		}
@@ -1925,11 +1954,11 @@ focus_tree = {
 		icon = GFX_goal_FRA_nuclear
 		cost = 10
 		prerequisite = {
-			focus = FRA_r56rp_renewed_economy
+			focus = FRA_r56rp_rejuvinated_economy
 		}
 		x = 1
 		y = 1
-		relative_position_id = FRA_r56rp_renewed_economy
+		relative_position_id = FRA_r56rp_rejuvinated_economy
 		available =  {
 			OR = {
 				is_subject = no
@@ -2795,38 +2824,38 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
 
-	focus = {
-		id = FRA_r56rp_begin_colonial_asset_evacuation
-		icon = GFX_focus_RAJ_institutional_money_laundering
-		x = -1
-		y = 1
-		prerequisite = {
-			focus = FRA_r56rp_withdraw_from_our_contested_holdings
-		}
-		relative_position_id = FRA_r56rp_withdraw_from_our_contested_holdings
-		cost = 2
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
-		completion_reward = {
-			# - Consumer Goods
-			# - Stability
-			# + Manpower
-		}
-	}
+	#focus = {
+	#	id = FRA_r56rp_begin_colonial_asset_evacuation
+	#	icon = GFX_focus_RAJ_institutional_money_laundering
+	#	x = -1
+	#	y = 1
+	#	prerequisite = {
+	#		focus = FRA_r56rp_withdraw_from_our_contested_holdings
+	#	}
+	#	relative_position_id = FRA_r56rp_withdraw_from_our_contested_holdings
+	#	cost = 2
+	#
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#
+	#	search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
+	#	completion_reward = {
+	#		# - Consumer Goods
+	#		# - Stability
+	#		# + Manpower
+	#	}
+	#}
 
 	focus = {
 		id = FRA_r56rp_self_goverment_for_the_americas
 		icon = GFX_focus_BRA_us_of_brazil
-		x = 1
+		x = -1
 		y = 2
 		prerequisite = {
 			focus = FRA_rewrite_protectorate_treaties
 		}
-		relative_position_id = FRA_r56rp_begin_colonial_asset_evacuation
+		relative_position_id = FRA_rewrite_protectorate_treaties
 		cost = 5
 
 		ai_will_do = {
@@ -3874,8 +3903,7 @@ focus_tree = {
 		
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			custom_effect_tooltip = available_industrial_concern
-			show_ideas_tooltip = FRA_oriental_development_company
+
 		}
 	}
 
@@ -4531,6 +4559,32 @@ focus_tree = {
 
 		completion_reward = {
 			custom_effect_tooltip = ITA_regional_development_buildings_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						has_completed_focus = FRA_r56rp_promote_central_african_development
+					}
+
+				}
+
+				if = {
+					limit = {
+						has_completed_focus = FRA_r56rp_exploit_the_americas
+					}
+				}
+
+				if = {
+					limit = {
+						has_completed_focus = FRA_develop_indochine
+					}
+				}
+
+				if = {
+					limit = {
+						has_completed_focus = FRA_r56rp_extensive_irrigation_projects
+					}
+				}
+			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			IF = {
 				limit = {
