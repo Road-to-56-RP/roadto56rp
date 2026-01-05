@@ -910,6 +910,12 @@ focus_tree = {
 				ahead_reduction = 1
 				category = excavation_tech
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_economic_status_tt
+			add_to_variable = {
+				FRA_industrial_local_resources_factor = 0.1
+				tooltip = local_resources_factor_tt
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -1442,6 +1448,12 @@ focus_tree = {
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			add_political_power = 50
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_economic_status_tt
+			add_to_variable = { 
+				FRA_industrial_industrial_capacity_factory = 0.05
+				tooltip = industrial_capacity_factory_tt
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -1511,8 +1523,10 @@ focus_tree = {
 				FRA_industrial_production_lack_of_resource_penalty_factor = -0.15
 				tooltip = production_lack_of_resource_penalty_factor_tt
 			}
-			
-
+			add_to_variable = {
+				FRA_industrial_local_resources_factor = 0.1
+				tooltip = local_resources_factor_tt
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -1535,11 +1549,11 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = FRA_r56rp_economic_status_tt
 			add_to_variable = { 
-				FRA_industrial_production_speed_arms_factory_factor = 0.05
+				FRA_industrial_production_speed_arms_factory_factor = 0.1
 				tooltip = production_speed_arms_factory_factor_tt
 			}
 			add_to_variable = { 
-				FRA_industrial_production_speed_dockyard_factor = 0.05
+				FRA_industrial_production_speed_dockyard_factor = 0.1
 				tooltip = production_speed_dockyard_factor_tt
 			}
 			add_to_variable = { 
@@ -11960,18 +11974,36 @@ focus_tree = {
 				}
 			}
 		}
-		allow_branch = {
-			if = {
-				limit = {
-					has_game_rule = {
-						rule = obsolete_focus_branches_visibility
-						option = HIDE
-					}
+		offset = {
+			x = -45
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_far_right_leagues
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
 				}
-				NOT = {
-					has_completed_focus = FRA_status_quo
-					has_completed_focus = FRA_radicalize_front
-					has_completed_focus = FRA_far_right_leagues
+			}
+		}
+		offset = {
+			x = -45
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_status_quo
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}	
+		offset = {
+			x = -50
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_radicalize_front
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
 				}
 			}
 		}		
@@ -12618,9 +12650,9 @@ focus_tree = {
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_economic_status_tt
 			add_to_variable = { 
-				FRA_industrial_production_speed_arms_factory_factor = 0.05 
-				tooltip = production_speed_arms_factory_factor_tt 
-			}	
+				FRA_industrial_industrial_capacity_factory = 0.05
+				tooltip = industrial_capacity_factory_tt
+			}
 		}
 	}
 
