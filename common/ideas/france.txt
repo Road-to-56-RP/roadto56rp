@@ -3541,6 +3541,45 @@ ideas = {
 			}
 		}
 
+		FRA_r56rp_dynamic_market_stimulation = {
+			picture = RAJ_issue_bonds_on_the_stock_market
+
+			allowed = {
+				always = yes
+			}
+		
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+					has_war = yes
+					NOT = {
+						OR = {
+							has_idea = export_focus
+							has_idea = free_trade
+						}
+						
+					}
+				}
+				NOT = {
+					has_government = democratic
+				}
+			}
+
+			modifier = {
+				trade_opinion_factor = 0.20
+				political_power_gain = 0.15
+			}
+
+			cancel = {
+			 	has_war_with = FRA
+			}
+		}
+
 		r56rp_FRA_fortify_marianne = {
 			picture = generic_fortify_the_borders
 
@@ -3559,7 +3598,27 @@ ideas = {
 		 		production_speed_coastal_bunker_factor = 0.2
 		 		production_speed_bunker_factor = 0.2
 		 	}
-		 }
+		}
+
+		r56rp_FRA_agricultural_national_office = {
+			picture = LIT_invested_in_farms
+
+		 	allowed = {
+		 		original_tag = FRA
+		 		always = no
+		 	}
+
+		 	allowed_civil_war = {
+		 		always = yes
+		 	}
+		 	
+		 	removal_cost = -1
+
+		 	modifier = {
+				local_supply_impact_factor = -0.05
+		 		local_factories = 0.10
+		 	}
+		}
 	}
 	
 	tank_manufacturer = {
@@ -4129,12 +4188,12 @@ ideas = {
 
 			visible = {
 				NOT = {
-					has_completed_focus = FRA_global_integration_placeholder_2
+					has_completed_focus = FRA_r56rp_expand_the_oriental_company
 				}
 			}
 
 			available = {
-				has_completed_focus = FRA_the_colonial_economy
+				has_completed_focus = FRA_r56rp_societe_financiere_francaise_et_coloniale
 			}
 
 			research_bonus = {
