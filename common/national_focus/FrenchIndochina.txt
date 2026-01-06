@@ -1885,7 +1885,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
+			add_dynamic_modifier = {
+				modifier = FRI_r56rp_defense_aerienne_dextreme_orient_modifier
+			}
 			random_owned_controlled_state = {
 				prioritize = { 671 }
 				add_extra_state_shared_building_slots = 2
@@ -1911,7 +1913,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = FRI_r56rp_defense_navale_dextreme_orient_idea
+			add_dynamic_modifier = {
+				modifier = FRI_r56rp_defense_navale_dextreme_orient_modifier
+			}
 			random_owned_controlled_state = {
 				prioritize = { 671 }
 				add_extra_state_shared_building_slots = 2
@@ -1937,7 +1941,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = FRI_r56rp_defense_terrestre_dextreme_orient_idea
+			add_dynamic_modifier = {
+				modifier = FRI_r56rp_defense_terrestre_dextreme_orient_modifier
+			}
 			random_owned_controlled_state = {
 				prioritize = { 671 }
 				add_extra_state_shared_building_slots = 2
@@ -2109,20 +2115,13 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_completed_focus = FRI_r56rp_bad_weather_exercises
-				}
-				swap_ideas = {
-					remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
-					add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_2
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
-					add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_naval_strikes_no_exercises
-				}
+			navy_experience = 25
+			air_experience = 25
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRI_r56rp_modify_aerienne_status_tt
+			add_to_variable = { 
+				FRI_r56rp_naval_strike_targetting_factor = 0.2
+				tooltip = naval_strike_targetting_factor_tt
 			}
 		}
 	}
@@ -2140,20 +2139,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_completed_focus = FRI_r56rp_naval_targeting_practice
-				}
-				swap_ideas = {
-					remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
-					add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_2
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_1
-					add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_no_naval_targeting
-				}
+			air_experience = 50
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRI_r56rp_modify_aerienne_status_tt
+			add_to_variable = { 
+				FRI_r56rp_air_accidents_factor = -0.2
+				tooltip = air_accidents_factor_tt
 			}
 		}
 	}
@@ -2172,9 +2163,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_2
-				add_idea = FRI_r56rp_defense_aerienne_dextreme_orient_idea_exercises_3
+			custom_effect_tooltip = FRI_r56rp_modify_aerienne_status_tt
+			add_to_variable = { 
+				FRI_r56rp_naval_strike_targetting_factor = 0.05
+				tooltip = naval_strike_targetting_factor_tt
+			}
+			add_to_variable = { 
+				FRI_r56rp_air_accidents_factor = -0.05
+				tooltip = air_accidents_factor_tt
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			add_mastery_bonus = {
@@ -2372,7 +2368,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = FRA_commando_marine
+			custom_effect_tooltip = FRI_r56rp_modify_terrestre_status_tt
+			add_to_variable = { 
+				FRI_r56rp_amphibious_invasion = 0.3
+				tooltip = amphibious_invasion_tt
+			}
 			add_tech_bonus = {
 				name = FRA_commandos_marine
 				#category = tp_tech
