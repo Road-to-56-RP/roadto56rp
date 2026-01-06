@@ -758,14 +758,15 @@ focus_tree = {
 				}
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = FRA_r56rp_economic_status_tt
-			add_to_variable = { 
-				FRA_industrial_industrial_capacity_dockyard = 0.05
-				tooltip = industrial_capacity_dockyard_tt
-			}
-			add_to_variable = { 
-				FRA_industrial_industrial_capacity_factory = 0.05
-				tooltip = industrial_capacity_factory_tt
+			every_state = {
+				limit = {
+					state = 20
+					state = 26
+					state = 22
+					state = 32
+					state = 31
+					state = 21
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
@@ -2011,8 +2012,8 @@ focus_tree = {
 			factor = 2
 		}
 		available = {
-			num_of_civilian_factories > 100
-			num_of_military_factories > 50
+			num_of_civilian_factories > 125
+			num_of_military_factories > 65
 		}
 		completion_reward = {
 			
@@ -2454,35 +2455,16 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_r56rp_reinforce_the_empire
 		}
-		x = 2
+		x = -1
 		y = 1
 		relative_position_id = FRA_r56rp_reinforce_the_empire
 		ai_will_do = {
 			factor = 2
 		}
 		available = {
-			NOT = {
-				has_government = communism
-			}
-			OR = {
-				ROOT = {
-					controls_state = 677
-					controls_state = 554
-					controls_state = 553
-				}
-				any_other_country = {
-					OR = {
-						original_tag = LEB
-						original_tag = SYR
-					}
-					is_subject_of = ROOT
-					OR = {
-						controls_state = 677
-						controls_state = 554
-						controls_state = 553
-					}
-				}
-			}
+			controls_state = 677
+			controls_state = 554
+			controls_state = 553
 		}
 
 		bypass = {
@@ -2491,18 +2473,6 @@ focus_tree = {
 					controls_state = 677
 					controls_state = 554
 					controls_state = 553
-				}
-				any_other_country = {
-					OR = {
-						original_tag = LEB
-						original_tag = SYR
-					}
-					is_subject_of = ROOT
-					OR = {
-						controls_state = 677
-						controls_state = 554
-						controls_state = 553
-					}
 				}
 			}
 		}
@@ -2640,7 +2610,7 @@ focus_tree = {
 					}
 				}
 				NOT = {
-					has_completed_focus = FRA_r56rp_revisit_colonial_policy
+					has_completed_focus = FRA_r56rp_reinforce_the_empire
 				}
 			}
 		}
@@ -2999,9 +2969,9 @@ focus_tree = {
 				limit = {
 					has_full_control_of_state = 310
 				}
-				release = GYA
-				set_autonomy = { target = GYA autonomy_state = autonomy_dominion }
-				GYA = {
+				release = CAY 
+				set_autonomy = { target = CAY  autonomy_state = autonomy_dominion }
+				CAY  = {
 					add_ideas = FRA_transitional_goverment
 				}
 				hidden_effect = {
@@ -3009,7 +2979,7 @@ focus_tree = {
 						limit = {
 							has_war_with = FRA
 						}
-						GYA = {
+						CAY  = {
 							add_to_war = { targeted_alliance = FRA enemy = PREV hostility_reason = asked_to_join }
 						}
 					}
@@ -3531,10 +3501,33 @@ focus_tree = {
 	focus = {
 		id = FRA_the_blum_viollette_proposal
 		icon = GFX_goal_FRA_french_algeria
-		prerequisite = { focus = FRA_r56rp_reinforce_the_empire }
-		x = -2
+		prerequisite = { focus = FRA_r56rp_revisit_colonial_policy focus = FRA_r56rp_reinforce_the_empire }
+		x = 5
 		y = 1
 		relative_position_id = FRA_r56rp_reinforce_the_empire
+		offset = {
+			x = -2
+			y = 1
+			trigger = {
+				has_completed_focus = FRA_r56rp_revisit_colonial_policy
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
+
+		offset = {
+			x = -4
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_r56rp_reinforce_the_empire
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
 		available = {
 			459 = {
 				controls_or_subject_of = yes
@@ -3624,23 +3617,30 @@ focus_tree = {
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			FRA_right_wing_riot_effect = yes
+			if = {
+				limit = {
+					has_completed_focus = FRA_r56rp_revisit_colonial_policy
+				}
+				add_stability = -0.1
+			}
 		}
 	}
 
 	focus = {
 		id = FRA_expand_the_citizenship
 		icon = GFX_goal_generic_national_unity
-		x = -3
+		x = -5
 		y = 1
-
 		prerequisite = {
 			focus = FRA_the_blum_viollette_proposal
+		}
+		prerequisite = {
 			focus = FRA_continue_mandat
 		}
 		mutually_exclusive = {
 			focus = FRA_r56rp_citizenship_through_service
 		}
-		relative_position_id = FRA_the_blum_viollette_proposal
+		relative_position_id = FRA_continue_mandat
 		cost = 10
 
 		ai_will_do = {
@@ -3684,13 +3684,21 @@ focus_tree = {
 		ai_will_do = {
 			factor = 3
 		}
-
-		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
+		available = {
+			any_owned_state = {
+				NOT = {
+					is_on_continent = europe
+					is_core_of = ROOT # has at least one colonial state
+				}
+			}
+		}
 		completion_reward = {
 			add_stability = -0.05
 			custom_effect_tooltip = generic_skip_one_line_tt
 			remove_worker_shortage_effect = yes
 		}
+
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -3708,7 +3716,14 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
-		
+		available = {
+			any_owned_state = {
+				NOT = {
+					is_on_continent = europe
+					is_core_of = ROOT # has at least one colonial state
+				}
+			}
+		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
 			add_stability = -0.1
@@ -3750,9 +3765,6 @@ focus_tree = {
 
 		available = {
 			has_war = no
-			NOT = {
-				has_completed_focus = FRA_r56rp_suppress_independence_movements
-			}
 		}
 
 		completion_reward = {
@@ -3772,10 +3784,12 @@ focus_tree = {
 	focus = {
 		id = FRA_r56rp_citizenship_through_service
 		icon = GFX_focus_CONGO_congo_army
-		x = 3
+		x = 5
 		y = 1
 		prerequisite = {
 			focus = FRA_the_blum_viollette_proposal
+		}
+		prerequisite = {
 			focus=  FRA_continue_mandat
 		}
 		mutually_exclusive = {
@@ -3820,16 +3834,14 @@ focus_tree = {
 		}
 		available = {
 			any_state = {
-				OR = {
-					state = 694
-					state = 310
-					state = 730
-					state = 708
-					state = 706
-					state = 641
-					state = 635
-					state = 1080
-				}
+				state = 694
+				state = 310
+				state = 730
+				state = 708
+				state = 706
+				state = 641
+				state = 635
+				state = 1080
 				is_fully_controlled_by = ROOT
 			}
 		}
@@ -3989,7 +4001,7 @@ focus_tree = {
 	focus = {
 		id = FRA_r56rp_societe_financiere_francaise_et_coloniale
 		icon = GFX_focus_generic_improve_the_administration
-		x = 0
+		x = -1
 		y = 3
 		prerequisite = {
 			focus = FRA_expand_the_citizenship
@@ -4048,8 +4060,7 @@ focus_tree = {
 		
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			custom_effect_tooltip = available_industrial_concern
-			show_ideas_tooltip = FRA_oriental_development_company
+			
 		}
 	}
 
@@ -4140,8 +4151,16 @@ focus_tree = {
 		
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			custom_effect_tooltip = available_industrial_concern
-			show_ideas_tooltip = FRA_oriental_development_company
+			every_state = {
+				LIMIT = {
+					OR = {
+						is_core_of = SYR
+						is_core_of = LEB
+					}
+					is_controlled_by = FRA
+				}
+				add_dynamic_modifier = { modifier = r56_local_development  days = 700 }
+			}
 		}
 	}
 
@@ -4161,17 +4180,47 @@ focus_tree = {
 		}
 
 		available = {
-			
+			677 = { controls_or_subject_of = yes }
+			554 = { controls_or_subject_of = yes }
+			553 = { controls_or_subject_of = yes }
 		}
 		
 		bypass = {
-			
+			NOT = {
+				677 = { controls_or_subject_of = yes }
+				554 = { controls_or_subject_of = yes }
+				553 = { controls_or_subject_of = yes }
+			}
 		}
 		
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			# Add Building Slots everywhere
-			# Add 5% Compliance if controlled
+			custom_effect_tooltip  = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_economic_status_tt
+			add_to_variable = { 
+				FRA_industrial_consumer_goods_factor = -0.03
+				tooltip = consumer_goods_factor_tt
+			}
+			custom_effect_tooltip  = generic_skip_one_line_tt
+			554 = {
+				add_compliance = 5
+			}
+			680 = {
+				add_compliance = 5
+			}
+			677 = {
+				add_compliance = 5
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_owned_controlled_state = {
+				prioritize = { 680 554 677 }
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				prioritize = { 554 677 }
+				add_extra_state_shared_building_slots = 1
+			}
 		}
 	}
 
@@ -4191,9 +4240,7 @@ focus_tree = {
 
 		available = {
 			has_tech = excavation3
-			680 = {
-				controls_or_subject_of = yes
-			}
+			680 = { controls_or_subject_of = yes }
 		}
 
 		bypass = {
@@ -5537,7 +5584,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = FRA_r56rp_economic_status_tt
 			add_to_variable = { 
-				FRA_industrial_production_speed_buildings_factor = 0.03
+				FRA_industrial_production_speed_buildings_factor = 0.05
 				tooltip = production_speed_buildings_factor_tt
 			}
 			add_to_variable = { 
@@ -13126,7 +13173,7 @@ focus_tree = {
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
 			add_to_variable = { r56rp_armee_de_terra_max_plannning_factor = -0.15 tooltip = max_planning_factor_tt }
-			add_to_variable = { r56rp_armee_de_terra_planning_speed = 0.2 tooltip = planning_speed_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_planning_speed = 0.25 tooltip = planning_speed_factor_tt }
 		}
 	}
 	#### NAVAL SECTION ####
@@ -14033,6 +14080,7 @@ focus_tree = {
 				FRA_r56rp_screening_efficiency = 0.05
 				tooltip = screening_efficiency_tt
 			}
+				add_to_variable = { FRA_r56rp_light_gun_hit_chance_factor = 0.05 tooltip = naval_light_gun_hit_chance_factor_tt }
 		}
 	}
 
@@ -14823,7 +14871,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_timed_idea = {
-				idea = FRA_r56rp_naval_construction_program1_idea
+				idea = FRA_naval_construction_program1_idea
 				days = 730
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
