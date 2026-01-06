@@ -136,6 +136,8 @@
 	NDefines.NMilitary.NEW_NAVY_LEADER_RANDOM_SKILL_CHANCES = { -- chances to give a random stat skill point for a new admiral
 	}
 
+	NDefines.NMilitary.LAND_AIR_COMBAT_STR_DAMAGE_MODIFIER = 0.07 -- Vanilla 0.05
+
 	NDefines.NAir.SUPPLY_NEED_FACTOR = 0.22 -- 0.28
 
 	NDefines.NAir.AIR_WING_XP_LEVELS = {20, 40, 60, 80, 100, 140, 180, 220, 260, 300, 390, 480, 570, 660, 750, 780, 810, 840, 870, 900}
