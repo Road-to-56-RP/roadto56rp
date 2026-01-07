@@ -1215,7 +1215,7 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				prioritize = { 27 }
+				prioritize = { 21 }
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = synthetic_refinery
@@ -1224,23 +1224,17 @@ focus_tree = {
 				}
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = FRA_r56rp_economic_status_tt
-			add_to_variable = { 
-				FRA_industrial_consumer_goods_factor = 0.1
-				tooltip = consumer_goods_factor_tt
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			#custom_effect_tooltip = GER_modify_wehrwirtschaft_modifier_tt
-			#add_to_variable = { 
-			#	GER_wehrwirtschaft_production_oil_factor = 0.1
-			#	tooltip = production_oil_factor_tt
-			#}
-			custom_effect_tooltip = generic_skip_one_line_tt
 			add_tech_bonus = {
 				name = FRA_r56rp_subsidize_rhone_poutec
 				bonus = 1
 				uses = 1
 				category = synth_resources
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_economic_status_tt
+			add_to_variable = { 
+				FRA_industrial_consumer_goods_factor = 0.1
+				tooltip = consumer_goods_factor_tt
 			}
 
 		}
@@ -1249,7 +1243,7 @@ focus_tree = {
 	focus = {
 		id = FRA_r56rp_subsidize_construction
 		icon = GFX_goal_generic_construction
-		cost = 5
+		cost = 10
 		prerequisite = { 
 			focus = FRA_r56rp_tax_adjustments
 		}
@@ -1261,7 +1255,22 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			# - Construction
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1
+				uses = 1
+				category = construction_tech
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_economic_status_tt
+			add_to_variable = { 
+				FRA_industrial_consumer_goods_factor = 0.1
+				tooltip = consumer_goods_factor_tt
+			}
+			add_to_variable = { 
+				FRA_industrial_production_speed_buildings_factor = 0.1
+				tooltip = production_speed_buildings_factor_tt
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
@@ -1298,7 +1307,7 @@ focus_tree = {
 				name = industrial_bonus
 				bonus = 1
 				uses = 1
-				category = industry
+				category = electronics
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_economic_status_tt
@@ -1319,12 +1328,13 @@ focus_tree = {
 	focus = {
 		id = FRA_r56rp_military_focused_research
 		icon = GFX_focus_ICE_state_corporatism
+		prerequisite = { focus = FRA_r56rp_towards_a_war_industry }
 		prerequisite = {  focus = FRA_r56rp_corporate_innovations }
 		mutually_exclusive = { 
 			focus = FRA_r56rp_civilian_research
 		}
 		relative_position_id =  FRA_r56rp_corporate_innovations
-		x = -1
+		x = 1
 		y = 1
 		cost = 10
 		
@@ -1356,12 +1366,13 @@ focus_tree = {
 	focus = {
 		id = FRA_r56rp_civilian_research
 		icon = GFX_focus_hol_abandon_the_gold_standard
+		prerequisite = { focus = FRA_r56rp_reap_what_you_sow }
 		prerequisite = {  focus = FRA_r56rp_corporate_innovations }
 		mutually_exclusive = { 
 			focus = FRA_r56rp_military_focused_research
 		}
 		relative_position_id =  FRA_r56rp_corporate_innovations
-		x = 1
+		x = -1
 		y = 1
 		cost = 10
 		
@@ -1509,23 +1520,14 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			# Fun Fact, the national resources of France were never state-owned, but leased/allocated from mining corporations/excavation/exploitation corps.
-			add_tech_bonus = {
-				name = industrial_bonus
-				bonus = 1
-				uses = 1
-				category = industry
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_political_power = 50
-			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_economic_status_tt
+			add_to_variable = {  FRA_industrial_political_power_gain = -0.1 tooltip = political_power_gain_tt }
 			add_to_variable = { 
-				FRA_industrial_production_lack_of_resource_penalty_factor = -0.15
+				FRA_industrial_production_lack_of_resource_penalty_factor = -0.1
 				tooltip = production_lack_of_resource_penalty_factor_tt
 			}
 			add_to_variable = {
-				FRA_industrial_local_resources_factor = 0.1
+				FRA_industrial_local_resources_factor = 0.05
 				tooltip = local_resources_factor_tt
 			}
 		}
@@ -2451,7 +2453,7 @@ focus_tree = {
 	focus = {
 		id = FRA_continue_mandat
 		icon = GFX_focus_ETH_boots_on_the_shore
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_r56rp_reinforce_the_empire
 		}
@@ -2587,7 +2589,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = FRA_r56rp_reinforce_the_empire
 		}
-		x = 5 
+		x = 5
 		y = 1
 		relative_position_id = FRA_r56rp_ministere_de_la_france_de_outre_mer
 		offset = {
@@ -4142,14 +4144,17 @@ focus_tree = {
 		}
 
 		available = {
-			
+			553 = { controls_or_subject_of = yes }
+			554 = { controls_or_subject_of = yes }
+			677 = { controls_or_subject_of = yes }
+			799 = { controls_or_subject_of = yes }
+			680 = { controls_or_subject_of = yes }
 		}
 		
 		bypass = {
 			
 		}
 		
-		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			every_state = {
 				LIMIT = {
@@ -4232,7 +4237,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = FRA_r56rp_middle_eastern_investments
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			base = 1
@@ -4472,7 +4477,6 @@ focus_tree = {
 				LIMIT = {
 					OR = {
 						is_core_of = CHA
-						is_core_of = CAM
 						is_core_of = CAR
 						is_core_of = GAB
 						is_core_of = RCG
@@ -4720,7 +4724,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = ITA_regional_development_buildings_tt
 			hidden_effect = {
 				if = {
 					limit = {
@@ -12361,7 +12364,7 @@ focus_tree = {
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
 			add_to_variable = { r56rp_armee_de_terra_max_plannning_factor = 0.05 tooltip = max_planning_factor_tt }
-			add_to_variable = { r56rp_armee_de_terra_planning_speed = 0.1 tooltip = planning_speed_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_max_dig_in_factor = 0.1 tooltip = max_dig_in_factor_tt }
 		}
 	}
 
@@ -12392,7 +12395,10 @@ focus_tree = {
 				technology = tech_field_hospital
 				technology = tech_field_hospital2
 				technology = tech_field_hospital3
-			}			
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
+			add_to_variable = { r56rp_armee_de_terra_army_morale_factor = 0.05 tooltip = army_morale_factor_tt }
 		}
 	}
 	
@@ -12784,7 +12790,12 @@ focus_tree = {
 				cost_reduction = 0.5
 				uses = 2
 				category = land_doctrine
-			}		
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_armee_de_terra_tt
+			add_to_variable = { r56rp_armee_de_terra_army_leader_cost_factor = -0.1 tooltip = army_leader_cost_factor_tt }
+			add_to_variable = { r56rp_armee_de_terra_experience_gain_factor = 0.1 tooltip = army_experience_gain_factor_tt }
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER }
 	}
