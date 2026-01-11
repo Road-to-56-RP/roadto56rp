@@ -1478,7 +1478,7 @@ focus_tree = {
 			focus = FRA_r56rp_accelarate_the_rearmament_program
 		}
 		x = -1
-		y = 1
+		y = 2
 		relative_position_id = FRA_r56rp_accelarate_the_rearmament_program
 		ai_will_do = {
 			factor = 2
@@ -1513,7 +1513,7 @@ focus_tree = {
 			focus = FRA_r56rp_accelarate_the_rearmament_program
 		}
 		x = 1
-		y = 1
+		y = 2
 		relative_position_id = FRA_r56rp_accelarate_the_rearmament_program
 		ai_will_do = {
 			factor = 2
@@ -2446,6 +2446,7 @@ focus_tree = {
 			add_political_power = 50
 			custom_effect_tooltip = generic_skip_one_line_tt
 			unlock_decision_category_tooltip = FRA_r56rp_colonial_management_cat
+			mark_focus_tree_layout_dirty = yes
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
 	}
@@ -2631,7 +2632,7 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.05
 			add_political_power = 75
-			custom_effect_tooltip = generic_skip_one_line_tt
+			mark_focus_tree_layout_dirty = yes
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
 	}
@@ -2643,7 +2644,7 @@ focus_tree = {
 		prerequisite = {
 			focus = FRA_r56rp_revisit_colonial_policy
 		}
-		x = -1
+		x =1
 		y = 1
 		relative_position_id = FRA_r56rp_revisit_colonial_policy
 
@@ -2751,7 +2752,7 @@ focus_tree = {
 	focus = {
 		id = FRA_vienot_agreement
 		icon = GFX_goal_constitution
-		x = 1
+		x = -1
 		y = 1
 		prerequisite = {
 			focus = FRA_r56rp_revisit_colonial_policy
@@ -2852,7 +2853,7 @@ focus_tree = {
 		prerequisite = { focus = FRA_vienot_agreement }
 		relative_position_id = FRA_vienot_agreement
 		cost = 5
-		x = -1
+		x = 1
 		y = 1
 		available = {
 			is_subject = no
@@ -2883,6 +2884,33 @@ focus_tree = {
 						}
 					}
 				}
+			}
+			else = {
+				add_political_power = 25
+				add_manpower = 3000
+				custom_effect_tooltip = generic_skip_one_line_tt
+				if = {
+					limit = {
+						MOR = {
+							is_subject_of = FRA
+						}
+					}
+					MOR = {
+						add_ideas = FRA_transitional_goverment
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				if = {
+					limit = {
+						TUN = {
+							is_subject_of =FRA
+						}
+					}
+					TUN = {
+						add_ideas = FRA_transitional_goverment
+					}
+				}
+			
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
@@ -3038,11 +3066,11 @@ focus_tree = {
 		icon = GFX_goal_indochina_a_true_federation
 		cost = 5
 		prerequisite = {
-			focus = FRA_vienot_agreement
+			focus = FRA_r56rp_withdraw_from_our_contested_holdings
 		}
 		x = 1
 		y = 1
-		relative_position_id = FRA_vienot_agreement
+		relative_position_id = FRA_r56rp_withdraw_from_our_contested_holdings
 
 		available = {
 			is_subject = no
@@ -3354,102 +3382,102 @@ focus_tree = {
 					has_full_control_of_state = 543
 					has_full_control_of_state = 268
 				}
-				hidden_effect = {
-					release_puppet = MLI
+				
+				release_puppet = MLI
+				MLI = {
+					add_ideas = FRA_colonial_focus
+					add_ideas = FRA_transitional_goverment
+					add_to_tech_sharing_group = french_research
+					set_cosmetic_tag = FRA_AFR
+					transfer_state = 557
+					transfer_state = 786
+					transfer_state = 782
+					transfer_state = 515
+					transfer_state = 556
+					transfer_state = 781
+					transfer_state = 778
+					transfer_state = 776
+					transfer_state = 777
+					transfer_state = 779
+					transfer_state = 780
+					transfer_state = 272
+
+
+					set_party_name = { 
+						ideology = neutrality 
+						ideology = democratic
+						ideology = fascism
+
+						long_name = "Administration Coloniale Française" 
+						name = "Administration Coloniale"
+					}
+
+				}
+				release_puppet = CHA
+				CHA = {
+					add_ideas = FRA_colonial_focus
+					add_ideas = FRA_transitional_goverment
+					add_to_tech_sharing_group = french_research
+					set_cosmetic_tag = FRA_MAFR
+					transfer_state = 775
+					transfer_state = 774
+					transfer_state = 773
+					transfer_state = 660
+					transfer_state = 539
+					transfer_state = 772
+					set_party_name = { 
+						ideology = neutrality
+						ideology = democratic
+						ideology = fascism
+
+						long_name = "Administration Coloniale Française" 
+						name = "Administration Coloniale"
+					}
+				}
+
+				# East Africa
+				release_puppet = MAD
+				MAD = {
+					add_ideas = FRA_colonial_focus
+					add_ideas = FRA_transitional_goverment
+					add_to_tech_sharing_group = french_research
+					set_cosmetic_tag = FRA_EAFR
+
+					transfer_state = 543
+					transfer_state = 706
+					transfer_state = 708
+					transfer_state = 268
+
+					set_party_name = { 
+						ideology = neutrality
+						ideology = democratic
+						ideology = fascism
+
+						long_name = "Administration Coloniale Française" 
+						name = "Administration Coloniale"
+					}
+				}
+				every_other_country = {
+					limit = {
+						has_war_with = ROOT
+					}
 					MLI = {
-						add_ideas = FRA_colonial_focus
-						add_ideas = FRA_transitional_goverment
-						add_to_tech_sharing_group = french_research
-						set_cosmetic_tag = FRA_AFR
-						transfer_state = 557
-						transfer_state = 786
-						transfer_state = 782
-						transfer_state = 515
-						transfer_state = 556
-						transfer_state = 781
-						transfer_state = 778
-						transfer_state = 776
-						transfer_state = 777
-						transfer_state = 779
-						transfer_state = 780
-						transfer_state = 272
-
-
-						set_party_name = { 
-							ideology = neutrality 
-							ideology = democratic
-							ideology = fascism
-
-							long_name = "Administration Coloniale Française" 
-							name = "Administration Coloniale"
+						add_to_war = {
+							targeted_alliance = ROOT
+							enemy = PREV
+							hostility_reason = asked_to_join
 						}
-
 					}
-					release_puppet = CHA
+
 					CHA = {
-						add_ideas = FRA_colonial_focus
-						add_ideas = FRA_transitional_goverment
-						add_to_tech_sharing_group = french_research
-						set_cosmetic_tag = FRA_MAFR
-						transfer_state = 775
-						transfer_state = 774
-						transfer_state = 773
-						transfer_state = 660
-						transfer_state = 539
-						transfer_state = 772
-						set_party_name = { 
-							ideology = neutrality
-							ideology = democratic
-							ideology = fascism
-
-							long_name = "Administration Coloniale Française" 
-							name = "Administration Coloniale"
-						}
-					}
-
-					# East Africa
-					release_puppet = MAD
-					MAD = {
-						add_ideas = FRA_colonial_focus
-						add_ideas = FRA_transitional_goverment
-						add_to_tech_sharing_group = french_research
-						set_cosmetic_tag = FRA_EAFR
-
-						transfer_state = 543
-						transfer_state = 706
-						transfer_state = 708
-						transfer_state = 268
-
-						set_party_name = { 
-							ideology = neutrality
-							ideology = democratic
-							ideology = fascism
-
-							long_name = "Administration Coloniale Française" 
-							name = "Administration Coloniale"
-						}
-					}
-					every_other_country = {
-						limit = {
-							has_war_with = ROOT
-						}
-						MLI = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-
-						CHA = {
-							add_to_war = {
-								targeted_alliance = ROOT
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
+						add_to_war = {
+							targeted_alliance = ROOT
+							enemy = PREV
+							hostility_reason = asked_to_join
 						}
 					}
 				}
+				
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
@@ -12302,6 +12330,11 @@ focus_tree = {
 				}
 				add_potential_special_forces_tree = yes
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = FRA_r56rp_alpine_tt
+			add_to_variable = { r56rp_armee_de_terra_special_forces_cap = 0.02 }
+			add_to_variable = { r56rp_armee_de_terra_sub_unit_mountaineers_defence_factor = 0.03 }
+			add_to_variable = { r56rp_armee_de_terra_special_forces_defence_factor = 0.05 }
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -12596,6 +12629,8 @@ focus_tree = {
 				idea = r56rp_FRA_fortify_marianne
 				days = 730
 			}
+			# Future Mission to extend Alpine Fortifications to lvl x
+			# Expand Maginot -> Mission
 		}
 	}
 
