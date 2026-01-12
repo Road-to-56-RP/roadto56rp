@@ -1072,7 +1072,7 @@ focus_tree = {
 			add_ideas = r56_GER_rally_the_technocrats_idea 
 		}
 
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY  }
 	}
 
 	focus = {
@@ -1203,7 +1203,7 @@ focus_tree = {
 			}
 		}
 
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
 			# Major Producer of Synthetic Rubber post 1938
@@ -13257,6 +13257,8 @@ focus_tree = {
 				category = naval_doctrine
 			}
 		}
+		
+		search_filters = {	FOCUS_FILTER_NAVY_XP }
 	}
 	
 	focus = {
@@ -13312,7 +13314,7 @@ focus_tree = {
 				FRA_r56rp_marine_national_modifier_enesizepen = 0.1 tooltip =  naval_enemy_fleet_size_ratio_penalty_factor_tt
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP }
 	}
 
 	
@@ -13385,8 +13387,6 @@ focus_tree = {
 		available = {
 		}
 
-		search_filters = {FOCUS_FILTER_RESEARCH}
-
 		completion_reward = {
 			add_mastery_bonus = {
 				name = FRA_r56rp_sea_denial_doctrine
@@ -13401,6 +13401,7 @@ focus_tree = {
 				cost = 35
 			}
 		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP }
 	}
 
 	focus = {
@@ -13932,7 +13933,9 @@ focus_tree = {
 			add_to_variable = {
 				FRA_r56rp_marine_national_ships_at_battle_start = 0.1 tooltip = FRA_r56rp_ships_at_battlestart_tt
 			}
+			
 		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP }
 	}
 
 	focus = {
@@ -14268,7 +14271,7 @@ focus_tree = {
 		}
 
 		select_effect = {
-			add_ideas = SOV_military_reorganization_ns
+			add_ideas = r56rp_FRA_reorganizing_naval_groups
 		}
 		
 		available_if_capitulated = no
@@ -14278,17 +14281,13 @@ focus_tree = {
 			# This should be a mishap, due to the fact that you're following an old doctrine only to switch up - thus if you are trying to ensure your navy is aware of the now combined doctrine effort - you'd have to retrain them
 			custom_effect_tooltip = SOV_focus_select_effect_tt
 			effect_tooltip = {
-				add_ideas = SOV_military_reorganization_ns
+				add_ideas = r56rp_FRA_reorganizing_naval_groups
 			}
 
 			#(Complete Effect)
 			custom_effect_tooltip = SOV_focus_complete_effect_tt
-			hidden_effect = {
-				swap_ideas = {
-					remove_idea = FRA_castex_strategies2_idea
-					add_idea = FRA_castex_strategies3_idea
-				}
-			}
+			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
+			add_to_variable = { FRA_r56rp_marine_national_modifier_navcoord = 0.1 tooltip = naval_coordination_tt  }
 			
 		}
 	}
@@ -14318,6 +14317,7 @@ focus_tree = {
 			add_to_variable = {
 				FRA_r56rp_marine_national_modifier_orgfactor = 0.05 tooltip = navy_org_factor_tt
 			}
+			add_ideas = FRA_darlan_doctrine_idea
 		}
 	}
 
@@ -14799,7 +14799,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = FRA_r56rp_rebuild_the_high_seas_fleet
+		id = FRA_r56rp_renounce_the_london_naval_treaty
 		icon = GFX_goal_generic_expand_the_naval_industry
 		cost = 5
 		prerequisite = {
@@ -14847,9 +14847,127 @@ focus_tree = {
 					amount = 1
 				}
 			}
-			add_timed_idea = {
-				idea = r56rp_FRA_rebuild_the_high_seas_fleet
-				days = 900
+
+			add_ideas = r56rp_FRA_rebuilding_the_escadre_de_ligne
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					ROOT = {
+						has_government = democratic
+					}
+				}
+
+					remove_naval_treaty_effect = yes
+				every_other_country = {
+					limit = {
+						has_naval_treaty_trigger = yes
+					}
+					country_event = MTG_naval_treaty.7
+				}
+				if = {
+					limit = {
+						has_global_flag = {
+							flag = MTG_naval_treaty_signatories
+							value < 3
+						}
+					}
+					random_other_country = {
+						limit = {
+							has_naval_treaty_trigger = yes
+						}
+						remove_naval_treaty_effect = yes
+					}
+					clr_global_flag = MTG_naval_treaty_signatories
+					hidden_effect = { news_event = mtg_news.60 }
+				}
+				if = {
+					limit = {
+						has_global_flag = MTG_naval_treaty_signatories
+					}
+					modify_global_flag = {
+						flag = MTG_naval_treaty_signatories
+						value = -1
+					}
+				}
+				if = {
+					limit = {
+						not = {
+							any_other_country = {
+								OR = {
+									has_idea = MTG_naval_treaty_cheating_reduced
+									has_idea = MTG_naval_treaty_adherent_reduced
+								}
+							}
+						}
+					}
+					every_other_country = {
+						limit = {
+							OR = {
+								has_idea = MTG_naval_treaty_cheating
+								has_idea = MTG_naval_treaty_adherent
+							}
+						}
+						activate_mission = MTG_escalator_clause_invocation_mission
+						custom_effect_tooltip = MTG_escalator_clause_tt
+					}
+				}
+			}
+			else = {
+				remove_naval_treaty_effect = yes
+				every_other_country = {
+					limit = {
+						has_naval_treaty_trigger = yes
+					}
+					country_event = { id = MTG_naval_treaty.7 days = 2 }
+				}
+				if = {
+					limit = {
+						has_global_flag = {
+							flag = MTG_naval_treaty_signatories
+							value < 3
+						}
+					}
+					random_other_country = {
+						limit = {
+							has_naval_treaty_trigger = yes
+						}
+						remove_naval_treaty_effect = yes
+					}
+					clr_global_flag = MTG_naval_treaty_signatories
+					hidden_effect = { news_event = mtg_news.60 }
+				}
+				if = {
+					limit = {
+						has_global_flag = MTG_naval_treaty_signatories
+					}
+					modify_global_flag = {
+						flag = MTG_naval_treaty_signatories
+						value = -1
+					}
+				}
+				if = {
+					limit = {
+						not = {
+							any_other_country = {
+								OR = {
+									has_idea = MTG_naval_treaty_cheating_reduced
+									has_idea = MTG_naval_treaty_adherent_reduced
+								}
+							}
+						}
+					}
+					every_other_country = {
+						limit = {
+							OR = {
+								has_idea = MTG_naval_treaty_cheating
+								has_idea = MTG_naval_treaty_adherent
+							}
+						}
+						activate_mission = MTG_escalator_clause_invocation_mission
+						custom_effect_tooltip = MTG_escalator_clause_tt
+					}
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
@@ -14858,8 +14976,8 @@ focus_tree = {
 	focus = {
 		id = FRA_r56rp_heavier_naval_guns
 		icon = GFX_focus_generic_battleship_guns
-		prerequisite = { focus = FRA_r56rp_rebuild_the_high_seas_fleet }
-		relative_position_id = FRA_r56rp_rebuild_the_high_seas_fleet
+		prerequisite = { focus = FRA_r56rp_renounce_the_london_naval_treaty }
+		relative_position_id = FRA_r56rp_renounce_the_london_naval_treaty
 		x = 0
 		y = 1
 
@@ -15309,6 +15427,8 @@ focus_tree = {
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
 			add_to_variable = { FRA_r56rp_marine_national_repair_speed_factor = 0.15 tooltip = repair_speed_factor_tt }
 		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	#### AIR SECTION ####
@@ -15336,7 +15456,7 @@ focus_tree = {
 			custom_effect_tooltip = generic_skip_one_line_tt
 			activate_mission = FRA_expand_aircraft_procurement
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
+		search_filters = { FOCUS_FILTER_AIR_XP }
 	}
 
 	focus = {
@@ -15418,7 +15538,7 @@ focus_tree = {
 			add_to_variable = { r56rp_armee_de_lair_modifier_air_wing_xp_loss_when_killed_factor = -0.1 tooltip = air_wing_xp_loss_when_killed_factor_tt }
 			add_to_variable = { r56rp_armee_de_lair_modifier_experience_gain_air_factor = 0.1 tooltip = experience_gain_air_factor_tt }
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_AIR_XP }
 	}
 	
 	focus = {
