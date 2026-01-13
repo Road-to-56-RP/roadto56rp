@@ -4822,11 +4822,13 @@ focus_tree = {
 		}
 		relative_position_id = FRA_gueye_lamine_law
 		cost = 15
-
+		available = {
+			num_subjects > 2
+		}
 		ai_will_do = {
 			factor = 1
 		}
-
+		
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			create_faction_from_template = {
@@ -4834,14 +4836,14 @@ focus_tree = {
 				name = FRA_french_union_faction
 				icon = GFX_faction_logo_generic_6
 			} 
-			add_ideas = ITA_italian_confederation_leader
-
+			add_ideas = r56rp_FRA_french_union_leader
+			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
 				limit = {
 					num_subjects > 0
 				}
 				every_subject_country = {
-					add_ideas = ITA_italian_confederation_member
+					add_ideas = r56rp_FRA_french_union_member
 					capital_scope = {
 						add_extra_state_shared_building_slots = 1
 						add_building_construction = {
@@ -4850,16 +4852,6 @@ focus_tree = {
 							instant_build = yes
 						}
 					}
-					ROOT = {
-						add_to_faction = PREV
-					}
-				}
-			}
-			else = {
-				custom_effect_tooltip = ITA_planned_economy_subjects_ns_tt
-				effect_tooltip = {
-					add_ideas = ITA_italian_confederation_member
-					custom_effect_tooltip = ITA_the_italian_confederation_effects_tt
 				}
 			}
 		}
@@ -4926,29 +4918,29 @@ focus_tree = {
 		cost = 5
 		available = {
 			num_subjects > 4
-			has_idea = ITA_italian_confederation_leader
+			has_idea = r56rp_FRA_french_union_leader
 		}
 
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
 			swap_ideas = {
-				remove_idea = ITA_italian_confederation_leader
-				add_idea = ITA_italian_confederation_leader_improved
+				remove_idea = r56rp_FRA_french_union_leader
+				add_idea = r56rp_FRA_french_union_leader_improved
 			}
 			if = {
 				limit = {
 					any_subject_country = {
-						has_idea = ITA_italian_confederation_member
+						has_idea = r56rp_FRA_french_union_member
 					}
 				}
 				every_subject_country = {
 					limit = {
-						has_idea = ITA_italian_confederation_member
+						has_idea = r56rp_FRA_french_union_member
 					}
 					swap_ideas = {
-						remove_idea = ITA_italian_confederation_member
-						add_idea = ITA_italian_confederation_member_improved
+						remove_idea = r56rp_FRA_french_union_member
+						add_idea = r56rp_FRA_french_union_member_improved
 					}
 				}
 			}
@@ -4956,8 +4948,8 @@ focus_tree = {
 				custom_effect_tooltip = ITA_planned_economy_subjects_ns_tt
 				effect_tooltip = {
 					swap_ideas = {
-						remove_idea = ITA_italian_confederation_member
-						add_idea = ITA_italian_confederation_member_improved
+						remove_idea = r56rp_FRA_french_union_member
+						add_idea = r56rp_FRA_french_union_member_improved
 					}
 				}
 			}
@@ -14288,6 +14280,7 @@ focus_tree = {
 			custom_effect_tooltip = SOV_focus_complete_effect_tt
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
 			add_to_variable = { FRA_r56rp_marine_national_modifier_navcoord = 0.1 tooltip = naval_coordination_tt  }
+			add_to_variable = { FRA_r56rp_submarine_attack_factor = 0.05  tooltip = navy_submarine_attack_factor_tt  }
 			
 		}
 	}
