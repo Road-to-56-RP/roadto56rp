@@ -1666,6 +1666,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			add_popularity = {
+			    ideology = fascism
+			    popularity = 0.05
+			}
+			add_popularity = {
+			    ideology = communism
+			    popularity = -0.03
+			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_economic_status_tt
 			add_to_variable = { 
@@ -2763,6 +2771,7 @@ focus_tree = {
 				
 			}
 		}
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
 	}
 
 
@@ -2861,6 +2870,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = {
@@ -2952,7 +2962,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
 	}
 
 	#focus = {
@@ -3075,6 +3085,7 @@ focus_tree = {
 				}
 			}
 		}
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
 	}
 
 
@@ -3500,7 +3511,7 @@ focus_tree = {
 				
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = {
@@ -3556,7 +3567,7 @@ focus_tree = {
 			}
 
 		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
 	}
 
 
@@ -4094,7 +4105,7 @@ focus_tree = {
 			custom_effect_tooltip = available_industrial_concern
 			show_ideas_tooltip = FRA_oriental_development_company
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -4124,7 +4135,7 @@ focus_tree = {
 			
 		}
 
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -4288,7 +4299,7 @@ focus_tree = {
 			}
 		}
 
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -4313,8 +4324,6 @@ focus_tree = {
 		bypass = {
 
 		}
-
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -4342,6 +4351,7 @@ focus_tree = {
 			}	
 			custom_effect_tooltip = generic_skip_one_line_tt
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -4419,7 +4429,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -4603,24 +4613,8 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			if = {
-				limit = {
-					ALG = {
-						is_subject_of = ROOT
-						controls_state = 459
-						controls_state = 460
-						controls_state = 513
-					}
-				}
-				ALG = {
-					add_autonomy_ratio = {
-						value = -0.15
-						localization = FRA_r56rp_ministere_de_la_france_de_outre_mer
-					}
-				}
-			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}	
 
 
@@ -4836,7 +4830,7 @@ focus_tree = {
 				level = 2
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	
@@ -14181,23 +14175,17 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = FRA_improved_screen_ships
-				bonus = 2.0
-				uses = 1
-				category = ca_tech
+			add_mastery_bonus = {
+				name = FRA_r56rp_sea_denial_doctrine
+				bonus = 0.1
+				days = 240
+				grand_doctrine = new_convoy_raiding
+				track = submarines
 			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = FRA_improved_screen_ships
-					bonus = 2
-					uses = 1
-					technology = improved_medium_battery
-					technology = advanced_medium_battery
-				}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			reduce_focus_completion_cost = {
+				focus = { FRA_r56rp_colonial_naval_bases }
+				cost = 35
 			}
 		}
 	}
@@ -14333,11 +14321,20 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			# Unlock Raid "Pearl Harbour"
+			# Darlan was worried about Italians more than anything else
+			add_mastery_bonus = {
+				name = GER_plan_z
+				bonus = 0.35
+				days = 90
+				grand_doctrine = new_fleet_in_being
+				
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = FRA_r56rp_marine_national_dynamic_modifier_tt
 			add_to_variable = {
 				FRA_r56rp_marine_national_modifier_orgfactor = 0.05 tooltip = navy_org_factor_tt
 			}
-			add_ideas = FRA_darlan_doctrine_idea
 		}
 	}
 
