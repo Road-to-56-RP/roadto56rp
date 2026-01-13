@@ -2088,6 +2088,28 @@ focus_tree = {
 		cost = 5
 		x = -18
 		y = 0
+		offset = {
+			x = 7
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_r56rp_revisit_colonial_policy
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
+		offset = {
+			x = 4
+			y = 0
+			trigger = {
+				has_completed_focus = FRA_r56rp_reinforce_the_empire
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+			}
+		}
 		ai_will_do = {
 			factor = 2
 		}
@@ -2867,7 +2889,7 @@ focus_tree = {
 				release = MOR
 				set_autonomy = { target = MOR autonomy_state = autonomy_dominion }
 				MOR = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					every_other_country = {
@@ -2891,7 +2913,7 @@ focus_tree = {
 						}
 					}
 					MOR = {
-						add_ideas = FRA_transitional_goverment
+						add_ideas = r56rp_FRA_transitional_goverment
 					}
 				}
 				custom_effect_tooltip = generic_skip_one_line_tt
@@ -2902,7 +2924,7 @@ focus_tree = {
 						}
 					}
 					TUN = {
-						add_ideas = FRA_transitional_goverment
+						add_ideas = r56rp_FRA_transitional_goverment
 					}
 				}
 			
@@ -2916,7 +2938,7 @@ focus_tree = {
 				release = TUN
 				set_autonomy = { target = TUN autonomy_state = autonomy_dominion }
 				TUN = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					every_other_country = {
@@ -2997,7 +3019,7 @@ focus_tree = {
 				release = CAY 
 				set_autonomy = { target = CAY  autonomy_state = autonomy_dominion }
 				CAY  = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					every_other_country = {
@@ -3018,7 +3040,7 @@ focus_tree = {
 				release = GDL
 				set_autonomy = { target = GDL autonomy_state = autonomy_dominion }
 				GDL = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					every_other_country = {
@@ -3039,7 +3061,7 @@ focus_tree = {
 				release = MAR
 				set_autonomy = { target = MAR autonomy_state = autonomy_dominion }
 				MAR = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					every_other_country = {
@@ -3117,7 +3139,7 @@ focus_tree = {
 					}
 				}
 				VIN = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					VIN = {
@@ -3151,7 +3173,7 @@ focus_tree = {
 					}
 				}
 				LAO = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					LAO = {
@@ -3185,7 +3207,7 @@ focus_tree = {
 					}
 				}
 				CAM = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					CAM = {
@@ -3246,7 +3268,7 @@ focus_tree = {
 				release = VAN
 				set_autonomy = { target = VAN autonomy_state = autonomy_dominion }
 				VAN = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					every_other_country = {
@@ -3267,7 +3289,7 @@ focus_tree = {
 				release = TAH
 				set_autonomy = { target = TAH autonomy_state = autonomy_dominion }
 				TAH = {
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 				}
 				hidden_effect = {
 					every_other_country = {
@@ -3379,7 +3401,7 @@ focus_tree = {
 				release_puppet = MLI
 				MLI = {
 					set_cosmetic_tag = FRA_AFR
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 					add_to_tech_sharing_group = french_research
 					set_party_name = { 
 						ideology = neutrality 
@@ -3411,7 +3433,7 @@ focus_tree = {
 				release_puppet = CHA
 				CHA = {
 					set_cosmetic_tag = FRA_MAFR
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 					add_to_tech_sharing_group = french_research
 					set_party_name = { 
 						ideology = neutrality
@@ -3436,7 +3458,7 @@ focus_tree = {
 				release_puppet = MAD
 				MAD = {
 					set_cosmetic_tag = FRA_EAFR
-					add_ideas = FRA_transitional_goverment
+					add_ideas = r56rp_FRA_transitional_goverment
 					add_to_tech_sharing_group = french_research
 					set_party_name = { 
 						ideology = neutrality
@@ -3504,21 +3526,33 @@ focus_tree = {
 			is_subject = no
 		}
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = FRA_full_employment
-				add_idea = FRA_r56rp_managed_employment
+			if = {
+				limit = {
+					has_idea = FRA_full_employment
+				}
+				swap_ideas = {
+					remove_idea = FRA_full_employment
+					add_idea = FRA_r56rp_managed_employment
+				}
 			}
-			every_country = {
+			every_subject_country = {
 				limit = {
 					is_subject_of = ROOT
 				}
 				add_stability = 0.15
 				add_war_support = 0.05
 				add_political_power = 250
+				custom_effect_tooltip = generic_skip_one_line_tt
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = ENG_guiding_the_colonies
 				}
+			}
+			every_subject_country = {
+				limit = {
+					is_subject = ROOT
+				}
+				drop_cosmetic_tag = yes
 			}
 
 		}
@@ -10910,26 +10944,25 @@ focus_tree = {
 
 		available = {
 			if = {
-				limit = { has_idea = FRA_employment_issues_simpyfart }
-				has_idea = FRA_employment_issues_simpyfart
+				limit = { has_idea = FRA_r56rp_managed_employment }
 			}
 			else = {
 				FRA_has_worker_shortage = yes
 			}
 		}
-		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
 		if = {
 			limit = {
-				has_idea = FRA_employment_issues_simpyfart
+				has_idea = FRA_r56rp_managed_employment
 			}
-			remove_ideas = FRA_employment_issues_simpyfart
+			remove_ideas = FRA_r56rp_managed_employment
 		}
 		else = {
 			remove_worker_shortage_effect = yes
 		}
 
 		}
+		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
 	focus = {
 		id = FRA_invest_in_our_weaker_allies
