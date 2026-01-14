@@ -15,7 +15,7 @@ focus_tree = {
 	focus = {
 		id = NZL_army_review
 		icon = GFX_goal_generic_military_funding
-		x = 7	
+		x = 8	
 		y = 0
 		cost = 8
 		dynamic = yes
@@ -63,7 +63,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = r56_CAN_dominion_rifle_association_idea
+			add_ideas = r56rp_rifle_clubs
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -89,7 +89,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			
+			add_ideas = age_17
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -97,7 +97,7 @@ focus_tree = {
 	focus = { 
 		id = NZL_remember_anzac
 		icon= GFX_focus_BEL_legacy_of_the_great_war
-		x = 1
+		x = 0
 		y = 3
 		prerequisite = { focus = NZL_army_review }
 		relative_position_id = NZL_army_review
@@ -129,7 +129,8 @@ focus_tree = {
 	focus = { 
 		id = NZL_continue_singapore_strategy
 		icon = GFX_focus_BEL_better_than_maginot
-		x = -3
+		mutually_exclusive = { focus = NZL_an_expeditionary_force }
+		x = -2
 		y = 1
 		prerequisite = { focus = NZL_remember_anzac }
 		relative_position_id = NZL_remember_anzac
@@ -139,12 +140,6 @@ focus_tree = {
 			factor = 2
 		}
 
-		available = {
-			OR = {
-				NOT = { has_completed_focus = NZL_self_reliant_army }
-			}
-		}
-
 		completion_reward = {
 			if = {
 				limit = {
@@ -152,21 +147,77 @@ focus_tree = {
 				}
 				add_ideas = static_warfare_spirit
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_mastery_bonus = {
+				bonus = 0.1
+				days = 240
+				track = armor
+				name = NZL_an_expeditionary_force
+			}
+			add_mastery_bonus = {
+				bonus = 0.1
+				days = 240
+				track = infantry
+				name = NZL_an_expeditionary_force
+			}
 		}
 	}
 
 
+	focus = {
+		id = NZL_the_backbone_of_the_army
+		icon = GFX_goal_generic_army_professionalism
+		relative_position_id = NZL_continue_singapore_strategy
+		prerequisite = { focus = NZL_continue_singapore_strategy }
+		x = -2
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = ROM_the_queen_of_battle_tt
+			add_to_variable = { ROM_romanian_armed_forces_infantry_attack_factor = 0.1 }
+			add_to_variable = { ROM_romanian_armed_forces_infantry_defence_factor = 0.1 }
+			add_to_variable = { ROM_romanian_armed_forces_army_speed_factor = 0.1 }
+			add_tech_bonus = {
+				name = infantry_weapons_bonus
+				bonus = 1
+				uses = 1
+				category = infantry_weapons
+			}
+            add_tech_bonus = {
+                name = infantry_artillery_bonus
+                bonus = 1
+                uses = 1
+                category = winter_clothing_tech
+            }
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+					has_doctrine = mass_assault
+				}
+				add_ideas = mass_assault_academy_spirit
+			}
+		}
+	}
 	focus = { 
 		id = NZL_tried_and_tested
 		icon = GFX_focus_SMB_mountain_guns
 		x = 0
 		y = 1
-		prerequisite = { focus = NZL_engineer_and_supply_corp }
-		relative_position_id = NZL_engineer_and_supply_corp
-		cost = 8
+		prerequisite = { focus = NZL_continue_singapore_strategy }
+		relative_position_id = NZL_continue_singapore_strategy
+		cost = 10
 
 		ai_will_do = {
 			factor = 2
+		}
+
+		available = {
+			
 		}
 
 		completion_reward = {
@@ -192,9 +243,10 @@ focus_tree = {
 
 
 	focus = { 
-		id = NZL_self_reliant_army
+		id = NZL_an_expeditionary_force
 		icon = GFX_focus_AUS_frontmiliz_focus
-		x = 3
+		mutually_exclusive = { focus = NZL_continue }
+		x = 2
 		y = 1
 		prerequisite = { focus = NZL_remember_anzac }
 		relative_position_id = NZL_remember_anzac
@@ -204,12 +256,6 @@ focus_tree = {
 			factor = 2
 		}
 
-		available = {
-			OR = {
-				NOT = { has_completed_focus = NZL_continue_singapore_strategy }	
-			}
-		}
-
 		completion_reward = {
 			if = {
 				limit = {
@@ -217,24 +263,21 @@ focus_tree = {
 				}
 				add_ideas = flexible_organization_spirit
 			}
-		}
-	}
-
-	focus = {
-		id = NZL_motorization_efforts
-		icon = GFX_focus_generic_truck
-		cost = 5
-		ai_will_do = { 
-			factor = 1
-		}
-		bypass = {
-			has_tech = motorised_infantry 
-		}
-		x = 0
-		y = 2
-		prerequisite = { focus = NZL_self_reliant_army }
-		relative_position_id = NZL_self_reliant_army
-		completion_reward = {
+			army_experience = 15
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_mastery_bonus = {
+				bonus = 0.1
+				days = 240
+				track = armor
+				name = NZL_an_expeditionary_force
+			}
+			add_mastery_bonus = {
+				bonus = 0.1
+				days = 240
+				track = infantry
+				name = NZL_an_expeditionary_force
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			set_technology = {
 				motorised_infantry = 1
 			}
@@ -244,50 +287,105 @@ focus_tree = {
 				producer = ENG
 			}
 		}
-	
 	}
 
+
+	# Shared
+	#focus = { 
+	#	id = NZL_fortify_the_homeland
+	#	icon = GFX_goal_generic_fortify_city
+	#	x = 2
+	#	y = 1
+	#	prerequisite = { focus = NZL_continue_singapore_strategy focus = NZL_an_expeditionary_force }
+	#	relative_position_id = NZL_continue_singapore_strategy
+	#	cost = 10
+	#
+	#	ai_will_do = {
+	#		factor = 2
+	#	}
+	#
+	#	completion_reward = {
+	#		# Land Fort Construction Bonus
+	#		add_tech_bonus = {
+	#			bonus = 0.5
+	#			uses = 2
+	#			category = cat_fortification
+	#		}
+	#		custom_effect_tooltip = generic_skip_one_line_tt
+	#		custom_effect_tooltip = AST_R56_naval_auxiliary_patrol_tt
+	#		hidden_effect = {
+	#			every_owned_state = {
+	#				limit = {
+	#					is_controlled_by = ROOT
+	#					is_core_of = ROOT
+	#				}
+	#
+	#				add_building_construction = {
+	#					type = bunker
+	#					province = {
+	#						all_provinces = yes
+	#						limit_to_naval_base = yes
+	#					}
+	#					level = 2
+	#					instant_build = yes
+	#				}
+	#				add_building_construction = {
+	#					type = coastal_bunker
+	#					province = {
+	#						all_provinces = yes
+	#						limit_to_naval_base = yes
+	#					}
+	#					level = 2
+	#					instant_build = yes
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
+	#
+
 	focus = {
-		id = NZL_local_armour
+		id = NZL_mechanized_warfare
 		icon = GFX_focus_generic_mechanized
-		cost = 5
+		cost = 10
 		ai_will_do = { 
 			factor = 1
 		}
 		bypass = {
 			has_tech = motorised_infantry 
 		}
+		mutually_exclusive = { focus = NZL_armoured_modernization }
 		x = -1
 		y = 1
-		prerequisite = { focus = NZL_motorization_efforts }
-		relative_position_id = NZL_motorization_efforts
+		prerequisite = { focus = NZL_an_expeditionary_force }
+		relative_position_id = NZL_an_expeditionary_force
 		completion_reward = {
-			set_technology = {
-				motorised_infantry = 1
-			}
-			add_equipment_to_stockpile = {
-				type = motorized_equipment
-				amount = 75
-				producer = ENG
+			add_tech_bonus = {
+				name = NZL_mechanized_warfare
+				ahead_reduction = 1
+				bonus = 1
+				uses = 1
+				category = cat_mechanized_equipment
 			}
 		}
 	
 	}
 
 	focus = {
-		id = NZL_foreign_armour
-		icon = GFX_focus_generic_truck
-		cost = 5
+		id = NZL_armoured_modernization
+		icon = GFX_focus_generic_study_foreign_tanks
+		cost = 10
 		ai_will_do = { 
 			factor = 1
 		}
 		bypass = {
 			has_tech = motorised_infantry 
 		}
+		mutually_exclusive = { focus = NZL_mechanized_warfare }
 		x = 1
 		y = 1
-		prerequisite = { focus = NZL_motorization_efforts }
-		relative_position_id = NZL_motorization_efforts
+		prerequisite = { focus = NZL_an_expeditionary_force }
+		relative_position_id = NZL_an_expeditionary_force
 		completion_reward = {
 			set_technology = {
 				motorised_infantry = 1
@@ -297,100 +395,9 @@ focus_tree = {
 				amount = 75
 				producer = ENG
 			}
+			unlock_decision_tooltip = NZL_tank_temp
 		}
 	
-	}
-
-	focus = { 
-		id = NZL_fortify_the_homeland
-		icon = GFX_goal_generic_fortify_city
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_self_reliant_army }
-		relative_position_id = NZL_self_reliant_army
-		cost = 10
-
-		ai_will_do = {
-			factor = 2
-		}
-
-		completion_reward = {
-			# Land Fort Construction Bonus
-			add_tech_bonus = {
-				bonus = 0.5
-				uses = 2
-				category = cat_fortification
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = AST_R56_naval_auxiliary_patrol_tt
-			hidden_effect = {
-				every_owned_state = {
-					limit = {
-						is_controlled_by = ROOT
-						is_core_of = ROOT
-					}
-
-					add_building_construction = {
-						type = bunker
-						province = {
-							all_provinces = yes
-							limit_to_naval_base = yes
-						}
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_naval_base = yes
-						}
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_engineer_and_supply_corp
-		icon =  GFX_focus_SOV_the_road_of_life
-		prerequisite = { focus = NZL_continue_singapore_strategy }
-		relative_position_id = NZL_continue_singapore_strategy 
-		x = 1
-		y = 1
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 45
-		}
-		
-		available_if_capitulated = yes
-
-		completion_reward = {
-		  
-			custom_effect_tooltip = generic_skip_one_line_tt
-
-			add_tech_bonus = {
-				name = NZL_engineer_and_supply_corp
-				bonus = 1.0
-				uses = 1
-				category = engineers_tech
-			}
-			add_tech_bonus = {
-				name = NZL_engineer_and_supply_corp
-				bonus = 1.0
-				uses = 1
-				category = motorized_equipment
-				technology = tech_logistics_company
-				technology = tech_logistics_company2
-				technology = tech_logistics_company3
-				technology = tech_logistics_company4
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
 
 	focus = {
@@ -630,8 +637,8 @@ focus_tree = {
 		icon = GFX_goal_PRU_the_llama_army # Nobody will know this aint no sheep trust ;P
 		prerequisite = { focus = NZL_a_reinvigorated_force }
 		relative_position_id = NZL_a_reinvigorated_force
-		x = 0
-		y = 2
+		x = -5
+		y = 1
 		# TO DO - Figure out proper available and hides to this
 		allow_branch = {
 			is_debug = yes
@@ -778,10 +785,10 @@ focus_tree = {
 	focus = {
 		id = NZL_a_reinvigorated_force
 		icon = GFX_goal_NZL_coa_army
-		prerequisite = { focus = NZL_continue_singapore_strategy focus = NZL_self_reliant_army }
-		relative_position_id = NZL_continue_singapore_strategy
-		x = 3
-		y = 4
+		prerequisite = { focus = NZL_tried_and_tested focus = NZL_mechanized_warfare focus = NZL_armoured_modernization }
+		relative_position_id = NZL_tried_and_tested
+		x = 2
+		y = 1
 
 		cost = 10
 
@@ -807,6 +814,7 @@ focus_tree = {
 			custom_effect_tooltip = NZL_reinvigorated_spirit_tt
 			custom_effect_tooltip = generic_skip_one_line_tt
 			show_ideas_tooltip = NZL_reinvigorated_spirit
+			custom_effect_tooltip = generic_skip_one_line_tt
 			army_experience = 25
 		}
 	}
@@ -814,49 +822,12 @@ focus_tree = {
 	### DOING OUR PART IN THE WAR EFFORT ###
 	########################################
 
-	focus = { # TO DO
-		id = NZL_serving_the_empire
-		icon = GFX_focus_eng_global_defense
-		cost = 10
-		ai_will_do = { 
-			factor = 1
-		}
-		prerequisite = { focus = NZL_continue_singapore_strategy focus = NZL_self_reliant_army }
-		relative_position_id = NZL_continue_singapore_strategy
-		x = 3
-		y = 5
-
-		allow_branch = {
-			OR = {
-				is_subject_of = ENG
-				is_in_faction_with = ENG
-			}
-		}
-
-		available = {
-			OR = {
-				has_idea =  NZL_the_white_feather_movement
-				has_idea = NZL_the_second_nzl_volunteer_force
-			}
-
-		}
-
-		completion_reward = {
-			add_ideas = NZL_fighting_tyranny
-		}
-
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-	}
-
 	focus = {
 		id = NZL_hot_climate_equipment
 		icon = GFX_focus_PER_desert_training
-		mutually_exclusive = { focus = NZL_adapt_to_the_jungles }
-		prerequisite = {focus = NZL_serving_the_empire }
-		relative_position_id = NZL_serving_the_empire
-		x = -1
+		prerequisite = {focus = NZL_a_reinvigorated_force }
+		relative_position_id = NZL_a_reinvigorated_force
+		x = -2
 		y = 1
 
 		cost = 10
@@ -885,12 +856,11 @@ focus_tree = {
 
 	focus = {
         id = NZL_adapt_to_the_jungles
-        icon = GFX_goal_generic_jungle_warfare
-        x = 1
+        icon = GFX_focus_generic_jungle_troops
+        x = 2
         y = 1
-		mutually_exclusive = { focus = NZL_hot_climate_equipment }
-		prerequisite = { focus = NZL_serving_the_empire }
-        relative_position_id = NZL_serving_the_empire
+		prerequisite = { focus = NZL_a_reinvigorated_force }
+        relative_position_id = NZL_a_reinvigorated_force
         cost = 10
 
         ai_will_do = {
@@ -923,7 +893,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		prerequisite = { focus = NZL_hot_climate_equipment focus = NZL_adapt_to_the_jungles }
-		relative_position_id = NZL_serving_the_empire
+		relative_position_id = NZL_a_reinvigorated_force
 
 		cost = 8
 
@@ -974,7 +944,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		prerequisite = { focus = NZL_army_of_thieves }
-		relative_position_id = NZL_serving_the_empire
+		relative_position_id = NZL_a_reinvigorated_force
 
 		cost = 8
 
@@ -3816,7 +3786,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}
 	focus = { 
-		id = NZL_serving_the_empire_copy
+		id = NZL_a_reinvigorated_force_copy
 		icon = GFX_focus_eng_global_defense
 		prerequisite = { focus = NZL_the_sun_never_sets }
 		relative_position_id = NZL_the_sun_never_sets
@@ -3843,8 +3813,8 @@ focus_tree = {
 	focus = { 
 		id = NZL_common_defence_policy
 		icon = GFX_goal_generic_relocate_settlers
-		prerequisite = { focus = NZL_serving_the_empire_copy }
-		relative_position_id = NZL_serving_the_empire_copy
+		prerequisite = { focus = NZL_a_reinvigorated_force_copy }
+		relative_position_id = NZL_a_reinvigorated_force_copy
 		x = 1
 		y = 1
 		cost = 10
@@ -3953,7 +3923,7 @@ focus_tree = {
 				category = summer_clothing_tech
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
-			complete_national_focus = NZL_serving_the_empire
+			complete_national_focus = NZL_a_reinvigorated_force
 			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = NZL_fighting_tyranny
 			set_rule = {
@@ -3991,8 +3961,8 @@ focus_tree = {
 	focus = {
 		id = NZL_combined_intelligence_centre
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { focus = NZL_serving_the_empire_copy }
-		relative_position_id = NZL_serving_the_empire_copy
+		prerequisite = { focus = NZL_a_reinvigorated_force_copy }
+		relative_position_id = NZL_a_reinvigorated_force_copy
 		x = -1
 		y = 1
 
@@ -5671,7 +5641,7 @@ focus_tree = {
 			has_completed_focus = NZL_ensure_our_voice_is_heard
 			OR = {
 				has_completed_focus = NZL_service_overseas_copy
-				has_completed_focus = NZL_serving_the_empire
+				has_completed_focus = NZL_a_reinvigorated_force
 			}
 			# Post War Fraser
 		}
@@ -8093,10 +8063,10 @@ focus_tree = {
 			if = {
 				limit = {
 					NOT = {
-						has_completed_focus = NZL_serving_the_empire
+						has_completed_focus = NZL_a_reinvigorated_force
 					}
 				}
-				complete_national_focus = NZL_serving_the_empire
+				complete_national_focus = NZL_a_reinvigorated_force
 				custom_effect_tooltip = generic_skip_one_line_tt
 				add_ideas = NZL_fighting_tyranny
 			}
@@ -8404,7 +8374,7 @@ focus_tree = {
 		id = NZL_establish_our_own_politburo
 		icon = GFX_focus_GER_strengthen_the_proletarian_international
 		cost = 5
-		x = 0
+		x = -2
 		y = 1
 		prerequisite = { focus = NZL_overthrow_the_government }
 		relative_position_id = NZL_overthrow_the_government
@@ -8425,29 +8395,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_invite_soviet_officials
-		icon = GFX_goal_generic_communist_pride
-		cost = 5
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_establish_our_own_politburo }
-		relative_position_id = NZL_establish_our_own_politburo
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-
-		}
-	}
-
-	focus = {
 		id = NZL_solidify_the_new_state
 		icon = GFX_goal_communist_brigades
 		cost = 8
-		x = -1
+		x = 0
 		y = 1
-		prerequisite = { focus = NZL_establish_our_own_politburo }
-		relative_position_id = NZL_establish_our_own_politburo
+		prerequisite = { focus = NZL_overthrow_the_government }
+		relative_position_id = NZL_overthrow_the_government
 		ai_will_do = {
 			factor = 50
 		}
@@ -8462,11 +8416,10 @@ focus_tree = {
 		id = NZL_vanguard_of_the_revolution
 		icon = GFX_focus_SOV_stalins_cult_of_personality
 		prerequisite = { focus = NZL_solidify_the_new_state }
-		prerequisite = { focus = NZL_invite_soviet_officials }
 		mutually_exclusive = { focus = NZL_communism_at_home }
 		relative_position_id = NZL_overthrow_the_government
 		x = 8
-		y = 3
+		y = 2
 	
 		cost = 5
 	
@@ -9522,11 +9475,10 @@ focus_tree = {
 		id = NZL_communism_at_home
 		icon = GFX_focus_GRE_red_victory
 		prerequisite = { focus = NZL_solidify_the_new_state }
-		prerequisite = { focus = NZL_invite_soviet_officials }
 		mutually_exclusive = { focus = NZL_vanguard_of_the_revolution }
 		relative_position_id = NZL_overthrow_the_government
 		x = -8
-		y = 3
+		y = 2
 	
 		cost = 5
 	
