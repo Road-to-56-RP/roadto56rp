@@ -8119,1180 +8119,19 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = NZL_seek_international_recognition
-		icon = GFX_focus_generic_treaty
-		cost = 5
-		x = 2
-		y = 1
+	focus = { 
+		id = NZL_create_committee_of_state_security
+		icon = GFX_focus_generic_secret_service_agency
 		prerequisite = { focus = NZL_overthrow_the_government }
-		relative_position_id = NZL_overthrow_the_government
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			custom_effect_tooltip = NZL_seek_recognition_universal_tt
-			# Any nation with 30 opinion or more will grant 0.01 stab bonus + 10pp (Majors only) UK will always say no.
-		}
-	}
-
-	focus = {
-		id = NZL_establish_our_own_politburo
-		icon = GFX_focus_GER_strengthen_the_proletarian_international
-		cost = 5
-		x = -2
+		x = 1
 		y = 1
-		prerequisite = { focus = NZL_overthrow_the_government }
 		relative_position_id = NZL_overthrow_the_government
-		ai_will_do = {
-			factor = 50
-		}
-
+		cost = 10
 		available = {
 			has_civil_war = no	
 		}
 
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = NZL_ineffective_legasthe_legislative_council_idea
-				add_idea = NZL_politburo
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_solidify_the_new_state
-		icon = GFX_goal_communist_brigades
-		cost = 8
-		x = 0
-		y = 1
-		prerequisite = { focus = NZL_overthrow_the_government }
-		relative_position_id = NZL_overthrow_the_government
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-
-		}
-	}
-	# Spread the Revolution
-
-
-	focus = {
-		id = NZL_vanguard_of_the_revolution
-		icon = GFX_focus_SOV_stalins_cult_of_personality
-		prerequisite = { focus = NZL_solidify_the_new_state }
-		mutually_exclusive = { focus = NZL_communism_at_home }
-		relative_position_id = NZL_overthrow_the_government
-		x = 8
-		y = 2
-	
-		cost = 5
-	
-	
-		ai_will_do = {
-			
-		}
-
-		available = {
-			is_subject = no
-			is_in_faction = no
-			AND = {
-				SOV = {
-					NOT = { has_war_with = ROOT }
-					has_government = communism
-					has_capitulated = no
-					is_faction_leader = yes
-				}
-			}
-		}
-
-		bypass = {
-			OR = {
-				is_subject_of = SOV
-				SOV = {
-					OR = {
-						NOT = {
-							has_government = communism
-						}
-						has_civil_war = yes
-					}
-				}
-				is_in_faction_with = SOV
-			}
-		}
-
-		completion_reward = {
-			if = {
-				limit = {
-					SOV = {
-						has_government = communism
-						is_faction_leader = yes
-						has_capitulated = no
-						NOT = { has_war_with = ROOT }
-					}
-				}
-				SOV = {
-					country_event = { id = generic.2 }
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_ALLIANCE }
-	}
-
-
-	focus = {
-		id = NZL_copy_the_soviet_constitution
-		icon = GFX_focus_generic_soviet_politics
-		cost = 8
-		x = 0
-		y = 1
-		prerequisite = { focus = NZL_vanguard_of_the_revolution }
-		relative_position_id = NZL_vanguard_of_the_revolution
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			custom_effect_tooltip = generic_skip_one_line_tt
-			swap_ideas = {
-				remove_idea = NZL_economic_chaos_2
-				add_idea = NZL_economic_chaos_1
-			}
-		}
-	}
-
-	
-	focus = {
-		id = NZL_education_reform_act_idea_centers
-		icon = GFX_focus_NOR_moscows_education_centers
-		prerequisite = { focus = NZL_copy_the_soviet_constitution }
-
-		x = -2
-		y = 1
-		relative_position_id = NZL_copy_the_soviet_constitution
-		cost = 10
-
-		available = {
-
-		}
-
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
-
-		completion_reward = {
-			add_political_power = 50 
-			add_research_slot = 1
-		}
-	}
-
-
-	focus = {
-		id = NZL_secularize_the_state # This needs working on
-		icon = GFX_focus_ARG_state_atheism
-		cost = 8
-		x = 0
-		y = 1
-		prerequisite = { focus = NZL_education_reform_act_idea_centers }
-		relative_position_id = NZL_education_reform_act_idea_centers
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			country_event = { id = new_zealand_communist.2 hours = 6 }
-			effect_tooltip = {
-				add_ideas =  NZL_church_secularization_riots
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			unlock_decision_category_tooltip = NZL_secularize_the_state_cat
-			activate_mission = NZL_church_riots_turn_violent
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = NZL_strict_anti_clericalism_idea
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = NZL_SAC_tt
-			swap_ideas = {
-				remove_idea = NZL_strict_anti_clericalism_idea
-				add_idea = NZL_strict_anti_clericalism_strenghtened_idea
-			}
-			# NKVD agents in country improve chance of calming the strikes
-		}
-	}
-
-	
-	focus = {
-		id = NZL_request_soviet_advisors
-		icon = GFX_goal_red_army
-		cost = 5
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_copy_the_soviet_constitution }
-		relative_position_id = NZL_copy_the_soviet_constitution
-		ai_will_do = {
-			factor = 50
-		}
-
-		completion_reward = {
-			# EVENT - SOV
-			SOV = { country_event = { id = new_zealand_communist.15 hours = 24 } }
-			custom_effect_tooltip = if_they_accept_tt
-			effect_tooltip = {
-				add_ideas = HOL_soviet_military_mission 
-			}
-			custom_effect_tooltip = if_they_refuse_tt
-			effect_tooltip = {
-				ROOT = {
-					add_opinion_modifier = { target = SOV modifier = huge_decrease }
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_the_new_socialist_woman
-		icon = GFX_focus_generic_women_in_military
-		cost = 8
-		x = 1
-		y = 1
-		relative_position_id = NZL_socialism
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			add_ideas = r56i_laws_gender_equality
-			custom_effect_tooltip = generic_skip_one_line_tt
-			set_rule = {
-				can_generate_female_aces = yes
-			}
-			# Unlocks Ability for Female Leader in Communist Party Leader Election
-		}
-	}
-
-	focus = {
-		id = NZL_socialism
-		icon = GFX_focus_generic_soviet_politics
-		cost = 5
-		x = 0
-		y = 2
-		prerequisite = { focus = NZL_copy_the_soviet_constitution }
-		relative_position_id = NZL_copy_the_soviet_constitution
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = NZL_near_anarchic_society_2
-				add_idea = NZL_near_anarchic_society_1
-			}
-		}
-	}
-
-	
-	focus = {
-		id = NZL_improve_militia_units
-		icon = GFX_goal_infantry_flames
-		cost = 5
-		mutually_exclusive = { focus = NZL_professionalize_the_army }
-		prerequisite = { focus = NZL_socialism }
-		x = 1
-		y = 1
-		relative_position_id = NZL_heroism_from_the_frontlines
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = NZL_militia_army
-				add_idea = NZL_militia_army_upgraded
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_prepare_partisan_tactics
-		icon = GFX_focus_SWE_neither_death_nor_dishonor
-		cost = 5
-
-		available = {
-			has_war = yes
-			OR = {
-				surrender_progress > 0.1
-				AND = {
-					has_government = communism
-				}
-			}
-			NOT = {
-				any_country = {
-					is_major = yes
-					has_war_with = ROOT
-					has_government = communism
-				}
-			}
-		}
-
-		prerequisite = { focus = NZL_improve_militia_units }
-		x = 1
-		y = 1
-		relative_position_id = NZL_improve_militia_units
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = NZL_militia_army_upgraded
-				add_idea = NZL_militia_army_upgraded_2
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_socialism_placeholder
-		icon = GFX_goal_generic_communal_statistical_commission
-		cost = 10
-		x = -3
-		y = 1
-		prerequisite = { focus = NZL_socialism }
-		relative_position_id = NZL_socialism
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			add_war_support = 0.05
-			
-		}
-	}
-
-	focus = {
-		id = NZL_professionalize_the_army
-		icon = GFX_goal_generic_communist_loyalty
-		cost = 10
-		mutually_exclusive = { focus = NZL_improve_militia_units }
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_socialism }
-		relative_position_id = NZL_heroism_from_the_frontlines
-		ai_will_do = {
-			factor = 50
-		}
-
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = NZL_militia_army
-				add_idea = NZL_professional_army
-			}	
-		}
-	}
-
-	focus = {
-		id = NZL_the_state
-		icon = GFX_focus_generic_soviet_politics
-		cost = 5
-		x = -1
-		y = 4
-		relative_position_id = NZL_copy_the_soviet_constitution
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-		
-		}
-	}
-
-	focus = {
-		id = NZL_anti_fascist_diplomacy
-		icon = GFX_focus_generic_communism_anti_fascism
-		cost = 5
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_the_state }
-		relative_position_id = NZL_the_state
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			every_country = {
-				limit = {
-					has_government = fascism
-				}
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = huge_decrease
-				}
-			}
-			# Easier Justification on Fascist Countries
-		}
-	}
-
-	focus = {
-		id = NZL_anti_capitalist_diplomacy
-		icon = GFX_focus_spr_class_war
-		cost = 5
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_the_state }
-		relative_position_id = NZL_the_state
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			every_country = {
-				limit = {
-					has_government = democratic
-				}
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = huge_decrease
-				}
-			}
-
-			# Easier Justification on Democratic Countries
-		}
-	}
-
-
-
-	# Loyalty to Moscow
-	focus = {
-		id = NZL_loyalty_to_moscow
-		icon = GFX_focus_SOV_organization_centralization_discipline
-		cost = 10
-		mutually_exclusive = {
-			focus = NZL_undermine_moscows_influence 
-		}
-		x = 2
-		y = 1
-		prerequisite = { focus = NZL_anti_fascist_diplomacy focus = NZL_anti_capitalist_diplomacy }
-		relative_position_id = NZL_anti_fascist_diplomacy
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			add_war_support = 0.05
-			
-		}
-	}
-
-	focus = {
-		id = NZL_joint_research_development
-		icon = GFX_focus_generic_socialist_science
-		cost = 5
-		x = 0
-		y = 2
-		prerequisite = { focus = NZL_loyalty_to_moscow  }
-		relative_position_id = NZL_loyalty_to_moscow
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					is_in_faction_with = SOV
-				}
-				SOV = {
-					add_to_tech_sharing_group = comintern_research
-				}
-				add_to_tech_sharing_group = comintern_research
-			}
-			else = {
-				SOV = {
-					add_to_tech_sharing_group = comintern_research
-				}
-				add_to_tech_sharing_group = comintern_research
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_copy_the_soviet_propaganda_machine
-		icon = GFX_focus_propaganda_soviet	
-		cost = 8
-		prerequisite = { focus = NZL_loyalty_to_moscow }
-		x = 1
-		y = 1
-		relative_position_id = NZL_loyalty_to_moscow
-
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = NZL_the_peoples_voice
-				add_idea = NZL_the_peoples_voice_upgraded
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_politicize_the_army
-		icon = GFX_goal_generic_communist_secret_police	
-		cost = 5
-		prerequisite = { focus = NZL_copy_the_soviet_propaganda_machine }
-		x = 1
-		y = 1
-		relative_position_id = NZL_copy_the_soviet_propaganda_machine
-
-		allow_branch = {
-			OR = {
-				has_country_flag = NZL_nkvd_officers_in_country_flag
-				is_debug = yes
-			}
-			#count_triggers = {
-			#	amount = 4
-			#}
-		}	
-
-		ai_will_do = {
-			factor = 50
-		}
-
-		completion_reward = {
-			swap_ideas = {
-				remove_idea = NZL_professional_army
-				add_idea = NZL_politicized_army
-			}
-			if = {
-				limit = {
-					has_dlc = "No Step Back" 
-				}
-				add_ideas = ideological_loyalty_spirit
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_filler_
-		icon = GFX_focus_ITA_liberation_or_death
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_politicize_the_army }
-		relative_position_id = NZL_politicize_the_army
-
-		cost = 10
-
-
-		completion_reward = {
-			add_war_support = 0.05
-			
-		}
-	}
-
-	focus = {
-		id = NZL_trade_agreements_with_soviets
-		icon = GFX_goal_mexico_united_mexican_unions
-		cost = 10
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_loyalty_to_moscow  }
-		relative_position_id = NZL_loyalty_to_moscow
-		completion_reward = {
-			add_war_support = 0.05
-			add_ideas = NZL_sov_trade_agreement
-		}
-	}
-
-	# Undermine Moscow
-	focus = {
-		id = NZL_undermine_moscows_influence
-		icon = GFX_focus_eng_expose_the_belly_of_the_bear
-		mutually_exclusive = {
-			focus = NZL_loyalty_to_moscow
-		}
-		x = -3
-		y = 1
-		prerequisite = { focus = NZL_socialism_placeholder2 }
-		prerequisite = { focus = NZL_anti_fascist_diplomacy focus = NZL_anti_capitalist_diplomacy }
-		relative_position_id = NZL_anti_fascist_diplomacy
-
-		cost = 10
-
-
-		completion_reward = {
-			add_war_support = 0.05
-			
-		}
-	}
-
-	focus = {
-		id = NZL_undermine_nkvd_influence
-		icon = GFX_focus_SOV_military_purge
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_undermine_moscows_influence }
-		relative_position_id = NZL_undermine_moscows_influence
-
-		available = {
-			has_country_flag = NZL_nkvd_officers_in_country_flag
-		}
-		
-		cost = 5
-
-
-		completion_reward = {
-			add_war_support = 0.05
-			
-		}
-	}
-
-	focus = {
-		id = NZL_prepare_defences_against_reprecussion
-		icon = GFX_focus_FIN_coastal_defense
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_undermine_moscows_influence }
-		relative_position_id = NZL_undermine_moscows_influence
-
-		cost = 8
-
-
-		completion_reward = {
-			add_war_support = 0.05
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_timed_idea = {
-				idea =  NZL_fortification_focus
-				days = 365
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_tech_bonus = {
-				name = POL_coastal_defense
-				bonus = 0.5
-				uses = 1
-				ahead_reduction = 0.5
-				category = dd_tech
-			}
-		}
-	}
-
-
-	focus = {
-		id = NZL_masters_of_our_own_fate
-		icon = GFX_focus_spr_masters_of_our_own_fate
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_undermine_nkvd_influence focus = NZL_prepare_defences_against_reprecussion }
-		relative_position_id = NZL_prepare_defences_against_reprecussion
-
-		cost = 10
-
-
-		completion_reward = {
-			add_war_support = 0.05
-			set_rule = { can_create_factions = yes }
-			create_faction = "Aotearoa Worker's Front"
-			every_country = {
-				limit = {
-					has_government = communism
-					is_in_faction = no
-					has_capitulated = no
-					is_subject = no
-					NOT = {
-						has_war_with = ROOT
-					}
-					OR = {
-						original_tag = BRM
-						original_tag = SIA
-						original_tag = FRI
-						original_tag = MAL
-						original_tag = INS
-					}
-				}
-				country_event = { id = generic.5 hours = 12 }
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_oust_colonial_oppresors
-		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_masters_of_our_own_fate }
-		relative_position_id = NZL_masters_of_our_own_fate
-
-		cost = 10
-
-
-		completion_reward = {
-			add_war_support = 0.05
-			add_ideas = TIB_anti_imperialist_propaganda
-		}
-	}
-
-	focus = {
-		id = NZL_our_true_enemy
-		icon = GFX_focus_ITA_liberation_or_death
-		x = -2
-		y = 1
-		prerequisite = {
-			focus = NZL_politicize_the_army
-			focus = NZL_masters_of_our_own_fate
-		}
-		relative_position_id = NZL_masters_of_our_own_fate
-
-		cost = 10
-
-
-		completion_reward = {
-			add_war_support = 0.05
-			
-		}
-	}
-
-	focus = {
-		id = NZL_the_looming_threat_of_the_rising_sun_copy
-		icon = GFX_focus_GER_strike_at_the_rising_sun
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_our_true_enemy focus = NZL_oust_colonial_oppresors }
-		relative_position_id = NZL_our_true_enemy
-		cost = 10
-		available = {
-			JAP = {
-				exists = yes
-				NOT = {
-					is_in_faction_with = ROOT
-					is_subject_of = ROOT
-					has_war_with = ROOT
-					has_government = communism
-				}
-			}
-		}
-
-		completion_reward = {
-			# Demand the freedom of Pacific States under Japanese Control
-			# Will lead to war with Japan
-			create_wargoal = {
-				target = JAP
-				type = annex_everything
-				expire = 0
-			}
-		}
-
-		search_filters = {}
-	}
-
-	focus = {
-		id = NZL_old_wounds_never_fully_heal
-		icon = GFX_goal_FRA_operation_charlemagne
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_our_true_enemy focus = NZL_oust_colonial_oppresors }
-		relative_position_id = NZL_oust_colonial_oppresors
-		cost = 10
-		available = {
-			ENG = {
-				exists = yes
-				NOT = {
-					is_in_faction_with = ROOT
-					is_subject_of = ROOT
-					has_war_with = ROOT
-					has_government = communism
-				}
-			}
-		}
-
-		completion_reward = {
-			# Demand the freedom of Pacific States under Japanese Control
-			# Will lead to war with Japan
-			create_wargoal = {
-				target = ENG
-				type = annex_everything
-				expire = 0
-			}
-		}
-
-		search_filters = {}
-	}
-	# Schizo Soviet New Zealand
-	focus = {
-		id = NZL_the_soviet_airlift
-		icon = GFX_focus_generic_long_range_aircraft
-		x = -1	
-		y = 1
-		prerequisite = { focus = NZL_politicize_the_army }
-		relative_position_id = NZL_politicize_the_army
-		cost = 10
-
-		allow_branch = {
-			is_debug = yes
-		}
-
-		available = {
-			has_government = communism
-			OR = {
-				is_subject_of = SOV
-				is_subject = no
-			}
-			SOV = {
-				exists = yes
-				is_faction_leader = yes
-				is_in_faction_with = ROOT
-				has_war = yes
-				surrender_progress > 0.9
-			}
-			has_war_together_with = SOV
-			NOT = {
-				MON = {
-					has_completed_focus = MON_new_comintern_beacon
-				}
-				USA = {
-					has_completed_focus =  USA_unholy_alliance
-				}
-				# Sinkiang any commie nation closer doesn't exist
-				SOV = { # Look into at a further date.
-					#any_neighbour_country = {
-					#	limit = {
-					#		has_government = communism
-					#	}
-					#	PREV = {
-					#		has_capitulated = no
-					#		has_war = no
-					#	}
-					#}
-				}
-
-			}
-		}
-
-		ai_will_do = {
-			factor = 100	
-		}
-
-		completion_reward = {
-			# Take-Over Soviet Struggle
-		}
-	}
-
-	focus = {
-		id = NZL_the_new_leadership
-		icon = GFX_goal_soviet_military_advisors
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_the_soviet_airlift }
-		relative_position_id = NZL_the_soviet_airlift
-		cost = 10
-		available = {
-		}
-
-		ai_will_do = {
-			factor = 100	
-		}
-
-		completion_reward = {
-			# Take-Over Soviet Struggle
-
-			SOV = {	
-				every_unit_leader = {
-					set_nationality = ROOT
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_reclaim_motherland
-		icon = GFX_goal_communist_latin_america
-		x = 0
-		y = 2
-		prerequisite = { focus = NZL_the_soviet_airlift }
-		relative_position_id = NZL_the_soviet_airlift
-		cost = 10
-		available = {
-		}
-
-		ai_will_do = {
-			factor = 100	
-		}
-
-		completion_reward = {
-			# Claims
-			every_state = {
-				limit = {
-					is_core_of = SOV
-				}
-				add_claim_by = ROOT
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_the_new_leader_of_world_revolution
-		icon = GFX_focus_generic_workers_and_farmers_rise
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_reclaim_motherland }
-		relative_position_id = NZL_reclaim_motherland
-		cost = 10
-		available = {
-		}
-
-		ai_will_do = {
-			factor = 100	
-		}
-
-		completion_reward = {
-			# Re-Instate Stalin/Puppet Soviets
-		}
-	}
-
-	focus = {
-		id = NZL_the_new_home_of_the_internationale
-		icon = GFX_focus_AFG_defender_of_central_asia
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_reclaim_motherland }
-		prerequisite = { focus = NZL_the_new_leadership }
-		relative_position_id = NZL_reclaim_motherland
-		cost = 15
-		available = {
-		}
-
-		ai_will_do = {
-			factor = 100	
-		}
-
-		completion_reward = {
-			# Move Capital Choice Vladivostok/Keep it in Wellington/Moscow
-		}
-	}
-
-	focus = {
-		id = NZL_world_revolution
-		icon = GFX_focus_SOV_international_union_of_soviet_republics
-		x = 0
-		y = 2
-		prerequisite = { focus = NZL_the_new_leader_of_world_revolution focus = NZL_the_new_home_of_the_internationale }
-		relative_position_id = NZL_reclaim_motherland
-		cost = 10
-		available = {
-		}
-
-		ai_will_do = {
-			factor = 100	
-		}
-
-		completion_reward = {
-			every_country = {
-				limit = {
-					OR = {
-						has_government = fascism
-						has_government = neutrality
-					}
-				}
-				ROOT = {
-					create_wargoal = {
-						type = puppet_wargoal_focus
-						target = PREV
-					}
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_envoy_to_the_ccp
-		icon = GFX_focus_chi_cooperation_with_the_communists
-		x = 5
-		y = 2
-		prerequisite = { focus = NZL_vanguard_of_the_revolution }
-		relative_position_id = NZL_vanguard_of_the_revolution
-		cost = 5
-		ai_will_do = {
-			factor = 50
-		}
-		available = {
-			OR = {
-				SOV = {
-					has_completed_focus = SOV_two_red_flags
-				}
-				any_other_country = {
-					original_tag = PRC 
-					exists = yes
-					has_capitulated = no
-					NOT = {
-						has_war_with = ROOT
-					}
-					OR = {
-						has_opinion	= {
-							target = ROOT
-							value > 74
-						}
-						is_in_faction_with = ROOT
-					}
-				}
-			}
-		}
-
-		completion_reward = {
-			# Event -> CCP -> Return -> Better opnion?
-			# Unlock Decision to sponsor CCP entry into Comintern
-			# Remove Head Tax if positive returns - Since you're now a friendly nation.
-
-			remove_ideas = NZL_head_tax_idea
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_timed_idea = {
-				idea = NZL_support_chinese_immigration_idea
-				days = 720
-			}
-		}
-	}
-
-	# SCW
-	focus = { 
-		id = NZL_support_the_spanish_republicans
-		icon = GFX_goal_generic_spanish_civil_war_soldier
-		x = 3
-		y = 2
-
-		prerequisite = { focus = NZL_vanguard_of_the_revolution }
-		relative_position_id = NZL_vanguard_of_the_revolution
-		cost = 5
-		available = {
-			SPR_scw_in_progress = yes
-		}
-	
-		ai_will_do = {
-			factor = 20
-		}
-	
-		completion_reward = { 
-			add_political_power = 50
-			add_stability = -0.05
-			custom_effect_tooltip = generic_skip_one_line_tt
-			effect_tooltip = {
-				add_relation_modifier = {
-					target = SPR
-					modifier  = ETH_support_spain_static_modifier 
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-				add_relation_rule_override = {
-					target = SPR
-					can_send_volunteers = yes 
-				}
-			}
-			hidden_effect = {
-				add_relation_modifier = {
-					target = SPR
-					modifier  = ETH_support_spain_static_modifier 
-				}
-				add_relation_rule_override = {
-					target = SPR
-					can_send_volunteers = yes 
-				}
-
-				add_relation_modifier = {
-					target = SPD
-					modifier  = ETH_support_spain_static_modifier 
-				}
-				add_relation_rule_override = {
-					target = SPD
-					can_send_volunteers = yes 
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = NZL_heroism_from_the_frontlines
-		icon = GFX_focus_spr_no_pasaran
-		cost = 10
-		x = 0
-		y = 1
-		prerequisite = { focus = NZL_support_the_spanish_republicans }
-		relative_position_id = NZL_support_the_spanish_republicans
-
-		available = {
-			has_global_flag = scw_over
-		}
-
-		ai_will_do = {
-			factor = 50
-		}
-		completion_reward = {
-			# Create Commanders based on SCW volunteers that returned - "New Commie Army"
-			add_timed_idea = {
-				idea = ITA_fresh_doctrines
-				days = 365
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.25
-				uses = 2
-				category = land_doctrine
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			create_corps_commander = {
-				name = "Charlie Riley"
-				portrait_path = "gfx/leaders/kr_generic/kr_portrait_europe_generic_land_2.dds"
-				traits = { militias_officer trait_mountaineer }
-				skill = 3
-				attack_skill = 3
-				defense_skill = 2
-				planning_skill = 2
-				logistics_skill = 3
-			}
-
-			create_corps_commander = {
-				name = "Richard Herbert Bryan"
-				portrait_path = "gfx/leaders/kr_generic/kr_portrait_britain_generic_land_7.dds"
-				traits = { militias_officer }
-				skill = 2
-				attack_skill = 2
-				defense_skill = 2
-				planning_skill = 1
-				logistics_skill = 2
-			}
-		}
-	}
-
-	# Neutral Communism - Volunteers
-	focus = {
-		id = NZL_communism_at_home
-		icon = GFX_focus_GRE_red_victory
-		prerequisite = { focus = NZL_solidify_the_new_state }
-		mutually_exclusive = { focus = NZL_vanguard_of_the_revolution }
-		relative_position_id = NZL_overthrow_the_government
-		x = -8
-		y = 2
-	
-		cost = 5
-	
-	
-		ai_will_do = {
-			
-		}
-
-		available = {
-			
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	
-		completion_reward = {
-			add_ideas = neutrality_idea
-		}
-	}
-
-	focus = {
-		id = NZL_left_side_filler
-		icon = GFX_focus_SWE_socialist_reforms
-		prerequisite = { focus = NZL_communism_at_home }
-		relative_position_id = NZL_communism_at_home
-		x = -2
-		y = 1
-	
-		cost = 5
-	
-	
-		ai_will_do = {
-			
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	
-		completion_reward = {
-			add_political_power = 150
-			add_stability = 0.15
-		}
-	}
-
-	focus = { 
-		id = NZL_create_committee_of_state_security
-		icon = GFX_focus_generic_secret_service_agency
-		prerequisite = { focus = NZL_communism_at_home }
-		x = 2
-		y = 1
-		relative_position_id = NZL_communism_at_home
-		cost = 10
+				
 		ai_will_do = {
 			factor = 15
 		}
@@ -9315,11 +8154,38 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = NZL_establish_our_own_politburo
+		icon = GFX_focus_GER_strengthen_the_proletarian_international
+		cost = 5
+		x = -1
+		y = 1
+		prerequisite = { focus = NZL_overthrow_the_government }
+		relative_position_id = NZL_overthrow_the_government
+		ai_will_do = {
+			factor = 50
+		}
+
+		available = {
+			has_civil_war = no	
+		}
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = NZL_ineffective_legasthe_legislative_council_idea
+				add_idea = NZL_politburo
+			}
+		}
+	}
+
+	# Spread the Revolution
+
+	focus = {
 		id = NZL_stabilize_the_nation
 		icon = GFX_focus_SWE_socialist_reforms
-		prerequisite = { focus = NZL_communism_at_home }
-		relative_position_id = NZL_communism_at_home
-		x = 0
+		prerequisite = { focus = NZL_create_committee_of_state_security }
+		prerequisite = { focus = NZL_establish_our_own_politburo }
+		relative_position_id = NZL_establish_our_own_politburo
+		x = 1
 		y = 1
 	
 		cost = 5
@@ -9348,7 +8214,7 @@ focus_tree = {
 		icon = GFX_focus_generic_welfare
 		prerequisite = { focus = NZL_stabilize_the_nation }
 		relative_position_id = NZL_stabilize_the_nation
-		x = -1
+		x = -7
 		y = 1
 	
 		cost = 5
@@ -9402,7 +8268,7 @@ focus_tree = {
 		icon = GFX_socialist_science
 		prerequisite = { focus = NZL_stabilize_the_nation }
 		relative_position_id = NZL_stabilize_the_nation
-		x = 1
+		x = 7
 		y = 1
 	
 		cost = 5
@@ -9426,7 +8292,7 @@ focus_tree = {
 		icon = GFX_goal_generic_communist_economy
 		prerequisite = { focus = NZL_resolve_maori_issues focus = NZL_invite_labour_party_members_into_new_society }
 		relative_position_id = NZL_invite_labour_party_members_into_new_society
-		x = 1
+		x = 2
 		y = 1
 		cost = 5
 	
@@ -9471,9 +8337,8 @@ focus_tree = {
 		id = NZL_resolve_maori_issues
 		icon = GFX_focus_BRA_reach_out_to_military_dem
 		prerequisite = { focus = NZL_expand_social_welfare }
-		prerequisite = { focus = NZL_socialist_education_programs }
-		relative_position_id = NZL_socialist_education_programs
-		x = -1
+		relative_position_id = NZL_expand_social_welfare
+		x = 1
 		y = 1
 	
 		cost = 5
@@ -9520,9 +8385,9 @@ focus_tree = {
 		icon = GFX_focus_GER_the_peoples_victory
 		cost = 10
 		x = 0
-		y = 4
-		prerequisite = { focus = NZL_the_work_program }
-		prerequisite = { focus = NZL_final_reforms }
+		y = 6
+		prerequisite = { focus = NZL_entrench_the_nep }
+		prerequisite = { focus = NZL_finalize_the_five_year_plan }
 		relative_position_id = NZL_stabilize_the_nation
 		completion_reward = {
 			swap_ideas = {
@@ -9539,9 +8404,8 @@ focus_tree = {
 	focus = {
 		id = NZL_the_soviet_models
 		icon = GFX_goal_generic_soviet_assistance
-		prerequisite = { focus = NZL_communism_at_home focus = NZL_vanguard_of_the_revolution }
-		relative_position_id = NZL_vanguard_of_the_revolution
-		x = -8
+		relative_position_id = NZL_stabilize_the_nation
+		x = 0
 		y = 1
 
 		cost = 5
@@ -9825,7 +8689,7 @@ focus_tree = {
 		icon = GFX_focus_generic_combined_arms
 		prerequisite = { focus = NZL_taxation_not_requisition focus = NZL_mechanization_of_agriculture }
 		x = 2
-		y = 3
+		y = 2
 		relative_position_id = NZL_positions_based_on_merit
 		cost = 10
 		                
@@ -9897,160 +8761,6 @@ focus_tree = {
 			}
 		}
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
-	}
-
-	focus = {
-		id = NZL_a_rifle_in_every_hand
-		icon = GFX_goal_generic_seize_stockpiles
-		x = 0
-		y = 1
-		prerequisite = { focus = NZL_kickstart_the_arms_production }
-		relative_position_id = NZL_kickstart_the_arms_production
-		available = {
-			has_tech = improved_infantry_weapons 
-		}
-		cost = 5
-		                
-
-		completion_reward = {
-			random_owned_controlled_state = {	
-				prioritize = { 284 }
-				limit = {				
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = NZL_a_rifle_in_every_hand_idea
-		}
-		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
-	}
-
-
-	focus = {
-		id = NZL_our_own_choir
-		icon = GFX_goal_generic_mobile_artillery_rocket
-		prerequisite = {  focus = NZL_kickstart_the_arms_production  focus = NZL_invite_soviet_companies }
-		x = 2
-		y = 1
-		relative_position_id = NZL_kickstart_the_arms_production
-
-		available = {
-			OR = {
-				has_tech = rocket_artillery
-				AND = {
-					is_in_faction_with = SOV
-					SOV = {
-						has_tech = rocket_artillery
-					}
-				}
-			}
-		}
-
-		cost = 8
-		            
-
-		completion_reward = {
-			# Event to Soviets for some Katyushas? 125 - Token Amount + Payment 5% Consumers + opinion if accepted
-			if = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-					SOV = {
-						has_completed_focus = SOV_sing_katyusha_sing_focus
-					}
-				}
-				mio:SOV_gaz_organization = {
-					add_mio_funds = 500
-					complete_mio_trait = SOV_mio_trait_katyusha_rocket_production
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-			}
-			add_tech_bonus = {
-				bonus = 0.25
-				uses = 2
-				category = rocketry
-				category = jet_technology
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_breakthrough_progress = {
-				specialization = specialization_air
-				value = 0.25
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = NZL_the_choir_of_revolution
-		}
-
-		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
-	}
-
-	focus = {
-		id = NZL_promote_domestic_aircraft_production
-		icon = GFX_goal_generic_industrial_unionism
-		mutually_exclusive = {
-			focus = NZL_propagate_domestic_tank_production
-		}
-		prerequisite = {  focus = NZL_kickstart_the_arms_production }
-		x = -1
-		y = 2
-		relative_position_id = NZL_kickstart_the_arms_production
-		cost = 10
-		                
-		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
-
-		completion_reward = {
-			# NEP = Factory Output
-			# FIVE YEAR =  Military Construction Speed +
-			# 
-		}
-	}
-
-	focus = {
-		id = NZL_propagate_domestic_tank_production
-		icon = GFX_focus_generic_mass_production
-		mutually_exclusive = { focus = NZL_promote_domestic_aircraft_production }
-		prerequisite = { focus = NZL_kickstart_the_arms_production }
-		x = 1
-		y = 2
-		relative_position_id = NZL_kickstart_the_arms_production
-		cost = 10
-		                
-		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
-
-		completion_reward = {
-			# IC COST REDUCTION FOR TANKS
-			# MECH REDUCTION 
-			# AMPHIBS
-			add_ideas = NZL_the_engineer_corp
-		}
-	}
-
-
-	focus = {
-		id = NZL_modern_military_economy
-		icon = GFX_focus_AFG_a_modern_economy
-		prerequisite = { focus = NZL_promote_domestic_aircraft_production focus = NZL_propagate_domestic_tank_production }
-		x = 1
-		y = 1
-		relative_position_id = NZL_promote_domestic_aircraft_production
-		cost = 10
-		                
-		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
-
-		completion_reward = {
-			# IC COST REDUCTION FOR TANKS
-			# MECH REDUCTION 
-			# AMPHIBS
-			add_ideas = NZL_the_engineer_corp
-		}
 	}
 
 	# Shared End
@@ -10279,8 +8989,8 @@ focus_tree = {
 		cost = 10
 		prerequisite = { focus = NZL_a_true_socialist_state }
 		relative_position_id = NZL_a_true_socialist_state
-		x = 3
-		y = 1
+		x = 4
+		y = 2
 		ai_will_do = {
 			factor = 50
 		}
@@ -10298,7 +9008,7 @@ focus_tree = {
 		id = NZL_intensify_naval_production 
 		icon = GFX_focus_POL_develop_polish_shipbuilding
 		cost = 10
-		prerequisite = { focus = NZL_spread_the_revolution focus = NZL_kickstart_the_arms_production }
+		prerequisite = { focus = NZL_spread_the_revolution }
 		relative_position_id = NZL_spread_the_revolution
 		x = 2
 		y = 1
@@ -10358,91 +9068,12 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_invite_soviet_companies
-		icon = GFX_focus_SOV_merge_plants
-		prerequisite = { focus = NZL_finalize_the_five_year_plan }
-		x = 1
-		y = 1
-		relative_position_id = NZL_finalize_the_five_year_plan
-
-		available = {
-			any_other_country = {
-				original_tag = SOV
-				NOT = {
-					has_war_with = ROOT
-				}
-				OR = {
-					has_opinion	= {
-						target = ROOT
-						value > 74
-					}
-					is_in_faction_with = ROOT
-				}
-			}
-		}
-
-		cost = 10
-		                
-		completion_reward = {
-			# Inivte GAZ
-			if = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = SOV_gaz_organization
-
-				mio:SOV_gaz_organization = {
-					add_mio_size = 1
-					add_mio_funds = 1000
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			# Invite MIG/IL
-			if = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = SOV_mig_design_bureau_organization
-
-				mio:SOV_mig_design_bureau_organization = {
-					add_mio_size = 1
-					add_mio_funds = 1000
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			random_owned_controlled_state = {	
-				prioritize = { 284 }
-				limit = {				
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			# Invite 
-			
-		}
-
-		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
-	}
-
-
-	focus = {
 		id = NZL_prepare_the_revolutionary_army 
 		icon = GFX_focus_SOV_builder_of_the_red_army
 		cost = 10
 		prerequisite = { focus = NZL_spread_the_revolution }
 		relative_position_id = NZL_spread_the_revolution
-		x = -1
+		x = -2
 		y = 1
 		ai_will_do = {
 			factor = 50
@@ -11122,8 +9753,8 @@ focus_tree = {
 		id = NZL_continued_diplomatic_isolationism
 		icon = GFX_goal_NZL_festung_neu_zeeland
 		cost = 10
-		x = -3
-		y = 1
+		x = -4
+		y = 2
 		mutually_exclusive = { focus = NZL_spread_the_revolution }
 		prerequisite = { focus = NZL_a_true_socialist_state }
 		relative_position_id = NZL_a_true_socialist_state
