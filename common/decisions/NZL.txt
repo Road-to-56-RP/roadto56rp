@@ -1713,6 +1713,342 @@ NZL_labour_goverment_cat = {
 		
 		}
 	}
+
+	NZL_unenmployment_benefit = {
+		icon = GFX_decision_hol_attract_foreign_investors
+	
+		ai_will_do = {
+			base = 10
+		}
+	
+		allowed = {
+			original_tag = NZL
+		}
+	
+		visible = {
+	
+		}
+		
+		available = {
+			has_country_flag = {
+				flag = NZL_reform_flag
+				days > 365
+			}
+			NOT = {
+				has_country_flag = NZL_social_security_act_passed
+			}
+		}
+	
+		fire_only_once = yes
+		cost = 50
+	
+		days_re_enable = 90
+	
+		remove_effect = {
+			add_timed_idea = { idea = NZL_unemployment_benefit  days = 365 }
+			set_country_flag = NZL_reform_flag_2
+		}
+	}
+
+	NZL_universal_medical_benefits = {
+		icon = GFX_decision_generic_fundraising
+	
+		ai_will_do = {
+			base = 10
+		}
+	
+		allowed = {
+			original_tag = NZL
+		}
+	
+		visible = {
+	
+		}
+		
+		available = {
+			NOT = {
+				has_country_flag = NZL_social_security_act_passed
+			}
+		}
+	
+		fire_only_once = yes
+		cost = 50
+	
+		days_re_enable = 90
+	
+		remove_effect = {
+			add_ideas = NZL_universal_medical_benefits_idea
+			
+		}
+	}
+
+	NZL_pension_plans = {
+		icon = GFX_decision_generic_fundraising
+	
+		ai_will_do = {
+			base = 10
+		}
+	
+		allowed = {
+			original_tag = NZL
+		}
+	
+		visible = {
+	
+		}
+		
+		available = {	
+			NOT = {
+				has_country_flag = NZL_social_security_act_passed
+			}
+		}
+	
+		fire_only_once = yes
+		cost = 50
+	
+		days_re_enable = 90
+	
+		remove_effect = {
+			add_ideas = NZL_pension_plans_idea
+		}
+	}
+
+	NZL_welfare_assurance_bill = {
+		icon = GFX_decision_eng_trade_unions_support
+	
+		ai_will_do = {
+			base = 10
+		}
+	
+		allowed = {
+			original_tag = NZL
+		}
+	
+		visible = {
+	
+		}
+		
+		available = {
+			has_idea = NZL_universal_medical_benefits_idea
+			has_idea = NZL_pension_plans_idea
+			NOT = {
+				has_country_flag = NZL_social_security_act_passed
+			}
+		}
+	
+		fire_only_once = yes
+		cost = 50
+	
+		days_re_enable = 90
+	
+		remove_effect = {
+			custom_effect_tooltip = NZL_merge_national_idea_tt
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = NZL_welfare_assurance_bill_idea
+			hidden_effect = {
+				remove_ideas = {
+					NZL_pension_plans_idea
+					NZL_universal_medical_benefits_idea
+				}
+			}
+		}
+	}
+
+	NZL_protection_of_workers_rights = {
+		icon = GFX_decision_generic_merge_plant_materiel
+	
+		ai_will_do = {
+			base = 10
+		}
+	
+		allowed = {
+			original_tag = NZL
+		}
+	
+		visible = {
+	
+		}
+		
+		available = {	
+			has_country_flag = {
+				flag = NZL_reform_flag
+				days > 365
+			}
+			NOT = {
+				has_country_flag = NZL_social_security_act_passed
+			}
+		}
+	
+		fire_only_once = yes
+		cost = 50
+	
+		days_re_enable = 90
+	
+		remove_effect = {
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = NZL_bob_semple
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_ideas = NZL_workers_protection_idea
+		}
+	}
+
+	NZL_miner_protection = {
+		icon = GFX_decision_ger_mefo_bills
+	
+		ai_will_do = {
+			base = 10
+		}
+	
+		allowed = {
+			original_tag = NZL
+		}
+	
+		visible = {
+	
+		}
+		
+		available = {	
+			NOT = {
+				has_country_flag = NZL_social_security_act_passed
+			}
+		}
+	
+		fire_only_once = yes
+		cost = 50
+	
+		days_re_enable = 90
+	
+		remove_effect = {
+			add_ideas = NZL_miner_protection_idea
+		}
+	}
+
+	NZL_fair_hour_work = {
+		icon = GFX_decision_generic_fundraising
+	
+		ai_will_do = {
+			base = 10
+		}
+	
+		allowed = {
+			original_tag = NZL
+		}
+	
+		visible = {
+	
+		}
+		
+		available = {	
+			NOT = {
+				has_country_flag = NZL_social_security_act_passed
+			}
+		}
+	
+		fire_only_once = yes
+		cost = 50
+	
+		days_re_enable = 90
+	
+		remove_effect = {
+			add_ideas = NZL_worker_fair_hour_work_idea
+			set_country_flag = NZL_reform_flag_2
+		}
+	}
+
+	NZL_worker_and_fair_hours_bill = {
+		icon = GFX_decision_generic_fundraising
+	
+		ai_will_do = {
+			base = 10
+		}
+	
+		allowed = {
+			original_tag = NZL
+		}
+	
+		visible = {
+	
+		}
+		
+		available = {	
+			NOT = {
+				has_country_flag = NZL_social_security_act_passed
+			}
+		}
+	
+		fire_only_once = yes
+		cost = 50
+	
+		days_re_enable = 90
+	
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = NZL_miner_protection_idea
+					has_idea = NZL_workers_protection_idea
+					has_idea = NZL_worker_fair_hour_work_idea
+				}
+				add_ideas = NZL_worker_and_fair_hours_bill_idea_united
+			}
+			else_if = {
+				limit = {
+					has_idea = NZL_miner_protection_idea
+					has_idea = NZL_workers_protection_idea
+				}
+				add_ideas = NZL_worker_and_fair_hours_bill_idea_miner
+			}
+			else_if = {
+				limit = {
+					has_idea = NZL_workers_protection_idea
+					has_idea = NZL_worker_fair_hour_work_idea
+				}
+				add_ideas = NZL_worker_and_fair_hours_bill_idea_fair_hour
+			}
+			else = {
+				custom_effect_tooltip = NZL_merge_national_idea_additional_tt
+			}
+
+			hidden_effect = {
+				if = {
+					limit = {
+						has_idea = NZL_miner_protection_idea
+						has_idea = NZL_workers_protection_idea
+						has_idea = NZL_worker_fair_hour_work_idea
+					}
+					remove_ideas = {
+						NZL_miner_protection_idea
+						NZL_workers_protection_idea
+						NZL_worker_fair_hour_work_idea
+					}
+				}
+				else_if = {
+					limit = {
+						has_idea = NZL_miner_protection_idea
+						has_idea = NZL_workers_protection_idea
+					}
+					remove_ideas = {
+						NZL_miner_protection_idea
+						NZL_workers_protection_idea
+					}			
+				}
+				else_if = {
+					limit = {
+						has_idea = NZL_workers_protection_idea
+						has_idea = NZL_worker_fair_hour_work_idea
+					}
+					remove_ideas = {
+						NZL_worker_fair_hour_work_idea
+						NZL_workers_protection_idea
+					}
+				}
+			}
+		}
+	}
+
 }
 
 
@@ -3156,437 +3492,6 @@ NZL_communism_cat = {
 	}
 }
 
-NZL_secularize_the_state_cat = {
-	NZL_church_riots_turn_violent = {
-		icon = GFX_decision_generic_political_rally
-
-		priority = 1
-
-		ai_will_do = {
-			base = 10
-		}
-
-		allowed = {
-			original_tag = NZL
-		}
-
-		available = {
-			OR = {
-				count_triggers = {
-					amount = 4
-					has_country_flag = NZL_rioters_quelled_flag
-					has_country_flag = NZL_redistributed_church_wealth_to_the_masses_flag
-					has_country_flag = NZL_ring_leaders_arrested
-					has_country_flag = NZL_banned_religious_gatherings
-				}
-			}
-		}
-
-		activation = {
-			always = yes
-		}
-
-		cancel_if_not_visible = yes
-		is_good = no #Tooltip purposes
-		fire_only_once = yes
-		selectable_mission = no
-		days_mission_timeout = 320
-
-		cancel_effect = {
-	
-		}
-
-		timeout_effect = { #MISSION FAILS
-			swap_ideas = {
-				remove_idea = NZL_church_secularization_riots
-				add_idea = NZL_church_secularization_riots_2
-			}
-		}
-
-		complete_effect = { #MISSION SUCCEEDS
-			swap_ideas = {
-				remove_idea = NZL_church_secularization_riots
-				add_idea = NZL_church_secularization_riots_lower
-			}
-		}
-	}
-
-	NZL_church_riots_turn_violent_2 = {
-		icon = GFX_decision_generic_ignite_civil_war
-
-		priority = 1
-
-		ai_will_do = {
-			base = 10
-		}
-
-		allowed = {
-			original_tag = NZL
-		}
-
-		available = {
-			OR = {
-				#has_country_flag = ITA_victory_in_ethiopia_flag
-				count_triggers = {
-					amount = 2
-				}
-			}
-		}
-
-		activation = {
-			always = yes
-		}
-
-		cancel_if_not_visible = yes
-		is_good = no #Tooltip purposes
-		fire_only_once = yes
-		selectable_mission = no
-		days_mission_timeout = 320
-
-		cancel_effect = {
-	
-		}
-
-		timeout_effect = { #MISSION FAILS
-			swap_ideas = {
-				remove_idea = NZL_church_secularization_riots_2
-				add_idea = NZL_church_secularization_riots_3
-			}
-		}
-
-		complete_effect = { #MISSION SUCCEEDS
-			swap_ideas = {
-				remove_idea = NZL_church_secularization_riots_2
-				add_idea = NZL_church_secularization_riots
-			}
-		}
-	}
-
-	NZL_church_riots_turn_violent_3 = {
-		icon = GFX_decision_generic_ignite_civil_war
-
-		priority = 1
-
-		ai_will_do = {
-			base = 10
-		}
-
-		allowed = {
-			original_tag = NZL
-		}
-
-		available = {
-			OR = {
-				#has_country_flag = ITA_victory_in_ethiopia_flag
-				count_triggers = {
-					amount = 2
-				}
-			}
-		}
-
-		activation = {
-			always = yes
-		}
-
-		cancel_if_not_visible = yes
-		is_good = no #Tooltip purposes
-		fire_only_once = yes
-		selectable_mission = no
-		days_mission_timeout = 320
-
-		cancel_effect = {
-	
-		}
-
-		timeout_effect = { #MISSION FAILS
-			remove_ideas = NZL_church_secularization_riots_3
-			start_civil_war = {
-				ideology = democratic
-				size = 0.3
-			}
-		}
-
-		complete_effect = { #MISSION SUCCEEDS
-			swap_ideas = {
-				remove_idea = NZL_church_secularization_riots_3
-				add_idea = NZL_church_secularization_riots_2
-			}
-		}
-	}
-
-	NZL_appropriate_church_riches = { 
-		icon = GFX_decision_generic_fundraising
-
-		allowed = {
-			always = yes
-		}
-		cost = 50
-		fire_only_once = yes
-
-		days_remove = 180
-
-		available = {
-		
-		}
-
-		visible = {
-
-		}
-
-		modifier = {
-			political_power_gain = -0.15
-			communism_drift = 0.03
-			fascism_drift = 0.01
-		}
-
-		complete_effect = {
-			add_timed_idea = {
-				idea = NZL_seized_church_riches
-				days = 240
-			}
-		}
-
-		remove_effect = {
-			random_owned_controlled_state = {
-				prioritize = { 284 723 }
-				limit = {				
-					free_building_slots = {
-						building = industrial_complex
-						size > 2
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-
-			add_days_mission_timeout = {
-				mission = NZL_church_riots_turn_violent
-				days = -180
-			}
-		}
-	}
-
-
-	NZL_arrest_ring_leaders  = {
-		icon = GFX_decision_generic_arrest
-
-		ai_will_do = {
-			base = 10
-		}
-
-		allowed = { 
-			original_tag = NZL
-		}
-
-		available = {
-			has_manpower > 1200
-			has_equipment = { support_equipment > 119 }
-			has_equipment = { infantry_equipment > 399 }
-		}
-
-		days_remove = 70
-
-		visible = {
-
-		}
-
-		cost = 25
-
-		complete_effect = {
-			add_manpower = -200
-			# Retire Ratana from Political Advisor Slot
-
-			add_equipment_to_stockpile = {
-				type = support_equipment
-				amount = -120
-				producer = NZL
-			}
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = -400
-				producer = NZL
-			}
-		}
-
-		remove_effect = {
-			add_days_mission_timeout = {
-				mission = NZL_church_riots_turn_violent
-				days = -70
-			}
-		}
-	}
-
-	NZL_ban_religious_gatherings  = {
-		icon = GFX_decision_eng_trade_unions_support
-
-		ai_will_do = {
-			base = 10
-		}
-
-		allowed = { 
-			original_tag = NZL
-		}
-
-		available = {
-
-		}
-
-		days_remove = 70
-
-		visible = {
-
-		}
-
-		cost = 25
-
-		complete_effect = {
-			add_days_mission_timeout = {
-				mission = NZL_church_riots_turn_violent
-				days = -70
-			}
-		}
-
-		remove_effect = {
-			set_country_flag = NZL_banned_religious_gatherings
-		}
-	}
-	
-	NZL_redistribute_church_wealth  = {
-		icon = GFX_decision_hol_attract_foreign_investors
-
-		ai_will_do = {
-			base = 10
-		}
-
-		allowed = { 
-			original_tag = NZL
-		}
-
-		available = {
-			has_idea = NZL_seized_church_riches
-		}
-
-		visible = {
-			# has_idea = NZL_seized_church_riches
-		}
-
-		fire_only_once = yes
-		cost = 25
-
-		complete_effect = {
-			remove_ideas = NZL_seized_church_riches
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_days_mission_timeout = {
-				mission = NZL_church_riots_turn_violent
-				days = 90
-			}
-			set_country_flag = NZL_redistributed_church_wealth_to_the_masses_flag
-		}
-
-	}
-
-	NZL_use_church_land_for_socialist_agenda  = {
-		icon = GFX_decision_generic_research
-
-		ai_will_do = {
-			base = 10
-		}
-
-		allowed = { 
-			original_tag = NZL
-		}
-
-		available = {
-
-		}
-
-		days_remove = 70
-
-		visible = {
-
-		}
-
-		cost = 25
-
-		complete_effect = {
-			add_days_mission_timeout = {
-				mission = NZL_church_riots_turn_violent
-				days = -70
-			}
-		}
-
-		remove_effect = {
-			swap_ideas = {
-				remove_idea = NZL_strict_anti_clericalism_idea
-				add_idea = NZL_strict_anti_clericalism_strenghtened_idea
-			}
-		}
-	}
-
-	NZL_repress_strikes  = {
-		icon = GFX_decision_generic_police_action
-
-		ai_will_do = {
-			base = 10
-		}
-
-		allowed = { 
-			original_tag = NZL
-		}
-
-		available = {
-			#has_country_flag = NZL_police_action_was_succesfull_flag
-			has_manpower > 2000
-			has_equipment = { support_equipment > 199 }
-			has_equipment = { infantry_equipment > 799 }
-		}
-
-		days_remove = 60
-		days_re_enable = 120
-
-		visible = {
-
-		}
-
-		cost = 25
-
-		complete_effect = {
-			add_manpower = -2000
-			add_equipment_to_stockpile = {
-				type = support_equipment
-				amount = -200
-				producer = NZL
-			}
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = -800
-				producer = NZL
-			}
-		}
-
-		remove_effect = { # Random Chance of 4 
-			random_list = {
-				25 = {
-					country_event = { id = new_zealand_communist.5 days = 1 }
-				}
-				25 = {
-					country_event = { id = new_zealand_communist.6 days = 1 }
-				}
-				25 = {
-					country_event = { id = new_zealand_communist.7 days = 1 }
-				}
-				25 = {
-					country_event = { id = new_zealand_communist.8 days = 1 }
-				}
-			}
-		}
-	}
-}
 NZL_economic_downturn = {
 	NZL_risk_of_inflation = {
 		icon = GFX_decision_generic_consumer_goods

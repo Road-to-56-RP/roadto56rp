@@ -63,7 +63,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = r56rp_rifle_clubs
+			add_ideas = r56rp_NZL_rifle_clubs
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -461,7 +461,7 @@ focus_tree = {
 		x = -1
 		y = 1
 
-		cost = 8
+		cost = 5
 
 		ai_will_do = {
 			factor = 25
@@ -585,7 +585,7 @@ focus_tree = {
 		relative_position_id = NZL_munition_companies_investments
 		x = 1
 		y = 1
-		cost = 8
+		cost = 5
 		ai_will_do = {
 			factor = 2
 		}
@@ -730,59 +730,6 @@ focus_tree = {
 
 
 	focus = {
-		id = NZL_empire_air_training_scheme
-		icon = GFX_focus_PER_raf_planes
-		prerequisite = { focus = NZL_allocate_resources_to_the_rnzf }
-		x = 2
-		y = 2
-		relative_position_id = NZL_allocate_resources_to_the_rnzf
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			is_in_faction_with = ENG
-		}
-
-		bypass = {
-			NOT = { is_subject_of = ENG }
-		}
-
-		completion_reward = {
-			if = {
-				limit = {
-					is_subject_of = ENG
-					has_idea =  ENG_british_commonwealth_air_training_plan
-				}
-				air_experience = 25
-				add_timed_idea = {
-					idea = NZL_commonwealth_training_idea
-					days = 360
-				}
-			}
-			else = {
-				air_experience = 25
-				add_timed_idea = {
-					idea = NZL_commonwealth_training_idea
-					days = 760
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				add_ideas = veteran_air_instructors_spirit
-			}
-		}
-		search_filters = { FOCUS_FILTER_HISTORICAL }
-
-	}
-
-	focus = {
 		id = NZL_a_reinvigorated_force
 		icon = GFX_goal_NZL_coa_army
 		prerequisite = { focus = NZL_tried_and_tested focus = NZL_mechanized_warfare focus = NZL_armoured_modernization }
@@ -849,8 +796,12 @@ focus_tree = {
 				uses = 2
 				category = r56_desert_infantry_tech
 			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = NZL_hot_climate_equipment_idea
+			custom_effect_tooltip = {
+				localization_key = generic_enables_tech_tt
+				TECH_EFFECT = tech_effect|desert_training_tech
+				TECH_NAME = desert_training_tech
+			}
+			hidden_effect = { set_technology = { desert_training_tech = 1 } }
 		}
 	}
 
@@ -879,8 +830,12 @@ focus_tree = {
                 category = r56_jungle_infantry_tech
             }
 			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = HON_jungle_infant_effect
-			hidden_effect = { set_technology = { HON_jungle_infantry = 1 } }
+			custom_effect_tooltip = {
+				localization_key = generic_enables_tech_tt
+				TECH_EFFECT = tech_effect|jungle_training_tech
+				TECH_NAME = jungle_training_tech
+			}
+			hidden_effect = { set_technology = { jungle_training_tech = 1 } }
 
         }
 
@@ -1020,9 +975,7 @@ focus_tree = {
 		}
 		available = {
 			OR = {
-				has_tech = air_superiority
-				has_tech = formation_flying
-				has_tech = force_rotation
+				
 			}
 		}
 	
@@ -1278,7 +1231,6 @@ focus_tree = {
 		x = 0
 		y = 4
 		relative_position_id = NZL_aircraft_engine_upgrades
-		prerequisite = { focus = NZL_destroyer_production }
 		prerequisite = { focus = NZL_aircraft_research_group }
 		cost = 8
 
@@ -1345,6 +1297,59 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_HISTORICAL }
+	}
+
+	focus = {
+		id = NZL_empire_air_training_scheme
+		icon = GFX_focus_PER_raf_planes
+		prerequisite = { focus = NZL_airbase_modernization }
+		x = 1
+		y = 1
+		relative_position_id = NZL_airbase_modernization
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available = {
+			is_in_faction_with = ENG
+		}
+
+		bypass = {
+			NOT = { is_subject_of = ENG }
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					is_subject_of = ENG
+					has_idea =  ENG_british_commonwealth_air_training_plan
+				}
+				air_experience = 25
+				add_timed_idea = {
+					idea = NZL_commonwealth_training_idea
+					days = 360
+				}
+			}
+			else = {
+				air_experience = 25
+				add_timed_idea = {
+					idea = NZL_commonwealth_training_idea
+					days = 760
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_ideas = veteran_air_instructors_spirit
+			}
+		}
+		search_filters = { FOCUS_FILTER_HISTORICAL }
+
 	}
 
 	focus = {
@@ -1568,6 +1573,7 @@ focus_tree = {
 
 		completion_reward = {
 			navy_experience = 25
+			custom_effect_tooltip = generic_skip_one_line_tt
 			random_owned_controlled_state = {
 				prioritize = { 284 }
 				limit = {
@@ -1591,7 +1597,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_solidify_the_new_zealand_division
+		id = NZL_towards_an_independent_navy
 		icon = GFX_goal_generic_navy_doctrines_tactics
 		x = 1
 		y = 1
@@ -1606,12 +1612,11 @@ focus_tree = {
 			
 		completion_reward = {
 			navy_experience = 25
-			add_doctrine_cost_reduction = {
-				name = NZL_solidify_the_new_zealand_division
-				cost_reduction = 0.75
-				uses = 1
-				category = naval_doctrine
-			}		
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_timed_idea = {
+				idea = NZL_create_a_satnding_navy
+				days = 730
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_RESEARCH  FOCUS_FILTER_HISTORICAL }
@@ -1656,35 +1661,38 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_form_the_new_zealand_navy
+		id = NZL_the_royal_new_zealand_navy
 		icon = GFX_goal_NZL_coa_navy
 		relative_position_id = NZL_supply_the_new_zealand_navy_divsion
 		prerequisite = { focus = NZL_supply_the_new_zealand_navy_divsion }
-		prerequisite = { focus = NZL_solidify_the_new_zealand_division}
+		prerequisite = { focus = NZL_towards_an_independent_navy}
 		x = 1
 		y = 1
 
-		cost = 10
+		cost = 5
+
+		available = {
+			OR = {
+				has_navy_size = {
+					size > 1
+					type = capital_ship
+				}
+				has_navy_size = {
+					size > 2
+					type = screen_ship
+				}
+			}
+		}
 
 		ai_will_do = {
 			factor = 2
 		}
+
+
 		search_filters = { FOCUS_FILTER_HISTORICAL }
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = NZL_light_cruiser_effort
-				bonus = 1
-				uses = 1
-				category = ship_modules_tech
-			}
-			add_tech_bonus = {
-				name = NZL_light_cruiser_effort
-				bonus = 1
-				uses = 1
-				category = cl_tech
-			}
-			add_ideas = NZL_form_the_new_zealand_navy 
+			add_ideas = NZL_the_royal_new_zealand_navy 
 		}
 	}
 
@@ -1693,8 +1701,8 @@ focus_tree = {
 		icon = GFX_goal_generic_admirality
 		x = 1
 		y = 1
-		relative_position_id = NZL_form_the_new_zealand_navy
-		prerequisite = { focus = NZL_form_the_new_zealand_navy }
+		relative_position_id = NZL_the_royal_new_zealand_navy
+		prerequisite = { focus = NZL_the_royal_new_zealand_navy }
 		cost = 5
 
 		ai_will_do = {
@@ -1728,8 +1736,8 @@ focus_tree = {
 		icon = GFX_focus_generic_refit_civilian_ships
 		x = -1
 		y = 1
-		relative_position_id = NZL_form_the_new_zealand_navy
-		prerequisite = { focus = NZL_form_the_new_zealand_navy }
+		relative_position_id = NZL_the_royal_new_zealand_navy
+		prerequisite = { focus = NZL_the_royal_new_zealand_navy }
 		cost = 5
 		available = {
 			OR = {
@@ -1795,13 +1803,13 @@ focus_tree = {
 
 
 	focus = { 
-		id = NZL_destroyer_production
+		id = NZL_protect_our_waters
 		icon = GFX_goal_generic_large_fleet
-		mutually_exclusive = { focus = NZL_submarine_production }
+		mutually_exclusive = { focus = NZL_focus_on_maritime_trade_interdiction }
 		x = 2
 		y = 2
-		relative_position_id = NZL_form_the_new_zealand_navy
-		prerequisite = { focus = NZL_form_the_new_zealand_navy }
+		relative_position_id = NZL_the_royal_new_zealand_navy
+		prerequisite = { focus = NZL_the_royal_new_zealand_navy }
 		cost = 10
 
 		ai_will_do = {
@@ -1825,8 +1833,8 @@ focus_tree = {
 	focus = {
 		id = NZL_modernize_the_pt_fleet
 		icon = GFX_focus_generic_navy_research_bonus
-		prerequisite = { focus = NZL_destroyer_production }	
-		relative_position_id = NZL_destroyer_production
+		prerequisite = { focus = NZL_protect_our_waters }	
+		relative_position_id = NZL_protect_our_waters
 
 		x = 1
 		y = 1
@@ -1881,7 +1889,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = NZL_long_range_patrols
 		prerequisite = { focus = NZL_long_range_patrols }
-		prerequisite = { focus = NZL_destroyer_production }
+		prerequisite = { focus = NZL_protect_our_waters }
 		cost = 10
 
 		ai_will_do = {
@@ -1903,13 +1911,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_submarine_production
+		id = NZL_focus_on_maritime_trade_interdiction
 		icon = GFX_focus_generic_trade_interdiction
-		mutually_exclusive = { focus = NZL_destroyer_production }
+		mutually_exclusive = { focus = NZL_protect_our_waters }
 		x = -2
 		y = 2
-		relative_position_id = NZL_form_the_new_zealand_navy
-		prerequisite = { focus = NZL_form_the_new_zealand_navy }
+		relative_position_id = NZL_the_royal_new_zealand_navy
+		prerequisite = { focus = NZL_the_royal_new_zealand_navy }
 		cost = 10
 
 		ai_will_do = {
@@ -1933,10 +1941,10 @@ focus_tree = {
 
 
 	focus = {
-		id = NZL_long_range_submarines
+		id = NZL_surface_raider_concepts
 		icon = GFX_focus_GER_panzerschiff
-		relative_position_id = NZL_submarine_production
-		prerequisite = { focus = NZL_submarine_production }
+		relative_position_id = NZL_focus_on_maritime_trade_interdiction
+		prerequisite = { focus = NZL_focus_on_maritime_trade_interdiction }
 		x = 1
 		y = 1
 
@@ -1961,8 +1969,15 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
+				name = GER_cruiser_warfare
+				bonus = 0.75
+				uses = 1
+				category = ca_tech
+			}
+
+			add_tech_bonus = {
 				name = SPR_navy_modernization
-				bonus = 2
+				bonus = 1
 				uses = 1
 				category = torpedo_equipment
 			}
@@ -1974,8 +1989,8 @@ focus_tree = {
 		icon = GFX_goal_generic_navy_submarine
 		x = -1
 		y = 1
-		relative_position_id = NZL_submarine_production
-		prerequisite = { focus = NZL_submarine_production }
+		relative_position_id = NZL_focus_on_maritime_trade_interdiction
+		prerequisite = { focus = NZL_focus_on_maritime_trade_interdiction }
 		cost = 10
 
 		ai_will_do = {
@@ -1986,7 +2001,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = NZL_submarine_production
+				name = NZL_focus_on_maritime_trade_interdiction
 				bonus = 1.0
 				ahead_reduction = 2
 				uses = 1
@@ -2013,8 +2028,8 @@ focus_tree = {
 		icon = GFX_focus_generic_destroyer
 		x = -1
 		y = 1
-		relative_position_id = NZL_destroyer_production
-		prerequisite = { focus = NZL_destroyer_production }
+		relative_position_id = NZL_protect_our_waters
+		prerequisite = { focus = NZL_protect_our_waters }
 		cost = 10
 
 		ai_will_do = {
@@ -2025,7 +2040,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = NZL_destroyer_production
+				name = NZL_protect_our_waters
 				bonus = 1.0
 				ahead_reduction = 2
 				uses = 1
@@ -2042,7 +2057,9 @@ focus_tree = {
 					uses = 1
 					category = asw_tech
 				}				
-			}			
+			}	
+			
+			# Naval Detection
 		}
 	}
 
@@ -2082,7 +2099,7 @@ focus_tree = {
 		icon = GFX_goal_generic_wolf_pack
 		x = 1
 		y = 1
-		prerequisite = { focus = NZL_subs  focus = NZL_long_range_submarines }
+		prerequisite = { focus = NZL_subs  focus = NZL_surface_raider_concepts }
 		relative_position_id = NZL_subs
 		cost = 10
 
@@ -2100,9 +2117,9 @@ focus_tree = {
 	focus = {
 		id = NZL_industrialization_fund
 		icon = GFX_focus_mex_privatisation
-		x = 18
+		x = 20
 		y = 0
-		cost = 8
+		cost = 5
 
 		completion_reward = {
 			add_political_power = 25
@@ -2115,36 +2132,9 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_modernize_railways
-		icon = GFX_focus_generic_railroad
-		x = 1
-		y = 1
-		cost = 8
-		prerequisite = { focus = NZL_industrialization_fund }
-		relative_position_id = NZL_industrialization_fund
-		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = train_equipment
-				amount = 15
-				producer = ENG
-			}
-			add_tech_bonus = {
-				name = ROM_malaxa_bucuresti
-				bonus = 1
-				uses = 1
-				category = train_tech
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = available_industrial_concern
-			show_ideas_tooltip = NZL_railways_department
-		}
-	}
-
-
-	focus = {
 		id = NZL_connect_the_nation
 		icon = GFX_goal_generic_road
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = NZL_industrialization_fund
 		prerequisite = { focus = NZL_industrialization_fund }
@@ -2190,13 +2180,39 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_aquire_foreign_machinery
-		icon = GFX_goal_generic_production
-		x = -1
+		id = NZL_modernize_railways
+		icon = GFX_focus_generic_railroad
+		x = 1
 		y = 1
-		cost = 5
+		cost = 8
 		prerequisite = { focus = NZL_connect_the_nation }
 		relative_position_id = NZL_connect_the_nation
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = train_equipment
+				amount = 15
+				producer = ENG
+			}
+			add_tech_bonus = {
+				name = ROM_malaxa_bucuresti
+				bonus = 1
+				uses = 1
+				category = train_tech
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = NZL_railways_department
+		}
+	}
+
+	focus = {
+		id = NZL_aquire_foreign_machinery
+		icon = GFX_goal_generic_production
+		x = 2
+		y = 1
+		cost = 5
+		prerequisite = { focus = NZL_industrialization_fund }
+		relative_position_id = NZL_industrialization_fund
 
 		completion_reward = {
 			add_tech_bonus = {
@@ -2212,12 +2228,109 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_modernize_hydroelectric_power
-		icon = GFX_focus_generic_hydroelectric_energy
+		id = NZL_open_pike_river_mine
+		icon = GFX_focus_generic_mining_industry
+		x = -1
+		y = 1
+		prerequisite = { focus = NZL_aquire_foreign_machinery }
+		relative_position_id = NZL_aquire_foreign_machinery
+
+		cost = 8
+
+		ai_will_do = {
+			factor = 25
+		}
+		
+		available = {
+			has_tech = excavation2
+		}
+
+		completion_reward = { # Coal Mostly but i think flavour addition for NZL should be fine
+			add_tech_bonus = {
+				name = excavation_tech_bonus_name
+				uses = 1
+				category = excavation_tech
+				bonus = 0.75
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			723 = {
+				add_resource = {
+					type = steel
+					amount = 2
+				}
+
+				add_resource = {
+					type = tungsten
+					amount = 1
+				}
+
+				add_resource = {
+					type = coal
+					amount = 7
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					has_tech = excavation4
+				}
+				random_owned_controlled_state = {
+					prioritize = { 723 }
+					limit = {				
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				add_timed_idea = { # Minor Gold Mining Efforts were made - minor amount of gold extracted.
+					idea = NZL_gold_rush_idea
+					days = 1080
+				}
+			}
+			else = {
+				add_ideas = ROM_extensive_coal_mining_idea
+			}
+		}
+	}
+
+	focus = {
+		id = NZL_enlarge_the_textile_industry
+		icon = GFX_focus_CHL_enlarge_the_textile_industries
 		x = 1
 		y = 1
+		cost = 5
+		prerequisite = { focus = NZL_aquire_foreign_machinery }
+		relative_position_id = NZL_aquire_foreign_machinery
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = { 284 }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex 
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NZL_modernize_hydroelectric_power
+		icon = GFX_focus_focus_generic_build_dam
+		x = 1
+		y = 1
+		prerequisite = {focus = NZL_open_pike_river_mine }
 		prerequisite = { focus = NZL_modernize_railways }
-		prerequisite = { focus = NZL_connect_the_nation }
 		relative_position_id = NZL_modernize_railways
 
 		cost = 8
@@ -2251,109 +2364,36 @@ focus_tree = {
 				}
 			}
 		
-			#custom_effect_tooltip = {
-           	#    localization_key = building_state_modifier|dam
-            #    INDENT = "    "
-            #}
+			custom_effect_tooltip = {
+           		localization_key = building_state_modifier|dam
+                INDENT = "    "
+            }
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
-	focus = {
-		id = NZL_industrial_awakening
-		icon = GFX_goal_stock_exchange
-		prerequisite = { focus = NZL_connect_the_nation }
-		relative_position_id = NZL_connect_the_nation
-		x = 1
-		y = 1
-		
-		cost = 8
-
-		ai_will_do = {
-			factor = 25
-		}		
-		
-
-		completion_reward = {
-			add_timed_idea = { 
-				idea = NZL_industrial_awakening  
-				days = 365
-			}
-			random_owned_controlled_state = {
-				prioritize = { 723 284 }
-				limit = {				
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = NZL_prioritize_city_growth
-		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = NZL_aquire_foreign_machinery }
-		prerequisite = { focus = NZL_industrial_awakening }
-		relative_position_id = NZL_industrial_awakening
-		x = -2
-		y = 1
-		
-		cost = 8
-
-		ai_will_do = {
-			factor = 25
-		}		
-		
-
-		completion_reward = {
-			custom_effect_tooltip = NZL_growth_of_cities_tt
-			custom_effect_tooltip = generic_skip_one_line_tt
-			random_owned_controlled_state = {	
-				prioritize = { 723 284 }
-				limit = {				
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-			modify_timed_idea = {
-				idea = NZL_industrial_awakening
-				days = 90
-			}
-
-		}
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
 
 	focus = {
 		id = NZL_expand_auckland_industrial_park
 		icon = GFX_goal_generic_light_industry
-		prerequisite = { focus = NZL_prioritize_city_growth }
-		relative_position_id = NZL_prioritize_city_growth
-		x = -1
-		y = 1
+		prerequisite = { focus = NZL_industrialization_fund }
+		relative_position_id = NZL_industrialization_fund
+		x = -4
+		y = 4
 		
 		cost = 10
-
+		available = {
+			controls_state = 284 
+			284 = {
+				arms_factory > 4
+				industrial_complex > 9
+			}
+			NOT = {
+				723 = {
+					has_dynamic_modifier = r56_local_development
+				}
+			}
+		}
 		ai_will_do = {
 			factor = 25
 		}		
@@ -2397,9 +2437,14 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			modify_timed_idea = {
-				idea = NZL_industrial_awakening
-				days = 45
+			custom_effect_tooltip = generic_skip_one_line_tt
+			every_state = {
+				limit = {
+					OR = {
+						state = 284
+					}
+				}
+				add_dynamic_modifier = { modifier = r56_local_development days = 730 }
 			}
 		}
 
@@ -2407,15 +2452,82 @@ focus_tree = {
 	}
 
 	focus = {
-		id = NZL_industrialize_christchurch
-		icon = GFX_goal_generic_construction
-		prerequisite = { focus = NZL_prioritize_city_growth }
-		relative_position_id = NZL_prioritize_city_growth
-		x = 1
+		id = NZL_charlton_motor_workshops
+		icon = GFX_goal_generic_automobile
+		prerequisite = { focus = NZL_expand_auckland_industrial_park }
+		relative_position_id = NZL_expand_auckland_industrial_park
+		x = -1
 		y = 1
 		
-		cost = 8
+		cost = 10
+		available = {
+			controls_state = 284 
+			284 = {
+				arms_factory > 4
+				industrial_complex > 9
+			}
+		}
+		ai_will_do = {
+			factor = 25
+		}		
+		
+		completion_reward = {
+			random_owned_controlled_state = {	
+				prioritize = { 284 }
+				limit = {				
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			
+			}
+			
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:NZL_charlton_mw_organization = {
+					add_mio_size = 1
+					add_mio_funds_gain_factor = 0.25
+					add_mio_research_bonus = 0.05
+				}
+			}
+		}
 
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+
+	focus = {
+		id = NZL_industrialize_christchurch
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = NZL_industrialization_fund }
+		relative_position_id = NZL_industrialization_fund
+		x = 4
+		y = 4
+		
+		cost = 8
+		available = {
+			controls_state = 723
+			723 = {
+				arms_factory > 4
+				industrial_complex > 9
+			}
+			NOT = {
+				284 = {
+					has_dynamic_modifier = r56_local_development
+				}
+			}
+		}
 		ai_will_do = {
 			factor = 25
 		}		
@@ -2447,22 +2559,93 @@ focus_tree = {
 					instant_build = yes
 				}
 			}		
-			modify_timed_idea = {
-				idea = NZL_industrial_awakening
-				days = 90
+			custom_effect_tooltip = generic_skip_one_line_tt
+			every_state = {
+				limit = {
+					OR = {
+						state = 723
+					}
+				}
+				add_dynamic_modifier = { modifier = r56_local_development days = 730 }
 			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+	focus = {
+		id = NZL_massey_university
+		icon = GFX_focus_generic_university_1
+		mutually_exclusive = {
+			focus = NZL_direct_funding_to_auckland_university
+		}
+		x = 5
+		y = 1
+		prerequisite = { focus = NZL_expand_auckland_industrial_park focus = NZL_industrialize_christchurch }
+		relative_position_id = NZL_expand_auckland_industrial_park
+		cost = 5
+
+		ai_will_do = {
+			factor = 35
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = excavation_tech_bonus_name
+				uses = 1
+				ahead_reduction = 1
+				category = excavation_tech
+				bonus = 0.75
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = NZL_massey_university_concern
+			custom_effect_tooltip = generic_skip_one_line_tt
+		}
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 
 	focus = {
-		id = NZL_hire_physicists
+		id = NZL_direct_funding_to_auckland_university
 		icon = GFX_focus_generic_university_2
-		x = 1
+		mutually_exclusive = {
+			focus = NZL_massey_university
+		}
+		x = 3
 		y = 1
 		relative_position_id = NZL_expand_auckland_industrial_park
 		prerequisite = { focus = NZL_expand_auckland_industrial_park focus = NZL_industrialize_christchurch }
+		cost = 5
+
+		ai_will_do = {
+			factor = 35
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = NZL_direct_funding_to_auckland_university
+				uses = 1
+				ahead_reduction = 1
+				category = electronics
+				bonus = 0.75
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = auckland_university_concern
+			custom_effect_tooltip = generic_skip_one_line_tt
+		}
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+
+	focus = {
+		id = NZL_expanded_university_programs
+		icon = GFX_focus_research
+		x = 1
+		y = 1
+		relative_position_id = NZL_direct_funding_to_auckland_university
+		prerequisite = { focus = NZL_direct_funding_to_auckland_university focus = NZL_massey_university }
 		cost = 10
 
 		ai_will_do = {
@@ -2470,115 +2653,74 @@ focus_tree = {
 		}
 		
 		available = {
-			NOT = {
-				has_completed_focus = NZL_massey_university
-			}
+			industrial_complex > 24
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = available_industrial_concern
-			show_ideas_tooltip = auckland_university_concern
-			custom_effect_tooltip = generic_skip_one_line_tt
 			add_research_slot = 1 
 		}
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
+	#focus = {
+	#	id = NZL_the_tsunami_project
+	#	icon = GFX_focus_wonderweapons
+	#	prerequisite = { focus = NZL_direct_funding_to_auckland_university }
+	#	x = 0
+	#	y = 1
+	#	relative_position_id = NZL_direct_funding_to_auckland_university
+	#
+	#	cost = 10
+	#
+	#	ai_will_do = {
+	#		factor = 35
+	#	}
+	#	available = {
+	#		#is in faction with major 100 factories
+	#	}
+	#	search_filters = { FOCUS_FILTER_RESEARCH }
+	#
+	#	completion_reward = {
+	#		IF = {
+	#			limit = {
+	#				NOT = {
+	#					has_tech = atomic_research
+	#				}
+	#			}
+	#			add_tech_bonus = {
+	#				name = NZL_the_tsunami_project
+	#				bonus = 1.25
+	#				uses = 1
+	#				category = nuclear
+	#			}
+	#			custom_effect_tooltip = generic_skip_one_line_tt
+	#			add_breakthrough_progress = {
+	#				specialization = specialization_nuclear
+	#				value = 0.75
+	#			}
+	#		}
+	#		ELSE = {
+	#			add_breakthrough_progress = {
+	#				specialization = specialization_nuclear
+	#				value = 0.95
+	#			}
+	#		}
+	#		custom_effect_tooltip = generic_skip_one_line_tt
+	#		custom_effect_tooltip = available_theorist
+	#		show_ideas_tooltip = NZL_thomas_leech
+	#	}
+	#}
 
-	focus = {
-		id = NZL_the_tsunami_project
-		icon = GFX_focus_wonderweapons
-		prerequisite = { focus = NZL_hire_physicists }
-		x = 0
-		y = 1
-		relative_position_id = NZL_hire_physicists
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 35
-		}
-		available = {
-			#is in faction with major 100 factories
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-
-		completion_reward = {
-			IF = {
-				limit = {
-					NOT = {
-						has_tech = atomic_research
-					}
-				}
-				add_tech_bonus = {
-					name = NZL_the_tsunami_project
-					bonus = 1.25
-					uses = 1
-					category = nuclear
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-				add_breakthrough_progress = {
-					specialization = specialization_nuclear
-					value = 0.75
-				}
-			}
-			ELSE = {
-				add_breakthrough_progress = {
-					specialization = specialization_nuclear
-					value = 0.95
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			custom_effect_tooltip = available_theorist
-			show_ideas_tooltip = NZL_thomas_leech
-		}
-	}
 
 
-	focus = {
-		id = NZL_prioritize_rural_growth 
-		icon = GFX_goal_agrarian_reform
-		prerequisite = { focus = NZL_modernize_hydroelectric_power }
-		prerequisite = { focus = NZL_industrial_awakening }	
-		x = 2
-		y = 1
-		relative_position_id = NZL_industrial_awakening
-
-		cost = 10
-	
-		completion_reward = {
-			723 = {
-				increase_state_category = yes
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			random_owned_controlled_state = {
-				prioritize = { 284 723 }
-				limit = {				
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
 
 	focus = {
 		id = NZL_the_wairarapa_sheep_farms
 		icon = GFX_focus_CHL_focus_on_cattle_and_wool
-		x = 1
+		x = -1
 		y = 1
-		prerequisite = { focus = NZL_prioritize_rural_growth }
-		relative_position_id = NZL_prioritize_rural_growth
+		prerequisite = { focus = NZL_connect_the_nation }
+		relative_position_id = NZL_connect_the_nation
 
 		cost = 10
 
@@ -2612,7 +2754,7 @@ focus_tree = {
 	focus = {
 		id = NZL_the_wairarapa_sheep_cattle_farm
 		icon = GFX_focus_ARG_capitalize_the_beef_industry
-		x = 1
+		x = 0
 		y = 1
 		prerequisite = { focus = NZL_the_wairarapa_sheep_farms }
 		relative_position_id = NZL_the_wairarapa_sheep_farms
@@ -2650,105 +2792,35 @@ focus_tree = {
 	}
 
 
-	focus = {
-		id = NZL_massey_university
-		icon = GFX_focus_generic_university_1
-		x = -1
-		y = 1
-		relative_position_id = NZL_the_wairarapa_sheep_farms
-		prerequisite = { focus = NZL_the_wairarapa_sheep_farms }
-		cost = 10
-
-		ai_will_do = {
-			factor = 35
-		}
-		
-
-		available = {
-			NOT = {
-				has_completed_focus = NZL_hire_physicists
-			}
-		}
-
-		completion_reward = {
-			custom_effect_tooltip = available_industrial_concern
-			show_ideas_tooltip = NZL_massey_university_concern
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_research_slot = 1
-		}
-
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = NZL_open_pike_river_mine
-		icon = GFX_focus_generic_mining_industry
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_prioritize_rural_growth }
-		relative_position_id = NZL_prioritize_rural_growth
-
-		cost = 8
-
-		ai_will_do = {
-			factor = 25
-		}
-		
-		available = {
-			has_tech = excavation2
-		}
-
-		completion_reward = { # Coal Mostly but i think flavour addition for NZL should be fine
-			add_tech_bonus = {
-				name = excavation_tech_bonus_name
-				uses = 2
-				category = excavation_tech
-				bonus = 0.75
-			}
-
-			723 = {
-				add_resource = {
-					type = steel
-					amount = 2
-				}
-
-				add_resource = {
-					type = tungsten
-					amount = 1
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			if = {
-				limit = {
-					has_tech = excavation4
-				}
-				random_owned_controlled_state = {
-					prioritize = { 723 }
-					limit = {				
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-				add_timed_idea = { # Minor Gold Mining Efforts were made - minor amount of gold extracted.
-					idea = NZL_gold_rush_idea
-					days = 1080
-				}
-			}
-			else = {
-				add_ideas = ROM_extensive_coal_mining_idea
-			}
-		}
-	}
+	#focus = {
+	#	id = NZL_massey_university
+	#	icon = GFX_focus_generic_university_1
+	#	x = -1
+	#	y = 1
+	#	relative_position_id = NZL_the_wairarapa_sheep_farms
+	#	prerequisite = { focus = NZL_the_wairarapa_sheep_farms }
+	#	cost = 10
+	#
+	#	ai_will_do = {
+	#		factor = 35
+	#	}
+	#	
+	#
+	#	available = {
+	#		NOT = {
+	#			has_completed_focus = NZL_direct_funding_to_auckland_university
+	#		}
+	#	}
+	#
+	#	completion_reward = {
+	#		custom_effect_tooltip = available_industrial_concern
+	#		show_ideas_tooltip = NZL_massey_university_concern
+	#		custom_effect_tooltip = generic_skip_one_line_tt
+	#		add_research_slot = 1
+	#	}
+	#
+	#	search_filters = { FOCUS_FILTER_RESEARCH }
+	#}
 
 
 	focus = {
@@ -2757,7 +2829,6 @@ focus_tree = {
 		x = 1
 		y = 1
 		prerequisite = { focus = NZL_industrialize_christchurch }
-		prerequisite = { focus = NZL_open_pike_river_mine }
 		relative_position_id = NZL_industrialize_christchurch
 
 		cost = 10
@@ -2781,6 +2852,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}		
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_tech_bonus = {
 				name = industrial_bonus
 				bonus = 1
@@ -2834,37 +2906,12 @@ focus_tree = {
 		}
 	}
 
-
-	focus = {
-		id = NZL_increase_british_loans
-		icon = GFX_goal_generic_banking
-		prerequisite = { focus = NZL_the_labour_partys_reform }
-		relative_position_id = NZL_the_labour_partys_reform
-		x = 0
-		y = 1
-	
-		cost = 5
-	
-		ai_will_do = {
-			
-		}
-	
-		completion_reward = {
-			# Loans were taken to increase funding towards the social security act, build housing and improve everything.
-			swap_ideas = {
-				remove_idea = NZL_commonwealth_economic_dependency
-				add_idea = NZL_increased_commonwealth_economic_dependency
-			}
-		}
-	}
-
-
 	focus = {
 		id = NZL_nationalize_commerical_broadcasting
 		icon = GFX_goal_generic_cinema
 		prerequisite = { focus = NZL_the_labour_partys_reform }
 		relative_position_id = NZL_the_labour_partys_reform
-		x = -2
+		x = -1
 		y = 1
 	
 		cost = 8
@@ -2992,7 +3039,7 @@ focus_tree = {
 		icon = GFX_goal_generic_banking_legislation
 		prerequisite = { focus = NZL_the_labour_partys_reform}
 		relative_position_id = NZL_the_labour_partys_reform
-		x = 2
+		x = 1
 		y = 1
 	
 		cost = 8
@@ -3047,37 +3094,6 @@ focus_tree = {
 			set_country_flag = NZL_reform_flag
 		}
 	}
-
-	focus = {
-		id = NZL_unenmployment_benefit # The Christmas Bonus
-		icon = GFX_goal_generic_economics_reform
-		prerequisite = { focus = NZL_first_reform_bill }
-		relative_position_id = NZL_first_reform_bill
-		x = -2
-		y = 1
-		cost = 8
-
-		ai_will_do = {
-			factor = 35
-		}
-
-
-		available = {
-			has_country_flag = {
-				flag = NZL_reform_flag
-				days > 365
-			}
-			NOT = {
-				has_country_flag = NZL_social_security_act_passed
-			}
-		}
-
-		completion_reward = {
-			add_timed_idea = { idea = NZL_unemployment_benefit  days = 365 }
-			set_country_flag = NZL_reform_flag_2
-		}
-	}
-
 
 	focus = {
 		id = NZL_the_world_stage
@@ -3202,7 +3218,7 @@ focus_tree = {
 
 		bypass = {	
 			OR = {
-				has_war_with = NEP
+				has_war_with = USA
 				NOT = { country_exists = USA }
 				USA = { is_puppet_of = NZL }
 			}
@@ -3210,7 +3226,7 @@ focus_tree = {
 
 		completion_reward = {
 			USA = {
-					add_opinion_modifier = {
+				add_opinion_modifier = {
 					target = ROOT
 					modifier = established_emmbassy
 				}
@@ -3224,271 +3240,21 @@ focus_tree = {
 	}
 
 
-	focus = {
-		id = NZL_protection_of_workers_rights
-		icon = GFX_focus_generic_full_employment
-		cost = 10
-		x = 2
-		y = 1
-		prerequisite = { focus = NZL_first_reform_bill }
-		relative_position_id = NZL_first_reform_bill
-
-		available = {
-			has_country_flag = {
-				flag = NZL_reform_flag
-				days > 365
-			}
-			NOT = {
-				has_country_flag = NZL_social_security_act_passed
-			}
-		
-		}
-
-
-		completion_reward = {
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = NZL_bob_semple
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_popularity = {
-				ideology = communism
-				popularity = 0.05
-			}
-			add_ideas = NZL_workers_protection_idea
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-
-	focus = {
-		id = NZL_miner_protection
-		icon = GFX_goal_generic_coal_mining
-		cost = 8
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_protection_of_workers_rights }
-		relative_position_id = NZL_protection_of_workers_rights
-
-		available = {
-			NOT = {
-				has_country_flag = NZL_social_security_act_passed
-			}
-		}
-
-		completion_reward = {
-			add_ideas = NZL_miner_protection_idea
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = NZL_universal_medical_benefits 
-		icon = GFX_focus_generic_field_hostpital
-		prerequisite = { focus = NZL_unenmployment_benefit }
-		relative_position_id = NZL_unenmployment_benefit
-		x = 1
-		y = 1
-	
-		cost = 5
-	
-		ai_will_do = {
-			factor = 35
-		}
-
-		available = {
-			NOT = {
-				has_country_flag = NZL_social_security_act_passed
-			}
-		}
-	
-		completion_reward = {
-			add_ideas = NZL_universal_medical_benefits_idea
-		}
-
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = NZL_fair_hour_work # 40 hr week
-		icon = GFX_goal_generic_foreign_diplomacy
-		prerequisite = { focus = NZL_protection_of_workers_rights }
-		relative_position_id = NZL_protection_of_workers_rights
-		x = 1
-		y = 1
-
-		available = {
-			NOT = {
-				has_country_flag = NZL_social_security_act_passed
-			}
-		}
-	
-		cost = 8
-	
-		ai_will_do = {
-			factor = 35
-		}
-
-		completion_reward = {
-			add_ideas = NZL_worker_fair_hour_work_idea
-			set_country_flag = NZL_reform_flag_2
-		}
-
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = NZL_pension_plans # Old Age Pension/Pensions for Workers hurt
-		icon = GFX_goal_generic_socdem
-		prerequisite = { focus = NZL_unenmployment_benefit }
-		relative_position_id = NZL_unenmployment_benefit
-		x = -1
-		y = 1
-	
-		cost = 5
-	
-		ai_will_do = {
-			factor = 35
-		}
-
-		available = {
-			NOT = {
-				has_country_flag = NZL_social_security_act_passed
-			}
-		}
-
-		completion_reward = {
-			add_ideas = NZL_pension_plans_idea
-		}
-
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-
-	focus = {
-		id = NZL_welfare_assurance_bill
-		icon = GFX_goal_generic_bills
-		cost = 4
-		x = 1
-		y = 1
-		prerequisite = { focus = NZL_pension_plans }
-		prerequisite = { focus = NZL_universal_medical_benefits }
-		relative_position_id = NZL_pension_plans
-
-		available = {
-			NOT = {
-				has_country_flag = NZL_social_security_act_passed
-			}
-		}
-
-		completion_reward = {
-			custom_effect_tooltip = NZL_merge_national_idea_tt
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = NZL_welfare_assurance_bill_idea
-			hidden_effect = {
-				remove_ideas = {
-					NZL_pension_plans_idea
-					NZL_universal_medical_benefits_idea
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = NZL_worker_and_fair_hours_bill 
-		icon = GFX_focus_generic_self_management
-		cost = 4
-		x = -1
-		y = 1
-		prerequisite = { focus = NZL_miner_protection  focus = NZL_fair_hour_work }
-		relative_position_id = NZL_fair_hour_work
-
-		available = {
-			NOT = {
-				has_country_flag = NZL_social_security_act_passed
-			}
-		}
-
-		completion_reward = {
-			if = {
-				limit = {
-					has_idea = NZL_miner_protection_idea
-					has_idea = NZL_workers_protection_idea
-					has_idea = NZL_worker_fair_hour_work_idea
-				}
-				add_ideas = NZL_worker_and_fair_hours_bill_idea_united
-			}
-			else_if = {
-				limit = {
-					has_idea = NZL_miner_protection_idea
-					has_idea = NZL_workers_protection_idea
-				}
-				add_ideas = NZL_worker_and_fair_hours_bill_idea_miner
-			}
-			else_if = {
-				limit = {
-					has_idea = NZL_workers_protection_idea
-					has_idea = NZL_worker_fair_hour_work_idea
-				}
-				add_ideas = NZL_worker_and_fair_hours_bill_idea_fair_hour
-			}
-			else = {
-				custom_effect_tooltip = NZL_merge_national_idea_additional_tt
-			}
-
-			hidden_effect = {
-				if = {
-					limit = {
-						has_idea = NZL_miner_protection_idea
-						has_idea = NZL_workers_protection_idea
-						has_idea = NZL_worker_fair_hour_work_idea
-					}
-					remove_ideas = {
-						NZL_miner_protection_idea
-						NZL_workers_protection_idea
-						NZL_worker_fair_hour_work_idea
-					}
-				}
-				else_if = {
-					limit = {
-						has_idea = NZL_miner_protection_idea
-						has_idea = NZL_workers_protection_idea
-					}
-					remove_ideas = {
-						NZL_miner_protection_idea
-						NZL_workers_protection_idea
-					}			
-				}
-				else_if = {
-					limit = {
-						has_idea = NZL_workers_protection_idea
-						has_idea = NZL_worker_fair_hour_work_idea
-					}
-					remove_ideas = {
-						NZL_worker_fair_hour_work_idea
-						NZL_workers_protection_idea
-					}
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-
 	# The Final Reform
 	focus = {
 		id = NZL_the_social_security_acts
 		icon = GFX_focus_generic_treaty
 		cost = 8
-		x = 1
-		y = 2
+		x = 0
+		y = 3
 		available = {
 			has_country_flag = {
 				flag = NZL_reform_flag
 				days > 180
 			}
 		}
-		prerequisite = {  focus = NZL_first_reform_bill focus = NZL_worker_and_fair_hours_bill focus = NZL_welfare_assurance_bill }
-		relative_position_id = NZL_universal_medical_benefits
+		prerequisite = {  focus = NZL_first_reform_bill }
+		relative_position_id = NZL_first_reform_bill
 		completion_reward = {
 			# Don't really have any ideas on extra spice here, just merging the previous ideas together... ?
 			set_country_flag = NZL_social_security_act_passed
@@ -13023,7 +12789,9 @@ focus_tree = {
 		y = 1
 	
 		cost = 5
-	
+		available = {
+			always = no
+		}
 	
 		ai_will_do = {
 			
