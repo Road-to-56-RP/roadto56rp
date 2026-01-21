@@ -1462,4 +1462,67 @@ on_actions = {
 			}
 		}
 	}
+
+	on_ruling_party_change = {
+		effect = {
+			if = {
+				limit = {
+					original_tag = SOV
+					has_country_flag = R56rp_soviet_ssrs
+					NOT = { has_government = communism }
+				}
+				clr_country_flag = R56rp_soviet_ssrs
+			}
+			if = {
+				limit = {
+					original_tag = SOV
+					NOT = {
+						has_country_flag = R56rp_soviet_ssrs
+					}
+					has_government = communism
+				}
+				set_country_flag = R56rp_soviet_ssrs
+			}
+			if = {
+				limit = {
+					original_tag = YUG
+					OR = {
+						has_government = communism
+						has_government = fascism
+					}
+					FRA = {
+						has_guaranteed = YUG
+						OR = {
+							has_government = democratic
+							has_government = neutrality
+						}
+					}
+				}
+				FRA = {
+					diplomatic_relation = {
+						country = YUG
+						relation = guarantee
+						active = no
+					}
+				}
+			}
+			if = {
+				limit = {
+					original_tag = FRA
+					has_government = communism
+					has_guaranteed = YUG
+					YUG = {
+						has_government = neutrality
+					}
+				}
+				FRA = {
+					diplomatic_relation = {
+						country = YUG
+						relation = guarantee
+						active = no
+					}
+				}
+			}
+		}
+	}
 }

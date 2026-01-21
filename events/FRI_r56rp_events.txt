@@ -1,0 +1,116 @@
+add_namespace = FRI_r56rp
+add_namespace = FRI_r56rp_purchase_malaya
+
+country_event = {
+	id = FRI_r56rp.1
+	title = FRI_r56rp.1.t
+	desc = FRI_r56rp.1.d
+	picture = GFX_report_event_chinese_soldiers_01
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FRI_r56rp.1.a
+	}
+}
+country_event = {
+	id = FRI_r56rp.2
+	title = FRI_r56rp.2.t
+	desc = FRI_r56rp.2.d
+	picture = GFX_report_event_chinese_soldiers_01
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FRI_r56rp.2.a
+		ai_chance = {	base = 10 }
+	}
+}
+country_event = {
+	id = FRI_r56rp.3
+	title = FRI_r56rp.3.t
+	desc = FRI_r56rp.3.d
+	picture = GFX_report_event_chinese_soldiers_01
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FRI_r56rp.3.a
+		ai_chance = {	base = 10 }
+	}
+}
+
+country_event = { # Stage a Diplomatic Incident
+	id = FRI_r56rp.4
+	title = FRI_r56rp.4.t
+	desc = FRI_r56rp.4.d
+	picture = GFX_report_event_chinese_soldiers_01
+
+	is_triggered_only = yes
+	
+	option = { # Fuck you, we'll fight
+		name = FRI_r56rp.4.a
+		ai_chance = {	base = 10 }
+		FRI = {
+			country_event = { id = FRI_r56rp.5 hours = 6 }
+		}
+	}
+	option = { # Fine, do not come back...
+		name = FRI_r56rp.4.b
+		ai_chance = {	base = 10 }
+		effect_tooltip = {
+			868 = {
+				transfer_state_to = FRI
+			}
+			869 = {
+				transfer_state_to = FRI
+			}
+		}
+		FRI = {
+			country_event = { id = FRI_r56rp.6 hours = 6 }
+		}
+	}
+}
+country_event = {
+	id = FRI_r56rp.5
+	title = FRI_r56rp.5.t
+	desc = FRI_r56rp.5.d
+	picture = GFX_report_event_chinese_soldiers_01
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FRI_r56rp.5.a
+		ai_chance = {	base = 10 }
+		hidden_effect = {
+			news_event = { days = 5 id = r56rp_news.1 }
+		}
+		create_wargoal = {
+			target = SIA
+			type = annex_everything
+		}	
+	}
+}
+country_event = {
+	id = FRI_r56rp.6
+	title = FRI_r56rp.6.t
+	desc = FRI_r56rp.6.d
+	picture = GFX_report_event_chinese_soldiers_01
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FRI_r56rp.6.a
+		ai_chance = {	base = 10 }
+		868 = {
+			transfer_state_to = FRI
+			add_compliance = 35
+			add_resistance = 15
+		}
+		869 = {
+			transfer_state_to = FRI
+			add_compliance = 35
+			add_resistance = 15
+		}
+	}
+}

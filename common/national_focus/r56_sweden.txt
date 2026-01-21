@@ -5405,36 +5405,87 @@ focus_tree = {
     }
 	focus = {
 		id = SWE_gotaverken_shipyards
-        icon = GFX_goal_generic_construct_naval_dockyard
-        prerequisite = { focus = SWE_expand_husqvarnas_factories }
-        mutually_exclusive = { }
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = SWE_expand_husqvarnas_factories }
+		mutually_exclusive = { }
 		relative_position_id = SWE_expand_husqvarnas_factories
-        x = 0
-        y = 1
-        cost = 5
+		x = 0
+		y = 1
+		cost = 5
 
 		completion_reward = {
 			navy_experience = 25
 			random_owned_controlled_state = {
 				limit = {
-                    free_building_slots = {
-                        building = dockyard
-                        size > 2
-                        include_locked = no
-                    }
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = no
+					}
 					is_core_of = ROOT					
 				}				
 				prioritize = { 140 }
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = dockyard
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = SWE_r56rp_expand_ship_building_industry
+		icon = GFX_goal_generic_multiple_ships
+		prerequisite = { focus = SWE_gotaverken_shipyards }
+		relative_position_id = SWE_gotaverken_shipyards
+		x = 0
+		y = 1
+		cost = 5
+
+		completion_reward = {
+			navy_experience = 25
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = no
+					}
+					is_core_of = ROOT					
+				}				
+				prioritize = { 140 }
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
 					level = 2
 					instant_build = yes
 				}
 			}
+			if = {
+				limit = { 
+					140 = {
+						is_fully_controlled_by = ROOT
+						air_facility < 1
+						land_facility < 1
+						naval_facility < 1
+						nuclear_facility < 1
+					}
+				}
+
+				140 = {
+					add_building_construction = {
+						type = naval_facility
+						level = 1
+						instant_build = yes
+						province = 383
+					}
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
-    }	
+	}
     focus = {
         id = SWE_infrastructure_development
         icon = GFX_goal_generic_road2
@@ -6158,10 +6209,10 @@ focus_tree = {
 					is_core_of = ROOT					
 				}				
 				prioritize = { 141 }
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 4
 				add_building_construction = {
 					type = dockyard
-					level = 2
+					level = 4
 					instant_build = yes
 				}
 			}

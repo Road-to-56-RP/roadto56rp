@@ -1,0 +1,145 @@
+# Tanks
+
+FRI_hotchkiss_coloniale_organization = {
+	include = generic_mobile_tank_organization
+	icon = GFX_idea_generic_tank_manufacturer_3
+	allowed = {	
+		tag = FRI 
+		has_dlc = "Arms Against Tyranny"
+	}
+	available = {
+		FROM = {
+			NOT = {
+				has_war_with = FRA
+			}
+			has_completed_focus = FRI_r56rp_bring_over_french_companies
+		}
+	}
+	add_trait = { 
+		token = FRA_mio_trait_l_35
+		name = FRA_mio_trait_l_35
+		icon = GFX_generic_mio_department_icon_tank_general_weapons
+		special_trait_background = yes # R56
+		any_parent = { generic_mio_enlarged_breech }
+		relative_position_id = generic_mio_enlarged_breech
+		position = { x=1 y=2 }  
+		equipment_bonus = {
+			hard_attack = 0.05
+			ap_attack = 0.05
+		}  
+	}
+
+	override_trait = {
+		token = generic_mio_gunner_sight_improvements
+		position = { x=-1 y=2}
+	}
+}
+
+
+# Naval
+FRI_fcm_organization_coloniale = {
+	include = generic_escort_ship_organization
+	icon = GFX_idea_fcm
+	allowed = {	
+		tag = FRI 
+		has_dlc = "Arms Against Tyranny"
+	}
+	
+	available = {
+		FROM = {
+			NOT = {
+				has_war_with = FRA
+			}
+			has_completed_focus = FRI_r56rp_bring_over_french_companies
+		}
+	}
+	# R56
+	initial_trait = {
+		name = generic_mio_initial_trait_escort_fleet
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+		production_bonus = {
+			production_capacity_factor = 0.05
+		}
+	}
+	###
+}
+
+# Planes
+
+FRI_morane_saulnier_coloniale_organization = {
+	include = generic_light_aircraft_organization
+	icon = GFX_idea_morane_saulnier
+	allowed = {	
+		tag = FRI 
+		has_dlc = "Arms Against Tyranny"
+	}
+	available = {
+		FROM = {
+			NOT = {
+				has_war_with = FRA
+			}
+			has_completed_focus = FRI_r56rp_bring_over_french_companies
+		}
+	}
+	visible = {
+	}
+	# R56
+	initial_trait = {
+		name = generic_mio_initial_trait_light_aircraft_designer
+
+		equipment_bonus = {
+			air_agility = 0.05
+			maximum_speed = 0.05
+			air_attack = 0.05
+		}
+	}
+	###
+
+	add_trait = { 
+		token = FRA_r56rp_nationalisation_trait_1
+		name = SOV_merge_tank_plant
+		icon = GFX_generic_mio_trait_icon_maximum_speed
+		special_trait_background = yes
+
+		position = { x=0 y=0 }
+		
+		visible = {
+			FROM = { original_tag = FRA }
+		}
+
+		available = { #Three FROM blocs to provide two different check marks in the UI
+			FROM = {
+				has_completed_focus = FRA_nationalize_key_aircraft_industries
+			}
+		}
+
+		equipment_bonus = {
+			maximum_speed = @tank_max_speed
+		}
+	}
+	add_trait = { 
+		token = FRA_r56rp_nationalisation_trait_2
+		name = SOV_merge_tank_plant
+		icon = GFX_generic_mio_trait_icon_maximum_speed
+		special_trait_background = yes
+
+		position = { x=0 y=1 }
+		
+		visible = {
+			FROM = { original_tag = FRA }
+		}
+
+		available = { #Three FROM blocs to provide two different check marks in the UI
+			FROM = {
+				has_completed_focus = FRA_nationalize_key_aircraft_industries
+			}
+		}
+
+		equipment_bonus = {
+			maximum_speed = @tank_max_speed
+		}
+	}
+}

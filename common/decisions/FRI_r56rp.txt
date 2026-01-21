@@ -1,0 +1,269 @@
+FRI_r56rp_larmee_coloniale_cat = {
+	FRI_r56rp_expand_local_recruitment = {
+
+		icon = GFX_decision_generic_belgian_colonial_helmet 
+		
+		allowed = {
+			original_tag = FRI
+		}
+
+		visible = {
+			OR = {
+				has_idea = FRI_colonial_army
+				has_idea = FRI_colonial_army_1
+				has_idea = FRI_colonial_army_2
+				has_idea = FRI_colonial_army_3
+			}
+		}
+
+		cost = 50
+
+		days_remove = 70
+
+		remove_effect = {
+			FRI_r56rp_colonial_army_level_up = yes
+			add_war_support = 0.1
+		}
+	}
+	FRI_r56rp_crack_down_on_vietnamese_insurgents = {
+
+		icon = GFX_decision_generic_arrest
+
+		allowed = {
+			original_tag = FRI
+		}
+
+		days_remove = 70
+
+		cost = 25
+
+		modifier = {
+			stability_weekly_factor = -0.01
+		}
+
+		remove_effect = {
+			add_days_mission_timeout = {
+				mission = r56_FRI_nationist_uprising_2
+				days = 120
+			}
+		}
+	}
+	FRI_r56rp_silence_the_insurgents = {
+
+		icon = GFX_decision_oppression
+
+		allowed = {
+			original_tag = FRI
+		}
+
+		available = {
+			has_completed_focus = FRI_crackdown_on_communists_organisations
+			has_army_manpower = {
+				size > 200000 #200k
+			}
+			arms_factory > 14
+			industrial_complex > 24
+		}
+
+		days_remove = 90
+
+		cost = 25
+
+		modifier = {
+			stability_weekly_factor = -0.01
+		}
+
+		remove_effect = {
+			set_country_flag = FRI_r56rp_silenced_vietnamese_insurgents
+			if = {
+				limit = {
+					has_idea = FRI_calmed_vietnamese_nationalism
+				}
+				remove_ideas = FRI_calmed_vietnamese_nationalism
+			}
+		}
+	}
+
+}
+FRI_r56rp_zone_administrative_de_lempire_francais_en_extreme_orient = {
+	FRI_r56rp_secure_the_bay_of_tonkin = {
+		
+		allowed = {
+			original_tag = FRI
+		}
+
+		visible = {
+			has_completed_Focus = FRI_r56rp_naval_drills
+		}
+
+		available = {
+			has_army_manpower = {
+				size > 200000 #200k
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 50
+
+		days_remove = 30
+
+		remove_effect = {
+			every_other_country = {
+				limit = {
+					NOT = { is_in_faction_with = ROOT }
+					NOT = { is_subject_of = ROOT }
+					any_owned_state = {
+						OR = {
+							state = 1112
+							state = 591
+						}
+					}
+				}
+				ROOT = {
+					create_wargoal = {
+						target = PREV
+						type = take_state_focus
+						expire = 0
+					}
+				}
+			}
+		}
+	}
+	FRI_r56rp_integrate_the_bay_of_tonkin = {
+		
+		allowed = {
+			original_tag = FRI
+		}
+
+		visible = {
+			1112 = {
+				is_owned_and_controlled_by = ROOT
+			}
+			591 = {
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 50
+
+		days_remove = 30
+
+		remove_effect = {
+			1112 = {
+				add_core_of = ROOT
+			}
+			591 = {
+				add_core_of = ROOT
+			}			
+		}
+	}
+	FRI_r56rp_restabilize_the_malay_lands = {
+
+		allowed = {
+			original_tag = FRI
+		}
+
+		visible = {
+			has_completed_focus = FRI_r56rp_restore_stability_to_malaya
+		}
+
+		fire_only_once = yes
+
+		cost = 50
+
+		days_remove = 120
+
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = MAL
+					is_owned_and_controlled_by = ROOT
+				}
+				add_core_of = ROOT
+			}
+		}
+	}
+	FRI_r56rp_stabilize_the_east_indies = {
+
+		allowed = {
+			original_tag = FRI
+		}
+
+		visible = {
+			335 = {
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 50 
+
+		days_remove = 120
+
+		remove_effect = {
+			every_state = {
+				limit = {
+					is_core_of = INS
+					is_owned_and_controlled_by = ROOT
+				}
+				add_core_of = ROOT
+			}
+		}
+	}
+	FRI_r56rp_test_the_siamese_dec = {
+
+		icon = border_war
+
+		allowed = {
+			original_tag = FRI
+		}
+
+		visible = {
+			has_completed_focus = FRI_r56rp_test_the_siamese
+		}
+
+		available = {
+			has_war = no
+			OVERLORD = {
+				has_war = no
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 15
+
+		days_remove = 45
+
+		complete_effect = {
+			SIA = {
+				country_event = { id = FRI_r56rp.1 hours = 3 }
+			}
+		}
+
+		remove_effect = {
+			random_list = {
+				50 = {
+					FRI = {
+						country_event = { id = FRI_r56rp.2 hours = 3 }
+					}
+					SIA = {
+						country_event = { id = FRI_r56rp.3 hours = 3 }
+					}
+				}
+				50 = {
+					FRI = {
+						country_event = { id = FRI_r56rp.3 hours = 3 }
+					}
+					SIA = {
+						country_event = { id = FRI_r56rp.2 hours = 3 }
+					}
+				}
+			}
+		}
+	}
+}
