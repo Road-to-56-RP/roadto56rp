@@ -127,3 +127,649 @@ ITA_r56rp_latin_influence_category = {
 		}
 	}
 }
+ITA_colonial_management_dec_cat = {
+	ITA_r56rp_colonial_government_in_north_africa = {
+
+		icon = GFX_decision_generic_colonial_administration
+
+		allowed = {
+			original_tag = ITA # Italy
+		}
+
+		fire_only_once = yes
+
+		available = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			custom_trigger_tooltip = {
+				tooltip = ITA_r56rp_required_libyan_states_tt
+				OR = {
+					AND = {
+						OR = {
+							ITA = {
+								owns_state = 448 # Tripoli
+							}
+							any_country = {
+								is_subject_of = ITA
+								owns_state = 448 # Tripoli
+							}
+						}
+						OR = {
+							ITA = {
+								owns_state = 661 # Tripolitania
+							}
+							any_country = {
+								is_subject_of = ITA
+								owns_state = 661 # Tripolitania
+							}
+						}
+						OR = {
+							ITA = {
+								owns_state = 662 # Sirte
+							}
+							any_country = {
+								is_subject_of = ITA
+								owns_state = 662 # Sirte
+							}
+						}
+						OR = {
+							ITA = {
+								owns_state = 449 # El Agheila
+							}
+							any_country = {
+								is_subject_of = ITA
+								owns_state = 449 # El Agheila
+							}
+						}
+						OR = {
+							ITA = {
+								owns_state = 450 # Benghasi
+							}
+							any_country = {
+								is_subject_of = ITA
+								owns_state = 450 # Benghasi
+							}
+						}
+						OR = {
+							ITA = {
+								owns_state = 663 # Cyrenaica
+							}
+							any_country = {
+								is_subject_of = ITA
+								owns_state = 663 # Cyrenaica
+							}
+						}
+						OR = {
+							ITA = {
+								owns_state = 451 # Dema
+							}
+							any_country = {
+								is_subject_of = ITA
+								owns_state = 451 # Dema
+							}
+						}
+					}
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			original_tag = ITA # Italy
+			NOT = { has_global_flag = italian_north_africa_flag }
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = ITA_r56rp_italian_north_africa_founded_tt
+			hidden_effect = {
+				set_global_flag = italian_north_africa_flag
+				LBA = {
+					transfer_state = 448
+				}
+				# Wello
+				LBA = {
+					transfer_state = 661
+				}
+				# Afar
+				LBA = {
+					transfer_state = 662
+				}
+				# Tigray
+				LBA = {
+					transfer_state = 449
+				}
+				# Begemder
+				LBA = {
+					transfer_state = 450
+				}
+				# Eritrea
+				LBA = {
+					transfer_state = 663
+				}
+				# Gojjam
+				LBA = {
+					transfer_state = 451
+				}
+				LBA = {
+					transfer_state = 273
+				}
+				
+
+				set_autonomy = {
+				    target = LBA
+				    autonomy_state = autonomy_puppet
+				    end_wars = no
+				    end_civil_wars = no
+				}
+
+				LBA = {
+					add_manpower = 75000
+					add_political_power = 300
+					army_experience = 75
+					add_ideas = {
+						AOI_africa_orientale_italiana_idea
+						ITA_army_of_east_africa
+						ITA_governor_commissariats
+					}
+					set_technology = {
+						r56_militia_tech = 1
+					}
+					add_offsite_building = { type = industrial_complex level = 6 }
+					add_offsite_building = { type = arms_factory level = 7 }
+					add_equipment_to_stockpile = {
+					    type = infantry_equipment
+					    amount = 25000
+					    producer = ITA
+					}
+					add_equipment_to_stockpile = {
+						type = artillery_equipment
+						amount = 125
+						producer = ITA
+					}
+					add_equipment_to_stockpile = {
+						type = support_equipment
+						amount = 1575
+						producer = ITA
+					}
+					add_equipment_to_stockpile = {
+						type = anti_air_equipment
+						amount = 75
+						producer = ITA
+					}	
+					if = {
+						limit = {
+							has_dlc = "La Resistance"
+						}
+						create_intelligence_agency = yes
+					}
+					set_cosmetic_tag = LBA_italian_north_africa
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 250
+		}
+	}
+	ITA_r56rp_give_tunisia_to_italian_north_africa = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_infiltrate_state
+
+		allowed = {
+			original_tag = ITA # Italy
+		}
+
+		available = {
+			LBA = {
+				exists = yes
+				is_subject_of = ROOT
+			}
+			OR = {
+				ITA = {
+					controls_state = 665 # Gabès
+					controls_state = 458 # Tunisia
+				}
+				any_country = {
+					is_subject_of = ITA
+					controls_state = 665 # Gabès
+					controls_state = 458 # Tunisia
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			original_tag = ITA # Italy
+			has_global_flag = italian_north_africa_flag
+			NOT = {
+				has_global_flag = italian_north_africa_has_tunis
+			}
+		}
+
+		complete_effect = {
+
+			# British Somaliland
+			LBA = {
+				transfer_state = 665
+			}
+			LBA = {
+				transfer_state = 458
+			}
+
+			hidden_effect = {
+				set_global_flag = italian_north_africa_has_tunis
+			}
+		}
+
+		ai_will_do = {
+			factor = 400
+		}
+	}
+	ITA_r56rp_give_northern_egypt_to_italian_north_africa = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_infiltrate_state
+
+		allowed = {
+			original_tag = ITA # Italy
+		}
+
+		available = {
+			LBA = {
+				exists = yes
+				is_subject_of = ROOT
+			}
+			OR = {
+				ITA = {
+					controls_state = 452 # Matrouh
+					controls_state = 447 # Alexandria
+					controls_state = 907 # Cairo
+				}
+				any_country = {
+					is_subject_of = ITA
+					controls_state = 452 # Matrouh
+					controls_state = 447 # Alexandria
+					controls_state = 907 # Cairo
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			original_tag = ITA # Italy
+			has_global_flag = italian_north_africa_flag
+			NOT = {
+				has_global_flag = italian_north_africa_has_north_egypt
+			}
+		}
+
+		complete_effect = {
+
+			# French Somaliland
+			LBA = {
+				transfer_state = 452
+			}
+			LBA = {
+				transfer_state = 447
+			}
+			LBA = {
+				transfer_state = 907
+			}
+
+			hidden_effect = {
+				set_global_flag = italian_north_africa_has_north_egypt
+			}
+		}
+
+		ai_will_do = {
+			factor = 400
+		}
+	}
+	ITA_r56rp_give_southern_egypt_to_italian_north_africa = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_infiltrate_state
+
+		allowed = {
+			original_tag = ITA # Italy
+		}
+
+		available = {
+			LBA = {
+				exists = yes
+				is_subject_of = ROOT
+			}
+			OR = {
+				ITA = {
+					controls_state = 456 # Aswan
+					controls_state = 457 # Eastern Desert
+				}
+				any_country = {
+					is_subject_of = ITA
+					controls_state = 456 # Aswan
+					controls_state = 457 # Eastern Desert
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			original_tag = ITA # Italy
+			has_global_flag = italian_north_africa_flag
+			NOT = {
+				has_global_flag = italian_north_africa_has_south_egypt
+			}
+		}
+
+		complete_effect = {
+
+			# Garissa
+			LBA = {
+				transfer_state = 456
+			}
+			LBA = {
+				transfer_state = 457
+			}
+			LBA = {
+				transfer_state = 552
+			}
+
+			hidden_effect = {
+				set_global_flag = italian_north_africa_has_south_egypt
+			}
+		}
+
+		ai_will_do = {
+			factor = 400
+		}
+	}
+	ITA_r56rp_give_sudan_to_the_aoi = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_infiltrate_state
+
+		allowed = {
+			original_tag = ITA # Italy
+		}
+
+		available = {
+			AOI = {
+				exists = yes
+			}
+			OR = {
+				ITA = {
+					controls_state = 883 # Kassala
+					controls_state = 551 # Khartoum
+					controls_state = 886 # Blue Nile
+					controls_state = 549 # Kurdufan
+					controls_state = 887 # West Darfur
+					controls_state = 884 # Upper Nile
+					controls_state = 885 # Bahr Al Ghazal
+				}
+				any_country = {
+					is_subject_of = ITA
+					controls_state = 883 # Kassala
+					controls_state = 551 # Khartoum
+					controls_state = 886 # Blue Nile
+					controls_state = 549 # Kurdufan
+					controls_state = 887 # West Darfur
+					controls_state = 884 # Upper Nile
+					controls_state = 885 # Bahr Al Ghazal
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			original_tag = ITA # Italy
+			has_global_flag = italian_east_africa_flag
+			NOT = {
+				has_global_flag = italian_east_africa_has_sudan_flag
+			}
+		}
+
+		complete_effect = {
+
+			# Garissa
+			AOI = {
+				transfer_state = 883
+			}
+			AOI = {
+				transfer_state = 551
+			}
+			AOI = {
+				transfer_state = 886
+			}
+			AOI = {
+				transfer_state = 549
+			}
+			AOI = {
+				transfer_state = 887
+			}
+			AOI = {
+				transfer_state = 884
+			}
+			AOI = {
+				transfer_state = 885
+			}
+			AOI = {
+				transfer_state = 767
+			}
+
+			hidden_effect = {
+				set_global_flag = italian_east_africa_has_sudan_flag
+			}
+		}
+
+		ai_will_do = {
+			factor = 400
+		}
+	}
+	ITA_r56rp_send_more_men_to_italian_north_africa = {
+
+		cost = 10
+
+		days_re_enable = 91
+
+		icon = GFX_decision_eng_blackshirt_march
+
+		allowed = {
+			original_tag = ITA # Italy
+		}
+
+		available = {
+			LBA = {
+				exists = yes
+			}
+			ITA = {
+				has_manpower > 10000
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			original_tag = ITA # Italy
+			has_global_flag = italian_east_africa_flag
+		}
+
+		complete_effect = {
+
+			ITA = {
+				add_manpower = -10000
+			}
+
+			LBA = {
+				add_manpower = 10000
+				army_experience = 15
+			}
+			every_state = {
+				limit = {
+					is_owned_and_controlled_by = LBA
+					NOT = {
+						is_core_of = LBA
+					}
+				}
+				add_resistance = -5
+			}
+
+			hidden_effect = {
+
+			}
+		}
+
+		ai_will_do = {
+			factor = 20
+		}
+	}
+	ITA_r56rp_send_more_weapons_to_italian_north_africa = {
+
+		cost = 10
+
+		days_re_enable = 91
+
+		icon = GFX_decision_generic_prepare_civil_war
+
+		allowed = {
+			original_tag = ITA # Italy
+		}
+
+		available = {
+			LBA = {
+				exists = yes
+			}
+			has_equipment = {
+				infantry_equipment > 2000
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			original_tag = ITA # Italy
+			has_global_flag = italian_east_africa_flag
+		}
+
+		complete_effect = {
+
+			ITA = {
+				send_equipment = {
+				    equipment = infantry_equipment
+				    amount = 2000
+				    target = LBA
+				}
+			}
+
+			every_state = {
+				limit = {
+					is_owned_and_controlled_by = LBA
+					NOT = {
+						is_core_of = LBA
+					}
+				}
+				add_resistance = -5
+			}
+
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 10
+				has_equipment = {
+					infantry_equipment > 5000
+				}
+			}
+		}
+	}
+	ITA_r56rp_formalize_the_italian_north_african_state = {
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_infiltrate_state
+
+		allowed = {
+			original_tag = ITA # Italy
+		}
+
+		available = {
+			LBA = {
+				exists = yes
+				is_subject_of = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = ITA_r56rp_compliance_north_africa
+				665 = {
+					compliance > 39
+				}
+				458 = {
+					compliance > 39
+				}
+				452 = {
+					compliance > 39
+				}
+				447 = {
+					compliance > 39
+				}
+				907 = {
+					compliance > 39
+				}
+				456 = {
+					compliance > 39
+				}
+				457 = {
+					compliance > 39
+				}
+				552 = {
+					compliance > 39
+				}
+
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_ministry_of_italian_africa
+			original_tag = ITA # Italy
+			has_global_flag = italian_north_africa_flag
+		}
+
+		complete_effect = {
+
+			665 = {
+				add_core_of = LBA
+			}
+			458 = {
+				add_core_of = LBA
+			}
+			452 = {
+				add_core_of = LBA
+			}
+			447 = {
+				add_core_of = LBA
+			}
+			907 = {
+				add_core_of = LBA
+			}
+			456 = {
+				add_core_of = LBA
+			}
+			457 = {
+				add_core_of = LBA
+			}
+			552 = {
+				add_core_of = LBA
+			}
+		}
+	}
+}

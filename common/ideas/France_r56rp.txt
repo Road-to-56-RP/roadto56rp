@@ -35,5 +35,399 @@ ideas = {
 				conscription_factor = -0.15
 			}
 		}
+
+		FRA_r56rp_civilian_research_idea = {
+			name = FRA_r56rp_civilian_research
+
+			picture = generic_research_by_example
+
+			allowed = {
+				always = no
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				research_speed_factor = 0.05
+			}
+			research_bonus = { 
+				industry = 0.15
+			}
+		}
+		FRA_r56rp_military_focused_research_idea = {
+			name = FRA_r56rp_military_focused_research
+
+			picture = generic_research_by_example
+
+			allowed = {
+				always = no
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				research_speed_factor = 0.05
+			}
+			research_bonus = {
+				infantry_weapons = 0.10
+				artillery = 0.10
+			}
+		}
+
+
+		r56rp_bilateral_trade_agreement = {
+			picture = can_wartime_prices_and_trade_board
+
+			allowed = {
+				always = yes
+			}
+		
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+					has_war = yes
+					NOT = {
+						OR = {
+							has_idea = export_focus
+							has_idea = free_trade
+						}
+						
+					}
+				}
+				NOT = {
+					has_government = democratic
+				}
+			}
+
+			modifier = {
+				ai_license_acceptance = 25 
+				hidden_modifier = { #the player shouldn't see this
+					ai_desired_divisions_factor = -0.15
+					ai_focus_military_advancements_factor = 0.50
+				}
+			}
+
+			cancel = {
+			 	has_war_with = FRA
+			}
+
+			targeted_modifier = {
+				tag = FRA
+				trade_cost_for_target_factor = -0.15
+			}
+		}
+
+		FRA_r56rp_dynamic_market_stimulation = {
+			picture = RAJ_issue_bonds_on_the_stock_market
+
+			allowed = {
+				always = yes
+			}
+		
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = {
+				OR = {
+					is_subject = yes
+					is_puppet = yes
+					has_war = yes
+					NOT = {
+						OR = {
+							has_idea = export_focus
+							has_idea = free_trade
+						}
+						
+					}
+				}
+				NOT = {
+					has_government = democratic
+				}
+			}
+
+			modifier = {
+				trade_opinion_factor = 0.20
+				political_power_gain = 0.15
+			}
+
+			cancel = {
+			 	has_war_with = FRA
+			}
+		}
+
+		r56rp_FRA_fortify_marianne = {
+			picture = generic_fortify_the_borders
+
+		 	allowed = {
+		 		original_tag = FRA
+		 		always = no
+		 	}
+
+		 	allowed_civil_war = {
+		 		always = yes
+		 	}
+		 	
+		 	removal_cost = -1
+
+		 	modifier = {
+		 		production_speed_coastal_bunker_factor = 0.2
+		 		production_speed_bunker_factor = 0.2
+		 	}
+		}
+
+		r56rp_FRA_agricultural_national_office = {
+			picture = LIT_invested_in_farms
+
+		 	allowed = {
+		 		original_tag = FRA
+		 		always = no
+		 	}
+
+		 	allowed_civil_war = {
+		 		always = yes
+		 	}
+		 	
+		 	removal_cost = -1
+
+		 	modifier = {
+				local_supply_impact_factor = -0.05
+		 		local_factories = 0.10
+		 	}
+		}
+
+
+		r56rp_FRA_rebuilding_the_escadre_de_ligne = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = neutrality
+			}
+
+			removal_cost = -1
+
+			picture = generic_coastal_defense_ships2
+
+			equipment_bonus = {
+				ship_hull_heavy = {
+					build_cost_ic = -0.15 instant = yes
+				}
+			}
+		}
+
+		r56rp_FRA_reorganizing_naval_groups = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = neutrality
+			}
+
+			removal_cost = -1
+
+			picture = generic_navy_cruiser_warfare
+
+			modifier = {
+				experience_gain_navy_factor = -1
+				navy_org_factor = -0.1
+				naval_morale_factor = -0.3
+			}
+		}
+		# Decolon
+		# Transitional Goverment France Blobs
+		r56rp_FRA_transitional_goverment = {
+			picture = generic_victors_of_ww1
+
+			modifier = { 
+				autonomy_gain = 2
+				compliance_gain = 0.07
+				political_power_factor = -0.05
+			}
+		}
+
+		# French Union
+		
+		r56rp_FRA_french_union_leader = {
+
+			picture = FRA_undividable
+	
+			removal_cost = -1	
+	
+			allowed = {
+				has_dlc = "By Blood Alone"
+				original_tag = ITA
+			}
+
+			allowed_civil_war = {
+				has_completed_focus = ITA_the_italian_confederation
+			}
+
+			cancel = {
+				num_subjects < 1
+			}
+			
+			modifier = {
+				consumer_goods_factor = -0.12
+				subjects_autonomy_gain = -0.2
+			}
+		}
+
+		r56rp_FRA_french_union_leader_improved = {
+			name = r56rp_FRA_french_union_leader
+
+			picture = FRA_undividable
+	
+			removal_cost = -1	
+	
+			allowed = {
+				has_dlc = "By Blood Alone"
+				original_tag = ITA
+			}
+
+			allowed_civil_war = {
+				has_completed_focus = ITA_planned_economy
+			}
+
+			cancel = {
+				num_subjects < 1
+			}
+			
+			modifier = {
+				consumer_goods_factor = -0.15
+				subjects_autonomy_gain = -0.3
+				research_speed_factor = 0.05
+			}
+		}
+
+		r56rp_FRA_french_union_member = {
+
+			picture = FRA_undividable
+	
+			removal_cost = -1	
+	
+			allowed = {
+				has_dlc = "By Blood Alone"
+			}
+
+			cancel = {
+				NOT = { is_subject_of = ITA }
+			}
+			
+			modifier = {
+				global_building_slots_factor = 0.2
+				stability_factor = 0.05
+				political_power_factor = 0.1
+				can_master_build_for_us = 1
+			}
+		}
+
+		r56rp_FRA_french_union_member_improved = {
+			name = r56rp_FRA_french_union_member
+
+			picture = FRA_undividable
+	
+			removal_cost = -1	
+	
+			allowed = {
+				has_dlc = "By Blood Alone"
+			}
+
+			cancel = {
+				NOT = { is_subject_of = ITA }
+			}
+			
+			modifier = {
+				global_building_slots_factor = 0.4
+				stability_factor = 0.05
+				political_power_factor = 0.1
+				consumer_goods_factor = -0.15
+				production_speed_buildings_factor = 0.1
+				cic_to_overlord_factor = 0.3
+				mic_to_overlord_factor = 0.3
+				extra_trade_to_overlord_factor = 0.3
+				research_speed_factor = 0.05
+			}
+		}
+	}
+
+	industrial_concern = {
+		FRA_oriental_development_company = { 
+
+			picture = ARG_rapid_militarization
+
+			allowed = {
+				original_tag = FRA
+			}
+
+			visible = {
+				NOT = {
+					has_completed_focus = FRA_r56rp_expand_the_oriental_company
+				}
+			}
+
+			available = {
+				has_completed_focus = FRA_r56rp_societe_financiere_francaise_et_coloniale
+			}
+
+			research_bonus = {
+			}
+
+			ai_will_do = {
+				base = 1
+			}
+		
+			traits = { colonial_investments_company } 
+
+			modifier = {
+				non_core_manpower = 0.01
+				local_resources_factor = 0.05
+				resistance_target = -0.05
+				production_speed_infrastructure_factor = 0.05
+			}
+		}
+
+		FRA_oriental_development_company_upgraded = { 
+
+			name = FRA_oriental_development_company
+
+			picture = ARG_rapid_militarization
+
+			allowed = {
+				original_tag = FRA
+			}
+
+			visible = {
+				has_completed_focus = FRA_r56rp_expand_the_oriental_company
+			}
+
+			available = {
+				has_completed_focus = FRA_r56rp_expand_the_oriental_company
+			}
+
+			research_bonus = {
+			}
+
+			ai_will_do = {
+				base = 1
+			}
+		
+			traits = { colonial_investments_company } 
+
+			modifier = {
+				non_core_manpower = 0.02
+				local_resources_factor = 0.1
+				resistance_target = -0.1
+				production_speed_infrastructure_factor = 0.15
+				consumer_goods_factor = -0.05
+			}
+		}
 	}
 }

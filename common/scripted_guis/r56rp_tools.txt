@@ -244,6 +244,7 @@ scripted_gui = {
 						set_variable = { steel_selected = 1 }
 						set_variable = { chromium_selected = 1 }
 						set_variable = { tungsten_selected = 1 }
+						set_variable = { coal_selected = 1}
 						
 						set_variable = { aluminium_ammount = 0 }
 						set_variable = { oil_ammount = 0 }
@@ -251,6 +252,7 @@ scripted_gui = {
 						set_variable = { steel_ammount = 0 }
 						set_variable = { chromium_ammount = 0 }
 						set_variable = { tungsten_ammount = 0 }
+						set_variable = { coal_ammount = 0}
 
 						clear_array = resource_list
 
@@ -277,13 +279,15 @@ scripted_gui = {
 						set_variable = { steel_selected = 1 }
 						set_variable = { chromium_selected = 1 }
 						set_variable = { tungsten_selected = 1 }
-
+						set_variable = { coal_selected = 1}
+						
 						set_variable = { aluminium_ammount = 0 }
 						set_variable = { oil_ammount = 0 }
 						set_variable = { rubber_ammount = 0 }
 						set_variable = { steel_ammount = 0 }
 						set_variable = { chromium_ammount = 0 }
 						set_variable = { tungsten_ammount = 0 }
+						set_variable = { coal_ammount = 0}
 
 						clear_array = resource_list
 
@@ -298,6 +302,7 @@ scripted_gui = {
 						set_variable = { steel_ammount = PREV.resource@steel }
 						set_variable = { chromium_ammount = PREV.resource@chromium }
 						set_variable = { tungsten_ammount = PREV.resource@tungsten }
+						set_variable = { coal_ammount = PREV.resource@coal }
 						
 					}
 					else_if = {
@@ -315,6 +320,7 @@ scripted_gui = {
 						set_variable = { steel_ammount = PREV.resource@steel }
 						set_variable = { chromium_ammount = PREV.resource@chromium }
 						set_variable = { tungsten_ammount = PREV.resource@tungsten }
+						set_variable = { coal_ammount = PREV.resource@coal }
 					}	
 				}
 			}
@@ -423,6 +429,24 @@ scripted_gui = {
 						}
 						else = {
 							set_variable = { ROOT.chromium_selected = 2 }
+							add_to_array = { resource_list = 6}
+						}	
+					}
+				}
+				resource_button_coal_click = {
+					ROOT = {
+						if = {
+							limit = { check_variable = { ROOT.coal_selected = 1 } } 
+							set_variable = { ROOT.coal_selected = 2 }
+							add_to_array = { resource_list = 6}
+						}
+						else_if = {
+							limit = { check_variable = { ROOT.coal_selected = 2 } }
+							set_variable = { ROOT.coal_selected = 1 }
+							remove_from_array = { resource_list = 6 }
+						}
+						else = {
+							set_variable = { ROOT.coal_selected = 2 }
 							add_to_array = { resource_list = 6}
 						}	
 					}
@@ -599,6 +623,22 @@ scripted_gui = {
 						THIS.resource@chromium > 0
 					}
 				}
+				resource_button_coal_click_enabled = {
+					NOT = {
+						ROOT = {
+							has_country_flag = rt_waiting
+						}
+					}
+					check_variable = {
+						ROOT.state_lock = 2
+					}
+					check_variable = {
+						THIS = ROOT.state_lock_id
+					}
+					check_variable = {
+						THIS.resource@coal > 0
+					}
+				}
 		}
 		properties = {
 			#resources
@@ -619,6 +659,9 @@ scripted_gui = {
 				}
 				resource_button_chromium = {
 					frame = ROOT.chromium_selected
+				}
+				resource_button_coal = {
+					frame = ROOT.coal_selected
 				}
 
 			state_lock = {
@@ -985,6 +1028,8 @@ scripted_gui = {
 							has_idea = r56rp_ht_no_volunteers_idea
 						}
 						remove_ideas = r56rp_ht_no_volunteers_idea
+					}
+					ELSE = {
 						every_country = {
 							limit = {
 								has_volunteers_amount_from = {
@@ -994,8 +1039,7 @@ scripted_gui = {
 							}
 							recall_volunteers_from = PREV
 						}
-					}
-					ELSE = {
+
 						add_ideas = r56rp_ht_no_volunteers_idea
 					}
 				}
