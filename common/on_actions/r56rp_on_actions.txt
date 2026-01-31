@@ -1460,6 +1460,51 @@ on_actions = {
 				}
 				set_cosmetic_tag = JAP_r56rp_MAN_puppet
 			}
+			if = {
+				limit = {
+					AND = {
+						tag = MOR
+						has_cosmetic_tag = MOR_french_morroco
+						NOT = {
+							is_subject_of = FRA
+						}
+					}
+				}
+				drop_cosmetic_tag = MOR_french_morroco
+			}
+			if = {
+				limit = {
+					AND = {
+						tag = MOR
+						has_cosmetic_tag = MOR_french_morroco
+						NOT = {
+							is_subject_of = FRA
+						}
+					}
+				}
+				drop_cosmetic_tag = MOR_french_morroco
+			}
+		}
+	}
+
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+					any_other_country = {
+						limit = {
+							has_war_with = FROM
+							has_country_flag = tradeagreement_@FROM
+						}
+					}
+				}
+				PREV = {
+					clr_country_flag = tradeagreement_@FROM
+				}
+				FROM = {
+					clr_country_flag = tradeagreement_@PREV
+				}
+			}
 		}
 	}
 
