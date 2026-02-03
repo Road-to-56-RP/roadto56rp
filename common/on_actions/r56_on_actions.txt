@@ -721,51 +721,6 @@ on_actions = {
 						limit = { POL = { has_government = neutrality } }
 						POL = { country_event = poland.196 }
 					}
-					else_if = {
-						limit = { POL = { has_government = democratic } }
-						if = {
-							limit = {
-								POL = {
-									NOT = { has_completed_focus = POL_The_Polish_Socialist_Party }
-									NOT = { has_completed_focus = POL_The_Endecja_Movement }
-								}
-							}
-							add_offsite_building = { type = arms_factory level = 1 }
-							create_country_leader = {
-								name = "Władysław Sikorski"
-								desc = " "
-								picture = "Portrait_Poland_Wladyslaw_Sikorski.dds"
-								expire = "1965.1.1"
-								ideology = liberalism
-								traits = {
-									democratic_reformer
-									r56_trait_opposed_to_communism
-								}
-							}
-						}
-						else_if = {
-							limit = { POL = { has_completed_focus = POL_The_Polish_Socialist_Party } }
-							POL = { country_event = poland.198 }
-						}
-						else = {
-							hidden_effect = {
-								retire_character = POL_roman_dmowski
-							}
-							create_country_leader = {
-								name = "Tadeusz Bielecki"
-								desc = " "
-								picture = "r56_portrait_POL_Tadeusz_Bielecki.dds"
-								expire = "1965.1.1"
-								ideology = conservatism
-								traits = {
-									polish_nationalist
-									political_pragmatist
-									dislikes_germany
-								}
-							}
-							POL = { set_party_name = { ideology = democratic long_name = POL_NOW_long name = POL_NOW_party } }
-						}
-					}
 				}
 
 				94 = { add_core_of = BLR }		#removed Bialystok - not a Belarussian core! - Fantom
@@ -3785,7 +3740,6 @@ on_actions = {
 				limit = {
 					original_tag = POL
 					has_government = fascism
-					has_completed_focus = POL_The_National_Radical_Camp
 					is_subject = no
 				}
 				news_event = {
@@ -5005,17 +4959,6 @@ on_actions = {
 						expire = "1965.1.1"
 						ideology = stalinism
 					}
-				}
-				if = { #SOV
-					limit = {
-						is_puppet_of = SOV
-						POL = {
-							has_government = communism
-							NOT = { has_completed_focus = POL_The_Endecja_Movement }
-							NOT = { has_completed_focus = POL_The_Polish_Socialist_Party }
-						}
-					}
-					POL = { set_party_name = { ideology = democratic long_name = POL_PSL_long name = POL_PSL_party } }
 				}
 				if = {
 					limit = {
@@ -21179,40 +21122,6 @@ on_actions = {
 				swap_ideas = {
 					remove_idea = evacuated_assets_r56_law
 					add_idea = war_economy
-				}
-			}
-
-			if = { #MOD. OPT
-				limit = { original_tag = POL }
-				drop_cosmetic_tag = yes
-				POL = { set_party_name = { ideology = fascism long_name = POL_fascism_party_long name = POL_fascism_party } }
-				if = {
-					limit = {
-						has_completed_focus = POL_The_Endecja_Movement
-					}
-					set_party_name = { ideology = democratic long_name = POL_ND_party_long name = POL_ND_party }
-				}
-				else_if = {
-					limit = {
-						has_completed_focus = POL_The_Polish_Socialist_Party
-					}
-					set_party_name = { ideology = democratic long_name = POL_PPS_party_long name = POL_PPS_party }
-				}
-				else = {
-					if = {
-						limit = {
-							NOT = { is_puppet_of = SOV }
-							NOT = { has_government = communism }
-						}
-						set_party_name = { ideology = democratic long_name = POL_democratic_party_long name = POL_democratic_party }
-					}
-					else_if = {
-						limit = {
-							is_puppet_of = SOV
-							has_government = communism
-						}
-						POL = { set_party_name = { ideology = democratic long_name = POL_PSL_long name = POL_PSL_party } }
-					}
 				}
 			}
 			if = {
