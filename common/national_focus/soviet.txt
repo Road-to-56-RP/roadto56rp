@@ -11638,29 +11638,9 @@ focus_tree = {
 		relative_position_id = SOV_regional_development
 		
 		cost = 5
-
+		
 		completion_reward = {
 			custom_effect_tooltip = SOV_autonomous_soviet_republics_tt
-			# Georgia
-			IF = {
-				limit = {
-					231 = { is_owned_and_controlled_by = ROOT }
-					GEO = {
-						exists = no
-					}
-				}
-				release_autonomy = {
-					target = GEO
-					autonomy_state = autonomy_puppet
-					freedom_level = 0.5
-				}
-				GEO = {
-					add_ideas = {
-						SOV_system_decentralization_idea
-						SOV_the_local_soviets_idea
-					}
-				}
-			}
 			# Armenia
 			IF = {
 				limit = {
@@ -11681,9 +11661,67 @@ focus_tree = {
 					}
 				}
 			}
+			# Georgia
+			if = {
+				limit = {
+					231 = { is_owned_and_controlled_by = ROOT }
+					GEO = {
+						exists = no
+					}
+					ARM = {
+						is_subject_of = ROOT
+					}
+				}
+				GEO = {
+					every_core_state = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+						}
+						transfer_state_to = ARM
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					231 = { is_owned_and_controlled_by = ROOT }
+					GEO = {
+						exists = no
+					}
+				}
+				release_autonomy = {
+					target = GEO
+					autonomy_state = autonomy_puppet
+					freedom_level = 0.5
+				}
+				GEO = {
+					add_ideas = {
+						SOV_system_decentralization_idea
+						SOV_the_local_soviets_idea
+					}
+				}
+			}
 
 			# Azerbaijan
-			IF = {
+			if = {
+				limit = {
+					229 = { is_owned_and_controlled_by = ROOT }
+					AZR = {
+						exists = no
+					}
+					ARM = {
+						is_subject_of = ROOT
+					}
+				}
+				AZR = {
+					every_core_state = {
+						limit = {
+							is_owned_and_controlled_by = ROOT
+						}
+						transfer_state_to = ARM
+					}
+				}
+			}
+			else_if = {
 				limit = {
 					229 = { is_owned_and_controlled_by = ROOT }
 					AZR = {
@@ -11699,6 +11737,38 @@ focus_tree = {
 					add_ideas = {
 						SOV_system_decentralization_idea
 						SOV_the_local_soviets_idea
+					}
+				}
+			}
+			if = {
+				limit = {
+					229 = {
+						is_owned_and_controlled_by = ARM
+					}
+					231 = {
+						is_owned_and_controlled_by = ARM
+					}
+					ARM = {
+						is_subject_of = ROOT
+					}
+				}
+				ARM = {
+					set_cosmetic_tag = ARM_transcaucasian_ssr
+				}
+				AZR = {
+					every_core_state = {
+						limit = {
+							is_owned_and_controlled_by = ARM
+						}
+						add_core_of = ARM
+					}
+				}
+				GEO = {
+					every_core_state = {
+						limit = {
+							is_owned_and_controlled_by = ARM
+						}
+						add_core_of = ARM
 					}
 				}
 			}
