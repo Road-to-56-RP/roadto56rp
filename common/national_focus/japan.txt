@@ -29,7 +29,18 @@ focus_tree = {
 	}
 
 
+	initial_show_position = { x = 9 y = 0 }
+
 	#Focus Path shortcuts	
+	shortcut = {
+		name = JAP_r56rp_the_rice_rebellion_shortcut
+		target = JAP_r56rp_the_rice_rebellion
+		scroll_wheel_factor = 0.8
+		trigger = {
+			has_country_flag = JAP_r56rp_rice_rebellion_started
+		}
+	}
+
 	shortcut = {
 		name = JAP_military_doctrine_shortcut
 		target = JAP_the_imperial_defense_plan
@@ -104,7 +115,7 @@ focus_tree = {
 	inlay_window = {
 		id = jap_imperial_influence_inlay_window
 		
-		position = { X = 10000 y = 700 }
+		position = { x = -10000 y = -10000 }
 
 		override_position = {
 			x = 6800
@@ -314,6 +325,7 @@ focus_tree = {
 				}
 				clr_country_flag = JAP_pending_imperial_influence_decision
 				clr_country_flag = JAP_interfered_in_imperial_influence_flag
+				mark_focus_tree_layout_dirty = yes
 			}
 		}
 
@@ -2346,8 +2358,9 @@ focus_tree = {
 	focus = {
 		id = JAP_r56rp_navy_plot_c
 		icon = GFX_r56rp_goal_JAP_yonais_conspiracy_icon
-		x = 3
-		y = 17
+		relative_position_id = JAP_r56rp_a_strong_coalition
+		x = -10
+		y = 0
 		cost = 10
 		allow_branch = {
 			AND = {
@@ -2356,39 +2369,8 @@ focus_tree = {
 		}
 		available = { has_country_flag = JAP_r56rp_no_cooperation_flag }	
 		completion_reward = {
-			if = {	
-				limit = {
-					NOT = { has_government = neutrality }
-				}
-				set_cosmetic_tag = JAP_r56rp_NAOP
-				add_popularity = { ideology = neutrality popularity = 0.80 }
-				hidden_effect = {
-					add_dynamic_modifier = {
-						modifier = r56rp_JAP_navy_coup_power
-					}
-				}
-				set_politics = {
-					ruling_party = neutrality
-					elections_allowed = no
-					long_name = JAP_r56rp_navaladmin_party
-					name = JAP_r56rp_navaladmin_party
-				}
-				add_country_leader_role = {
-					character = r56rp_JAP_communist_leaders_navyleader_yonai
-					promote_leader = yes
-					country_leader = {
-						ideology = despotism
-						traits = { dictator }
-						expire = "1950.9.12.6"
-					}
-				}
-				remove_ideas = JAP_r56rp_militarism_rampage
-			}
-			effect_tooltip = {
-				add_ideas = r56rp_JAP_navy_coup_power_idea_starting
-			}
+			JAP_r56rp_install_yonai_naval_government = yes
 			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = JAP_interservice_rivalry_navy_dominant
 		}
 
 		search_filters = {
@@ -2410,7 +2392,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = JAP_r56rp_establish_yonai_tt
 			add_to_variable = { JAP_navy_coup_stability_factor = 0.15 }
-			add_to_variable = {	JAP_navy_coup_politcal_power_gain = 0.05 }
+			add_to_variable = { JAP_navy_coup_political_power_gain = 0.05 }
 		}
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -2661,7 +2643,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = JAP_r56rp_raid_manchu_ports_tt
 			add_to_variable = { JAP_navy_coup_stability_factor = 0.15 }
-			add_to_variable = {	JAP_navy_coup_politcal_power_gain = 0.05 }
+			add_to_variable = { JAP_navy_coup_political_power_gain = 0.05 }
 			add_to_variable = { JAP_navy_coup_naval_night_attack = 0.05 }
 			
 		}
@@ -2725,7 +2707,7 @@ focus_tree = {
 		}
 	}
 
-		focus = {
+	focus = {
 		id = JAP_r56rp_mitsubishi_canidate
 		icon = GFX_focus_RAJ_the_crown_and_the_world
 		relative_position_id = JAP_r56rp_royal_coronation_navy
@@ -2733,23 +2715,712 @@ focus_tree = {
 			focus = JAP_r56rp_royal_coronation_navy
 		}		
 		available = {
-			has_country_flag = r56rp_miyaginavy_japanese_monarch
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
 		}			
 		allow_branch = {
-			has_country_flag = r56rp_miyaginavy_japanese_monarch
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
 		}
 		x = -4
 		y = 1
 		cost = 10
 
 		completion_reward = {
-			swap_ideas = {
-				remove_idea = JAP_r56rp_the_naval_state
-				add_idea = JAP_r56rp_the_naval_state_2
-			}
+			add_stability = 0.03
+			add_political_power = 50
+			add_ideas = JAP_r56rp_mitsubishi_ties
 		}
 
 		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_mitsubishi_zaibatsu_compact
+		icon = GFX_goal_generic_construct_mil_factory
+		relative_position_id = JAP_r56rp_mitsubishi_canidate
+		prerequisite = {
+			focus = JAP_r56rp_mitsubishi_canidate
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		}
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_to_variable = { JAP_navy_coup_production_speed_industrial_complex_factor = 0.05 }
+			add_to_variable = { JAP_navy_coup_production_speed_arms_factory_factor = 0.05 }
+			add_political_power = 50
+			random_core_state = {
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_mitsubishi_keiretsu_armament_boards
+		icon = GFX_goal_generic_production
+		relative_position_id = JAP_r56rp_mitsubishi_zaibatsu_compact
+		prerequisite = {
+			focus = JAP_r56rp_mitsubishi_zaibatsu_compact
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		}
+		x = 2
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_political_power = 50
+			add_ideas = JAP_r56rp_keiretsu_armament_boards_idea
+			add_to_variable = { JAP_navy_coup_production_speed_arms_factory_factor = 0.05 }
+			army_experience = 20
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_ARMY_XP
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_mitsubishi_imperial_patent_offices
+		icon = GFX_goal_generic_scientific_exchange
+		relative_position_id = JAP_r56rp_mitsubishi_keiretsu_armament_boards
+		prerequisite = {
+			focus = JAP_r56rp_mitsubishi_keiretsu_armament_boards
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		}
+		x = -2
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_research_slot = 1
+			add_ideas = JAP_r56rp_imperial_patent_offices_idea
+			add_to_variable = { JAP_navy_coup_production_speed_industrial_complex_factor = 0.03 }
+			add_to_variable = { JAP_navy_coup_production_speed_dockyard_factor = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_mitsubishi_throne_arsenal
+		icon = GFX_goal_generic_construct_military
+		relative_position_id = JAP_r56rp_mitsubishi_imperial_patent_offices
+		prerequisite = {
+			focus = JAP_r56rp_mitsubishi_imperial_patent_offices
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		}
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_stability = 0.05
+			add_to_variable = { JAP_navy_coup_production_speed_arms_factory_factor = 0.05 }
+			add_to_variable = { JAP_navy_coup_production_speed_dockyard_factor = 0.05 }
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_hohenzollern_military_mission
+		icon = GFX_goal_generic_allies_build_infantry
+		relative_position_id = JAP_r56rp_royal_coronation_navy
+		prerequisite = {
+			focus = JAP_r56rp_royal_coronation_navy
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		x = -4
+		y = 1
+		cost = 10
+		completion_reward = {
+			army_experience = 35
+			add_to_variable = { JAP_navy_coup_army_infantry_attack_factor = 0.03 }
+			add_to_variable = { JAP_navy_coup_army_infantry_defence_factor = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_hohenzollern_industrial_links
+		icon = GFX_focus_secret_rearmament
+		relative_position_id = JAP_r56rp_hohenzollern_military_mission
+		prerequisite = {
+			focus = JAP_r56rp_hohenzollern_military_mission
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_ideas = JAP_r56rp_hohenzollern_ties
+			add_to_variable = { JAP_navy_coup_production_speed_arms_factory_factor = 0.05 }
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_hohenzollern_staff_colleges
+		icon = GFX_goal_generic_army_doctrines
+		relative_position_id = JAP_r56rp_hohenzollern_industrial_links
+		prerequisite = {
+			focus = JAP_r56rp_hohenzollern_industrial_links
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		x = 2
+		y = 1
+		cost = 10
+		completion_reward = {
+			army_experience = 45
+			add_ideas = JAP_r56rp_prussian_staff_mission
+			add_to_variable = { JAP_navy_coup_army_infantry_attack_factor = 0.03 }
+			add_to_variable = { JAP_navy_coup_army_infantry_defence_factor = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_hohenzollern_armaments_exchange
+		icon = GFX_goal_generic_construct_military
+		relative_position_id = JAP_r56rp_hohenzollern_staff_colleges
+		prerequisite = {
+			focus = JAP_r56rp_hohenzollern_staff_colleges
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		x = -2
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_ideas = JAP_r56rp_german_armaments_lobby
+			add_to_variable = { JAP_navy_coup_production_speed_arms_factory_factor = 0.05 }
+			random_core_state = {
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_hohenzollern_imperial_general_staff
+		icon = GFX_goal_generic_major_war
+		relative_position_id = JAP_r56rp_hohenzollern_armaments_exchange
+		prerequisite = {
+			focus = JAP_r56rp_hohenzollern_armaments_exchange
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		}
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_war_support = 0.05
+			add_to_variable = { JAP_navy_coup_army_infantry_attack_factor = 0.04 }
+			add_to_variable = { JAP_navy_coup_army_infantry_defence_factor = 0.04 }
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_windsor_naval_mission
+		icon = GFX_goal_generic_navy_battleship
+		relative_position_id = JAP_r56rp_royal_coronation_navy
+		prerequisite = {
+			focus = JAP_r56rp_royal_coronation_navy
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		x = -4
+		y = 1
+		cost = 10
+		completion_reward = {
+			navy_experience = 35
+			add_to_variable = { JAP_navy_coup_naval_light_gun_hit_chance_factor = 0.03 }
+			add_to_variable = { JAP_navy_coup_naval_heavy_gun_hit_chance_factor = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_NAVY_XP
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_windsor_commonwealth_channels
+		icon = GFX_goal_generic_political_pressure
+		relative_position_id = JAP_r56rp_windsor_naval_mission
+		prerequisite = {
+			focus = JAP_r56rp_windsor_naval_mission
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_ideas = JAP_r56rp_windsor_ties
+			add_to_variable = { JAP_navy_coup_production_speed_dockyard_factor = 0.05 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_windsor_admiralty_standards
+		icon = GFX_goal_generic_navy_cruiser
+		relative_position_id = JAP_r56rp_windsor_commonwealth_channels
+		prerequisite = {
+			focus = JAP_r56rp_windsor_commonwealth_channels
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		x = 2
+		y = 1
+		cost = 10
+		completion_reward = {
+			navy_experience = 40
+			add_ideas = JAP_r56rp_admiralty_standards_idea
+			add_to_variable = { JAP_navy_coup_naval_light_gun_hit_chance_factor = 0.04 }
+			add_to_variable = { JAP_navy_coup_naval_heavy_gun_hit_chance_factor = 0.02 }
+		}
+		search_filters = {
+			FOCUS_FILTER_NAVY_XP
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_windsor_pacific_convoys
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		relative_position_id = JAP_r56rp_windsor_admiralty_standards
+		prerequisite = {
+			focus = JAP_r56rp_windsor_admiralty_standards
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		x = -2
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_to_variable = { JAP_navy_coup_production_speed_dockyard_factor = 0.05 }
+			add_to_variable = { JAP_navy_coup_naval_torpedo_cooldown_factor = -0.03 }
+			navy_experience = 25
+		}
+		search_filters = {
+			FOCUS_FILTER_NAVY_XP
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_windsor_constitutional_court
+		icon = GFX_goal_generic_dangerous_deal
+		relative_position_id = JAP_r56rp_windsor_pacific_convoys
+		prerequisite = {
+			focus = JAP_r56rp_windsor_pacific_convoys
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_windsor
+		}
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_stability = 0.07
+			add_political_power = 75
+			add_ideas = JAP_r56rp_windsor_constitutional_court_idea
+			add_to_variable = { JAP_navy_coup_stability_factor = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_romanov_white_emigre_guard
+		icon = GFX_goal_generic_demand_territory
+		relative_position_id = JAP_r56rp_royal_coronation_navy
+		prerequisite = {
+			focus = JAP_r56rp_royal_coronation_navy
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		x = -4
+		y = 1
+		cost = 10
+		completion_reward = {
+			army_experience = 25
+			add_war_support = 0.05
+			add_ideas = JAP_r56rp_white_emigre_guard_idea
+			add_to_variable = { JAP_navy_coup_army_infantry_attack_factor = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_romanov_anti_bolshevik_crusade
+		icon = GFX_goal_generic_propaganda
+		relative_position_id = JAP_r56rp_romanov_white_emigre_guard
+		prerequisite = {
+			focus = JAP_r56rp_romanov_white_emigre_guard
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_ideas = JAP_r56rp_romanov_ties
+			add_political_power = 50
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_romanov_transamur_host
+		icon = GFX_goal_generic_army_artillery
+		relative_position_id = JAP_r56rp_romanov_anti_bolshevik_crusade
+		prerequisite = {
+			focus = JAP_r56rp_romanov_anti_bolshevik_crusade
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		x = 2
+		y = 1
+		cost = 10
+		completion_reward = {
+			army_experience = 35
+			add_war_support = 0.03
+			add_to_variable = { JAP_navy_coup_army_infantry_attack_factor = 0.04 }
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_romanov_orthodox_patronage
+		icon = GFX_goal_generic_national_unity
+		relative_position_id = JAP_r56rp_romanov_transamur_host
+		prerequisite = {
+			focus = JAP_r56rp_romanov_transamur_host
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		x = -2
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_stability = 0.06
+			add_political_power = 50
+			add_ideas = JAP_r56rp_orthodox_patronage_idea
+			add_to_variable = { JAP_navy_coup_stability_factor = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_romanov_northern_mandate
+		icon = GFX_goal_generic_war_with_comintern
+		relative_position_id = JAP_r56rp_romanov_orthodox_patronage
+		prerequisite = {
+			focus = JAP_r56rp_romanov_orthodox_patronage
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_monarch_romanov
+		}
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_war_support = 0.06
+			add_to_variable = { JAP_navy_coup_army_infantry_attack_factor = 0.04 }
+			add_to_variable = { JAP_navy_coup_political_power_gain = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_ARMY_XP
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_declare_the_grand_regency
+		icon = GFX_focus_generic_monarchy_1
+		relative_position_id = JAP_r56rp_royal_coronation_navy
+		prerequisite = {
+			focus = JAP_r56rp_royal_coronation_navy
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		x = -4
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_ideas = JAP_r56rp_grand_regency
+			add_stability = 0.05
+			add_to_variable = { JAP_navy_coup_political_power_gain = 0.05 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_yonai_permanent_mandate
+		icon = GFX_goal_generic_political_pressure
+		relative_position_id = JAP_r56rp_declare_the_grand_regency
+		prerequisite = {
+			focus = JAP_r56rp_declare_the_grand_regency
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_political_power = 75
+			add_war_support = 0.05
+			add_to_variable = { JAP_navy_coup_stability_factor = 0.05 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_yonai_emergency_naval_cabinet
+		icon = GFX_goal_generic_political_pressure
+		relative_position_id = JAP_r56rp_yonai_permanent_mandate
+		prerequisite = {
+			focus = JAP_r56rp_yonai_permanent_mandate
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		x = 2
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = JAP_r56rp_emergency_naval_cabinet_idea
+			add_to_variable = { JAP_navy_coup_political_power_gain = 0.05 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_yonai_regency_security_bureau
+		icon = GFX_goal_generic_secret_weapon
+		relative_position_id = JAP_r56rp_yonai_emergency_naval_cabinet
+		prerequisite = {
+			focus = JAP_r56rp_yonai_emergency_naval_cabinet
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		x = -2
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.03
+			add_ideas = JAP_r56rp_regency_security_bureau_idea
+			add_to_variable = { JAP_navy_coup_stability_factor = 0.04 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_yonai_admiralty_state
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		relative_position_id = JAP_r56rp_yonai_regency_security_bureau
+		prerequisite = {
+			focus = JAP_r56rp_yonai_regency_security_bureau
+		}
+		available = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		allow_branch = {
+			has_country_flag = JAP_r56rp_yonai_grand_regency
+		}
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			navy_experience = 50
+			add_to_variable = { JAP_navy_coup_production_speed_dockyard_factor = 0.05 }
+			add_to_variable = { JAP_navy_coup_naval_night_attack = 0.03 }
+		}
+		search_filters = {
+			FOCUS_FILTER_NAVY_XP
 			FOCUS_FILTER_POLITICAL
 		}
 	}
@@ -2775,6 +3446,7 @@ focus_tree = {
 		}
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			NOT = { has_dlc = "No Compromise, No Surrender" }
 			if = {
 				limit = {
@@ -3836,6 +4508,7 @@ focus_tree = {
 		}
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			NOT = {
 				has_dlc = "No Compromise, No Surrender"
 			}
@@ -3932,6 +4605,7 @@ focus_tree = {
 		}
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			NOT = {
 				has_dlc = "No Compromise, No Surrender"
 			}
@@ -6252,6 +6926,7 @@ focus_tree = {
 		}
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			has_dlc = "No Compromise, No Surrender"
 			IF = {
 				limit = {
@@ -6385,6 +7060,7 @@ focus_tree = {
 		}
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			has_dlc = "No Compromise, No Surrender"
 			IF = {
 				limit = {
@@ -9688,6 +10364,7 @@ focus_tree = {
 		}
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			IF = {
 				limit = {
 					has_game_rule = {
@@ -18917,6 +19594,10 @@ focus_tree = {
 			}
 		}
 
+		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
+		}
+
 		cost = 5
 
 		ai_will_do = {
@@ -18986,6 +19667,7 @@ focus_tree = {
 		relative_position_id = JAP_bribe_generals
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			has_dlc = "No Compromise, No Surrender"
 			IF = {
 				limit = {
@@ -19045,6 +19727,7 @@ focus_tree = {
 		relative_position_id = JAP_bribe_generals
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			has_dlc = "No Compromise, No Surrender"
 			IF = {
 				limit = {
@@ -19109,6 +19792,10 @@ focus_tree = {
 		prerequisite = { focus = JAP_implement_army_reforms }
 		prerequisite = { focus = JAP_appoint_new_generals }
 
+		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
+		}
+
 		cost = 10
 
 		ai_will_do = {
@@ -19158,6 +19845,10 @@ focus_tree = {
 
 		prerequisite = { focus = JAP_a_new_take_on_state_shintoism }
 
+		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
+		}
+
 		cost = 10
 
 		ai_will_do = {
@@ -19200,6 +19891,10 @@ focus_tree = {
 		relative_position_id = JAP_secretly_rebuild_the_party
 
 		prerequisite = { focus = JAP_secretly_rebuild_the_party }
+
+		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
+		}
 
 		cost = 5
 
@@ -19887,6 +20582,7 @@ focus_tree = {
 		relative_position_id = JAP_revoke_the_peace_preservation_law
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			has_dlc = "No Compromise, No Surrender"
 			NOT = {
 				has_game_rule = {
@@ -24532,6 +25228,7 @@ focus_tree = {
 		relative_position_id = JAP_revoke_the_peace_preservation_law
 
 		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			has_dlc = "No Compromise, No Surrender"
 			IF = {
 				limit = {
@@ -27633,6 +28330,10 @@ focus_tree = {
 			factor = 3
 		}
 
+		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
+		}
+
 		available = {
 			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			
@@ -30673,6 +31374,10 @@ focus_tree = {
 			factor = 3
 		}
 
+		allow_branch = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
+		}
+
 		available = {
 			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			is_subject = no
@@ -32112,6 +32817,7 @@ focus_tree = {
 
 		allow_branch = {
 			has_dlc = "No Step Back"
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 		}
 
 		ai_will_do = {

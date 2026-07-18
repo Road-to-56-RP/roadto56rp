@@ -143,6 +143,8 @@ country_event = {
 			base = 99
 		}
 		set_country_flag = JAP_r56rp_no_cooperation_flag
+		complete_national_focus = JAP_r56rp_navy_plot_c
+		JAP_r56rp_install_yonai_naval_government = yes
 		mark_focus_tree_layout_dirty = yes
 		add_political_power = -50
 		add_stability = -0.075
@@ -364,7 +366,7 @@ country_event = { # Puppet Event
 			JAP = {
 				set_autonomy = {
 					target = FROM
-					autonomous_state = autonomy_dominion
+					autonomy_state = autonomy_asianworkerunion
 					end_wars = no
 					end_civil_wars = no
 				}
@@ -433,7 +435,7 @@ country_event = { # Free Event
 				JAP = {
 					set_autonomy = {
 						target = PREV
-						autonomous_state = autonomy_free
+						autonomy_state = autonomy_free
 						end_wars = no
 						end_civil_wars = no
 					}
@@ -461,7 +463,7 @@ country_event = {
 			JAP = {
 				set_autonomy = {
 					target = PREV
-					autonomous_state = autonomy_free
+					autonomy_state = autonomy_free
 					end_wars = no
 					end_civil_wars = no
 				}
@@ -492,7 +494,7 @@ country_event = {
 			JAP = {
 				set_autonomy = {
 					target = PREV
-					autonomous_state = autonomy_dominion
+					autonomy_state = autonomy_asianworkerunion
 					end_wars = no
 					end_civil_wars = no
 				}
@@ -547,11 +549,21 @@ country_event = {
 		}
 		if = {
 			limit = {
-				525 = {
-					is_owned_and_controlled_by = ROOT
+				OR = {
+					525 = {
+						is_owned_and_controlled_by = ROOT
+					}
+					KOR = {
+						is_subject_of = ROOT
+					}
 				}
-				328 = {
-					is_owned_and_controlled_by = ROOT
+				OR = {
+					328 = {
+						is_owned_and_controlled_by = ROOT
+					}
+					MAN = {
+						is_subject_of = ROOT
+					}
 				}
 			}
 			every_owned_state = {
@@ -566,7 +578,7 @@ country_event = {
 				}
 				add_core_of = ROOT
 			}
-			set_cosmetic_tag = JAP_r56rp_JAPMAN
+			set_cosmetic_tag = JAP_r56rp_SUJ_communism
 		}
 	}
 }
@@ -674,7 +686,18 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = r56rp_miyaginavy_japanese_monarch
+		set_country_flag = JAP_r56rp_yonai_monarch_hohenzollern
+		set_cosmetic_tag = JAP_r56rp_HOHENZOLLERN_EMPIRE
+		mark_focus_tree_layout_dirty = yes
 		JAP = {
+			if = {
+				limit = {
+					NOT = { has_character = JAP_wilhelm_iii }
+				}
+				recruit_character = JAP_wilhelm_iii
+			}
+			retire_country_leader = yes
 			add_country_leader_role = {
 				character = JAP_wilhelm_iii
 				promote_leader = yes
@@ -683,6 +706,7 @@ country_event = {
 					expire = "1965.1.1.1"
 				}
 			}
+			promote_character = JAP_wilhelm_iii
 		}
 	}
 	option = {
@@ -690,7 +714,18 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = r56rp_miyaginavy_japanese_monarch
+		set_country_flag = JAP_r56rp_yonai_monarch_windsor
+		set_cosmetic_tag = JAP_r56rp_WINDSOR_EMPIRE
+		mark_focus_tree_layout_dirty = yes
 		JAP = {
+			if = {
+				limit = {
+					NOT = { has_character = JAP_george_vi }
+				}
+				recruit_character = JAP_george_vi
+			}
+			retire_country_leader = yes
 			add_country_leader_role = {
 				character = JAP_george_vi
 				promote_leader = yes
@@ -699,6 +734,7 @@ country_event = {
 					expire = "1965.1.1.1"
 				}
 			}
+			promote_character = JAP_george_vi
 		}
 	}
 	option = {
@@ -706,7 +742,18 @@ country_event = {
 		ai_chance = {
 			base = 1
 		}
+		set_country_flag = r56rp_miyaginavy_japanese_monarch
+		set_country_flag = JAP_r56rp_yonai_monarch_romanov
+		set_cosmetic_tag = JAP_r56rp_ROMANOV_EMPIRE
+		mark_focus_tree_layout_dirty = yes
 		JAP = {
+			if = {
+				limit = {
+					NOT = { has_character = JAP_tsar_vladimir_kirillovich }
+				}
+				recruit_character = JAP_tsar_vladimir_kirillovich
+			}
+			retire_country_leader = yes
 			add_country_leader_role = {
 				character = JAP_tsar_vladimir_kirillovich
 				promote_leader = yes
@@ -715,13 +762,69 @@ country_event = {
 					expire = "1965.1.1.1"
 				}
 			}
+			promote_character = JAP_tsar_vladimir_kirillovich
 		}
 	}
 	option = {
-		name = JAP_r56rp_yonai_find_new_ifamily.1.d
+		name = JAP_r56rp_yonai_find_new_ifamily.1.e
 		ai_chance = {
 			base = 1
 		}
+		country_event = { id = JAP_r56rp_yonai_find_new_ifamily.2 }
+	}
+}
+
+country_event = {
+	id = JAP_r56rp_yonai_find_new_ifamily.2
+	title = JAP_r56rp_yonai_find_new_ifamily.2.t
+	desc = JAP_r56rp_yonai_find_new_ifamily.2.desc
+	picture = GFX_report_event_generic_usa_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = JAP_r56rp_yonai_find_new_ifamily.2.a
+		ai_chance = {
+			base = 1
+		}
+		set_country_flag = r56rp_miyaginavy_japanese_monarch
+		set_country_flag = JAP_r56rp_yonai_monarch_mitsubishi
+		set_cosmetic_tag = JAP_r56rp_IMPERIAL_ZAIBATSU
+		mark_focus_tree_layout_dirty = yes
+		JAP = {
+			if = {
+				limit = {
+					NOT = { has_character = JAP_mitsubishi_canidate }
+				}
+				recruit_character = JAP_mitsubishi_canidate
+			}
+			retire_country_leader = yes
+			add_country_leader_role = {
+				character = JAP_mitsubishi_canidate
+				promote_leader = yes
+				country_leader = {
+					ideology = absolute_monarchism
+					expire = "1965.1.1.1"
+				}
+			}
+			promote_character = JAP_mitsubishi_canidate
+		}
+	}
+	option = {
+		name = JAP_r56rp_yonai_find_new_ifamily.2.b
+		ai_chance = {
+			base = 1
+		}
+		set_country_flag = JAP_r56rp_yonai_grand_regency
+		set_cosmetic_tag = JAP_r56rp_NAVAL_REGENCY
+		mark_focus_tree_layout_dirty = yes
+	}
+	option = {
+		name = JAP_r56rp_yonai_find_new_ifamily.2.c
+		ai_chance = {
+			base = 1
+		}
+		country_event = { id = JAP_r56rp_yonai_find_new_ifamily.1 }
 	}
 }
 
