@@ -3952,3 +3952,143 @@ generic_refit_civilian_ships_category = {
 		}
 	}
 }
+
+# START 1.19 decision compatibility
+economy_decisions = {
+	# NZL_mangahao_power_scheme from common\decisions\NZL.txt:6
+		NZL_mangahao_power_scheme = {
+			icon = GFX_decision_generic_construction
+		
+			allowed = {
+				original_tag = NZL
+			}
+			
+			visible = {
+				has_completed_focus = NZL_electrification
+			}
+			
+			available = {
+				284 = {
+					is_owned_and_controlled_by = ROOT
+				}
+			}
+
+		    cost = 50 	
+
+			fire_only_once = yes # Can only be done once per state
+
+			days_remove = 70
+
+			fire_only_once = yes 
+
+			modifier = {
+				civilian_factory_use = 3 
+			}
+
+			complete_effect = {
+			}
+
+			remove_effect = {
+				284 = {
+					add_building_construction = {
+						type = dam
+						level = 1
+						instant_build = yes
+						province = {
+							id = 4804
+						}
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = building_state_modifier|dam
+					INDENT = "    "
+				}
+			}
+
+			cancel_trigger = {
+				284 = {
+					NOT = { is_controlled_by = ROOT }
+				}
+			}
+
+			cancel_effect = {
+			}
+
+		}
+
+	# NZL_waitaki_power_station from common\decisions\NZL.txt:67
+		NZL_waitaki_power_station = {
+			icon = GFX_decision_generic_construction
+		
+			allowed = {
+				original_tag = NZL
+			}
+			
+			visible = {
+				has_completed_focus = NZL_electrification
+			}
+			
+			available = {
+				723 = {
+					is_owned_and_controlled_by = ROOT
+				}
+			}
+
+		    cost = 50 	
+
+			fire_only_once = yes # Can only be done once per state
+
+			days_remove = 70
+
+			fire_only_once = yes 
+
+			modifier = {
+				civilian_factory_use = 3 
+			}
+
+			complete_effect = {
+			}
+
+			remove_effect = {
+				723 = {
+					add_building_construction = {
+						type = dam
+						level = 1
+						instant_build = yes
+						province = {
+							id = 2203
+						}
+					}
+				}
+				custom_effect_tooltip = {
+					localization_key = building_state_modifier|dam
+					INDENT = "    "
+				}
+			}
+
+			cancel_trigger = {
+				723 = {
+					NOT = { is_controlled_by = ROOT }
+				}
+			}
+
+			cancel_effect = {
+			}
+
+		}
+
+}
+
+r56_hidden_compat_decisions = {
+	FRA_the_dyle_mission = {
+		icon = generic_prepare_civil_war
+		allowed = { always = no }
+		visible = { always = no }
+		available = { always = no }
+		activation = { always = no }
+		days_mission_timeout = 1
+		is_good = no
+	}
+
+}
+# END 1.19 decision compatibility

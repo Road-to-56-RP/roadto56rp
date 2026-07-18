@@ -292,3 +292,1709 @@ INS_category_national_projects = {
 		fire_only_once = yes
 	}
 }
+
+# START 1.19 decision compatibility
+INS_militias_cat = {
+		INS_militias_railway_pemuda_mission = {
+			activation = {
+				always = no #Done manually via focus
+			}
+
+			available = {
+				OR = {
+					has_war_with = HOL
+					NOT = {
+						has_country_flag = { flag = INS_revolution_has_started }
+					}
+				}
+			}
+
+			icon = GFX_decision_generic_prepare_civil_war
+			is_good = no
+			days_mission_timeout = 365
+
+			timeout_effect = {
+				add_stability = -0.1
+			}
+
+			complete_effect = {
+				add_war_support = 0.1
+				add_political_power = 100
+			}
+		}
+}
+
+INS_militias_cat = {
+	# INS_militias_di_mission from common\decisions\INS.txt:1573
+		INS_militias_di_mission = {
+			activation = {
+				always = no #Done manually via focus
+			}
+
+			available = {
+				OR = {
+					has_completed_focus = INS_integrate_sarekat_islam
+					has_completed_focus = INS_dominion_of_atjeh
+				}
+			}
+
+			icon = GFX_decision_tur_unifying_the_country
+			is_good = no
+			days_mission_timeout = 730
+
+			timeout_effect = {
+				add_stability = -0.1
+			}
+
+			complete_effect = {
+				hidden_effect = {
+					add_to_variable = { var = INS_missions_completed value = 1 }
+				}
+				add_stability = 0.1
+			}
+		}
+
+	# INS_militias_moestopo_mission from common\decisions\INS.txt:1513
+		INS_militias_moestopo_mission = {
+			activation = {
+				always = no #Done manually via focus
+			}
+
+			available = {
+				INS_moestopo = {
+					is_field_marshal = yes
+				}
+			}
+
+			icon = GFX_decision_generic_army_support
+			is_good = no
+			days_mission_timeout = 480
+
+			timeout_effect = {
+				if = {
+					limit = {
+						is_ai = no
+					}
+					INS_moestopo = {
+						remove_unit_leader_role = yes
+					}
+					add_political_power = -150
+				}
+				else = {
+					# the AI is stupid
+					INS_moestopo = {
+						promote_leader = yes
+
+					}
+					hidden_effect = {
+						add_to_variable = { var = INS_missions_completed value = 1 }
+					}
+					INS_moestopo = {
+						add_skill_level = 2
+						add_attack = 1
+						add_logistics = 1
+						add_defense = 1
+						add_planning = 1
+						# add_skill_level adds 1 instead of 3 for some reason so im only adding 4
+					}
+				}
+			}
+
+			complete_effect = {
+				hidden_effect = {
+					add_to_variable = { var = INS_missions_completed value = 1 }
+				}
+				INS_moestopo = {
+					add_skill_level = 2
+					add_attack = 1
+					add_logistics = 1
+					add_defense = 1
+					add_planning = 1
+					# add_skill_level adds 1 instead of 3 for some reason so im only adding 4
+				}
+			}
+		}
+
+	# INS_militias_pki_uprising_mission from common\decisions\INS.txt:1601
+		INS_militias_pki_uprising_mission = {
+			activation = {
+				always = no #Done manually via focus
+			}
+
+			available = {
+				OR = {
+					has_completed_focus = INS_support_tan_malakas_coup
+					has_government = communism
+					communism < 0.02 #either embrace communism, or destroy it
+				}
+			}
+
+			icon = GFX_decision_revolt
+			is_good = no
+			days_mission_timeout = 730
+
+			timeout_effect = {
+				add_popularity = {
+					ideology = communism
+					popularity = 0.2
+				}
+				add_stability = -0.1
+				add_political_power = -200
+			}
+
+			complete_effect = {
+				hidden_effect = {
+					add_to_variable = { var = INS_missions_completed value = 1 }
+				}
+			}
+		}
+
+}
+
+INS_national_revolution_cat = {
+	# INS_national_revolution_republic_sukarno_threatened from common\decisions\INS.txt:3468
+		INS_national_revolution_republic_sukarno_threatened = {
+			icon = GFX_decision_INS_sukarno_threatened
+			days_mission_timeout = 720
+			activation = {
+				always = no #triggered manually
+			}
+			visible = {
+				tag = INS
+				INS = {
+					has_country_flag = { flag = INS_revolution_has_started }
+				}
+			}
+			available = {
+				OR = {
+					NOT = {
+						has_country_leader = {
+							character = INS_sukarno
+						}
+					}
+					AND = {
+						neutrality > 0.6
+						has_completed_focus = INS_guided_democracy
+					}
+					NOT = {
+						has_country_flag = INS_revolution_has_started
+					}
+				}
+			}
+			is_good = no
+			priority = 45
+
+			timeout_effect = {
+				kill_country_leader = yes
+				set_country_flag = INS_sukarno_is_dead
+				country_event = {
+					id = INS_chaos_events.4
+					hours = 4
+				}
+			}
+
+			complete_effect = {
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.05
+				}
+				add_stability = 0.075
+			}
+		}
+
+	# INS_national_revolution_republic_warning_police_action from common\decisions\INS.txt:3517
+		INS_national_revolution_republic_warning_police_action = {
+			icon = GFX_decision_generic_police_action
+			days_mission_timeout = 120
+			activation = {
+				always = no #triggereed manually
+			}
+			visible = {
+				tag = INS
+				INS = {
+					has_country_flag = { flag = INS_revolution_has_started }
+				}
+			}
+			available = {
+				hidden_trigger = { always = no }
+			}
+			is_good = yes
+			priority = 40
+
+			timeout_effect = {
+				effect_tooltip = {
+					HOL = {
+						declare_war_on = {
+							target = INS
+							type = annex_everything
+						}
+					}
+					indonesia_increase_escalation_2_effect = yes
+				}
+			}
+
+			complete_effect = {
+			}
+		}
+
+	# INS_renville_timer_mission_republic from common\decisions\INS.txt:3232
+		INS_renville_timer_mission_republic = {
+			days_mission_timeout = 365
+			priority = 150
+			icon = GFX_decision_generic_political_discourse
+			activation = {
+				always = no #done manually
+			}
+
+			available = {
+				INS = {
+					OR = {
+						exists = no
+						is_subject_of = HOL
+					}
+				}
+			}
+
+			complete_effect = {
+				custom_effect_tooltip = INS_renville_wont_happen_neutral_tt
+			}
+
+			timeout_effect = {
+				USA = {
+					HOL = {
+						country_event = {
+							id = INS_revolution_events.37
+							hours = 4
+						}
+					}
+				}
+				custom_effect_tooltip = if_they_accept_tt
+				custom_effect_tooltip = INS_national_revolution_republic_win_ins_tt
+				custom_effect_tooltip = if_they_refuse_tt
+				effect_tooltip = {
+					indonesia_renville_war_effect = yes
+				}
+			}
+		}
+
+	# INS_take_batavia from common\decisions\INS.txt:3409
+		INS_take_batavia = {
+			icon = GFX_decision_INS_take_java
+			days_mission_timeout = 730
+			priority = 140
+			activation = {
+				has_country_flag = { flag = INS_java_mission_ongoing }
+				has_country_flag = INS_revolution_has_started
+			}
+			visible = {
+				tag = INS
+				has_country_flag = { flag = INS_revolution_has_started }
+			}
+			available = {
+				controls_state = 1058
+				controls_state = 1051
+				controls_state = 335
+				if = {
+					limit = {
+						has_event_target = INS_extra_state_to_take
+					}
+					controls_state = event_target:INS_extra_state_to_take
+				}
+			}
+
+			complete_effect = {
+				custom_effect_tooltip = INS_national_revolution_republic_win_ins_tt
+				HOL = {
+					country_event = {
+						id = INS_revolution_events.29
+						hours = 1
+					}
+				}
+				annex_country = {
+					target = event_target:INS_dutch_indonesia
+					transfer_troops = no
+				}
+				if = {
+					limit = {
+						has_war_with = HOL
+					}
+					every_enemy_country = {
+						limit = {
+							is_in_faction_with = HOL
+						}
+						INS = {
+							white_peace = PREV
+						}
+					}
+					white_peace = HOL
+				}
+				indonesia_declare_war_is_over_effect = yes
+			}
+			timeout_effect = {
+				add_stability = -0.25
+				add_war_support = -0.25
+			}
+			is_good = no
+		}
+
+}
+
+INS_national_revolution_dutch_cat = {
+	# INS_hold_batavia_HOL from common\decisions\INS.txt:4215
+		INS_hold_batavia_HOL = {
+			icon = GFX_decision_INS_hold_java
+			days_mission_timeout = 730
+			priority = 140
+			activation = {
+				INS = {
+					has_country_flag = { flag = INS_java_mission_ongoing }
+				}
+			}
+			cancel_trigger = {
+				NOT = {
+					INS = {
+						has_country_flag = { flag = INS_java_mission_ongoing }
+					}
+				}
+			}
+			visible = {
+				tag = HOL
+				INS = { has_country_flag = { flag = INS_revolution_has_started } }
+			}
+			available = {
+				NOT = {
+					1058 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					335 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					1051 = {
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					if = {
+						limit = {
+							has_event_target = INS_extra_state_to_take
+						}
+						event_target:INS_extra_state_to_take = {
+							is_controlled_by_ROOT_or_subject = yes
+						}
+					}
+				}
+			}
+
+			complete_effect = {
+				effect_tooltip = {
+					country_event = {
+						id = INS_revolution_events.29
+						hours = 1
+					}
+					INS = {
+						annex_country = {
+							target = event_target:INS_dutch_indonesia
+							transfer_troops = no
+						}
+					}
+				}
+			}
+			timeout_effect = {
+				if = {
+					limit = {
+						has_event_target = INS_dutch_indonesia
+					}
+					event_target:INS_dutch_indonesia = {
+						annex_country = {
+							target = INS
+							transfer_troops = no
+						}
+					}
+				}
+				else = {
+					HOL = {
+						annex_country = {
+							target = INS
+							transfer_troops = no
+						}
+					}
+				}
+			}
+			is_good = yes
+		}
+
+	# INS_renville_timer_mission_HOL from common\decisions\INS.txt:4149
+		INS_renville_timer_mission_HOL = {
+			days_mission_timeout = 365
+			priority = 150
+			icon = GFX_decision_generic_political_discourse
+			is_good = yes
+			activation = {
+				always = no #done manually
+			}
+			cancel_trigger = {
+				INS = {
+					NOT = {
+						has_country_flag = { flag = INS_revolution_has_started }
+					}
+				}
+			}
+
+			available = {
+				INS = {
+					OR = {
+						exists = no
+						is_subject_of = HOL
+					}
+				}
+			}
+
+			complete_effect = {
+				#renville wont happen 
+				custom_effect_tooltip = INS_renville_wont_happen_neutral_tt
+			}
+
+			timeout_effect = {
+				custom_effect_tooltip = INS_renville_tt_HOL
+			}
+		}
+
+	# INS_revolution_war_HOL from common\decisions\INS.txt:4295
+		INS_revolution_war_HOL = {
+			icon = GFX_decision_generic_police_action
+
+			available = {
+				NOT = {
+					has_war_with = INS
+				}
+				INS = {
+					check_variable = {
+						var = INS_war_escalation_level
+						value = 4
+						compare = greater_than_or_equals
+						tooltip = war_escalation_4_or_more_tt
+					}
+				}
+			}
+
+			visible = {
+				tag = HOL
+				INS = { has_country_flag = { flag = INS_revolution_has_started } }
+			}
+
+			cancel_trigger = {
+				NOT = {
+					INS = { has_country_flag = { flag = INS_revolution_has_started } }
+				}
+			}
+
+			cost = 0
+			days_remove = 120
+			war_with_on_remove = INS
+			fire_only_once = no
+			ai_will_do = {
+				base = 0
+
+				# Escalation 4-6 has a tiny chance each month
+				modifier = {
+					add = 1
+					check_variable = {
+						var = INS.INS_war_escalation_level
+						value = 4
+						compare = greater_than_or_equals
+					}
+					INS = {
+						check_variable = {
+							var = INS_random_seed
+							value = 97 #3% chance each month
+							compare = greater_than_or_equals
+						}
+					}
+				}
+				modifier = {
+					add = 1
+					check_variable = {
+						var = INS.INS_war_escalation_level
+						value = 5
+						compare = greater_than_or_equals
+					}
+					INS = {
+						check_variable = {
+							var = INS_random_seed
+							value = 95 #5% chance each month
+							compare = greater_than_or_equals
+						}
+					}
+				}
+				modifier = {
+					add = 1
+					check_variable = {
+						var = INS.INS_war_escalation_level
+						value = 6
+						compare = greater_than_or_equals
+					}
+					INS = {
+						check_variable = {
+							var = INS_random_seed
+							value = 93 #7% chance each month
+							compare = greater_than_or_equals
+						}
+					}
+				}
+
+				# Escalation 7/8 has a high chance each month
+				modifier = {
+					add = 1
+					check_variable = {
+						var = INS.INS_war_escalation_level
+						value = 7
+						compare = greater_than_or_equals
+					}
+					INS = {
+						check_variable = {
+							var = INS_random_seed
+							value = 85 #15% chance each month
+							compare = greater_than_or_equals
+						}
+					}
+				}
+				modifier = {
+					add = 1
+					check_variable = {
+						var = INS.INS_war_escalation_level
+						value = 8
+						compare = greater_than_or_equals
+					}
+					INS = {
+						check_variable = {
+							var = INS_random_seed
+							value = 60 #40% chance each month
+							compare = greater_than_or_equals
+						}
+					}
+				}
+
+				# Guaranteed at escalation 9
+				modifier = {
+					add = 1
+					check_variable = {
+						var = INS.INS_war_escalation_level
+						value = 9
+						compare = greater_than_or_equals
+					}
+				}
+
+				# In addition to random chance, Indonesia controlling any state in Java will significantly up the odds
+				modifier = {
+					add = 1
+					check_variable = {
+						var = INS.INS_war_escalation_level
+						value = 4
+						compare = greater_than_or_equals
+					}
+					INS = {
+						check_variable = {
+							var = INS_random_seed
+							value = 90 #10% chance each month
+							compare = greater_than_or_equals
+						}
+						OR = {
+							controls_state = 1058
+							controls_state = 1051
+							controls_state = 335
+						}
+					}
+				}
+				modifier = {
+					add = 1
+					check_variable = {
+						var = INS.INS_war_escalation_level
+						value = 4
+						compare = greater_than_or_equals
+					}
+					INS = {
+						# two states in java = guaranteed, immediately
+						OR = {
+							AND = {
+								controls_state = 1058
+								controls_state = 1051
+							}
+							AND = {
+								controls_state = 1058
+								controls_state = 335
+							}
+							AND = {
+								controls_state = 1051
+								controls_state = 335
+							}
+						}
+					}
+				}
+			}
+
+			complete_effect = {
+				INS = {
+					activate_mission = INS_national_revolution_republic_warning_police_action
+				}
+				if = {
+					limit = {
+						check_variable = {
+							var = INS_war_escalation_level
+							value = 7
+							compare = greater_than_or_equals
+						}
+					}
+					# nothing
+				}
+				else = {
+					add_timed_idea = {
+						idea = HOL_internationally_controversial_aggression
+						days = 480
+					}
+					custom_effect_tooltip = INS_revolution_penalty_reduce_tt
+				}
+			}
+
+			remove_effect = {
+				declare_war_on = {
+					target = INS
+					type = annex_everything
+				}
+				every_subject_country = {
+					limit = {
+						original_tag = INS
+					}
+					declare_war_on = {
+						target = INS
+						type = annex_everything
+					}
+				}
+				INS = { indonesia_increase_escalation_2_effect = yes }
+			}
+		}
+
+}
+
+INS_realign_supply_chains_cat = {
+	# INS_oil_for_civ from common\decisions\INS.txt:2913
+		INS_oil_for_civ = {
+			days_remove = var:INS_realign_supply_chains_time
+
+			icon = GFX_decision_generic_industry
+
+			visible = {
+				has_completed_focus = INS_invite_foreign_companies
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = oil
+					amount > 39
+					extracted = no
+				}
+			}
+
+			ai_will_do = {
+				base = 2
+				modifier = {
+					factor = 2
+					has_resources_in_country = {
+						resource = oil
+						amount > 50
+						extracted = no
+					}
+					has_resources_in_country = {
+						resource = rubber
+						amount < 120
+						extracted = no
+					}
+				}
+			}
+
+			custom_cost_text = INS_cost_text_oil_40
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_oil value = 40 tooltip = country_resource_cost_oil_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.13
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.39
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+						INS_only_militia_states_if_possible_and_needed = yes
+						impassable = no
+					}
+					prioritize = { }
+
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+
+	# INS_oil_for_dockyard from common\decisions\INS.txt:3157
+		INS_oil_for_dockyard = {
+			days_remove = var:INS_realign_supply_chains_time
+
+			icon = GFX_decision_SWE_set_navy_budget
+
+			ai_will_do = {
+				base = 1
+				modifier = {
+					factor = 2
+					has_resources_in_country = {
+						resource = oil
+						amount > 50
+						extracted = no
+					}
+					has_resources_in_country = {
+						resource = rubber
+						amount < 120
+						extracted = no
+					}
+				}
+			}
+
+			visible = {
+				has_completed_focus = INS_invite_foreign_companies
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+					has_idea = INS_plane_making
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = oil
+					amount > 39
+					extracted = no
+				}
+			}
+
+			custom_cost_text = INS_cost_text_oil_40
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_oil value = 40 tooltip = country_resource_cost_oil_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.13
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.39
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				add_offsite_building = {
+					type = dockyard
+					level = 2
+				}
+			}
+		}
+
+	# INS_oil_for_mil from common\decisions\INS.txt:2999
+		INS_oil_for_mil = {
+			days_remove = var:INS_realign_supply_chains_time
+
+			icon = GFX_decision_generic_tank
+
+			ai_will_do = {
+				base = 2
+				modifier = {
+					factor = 2
+					has_resources_in_country = {
+						resource = oil
+						amount > 50
+						extracted = no
+					}
+					has_resources_in_country = {
+						resource = rubber
+						amount < 120
+						extracted = no
+					}
+				}
+			}
+
+			visible = {
+				has_completed_focus = INS_invite_foreign_companies
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = oil
+					amount > 23
+					extracted = no
+				}
+			}
+
+			custom_cost_text = INS_cost_text_oil_24
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_oil value = 24 tooltip = country_resource_cost_oil_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.11
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.37
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+						INS_only_militia_states_if_possible_and_needed = yes
+						impassable = no
+					}
+					prioritize = { }
+
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+
+	# INS_oil_for_plane from common\decisions\INS.txt:3085
+		INS_oil_for_plane = {
+			days_remove = var:INS_realign_supply_chains_time
+
+			icon = GFX_decision_SWE_set_air_budget
+
+			ai_will_do = {
+				base = 1
+				modifier = {
+					factor = 2
+					has_resources_in_country = {
+						resource = oil
+						amount > 50
+						extracted = no
+					}
+					has_resources_in_country = {
+						resource = rubber
+						amount < 120
+						extracted = no
+					}
+				}
+			}
+
+			visible = {
+				has_completed_focus = INS_invite_foreign_companies
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+					has_idea = INS_plane_making
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = oil
+					amount > 31
+					extracted = no
+				}
+			}
+
+			custom_cost_text = INS_cost_text_oil_32
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_oil value = 32 tooltip = country_resource_cost_oil_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.12
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.38
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				add_timed_idea = {
+					idea = INS_plane_making
+					days = 365
+				}
+			}
+		}
+
+	# INS_rubber_for_civ from common\decisions\INS.txt:2299
+		INS_rubber_for_civ = {
+			days_remove = var:INS_realign_supply_chains_time
+			icon = GFX_decision_generic_industry
+
+			visible = {
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = rubber
+					amount > 39
+					extracted = no
+				}
+			}
+
+			ai_will_do = {
+				base = 3
+			}
+
+			custom_cost_text = INS_cost_text_rubber_40
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_rubber value = 40 tooltip = country_resource_cost_rubber_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.23
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.28
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+						INS_only_militia_states_if_possible_and_needed = yes
+						impassable = no
+					}
+					prioritize = { }
+
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+
+	# INS_rubber_for_infantry_eq from common\decisions\INS.txt:2568
+		INS_rubber_for_infantry_eq = {
+			days_remove = var:INS_realign_supply_chains_time
+
+			icon = GFX_decision_ger_military_buildup
+
+			visible = {
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = rubber
+					amount > 39
+					extracted = no
+				}
+			}
+
+			ai_will_do = {
+				base = 0.5
+				modifier = {
+					factor = 2
+					stockpile_ratio = {
+						archetype = infantry_equipment
+						ratio < 0.5
+					}
+				}
+				modifier = {
+					factor = 2
+					stockpile_ratio = {
+						archetype = infantry_equipment
+						ratio < 0.7 
+					}
+				}
+				modifier = {
+					factor = 2
+					stockpile_ratio = {
+						archetype = infantry_equipment
+						ratio < 0.9 
+					}
+				}
+			}
+
+			custom_cost_text = INS_cost_text_rubber_40
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_rubber value = 40 tooltip = country_resource_cost_rubber_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.23
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.32
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				if = {
+					limit = {
+						has_tech = infantry_weapons1
+						NOT = {
+							has_tech = improved_infantry_weapons
+							has_tech = advanced_infantry_weapons
+						}
+					}
+					add_equipment_to_stockpile = { 
+						type = infantry_equipment_1
+						amount = 4000
+						producer = INS
+					}
+				}
+				else_if = {
+					limit = {
+						has_tech = improved_infantry_weapons
+						NOT = {
+							has_tech = advanced_infantry_weapons
+						}
+					}
+					add_equipment_to_stockpile = {
+						type = infantry_equipment_2
+						amount = 4000
+						producer = INS
+					}
+				}
+				else_if = {
+					limit = {
+						has_tech = advanced_infantry_weapons
+					}
+					add_equipment_to_stockpile = {
+						type = infantry_equipment_3
+						amount = 4000
+						producer = INS
+					}
+				}
+			}
+		}
+
+	# INS_rubber_for_mil from common\decisions\INS.txt:2369
+		INS_rubber_for_mil = {
+			days_remove = var:INS_realign_supply_chains_time
+			icon = GFX_decision_generic_tank
+
+			visible = {
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = rubber
+					amount > 23
+					extracted = no
+				}
+			}
+
+			custom_cost_text = INS_cost_text_rubber_24
+
+			ai_will_do = {
+				base = 3
+			}
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_rubber value = 24 tooltip = country_resource_cost_rubber_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.21
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.29
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+						INS_only_militia_states_if_possible_and_needed = yes
+						impassable = no
+					}
+					prioritize = { }
+
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+
+	# INS_rubber_for_pp from common\decisions\INS.txt:2510
+		INS_rubber_for_pp = {
+			days_remove = var:INS_realign_supply_chains_time
+
+			icon = GFX_decision_generic_army_support
+
+			visible = {
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = rubber
+					amount > 15
+					extracted = no
+				}
+			}
+
+			ai_will_do = {
+				base = 1
+				modifier = {
+					factor = 2
+					has_political_power < 50
+				}
+			}
+
+			custom_cost_text = INS_cost_text_rubber_16
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_rubber value = 16 tooltip = country_resource_cost_rubber_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.20
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.31
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				add_political_power = 50
+				add_command_power = 10
+			}
+		}
+
+	# INS_rubber_for_truck from common\decisions\INS.txt:2678
+		INS_rubber_for_truck = {
+			days_remove = var:INS_realign_supply_chains_time
+
+			icon = GFX_decision_generic_motorized
+
+			visible = {
+				
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+				}
+				has_tech = motorised_infantry
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = rubber
+					amount > 15
+					extracted = no
+				}
+			}
+
+			ai_will_do = {
+				base = 0
+				modifier = {
+					add = 1
+					stockpile_ratio = {
+						archetype = motorized_equipment
+						ratio < 0.9
+					}
+				}
+				modifier = {
+					add = 1
+					stockpile_ratio = {
+						archetype = motorized_equipment
+						ratio < 0.7
+					}
+				}
+				modifier = {
+					add = 1
+					stockpile_ratio = {
+						archetype = motorized_equipment
+						ratio < 0.5
+					}
+				}
+			}
+
+			custom_cost_text = INS_cost_text_rubber_16
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_rubber value = 16 tooltip = country_resource_cost_rubber_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.20
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.33
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				add_equipment_to_stockpile = { 
+					type = motorized_equipment_1
+					amount = 150
+					producer = INS
+				}
+			}
+		}
+
+	# INS_rubber_for_xp from common\decisions\INS.txt:2439
+		INS_rubber_for_xp = {
+			days_remove = var:INS_realign_supply_chains_time
+
+			icon = GFX_decision_generic_military
+
+			visible = {
+			}
+
+			available = {
+				NOT = {
+					has_country_flag = INS_selling_resource_flag
+				}
+			}
+
+			custom_cost_trigger = {
+				has_resources_in_country = {
+					resource = rubber
+					amount > 31
+					extracted = no
+				}
+			}
+
+			ai_will_do = {
+				base = 1
+				modifier = {
+					factor = 0
+					OR = {
+						has_army_experience > 99
+						has_navy_experience > 99
+						has_air_experience > 99
+					}
+				}
+				modifier = {
+					factor = 5
+					OR = {
+						has_army_experience < 10
+						has_navy_experience < 10
+						has_air_experience < 10
+					}
+				}
+			}
+
+			custom_cost_text = INS_cost_text_rubber_32
+
+			complete_effect = {
+				set_country_flag = {
+					flag = INS_selling_resource_flag
+					value = 1
+				}
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = INS_great_depression_tt
+				add_to_variable = { var = INS_great_depression_country_resource_cost_rubber value = 32 tooltip = country_resource_cost_rubber_tt }
+
+				hidden_effect = {
+					country_event = {
+						id = INS_industrial_events.22
+						months = 24
+					}
+					country_event = {
+						id = INS_industrial_events.30
+					}
+				}
+				custom_effect_tooltip = INS_resources_refunded_in_24_months_tt
+
+				army_experience = 25
+				air_experience = 25
+				navy_experience = 25
+			}
+		}
+
+}
+
+INS_revolution_planning_cat = {
+	# INS_revolution_planning_hq from common\decisions\INS.txt:2055
+		INS_revolution_planning_hq = {
+			icon = GFX_decision_SOV_place_hq
+			available = {
+				NOT = {
+					has_country_flag = {
+						flag = INS_has_revolutionary_hq
+					}
+				}
+			}
+
+			visible = {
+				NOT = {
+					has_country_flag = {
+						flag = INS_has_revolutionary_hq
+					}
+				}
+			}
+
+			state_target = yes
+			targets = { 672 1050 1055 1053 673 669 }
+
+			ai_will_do = {
+				base = 50
+				modifier = {
+					factor = 0.1
+					FROM = {
+						OR = {
+							state = 669
+							state = 1053
+						}
+					}
+				}
+			}
+
+			cost = 30
+			days_remove = 60
+			fire_only_once = yes
+
+			complete_effect = {
+				set_country_flag = INS_has_revolutionary_hq
+	#			if = {
+	#				limit = {
+	#					FROM = {
+	#						OR = {
+	#							state = 1051
+	#							state = 335
+	#						}
+	#					}
+	#				}
+	#				custom_effect_tooltip = INS_hq_warning
+	#			}
+			}
+
+			remove_effect = {
+				set_country_flag = INS_has_revolutionary_hq_done
+				FROM = {
+					add_dynamic_modifier = {
+						modifier = INS_state_revolution_hq
+					}
+					custom_effect_tooltip = INS_state_revolution_hq_tt
+					save_global_event_target_as = INS_revolution_hq
+					add_to_variable = { influence_point_count = 3 }
+				}
+				custom_effect_tooltip = newline_tt
+				custom_effect_tooltip = INS_revolution_planning_influence_state_points_notif_tt
+			}
+		}
+
+}
+
+INS_volksraad_cat = {
+	# INS_soetardjo_pending from common\decisions\INS.txt:589
+		INS_soetardjo_pending = {
+			activation = {
+				always = no #done by event
+			}
+
+			days_mission_timeout = 140
+			icon = GFX_decision_generic_political_discourse
+			priority = 100
+			fire_only_once = yes
+			is_good = no
+
+			available = {
+				hidden_trigger = { always = no }
+			}
+
+			cancel_trigger = {
+				hidden_trigger = {
+					has_country_flag = INS_debug_mode_stop_event
+				}
+			}
+
+			timeout_effect = {
+				country_event = {
+					id = INS_political_events.7 #Soetardjo Petition
+					days = 1
+				}
+				custom_effect_tooltip = JAP_aizawa_trial_ongoing_tt
+			}
+		}
+
+}
+
+INS_militias_cat = {
+	INS_militias_kris_repayment = {
+		activation = {
+			always = no #Done manually via focus
+		}
+
+		available = {
+			673 = { #Sulawesi
+				infrastructure > 3
+				OR = {
+					industrial_complex > 2
+					arms_factory > 2
+					AND = {
+						industrial_complex > 0
+						arms_factory > 1
+					}
+					AND = {
+						industrial_complex > 1
+						arms_factory > 0
+					}
+				}
+			}
+
+			1056 = { #Manado
+				infrastructure > 2
+				OR = {
+					industrial_complex > 1
+					arms_factory > 1
+					AND = {
+						industrial_complex > 0
+						arms_factory > 0
+					}
+				}
+			}
+		}
+
+		icon = GFX_decision_generic_construction
+		is_good = no
+		days_mission_timeout = 1095
+		
+		timeout_effect = {
+			if = {
+				limit = {
+					673 = { #Sulawesi
+						NOT = { is_core_of = ROOT }
+					}
+				}
+				673 = {
+					add_resistance = 40
+					add_compliance = -25
+				}
+			}
+			if = {
+				limit = {
+					1056 = { #Manado
+						NOT = { is_core_of = ROOT }
+					}
+				}
+				1056 = {
+					add_resistance = 40
+					add_compliance = -25
+				}
+			}
+
+			add_stability = -0.075
+			add_war_support = -0.075
+			add_manpower = -50000
+			add_political_power = -150
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = { var = INS_missions_completed value = 1 }
+			}
+			if = {
+				limit = {
+					673 = { #Sulawesi
+						NOT = { is_core_of = ROOT }
+					}
+				}
+				673 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1056 = { #Manado
+						NOT = { is_core_of = ROOT }
+					}
+				}
+				1056 = { add_core_of = ROOT }
+			}
+		}
+	}
+
+	INS_militias_jakarta_pemuda_mission = {
+		activation = {
+			always = no #Done manually via focus
+		}
+
+		available = {
+			OR = {
+				amount_research_slots > 3
+				has_tech = construction4
+				has_tech = improved_computing_machine
+				has_tech = atomic_research
+			}
+		}
+
+		icon = GFX_decision_generic_research
+		is_good = no
+		days_mission_timeout = 720
+
+		timeout_effect = {
+			add_war_support = -0.1
+			add_stability = -0.1
+			add_political_power = -200
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = { var = INS_missions_completed value = 1 }
+			}
+		}
+	}
+}
+# END 1.19 decision compatibility
