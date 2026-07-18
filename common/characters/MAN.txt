@@ -1477,3 +1477,69 @@ characters={
 	}
 	
 }
+
+# START 1.19 character compatibility
+characters = {
+	MAN_aisin_gioro_puyi = {
+		name = MAN_aisin_gioro_puyi
+
+		portraits = {
+			civilian = {
+				large = GFX_portrait_MAN_aisin_gioro_puyi
+			}
+			army = {
+				small = GFX_idea_MAN_manchuria_henry_pu_yi 
+			}
+		}
+
+		## These are now gained through focuses and events
+
+		#country_leader = {
+		#	ideology = emperor_fascism
+		#	traits = { warrior_code }
+		#	expire = "1960.1.1.1"
+		#	id = -1
+		#}
+
+		country_leader = {
+			ideology = despotism
+			traits = { warrior_code }
+			expire = "1960.1.1.1"
+			id = -1
+		}
+
+		advisor = {
+			cost = 100
+			slot = theorist
+			can_be_fired = no
+			idea_token = MAN_aisin_gioro_puyi
+			ledger = army
+			allowed = {
+				original_tag = MAN
+				NOT = {
+					has_country_leader = {
+						ruling_only = yes
+						character = MAN_aisin_gioro_puyi
+					}
+				}
+				has_dlc = "No Compromise, No Surrender"
+			}
+
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = MAN_tsr_the_question_of_leadership
+						has_completed_focus = MAN_tsr_question_the_emperors_authority
+						has_completed_focus = MAN_tsr_purge_the_general_affairs_council
+					}
+				}
+			}
+			
+			traits = {
+				MAN_supreme_commander
+			}
+		}
+
+	}
+}
+# END 1.19 character compatibility

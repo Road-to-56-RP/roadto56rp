@@ -1008,3 +1008,354 @@ foreign_influence = {
 #
 #	}
 #}
+
+# START 1.19 decision compatibility
+SIA_army_navy_reform_cat = {
+	# SIA_divert_army_funds_to_navy_toggle from common\decisions\SIA.txt:2837
+		SIA_divert_army_funds_to_navy_toggle = {
+			visible = {
+				has_completed_focus = SIA_direct_army_fundings_towards_the_navy
+			}
+			available = {
+			}
+			cost = 50
+			icon = GFX_decision_generic_political_discourse
+		
+			days_re_enable = 190
+			days_remove = 30
+			complete_effect = {
+
+			}
+		
+			remove_effect = {
+				if = {
+					limit = {
+						has_idea = idea_SIA_diverting_army_funds_to_navy
+					}
+					remove_ideas = idea_SIA_diverting_army_funds_to_navy
+					SIA_increase_military_approval = yes
+					SIA_decrease_civilian_approval = yes
+				}
+				else = {
+					add_ideas = idea_SIA_diverting_army_funds_to_navy
+					SIA_increase_civilian_approval = yes
+					SIA_decrease_military_approval = yes
+				}
+			}
+		}
+
+}
+
+SIA_khana_ratsadon_cat = {
+	# SIA_cultivate_civilian_wing from common\decisions\SIA.txt:3288
+		SIA_cultivate_civilian_wing = {
+			icon = GFX_decision_generic_political_discourse
+
+			allowed = {
+				original_tag = SIA
+			}
+
+			available = {
+				NOT = { has_idea = idea_SIA_civilian_full_support }
+			}
+
+			visible = {
+				has_completed_focus = SIA_royal_palace_bureau_directive_no_1523
+				NOT = { has_country_flag = SIA_turn_off_the_khana_ratsadon }
+			}
+
+			cost = 50
+
+			days_remove = 365
+
+			remove_effect = {
+				custom_effect_tooltip = SIA_increase_civilian_approval_tt
+				SIA_increase_civilian_approval = yes
+			}
+
+			ai_will_do = {
+				base = 1
+			}
+		}
+
+	# SIA_cultivate_military_wing from common\decisions\SIA.txt:3318
+		SIA_cultivate_military_wing = {
+			icon = GFX_decision_SWE_set_army_budget
+
+			allowed = {
+				original_tag = SIA
+			}
+
+			available = {
+				NOT = { has_idea = idea_SIA_military_full_support }
+			}
+
+			visible = {
+				has_completed_focus = SIA_royal_palace_bureau_directive_no_1523
+				NOT = { has_country_flag = SIA_turn_off_the_khana_ratsadon }
+			}
+
+			cost = 50
+
+			days_remove = 365
+
+			remove_effect = {
+				custom_effect_tooltip = SIA_increase_military_approval_tt
+				SIA_increase_military_approval = yes
+			}
+
+			ai_will_do = {
+				base = 1
+			}
+		}
+
+}
+
+SIA_movie_theater_cat = {
+	# SIA_thai_soldiers_blood from common\decisions\SIA.txt:600
+		SIA_thai_soldiers_blood = {
+			icon = GFX_decision_eng_blackshirt_march
+			available = {
+				SIA_propaganda_poster_slot_available = yes
+			}
+
+			days_remove = constant:propaganda.SIA.default_propaganda_campaign_duration
+
+			days_re_enable = constant:propaganda.SIA.default_propaganda_campaign_cooldown
+
+			cost = SIA_propaganda_thai_soldiers_blood_cost
+
+			modifier = {
+				consumer_goods_factor = 0.1
+				army_org_factor = 0.08
+				attrition = -0.04
+				breakthrough_factor = 0.08
+			}
+
+			complete_effect = {
+				set_variable = { SIA_new_propaganda_campaign = 3 }
+				set_variable = { SIA_new_propaganda_campaign_duration = constant:propaganda.SIA.default_propaganda_campaign_duration }
+				SIA_pick_propaganda_campaign_slot_effect = yes
+			}
+
+			remove_effect = {
+				set_variable = { SIA_propaganda_campaign_to_remove = 3 }
+				SIA_reset_propaganda_campaign_slot_effect = yes
+
+				set_variable = { SIA_propaganda_cost = SIA_propaganda_thai_soldiers_blood_cost }
+				set_variable = { SIA_propaganda_thai_soldiers_blood_cost = SIA_propaganda_cost }
+				clear_variable = SIA_propaganda_cost
+
+				custom_effect_tooltip = SIA_propaganda_campaign_cooldown_tt
+			}
+		}
+
+}
+
+SIA_thai_cultural_mandates = {
+	# SIA_mandate_1 from common\decisions\SIA.txt:107
+		SIA_mandate_1 = {
+
+			icon = GFX_decision_SOV_place_hq
+			available = {
+			}
+
+			cost = 0
+
+			fire_only_once = yes
+
+			complete_effect = {
+				if = { #Rest it scripted effects but this one is always free to pick, 	
+					limit = {
+						NOT = {
+							has_dynamic_modifier = {
+								modifier = idea_SIA_thai_cultural_mandates
+							}
+						}
+					}
+
+					add_dynamic_modifier = {
+						modifier = idea_SIA_thai_cultural_mandates
+					}
+				}
+
+
+				custom_effect_tooltip = SIA_modify_cultural_mandates
+				add_to_variable = { SIA_cultural_mandates_stability_factor = 0.07 tooltip = stability_factor_tt }
+			
+				custom_effect_tooltip = SIA_mandate_1_tt
+
+				hidden_effect = {
+					drop_cosmetic_tag = yes
+					set_cosmetic_tag = SIA_thailand
+				}
+			}
+			ai_will_do = {
+				base = 300
+			}
+		}
+
+}
+
+SIA_war_fervor_cat = {
+	# SIA_urge_restraint from common\decisions\SIA.txt:71
+		SIA_urge_restraint = {
+
+			icon = generic_civil_support
+			available = {
+				has_war = no
+				has_idea = idea_SIA_war_fervor
+			}
+
+			cost = 25
+			days_re_enable = 90
+
+			complete_effect = {
+				add_war_support = -0.15
+			}
+			cancel_trigger = {
+				has_war_support < 0.01
+			}
+	 
+			fire_only_once = no
+			is_good = no
+			
+			ai_will_do = {
+				base = 0
+				modifier = {
+					has_war_support > 0.65
+					has_idea = idea_SIA_war_fervor
+					add = 400
+				}
+			}
+		}
+
+	# SIA_war_fervor_coup from common\decisions\SIA.txt:20
+		SIA_war_fervor_coup = {
+
+			icon = generic_civil_support
+			available = {
+				hidden_trigger = {
+					always = no
+				}
+			}
+			priority = 10
+			days_mission_timeout = 125
+
+			activation = {
+				has_war_support > 0.95 
+				has_civil_war = no
+				has_war = no
+				has_idea = idea_SIA_war_fervor
+			}
+
+			cancel_trigger = {
+				OR = {
+					has_war_support < 0.95
+					has_war = yes
+					NOT = { has_idea = idea_SIA_war_fervor }
+				}
+			}
+
+			fire_only_once = no
+
+			is_good = no
+
+			timeout_effect = {
+				if = {
+					limit = { has_idea = idea_SIA_war_fervor }
+					add_war_support = -0.5
+					if = { #The AI should avoid this at all costs on historical, but if for some reason it fails due to lack off pp safeguard on historical and punish in other ways
+						limit = {
+							is_ai = yes
+							is_historical_focus_on = yes
+						}
+						add_ideas = volunteer_only
+						add_ideas = civilian_economy
+					}
+					else = {
+						SIA_start_opposing_civil_war = yes
+					}
+
+					remove_ideas = idea_SIA_war_fervor
+				}
+			}
+		}
+
+}
+
+SIA_limited_war_cat = {
+    SIA_limited_war_indochina = {
+		visible = {
+			always = yes
+		}
+		is_good = no
+		highlight_states = {
+			highlight_states_trigger = {
+				is_in_array = { array = ROOT.limited_war_states value = THIS }
+				NOT = { is_controlled_by = ROOT }
+			}
+		}
+		available = {
+			all_of_scopes = {
+				array = ROOT.limited_war_states
+				is_controlled_by = ROOT
+			}
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				exists = no
+				has_capitulated = yes
+				surrender_progress > var:global.limited_war_surrender_threshold
+				var:limited_war_target = {
+					has_capitulated = yes
+					NOT = { original_tag = FRA }
+				}
+				# Fallback: target was defeated by someone else, so neither win nor loss exit can fire
+				var:limited_war_target = { exists = no }
+			}
+		}
+
+		days_mission_timeout = 120
+		complete_effect = {
+			country_event = { id = siam.10 hours = 2 }
+		}
+
+		cancel_effect = {
+			if = {
+				limit = {
+					has_variable = var:limited_war_target
+					var:limited_war_target = {
+						OR = {
+							has_capitulated = yes
+							exists = no
+						}
+						NOT = { original_tag = FRA }
+					}
+				}
+				
+				SIA_peace_out = yes
+				set_rule = { can_join_factions = yes }
+
+				SIA_re_add_to_old_faction = yes
+				SIA_clear_limited_war_variables = yes
+			}
+			if = {
+				limit = { surrender_progress > var:global.limited_war_surrender_threshold }
+				var:limited_war_target = {
+					country_event = { id = siam.15 hours = 2 }
+				}
+			}
+		}
+
+		timeout_effect = {
+			var:limited_war_target = {
+				country_event = { id = siam.15 hours = 2 }
+			}
+		}
+    }
+}
+# END 1.19 decision compatibility

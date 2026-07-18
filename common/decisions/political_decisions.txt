@@ -3149,3 +3149,350 @@ political_actions = {
 		}
 	}
 }
+
+# START 1.19 decision compatibility
+political_actions = {
+	# SIA_public_credit_repayment from common\decisions\SIA.txt:2110
+		SIA_public_credit_repayment = {
+
+			allowed = {
+				original_tag = SIA
+			}
+
+			available = {
+				
+			}
+
+			visible = {
+				has_completed_focus = SIA_public_credit
+				has_idea = idea_SIA_public_credit_debt
+			}
+
+			fire_only_once = yes
+			cost = 0
+
+			complete_effect = {
+				custom_effect_tooltip = SIA_public_credit_repayment_tt
+				custom_effect_tooltip = newline_tt
+				remove_ideas = idea_SIA_public_credit_debt
+				add_timed_idea = {
+					idea = idea_SIA_public_credit_debt_2
+					days = 270
+				}
+			}
+		}
+
+	# SIA_release_contigency_funds from common\decisions\SIA.txt:2066
+		SIA_release_contigency_funds = {
+			#icon = aluminium
+
+			allowed = {
+				original_tag = SIA
+			}
+
+			available = {
+				
+				has_war = yes
+			}
+
+			visible = {
+				check_variable = { SIA_contingency_funds > 0 }
+				has_dynamic_modifier = { modifier = idea_SIA_contingency_funds }
+				NOT = { has_country_flag = has_released_contingency_funds }
+			}
+
+			cost = 0
+
+			complete_effect = {
+				set_country_flag = has_released_contingency_funds
+
+				custom_effect_tooltip = SIA_release_contigency_funds_tt
+				add_to_variable = { SIA_contingency_funds_industrial_capacity_factory = 0.1 tooltip = industrial_capacity_factory_tt }
+				add_to_variable = { SIA_contingency_funds_industrial_capacity_dockyard = 0.1 tooltip = industrial_capacity_dockyard_tt }
+				add_to_variable = { SIA_contingency_funds_production_speed_buildings_factor = 0.1 tooltip = production_speed_buildings_factor_tt }
+				add_to_variable = { SIA_contingency_funds_local_resources_factor = 0.25 tooltip = local_resources_factor_tt }
+				add_to_variable = { SIA_contingency_funds_cg = -0.08 tooltip = consumer_goods_factor_tt }
+				custom_effect_tooltip = SIA_release_contigency_funds_tt2
+			}
+
+			ai_will_do = {
+				base = 0
+				modifier = {
+					any_enemy_country = {
+						is_major = yes
+					}
+
+					add = 10
+				}
+			}
+		}
+
+	# SIA_standing_our_ground_mission from common\decisions\SIA.txt:2173
+		SIA_standing_our_ground_mission = {
+			activation = {
+				always = no
+			}
+			available = {
+				hidden_trigger = {
+					always = no
+				}
+			}
+
+			cancel_trigger = {
+				has_war = no
+			}
+			icon = GFX_decision_generic_political_discourse
+			is_good = yes
+
+			days_mission_timeout = 90
+			
+			timeout_effect = {
+				remove_ideas = idea_SIA_standing_our_ground_mission_temp_buff
+			}
+		}
+
+}
+
+political_actions = {
+		CZE_escalate_involvement_in_soviet_civil_war = {
+			icon = GFX_decision_hol_draw_up_staff_plans
+			allowed = {
+				original_tag = CZE
+			}
+			priority = 500
+			visible = {
+				has_completed_focus = CZE_intervene_in_the_ussr
+				any_country = {
+					original_tag = SOV
+					has_civil_war = yes
+				}
+				NOT = {
+					any_country = {
+						original_tag = SOV
+						has_war_with = ROOT
+					}
+				}
+			}
+			fire_only_once = yes
+			available = {
+				any_country = {
+					original_tag = SOV
+					OR = {
+						has_volunteers_amount_from = {
+							tag = ROOT
+							count > 0
+						}
+						any_other_country = {
+							original_tag = SOV
+							has_volunteers_amount_from = {
+								tag = ROOT
+								count > 0
+							}
+							has_war_with = PREV
+						}
+					}
+					OR = {
+						is_neighbor_of = ROOT
+						any_neighbor_country = {
+							is_ally_with = ROOT
+						}
+					}
+				}
+			}
+			remove_effect = {
+				random_other_country = {
+					limit = {
+						original_tag = SOV
+						has_volunteers_amount_from = {
+							tag = ROOT
+							count > 0
+						}
+					}
+					#friendly SOV scope
+					random_enemy_country = {
+						limit = {
+							original_tag = SOV
+							has_civil_war = yes
+						}
+						ROOT = {
+							add_to_war = {
+								targeted_alliance = PREV.PREV
+								enemy = PREV
+								hostility_reason = asked_to_join
+							}
+						}
+					}
+				}
+			}
+		}
+
+		CZE_recall_zdenko_hudecek = {
+			priority = 10
+
+			icon = GFX_decision_SWE_set_navy_budget
+			allowed = {
+				original_tag = CZE
+			}
+
+			visible = {
+				if = {
+					limit = {
+						has_dlc = "Peace For Our Time"
+					}
+					has_completed_focus = CZE_reform_the_naval_detachment
+				}
+				else = {
+					has_completed_focus = CZE_access_to_the_sea
+				}
+			}
+
+			available = {
+				if = {
+					limit = {
+						has_dlc = "Peace For Our Time"
+					}
+					has_completed_focus = CZE_reform_the_naval_detachment
+				}
+				else = {
+					has_completed_focus = CZE_access_to_the_sea
+				}
+			}
+
+			custom_cost_trigger = {
+				command_power > 24
+			}
+			custom_cost_text = decision_cost_CP_25
+
+			fire_only_once = yes
+
+			complete_effect = {
+				hidden_effect = {
+					add_command_power = -25
+				}
+				set_country_flag = CZE_unlock_zdenko_hudecek_flag
+				if = {
+					limit = {
+						has_dlc = "Peace For Our Time"
+					}
+					show_unit_leaders_tooltip = CZE_zdenko_hudecek
+
+					custom_effect_tooltip = generic_skip_one_line_tt
+
+					custom_effect_tooltip = available_theorist
+					show_ideas_tooltip = CZE_zdenko_hudecek_theorist_mun
+
+					custom_effect_tooltip = generic_skip_one_line_tt
+
+					custom_effect_tooltip = available_chief_of_navy
+					show_ideas_tooltip = CZE_zdenko_hudecek_navy_chief_mun
+
+					custom_effect_tooltip = generic_skip_one_line_tt
+
+					custom_effect_tooltip = available_military_high_command
+					show_ideas_tooltip = CZE_zdenko_hudecek_high_command_mun
+				}
+				else = {
+					custom_effect_tooltip = available_chief_of_navy
+					show_ideas_tooltip = CZE_zdenko_hudecek_navy_chief
+
+					custom_effect_tooltip = generic_skip_one_line_tt
+
+					custom_effect_tooltip = available_military_high_command
+					show_ideas_tooltip = CZE_zdenko_hudecek_high_command
+				}
+				
+			}
+		}
+
+		CZE_sudeten_promise_mission = { #Used as the counter balance to discourge other tag for triggering Sudeten German Quandary effects just to grief CZE
+			priority = 12
+
+			icon = GFX_decision_CHL_carabineros
+			allowed = {	#overriden by event, better for optimization
+				always = no
+			}
+
+			days_mission_timeout = 365
+
+			available = {
+				OR = {
+					any_country_with_original_tag = { 
+						original_tag_to_check = CZE
+						OR = {
+							controls_state = 69 #North Sudetenland
+							controls_state = 972 #South Sudetenland
+							controls_state = 74 #Czeske Slezsko
+						}
+						has_war_with = ROOT 
+					}
+					OR = {
+						controls_state = 69 #North Sudetenland
+						controls_state = 972 #South Sudetenland
+						controls_state = 74 #Czeske Slezsko
+					}
+				}
+			}
+
+			is_good = no
+
+			complete_effect = {
+				add_political_power = 25
+			}
+
+			timeout_effect = {
+				add_war_support = -0.15
+				add_popularity = {
+					ideology = ROOT
+					popularity = -0.15
+				}
+				if = {
+					limit = {
+						has_war_with_major = no
+					}
+
+					custom_effect_tooltip = generic_skip_one_line_tt
+
+					add_timed_idea = {
+						idea = CZE_sudeten_facde
+						days = 365
+					}
+				}
+			}
+		}
+
+		CZE_white_peace_silesia_owner = {
+			icon = GFX_decision_generic_operation
+			allowed = {
+				original_tag = CZE
+			}
+			priority = 999
+			days_re_enable = 60		#allow multiple times
+			ai_will_do = {
+				base = 1
+			}
+			visible = {
+				has_war_with = 66.owner
+				has_country_flag = CZE_unlock_white_peace
+				NOT = {
+					has_global_flag = CZE_block_silesia_war_negotations	#lets Germany player block annoying CZE
+				}
+			}
+			available = {
+				all_owned_state = {
+					is_controlled_by = ROOT
+				}
+				66 = {
+					is_controlled_by = ROOT
+				}
+			}
+			remove_effect = {
+				66 = {
+					owner = {
+						country_event = MUN_czech.1024
+					}
+				}
+			}
+		}
+
+}
+# END 1.19 decision compatibility
