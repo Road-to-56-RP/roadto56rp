@@ -1,0 +1,3655 @@
+# MiyagiPatch 1.19 focus-tree selection support: vanilla ideas needed by selectable DLC trees.
+
+ideas = {
+	aircraft_manufacturer = {
+
+		# AST_curtiss-wright_organization_idea from common\ideas\australia.txt:3066
+		AST_curtiss-wright_organization_idea = {
+			name = AST_curtiss-wright_organization
+
+			picture = AST_curtiss-wright
+
+			allowed = {
+				original_tag = AST
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			available = {
+				owner = { 
+					has_completed_focus = AST_united_states_as_our_keystone 
+				}
+			}
+
+			visible = {
+			}
+
+			cost = 150
+
+			research_bonus = {
+				air_equipment = 0.15
+			}
+			
+			traits = { multi_role_aircraft_manufacturer }
+					
+			modifier = {
+			}
+		}
+
+		# AST_gloster_aircraft_organization_idea from common\ideas\australia.txt:2948
+		AST_gloster_aircraft_organization_idea = {
+			name = AST_gloster_aircraft_organization
+
+			picture = AST_gloster_aircraft
+
+			allowed = {
+				original_tag = AST
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			available = {
+				owner = { 
+					OR = {
+						has_completed_focus = AST_solidarity_by_the_empire
+						has_completed_focus = AST_british_pact
+					}
+				}
+			}
+
+			visible = {
+			}
+
+			cost = 150
+
+			research_bonus = {
+				air_equipment = 0.25
+			}
+			
+			traits = { light_aircraft_manufacturer }
+					
+			modifier = {
+			}
+		}
+
+		# AST_lockheed_organization_idea from common\ideas\australia.txt:3097
+		AST_lockheed_organization_idea = {
+			name = AST_lockheed_organization
+
+			picture = lockheed
+
+			allowed = {
+				original_tag = AST
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			available = {
+				owner = { 
+					has_completed_focus = AST_united_states_as_our_keystone 
+				}
+			}
+
+			visible = {
+			}
+
+			cost = 150
+
+			research_bonus = {
+				air_equipment = 0.15
+			}
+			
+			traits = { fuel_efficient_aircraft_manufacturer }
+					
+			modifier = {
+			}
+		}
+
+		# AST_yakovlev_design_bureau from common\ideas\australia.txt:3128
+		AST_yakovlev_design_bureau = {
+		    name = yakovlev_design_bureau
+		    picture = yakovlev_design_bureau
+		    allowed = {
+		        original_tag = AST
+		    }
+		    visible = {
+		        has_completed_focus = AST_westward_battles
+		    }
+		    research_bonus = {
+		        air_equipment = 0.15
+		    }
+		    traits = { naval_aircraft_manufacturer }
+		    modifier = {
+		    }
+		}
+
+		# fokker_ins from common\ideas\indonesia.txt:920
+		fokker_ins = {
+			allowed = {
+				original_tag = INS
+			}
+
+			available = {
+				if = {
+					limit = {
+						has_dlc = "Thunder at Our Gates"
+					}
+					has_completed_focus = INSHOL_east_indies_fokker_division
+				}
+			}
+
+			picture = fokker
+
+			research_bonus = {
+				air_equipment = 0.15
+			}
+
+			traits = { light_aircraft_manufacturer_2 }
+		}
+	}
+	country = {
+
+		# AST_IRE_out_of_the_den_idea from common\ideas\australia.txt:1892
+		AST_IRE_out_of_the_den_idea = {
+
+			picture = FRA_army_of_aggression_focus
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			removal_cost = -1
+
+			targeted_modifier = {
+	   			tag = ENG
+	  			defense_bonus_against = 0.15
+   			}	
+			
+		}
+
+		# AST_all_dressed_up_idea from common\ideas\australia.txt:340
+		AST_all_dressed_up_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = chi_army_corruption3
+
+			cancel = {
+				NOT = {
+					OR = {
+						is_in_faction_with = ENG
+						is_subject_of = ENG
+					}
+				}
+			}
+
+			on_add = {
+				add_offsite_building = { 
+					type = arms_factory
+					level = 2 #Edit AST_all_dressed_up_idea_tt if changed
+				}
+			}
+
+			on_remove = {
+				add_offsite_building = {
+					type = arms_factory
+					level = -2 #Edit AST_all_dressed_up_idea_tt if changed
+				}
+			}
+
+			modifier = {
+				custom_modifier_tooltip = AST_all_dressed_up_idea_tt
+			}
+
+			equipment_bonus = { 
+				infantry_equipment = {
+					instant = yes
+					build_cost_ic = -0.05
+				}
+				support_equipment = {
+					instant = yes
+					build_cost_ic = -0.025
+				}
+				artillery_equipment = {
+					instant = yes
+					build_cost_ic = -0.025
+				}
+			}
+
+		}
+
+		# AST_anti_fascist_measures from common\ideas\australia.txt:854
+		AST_anti_fascist_measures = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_fascism_banned
+
+			on_add = {
+				set_country_flag = AST_anti_fascist_measures_triggered_flag
+			}
+
+			modifier = {
+				fascism_drift = -0.03
+			}
+
+		}
+
+		# AST_british_intel_sharing from common\ideas\australia.txt:1102
+		AST_british_intel_sharing = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_spy_intel
+
+			modifier = { 
+				operative_slot = 1
+				agency_upgrade_time = -0.15
+				intel_network_gain_factor = 0.15
+			}
+
+		}
+
+		# AST_cabinet_trust_state_1_idea from common\ideas\australia.txt:638
+		AST_cabinet_trust_state_1_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = AST_cabinet_trust1_idea
+
+			modifier = { #Edit AST_cabinet_trust_state_1_tt if changed
+				stability_factor = -0.30
+				political_power_factor = -0.2
+				war_support_factor = -0.15
+			}
+
+		}
+
+		# AST_cabinet_trust_state_3_idea from common\ideas\australia.txt:682
+		AST_cabinet_trust_state_3_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = AST_cabinet_trust3_idea
+
+			modifier = { #Edit AST_cabinet_trust_state_3_tt if changed
+				stability_factor = -0.20
+				political_power_factor = -0.15
+				war_support_factor = -0.10
+			}
+
+		}
+
+		# AST_cabinet_trust_state_4_idea from common\ideas\australia.txt:704
+		AST_cabinet_trust_state_4_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = AST_cabinet_trust4_idea
+
+			modifier = { #Edit AST_cabinet_trust_state_4_tt if changed
+				stability_factor = -0.15
+				political_power_factor = -0.12
+				war_support_factor = -0.07
+			}
+
+		}
+
+		# AST_cabinet_trust_state_5_idea from common\ideas\australia.txt:726
+		AST_cabinet_trust_state_5_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = AST_cabinet_trust5_idea
+
+			modifier = { #Edit AST_cabinet_trust_state_5_tt if changed
+				stability_factor = -0.10
+				political_power_factor = -0.1
+				war_support_factor = -0.05
+			}
+
+		}
+
+		# AST_cruising_for_a_bruising_idea from common\ideas\australia.txt:1953
+		AST_cruising_for_a_bruising_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_navy_cruiser_warfare
+
+			equipment_bonus = {
+				ship_hull_cruiser = {
+					instant = yes
+					naval_range = 0.15
+					build_cost_ic = -0.1
+				}
+			}
+
+		}
+
+		# AST_investigation_branch from common\ideas\australia.txt:878
+		AST_investigation_branch = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = AST_investigation_branch
+
+			modifier = {
+				subversive_activites_upkeep = -0.5
+			}
+
+		}
+
+		# AST_liberty_loans_idea from common\ideas\australia.txt:460
+		AST_liberty_loans_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = AST_liberty_loans
+
+			modifier = {
+				consumer_goods_factor = -0.1
+			}
+
+		}
+
+		# AST_make_common_cause_idea from common\ideas\australia.txt:1872
+		AST_make_common_cause_idea = {
+
+			picture = PER_unification_initiative_idea
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				autonomy_manpower_share_from_subjects = 0.1
+			}
+			
+		}
+
+		# AST_nationalizing_spirit from common\ideas\australia.txt:1063
+		AST_nationalizing_spirit = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_nationalization
+
+			modifier = {
+				industrial_capacity_factory = -0.30
+				industrial_capacity_dockyard = -0.30
+			}
+		}
+
+		# AST_phosphate_commission from common\ideas\australia.txt:1189
+		AST_phosphate_commission = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = INS_bangka_bauxite_export
+
+			cancel = {
+				725 = {
+					NOT = {
+						is_owned_by = AST
+					}
+				}
+			}
+
+			modifier = {
+				consumer_goods_factor = -0.10
+				industrial_capacity_factory = 0.05
+			}
+		}
+
+		# AST_poor_population_growth from common\ideas\australia.txt:1082
+		AST_poor_population_growth = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_immigration
+
+			modifier = { 
+				monthly_population = -0.1
+			}
+
+		}
+
+		# AST_referendum_aviation_idea from common\ideas\australia.txt:554
+		AST_referendum_aviation_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_air_research
+
+			research_bonus = { #Edit AST_political_events.1.a.tt if changed
+				air_equipment = 0.15
+			}
+
+			modifier = { #Edit AST_political_events.1.a.tt if changed	
+				production_speed_air_base_factor = 0.05
+			}
+		}
+
+		# AST_referendum_marketing_idea from common\ideas\australia.txt:577
+		AST_referendum_marketing_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = PER_fund_state_intelligence_idea
+
+			modifier = { #Edit AST_political_events.1.b.tt if changed
+				consumer_goods_factor = -0.10
+			}
+		}
+
+		# AST_scrap_iron_flotilla_taog_idea from common\ideas\australia.txt:1929
+		AST_scrap_iron_flotilla_taog_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = escort_effort_focus
+
+			equipment_bonus = {
+				ship_hull_light = {
+					instant = yes
+					naval_range = 0.15
+					build_cost_ic = -0.1
+				}
+			}
+
+		}
+
+		# AST_strike_from_down_under_idea from common\ideas\australia.txt:1977
+		AST_strike_from_down_under_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_navy_submarines
+
+			equipment_bonus = {
+				ship_hull_submarine = {
+					instant = yes
+					naval_range = 0.15
+					sub_visibility = -0.1
+					surface_detection = 0.1
+				}
+			}
+			
+		}
+
+		# AST_strike_ongoing from common\ideas\australia.txt:1236
+		AST_strike_ongoing = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = ICE_general_strike
+
+			cancel = {
+				OR = {
+					has_completed_focus = AST_all_for_one_one_for_all
+					has_government = communism
+				}
+			}
+
+			modifier = {
+				consumer_goods_factor = 0.10
+				industrial_capacity_factory = -0.10
+				industrial_capacity_dockyard = -0.10
+			}
+		}
+
+		# AST_the_pacific_garrison_1 from common\ideas\australia.txt:1124
+		AST_the_pacific_garrison_1 = { #Supported by oil supply
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_sea_focused_navy
+
+			modifier = { 
+				base_fuel_gain_factor = 0.15
+				convoy_escort_efficiency = 0.15
+				naval_detection = 0.1
+				spotting_chance = 0.1
+			}
+
+		}
+
+		# AST_the_pacific_garrison_eng from common\ideas\australia.txt:1169
+		AST_the_pacific_garrison_eng = { #ENG: Supporting AST oil supply
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_sea_focused_navy
+
+			modifier = { 
+				base_fuel_gain_factor = -0.15
+			}
+
+		}
+
+		# AST_the_promise_of_nauru from common\ideas\australia.txt:1043
+		AST_the_promise_of_nauru = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_deal_with_the_devil
+
+			modifier = {
+				custom_modifier_tooltip = AST_the_promise_of_nauru_tt
+			}
+
+		}
+
+		# AST_toe_the_line_spirit from common\ideas\australia.txt:1285
+		AST_toe_the_line_spirit = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_goods_red_bonus
+
+			modifier = {
+				consumer_goods_factor = -0.05
+			}
+		}
+
+		# AST_unratified_westminster_act_idea from common\ideas\australia.txt:199
+		AST_unratified_westminster_act_idea = { #Will apply to vanilla too
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = ast_abandon_the_westminster_system
+
+			cancel = {
+				is_subject = no
+			}
+
+			rule = {
+				can_decline_call_to_war = no 
+			}
+
+		}
+
+		# AST_voluntary_foreign_service_idea from common\ideas\australia.txt:438
+		AST_voluntary_foreign_service_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = ast_volunteer_defence_corps
+
+			modifier = {
+				send_volunteer_divisions_required = -0.50
+				send_volunteers_tension = -0.40
+				send_volunteer_size = 4
+			}
+
+		}
+
+		# AST_war_carriers_idea from common\ideas\australia.txt:1217
+		AST_war_carriers_idea = {
+
+			picture = generic_logistics
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			removal_cost = -1
+			
+			modifier = {
+				custom_modifier_tooltip = AST_war_carriers_tech_tt
+			}
+		}
+
+		# AST_war_plan_japan from common\ideas\australia.txt:949
+		AST_war_plan_japan = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_japanese_conflict
+
+			targeted_modifier = { 
+				tag = JAP
+				attack_bonus_against = 0.15
+				defense_bonus_against = 0.1
+				breakthrough_bonus_against = 0.1
+			}
+
+		}
+
+		# AST_wool_agreement_idea from common\ideas\australia.txt:596
+		AST_wool_agreement_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			removal_cost = -1
+
+			picture = AST_wool_agreement
+
+			targeted_modifier = {
+	   			tag = AST
+	  			trade_cost_for_target_factor = -0.30
+	  			extra_trade_to_target_factor = 0.15
+	  			
+   			}	
+		}
+
+		# HOL_agricultural_taxes from common\ideas\netherlands.txt:37
+		HOL_agricultural_taxes = {
+			picture = tur_etatism
+			allowed = {
+				original_tag = HOL
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.15
+				stability_factor = 0.1
+			}
+		}
+
+		# HOL_cheap_lumber from common\ideas\netherlands.txt:2028
+		HOL_cheap_lumber = {
+			picture = INS_cheap_lumber
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.1
+			}
+		}
+
+		# HOL_cheap_sugar from common\ideas\netherlands.txt:2015
+		HOL_cheap_sugar = {
+			picture = INS_cheap_sugar
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.1
+			}
+		}
+
+		# HOL_flag_will_fly from common\ideas\netherlands.txt:5
+		HOL_flag_will_fly = {
+			picture = generic_volunteer_expedition_bonus
+			allowed = {
+				original_tag = HOL
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = {
+				NOT = {
+					INS = {
+						has_country_flag = INS_revolution_has_started
+					}
+				}
+			}
+
+			targeted_modifier = {
+				tag = INS
+				attack_bonus_against = 0.2
+				defense_bonus_against = 0.2
+			}
+
+			modifier = {
+				training_time_factor = -0.4
+				production_speed_arms_factory_factor = 0.2
+			}
+
+		}
+
+		# HOL_indonesian_cheap_labor from common\ideas\netherlands.txt:2002
+		HOL_indonesian_cheap_labor = {
+			picture = ARG_public_works_investment
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				weekly_manpower = 1000
+			}
+		}
+
+		# INS_construction_boom from common\ideas\indonesia.txt:123
+		INS_construction_boom = {
+			picture = SOV_third_five_year_plan_civilian
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = 0.2
+			}
+		}
+
+		# INS_diverted_navy_funds_idea from common\ideas\indonesia.txt:23
+		INS_diverted_navy_funds_idea = {
+			picture = generic_navy_bonus
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				naval_coordination = 0.1
+				naval_defense_factor = 0.1
+				navy_org_factor = 0.1
+				spotting_chance = 0.1
+				convoy_escort_efficiency = 0.1
+				convoy_raiding_efficiency_factor = 0.1
+				production_speed_dockyard_factor = 0.25
+
+				production_speed_industrial_complex_factor = -0.15
+				production_speed_arms_factory_factor = -0.15
+				stability_factor = -0.1
+			}
+		}
+
+		# INS_establishing_naval_doctrine from common\ideas\indonesia.txt:649
+		INS_establishing_naval_doctrine = {
+
+			allowed = {
+				original_tag = INS
+			}
+			
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			picture = AUS_naval_efficiency_idea
+
+			modifier = {
+				experience_gain_navy = 0.4
+			}
+
+		}
+
+		# INS_guided_democracy_idea from common\ideas\indonesia.txt:742
+		INS_guided_democracy_idea = {
+			allowed = {
+				original_tag = INS
+			}
+
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			picture = man_militarism
+
+			modifier = {
+				political_power_gain = -0.1
+				stability_factor = 0.1
+				neutrality_drift = 0.04
+				fascism_drift = 0.03
+			}
+		}
+
+		# INS_investing_in_tin_idea from common\ideas\indonesia.txt:708
+		INS_investing_in_tin_idea = {
+
+			allowed = {
+				original_tag = INS
+			}
+
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			picture = generic_exploit_mines
+
+			modifier = {
+				consumer_goods_factor = 0.05
+				production_speed_buildings_factor = -0.075
+			}
+
+		}
+
+		# INS_military_above_all_idea from common\ideas\indonesia.txt:760
+		INS_military_above_all_idea = {
+			allowed = {
+				original_tag = INS
+			}
+
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			picture = citizen_militia_1
+
+			modifier = {
+				production_speed_industrial_complex_factor = -0.5
+				production_speed_infrastructure_factor = -0.1
+				production_speed_arms_factory_factor = 0.3
+				production_speed_dockyard_factor = 0.4
+			}
+		}
+
+		# INS_outsourced_navy_idea from common\ideas\indonesia.txt:4
+		INS_outsourced_navy_idea = {
+			picture = generic_sea_focused_navy
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				naval_coordination = 0.05
+				naval_defense_factor = 0.05
+				navy_org_factor = 0.05
+				spotting_chance = 0.05
+				convoy_escort_efficiency = 0.05
+				convoy_raiding_efficiency_factor = 0.05
+				production_speed_dockyard_factor = 0.1
+			}
+		}
+
+		# NZL_2nzef from common\ideas\new_zealand.txt:66
+		NZL_2nzef = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_volunteer_expedition_bonus
+
+			rule = {
+				can_send_volunteers = yes
+			}
+
+			modifier = {
+				send_volunteer_divisions_required = -1
+				send_volunteers_tension = -0.5
+				send_volunteer_size = 1
+			}
+
+		}
+
+		# NZL_bob_semple_tank from common\ideas\new_zealand.txt:23
+		NZL_bob_semple_tank = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_acquire_tanks
+
+			modifier = {
+				army_core_defence_factor = 0.05
+				army_org_factor = 0.02
+			}
+
+		}
+
+		# NZL_commonwealth_loyalty from common\ideas\new_zealand.txt:321
+		NZL_commonwealth_loyalty = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = stiff_upper_lip
+
+			modifier = {
+				stability_factor = 0.1
+				overlord_trade_cost_factor = -0.2 
+			}
+		}
+
+		# NZL_first_labor_government from common\ideas\new_zealand.txt:114
+		NZL_first_labor_government = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = democratic
+			}
+
+			removal_cost = -1
+
+			picture = generic_pp_unity_bonus
+
+			modifier = {
+				consumer_goods_factor = -0.05
+				production_factory_efficiency_gain_factor = 0.02
+				industrial_capacity_factory = 0.02
+				industrial_capacity_dockyard = 0.02
+				stability_factor = 0.05
+			}
+		}
+
+		# NZL_great_depression from common\ideas\new_zealand.txt:299
+		NZL_great_depression = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_economic_crisis
+
+			modifier = {
+				political_power_cost = 0.6
+				consumer_goods_factor = 0.3
+				local_resources_factor = -0.2
+				production_speed_buildings_factor = -0.05
+
+			}
+		}
+
+		# NZL_in_the_darkness from common\ideas\new_zealand.txt:258
+		NZL_in_the_darkness = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = fascism
+			}
+
+			removal_cost = -1
+
+			picture = generic_fascism_drift_bonus
+
+			modifier = {
+				autonomy_gain = 1
+				fascism_drift = 0.01
+				production_speed_buildings_factor = 0.1
+			}
+		}
+
+		# NZL_maori_conscription from common\ideas\new_zealand.txt:197
+		NZL_maori_conscription = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_intel_bonus
+
+			modifier = {
+				conscription = 0.01
+				stability_factor = -0.05
+			}
+		}
+
+		# NZL_national_coal_board_idea from common\ideas\new_zealand.txt:340
+		NZL_national_coal_board_idea = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_exploit_mines
+
+			modifier = {
+				stability_factor = -0.1
+				local_resources_coal_factor = 0.15
+			}
+		}
+
+		# NZL_railways_board from common\ideas\new_zealand.txt:279
+		NZL_railways_board = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_railroads
+
+			modifier = {
+				political_power_factor = -0.1
+				production_speed_rail_way_factor = -0.2
+			}
+		}
+
+		# NZL_ratana_alliance from common\ideas\new_zealand.txt:137
+		NZL_ratana_alliance = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_morale_bonus
+
+			modifier = {
+				political_power_cost = 0.2
+				stability_factor = 0.05
+				war_support_factor = 0.05
+			}
+		}
+
+		# NZL_social_security_act from common\ideas\new_zealand.txt:44
+		NZL_social_security_act = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_manpower_bonus
+
+			modifier = {
+				conscription = 0.02
+				stability_factor = 0.05
+				war_support_factor = 0.05
+			}
+
+		}
+
+		# NZL_stomp_out_pacifism from common\ideas\new_zealand.txt:92
+		NZL_stomp_out_pacifism = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_disjointed_gov
+
+			modifier = {
+				foreign_subversive_activites = -0.50
+				stability_factor = -0.05
+				war_support_factor = 0.05
+				conscription_factor = 0.05
+			}
+		}
+
+		# NZL_the_manpower_act from common\ideas\new_zealand.txt:158
+		NZL_the_manpower_act = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_infantry_bonus
+
+			modifier = {
+				conscription_factor = 0.07
+			}
+		}
+
+		# NZL_the_workers_party_1 from common\ideas\new_zealand.txt:217
+		NZL_the_workers_party_1 = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = communism
+			}
+
+			removal_cost = -1
+
+			picture = generic_communism_drift_bonus
+
+			modifier = {
+				autonomy_gain = 1
+				communism_drift = 0.02
+			}
+		}
+
+		# NZL_the_workers_party_2 from common\ideas\new_zealand.txt:237
+		NZL_the_workers_party_2 = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = communism
+			}
+
+			removal_cost = -1
+
+			picture = generic_communism_drift_bonus
+
+			modifier = {
+				autonomy_gain = 1
+				communism_drift = 0.02
+				production_speed_buildings_factor = 0.1
+			}
+		}
+
+		# NZL_wairarapa_sheep_farms from common\ideas\new_zealand.txt:3
+		NZL_wairarapa_sheep_farms = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_goods_red_bonus
+
+			modifier = {
+				consumer_goods_factor = -0.15
+			}
+
+		}
+
+		# NZL_waitangi_tribunal from common\ideas\new_zealand.txt:177
+		NZL_waitangi_tribunal = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_democratic_drift_bonus
+
+			modifier = {
+				conscription = 0.02
+				consumer_goods_factor = 0.05
+			}
+		}
+
+		# PHI_the_great_depression_temp_construction_speed from common\ideas\philippines.txt:11
+		PHI_the_great_depression_temp_construction_speed = {
+			picture = ARG_construction_guilds
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			removal_cost = -1
+			modifier = { production_speed_buildings_factor = 0.25 }
+		}
+
+		# SIA_radio_propaganda from common\ideas\siam.txt:749
+		SIA_radio_propaganda = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = SWE_radiotjanst
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				fascism_drift = 0.01
+				justify_war_goal_time = -0.15
+				war_support_factor = 0.05
+				conscription_factor = 0.1
+			}
+		}
+
+		# SIA_siamese_tankettes from common\ideas\siam.txt:1835
+		SIA_siamese_tankettes = {
+			removal_cost = -1
+
+			picture = SOV_third_five_year_plan_military
+				
+			allowed = {
+				original_tag = SIA
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+					
+			equipment_bonus = {
+				light_tank_chassis = {
+					instant = yes
+					build_cost_ic = -0.05
+					reliability = 0.05
+				}
+			}
+		}
+
+		# idea_AST_civil_war_on_their_own from common\ideas\australia.txt:83
+		idea_AST_civil_war_on_their_own = {
+
+			picture = generic_intel_bonus
+			
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			cancel = {
+				has_civil_war = no
+			}
+			modifier = {
+				ai_call_ally_desire_factor = -10000
+				ai_join_ally_desire_factor = -10000
+			}
+			rule = {
+				can_decline_call_to_war = yes
+				can_join_factions = no
+			}
+
+		}
+
+		# idea_HOL_comite_rijksenheeid from common\ideas\indonesia.txt:687
+		idea_HOL_comite_rijksenheeid = {
+			allowed = {
+				OR = {
+					original_tag = HOL
+					tag = event_target:INS_dutch_indonesia
+				}
+			}
+
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+
+			picture = chi_war_of_resistance3
+
+			targeted_modifier = {
+				tag = INS
+				attack_bonus_against = 0.1
+				breakthrough_bonus_against = 0.1
+				defense_bonus_against = -0.1
+			}
+		}
+
+		# idea_INS_defend_java_til_death from common\ideas\indonesia.txt:430
+		idea_INS_defend_java_til_death = {
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = {
+				NOT = {
+					is_subject_of = HOL
+					has_war = yes
+				}
+			}
+
+			picture = INS_defend_java_til_death
+
+			removal_cost = -1
+
+			modifier = {
+				surrender_limit = 0.95
+			}
+		}
+
+		# idea_INS_japanese_symphasizers from common\ideas\indonesia.txt:342
+		idea_INS_japanese_symphasizers = {
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = {
+				NOT = {
+					is_subject_of = HOL
+					has_war_with = JAP
+				}
+			}
+
+			picture = JAP_japanese_influence_growing
+
+			removal_cost = -1
+
+			modifier = {
+				fascism_drift = 0.02
+				stability_factor = -0.1
+				war_support_factor = -0.1
+			}
+		}
+
+		# idea_INS_nefis from common\ideas\indonesia.txt:370
+		idea_INS_nefis = {
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+				has_dlc = "La Resistance"
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = {
+				NOT = {
+					is_subject_of = HOL
+				}
+			}
+
+			picture = generic_secret_police
+
+			removal_cost = -1
+
+			modifier = {
+				intel_network_gain = 0.5
+				intel_from_combat_factor = 0.3
+				intel_from_operatives_factor = 0.15
+				own_operative_capture_chance_factor = -0.5
+				operative_slot = 1
+			}
+		}
+
+		# idea_INS_nefis_no_lar from common\ideas\indonesia.txt:400
+		idea_INS_nefis_no_lar = {
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+				NOT = { has_dlc = "La Resistance" }
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = {
+				NOT = {
+					is_subject_of = HOL
+				}
+			}
+
+			picture = generic_secret_police
+
+			removal_cost = -1
+
+			modifier = {
+				intel_network_gain = 0.5
+				intel_from_combat_factor = 0.3
+				intel_from_operatives_factor = 0.15
+				navy_intel_factor = 0.5
+				army_intel_factor = 0.4
+			}
+		}
+
+		# idea_INS_netherlands_most_precious_jewel from common\ideas\indonesia.txt:293
+		idea_INS_netherlands_most_precious_jewel = {
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			cancel = {
+				has_country_flag = { flag = INS_freed_from_dutch }
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			picture = INS_netherlands_most_precious_jewel
+
+			removal_cost = -1
+
+			modifier = {
+				# See /autonomous_states/colony and /autonomous_states/dominion to see how this actually works
+				custom_modifier_tooltip = INS_netherlands_most_precious_jewel_tt
+			}
+		}
+
+		# idea_INS_policy_shift from common\ideas\indonesia.txt:584
+		idea_INS_policy_shift = {
+			allowed = {
+				original_tag = INS
+			}
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			picture = generic_flexible_foreign_policy2
+
+			modifier = {
+				mobilization_laws_cost_factor = -0.33
+				trade_laws_cost_factor = -0.33
+				economy_cost_factor = -0.33
+				political_advisor_cost_factor = -0.33
+			}
+		}
+
+		# idea_INS_restoring_order from common\ideas\indonesia.txt:137
+		idea_INS_restoring_order = {
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			picture = RAJ_independence_movement
+
+			removal_cost = -1
+
+			modifier = {
+				stability_weekly = 0.005
+				political_power_factor = 0.05
+			}
+		}
+
+		# idea_INS_tax_reduction from common\ideas\indonesia.txt:483
+		idea_INS_tax_reduction = {
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = generic_foreign_capital
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = 0.05
+				local_resources_factor = 0.1
+				global_building_slots = 1
+			}
+		}
+
+		# idea_INS_volksraad from common\ideas\indonesia.txt:153
+		idea_INS_volksraad = {
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			cancel = {
+				has_country_flag = { flag = INS_freed_from_dutch }
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			picture = INS_volksraad
+
+			removal_cost = -1
+
+			modifier = {
+				stability_factor = 0.05
+				custom_modifier_tooltip = INS_volksraad_custom_tt
+			}
+		}
+
+		# idea_SIA_a_constituional_monarchy from common\ideas\siam.txt:1332
+		idea_SIA_a_constituional_monarchy = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_constitutional_guarantees
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				stability_factor = 0.1
+				democratic_drift = 0.15
+				political_power_factor = 0.05
+				research_speed_factor = 0.08
+			}
+		}
+
+		# idea_SIA_a_modern_economy from common\ideas\siam.txt:2046
+		idea_SIA_a_modern_economy = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_production_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				industrial_capacity_factory = 0.3
+				industrial_capacity_dockyard = 0.3
+				production_speed_buildings_factor = 0.15
+				production_factory_efficiency_gain_factor = 0.15
+				energy_gain_factor = -0.3
+				production_lack_of_resource_penalty_factor = 0.5
+
+			}	
+		}
+
+		# idea_SIA_a_race_against_time from common\ideas\siam.txt:949
+		idea_SIA_a_race_against_time = {
+			name = idea_SIA_a_race_against_time
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			on_remove = {
+				add_timed_idea = {
+					idea = idea_SIA_overheated_economy
+					days = 280
+				}
+			}
+			modifier = {
+				production_speed_dockyard_factor = 0.2
+				production_speed_arms_factory_factor = -0.15
+				industrial_capacity_dockyard = 0.5
+			}	
+		}
+
+		# idea_SIA_an_absolute_monarchy from common\ideas\siam.txt:1310
+		idea_SIA_an_absolute_monarchy = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_king_handled
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				stability_weekly = 0.025
+				justify_war_goal_time = -0.1
+				non_core_manpower = 0.02
+				attrition = -0.06
+				conscription = 0.01
+			}
+		}
+
+		# idea_SIA_an_unceasy_alliance from common\ideas\siam.txt:1209
+		idea_SIA_an_unceasy_alliance = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_deal_with_the_devil
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				neutrality_drift = 0.05
+			}
+			cancel = {
+				has_completed_focus = SIA_the_kings_gambit
+			}
+		}
+
+		# idea_SIA_breaking_the_burmese_line from common\ideas\siam.txt:1926
+		idea_SIA_breaking_the_burmese_line = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_infantry_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			targeted_modifier = {
+				tag = ENG
+				attack_bonus_against = 0.1
+				breakthrough_bonus_against = 0.15
+			}
+
+			targeted_modifier = {
+				tag = RAJ
+				attack_bonus_against = 0.1
+				breakthrough_bonus_against = 0.15
+			}
+
+			targeted_modifier = {
+				tag = BRM
+				attack_bonus_against = 0.1
+				breakthrough_bonus_against = 0.15
+			}
+		}
+
+		# idea_SIA_cemented_control from common\ideas\siam.txt:588
+		idea_SIA_cemented_control = {
+			picture = SIA_cemented_control
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				party_popularity_stability_factor = 0.075
+				war_stability_factor = 0.075
+				political_power_factor = 0.05
+			}
+		}
+
+		# idea_SIA_cemented_control_2 from common\ideas\siam.txt:606
+		idea_SIA_cemented_control_2 = {
+			picture = SIA_cemented_control
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				party_popularity_stability_factor = 0.15
+				war_stability_factor = 0.1
+				political_power_factor = 0.08
+				resistance_target = -0.05
+				compliance_growth = 0.02
+				production_factory_start_efficiency_factor = 0.15
+			}
+		}
+
+		# idea_SIA_cemented_control_3 from common\ideas\siam.txt:625
+		idea_SIA_cemented_control_3 = {
+			picture = SIA_cemented_control
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+
+				party_popularity_stability_factor = 0.15
+				war_stability_factor = 0.1
+				political_power_factor = 0.08
+				resistance_target = -0.05
+				compliance_growth = 0.05
+				production_factory_start_efficiency_factor = 0.15
+				resistance_growth_on_our_occupied_states = 0.25
+				resistance_target_on_our_occupied_states = 0.15
+				conscription_factor = 0.15
+			}
+		}
+
+		# idea_SIA_civil_service_heroism_1 from common\ideas\siam.txt:314
+		idea_SIA_civil_service_heroism_1 = {
+			picture = generic_research_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.04
+			}
+		}
+
+		# idea_SIA_civil_service_heroism_2 from common\ideas\siam.txt:329
+		idea_SIA_civil_service_heroism_2 = {
+			name = idea_SIA_civil_service_heroism_1
+			picture = generic_research_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.08
+				democratic_drift = 0.02
+				political_advisor_cost_factor = -0.2
+			}
+		}
+
+		# idea_SIA_civilian_technocrats_in_institutions from common\ideas\siam.txt:531
+		idea_SIA_civilian_technocrats_in_institutions = {
+			picture = generic_research_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				political_advisor_cost_factor = -0.15
+				local_resources_factor = 0.1
+				local_resources_coal_factor = 0.05
+			}	
+		}
+
+		# idea_SIA_constitutional_virtue from common\ideas\siam.txt:1291
+		idea_SIA_constitutional_virtue = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = SIA_constitutional_virtue
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				resistance_growth_on_our_occupied_states = 0.25
+				research_speed_factor = 0.1
+			}
+		}
+
+		# idea_SIA_death_to_communists from common\ideas\siam.txt:2070
+		idea_SIA_death_to_communists = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			targeted_modifier = {
+				tag = PRC
+				attack_bonus_against = 0.10
+			}
+		}
+
+		# idea_SIA_death_to_communists_2 from common\ideas\siam.txt:2089
+		idea_SIA_death_to_communists_2 = {
+			name = SIA_national_defense_in_asia
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			targeted_modifier = {
+				tag = PRC
+				attack_bonus_against = 0.10
+			}
+
+			modifier = {
+				planning_speed = 0.25
+				max_planning_factor = 0.1
+				cas_damage_reduction = 0.05
+			}
+		}
+
+		# idea_SIA_death_to_communists_3 from common\ideas\siam.txt:2116
+		idea_SIA_death_to_communists_3 = {
+			name = SIA_a_new_dawn_over_asia
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			targeted_modifier = {
+				tag = PRC
+				attack_bonus_against = 0.10
+			}
+
+			modifier = {
+				planning_speed = 0.25
+				max_planning_factor = 0.1
+				cas_damage_reduction = 0.05
+				army_attack_factor = 0.1
+			}
+		}
+
+		# idea_SIA_death_to_nationalists from common\ideas\siam.txt:2145
+		idea_SIA_death_to_nationalists = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			targeted_modifier = {
+				tag = CHI
+				attack_bonus_against = 0.10
+			}
+		}
+
+		# idea_SIA_death_to_nationalists_2 from common\ideas\siam.txt:2164
+		idea_SIA_death_to_nationalists_2 = {
+			name = SIA_the_peoples_war_in_asia
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			targeted_modifier = {
+				tag = CHI
+				attack_bonus_against = 0.10
+			}
+
+			modifier = {
+				army_strength_factor = 0.1
+				org_loss_at_low_org_factor = -0.15
+				attrition = -0.04
+
+			}
+		}
+
+		# idea_SIA_death_to_nationalists_3 from common\ideas\siam.txt:2191
+		idea_SIA_death_to_nationalists_3 = {
+			name = SIA_a_new_dawn_over_asia
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			targeted_modifier = {
+				tag = PRC
+				attack_bonus_against = 0.10
+			}
+
+			modifier = {
+				army_strength_factor = 0.1
+				org_loss_at_low_org_factor = -0.15
+				attrition = -0.04
+				army_attack_factor = 0.1
+			}
+		}
+
+		# idea_SIA_debt_repayment from common\ideas\siam.txt:1054
+		idea_SIA_debt_repayment = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_foreign_capital
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = -0.13
+			}	
+		}
+
+		# idea_SIA_defenders_of_constitutional_liberty from common\ideas\siam.txt:294
+		idea_SIA_defenders_of_constitutional_liberty = {
+			picture = generic_constitutional_guarantees
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.15
+				research_speed_factor = 0.1
+				democratic_drift = 0.1
+				production_speed_infrastructure_factor = 0.1
+				production_speed_industrial_complex_factor = 0.05
+				political_advisor_cost_factor = -0.2
+			}
+		}
+
+		# idea_SIA_deficit_spending from common\ideas\siam.txt:1030
+		idea_SIA_deficit_spending = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = ARG_political_corruption_modifier
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = 0.35
+				factory_energy_consumption = 0.2
+			}	
+
+			on_remove = {
+				add_timed_idea = {
+					idea = idea_SIA_debt_repayment
+					days = 1080
+				}
+			}
+		}
+
+		# idea_SIA_desperate_gambit from common\ideas\siam.txt:727
+		idea_SIA_desperate_gambit = {
+			picture = SIA_desperate_gambit
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				army_defence_factor = 0.2
+				surrender_limit = 0.3
+				army_org_factor = 0.1
+			}
+
+			on_remove = {
+				add_stability = -0.25
+			}
+		}
+
+		# idea_SIA_diverting_army_funds_to_navy from common\ideas\siam.txt:1373
+		idea_SIA_diverting_army_funds_to_navy = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_coastal_navy
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				industrial_capacity_factory = -0.1
+				industrial_capacity_dockyard = 0.25
+				production_speed_arms_factory_factor = -0.1
+				production_speed_dockyard_factor = 0.1
+			}
+		}
+
+		# idea_SIA_ending_military_grift from common\ideas\siam.txt:1857
+		idea_SIA_ending_military_grift = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_secret_police
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_industrial_complex_factor = 0.05
+				production_speed_arms_factory_factor = -0.1
+				conversion_cost_mil_to_civ_factor = -0.65
+
+			}
+		}
+
+		# idea_SIA_get_off_our_shores from common\ideas\siam.txt:1475
+		idea_SIA_get_off_our_shores = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_coastal_defense_ships
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				army_core_attack_factor = 0.15
+				breakthrough_factor = 0.15
+				supply_combat_penalties_on_core_factor = -0.15
+				weekly_manpower = 7000
+				training_time_army_factor = -0.35
+			}
+		}
+
+		# idea_SIA_how_quickly_the_table_turns from common\ideas\siam.txt:1497
+		idea_SIA_how_quickly_the_table_turns = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_flexible_foreign_policy
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				resistance_target_on_our_occupied_states = -0.15
+				annex_cost_factor = -0.15
+				compliance_gain = 0.03	
+			}
+		}
+
+		# idea_SIA_joint_military_command from common\ideas\siam.txt:1455
+		idea_SIA_joint_military_command = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_volunteer_expedition_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				land_mastery_gain_factor = 0.05
+				experience_gain_army_factor = 0.08
+				command_power_gain_mult = 0.15
+			}
+		}
+
+		# idea_SIA_nsb_all_adults_serve from common\ideas\siam.txt:1167
+		idea_SIA_nsb_all_adults_serve = {
+			name = SIA_national_savings_bond
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_manpower_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = -0.2
+				industrial_capacity_factory = -0.2
+				industrial_capacity_dockyard = -0.2
+			}
+		}
+
+		# idea_SIA_nsb_disarmed_nation from common\ideas\siam.txt:1070
+		idea_SIA_nsb_disarmed_nation = {
+			name = SIA_national_savings_bond
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_manpower_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = 0.2
+			}
+		}
+
+		# idea_SIA_nsb_extensive_conscription from common\ideas\siam.txt:1127
+		idea_SIA_nsb_extensive_conscription = {
+			name = SIA_national_savings_bond
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_manpower_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = -0.05
+			}
+		}
+
+		# idea_SIA_nsb_limited_conscription from common\ideas\siam.txt:1108
+		idea_SIA_nsb_limited_conscription = {
+			name = SIA_national_savings_bond
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_manpower_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = 0.05
+			}
+		}
+
+		# idea_SIA_nsb_scraping_the_barrel from common\ideas\siam.txt:1188
+		idea_SIA_nsb_scraping_the_barrel = {
+			name = SIA_national_savings_bond
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_manpower_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = -0.35
+				industrial_capacity_factory = -0.35
+				industrial_capacity_dockyard = -0.35
+			}
+		}
+
+		# idea_SIA_nsb_service_by_requirement from common\ideas\siam.txt:1146
+		idea_SIA_nsb_service_by_requirement = {
+			name = SIA_national_savings_bond
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_manpower_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = -0.05
+				industrial_capacity_factory = -0.05
+				industrial_capacity_dockyard = -0.05
+			}
+		}
+
+		# idea_SIA_nsb_volunteer_only from common\ideas\siam.txt:1089
+		idea_SIA_nsb_volunteer_only = {
+			name = SIA_national_savings_bond
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_manpower_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = 0.1
+			}
+		}
+
+		# idea_SIA_order_discipline_and_unity from common\ideas\siam.txt:1271
+		idea_SIA_order_discipline_and_unity = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = SIA_order_discipline_and_unity
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				war_support_factor = 0.05
+				land_mastery_gain_factor = 0.1
+				army_org_factor = 0.1
+			}
+		}
+
+		# idea_SIA_oss_special_forces_training from common\ideas\siam.txt:438
+		idea_SIA_oss_special_forces_training = {
+			picture = eng_special_air_service
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				special_forces_attack_factor = 0.10
+				special_forces_defence_factor = 0.10
+				special_forces_cap = 0.05
+				special_forces_training_time_factor = -0.20
+			}
+		}
+
+		# idea_SIA_overheated_economy from common\ideas\siam.txt:973
+		idea_SIA_overheated_economy = {
+			name = idea_SIA_overheated_economy
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_goods_red_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = 0.3
+				production_speed_buildings_factor = -0.15
+			}	
+		}
+
+		# idea_SIA_pacific_war_preparations from common\ideas\siam.txt:931
+		idea_SIA_pacific_war_preparations = {
+			name = idea_SIA_pacific_war_preparations
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				industrial_capacity_factory = -0.2
+				industrial_capacity_dockyard = 0.4
+			}	
+		}
+
+		# idea_SIA_pan_thaiism from common\ideas\siam.txt:814
+		idea_SIA_pan_thaiism = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = SIA_pan_thaiism
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				justify_war_goal_time = -0.25
+				offensive_war_stability_factor = 0.3
+				army_org_regain = 0.05
+			}
+		}
+
+		# idea_SIA_pan_thaiism_2 from common\ideas\siam.txt:852
+		idea_SIA_pan_thaiism_2 = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = SIA_pan_thaiism
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				justify_war_goal_time = -0.25
+				offensive_war_stability_factor = 0.3
+				army_org_regain = 0.05
+				political_power_factor = 0.1
+				war_support_factor = 0.05
+				trade_opinion_factor = -0.15
+				industrial_capacity_factory = -0.05
+			}
+		}
+
+		# idea_SIA_public_credit_debt from common\ideas\siam.txt:915
+		idea_SIA_public_credit_debt = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_foreign_capital
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = 0.15
+			}	
+		}
+
+		# idea_SIA_public_credit_debt_2 from common\ideas\siam.txt:991
+		idea_SIA_public_credit_debt_2 = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_foreign_capital
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = 0.5
+			}	
+		}
+
+		# idea_SIA_purged_military from common\ideas\siam.txt:2003
+		idea_SIA_purged_military = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_disjointed_gov
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				experience_gain_factor = -0.15
+				army_org_factor = -0.15
+				land_reinforce_rate = -0.05
+				fascism_drift = -0.06
+			}	
+		}
+
+		# idea_SIA_rebuilding_the_war_torn_economy from common\ideas\siam.txt:832
+		idea_SIA_rebuilding_the_war_torn_economy = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_production_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				industry_free_repair_factor = 0.5
+				industry_repair_factor = 0.15
+				consumer_goods_factor = -0.25
+				production_speed_industrial_complex_factor = 0.15
+				production_speed_arms_factory_factor = 0.15
+			}
+		}
+
+		# idea_SIA_redirected_military_funds from common\ideas\siam.txt:347
+		idea_SIA_redirected_military_funds = {
+			picture = SIA_redirected_military_funds
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = -0.15
+				production_speed_arms_factory_factor = -0.15
+				production_speed_industrial_complex_factor = 0.15
+				production_speed_infrastructure_factor = 0.15
+				consumer_goods_factor = -0.15
+			}
+		}
+
+		# idea_SIA_rehabilitated_military from common\ideas\siam.txt:2024
+		idea_SIA_rehabilitated_military = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_morale_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				experience_gain_factor = 0.1
+				land_doctrine_cost_factor = -0.1
+				
+				army_org_factor = 0.1
+				land_reinforce_rate = 0.02
+			}	
+		}
+
+		# idea_SIA_restoring_order from common\ideas\siam.txt:1353
+		idea_SIA_restoring_order = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_central_management
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.2
+				industry_free_repair_factor = 0.5
+				production_speed_buildings_factor = 0.1
+			}
+		}
+
+		# idea_SIA_revision_of_unequal_treaties from common\ideas\siam.txt:2219
+		idea_SIA_revision_of_unequal_treaties = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_flexible_foreign_policy
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.15
+
+			}	
+		}
+
+		# idea_SIA_royal_palace_bureau_directive_no_1523 from common\ideas\siam.txt:1007
+		idea_SIA_royal_palace_bureau_directive_no_1523 = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_king_handled
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			equipment_bonus = {
+				infantry_equipment = {
+					build_cost_ic = -0.15
+					instant = yes
+				}
+			}
+			modifier = {
+				consumer_goods_factor = -0.1
+
+			}	
+		}
+
+		# idea_SIA_rural_support from common\ideas\siam.txt:1231
+		idea_SIA_rural_support = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_agrarian_society
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				out_of_supply_factor = -0.15
+				no_supply_grace	 = 168
+			}
+		}
+
+		# idea_SIA_secure_rubber_islands from common\ideas\siam.txt:1436
+		idea_SIA_secure_rubber_islands = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_exploit_mines
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			targeted_modifier = {
+				tag = MAL
+				attack_bonus_against = 0.15
+			}
+		}
+
+		# idea_SIA_seized_japanese_funds from common\ideas\siam.txt:456
+		idea_SIA_seized_japanese_funds = {
+			picture = generic_production_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				industrial_capacity_factory = 0.10
+			}
+		}
+
+		# idea_SIA_seri_thai_contacts from common\ideas\siam.txt:1417
+		idea_SIA_seri_thai_contacts = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_spy_political
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				experience_gain_army_factor = 0.15
+				democratic_drift = 0.1
+			}
+		}
+
+		# idea_SIA_short_war from common\ideas\siam.txt:1640
+		idea_SIA_short_war = {
+			picture = generic_war_preparation
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				production_factory_efficiency_gain_factor = -0.1
+				line_change_production_efficiency_factor = -0.05
+				industrial_capacity_factory = 0.15
+			}
+		}
+
+		# idea_SIA_sold_privy_purse_lands from common\ideas\siam.txt:405
+		idea_SIA_sold_privy_purse_lands = {
+			picture = generic_agrarian_reform
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+
+			on_remove = {
+				if = {
+					limit = {
+						ROOT = {
+							has_country_leader = { character = SIA_phraya_phahon }
+						}
+					}
+					ROOT = {
+						country_event = {
+							id = siam.1
+							hours = 2
+						}
+					}
+				}
+			}
+
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.15
+				production_speed_buildings_factor = 0.05
+			}	
+		}
+
+		# idea_SIA_specialist_marine_forces from common\ideas\siam.txt:1957
+		idea_SIA_specialist_marine_forces = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_sea_focused_navy
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				modifier_army_sub_unit_marine_attack_factor = 0.1
+				naval_invasion_penalty = -0.1
+				naval_invasion_prep_speed = 0.25
+				conscription = 0.005
+				extra_marine_supply_grace = 72
+				production_speed_naval_supply_hub_factor = 0.15
+
+			}
+		}
+
+		# idea_SIA_standing_our_ground_mission_temp_buff from common\ideas\siam.txt:1696
+		idea_SIA_standing_our_ground_mission_temp_buff = {
+			picture = generic_fortify_the_borders
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				training_time_factor = -0.2
+				mobilization_speed = 0.25
+				army_core_defence_factor = 0.05
+				resistance_target_on_our_occupied_states = 0.1
+				mobilization_laws_cost_factor = -0.3
+			}
+		}
+
+		# idea_SIA_sued_king_prajadhipok from common\ideas\siam.txt:767
+		idea_SIA_sued_king_prajadhipok = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_king_handled
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.075
+			}
+		}
+
+		# idea_SIA_suspend_ordinary_legal_procedures from common\ideas\siam.txt:783
+		idea_SIA_suspend_ordinary_legal_procedures = {
+			allowed = {
+				original_tag = SIA
+			}
+			picture = generic_oppression
+			allowed_civil_war = {
+				always = yes
+			}
+
+			on_remove = {
+				if = {
+					limit = {
+						has_idea = idea_SIA_cemented_control
+					}
+					swap_ideas = {
+						remove_idea = idea_SIA_cemented_control
+						add_idea = idea_SIA_cemented_control_2
+					}
+				}
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				stability_weekly = -0.003
+				war_support_weekly = 0.003
+				promote_cost_factor = -0.75
+				production_speed_arms_factory_factor = 0.1
+			}
+		}
+
+		# idea_SIA_thai_irredentism from common\ideas\siam.txt:384
+		idea_SIA_thai_irredentism = {
+			picture = generic_fascism_drift_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.05
+				fascism_drift = 0.02
+				generate_wargoal_tension = -0.75
+				justify_war_goal_time = -0.25
+				annex_cost_factor = -0.15
+				send_volunteers_tension = -1
+				send_volunteer_size = 2
+			}	
+		}
+
+		# idea_SIA_the_royal_police_counterweight from common\ideas\siam.txt:366
+		idea_SIA_the_royal_police_counterweight = {
+			picture = generic_secret_police
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				intelligence_agency_defense = 0.25
+				non_core_manpower = 0.02
+				resistance_target = -0.05
+
+			}
+		}
+
+		# idea_SIA_the_sacred_hierarchy from common\ideas\siam.txt:1250
+		idea_SIA_the_sacred_hierarchy = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = SIA_sacred_hierarchy
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				conscription = 0.01
+				experience_loss_factor = -0.15
+				compliance_growth = 0.1
+				justify_war_goal_time = -0.1
+			}
+		}
+
+		# idea_SIA_the_yellow_dossier from common\ideas\siam.txt:1878
+		idea_SIA_the_yellow_dossier = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_spy_political
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = 0.05
+				production_factory_start_efficiency_factor = 0.1
+				production_factory_max_efficiency_factor = 0.05
+				line_change_production_efficiency_factor = 0.1
+				stability_factor = -0.05
+
+			}
+		}
+
+		# idea_SIA_the_yellow_dossier_2 from common\ideas\siam.txt:1901
+		idea_SIA_the_yellow_dossier_2 = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_spy_political
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = 0.1
+				production_factory_start_efficiency_factor = 0.15
+				production_factory_max_efficiency_factor = 0.1
+				line_change_production_efficiency_factor = 0.15
+				industrial_capacity_factory = 0.05
+				industrial_capacity_dockyard = 0.05
+				stability_factor = -0.1
+
+			}
+		}
+
+		# idea_SIA_unconventional_tank_construction from common\ideas\siam.txt:1621
+		idea_SIA_unconventional_tank_construction = {
+			picture = man_five_year_plan_tank
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			equipment_bonus = {
+				light_tank_chassis = {
+					instant = yes
+					build_cost_ic = -0.1
+					soft_attack = -0.05
+				}
+			}
+		}
+
+		# idea_SIA_unified_khana_ratsadon from common\ideas\siam.txt:257
+		idea_SIA_unified_khana_ratsadon = {
+			picture = generic_political_support
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.1
+				stability_factor = 0.1
+				compliance_gain = 0.05
+				production_speed_industrial_complex_factor = 0.075
+				production_speed_arms_factory_factor = 0.075
+				conscription_factor = 0.15
+			}
+		}
+
+		# idea_SIA_unwavering_civilian_support from common\ideas\siam.txt:277
+		idea_SIA_unwavering_civilian_support = {
+			picture = SIA_civillian_full_support
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				compliance_gain = 0.1
+				political_power_gain = 0.1
+				production_speed_industrial_complex_factor = 0.15
+			}
+		}
+
+		# idea_SIA_war_material_substitutions from common\ideas\siam.txt:4
+		idea_SIA_war_material_substitutions = {
+			name = SIA_war_material_substitutions
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_license_production
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+			equipment_bonus = {
+				infantry_equipment = {
+					build_cost_ic = -0.1
+					instant = yes
+				}
+			}
+		}
+
+		# idea_SIA_weather_broadcasts from common\ideas\siam.txt:1394
+		idea_SIA_weather_broadcasts = {
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+
+			picture = generic_intel_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				air_weather_penalty = -0.25
+				air_detection = 0.1
+				air_accidents = -0.1
+				spotting_chance = 0.05
+				positioning = 0.1
+				ships_at_battle_start = 0.2
+			}
+		}
+
+		# idea_SIA_yielded_the_air_war from common\ideas\siam.txt:1557
+		idea_SIA_yielded_the_air_war = {
+			picture = generic_anti_air
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				production_speed_air_base_factor = -0.1
+			}
+			equipment_bonus = {
+				anti_air = {
+					instant = yes
+					build_cost_ic = -0.1
+					air_attack = 0.1
+				}
+				small_plane_airframe = {
+					instant = yes
+					build_cost_ic = 0.1
+				}
+				medium_plane_fighter_airframe = {
+					instant = yes
+					build_cost_ic = 0.1
+				}
+				small_plane_cas_airframe = {
+					instant = yes
+					build_cost_ic = 0.1
+				}
+				medium_plane_airframe = {
+					instant = yes
+					build_cost_ic = 0.1
+				}
+				large_plane_airframe = {
+					instant = yes
+					build_cost_ic = 0.1
+				}
+			}
+		}
+
+		# idea_SIA_yuvachon from common\ideas\siam.txt:688
+		idea_SIA_yuvachon = {
+			picture = tur_coordinated_balkan_armed_forces
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				conscription = 0.005
+				mobilization_speed = 0.2
+				fascism_drift = 0.02
+				
+			}
+		}
+
+		# idea_SIA_yuvachon_2 from common\ideas\siam.txt:706
+		idea_SIA_yuvachon_2 = {
+			name = idea_SIA_yuvachon
+			picture = generic_manpower_bonus
+			allowed_civil_war = {
+				always = yes
+			}
+
+			allowed = {
+				original_tag = SIA
+			}
+			removal_cost = -1
+			modifier = {
+				conscription = 0.005
+				mobilization_speed = 0.2
+				fascism_drift = 0.02
+				army_core_defence_factor = 0.05
+				
+			}
+		}
+	}
+	industrial_concern = {
+
+		# NZL_nz_railways_ic from common\ideas\new_zealand.txt:427
+		NZL_nz_railways_ic = { 
+
+			picture = NZL_nz_railways
+
+			allowed = {
+				original_TAG = NZL
+				has_dlc = "Together for Victory"
+			}
+
+			available = {
+				has_completed_focus = NZL_abolish_the_railways_board
+			}
+
+			cost = 100
+			visible = {
+				
+			}
+
+			research_bonus = {
+			}
+		
+			traits = { railway_company } 
+
+			modifier = {
+			}
+		}
+
+		# idea_INS_royal_dutch_shell_concern from common\ideas\indonesia.txt:959
+		idea_INS_royal_dutch_shell_concern = {
+
+			picture = INS_royal_dutch_shell
+			cost = 75
+						
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			available = {
+				HOL = {
+					has_completed_focus = INSHOL_expand_shell
+				}
+			}
+						
+			research_bonus = {
+				
+			}
+			
+			modifier = {
+				min_export = 0.1
+				local_resources_factor = 0.1
+			}
+
+			traits = { oil_extraction_company_trait }
+		}
+
+		# idea_INS_standard_oil_california_borrowed_concern from common\ideas\indonesia.txt:1051
+		idea_INS_standard_oil_california_borrowed_concern = {
+			
+			picture = standard_oil_california
+
+			allowed = {
+				original_tag = INS
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			visible = {
+				has_completed_focus = INS_invite_foreign_companies
+			}
+			
+			research_bonus = {
+				industry = 0.05
+				synth_resources = 0.15
+			}
+			
+			traits = { refinery_concern }
+			
+			modifier = {
+				
+			}
+
+			targeted_modifier = {
+				tag = USA
+				trade_cost_for_target_factor = -0.2
+			}
+		}
+
+		# idea_SIA_bank_of_siam from common\ideas\siam.txt:2240
+		idea_SIA_bank_of_siam = {
+			picture = SIA_bank_of_thailand
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+			available = {
+				has_completed_focus = SIA_the_bank_of_siam
+			}
+			visible = {
+				NOT = { has_completed_focus = SIA_foreign_currency_exchange }
+			}
+			cost = 150
+
+			traits = { central_bank } 
+			modifier = {
+				production_speed_industrial_complex_factor = 0.1
+				consumer_goods_factor = -0.05
+			}
+		}
+
+		# idea_SIA_bank_of_siam_2 from common\ideas\siam.txt:2261
+		idea_SIA_bank_of_siam_2 = {
+			picture = SIA_bank_of_thailand
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+			available = {
+			}
+			visible = {
+				has_completed_focus = SIA_foreign_currency_exchange
+			}
+			cost = 150
+
+			traits = { central_bank } 
+			modifier = {
+				production_speed_industrial_complex_factor = 0.15
+				consumer_goods_factor = -0.05
+				trade_opinion_factor = 0.2
+
+			}
+		}
+
+		# idea_SIA_boon_rawd_brewery from common\ideas\siam.txt:2283
+		idea_SIA_boon_rawd_brewery = {
+			picture = SIA_boon_rawd_brewery
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+			available = {
+				has_completed_focus = SIA_boon_rawd_brewery
+			}
+			visible = {
+				
+			}
+			cost = 120
+
+			traits = { brewery }
+			modifier = {
+				stability_factor = 0.06
+				political_power_factor = 0.1
+			}
+		}
+
+		# idea_SIA_siam_cement_group from common\ideas\siam.txt:2304
+		idea_SIA_siam_cement_group = {
+			picture = SIA_siam_cement_group
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+			available = {
+				has_completed_focus = SIA_siam_cement_group
+			}
+			visible = {
+				
+			}
+			cost = 120
+
+			traits = { infrastructure_group }
+			modifier = {
+				production_speed_infrastructure_factor = 0.2
+			}
+		}
+
+		# idea_SIA_thai_rice_company from common\ideas\siam.txt:2324
+		idea_SIA_thai_rice_company = {
+			picture = SIA_thai_rice_company
+			allowed = {
+				has_dlc = "Thunder at Our Gates"
+				original_tag = SIA
+			}
+			available = {
+				has_completed_focus = SIA_thai_rice_company
+			}
+			visible = {
+				NOT =  { has_completed_focus = SIA_the_bank_of_siam }
+			}
+			cost = 120
+
+			traits = { food_distributor }
+			modifier = {
+				production_speed_buildings_factor = 0.05
+			}
+
+			research_bonus = {
+				industry = 0.2
+			}
+		}
+	}
+	tank_manufacturer = {
+
+		# AST_american_car_and_foundry_organization_idea from common\ideas\australia.txt:2475
+		AST_american_car_and_foundry_organization_idea = {
+			name = AST_american_car_and_foundry_organization
+
+			picture = AST_american_car_and_foundry
+
+			allowed = {
+				original_tag = AST
+				has_dlc = "Thunder at Our Gates"
+			}
+
+			available = {
+				owner = {
+					has_completed_focus = AST_united_states_as_our_keystone
+				}
+			}
+
+			visible = {
+			}
+
+			cost = 150
+
+			research_bonus = {
+				armor = 0.15
+			}
+			
+			traits = { }
+			
+			equipment_bonus = {
+				medium_tank_chassis = {
+					build_cost_ic = -0.1
+				}
+				light_tank_chassis = {
+					build_cost_ic = -0.1
+				}
+			}
+					
+			modifier = {
+			}
+		}
+
+		# AST_kirov from common\ideas\australia.txt:2515
+		AST_kirov = {
+			name = kirov
+			picture = SOV_kirov
+			allowed = {
+				original_tag = AST
+			}
+			visible = {
+				has_completed_focus = AST_westward_battles
+			}
+			research_bonus = {
+				armor = 0.15
+			}
+			traits = { heavy_tank_manufacturer }
+			modifier = {
+			}
+		}
+	}
+}

@@ -462,6 +462,7 @@ guiTypes = {
 			spriteType = "GFX_leader_unknown"
 			scale = 0.33
 			clicksound = click_default
+			shortcut = "ctrl+g+a"
 		}
 
 		iconType = {
@@ -470,6 +471,20 @@ guiTypes = {
 			quadTextureSprite ="GFX_leader_unknown"
 			alwaystransparent = yes
 			scale = 0.33
+		}
+
+		iconType = {
+			name = "pending_leader_icon"
+			position = {x=9 y=32}
+			quadTextureSprite ="GFX_leader_unknown"
+			scale = 0.15
+		}
+		
+		iconType = {
+			name = "leader_coming"
+			spriteType = "GFX_opinion_arrow_right"
+			position = { x=22 y=32 }
+			alwaystransparent = yes
 		}
 
 		iconType = {
@@ -522,6 +537,12 @@ guiTypes = {
 			position = {x=8 y=32}
 			quadTextureSprite ="GFX_leader_en_route"
 			alwaystransparent = yes
+		}
+
+		# Applied to "leader_enroute" while "pending_leader_icon" is shown so the icons stack vertically
+		positionType = {
+			name = "pending_leader_shown_offset"
+			position = { x=0 y=31 }
 		}
 
 		iconType = {
@@ -803,6 +824,15 @@ guiTypes = {
 		background = {
 			name = "Background"
 			quadTextureSprite ="GFX_tiled_window_1b_thin_border"
+		}
+
+		# Off-screen anchor for the ctrl+g+s shortcut. containerWindowType cannot host shortcut=,
+		# so a hidden buttonType is the only place the engine will dispatch the chord from.
+		buttonType = {
+			name = "select_hq_shortcut_anchor"
+			position = { x=-1000 y=-1000 }
+			quadTextureSprite = "GFX_group_marker3"
+			shortcut = "ctrl+g+s"
 		}
 
 		containerWindowType = {

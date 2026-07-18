@@ -110,6 +110,7 @@ focus_tree = {
 			x = 6800
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				NOT = {
 					has_dlc = "No Compromise, No Surrender"
 				}
@@ -126,6 +127,7 @@ focus_tree = {
 			x = 4400
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
@@ -138,6 +140,7 @@ focus_tree = {
 			x = 6000
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
@@ -150,6 +153,7 @@ focus_tree = {
 			x = 4100
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
@@ -166,6 +170,7 @@ focus_tree = {
 			x = 3000
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
@@ -178,6 +183,7 @@ focus_tree = {
 			x = 3000
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
@@ -190,6 +196,7 @@ focus_tree = {
 			x = 2000
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
@@ -202,6 +209,7 @@ focus_tree = {
 			x = 1500
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
@@ -214,6 +222,7 @@ focus_tree = {
 			x = 1700
 			y = 700
 			trigger = {
+				NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
@@ -226,8 +235,2525 @@ focus_tree = {
 
 	default = no
 
-	continuous_focus_position = { x = 20 y = 1200 }
+	continuous_focus_position = { x = 20 y = 3000 }
 
+
+	### START MIYAGIPATCH JAPAN MIYAGI RP COMMUNIST BRANCH ###
+	focus = {
+		id = JAP_r56rp_the_rice_rebellion
+		icon = GFX_focus_AUS_union_of_danubian_socialist_republics
+
+		x = 9
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+
+		mutually_exclusive = {
+			focus = JAP_the_unthinkable_option
+			focus = JAP_support_the_kodoha_faction
+			focus = JAP_strengthen_civilian_government
+			focus = JAP_sea_purge_the_kodoha_faction
+			focus = JAP_okadas_military_purge_speech
+			focus = JAP_revere_the_emperor_destroy_the_traitors
+			focus = JAP_a_red_sun_rises_for_a_new_era
+			focus = JAP_organize_a_general_election
+			focus = JAP_ministry_of_commerce_and_industry
+			focus = JAP_the_imperial_defense_plan
+		}
+		allow_branch = {
+			has_game_rule = {
+				rule = JAP_focus_tree_selection
+				option = R56RP_COMMUNIST_BRANCH
+			}
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_sea_purge_the_kodoha_faction
+						has_completed_focus = JAP_support_the_kodoha_faction
+						has_completed_focus = JAP_strengthen_civilian_government
+						has_completed_focus = JAP_okadas_military_purge_speech
+						has_completed_focus = JAP_revere_the_emperor_destroy_the_traitors
+						has_completed_focus = JAP_a_red_sun_rises_for_a_new_era
+					}
+				}
+			}
+		}
+	
+		select_effect = {
+			hidden_effect = {
+				set_country_flag = JAP_r56rp_rice_rebellion_started
+				if = {
+					limit = {
+						has_active_mission = JAP_aizawa_trial_ongoing
+					}
+					remove_mission = JAP_aizawa_trial_ongoing
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_imperial_influence_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_imperial_influence_dm
+					}
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_imperial_influence_communist_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_imperial_influence_communist_dm
+					}
+				}
+				clr_country_flag = JAP_pending_imperial_influence_decision
+				clr_country_flag = JAP_interfered_in_imperial_influence_flag
+			}
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				set_country_flag = JAP_r56rp_rice_rebellion_started
+				if = {
+					limit = {
+						has_active_mission = JAP_aizawa_trial_ongoing
+					}
+					remove_mission = JAP_aizawa_trial_ongoing
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_imperial_influence_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_imperial_influence_dm
+					}
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_imperial_influence_communist_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_imperial_influence_communist_dm
+					}
+				}
+				clr_country_flag = JAP_pending_imperial_influence_decision
+				clr_country_flag = JAP_interfered_in_imperial_influence_flag
+			}
+
+			mark_focus_tree_layout_dirty = yes
+			add_political_power = -50
+			add_popularity = { ideology = communism popularity = 0.10 }
+			# Set political party name for communism
+			add_country_leader_role = {
+				character = r56rp_JAP_communist_leaders_revoltcouncil
+				promote_leader = yes
+				country_leader = {
+					ideology = marxism
+					expire = "1965.1.1.1"
+				}
+			}
+		}
+	}
+	
+	
+	#Smuggle Equipment for the revolution
+	focus = {
+		id = JAP_r56rp_smuggle_equipment_for_the_revolution
+		icon = GFX_focus_ETH_freedom_at_gunpoint
+		relative_position_id =  JAP_r56rp_the_rice_rebellion
+		x = -1
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		prerequisite = { focus = JAP_r56rp_the_rice_rebellion }
+	
+		completion_reward = {
+			add_political_power = -25
+			add_popularity = { ideology = communism popularity = 0.05 }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 8000
+			}
+		}
+	}
+	
+	
+	#Soviet And Unionist Support
+	focus = {
+		id = JAP_r56rp_soviet_and_unionist_support
+		icon = GFX_goal_JAP_the_unthinkable_option
+		relative_position_id =  JAP_r56rp_the_rice_rebellion
+		x = 1
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		prerequisite = { focus = JAP_r56rp_the_rice_rebellion }
+	
+		completion_reward = {
+			add_political_power = -25
+			add_popularity = { ideology = communism popularity = 0.15 }
+			# Add opinion modifier for the Soviet Union
+			SOV = { add_opinion_modifier = { target = ROOT modifier = JAP_r56rp_soviet_unionist_support } }
+		}
+	}
+	
+	focus = {
+		id = JAP_r56rp_slay_the_sun
+		icon = GFX_r56rp_goal_JAP_slay_the_sun_icon
+		relative_position_id =  JAP_r56rp_soviet_and_unionist_support   
+		x = -1
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		prerequisite = {
+			focus = JAP_r56rp_smuggle_equipment_for_the_revolution
+		}
+		prerequisite = {
+			focus = JAP_r56rp_soviet_and_unionist_support
+		}
+	
+		completion_reward = {
+			hidden_effect = {
+				remove_ideas = JAP_interservice_rivalry_balanced
+			}
+			if = {
+				limit = {
+					MAN = {
+						is_subject_of = JAP
+					}
+				}
+				JAP = {
+					set_autonomy = {
+						target = MAN
+						autonomous_state = autonomy_free
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+			}
+			else_if = {
+				every_state = {
+					limit = {
+						is_core_of = MAN
+						is_owned_and_controlled_by = JAP
+					}
+				}
+				release = MAN
+			}
+			if = {
+				limit = {
+					609 = {
+						is_owned_and_controlled_by = JAP
+					}
+				}
+				609 = {
+					transfer_state_to = MAN
+				}
+			}
+			if = {
+				limit = {
+					745 = {
+						is_owned_and_controlled_by = JAP
+					}
+				}
+				745 = {
+					transfer_state_to = MAN
+				}
+			}
+			if = {
+				limit = {
+					KOR = {
+						is_subject_of = JAP
+					}
+				}
+				JAP = {
+					set_autonomy = {
+						target = KOR
+						autonomous_state = autonomy_free
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+			}
+			else_if = {
+				every_state = {
+					limit = {
+						is_core_of = KOR
+						is_owned_and_controlled_by = JAP
+					}
+				}
+				release = KOR
+			}
+			if = {
+				limit = {
+					524 = {
+						is_owned_and_controlled_by = JAP
+					}
+					CHI = {
+						exists = yes
+					}
+				}
+				524 = {
+					transfer_state_to = CHI
+				}
+			}
+			else_if = {
+				limit = {
+					CHI = {
+						exists = no
+					}
+					PRC = {
+						exists = yes
+					}
+				}
+				524 = {
+					transfer_state_to = PRC
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			# Start a civil war where the fascists rebel and the player remains communist
+			start_civil_war = {
+				ideology = fascism
+				size = 0.40
+				army_ratio = 0.35
+				
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			# Set the ruling party to communism (player remains communist)
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+				long_name = Socialrevoltjapan
+				name = Socialrevoltjapan
+			}
+			add_popularity = { ideology = communism popularity = 0.55 }
+			custom_effect_tooltip = generic_skip_one_line_tt
+			# Set the country name and color
+			set_cosmetic_tag = JAP_r56rp_NRAP
+			hidden_effect = {
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_state_shinotism_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_state_shinotism_dm
+					}
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_early_industrialization_efforts_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_early_industrialization_efforts_dm
+					}
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_japanese_airforce_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_japanese_airforce_dm
+					}
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_army_and_naval_air_services_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_army_and_naval_air_services_dm
+					}
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_imperial_navy_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_imperial_navy_dm
+					}
+				}
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = JAP_imperial_army_dm }
+					}
+					remove_dynamic_modifier = {
+						modifier = JAP_imperial_army_dm
+					}
+				}
+				if = {
+					limit = {
+						has_idea = JAP_1939_fake_state_shintoism_idea
+					}
+					remove_ideas = JAP_1939_fake_state_shintoism_idea
+				}
+				if = {
+					limit = {
+						has_idea = JAP_1936_fake_state_shintoism_idea
+					}
+					remove_ideas = JAP_1936_fake_state_shintoism_idea
+				}
+				if = {
+					limit = {
+						has_idea = JAP_1936_fake_industrial_idea
+					}
+					remove_ideas = JAP_1936_fake_industrial_idea
+				}
+				if = {
+					limit = {
+						has_idea = state_shintoism
+					}
+					remove_ideas = state_shintoism
+				}
+				remove_ideas = JAP_hirohito
+				remove_ideas = JAP_r56rp_uncertain_military_direction_idea
+				swap_ideas = {
+					remove_idea = JAP_militarism
+					add_idea = JAP_r56rp_militarism_rampage
+				}
+				swap_ideas = {
+					remove_idea = JAP_zaibatsus
+					add_idea = JAP_r56rp_zaibatsu_broke_civil_war
+				}	
+			}
+		}
+	}
+	
+	#The Social Democratic Republic of Japan
+	focus = {
+		id = JAP_r56rp_the_social_democratic_republic_of_japan
+		icon = GFX_r56rp_goal_JAP_social_democratic_japan_icon
+		relative_position_id = JAP_r56rp_slay_the_sun
+		x = -5
+		y = 1
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = JAP_r56rp_slay_the_sun  }
+		mutually_exclusive = { focus = JAP_r56rp_the_union_of_japanese_socialist_prefectures  }
+		available = {
+			has_civil_war = no
+		}
+	
+		completion_reward = {
+			if = {	
+				limit = {
+					NOT = { has_government = communism }
+				}
+				set_cosmetic_tag = JAP_r56rp_SDRJ
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+					long_name = JAP_r56rp_peasant_partyname
+					name = JAP_r56rp_peasant_partyname
+				}
+				add_country_leader_role = {
+					character = r56rp_JAP_communist_leaders_jotarokawakami
+					promote_leader = yes
+					country_leader = {
+						ideology = JAP_japanese_socialism
+						traits = { christian_socialist }
+						expire = "1950.9.12.6"
+					}
+				}
+			}
+			else = {
+				set_cosmetic_tag = JAP_r56rp_SDRJ
+				set_politics = {
+					ruling_party = communism
+					long_name = JAP_r56rp_peasant_partyname
+					name = JAP_r56rp_peasant_partyname					
+				}
+				add_country_leader_role = {
+					character = r56rp_JAP_communist_leaders_jotarokawakami
+					promote_leader = yes
+					country_leader = {
+						ideology = JAP_japanese_socialism
+						traits = { christian_socialist }
+						expire = "1950.9.12.6"
+					}
+				}
+			}		
+		}
+	}
+	
+	#The Union Of Japanese Socialist Prefectures
+
+	
+	#The Union Of Japanese Socialist Prefectures
+	focus = {
+		id = JAP_r56rp_the_union_of_japanese_socialist_prefectures
+		icon = GFX_r56rp_goal_JAP_union_of_japanese_prefectures_icon
+		relative_position_id = JAP_r56rp_slay_the_sun
+		x = 5
+		y = 1
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available = {
+			has_civil_war = no
+		}
+		completion_reward = {
+			if = {	
+				limit = {
+					NOT = { has_government = communism }
+				}
+				set_cosmetic_tag = JAP_r56rp_UJSP
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+					long_name = JAP_r56rp_stalinist_partyname
+					name = JAP_r56rp_stalinist_partyname
+				}
+				add_country_leader_role = {
+					character = r56rp_JAP_communist_leaders_inejiroasanuma
+					promote_leader = yes
+					country_leader = {
+						ideology = stalinism
+						traits = { dictator }
+						expire = "1950.9.12.6"
+					}
+				}
+	
+			}
+			else = {
+				set_cosmetic_tag = JAP_r56rp_UJSP
+				set_politics = {
+					ruling_party = communism
+					long_name = JAP_r56rp_stalinist_partyname
+					name = JAP_r56rp_stalinist_partyname				
+				}
+				add_country_leader_role = {
+					character = r56rp_JAP_communist_leaders_inejiroasanuma
+					promote_leader = yes
+					country_leader = {
+						ideology = stalinism
+						traits = { dictator }
+						expire = "1950.9.12.6"
+					}
+				}
+			}	
+		}	
+		
+		prerequisite = { focus = JAP_r56rp_slay_the_sun  }
+		mutually_exclusive = { focus = JAP_r56rp_the_social_democratic_republic_of_japan  }
+	
+	}
+	
+	#The Ideals of Japanese Socialism
+	focus = {
+		id = JAP_r56rp_the_ideals_of_japanese_socialism
+		icon = GFX_r56rp_goal_JAP_japanese_socialism_icon
+		relative_position_id = JAP_r56rp_the_social_democratic_republic_of_japan
+		x = -1
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available = {
+			has_government = communism
+		}
+		completion_reward = {
+			add_ideas = JAP_r56rp_ideal_JAP_socialism_idea_1
+		}
+		prerequisite = { focus = JAP_r56rp_the_social_democratic_republic_of_japan  }
+	}
+	
+	#Kawakami Socialistic thought
+	focus = {
+		id = JAP_r56rp_kawakami_socialistic_thought
+		icon = GFX_r56rp_goal_JAP_kawakami_socialist_thought_icon
+		relative_position_id = JAP_r56rp_the_social_democratic_republic_of_japan
+		prerequisite = { focus = JAP_r56rp_the_social_democratic_republic_of_japan  }
+		x = 0
+		y = 2
+		cost = 5
+
+		available = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			add_political_power = 50
+			army_experience = 10
+			navy_experience = 10
+			air_experience = 10
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Cooperate With Democrats
+	focus = {
+		id = JAP_r56rp_cooperate_with_democrats
+		icon = GFX_r56rp_goal_JAP_cooperate_with_democrats_icon
+		relative_position_id = JAP_r56rp_the_social_democratic_republic_of_japan
+		prerequisite = { focus = JAP_r56rp_the_social_democratic_republic_of_japan  }
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			country_event = { id = JAP_r56rp_yonai_takeover.1 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+		
+	#The Nōmin Social Ideals
+	focus = {
+		id = JAP_r56rp_nomin_social_ideals
+		icon = GFX_r56rp_goal_JAP_nomin_social_ideals_icon
+		relative_position_id = JAP_r56rp_the_ideals_of_japanese_socialism
+		prerequisite = { focus = JAP_r56rp_the_ideals_of_japanese_socialism  }
+		x = -1
+		y = 2
+		cost = 10
+		available = {
+			has_government = communism
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_ideal_JAP_socialism_idea_1
+				add_idea = JAP_r56rp_ideal_JAP_socialism_idea_2
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#A Strong Coalition
+	focus = {
+		id = JAP_r56rp_a_strong_coalition
+		icon = GFX_r56rp_goal_JAP_a_strong_coalition_icon
+		relative_position_id = JAP_r56rp_cooperate_with_democrats
+		prerequisite = { focus = JAP_r56rp_cooperate_with_democrats  }
+		x = 1
+		y = 2
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = JAP_r56rp_cooperation_with_democrats_event }
+				country_event = JAP_r56rp_yonai_takeover.3  # Event if cooperation happened
+			}
+			else_if = {
+				limit = { has_country_flag = JAP_r56rp_no_deal_with_democrats_event }
+				country_event = JAP_r56rp_yonai_takeover.2  # Different event if no cooperation
+			}
+			else = {
+				effect_tooltip = {
+					country_event = JAP_r56rp_yonai_takeover.3
+				}
+			}
+		}
+	}
+
+	#A Socialist Paradise in Nippon
+	focus = {
+		id = JAP_r56rp_a_socialist_paradise_in_nippon
+		icon = GFX_r56rp_goal_JAP_socialist_paradise_in_nipon_icon
+		relative_position_id = JAP_r56rp_a_strong_coalition
+		prerequisite = { focus = JAP_r56rp_kawakami_socialistic_schools  } 
+		prerequisite = { focus = JAP_r56rp_nomin_social_ideals  } 
+		prerequisite = { focus = JAP_r56rp_a_strong_coalition  }
+		x = -2
+		y = 1
+		cost = 10
+		
+		
+		available = {
+			has_government = communism
+		}
+
+		completion_reward = {
+			remove_ideas = JAP_r56rp_militarism_rampage
+			add_stability = 0.2
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}	
+	
+	#Restructure The Kenpeitai
+	focus = {
+		id = JAP_r56rp_restructure_the_kenpeitai
+		icon = GFX_goal_samurai_purge
+		relative_position_id = JAP_r56rp_a_socialist_paradise_in_nippon
+		x = -1
+		y = 1
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			army_experience = 15
+			add_war_support = 0.05
+		}
+		prerequisite = { focus = JAP_r56rp_a_socialist_paradise_in_nippon  }
+	}
+	
+	#Birth of the Kakumei Kenpeitai
+	focus = {
+		id = JAP_r56rp_birth_of_the_kakumei_kenpeitai
+		icon = GFX_r56rp_goal_JAP_kakumei_kenpeitai_icon
+		relative_position_id = JAP_r56rp_restructure_the_kenpeitai
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			custom_effect_tooltip = jap_kakumei_kempentai_tooltip
+			create_intelligence_agency = {
+				name = jap_socialist_intelligence_agency_miyagi
+				icon = GFX_intelligence_agency_logo_jap
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+		
+		prerequisite = { focus = JAP_r56rp_restructure_the_kenpeitai  }
+	}
+	
+	#Empower The Lower Class
+	focus = {
+		id = JAP_r56rp_empower_the_lower_class
+		icon = GFX_focus_GER_the_peoples_victory
+		relative_position_id = JAP_r56rp_a_socialist_paradise_in_nippon
+		prerequisite = { focus = JAP_r56rp_a_socialist_paradise_in_nippon  }
+		x = 1
+		y = 1
+		cost = 5
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_ideal_JAP_socialism_idea_2
+				add_idea = JAP_r56rp_ideal_JAP_socialism_idea_3
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Japanese Social Teaching's
+	focus = {
+		id = JAP_r56rp_japanese_social_teachings
+		icon = GFX_SOV_leningrad_polytechnical_institute_ccp_2d_sov_compatibility
+		relative_position_id = JAP_r56rp_empower_the_lower_class
+		prerequisite = { focus = JAP_r56rp_empower_the_lower_class  }
+		x = 0
+		y = 1
+		cost = 5
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_ideal_JAP_socialism_idea_3
+				add_idea = JAP_r56rp_ideal_JAP_socialism_idea_4
+				
+			}
+			add_research_slot = 1
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Establish Asian Workers Unions
+	focus = {
+		id = JAP_r56rp_establish_asian_workers_unions
+		icon = GFX_r56rp_goal_JAP_japanese_hegemony_icon
+		relative_position_id = JAP_r56rp_birth_of_the_kakumei_kenpeitai
+		prerequisite = { focus = JAP_r56rp_birth_of_the_kakumei_kenpeitai  } 
+		prerequisite = { focus = JAP_r56rp_japanese_social_teachings  }
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_puppetgaintooltips
+			custom_effect_tooltip = generic_skip_one_line_tt
+			create_faction = rt56rp_japan_c_left_faction_tt
+			set_rule = {
+				can_create_factions = yes
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Purge The Traitors
+	focus = {
+		id = JAP_r56rp_purge_the_traitors
+		icon = GFX_focus_SOV_military_purge
+		relative_position_id = JAP_r56rp_the_union_of_japanese_socialist_prefectures
+		prerequisite = { focus = JAP_r56rp_the_union_of_japanese_socialist_prefectures  }
+		x = -1
+		y = 1
+		cost = 5
+
+		completion_reward = {
+			remove_ideas = JAP_r56rp_militarism_rampage
+			add_timed_idea = {
+				idea = JAP_r56rp_militarism_rampage_purge
+				days = 365
+			}
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Asanuma And Stalinist Thought
+	focus = {
+		id = JAP_r56rp_asanuma_and_stalinist_thought
+		icon = GFX_focus_SOV_stalins_cult_of_personality
+		relative_position_id = JAP_r56rp_the_union_of_japanese_socialist_prefectures
+		prerequisite = { focus = JAP_r56rp_the_union_of_japanese_socialist_prefectures  }
+		x = 0
+		y = 2
+		cost = 5
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_tooltip_miyagi_asanuma_stalinst_thought
+			custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = JAP_r56rp_one_nation_one_path
+					}
+				}
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = JAP_r56rp_stalin_the_nation_state
+						add_idea = JAP_r56rp_stalin_the_nation_state_2
+					}
+				}
+			}
+			if = {
+				limit = { has_completed_focus = JAP_r56rp_one_nation_one_path }
+				swap_ideas = {
+					remove_idea = JAP_r56rp_stalin_the_nation_state
+					add_idea = JAP_r56rp_stalin_the_nation_state_2
+				}
+			}
+			else = {
+				add_political_power = 50
+				army_experience = 5
+			}	
+		}	
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Out of the fields...
+	focus = {
+		id = JAP_r56rp_out_of_the_fields
+		icon = GFX_focus_generic_farmland
+		relative_position_id = JAP_r56rp_the_union_of_japanese_socialist_prefectures
+		prerequisite = { focus = JAP_r56rp_the_union_of_japanese_socialist_prefectures  }
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_stability = -0.05
+			random_core_state = {
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Into the Factories.
+	focus = {
+		id = JAP_r56rp_into_the_factories
+		icon = GFX_r56rp_goal_JAP_into_the_factories_icon
+		relative_position_id = JAP_r56rp_out_of_the_fields
+		prerequisite = { focus = JAP_r56rp_out_of_the_fields  }
+		x = 1
+		y = 2
+		cost = 10
+		completion_reward = {
+			add_stability = -0.05
+			random_core_state = {
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#One Nation One Path
+	focus = {
+		id = JAP_r56rp_one_nation_one_path
+		icon = GFX_r56rp_goal_JAP_one_nation_one_path_icon
+		relative_position_id = JAP_r56rp_purge_the_traitors
+		prerequisite = { focus = JAP_r56rp_purge_the_traitors  }
+		x = -1
+		y = 2
+		cost = 5
+		completion_reward = {
+			add_ideas = JAP_r56rp_stalin_the_nation_state
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#A Nation Reborn
+	focus = {
+		id = JAP_r56rp_a_nation_reborn
+		icon = GFX_focus_AUS_danubian_socialist_communes
+		relative_position_id = JAP_r56rp_asanuma_and_stalinist_thought
+		prerequisite = { focus = JAP_r56rp_asanuma_and_stalinist_thought } 
+		prerequisite = { focus = JAP_r56rp_into_the_factories } 
+		prerequisite = { focus = JAP_r56rp_one_nation_one_path }
+		x = 0
+		y = 2
+		cost = 10
+		completion_reward = {
+			add_timed_idea = {
+				idea = JAP_r56rp_miyagi_reborn_nation
+				days = 730
+			}
+			add_stability = 0.05
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Mass Nationalization
+	focus = {
+		id = JAP_r56rp_mass_nationalization
+		icon = GFX_focus_GER_factories_for_resources
+		relative_position_id = JAP_r56rp_a_nation_reborn
+		prerequisite = { focus = JAP_r56rp_a_nation_reborn  }
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			random_core_state = {
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_establish_the_sjic
+		icon = GFX_focus_SOV_builder_of_the_red_army
+		relative_position_id = JAP_r56rp_mass_nationalization
+		prerequisite = { focus = JAP_r56rp_mass_nationalization }
+		x = 0
+		y = 1
+		cost = 5
+
+		completion_reward = {
+			custom_effect_tooltip = mio_jap_miyagi_test
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}	
+	
+	#Purge The IJA
+	focus = {
+		id = JAP_r56rp_socialistic_army_schools
+		icon = GFX_focus_attack_japan
+		relative_position_id = JAP_r56rp_a_nation_reborn
+		prerequisite = { focus = JAP_r56rp_a_nation_reborn  }
+		x = 1
+		y = 1
+		cost = 5
+
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				uses = 2
+				cost_reduction = 0.5
+				category = land_doctrine
+			}
+			add_doctrine_cost_reduction = {
+				uses = 1
+				cost_reduction = 0.25
+				category = cat_paratroopers_doctrine
+			}
+			add_doctrine_cost_reduction = {
+				uses = 1
+				cost_reduction = 0.25
+				category = air_doctrine
+			}
+		}
+
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#Formation of The NRAP
+	focus = {
+		id = JAP_r56rp_formation_of_the_nrap
+		icon = GFX_r56rp_goal_JAP_formation_of_the_nrap_icon
+		relative_position_id = JAP_r56rp_socialistic_army_schools
+		prerequisite = { focus = JAP_r56rp_socialistic_army_schools  }
+		x = 0
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_ideas = JAP_r56rp_NRA_miyagi_1
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#A True Commune In Asia
+	focus = {
+		id = JAP_r56rp_a_true_commune_in_asia
+		icon = GFX_focus_BRA_socialist_theologians
+		relative_position_id = JAP_r56rp_establish_the_sjic
+		prerequisite = { focus = JAP_r56rp_establish_the_sjic } 
+		prerequisite = { focus = JAP_r56rp_formation_of_the_nrap }
+		x = 1
+		y = 1
+		cost = 10
+		
+		completion_reward = {
+			add_ideas = JAP_r56rp_communist_war_mobilisation
+			custom_effect_tooltip = generic_skip_one_line_tt
+			set_rule = {
+				can_create_factions = yes
+			}
+			
+		}
+		
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#The Zaibatsu Workers Unions
+	focus = {
+		id = JAP_r56rp_the_zaibatsu_workers_unions
+		icon = GFX_r56rp_goal_JAP_zaibatsu_workers_unions_icon
+		relative_position_id = JAP_r56rp_the_social_democratic_republic_of_japan
+		prerequisite = { focus = JAP_r56rp_the_social_democratic_republic_of_japan  focus = JAP_r56rp_the_union_of_japanese_socialist_prefectures  }
+		mutually_exclusive = { focus = JAP_r56rp_nationalise_the_zaibatsu  }
+		x = 4
+		y = 1
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_tooltip_miyagi_zaibatsu_1
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas =  JAP_r56rp_zaibatsu_workers_unions_1 
+			custom_effect_tooltip = generic_skip_one_line_tt
+			swap_ideas = {
+				remove_idea = JAP_r56rp_zaibatsu_broke_civil_war
+				add_idea = JAP_r56rp_zaibatsu_dragon_sleeps
+			}
+			if = {
+				limit = { has_completed_focus = JAP_r56rp_the_union_of_japanese_socialist_prefectures }
+				add_stability = -0.1
+				
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		
+	}
+	
+	#Nationalise the Zaibatsu
+	focus = {
+		id = JAP_r56rp_nationalise_the_zaibatsu
+		icon = GFX_r56rp_goal_JAP_nationalize_the_zaibatsu_icon
+		relative_position_id = JAP_r56rp_the_union_of_japanese_socialist_prefectures
+		prerequisite = { focus = JAP_r56rp_the_union_of_japanese_socialist_prefectures  focus = JAP_r56rp_the_social_democratic_republic_of_japan  }
+		mutually_exclusive = { focus = JAP_r56rp_the_zaibatsu_workers_unions  }
+		x = -4
+		y = 1
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_tooltip_miyagi_zaibatsu_2
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = JAP_r56rp_nationalise_the_zaibatsu_communist
+			custom_effect_tooltip = generic_skip_one_line_tt
+			swap_ideas = {
+				remove_idea = JAP_r56rp_zaibatsu_broke_civil_war
+				add_idea = JAP_r56rp_zaibatsu_dragon_sleeps
+			}
+			if = {
+				limit = { has_completed_focus = JAP_r56rp_the_social_democratic_republic_of_japan }
+				add_stability = -0.1
+				
+			}
+			random_core_state = {
+				prioritize = { 532 282 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				prioritize = { 532 282 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+				
+				
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#Soviet Industrial Advisors
+	focus = {
+		id = JAP_r56rp_soviet_industrial_advisors
+		icon = GFX_goal_generic_soviet_construction
+		relative_position_id = JAP_r56rp_nationalise_the_zaibatsu
+		prerequisite = { focus = JAP_r56rp_nationalise_the_zaibatsu } 
+		prerequisite = { focus = JAP_r56rp_the_3_year_plan }
+		x = 0
+		y = 2
+		cost = 10
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_nationalise_the_zaibatsu_communist
+				add_idea = JAP_r56rp_nationalise_the_zaibatsu_communist_2
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#The third Year Plan
+	focus = {
+		id = JAP_r56rp_the_3_year_plan
+		icon = GFX_r56rp_goal_JAP_three_year_plan_icon
+		relative_position_id = JAP_r56rp_nationalise_the_zaibatsu
+		prerequisite = { focus = JAP_r56rp_nationalise_the_zaibatsu  focus = JAP_r56rp_the_zaibatsu_workers_unions  }
+		x = -1
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = JAP_r56rp_three_year_plan_1
+				days = 1095.75
+			}
+		}
+	}
+	
+	#Provide Social Subsidies
+	focus = {
+		id = JAP_r56rp_provide_social_subsidies
+		icon = GFX_focus_HUN_goulash_communism
+		relative_position_id = JAP_r56rp_the_3_year_plan
+		prerequisite = { focus = JAP_r56rp_the_3_year_plan  } 
+		prerequisite = { focus = JAP_r56rp_the_zaibatsu_workers_unions  }
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			random_core_state = {
+				prioritize = { 532 282 } 
+				limit = {
+				   is_owned_and_controlled_by = ROOT
+				   free_building_slots = {
+					   building = industrial_complex
+					   size > 3
+					   include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				prioritize = { 532 282 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}				
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#A New Japanese Worker Lifestyle
+	focus = {
+		id = JAP_r56rp_a_new_japanese_worker_lifestyle
+		icon = GFX_focus_ITA_workers_unions
+		relative_position_id = JAP_r56rp_the_3_year_plan
+		prerequisite = { focus = JAP_r56rp_the_3_year_plan  }
+		cost = 5
+		x = 0
+		y = 2
+		completion_reward = {
+			add_stability = 0.10
+			add_war_support = 0.10
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#Expand The Subsidies
+	focus = {
+		id = JAP_r56rp_expand_the_subsidies
+		icon = GFX_focus_generic_agricultural_subsidies
+		relative_position_id = JAP_r56rp_provide_social_subsidies
+		prerequisite = { focus = JAP_r56rp_provide_social_subsidies  }
+		x = 0
+		y = 2
+		cost = 10
+		completion_reward = {
+			random_core_state = {
+				prioritize = { 532 282 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+					   building = industrial_complex
+					   size > 3
+					   include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+				   type = industrial_complex
+				   level = 3
+				   instant_build = yes
+				}
+			}
+			random_core_state = {
+				prioritize = { 532 282 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				prioritize = { 532 282 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}				
+		}		
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#Soviet Industrial Cooperation
+	focus = {
+		id = JAP_r56rp_soviet_industrial_cooperation
+		icon = GFX_r56rp_goal_JAP_soviet_industrial_cooperation_icon
+		relative_position_id = JAP_r56rp_soviet_industrial_advisors
+		prerequisite = { focus = JAP_r56rp_soviet_industrial_advisors  }
+		x = 0
+		y = 2
+		cost = 10
+		completion_reward = {
+			random_core_state = {
+				prioritize = { 532 282 531 529 530 528 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+				   free_building_slots = {
+					   building = industrial_complex
+					   size > 3
+					   include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				prioritize = { 532 282 531 529 530 528 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				prioritize = { 532 282 531 529 530 528 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 3
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}				
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	
+	#The Second 3 Year Plan
+	focus = {
+		id = JAP_r56rp_the_second_3_year_plan
+		icon = GFX_r56rp_goal_JAP_three_year_plan_icon
+		relative_position_id = JAP_r56rp_a_new_japanese_worker_lifestyle
+		prerequisite = { focus = JAP_r56rp_a_new_japanese_worker_lifestyle  } 
+		prerequisite = { focus = JAP_r56rp_expand_the_subsidies  focus = JAP_r56rp_soviet_industrial_cooperation  } 
+		x = 0
+		y = 2
+		cost = 10
+		available = {
+			NOT = { has_idea = JAP_r56rp_three_year_plan_1 }
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = JAP_r56rp_three_year_plan_2
+				days = 1095.75
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#A Modern Industrial Complex
+	focus = {
+		id = JAP_r56rp_a_modern_industrial_complex
+		icon = GFX_focus_ARG_women_in_industry
+		relative_position_id = JAP_r56rp_the_second_3_year_plan
+		prerequisite = { focus = JAP_r56rp_the_second_3_year_plan  }
+		x = 0
+		y = 1
+		cost = 10
+		completion_reward = {
+			random_core_state = {
+				prioritize = { 532 282 531 529 530 528 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_core_state = {
+				prioritize = { 532 282 531 529 530 528 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 5
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#The Finish 3 Year Plan
+	focus = {
+		id = JAP_r56rp_the_third_3_year_plan
+		icon = GFX_r56rp_goal_JAP_three_year_plan_icon
+		relative_position_id = JAP_r56rp_a_modern_industrial_complex
+		prerequisite = { focus = JAP_r56rp_a_modern_industrial_complex  }
+		mutually_exclusive = { focus = JAP_r56rp_aneweconomicmodel  }
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_three_year_plan_2
+				add_idea = JAP_r56rp_three_year_plan_3
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#A New Economic Model?
+	focus = {
+		id = JAP_r56rp_aneweconomicmodel
+		icon = GFX_focus_RAJ_special_economic_zones
+		relative_position_id = JAP_r56rp_a_modern_industrial_complex
+		prerequisite = { focus = JAP_r56rp_a_modern_industrial_complex  }
+		mutually_exclusive = { focus = JAP_r56rp_the_third_3_year_plan  }
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			every_state = {
+				limit = { 
+					is_core_of = JAP
+				}
+				add_dynamic_modifier = {
+					modifier = JAP_r56rp_communist_new_eco_plan
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#The Zaibatsu Workers Unions Expansion
+	focus = {
+		id = JAP_r56rp_expansion_of_zaibatsu_unions
+		icon = GFX_focus_HUN_reinstate_the_lenin_boys
+		relative_position_id = JAP_r56rp_the_zaibatsu_workers_unions
+		prerequisite = { focus = JAP_r56rp_the_zaibatsu_workers_unions  }
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			remove_ideas = JAP_r56rp_zaibatsu_dragon_sleeps
+			custom_effect_tooltip = generic_skip_one_line_tt
+			swap_ideas = {
+				remove_idea = JAP_r56rp_zaibatsu_workers_unions_1
+				add_idea = JAP_r56rp_zaibatsu_workers_unions_2
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	# More Money for the state
+	focus = {
+		id = JAP_r56rp_more_money_for_the_state_Zaibatsu
+		icon = GFX_focus_CONGO_copper_cartridges
+		relative_position_id = JAP_r56rp_nationalise_the_zaibatsu
+		prerequisite = { focus = JAP_r56rp_nationalise_the_zaibatsu }
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			remove_ideas = JAP_r56rp_zaibatsu_dragon_sleeps
+			custom_effect_tooltip = generic_skip_one_line_tt
+			random_core_state = {
+				prioritize = { 531 529 530 528 } 
+				limit = {
+					is_owned_and_controlled_by = ROOT
+					free_building_slots = {
+					   building = industrial_complex
+					   size > 2
+					   include_locked = yes
+					}
+			   }
+
+			   add_extra_state_shared_building_slots = 2
+			   add_building_construction = {
+				   type = industrial_complex
+				   level = 2
+				   instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#Kawakami Socialistic School's
+	focus = {
+		id = JAP_r56rp_kawakami_socialistic_schools
+		icon = GFX_goal_SOV_education_initiative
+		relative_position_id = JAP_r56rp_kawakami_socialistic_thought
+		prerequisite = { focus = JAP_r56rp_kawakami_socialistic_thought  }
+		x = 0
+		y = 1
+		cost = 5
+		available = {
+			has_government = communism
+		}
+		completion_reward = {
+			add_country_leader_trait = nationalist_symbol_JAP_c
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	#The New Villiage Initative
+	focus = {
+		id = JAP_r56rp_the_new_village_initiative
+		icon = GFX_focus_ITA_corpo_volontari_della_liberta
+		relative_position_id = JAP_r56rp_expand_the_subsidies
+		prerequisite = { focus = JAP_r56rp_expand_the_subsidies  }
+		x = -1
+		y = 1
+		cost = 10
+		available = {
+			date > 1939.7.1
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_zaibatsu_workers_unions_2
+				add_idea = JAP_r56rp_zaibatsu_workers_unions_3
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#Empowering the Rural Proletariat
+	focus = {
+		id = JAP_r56rp_empowering_the_rural_proletariat
+		icon = GFX_focus_NORDIC_com_institution_1
+		relative_position_id = JAP_r56rp_the_new_village_initiative
+		prerequisite = { focus = JAP_r56rp_the_new_village_initiative  }
+		x = 0
+		y = 1
+		cost = 10
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_zaibatsu_workers_unions_3
+				add_idea = JAP_r56rp_zaibatsu_workers_unions_4
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#The New Village Hyogi-kai
+	focus = {
+		id = JAP_r56rp_the_new_village_hyogi_kai
+		icon = GFX_r56rp_goal_JAP_new_village_hyogi_kai_icon
+		relative_position_id = JAP_r56rp_soviet_industrial_cooperation
+		prerequisite = { focus = JAP_r56rp_soviet_industrial_cooperation  }
+		x = 1
+		y = 1
+		cost = 10
+		available = {
+			date > 1939.7.1
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_nationalise_the_zaibatsu_communist_2
+				add_idea = JAP_r56rp_nationalise_the_zaibatsu_communist_3
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	#The Hero of Labor
+	focus = {
+		id = JAP_r56rp_the_hero_of_labor
+		icon = GFX_focus_CHL_union_of_hispanic_republics
+		relative_position_id = JAP_r56rp_the_new_village_hyogi_kai
+		prerequisite = { focus = JAP_r56rp_the_new_village_hyogi_kai  }
+		x = 0
+		y = 1
+		cost = 10
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_nationalise_the_zaibatsu_communist_3
+				add_idea = JAP_r56rp_nationalise_the_zaibatsu_communist_4
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
+	
+	
+	##Conquest1
+	#Establish Asian Workers Unions
+	focus = {
+		id = JAP_r56rp_return_korea_to_fold
+		icon = GFX_goal_generic_territory_or_war
+		relative_position_id = JAP_r56rp_establish_asian_workers_unions
+		prerequisite = { focus = JAP_r56rp_establish_asian_workers_unions  }
+		x = 1
+		y = 1
+		cost = 10
+
+		bypass = {
+			KOR = {
+				OR = {
+					is_in_faction_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+
+		completion_reward = {
+			create_wargoal = {
+				target = KOR
+				type = puppet_wargoal_focus
+			}
+		}
+		
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	focus = {
+		id = JAP_r56rp_return_manchu_to_fold
+		icon = GFX_focus_RAJ_lions_of_the_great_war
+		relative_position_id = JAP_r56rp_establish_asian_workers_unions
+		prerequisite = { focus = JAP_r56rp_establish_asian_workers_unions  }
+		x = -1
+		y = 1
+		cost = 10
+
+		bypass = {
+			MAN = {
+				OR = {
+					is_in_faction_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+
+		completion_reward = {
+			create_wargoal = {
+				target = MAN
+				type = puppet_wargoal_focus
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	focus = {
+		id = JAP_r56rp_manchu_union
+		icon = GFX_r56rp_goal_JAP_japanchuria_unify
+		relative_position_id = JAP_r56rp_return_manchu_to_fold
+		prerequisite = { focus = JAP_r56rp_return_manchu_to_fold } 
+		prerequisite = { focus = JAP_r56rp_return_korea_to_fold }
+		x = 1
+		y = 1
+		cost = 10
+		
+		available = {
+			KOR = {
+				is_subject_of = ROOT
+			}
+			MAN = {
+				is_subject_of = ROOT
+			}
+		}
+		
+		completion_reward = {
+			country_event = { id = JAP_r56rp_japanchuria_ev.1 hours = 6 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}	
+	
+	#Inheritor Of the Mantle
+	focus = {
+		id = JAP_r56rp_asanuma_mantle
+		icon = GFX_goal_stalin
+		prerequisite = { focus = JAP_r56rp_asanuma_and_stalinist_thought  }
+		relative_position_id = JAP_r56rp_asanuma_and_stalinist_thought
+		x = 0
+		y = 1
+		cost = 10
+		completion_reward = {
+			set_province_name = {
+				id = 1182  # Moscow's Province ID
+				name = "Akaboshi-kyō"
+			}
+			set_province_name = {
+				id = 9950  # Moscow's Province ID
+				name = "Inejirō Jinminzaki"
+			}
+			add_country_leader_trait = {
+				trait = faithful_servant_of_stalin_JAP
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_manchu_union_yen
+		icon = GFX_focus_generic_currency_reforms
+		relative_position_id = JAP_r56rp_manchu_union
+		prerequisite = { focus = JAP_r56rp_manchu_union } 
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = JAP_invest_in_allies_tt
+			add_ideas = JAP_r56rp_yen_zone_communist
+			every_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = KOR
+						original_tag = MAN
+					}
+				}
+				add_ideas = JAP_r56rp_yen_zone_communist
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}	
+	focus = {
+		id = JAP_r56rp_manchu_union_colony
+		icon = GFX_focus_ARG_cut_ties_with_britain
+		relative_position_id = JAP_r56rp_manchu_union
+		prerequisite = { focus = JAP_r56rp_manchu_union } 
+		x = 1
+		y = 1
+		cost = 10
+
+		completion_reward = {
+			MAL = { OVERLORD = { country_event = { id = JAP_r56rp_japanchuria_colonial.1 days = 1 } } }
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}	
+	
+	focus = {
+		id = JAP_r56rp_invade_manchuria_communist
+		icon = GFX_goal_JAP_attack_manchukuo
+		relative_position_id = JAP_r56rp_a_true_commune_in_asia
+		prerequisite = { focus = JAP_r56rp_a_true_commune_in_asia } 
+		x = -1
+		y = 1
+		cost = 5
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_manchuria_tt
+				JAP_controls_manchuria_mengukuo = yes	
+			}
+		}
+		completion_reward = {
+			create_wargoal = {
+				target = MAN
+				type = annex_everything
+			}			
+			create_wargoal = {
+				target = KOR
+				type = annex_everything
+			}		
+		}	
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	focus = {
+		id = JAP_r56rp_invade_china_c
+		icon = GFX_focus_attack_china
+		relative_position_id = JAP_r56rp_invade_manchuria_communist
+		prerequisite = { focus =  JAP_r56rp_invade_manchuria_communist	}
+		x = 0
+		y = 1
+		cost = 5
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_china_tt
+				JAP_controls_china = yes
+			}
+		}
+
+		completion_reward = {
+			create_wargoal = {
+				target = CHI
+				type = annex_everything
+			}
+			create_wargoal = {
+				target = PRC
+				type = annex_everything
+			}				
+		}	
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}	
+
+	focus = {
+		id = JAP_r56rp_invade_colonial_british_communist
+		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
+		relative_position_id = JAP_r56rp_a_true_commune_in_asia
+		prerequisite = { focus = JAP_r56rp_a_true_commune_in_asia } 
+		x = 1
+		y = 1
+		cost = 5
+		completion_reward = {
+			create_wargoal = {
+				target = FRI
+				type = annex_everything
+			}	
+			create_wargoal = {
+				target = SIA
+				type = annex_everything
+			}
+			create_wargoal = {
+				target = PHI
+				type = annex_everything
+			}			
+		}
+		
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	focus = {
+		id = JAP_r56rp_invade_colonial_dutch_communist
+		icon = GFX_focus_GER_south_east_asian_natural_wealth
+		relative_position_id = JAP_r56rp_invade_colonial_british_communist
+		prerequisite = { focus = JAP_r56rp_invade_colonial_british_communist } 
+		x = 0
+		y = 1
+		cost = 5
+		completion_reward = {
+			create_wargoal = {
+				target = INS
+				type = annex_everything
+			}	
+			create_wargoal = {
+				target = MAL
+				type = annex_everything
+			}		
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	focus = {
+		id = JAP_r56rp_invade_usa_c
+		icon = GFX_focus_generic_attack_usa
+		relative_position_id = JAP_r56rp_invade_colonial_dutch_communist
+		prerequisite = { focus = JAP_r56rp_invade_colonial_dutch_communist }  
+		prerequisite = { focus =  JAP_r56rp_invade_china_c	}
+		mutually_exclusive = { focus = JAP_r56rp_form_ussar }
+		x = 1
+		y = 1
+		cost = 10
+
+		completion_reward = {
+			add_timed_idea = {
+				idea = r56rp_JAP_USA_communist_invade_idea
+				days = 365
+			}
+			create_wargoal = {
+				target = USA
+				type = annex_everything
+			}			
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_form_ussar
+		icon = GFX_focus_SOV_the_supreme_soviet
+		relative_position_id = JAP_r56rp_invade_china_c
+		prerequisite = { focus = JAP_r56rp_invade_china_c }  
+		prerequisite = { focus = JAP_r56rp_invade_colonial_dutch_communist } 
+		mutually_exclusive = { focus = JAP_r56rp_invade_usa_c }
+		x = -1
+		y = 1
+		cost = 10
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_manchuria_tt
+				JAP_controls_manchuria_mengukuo = yes	
+			}
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_korea_tt
+				JAP_controls_korea = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_china_tt
+				JAP_controls_china = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_indochina_tt
+				JAP_controls_indochina = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_siam_tt
+				JAP_controls_siam = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_malaya_tt
+				JAP_controls_malaya = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_indonesia_tt
+				JAP_controls_indonesia = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = JAP_r56rp_ussar_phillopines_tt
+				JAP_controls_philippines = yes
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = JAP_ussar_core_et
+			set_cosmetic_tag = JAP_r56rp_UASR
+			hidden_effect = {
+				every_owned_state = {
+					limit = {
+						is_core_of = KOR
+					}
+					add_core_of = ROOT
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = MAN
+					}
+					add_core_of = ROOT
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = CHI
+					}
+					add_core_of = ROOT
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = SIA
+					}
+					add_core_of = ROOT
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = FRI
+					}
+					add_core_of = ROOT
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = PHI
+					}
+					add_core_of = ROOT
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = INS
+					}
+					add_core_of = ROOT
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = MAL
+					}
+					add_core_of = ROOT
+				}
+				1014 = {
+					add_core_of = ROOT
+				}
+				669 = {
+					add_core_of = ROOT
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+	focus = {
+		id = JAP_r56rp_navy_plot_c
+		icon = GFX_r56rp_goal_JAP_yonais_conspiracy_icon
+		x = 3
+		y = 17
+		cost = 10
+		allow_branch = {
+			AND = {
+				has_country_flag =  JAP_r56rp_no_cooperation_flag 
+			}
+		}
+		available = { has_country_flag = JAP_r56rp_no_cooperation_flag }	
+		completion_reward = {
+			if = {	
+				limit = {
+					NOT = { has_government = neutrality }
+				}
+				set_cosmetic_tag = JAP_r56rp_NAOP
+				add_popularity = { ideology = neutrality popularity = 0.80 }
+				hidden_effect = {
+					add_dynamic_modifier = {
+						modifier = r56rp_JAP_navy_coup_power
+					}
+				}
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+					long_name = JAP_r56rp_navaladmin_party
+					name = JAP_r56rp_navaladmin_party
+				}
+				add_country_leader_role = {
+					character = r56rp_JAP_communist_leaders_navyleader_yonai
+					promote_leader = yes
+					country_leader = {
+						ideology = despotism
+						traits = { dictator }
+						expire = "1950.9.12.6"
+					}
+				}
+				remove_ideas = JAP_r56rp_militarism_rampage
+			}
+			effect_tooltip = {
+				add_ideas = r56rp_JAP_navy_coup_power_idea_starting
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = JAP_interservice_rivalry_navy_dominant
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	
+
+	focus = {
+		id = JAP_r56rp_establish_yonai
+		icon = GFX_focus_ARG_march_to_la_casa_rosada
+		relative_position_id = JAP_r56rp_navy_plot_c
+		prerequisite = {
+			focus = JAP_r56rp_navy_plot_c
+		}
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_establish_yonai_tt
+			add_to_variable = { JAP_navy_coup_stability_factor = 0.15 }
+			add_to_variable = {	JAP_navy_coup_politcal_power_gain = 0.05 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_search_for_new_royal_family
+		icon = GFX_focus_jap_showa_restoration
+		relative_position_id = JAP_r56rp_navy_plot_c
+		prerequisite = {
+			focus = JAP_r56rp_establish_yonai
+		}				
+		x = -3
+		y = 2
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			country_event = JAP_r56rp_yonai_find_new_ifamily.1
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_persaude_millitary_yonai
+		icon = GFX_focus_generic_advanced_military_studies
+		relative_position_id = JAP_r56rp_navy_plot_c
+		prerequisite = {
+			focus = JAP_r56rp_navy_plot_c
+		}				
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_navy_persuade_millitary_tt
+			add_to_variable = { JAP_navy_coup_army_infantry_attack_factor = 0.05 }
+			add_to_variable = { JAP_navy_coup_army_infantry_defence_factor = 0.05 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_rebirth_of_empire
+		icon = GFX_focus_ETH_an_empire_in_the_shade_of_the_sun
+		prerequisite = {
+			focus = JAP_r56rp_persaude_millitary_yonai
+		}				
+		relative_position_id = JAP_r56rp_navy_plot_c
+		x = 3
+		y = 2
+		cost = 10
+
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_rebirth_of_empire_tt
+			add_to_variable = { JAP_navy_coup_army_infantry_attack_factor = 0.05 }
+			add_to_variable = { JAP_navy_coup_army_infantry_defence_factor = 0.05 }
+			add_to_variable = { JAP_navy_coup_production_speed_arms_factory_factor = 0.05 }
+			add_to_variable = { JAP_navy_coup_production_speed_industrial_complex_factor = 0.05 }
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_eradicate_communist
+		icon = GFX_focus_GER_end_european_communism
+		relative_position_id = JAP_r56rp_navy_plot_c
+		prerequisite = { focus = JAP_r56rp_search_for_new_royal_family } 
+		prerequisite = { focus = JAP_r56rp_rebirth_of_empire }			
+		x = 0
+		y = 3
+		cost = 10
+
+		completion_reward = {
+			add_ideas = JAP_r56rp_the_naval_state
+			
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+			
+	}
+
+	focus = {
+		id = JAP_r56rp_royal_coronation_navy
+		icon = GFX_focus_RAJ_the_crown_and_the_world
+		relative_position_id = JAP_r56rp_eradicate_communist
+		prerequisite = {
+			focus = JAP_r56rp_eradicate_communist
+		}					
+		x = 0
+		y = 1
+		cost = 10
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_the_naval_state
+				add_idea = JAP_r56rp_the_naval_state_2
+			}
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_expand_dockyards_navy_c
+		icon = GFX_goal_generic_navy_battleship
+		relative_position_id = JAP_r56rp_royal_coronation_navy
+		prerequisite = {
+			focus = JAP_r56rp_royal_coronation_navy
+		}					
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					is_core_of = ROOT
+					not = {
+						state = 646
+						state = 645
+						state = 555
+					}
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					is_core_of = ROOT
+					not = {
+						state = 646
+						state = 645
+						state = 555
+					}
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_navyoffice_in_army
+		icon = GFX_focus_PER_establish_the_navy
+		relative_position_id = JAP_r56rp_royal_coronation_navy
+		prerequisite = {
+			focus = JAP_r56rp_royal_coronation_navy
+		}
+		x = -1
+		y = 1
+		cost = 10
+		completion_reward = {
+			army_experience = 50
+			navy_experience = 50
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					is_core_of = ROOT
+					not = {
+						state = 646
+						state = 645
+						state = 555
+					}
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+					
+	}
+
+	focus = {
+		id = JAP_r56rp_strengthen_the_navy
+		icon = GFX_focus_ETH_an_ethiopian_navy_in_exile
+		relative_position_id = JAP_r56rp_persaude_millitary_yonai
+		prerequisite = {
+			focus = JAP_r56rp_persaude_millitary_yonai
+		}					
+		x = 0
+		y = 1
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_strengthen_imperial_navy_tt
+			add_to_variable = {JAP_navy_coup_naval_light_gun_hit_chance_factor = 0.05 }
+			add_to_variable = {JAP_navy_coup_naval_heavy_gun_hit_chance_factor = 0.05 }
+			add_to_variable = {JAP_navy_coup_naval_torpedo_cooldown_factor = -0.1 }
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_raid_manchu_ports_navy_c
+		icon = GFX_focus_jap_manchurian_project
+		relative_position_id = JAP_r56rp_establish_yonai
+		prerequisite = {
+			focus = JAP_r56rp_establish_yonai
+		}					
+		x = 0
+		y = 1
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = JAP_r56rp_raid_manchu_ports_tt
+			add_to_variable = { JAP_navy_coup_stability_factor = 0.15 }
+			add_to_variable = {	JAP_navy_coup_politcal_power_gain = 0.05 }
+			add_to_variable = { JAP_navy_coup_naval_night_attack = 0.05 }
+			
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_navalstate_c
+		icon = GFX_focus_BRA_navy
+		relative_position_id = JAP_r56rp_navyoffice_in_army
+		prerequisite = { focus = JAP_r56rp_navyoffice_in_army  } 
+		prerequisite = { focus = JAP_r56rp_expand_dockyards_navy_c }					
+		x = 1
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_ideas = JAP_r56rp_prime_minister_yonai_prime_minister_yonai
+		}
+	}
+
+	focus = {
+		id = JAP_r56rp_restablish_korea_c
+		icon = GFX_goal_JAP_the_korean_question
+		relative_position_id = JAP_r56rp_navalstate_c
+		prerequisite = { focus = JAP_r56rp_navalstate_c  } 				
+		x = 1
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			create_wargoal = {
+				target = KOR
+				type = puppet_wargoal_focus
+			}
+		}
+	}
+
+		focus = {
+		id = JAP_r56rp_restablish_manchu_c
+		icon = GFX_goal_JAP_attack_manchukuo
+		relative_position_id = JAP_r56rp_navalstate_c
+		prerequisite = { focus = JAP_r56rp_navalstate_c  } 				
+		x = -1
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			create_wargoal = {
+				target = MAN
+				type = puppet_wargoal_focus
+			}
+		}
+	}
+
+		focus = {
+		id = JAP_r56rp_mitsubishi_canidate
+		icon = GFX_focus_RAJ_the_crown_and_the_world
+		relative_position_id = JAP_r56rp_royal_coronation_navy
+		prerequisite = {
+			focus = JAP_r56rp_royal_coronation_navy
+		}		
+		available = {
+			has_country_flag = r56rp_miyaginavy_japanese_monarch
+		}			
+		allow_branch = {
+			has_country_flag = r56rp_miyaginavy_japanese_monarch
+		}
+		x = -4
+		y = 1
+		cost = 10
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_r56rp_the_naval_state
+				add_idea = JAP_r56rp_the_naval_state_2
+			}
+		}
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+	}
+	### END MIYAGIPATCH JAPAN MIYAGI RP COMMUNIST BRANCH ###
 
 	focus = {
 		id = JAP_the_unthinkable_option
@@ -237,6 +2763,7 @@ focus_tree = {
 			focus = JAP_support_the_kodoha_faction
 			focus = JAP_strengthen_civilian_government
 			focus = JAP_sea_purge_the_kodoha_faction
+			focus = JAP_r56rp_the_rice_rebellion
 		}
 		x = 9	#56
 		y = 0
@@ -248,9 +2775,7 @@ focus_tree = {
 		}
 
 		allow_branch = {
-			NOT = {
-				has_dlc = "No Compromise, No Surrender"
-			}
+			NOT = { has_dlc = "No Compromise, No Surrender" }
 			if = {
 				limit = {
 					has_game_rule = {
@@ -259,9 +2784,13 @@ focus_tree = {
 					}
 				}
 				NOT = {
-					has_completed_focus = JAP_sea_purge_the_kodoha_faction
-					has_completed_focus = JAP_support_the_kodoha_faction
-					has_completed_focus = JAP_strengthen_civilian_government
+					OR = {
+						has_completed_focus = JAP_sea_purge_the_kodoha_faction
+						has_completed_focus = JAP_support_the_kodoha_faction
+						has_completed_focus = JAP_strengthen_civilian_government
+						has_completed_focus = JAP_okadas_military_purge_speech
+						has_completed_focus = JAP_revere_the_emperor_destroy_the_traitors
+					}
 				}
 			}
 		}
@@ -1278,7 +3807,12 @@ focus_tree = {
 		id = JAP_strengthen_civilian_government
 		icon = GFX_goal_support_democracy
 		
-		mutually_exclusive = { focus = JAP_support_the_kodoha_faction focus = JAP_the_unthinkable_option focus = JAP_sea_purge_the_kodoha_faction }
+		mutually_exclusive = {
+			focus = JAP_support_the_kodoha_faction
+			focus = JAP_the_unthinkable_option
+			focus = JAP_sea_purge_the_kodoha_faction
+			focus = JAP_r56rp_the_rice_rebellion
+		}
 		x = 10	#56
 		y = 0
 		relative_position_id = JAP_the_unthinkable_option
@@ -1369,7 +3903,12 @@ focus_tree = {
 	focus = {
 		id = JAP_support_the_kodoha_faction
 		icon = GFX_goal_JAP_kodoha	#56
-		mutually_exclusive = { focus = JAP_the_unthinkable_option focus = JAP_strengthen_civilian_government focus = JAP_sea_purge_the_kodoha_faction }
+		mutually_exclusive = {
+			focus = JAP_the_unthinkable_option
+			focus = JAP_strengthen_civilian_government
+			focus = JAP_sea_purge_the_kodoha_faction
+			focus = JAP_r56rp_the_rice_rebellion
+		}
 		x = 8	#56
 		y = 0
 		relative_position_id = JAP_strengthen_civilian_government
@@ -3699,6 +6238,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = JAP_sea_purge_the_kodoha_faction
 			focus = JAP_revere_the_emperor_destroy_the_traitors
+			focus = JAP_r56rp_the_rice_rebellion
 		}
 		
 		#relative_position_id = JAP_new_naval_estimates
@@ -3814,9 +6354,10 @@ focus_tree = {
 	focus = {
 		id = JAP_revere_the_emperor_destroy_the_traitors
 		icon = GFX_focus_JAP_revere_the_emperor_destroy_the_traitors
-		mutually_exclusive = { 
-			focus = JAP_sea_purge_the_kodoha_faction 
-			focus = JAP_okadas_military_purge_speech 
+		mutually_exclusive = {
+			focus = JAP_sea_purge_the_kodoha_faction
+			focus = JAP_okadas_military_purge_speech
+			focus = JAP_r56rp_the_rice_rebellion
 		}
 		x = 27
 		y = 0
@@ -7085,12 +9626,13 @@ focus_tree = {
 	focus = {
 		id = JAP_sea_purge_the_kodoha_faction
 		icon = GFX_focus_JAP_purge_the_kodoha_faction
-		mutually_exclusive = { 
-			focus = JAP_the_unthinkable_option 
-			focus = JAP_support_the_kodoha_faction 
-			focus = JAP_strengthen_civilian_government 
-			focus = JAP_revere_the_emperor_destroy_the_traitors 
-			focus = JAP_okadas_military_purge_speech 
+		mutually_exclusive = {
+			focus = JAP_the_unthinkable_option
+			focus = JAP_support_the_kodoha_faction
+			focus = JAP_strengthen_civilian_government
+			focus = JAP_revere_the_emperor_destroy_the_traitors
+			focus = JAP_okadas_military_purge_speech
+			focus = JAP_r56rp_the_rice_rebellion
 		}
 		x = 70
 		y = 0
@@ -17336,13 +19878,22 @@ focus_tree = {
 	focus = {
 		id = JAP_a_red_sun_rises_for_a_new_era
 		icon = GFX_focus_JAP_the_red_sun_rises_for_a_new_era
-		mutually_exclusive = { focus = JAP_organize_a_general_election }
+		mutually_exclusive = {
+			focus = JAP_organize_a_general_election
+			focus = JAP_r56rp_the_rice_rebellion
+		}
 		x = -9
 		y = 2
 		relative_position_id = JAP_revoke_the_peace_preservation_law
 
 		allow_branch = {
 			has_dlc = "No Compromise, No Surrender"
+			NOT = {
+				has_game_rule = {
+					rule = JAP_focus_tree_selection
+					option = R56RP_COMMUNIST_BRANCH
+				}
+			}
 			IF = {
 				limit = {
 					has_game_rule = {
@@ -17351,9 +19902,12 @@ focus_tree = {
 					}
 				}
 				NOT = {
-					has_completed_focus = JAP_organize_a_general_election
-					has_completed_focus = JAP_sea_purge_the_kodoha_faction
-					has_completed_focus = JAP_revere_the_emperor_destroy_the_traitors
+					OR = {
+						has_completed_focus = JAP_organize_a_general_election
+						has_completed_focus = JAP_sea_purge_the_kodoha_faction
+						has_completed_focus = JAP_revere_the_emperor_destroy_the_traitors
+						has_completed_focus = JAP_r56rp_the_rice_rebellion
+					}
 				}
 			}
 		}
@@ -21969,7 +24523,10 @@ focus_tree = {
 	focus = {
 		id = JAP_organize_a_general_election
 		icon = GFX_focus_generic_election
-		mutually_exclusive = { focus = JAP_a_red_sun_rises_for_a_new_era }
+		mutually_exclusive = {
+			focus = JAP_a_red_sun_rises_for_a_new_era
+			focus = JAP_r56rp_the_rice_rebellion
+		}
 		x = 9
 		y = 2
 		relative_position_id = JAP_revoke_the_peace_preservation_law
@@ -24965,6 +27522,7 @@ focus_tree = {
 		icon = GFX_focus_JAP_ministry_of_commerce_and_industry
 		
 		mutually_exclusive = {
+			focus = JAP_r56rp_the_rice_rebellion
 		}
 		
 		relative_position_id = JAP_sea_purge_the_kodoha_faction
@@ -25076,6 +27634,7 @@ focus_tree = {
 		}
 
 		available = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			
 		}
 
@@ -28101,6 +30660,7 @@ focus_tree = {
 		icon = GFX_focus_JAP_the_imperial_defense_plan
 		
 		mutually_exclusive = {
+			focus = JAP_r56rp_the_rice_rebellion
 		}
 		
 		relative_position_id = JAP_ministry_of_commerce_and_industry
@@ -28114,6 +30674,7 @@ focus_tree = {
 		}
 
 		available = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			is_subject = no
 		}
 
