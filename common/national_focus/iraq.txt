@@ -183,6 +183,28 @@ focus_tree = {
 					INDENT = "    "
 				}
 			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = ROOT
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}	
+					}
+					prioritize = { 1045 } 
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}	
+				}
+			}
 			
 			custom_effect_tooltip = newline_tt
 			custom_effect_tooltip = can_flood_plains_tt #Narratively speaking this would work slightly better in Extensive Irrigation Projects, however we include it here so that it can be used on a reasonably appropriate historical timeline by the AI.
@@ -434,16 +456,13 @@ focus_tree = {
 	focus = {
 		id = IRQ_found_the_iraqi_state_railways
 		icon = {
-		    trigger = { 
-		    	OR = {
-		    		has_cosmetic_tag = IRQ_kurdistan_tag 
-		    		has_cosmetic_tag = greater_kurdistan 
-		    	}
-		    }
-		    value = GFX_focus_IRQ_found_the_iraqi_state_railways_alt
-		}
-		icon = {
-		    value = GFX_focus_IRQ_found_the_iraqi_state_railways
+			GFX_focus_IRQ_found_the_iraqi_state_railways_alt = {
+				OR = {
+					has_cosmetic_tag = IRQ_kurdistan_tag 
+					has_cosmetic_tag = greater_kurdistan 
+				}
+			}
+			GFX_focus_IRQ_found_the_iraqi_state_railways = yes
 		}
 		prerequisite = { focus = IRQ_decouple_from_the_pound }
 		#mutually_exclusive = { focus = }
@@ -688,8 +707,15 @@ focus_tree = {
 				add_resource = {
 					type = steel
 					amount = 8
-				}	
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = steel_mill
+					level = 2
+					instant_build = yes
+				}
 			}
+			
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
@@ -701,16 +727,13 @@ focus_tree = {
 	focus = {
 		id = IRQ_found_the_state_company_for_iron_and_steel
 		icon = {
-		    trigger = { 
-		    	OR = {
-		    		has_cosmetic_tag = IRQ_kurdistan_tag 
-		    		has_cosmetic_tag = greater_kurdistan 
-		    	}
-		    }
-		    value = GFX_focus_IRQ_found_the_state_company_for_iron_and_steel_alt
-		}
-		icon = {
-		    value = GFX_focus_IRQ_found_the_state_company_for_iron_and_steel
+			GFX_focus_IRQ_found_the_state_company_for_iron_and_steel_alt = {
+				OR = {
+					has_cosmetic_tag = IRQ_kurdistan_tag 
+					has_cosmetic_tag = greater_kurdistan 
+				}
+			}
+			GFX_focus_IRQ_found_the_state_company_for_iron_and_steel = yes
 		}
 		dynamic = yes
 		prerequisite = { focus = IRQ_found_southern_steel_plants }
@@ -747,7 +770,13 @@ focus_tree = {
 				add_resource = {
 					type = steel
 					amount = 12
-				}	
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = steel_mill
+					level = 1
+					instant_build = yes
+				}
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -761,16 +790,13 @@ focus_tree = {
 	focus = {
 		id = IRQ_baghdad_colleges_of_engineering_and_education
 		icon = {
-		    trigger = { 
-		    	OR = {
-		    		has_cosmetic_tag = IRQ_kurdistan_tag 
-		    		has_cosmetic_tag = greater_kurdistan 
-		    	}
-		    }
-		    value = GFX_focus_IRQ_baghdad_colleges_of_engineering_and_education_alt
-		}
-		icon = {
-		    value = GFX_focus_IRQ_baghdad_colleges_of_engineering_and_education
+			GFX_focus_IRQ_baghdad_colleges_of_engineering_and_education_alt = {
+				OR = {
+					has_cosmetic_tag = IRQ_kurdistan_tag 
+					has_cosmetic_tag = greater_kurdistan 
+				}
+			}
+			GFX_focus_IRQ_baghdad_colleges_of_engineering_and_education = yes
 		}
 		dynamic = yes
 		prerequisite = { focus = IRQ_decouple_from_the_pound }
@@ -872,41 +898,81 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-
-			random_owned_controlled_state = {
+			if = {
 				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
+					is_ai = yes
 				}
-				prioritize = { 1045 } 
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+					}
+					prioritize = { 1045 } 
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}	
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+					}
+					prioritize = { 291 } 
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}	
 				}	
 			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
+			else = {
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
 					}
+					prioritize = { 1045 } 
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}	
 				}
-				prioritize = { 291 } 
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}	
-			}	
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}
+					}
+					prioritize = { 291 } 
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}	
+				}
+			}
 
 		}
 	}
@@ -941,7 +1007,28 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-
+			if = {
+				limit = {
+					is_ai = no
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = ROOT
+						free_building_slots = {
+							building = arms_factory
+							size > 0
+							include_locked = yes
+						}	
+					}
+					prioritize = { 291 } 
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}	
+				}
+			}
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = ROOT
@@ -1584,16 +1671,13 @@ focus_tree = {
 	focus = {
 		id = IRQ_royal_iraqi_army
 		icon = {
-		    trigger = { 
-		    	OR = {
-		    		has_cosmetic_tag = IRQ_kurdistan_tag 
-		    		has_cosmetic_tag = greater_kurdistan 
-		    	}
-		    }
-		    value = GFX_focus_IRQ_royal_iraqi_army_alt
-		}
-		icon = {
-		    value = GFX_focus_IRQ_royal_iraqi_army
+			GFX_focus_IRQ_royal_iraqi_army_alt = {
+				OR = {
+					has_cosmetic_tag = IRQ_kurdistan_tag 
+					has_cosmetic_tag = greater_kurdistan 
+				}
+			}
+			GFX_focus_IRQ_royal_iraqi_army = yes
 		}
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
@@ -3277,16 +3361,13 @@ focus_tree = {
 	focus = {
 		id = IRQ_establish_iraqi_coastal_defense_force
 		icon = {
-		    trigger = { 
-		    	OR = {
-		    		has_cosmetic_tag = IRQ_kurdistan_tag 
-		    		has_cosmetic_tag = greater_kurdistan 
-		    	}
-		    }
-		    value = GFX_focus_IRQ_navy_alt
-		}
-		icon = {
-		    value = GFX_focus_IRQ_navy
+			GFX_focus_IRQ_navy_alt = {
+				OR = {
+					has_cosmetic_tag = IRQ_kurdistan_tag 
+					has_cosmetic_tag = greater_kurdistan 
+				}
+			}
+			GFX_focus_IRQ_navy = yes
 		}
 		prerequisite = { focus = IRQ_royal_iraqi_army }
 		#mutually_exclusive = { focus = }

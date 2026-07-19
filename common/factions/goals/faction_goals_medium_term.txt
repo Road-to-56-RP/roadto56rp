@@ -569,6 +569,45 @@ faction_goal_control_the_chinese_coast = {
 			custom_effect_tooltip = ALL_FACTION_MEMBERS
 			army_experience = 50 
 			add_war_support = 0.05
+			add_stability = 0.05
+		}
+		every_collection_element = {
+			input = {
+				input = game:scope
+				operators =  { 
+					faction_members 
+				}
+				
+				name = ALL_FACTION_MEMBERS
+			}
+			custom_effect_tooltip = ALL_FACTION_MEMBERS
+			army_experience = 50
+			add_war_support = 0.1
+			add_stability = 0.05
+		}
+		every_state = {
+			limit = {
+				OR = {
+					state = 1033
+					state = 592
+					state = 593
+					state = 595
+					state = 596
+					state = 613
+					state = 1034
+					state = 598
+					state = 597
+				}
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 2
+				instant_build = yes
+				province = {
+					all_provinces = yes
+					limit_to_naval_base = yes
+				}
+			}
 		}
 	}
 	ai_will_do = {
@@ -804,6 +843,7 @@ faction_goal_control_the_chinese_capitals = {
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = THE_FACTION_LEADER
 		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
 		every_collection_element = {
 			input = {
 				input = game:scope
@@ -814,7 +854,9 @@ faction_goal_control_the_chinese_capitals = {
 				name = ALL_FACTION_MEMBERS
 			}
 			custom_effect_tooltip = ALL_FACTION_MEMBERS
-			army_experience = 50 
+			army_experience = 50
+			air_experience = 25
+			navy_experience = 25
 		}
 	}
 	ai_will_do = {
@@ -1092,27 +1134,50 @@ faction_goal_marine_corps = {
 				operators = { faction_members }
 				name = FACTION
 			}
-			unit_category = category_amphibious_tanks
-			size > 9
+			unit_category = { marine marine_commando amphibious_mechanized category_amphibious_tanks }
+			equipment_ratio = 0.9
+			size > 29
 		}
 	}
 	complete_effect = {
-		add_faction_power_projection = 100
+		add_faction_power_projection = 200
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
 		custom_effect_tooltip = generic_skip_one_line_tt
-		every_collection_element = {
-			input = {
-				input = game:scope
-				operators = { 
-					faction_members 
-					limit = {
-						has_army_size = {
-							size > 0
-							unit_category = category_amphibious_tanks
+		hidden_effect = {
+			every_collection_element = {
+				input = {
+					input = game:scope
+					operators = { 
+						faction_members 
+						limit = {
+							OR = {
+								has_tech = marines
+								has_tech = amphibious_mechanized_infantry
+								has_tech = amphibious_tank
+							}
 						}
 					}
+					name = ALL_FACTION_MEMBERS_WITH_AMPHIBIOUS_TECH
 				}
-				name = ALL_FACTION_MEMBERS_WITH_1_AMPHIBIOUS
+				random_character = {
+					tooltip = ONE_GENERAL	
+					visible_when_empty = yes
+					limit = {
+						is_army_leader = yes
+						is_field_marshal = no
+						NOT = { has_trait = cavalry_officer }
+						NOT = { has_trait = panzer_leader }
+						NOT = { has_trait = naval_invader }
+					}
+					gain_xp = 400
+					add_attack = 1
+					add_trait = { trait = naval_invader }
+				}
 			}
+		}
+		custom_effect_tooltip = ALL_FACTION_MEMBERS_WITH_AMPHIBIOUS_TECH
+		effect_tooltip = {
 			random_character = {
 				tooltip = ONE_GENERAL	
 				visible_when_empty = yes
@@ -1121,11 +1186,11 @@ faction_goal_marine_corps = {
 					is_field_marshal = no
 					NOT = { has_trait = cavalry_officer }
 					NOT = { has_trait = panzer_leader }
-					NOT = { has_trait = invader }
+					NOT = { has_trait = naval_invader }
 				}
 				gain_xp = 400
 				add_attack = 1
-				add_trait = { trait = invader }
+				add_trait = { trait = naval_invader }
 			}
 		}
 		custom_effect_tooltip = generic_skip_one_line_tt
@@ -1158,6 +1223,192 @@ faction_goal_marine_corps = {
 	}
 }
 
+faction_goal_airborne_corps = {
+	name = airborne_corps_goal_name
+	description = airborne_corps_goal_desc
+	category = medium_term
+	group = FOCUS_FILTER_AIR_XP
+	available = {
+	}
+	completed = {
+		count_in_collection = {
+			collection = {
+				input = game:scope
+				operators = { faction_members }
+				name = FACTION
+			}
+			unit_category = { paratrooper }
+			equipment_ratio = 0.9
+			size > 29
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 200
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		hidden_effect = {
+			every_collection_element = {
+				input = {
+					input = game:scope
+					operators = { 
+						faction_members 
+						limit = {
+							has_tech = paratroopers
+						}
+					}
+					name = ALL_FACTION_MEMBERS_WITH_PARATROOPERS_TECH
+				}
+				random_character = {
+					tooltip = ONE_GENERAL	
+					visible_when_empty = yes
+					limit = {
+						is_army_leader = yes
+						is_field_marshal = no
+						NOT = { has_trait = cavalry_officer }
+						NOT = { has_trait = panzer_leader }
+						NOT = { has_trait = commando }
+					}
+					gain_xp = 400
+					add_attack = 1
+					add_trait = { trait = commando }
+				}
+			}
+		}
+		custom_effect_tooltip = ALL_FACTION_MEMBERS_WITH_PARATROOPERS_TECH
+		effect_tooltip = {
+			random_character = {
+				tooltip = ONE_GENERAL	
+				visible_when_empty = yes
+				limit = {
+					is_army_leader = yes
+					is_field_marshal = no
+					NOT = { has_trait = cavalry_officer }
+					NOT = { has_trait = panzer_leader }
+					NOT = { has_trait = commando }
+				}
+				gain_xp = 400
+				add_attack = 1
+				add_trait = { trait = commando }
+			}
+		}
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			add_tech_bonus = {
+				name = airborne_corps_tech_bonus
+				bonus = 0.5
+				uses = 1
+				category = para_tech
+			}
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1
+			has_equipment = {
+			    transport_plane_equipment > 0
+			}
+		}
+	}
+}
+
+faction_goal_mountaineer_corps = {
+	name = mountaineer_corps_goal_name
+	description = mountaineer_corps_goal_desc
+	category = medium_term
+	group = FOCUS_FILTER_ARMY_XP
+	available = {
+	}
+	completed = {
+		count_in_collection = {
+			collection = {
+				input = game:scope
+				operators = { faction_members }
+				name = FACTION
+			}
+			unit_category = { mountaineers }
+			equipment_ratio = 0.9
+			size > 29
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 200
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		hidden_effect = {
+			every_collection_element = {
+				input = {
+					input = game:scope
+					operators = { 
+						faction_members 
+						limit = {
+							has_tech = tech_mountaineers
+						}
+					}
+					name = ALL_FACTION_MEMBERS_WITH_MOUNTAINEERS_TECH
+				}
+				random_character = {
+					tooltip = ONE_GENERAL	
+					visible_when_empty = yes
+					limit = {
+						is_army_leader = yes
+						is_field_marshal = no
+						NOT = { has_trait = cavalry_officer }
+						NOT = { has_trait = panzer_leader }
+						NOT = { has_trait = trait_mountaineer }
+					}
+					gain_xp = 400
+					add_attack = 1
+					add_trait = { trait = trait_mountaineer }
+				}
+			}
+		}
+		custom_effect_tooltip = ALL_FACTION_MEMBERS_WITH_MOUNTAINEERS_TECH
+		effect_tooltip = {
+			random_character = {
+				tooltip = ONE_GENERAL	
+				visible_when_empty = yes
+				limit = {
+					is_army_leader = yes
+					is_field_marshal = no
+					NOT = { has_trait = cavalry_officer }
+					NOT = { has_trait = panzer_leader }
+					NOT = { has_trait = trait_mountaineer }
+				}
+				gain_xp = 400
+				add_attack = 1
+				add_trait = { trait = trait_mountaineer }
+			}
+		}
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			add_tech_bonus = {
+				name = mountaineer_corps_tech_bonus
+				bonus = 0.5
+				uses = 1
+				category = mountaineers_tech
+			}
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1
+			any_allied_country = {
+				has_terrain = mountain
+			}
+		}
+		modifier = {
+			add = 2
+			has_terrain = mountain
+		}
+	}
+}
+
 faction_goal_submarine_force = {
 	name = submarine_force_goal_name
 	description = submarine_force_goal_desc
@@ -1186,7 +1437,7 @@ faction_goal_submarine_force = {
 				operators = { 
 					faction_members 
 					limit = {
-						has_army_size = {
+						has_navy_size = {
 							size > 24
 							type = submarine
 						}
@@ -1274,7 +1525,7 @@ faction_goal_convoy_escort_force = {
 				operators = { 
 					faction_members 
 					limit = {
-						has_army_size = {
+						has_navy_size = {
 							size > 24
 							type = screen_ship
 						}
@@ -1359,7 +1610,7 @@ faction_goal_air_superiority = {
 				operators = { 
 					faction_members 
 					limit = {
-						has_army_size = {
+						has_deployed_air_force_size = {
 							size > 249
 							type = fighter
 						}
@@ -2209,7 +2460,7 @@ faction_goal_control_lappland_metals = {
 				 name = FACTION_CONTROLLED_STATES
 			}
 			distance_to = {
-				target = 918
+				target = 1029
 				value < 2000
 			}
 		}
@@ -2219,7 +2470,7 @@ faction_goal_control_lappland_metals = {
 	}
 	completed = {
 		666 = { is_controlled_by_ROOT_or_ally = yes }
-		918 = {	is_controlled_by_ROOT_or_ally = yes }	
+		1029 = {	is_controlled_by_ROOT_or_ally = yes }	
 	}
 	complete_effect = {
 		add_faction_power_projection = 100
@@ -2230,7 +2481,7 @@ faction_goal_control_lappland_metals = {
 			limit = {
 				OR = {
 					controls_state = 666
-					controls_state = 918
+					controls_state = 1029
 				}
 			}
 			add_faction_initiative = 1
@@ -2239,7 +2490,7 @@ faction_goal_control_lappland_metals = {
 			limit = {
 				OR = {
 					state = 666
-					state = 918
+					state = 1029
 				}
 			}
 			if = {
@@ -2258,7 +2509,7 @@ faction_goal_control_lappland_metals = {
 		base = 0
 		modifier = {
 			factor = 2 # Target of opportunity - already at war anyway
-			918 = {
+			1029 = {
 				owner = {
 					has_war_with = ROOT
 				}
@@ -4473,7 +4724,6 @@ faction_goal_control_danish_belts = {
 	}
 	completed = {
 		37 = { is_controlled_by_ROOT_or_ally = yes }
-		911 = { is_controlled_by_ROOT_or_ally = yes }
 		99 = { is_controlled_by_ROOT_or_ally = yes }
 	}
 	complete_effect = {
@@ -5986,7 +6236,7 @@ faction_goal_control_singapore = {
 				 name = FACTION_CONTROLLED_STATES
 			}
 			distance_to = {
-				target = 1021
+				target = 336
 				value < 2000
 			}
 		}
@@ -5995,7 +6245,7 @@ faction_goal_control_singapore = {
 
 	}
 	completed = {
-		1021 = { is_controlled_by_ROOT_or_ally = yes }
+		336 = { is_controlled_by_ROOT_or_ally = yes }
 	}
 	complete_effect = {
 		add_faction_power_projection = 100
@@ -6004,11 +6254,11 @@ faction_goal_control_singapore = {
 		every_faction_member = { 
 			visible_when_empty = yes
 			limit = {
-				controls_state = 1021
+				controls_state = 336
 			}
 			add_faction_initiative = 1
 		}
-		1021 = {
+		336 = {
 			add_building_construction = {
 				type = anti_air_building
 				level = 1
@@ -6034,7 +6284,7 @@ faction_goal_control_singapore = {
 		base = 0
 		modifier = {
 			factor = 2 # Target of opportunity - already at war anyway
-			1021 = {
+			336 = {
 				owner = {
 					has_war_with = ROOT
 				}

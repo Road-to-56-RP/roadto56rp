@@ -5014,6 +5014,7 @@ JAP_kodoha_insurgency_decisions = {
 		}
 
 		visible = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			has_civil_war = no
 			has_government = neutrality
 			hidden_trigger = {
@@ -5035,6 +5036,7 @@ JAP_kodoha_insurgency_decisions = {
 		fire_only_once = yes
 
 		activation = {
+			NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
 			original_tag = JAP
 		}
 
@@ -5043,13 +5045,16 @@ JAP_kodoha_insurgency_decisions = {
 		is_good = no
 
 		timeout_effect = {
-
-			country_event = {
-				id = SEA_japan.1
-				hours = 6
-			}	
-			custom_effect_tooltip = JAP_aizawa_trial_ongoing_tt
-
+			if = {
+				limit = {
+					NOT = { has_country_flag = JAP_r56rp_rice_rebellion_started }
+				}
+				country_event = {
+					id = SEA_japan.1
+					hours = 6
+				}
+				custom_effect_tooltip = JAP_aizawa_trial_ongoing_tt
+			}
 		}
 
 	}

@@ -606,6 +606,30 @@ ideas = {
 				trade_opinion_factor = -0.1
 			}
 		}
+
+		FRA_deflation_ride_it_out = {
+			
+			name = FRA_deflation1
+			
+			allowed = {
+				original_tag = FRA
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = chi_hyper_inflation
+			
+			modifier = {
+				political_power_cost = 0.6
+				consumer_goods_factor = 0.18
+				trade_opinion_factor = -0.3
+			}
+		}
 		
 		FRA_matignon_agreements1 = {
 			picture = FRA_matignon_agreements
@@ -901,34 +925,6 @@ ideas = {
 			} 
 		}
 
-		FRA_armament_program = {
-		
-			allowed = {
-				original_tag = FRA
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = generic_infantry_bonus
-			
-			removal_cost = -1
-
-			equipment_bonus = {
-				infantry_equipment = {
-					build_cost_ic = -0.1 instant = yes
-				}
-				motorized_equipment = {
-					build_cost_ic = -0.1 instant = yes
-				}
-				artillery_equipment = {
-					build_cost_ic = -0.1 instant = yes
-				}
-			}
-		}
-		
 		FRA_bank_nationalisation = {
 		
 			allowed = {
@@ -1331,7 +1327,8 @@ ideas = {
 			
 			modifier = {
 				conscription = -0.003
-				land_doctrine_cost_factor = 0.5
+				land_doctrine_cost_factor = 0.1
+				land_mastery_gain_factor = -0.25
 			}
 		}
 
@@ -1471,6 +1468,8 @@ ideas = {
 		}
 		
 		FRA_infantry_focus = {
+
+			name = FRA_r56rp_infantry_focus
 		
 			allowed = {
 				original_tag = FRA
@@ -2073,7 +2072,7 @@ ideas = {
 			removal_cost = -1
 			
 			modifier = {
-				non_core_manpower = 0.03
+				non_core_manpower = 0.1
 			}
 		}
 		FRA_france_undividable = {
@@ -2090,7 +2089,7 @@ ideas = {
 			removal_cost = -1
 			
 			modifier = {
-				non_core_manpower = 0.08
+				non_core_manpower = 0.15
 			}
 		}
 		FRA_agricultural_protectionism = {
@@ -3282,60 +3281,17 @@ ideas = {
 			
 			picture = generic_air_bonus
 
+		
 			equipment_bonus = {
-				small_plane_airframe = {
+				mio_cat_eq_all_small_plane = {
+					build_cost_ic = -0.15
+					instant = yes
+				}
+				mio_cat_eq_all_medium_plane = {
 					build_cost_ic = -0.1
 					instant = yes
 				}
-				cv_small_plane_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				small_plane_cas_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				cv_small_plane_cas_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				cv_small_plane_naval_bomber_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-			#	cv_nav_bomber_equipment = {
-			#		build_cost_ic = -0.1
-			#		instant = yes
-			#	}
-				fighter_bomber_equipment = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				hfighter_bomber_equipment = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				small_plane_naval_bomber_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				med_maritime_equipment = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				medium_plane_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				medium_plane_fighter_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				large_plane_airframe = {
-					build_cost_ic = -0.1
-					instant = yes
-				}
-				large_plane_maritime_patrol_plane_airframe = {
+				mio_cat_eq_all_large_plane  = {
 					build_cost_ic = -0.1
 					instant = yes
 				}
@@ -3366,6 +3322,32 @@ ideas = {
 			modifier = {
 				experience_gain_navy_factor = -0.4
 				experience_gain_navy_unit_factor = 0.1 #experimenting makes them learn a bit more
+			}
+		}
+
+		FRA_preserving_old_school_naval_strategy = {
+			name = FRA_preserving_old_school_naval_strategy
+			
+			allowed = {
+				original_tag = FRA
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			available = {
+				has_capitulated = no
+			}
+
+			removal_cost = -1
+			
+			picture = generic_navy_bonus
+
+			modifier = {
+				experience_gain_navy_factor = 0.2
+				experience_gain_navy_unit_factor = -0.3 #experimenting makes them learn a bit more
 			}
 		}
 		
@@ -3523,7 +3505,7 @@ ideas = {
 			picture = generic_tank_manufacturer_3
 
 			available = {
-				has_completed_focus = FRA_infantry_tanks
+				has_completed_focus = FRA_r56rp_chars_de_infanterie
 			}
 			
 			allowed = {
@@ -3614,7 +3596,7 @@ ideas = {
 				armor = 0.10
 			}
 			available = {
-				has_completed_focus = FRA_commit_automobile_manufacturer
+				has_completed_focus = FRA_r56rp_la_guerra_mecanique
 				NOT = { has_country_flag = dietrich_nat }
 			}
 			cost = 150
@@ -3629,7 +3611,7 @@ ideas = {
 				armor = 0.10
 			}
 			available = {
-				has_completed_focus = FRA_commit_automobile_manufacturer
+				has_completed_focus = FRA_r56rp_la_guerra_mecanique
 				NOT = { has_country_flag = berliet_nat }
 			}
 			cost = 150
@@ -3644,7 +3626,7 @@ ideas = {
 				armor = 0.10
 			}
 			available = {
-				has_completed_focus = FRA_commit_automobile_manufacturer
+				has_completed_focus = FRA_r56rp_la_guerra_mecanique
 				NOT = { has_country_flag = delaunay_nat }
 			}
 			cost = 150
@@ -3774,7 +3756,7 @@ ideas = {
 				}
 			}
 			available = {
-				has_completed_focus = FRA_war_material_licence
+				has_completed_focus = FRA_r56rp_kickstart_the_arms_industry
 				NOT = { has_country_flag = bayonne_nat }
 			}
 			research_bonus = {
@@ -3789,7 +3771,7 @@ ideas = {
 				original_tag = FRA
 			}
 			available = {
-				has_completed_focus = FRA_war_material_licence
+				has_completed_focus = FRA_r56rp_kickstart_the_arms_industry
 				NOT = { has_country_flag = puteaux_nat }
 			}
 			research_bonus = {
@@ -3804,7 +3786,7 @@ ideas = {
 				original_tag = FRA
 			}
 			available = {
-				has_completed_focus = FRA_war_material_licence
+				has_completed_focus = FRA_r56rp_kickstart_the_arms_industry
 				NOT = { has_country_flag = bouton_nat }
 			}
 			research_bonus = {
@@ -4071,7 +4053,6 @@ ideas = {
 	}
 	
 	industrial_concern = {	
-		
 		famh = {
 			allowed = {
 				original_tag = FRA

@@ -1,0 +1,554 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+
+
+#### Industrial Strategy
+########################
+	YUG_wants_infrastructure = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			AND = {
+				107 = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+					infrastructure < 4
+				}
+				952 = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+					infrastructure < 4
+				}
+				45 = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+					infrastructure < 4
+				}
+				959 = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+					infrastructure < 4
+				}
+			}
+		}
+		abort_when_not_enabled = yes
+		ai_strategy = {
+			type = build_building
+			id = infrastructure
+			target = 107
+			value = 4
+		}
+		ai_strategy = {
+			type = build_building
+			id = infrastructure
+			target = 952
+			value = 4
+		}
+		ai_strategy = {
+			type = build_building
+			id = infrastructure
+			target = 45
+			value = 4
+		}
+		ai_strategy = {
+			type = build_building
+			id = infrastructure
+			target = 959
+			value = 4
+		}
+	}
+	YUG_wants_civs = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date > 1937.1.1
+			date < 1938.6.1
+		}
+		abort_when_not_enabled = yes
+		ai_strategy = {
+			type = building_target
+			id = industrial_complex
+			value = 85
+		}
+	}
+	YUG_it_is_half_way_through_38_mils_are_on_the_menu_now = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date > 1938.6.1
+		}
+		abort_when_not_enabled = yes
+		ai_strategy = {
+			type = building_target
+			id = arms_factory
+			value = 100
+		}
+	}
+	YUG_boats_are_expensive = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			always = yes
+		}
+		abort_when_not_enabled = yes
+		ai_strategy = {
+			type = building_target
+			id = dockyard
+			value = -100
+		}
+		ai_strategy = {
+			type = build_ship
+			id = screen_ship
+			value = -100
+		}
+	}
+	YUG_do_build_in_decent_infa_states_first = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date < 1942.1.1
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = { # Sumadija
+			type = factory_build_score_factor
+			target = 107
+			value = 150
+		}    
+
+		ai_strategy = { # Srem
+			type = factory_build_score_factor
+			target = 952
+			value = 150
+		}
+
+		ai_strategy = { # Batschka
+			type = factory_build_score_factor
+			target = 45
+			value = 150
+		}
+
+		ai_strategy = { # Slavonija
+			type = factory_build_score_factor
+			target = 959
+			value = 150
+		}
+	}
+	YUG_build_infrastructure_in_sumadija = {
+		allowed = {
+			original_tag = YUG
+		}
+	
+		enable = {
+			#original_tag = USA
+			date > 1943.01.01
+			107 = {
+				is_controlled_by = ROOT
+				is_core_of = ROOT
+				infrastructure < 4
+			}
+	
+		}
+		abort_when_not_enabled = yes
+		ai_strategy = {
+			type = build_building
+			id = infrastructure
+			target = 107
+			value = 1000
+		}
+	}
+	YUG_do_not_build_on_coast_for_now = { # We are very likely to lose the territory
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date < 1942.1.1
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = { # Dalmacija
+			type = factory_build_score_factor
+			target = 103
+			value = -75
+		}    
+
+		ai_strategy = { # Kvarner
+			type = factory_build_score_factor
+			target = 958
+			value = -75
+		}
+
+		ai_strategy = { # Crna Gora
+			type = factory_build_score_factor
+			target = 105
+			value = -75
+		}
+	}
+	YUG_buy_less_stuff_save_IC = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date < 1940.1.1
+			has_war = no
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = {
+			type = equipment_market_spend_factories
+			value = -75
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -30k guns to buy them before 1940.1.1
+			id = infantry_equipment
+			value = -30000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k artillery to buy them before 1940.1.1
+			id = artillery_equipment
+			value = -2000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k anti-air to buy them before 1940.1.1
+			id = anti_air_equipment
+			value = -2000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k anti-tank to buy them before 1940.1.1
+			id = anti_tank_equipment
+			value = -2000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k trucks to buy them before 1940.1.1
+			id = motorized_equipment
+			value = -2000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k mech to buy them before 1940.1.1
+			id = mechanized_equipment
+			value = -2000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k small fighters to buy them before 1940.1.1
+			id = small_plane_fighter_airframe
+			value = -2000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k small cas to buy them before 1940.1.1
+			id = small_plane_cas_airframe
+			value = -2000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k medium fighter to buy them before 1940.1.1
+			id = medium_plane_fighter_airframe
+			value = -2000
+		}
+		ai_strategy = {
+			type = equipment_market_buying_threshold # Need at least -2k naval patrol to buy them before 1940.1.1
+			id = large_plane_maritime_patrol_plane_airframe
+			value = -2000
+		}
+	}
+	YUG_we_do_not_need_spies = {
+		allowed = {
+			original_tag = YUG
+			has_dlc = "La Resistance"
+		}
+		enable = {
+			always = yes
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = {
+			type = intelligence_agency_usable_factories
+			value = -50
+		}
+	}
+#### Naval Production Strategy
+##############################
+	YUG_we_need_a_lot_of_convoys = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date > 1940.1.1
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = {
+			type = equipment_production_min_factories
+			id = convoy
+			value = 3
+		}
+	}
+
+#### Unit Production Strategy
+#############################
+	YUG_recruitment_strategy = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			always = yes
+		}
+		abort_when_not_enabled = yes
+		
+		ai_strategy = {
+			type = role_ratio
+			id = garrison
+			value = 2
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = infantry
+			value = 75
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = paratroopers
+			value = -50
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = mountaineers
+			value = -50
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = marines
+			value = -50
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = cavalry
+			value = -99
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = motorized
+			value = 0
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = mechanized
+			value = 0
+		}
+		
+		ai_strategy = {
+			type = role_ratio
+			id = armor
+			value = -75
+		}
+
+		ai_strategy = {
+			type = unit_ratio
+			id = capital_ship
+			value = -100
+		}
+	
+		ai_strategy = {
+			type = unit_ratio
+			id = submarine
+			value = -100 #because doctrine this = 50
+		}
+	
+		ai_strategy = {
+			type = unit_ratio
+			id = screen_ship
+			value = -100
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = naval_screen
+			value = -100
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = naval_escort
+			value = -100
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = naval_cruiser_light
+			value = -100
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = naval_cruiser_heavy
+			value = -100
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = naval_capital_bb
+			value = -100
+		}
+	
+		ai_strategy = {
+			type = role_ratio
+			id = naval_capital_bc
+			value = -100
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = naval_carrier
+			value = -100
+		}
+
+		ai_strategy = {
+			type = role_ratio
+			id = naval_submarine
+			value = -100
+		}
+
+		ai_strategy = {
+			type = unit_ratio
+			id = convoy
+			value = 30
+		}
+	}
+	YUG_equipment_strategy = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			always = yes
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = {
+			type = equipment_variant_production_factor 
+			id = infantry_equipment
+			value = 25
+		}
+
+		ai_strategy = {
+			type = equipment_variant_production_factor 
+			id = anti_air_equipment
+			value = 20
+		}
+
+		ai_strategy = {
+			type = equipment_variant_production_factor 
+			id = anti_tank_equipment
+			value = 20
+		}
+
+		ai_strategy = {
+			type = equipment_variant_production_factor 
+			id = artillery_equipment
+			value = 20
+		}
+
+		ai_strategy = {
+			type = equipment_production_factor 
+			id = armor
+			value = -99
+		}
+
+		ai_strategy = {
+			type = equipment_variant_production_factor 
+			id = light_tank_destroyer_chassis
+			value = -99
+		}
+
+		ai_strategy = {
+			type = equipment_variant_production_factor 
+			id = medium_tank_destroyer_chassis
+			value = -99
+		}
+	}
+	YUG_train_and_support_equipment_minimum = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			always = yes
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = {
+			type = equipment_production_min_factories_archetype
+			id = support_equipment 
+			value = 1
+		}
+
+		ai_strategy = {
+			type = equipment_production_min_factories
+			id = train
+			value = 1
+		}
+	}
+	YUG_aim_for_400k_army = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date > 1937.1.1
+			has_army_manpower = { size < 400000 }
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = {
+			type = force_build_armies
+			value = 200
+		}
+	}
+	YUG_aim_for_600k_army = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date > 1939.1.1
+			has_army_manpower = { size < 600000 }
+			has_army_manpower = { size > 350000 }
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = {
+			type = force_build_armies
+			value = 200
+		}
+	}
+	YUG_aim_for_700k_army = {
+		allowed = {
+			original_tag = YUG
+		}
+		enable = {
+			date > 1940.1.1
+			has_army_manpower = { size < 700000 }
+			has_army_manpower = { size > 550000 }
+		}
+		abort_when_not_enabled = yes
+
+		ai_strategy = {
+			type = force_build_armies
+			value = 300
+		}
+	}

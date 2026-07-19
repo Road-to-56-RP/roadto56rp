@@ -26,7 +26,7 @@ focus_tree = {
 		mutually_exclusive = { focus = ROM_r56rp_oppose_tatarescus_regime }
 		x = 0
 		y = 0
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -44,7 +44,7 @@ focus_tree = {
 			}
 		}
         completion_reward = {
-			add_political_power = 100
+			add_political_power = 50
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
 	}
@@ -207,7 +207,7 @@ focus_tree = {
 		relative_position_id = ROM_tatarescus_regime		
 		x = 3
 		y = 1
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -228,7 +228,7 @@ focus_tree = {
 		relative_position_id = ROM_finalize_the_tax_reforms		
 		x = 1
 		y = 1
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -257,7 +257,7 @@ focus_tree = {
 		relative_position_id = ROM_finalize_the_tax_reforms
 		x = -1
 		y = 1
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -279,7 +279,7 @@ focus_tree = {
 		relative_position_id = ROM_enforce_the_tariffs
 		x = 1
 		y = 1
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -287,7 +287,7 @@ focus_tree = {
 
         completion_reward = {
 			add_timed_idea = {
-				days = 35
+				days = 14
 				idea = r56_ROM_carol_public_spending
 			}
 			random_owned_controlled_state = {
@@ -304,7 +304,7 @@ focus_tree = {
 		relative_position_id = ROM_tatarescus_regime
 		x = -3
 		y = 2
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -312,7 +312,7 @@ focus_tree = {
 
         completion_reward = {
 			add_timed_idea = {
-				days = 35
+				days = 14
 				idea = r56_ROM_carol_public_spending
 			}
 			random_owned_controlled_state = {
@@ -334,7 +334,7 @@ focus_tree = {
 		relative_position_id = ROM_public_department_buildings
 		x = -1
 		y = 1
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -363,7 +363,7 @@ focus_tree = {
 		relative_position_id = ROM_public_department_buildings
 		x = 1
 		y = 1
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -755,6 +755,18 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = r56_ROM_carol_idea
+				}
+				remove_ideas = r56_ROM_carol_idea
+			}
+			if = {
+				limit = {
+					has_idea = r56_ROM_michael_idea
+				}
+				remove_ideas = r56_ROM_michael_idea
+			}
 			set_country_flag = ROM_codreanu_will_live_slightly_longer
 			add_threat = 5
 			if = {
@@ -815,6 +827,30 @@ focus_tree = {
 			}
 			hidden_effect = {
 				news_event = { id = r56.news_event.23 days = 1 }
+				if = {
+					limit = {
+						is_guaranteed_by = FRA
+					}
+					FRA = {
+						diplomatic_relation = {
+							country = ROM
+							relation = guarantee
+							active = no
+						}
+					}
+				}
+				if = {
+					limit = {
+						is_guaranteed_by = POL
+					}
+					POL = {
+						diplomatic_relation = {
+							country = ROM
+							relation = guarantee
+							active = no
+						}
+					}
+				}
 				diplomatic_relation = {
 					country = YUG
 					relation = guarantee
@@ -6995,10 +7031,10 @@ focus_tree = {
 					is_core_of = ROOT
 					is_owned_and_controlled_by = ROOT					
 				}				
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = steel_mill
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -7018,7 +7054,7 @@ focus_tree = {
 		relative_position_id = ROM_raw_resource_exploitation
 		x = -2
 		y = 1
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -7041,6 +7077,9 @@ focus_tree = {
 
 		available = {
 			has_tech = construction3
+			84 = {
+				is_owned_and_controlled_by = ROOT
+			}
 		}
 
 		ai_will_do = {
@@ -7057,6 +7096,21 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+			custom_effect_tooltip = generic_skip_one_line_tt
+			84 = {
+				add_building_construction = {
+					type = dam
+					level = 1
+					instant_build = yes
+					province = {
+						id = 3665
+					}
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = building_state_modifier|dam
+				INDENT = "    "
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -7177,6 +7231,9 @@ focus_tree = {
 
 		available = {
 			has_tech = excavation2
+			84 = {
+				is_owned_and_controlled_by = ROOT
+			}
 		}
 
 		ai_will_do = {
@@ -7186,10 +7243,16 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = ROM_extensive_coal_mining_idea
 			modify_building_resources = {
-			building = steel_mill
-			resource = steel
-			amount = 2
-		}
+				building = steel_mill
+				resource = steel
+				amount = 2
+			}
+			84 = {
+				add_resource = {
+					type = coal
+					amount = 12
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -7256,7 +7319,7 @@ focus_tree = {
 		relative_position_id = ROM_industrial_revitalization_program
 		x = -2
 		y = 1
-		cost = 10
+		cost = 5
 
 		available = {
 			has_tech = improved_oil_processing
@@ -7314,7 +7377,7 @@ focus_tree = {
 		relative_position_id = ROM_industrial_revitalization_program
 		x = 2
 		y = 1
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1

@@ -1,0 +1,275 @@
+# MiyagiPatch 1.19 compatibility: migrate Rt56 Shock Troop doctrine branch into
+# the current special-forces subdoctrine system.
+
+r56_shocktroops_assault = {
+    track = { special_forces_first special_forces_second }
+    name = SUBDOCTRINE_R56_SHOCKTROOPS_ASSAULT
+    description = SUBDOCTRINE_R56_SHOCKTROOPS_ASSAULT_DESC
+    icon = GFX_special_forces_shocktroops_medium
+
+    xp_cost = 60
+    xp_type = army
+
+    xor = { r56_shocktroops_breakthrough }
+
+    mastery = {
+        multiplier = 6
+        categories = {
+            category_shocktroops
+        }
+    }
+
+    available = {
+        has_tech = shocktroops
+    }
+
+    visible = {
+        has_dlc = "Arms Against Tyranny"
+    }
+
+    ai_will_do = {
+        base = 1
+        modifier = {
+            factor = 20
+            OR = {
+                original_tag = CZE
+                original_tag = GER
+                original_tag = HUN
+                original_tag = SOV
+            }
+        }
+    }
+
+    category_shocktroops = {
+        soft_attack = 0.05
+    }
+
+    category_special_forces_leg_infantry = {
+        max_organisation = 5
+        hard_attack = 0.05
+    }
+
+    unit_shocktroop_design_cost_factor = -0.50
+
+    rewards = {
+        reward_1 = {
+            mastery = 60
+            shocktroop = {
+                urban = {
+                    attack = 0.05
+                }
+            }
+            category_shocktroops = {
+                initiative = 0.01
+                soft_attack = 0.01
+            }
+        }
+        reward_2 = {
+            mastery = 60
+            artillery = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    soft_attack = 0.10
+                }
+            }
+            engineer = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    hard_attack = 0.10
+                }
+            }
+            anti_tank = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    ap_attack = 0.10
+                }
+            }
+            anti_air = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    defense = 0.10
+                }
+            }
+        }
+        reward_3 = {
+            mastery = 60
+            category_shocktroops = {
+                max_organisation = 5
+            }
+            artillery = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    soft_attack = 0.05
+                }
+            }
+            logistics_company = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    max_strength = 0.05
+                }
+            }
+            special_forces_no_supply_grace = 5
+        }
+        reward_4 = {
+            mastery = 60
+            engineer = {
+                battalion_mult = {
+                    category = category_special_forces
+                    hard_attack = 0.10
+                    max_strength = 0.10
+                }
+            }
+            acclimatization_hot_climate_gain_factor = 0.10
+            acclimatization_cold_climate_gain_factor = 0.10
+        }
+        reward_5 = {
+            mastery = 60
+            category_shocktroops = {
+                soft_attack = 0.10
+            }
+            shocktroop = {
+                combat_width = -0.2
+            }
+            special_forces_cap = 0.1
+            special_forces_no_supply_grace = 10
+        }
+    }
+}
+
+r56_shocktroops_breakthrough = {
+    track = { special_forces_first special_forces_second }
+    name = SUBDOCTRINE_R56_SHOCKTROOPS_BREAKTHROUGH
+    description = SUBDOCTRINE_R56_SHOCKTROOPS_BREAKTHROUGH_DESC
+    icon = GFX_shocktroop_level_3_b_medium
+
+    xp_cost = 60
+    xp_type = army
+
+    xor = { r56_shocktroops_assault }
+
+    mastery = {
+        multiplier = 6
+        categories = {
+            category_shocktroops
+        }
+    }
+
+    available = {
+        has_tech = shocktroops
+    }
+
+    visible = {
+        has_dlc = "Arms Against Tyranny"
+    }
+
+    ai_will_do = {
+        base = 1
+        modifier = {
+            factor = 20
+            OR = {
+                original_tag = CZE
+                original_tag = GER
+                original_tag = HUN
+                original_tag = SOV
+            }
+        }
+    }
+
+    category_shocktroops = {
+        soft_attack = 0.05
+    }
+
+    category_special_forces_leg_infantry = {
+        max_organisation = 5
+        hard_attack = 0.05
+    }
+
+    unit_shocktroop_design_cost_factor = -0.50
+
+    rewards = {
+        reward_1 = {
+            mastery = 60
+            shocktroop = {
+                fort = {
+                    attack = 0.05
+                }
+            }
+            category_shocktroops = {
+                breakthrough = 0.01
+                hard_attack = 0.01
+            }
+        }
+        reward_2 = {
+            mastery = 60
+            artillery = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    soft_attack = 0.10
+                }
+            }
+            engineer = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    hard_attack = 0.10
+                }
+            }
+            anti_tank = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    ap_attack = 0.10
+                }
+            }
+            anti_air = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    defense = 0.10
+                }
+            }
+        }
+        reward_3 = {
+            mastery = 60
+            category_shocktroops = {
+                max_organisation = 5
+            }
+            light_tank_recon = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    breakthrough = 0.05
+                }
+            }
+            signal_company = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    default_morale = 0.05
+                }
+            }
+            experience_gain_shocktroop_combat_factor = 0.05
+        }
+        reward_4 = {
+            mastery = 60
+            engineer = {
+                battalion_mult = {
+                    category = category_special_forces
+                    hard_attack = 0.10
+                    max_strength = 0.10
+                }
+            }
+            acclimatization_hot_climate_gain_factor = 0.10
+            acclimatization_cold_climate_gain_factor = 0.10
+        }
+        reward_5 = {
+            mastery = 60
+            light_tank_recon = {
+                battalion_mult = {
+                    category = category_shocktroops
+                    hard_attack = 0.05
+                }
+            }
+            category_shocktroops = {
+                breakthrough = 0.10
+            }
+            special_forces_cap = 0.1
+            pocket_penalty = -0.1
+        }
+    }
+}
