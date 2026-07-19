@@ -6013,3 +6013,61 @@ upgrade_conscription_law = {
 	}
 }
 # END 1.19 scripted effect compatibility
+
+JAP_r56rp_install_yonai_naval_government = {
+	if = {
+		limit = {
+			has_idea = r56rp_JAP_navy_coup_power_idea_starting
+		}
+		remove_ideas = r56rp_JAP_navy_coup_power_idea_starting
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = JAP_r56rp_yonai_coup_government_installed }
+		}
+		set_cosmetic_tag = JAP_r56rp_NAOP
+		add_popularity = { ideology = neutrality popularity = 0.80 }
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_dynamic_modifier = {
+							modifier = r56rp_JAP_navy_coup_power
+						}
+					}
+				}
+				add_dynamic_modifier = {
+					modifier = r56rp_JAP_navy_coup_power
+				}
+			}
+		}
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = JAP_r56rp_navaladmin_party
+			name = JAP_r56rp_navaladmin_party
+		}
+		retire_country_leader = yes
+		add_country_leader_role = {
+			character = r56rp_JAP_communist_leaders_navyleader_yonai
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				traits = { dictator }
+				expire = "1950.9.12.6"
+			}
+		}
+		promote_character = r56rp_JAP_communist_leaders_navyleader_yonai
+		remove_ideas = JAP_r56rp_militarism_rampage
+		if = {
+			limit = {
+				NOT = { has_idea = JAP_interservice_rivalry_navy_dominant }
+			}
+			add_ideas = JAP_interservice_rivalry_navy_dominant
+		}
+		set_country_flag = JAP_r56rp_yonai_coup_government_installed
+	}
+}

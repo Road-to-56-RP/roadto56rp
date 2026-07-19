@@ -1,0 +1,2277 @@
+# MiyagiPatch batch 10: vanilla 1.19 decision IDs referenced by active DLC scripts.
+# Copied from the installed base game to compensate for older RT56 files shadowing them.
+
+CZE_the_second_fortification_program_category = {
+	CZE_fortification_research = {
+		icon = GFX_decision_generic_research
+
+		ai_will_do = {
+			base = 14
+		}
+	
+		days_remove = 30
+
+		fire_only_once = yes
+
+		available = {
+			custom_trigger_tooltip = {
+    			tooltip = CZE_fortification_research_tt		
+    			OR = {
+					has_idea = CZE_directorate_of_fortification_works_gd_idea
+					has_idea = CZE_directorate_of_fortification_works_no_gd_idea
+				}
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		modifier = {
+			research_speed_factor = -0.05
+		}
+
+		visible = {
+			#has_power_balance = {
+    		#	id = CZE_bop_army_readiness
+			#}
+		}
+
+		custom_cost_trigger = {
+    		command_power > 14
+		}
+		custom_cost_text = decision_cost_CP_15
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = 30 } #days needs to be same as the above days_remove!
+			}
+		}
+
+		remove_effect = {
+			ROOT = {
+				add_tech_bonus = {
+					name = CZE_fortification_research
+					bonus = 0.25
+					uses = 1
+					category = cat_fortification
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+
+			subtract_from_variable = {
+    			var = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1
+   		 		value = 30
+    			tooltip = CZE_fortification_research_subtract_variable_tt
+			}
+			hidden_effect = {
+				subtract_from_variable = {
+    				var = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_0
+   		 			value = 30
+    				tooltip = CZE_fortification_research_subtract_variable_tt
+				}
+				subtract_from_variable = {
+    				var = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_2
+   		 			value = 30
+    				tooltip = CZE_fortification_research_subtract_variable_tt
+				}
+			}
+	
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			if = {
+				limit = {
+					has_idea = CZE_directorate_of_fortification_works_no_gd_idea
+				}
+				swap_ideas = {
+					remove_idea = CZE_directorate_of_fortification_works_no_gd_idea
+					add_idea = CZE_directorate_of_fortification_works_no_gd_idea_2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = CZE_directorate_of_fortification_works_gd_idea
+				}
+				swap_ideas = {
+					remove_idea = CZE_directorate_of_fortification_works_gd_idea
+					add_idea = CZE_directorate_of_fortification_works_gd_idea_2
+				}
+			}
+			else = {
+				
+			}
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+	}
+
+	CZE_second_sudetenland_fortification_program = {
+		icon = GFX_decision_generic_mountain_fortification
+
+		ai_will_do = {
+			base = 75
+			modifier = {
+				factor = 0.5
+				is_in_faction_with = GER
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+       			state = 69
+       			state = 972
+				state = 74
+    		}
+			highlight_provinces = { 
+				494 445 9692 9539
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 #Set in history file
+
+		available = {
+			has_completed_focus = CZE_the_second_fortification_program
+			69 = {
+				is_fully_controlled_by = ROOT
+			}
+			972 = {
+				is_fully_controlled_by = ROOT
+			}
+			74 = {
+				is_fully_controlled_by = ROOT
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		cancel_trigger = {
+			OR = {
+				69 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				972 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				74 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+			}
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		visible = {
+			NOT = {
+				has_country_flag = CZE_second_sudetenland_fortification_program_was_finished
+			}
+			OR = {
+				69 = {
+					any_province_building_level = {
+						province = {
+							all_provinces = yes
+						}
+						building = bunker
+						level < 3
+					}
+				}
+				972 = {
+					any_province_building_level = {
+						province = {
+							all_provinces = yes
+						}
+						building = bunker
+						level < 3
+					}
+				}
+				9 = {
+					any_province_building_level = {
+						province = {
+							id = 445
+							id = 494
+						}
+						building = bunker
+						level < 3
+					}
+				}
+				74 = {
+					any_province_building_level = {
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+						}
+						building = bunker
+						level < 3
+					}
+				}
+				70 = {
+					any_province_building_level = {
+						province = {
+							id = 9539
+							id = 9692
+						}
+						building = bunker
+						level < 3
+					}
+				}
+			}
+		}
+
+		modifier = {
+			civilian_factory_use = 1
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 } #days NEEDS to be same as the above days_remove
+			}
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 0
+		}
+		custom_cost_text = decision_cost_civ_factory_1
+
+
+		remove_effect = {
+			if = { #being overly safe since this is decision sided
+				limit = {
+					has_dynamic_modifier = { 
+						modifier = CZE_ceskoslovenska_armada_dynamic_modifier
+					}
+				}
+				custom_effect_tooltip = CZE_ceskoslovenska_armada_ns_intro_tt
+				add_to_variable = {
+					CZE_ceskoslovenska_armada_supply_combat_penalties_on_core_factor = -0.025
+					tooltip = supply_combat_penalties_on_core_factor_tt
+				}
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+			}
+			if = {
+				limit = {
+					69 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				69 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							all_provinces = yes
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { 
+					972 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				972 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							all_provinces = yes
+							level < 3
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_province = 494
+					controls_province = 445
+				}
+				9 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 445
+							id = 494
+							level < 3
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					74 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				74 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							all_provinces = yes
+							level < 3
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					70 = {
+						controls_or_subject_of = yes
+					}
+				}
+				70 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 9539
+							id = 9692
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				CZE_bop_very_low_increase_effect = yes
+			}
+
+			clr_country_flag = CZE_fortification_decision_inprogress
+			set_country_flag = CZE_second_sudetenland_fortification_program_was_finished
+		}
+	}
+
+	CZE_third_sudetenland_fortification_program = {
+		icon = GFX_decision_generic_mountain_fortification
+		
+		ai_will_do = {
+			base = 35
+			modifier = {
+				factor = 0.5
+				is_in_faction_with = GER
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+       			state = 69
+       			state = 972
+				state = 74
+    		}
+			highlight_provinces = { 
+				494 445 9692 9539
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_2 #Set in history file
+
+		visible = {
+			NOT = {
+				has_country_flag = CZE_third_sudetenland_fortification_program_was_finished
+			}
+			69 = {
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+					}
+					building = bunker
+					level > 2
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+					}
+					building = bunker
+					level < 5
+				}
+			}
+			972 = {
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+					}
+					building = bunker
+					level > 2
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+					}
+					building = bunker
+					level < 5
+				}
+			}
+			9 = {
+				any_province_building_level = {
+					province = {
+						id = 445
+						id = 494
+					}
+					building = bunker
+					level > 2
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+					}
+					building = bunker
+					level < 5
+				}
+			}
+			74 = {
+				any_province_building_level = {
+					province = {
+						id = 421
+						id = 6485
+						id = 3414
+						id = 3583
+					}
+					building = bunker
+					level > 2
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						#limit_to_border = yes
+					}
+					building = bunker
+					level < 5
+				}
+			}
+			70 = {
+				any_province_building_level = {
+					province = {
+						id = 9539
+						id = 9692
+						#limit_to_border = yes
+					}
+					building = bunker
+					level > 2
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						#limit_to_border = yes
+					}
+					building = bunker
+					level < 5
+				}
+			}
+		}
+
+		available = {
+			has_tech = basic_fortification_tech
+			has_completed_focus = CZE_the_second_fortification_program
+			69 = {
+				is_fully_controlled_by = ROOT
+			}
+			972 = {
+				is_fully_controlled_by = ROOT
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		cancel_trigger = {
+			OR = {
+				69 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				972 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+			}
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		modifier = {
+			civilian_factory_use = 3
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_2 } #days NEEDS to be same as the above days_remove
+			}
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		custom_cost_text = decision_cost_civ_factory_3
+
+
+		remove_effect = {
+			if = {
+				limit = { controls_state = 69 }
+				69 = {
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							all_provinces = yes
+							#limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 972 }
+				972 = {
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							all_provinces = yes
+							#limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 9 }
+				9 = {
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							id = 445
+							id = 494
+							#limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 74 }
+				74 = {
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+							#limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { 
+					70 = {
+						controls_or_subject_of = yes
+					}
+				}
+				70 = {
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							id = 9539
+							id = 9692
+							#limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+				CZE_bop_very_low_increase_effect = yes
+			}
+
+			clr_country_flag = CZE_fortification_decision_inprogress
+			set_country_flag = CZE_third_sudetenland_fortification_program_was_finished
+		}
+	}
+
+	CZE_fourth_sudetenland_fortification_program = {
+		icon = GFX_decision_generic_mountain_fortification
+
+		ai_will_do = {
+			base = 35
+			modifier = {
+				factor = 0.5
+				is_in_faction_with = GER
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+       			state = 69
+       			state = 972
+				state = 74
+    		}
+			highlight_provinces = { 
+				494 445 9692 9539
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_2  #Set in history file
+
+		visible = {
+			NOT = {
+				has_country_flag = CZE_fourth_sudetenland_fortification_program_was_finished
+			}
+			69 = {
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						#limit_to_border = yes
+					}
+					building = bunker
+					level > 4
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						#limit_to_border = yes
+					}
+					building = bunker
+					level < 7
+				}
+			}
+			972 = {
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						#limit_to_border = yes
+					}
+					building = bunker
+					level > 4
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						#limit_to_border = yes
+					}
+					building = bunker
+					level < 7
+				}
+			}
+			9 = {
+				any_province_building_level = {
+					province = {
+						id = 445
+						id = 494
+						#limit_to_border = yes
+					}
+					building = bunker
+					level > 4
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						id = 445
+						id = 494
+						#limit_to_border = yes
+					}
+					building = bunker
+					level < 7
+				}
+			}
+			74 = {
+				any_province_building_level = {
+					province = {
+						id = 421
+						id = 6485
+						id = 3414
+						id = 3583
+						#limit_to_border = yes
+					}
+					building = bunker
+					level > 4
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						#limit_to_border = yes
+					}
+					building = bunker
+					level < 7
+				}
+			}
+			70 = {
+				any_province_building_level = {
+					province = {
+						id = 9539
+						id = 9692
+						#limit_to_border = yes
+					}
+					building = bunker
+					level > 4
+				}
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						id = 9539
+						id = 9692
+						#limit_to_border = yes
+					}
+					building = bunker
+					level < 7
+				}
+			}
+		}
+
+		available = {
+			has_completed_focus = CZE_the_second_fortification_program
+			69 = {
+				is_fully_controlled_by = ROOT
+			}
+			74 = {
+				is_fully_controlled_by = ROOT
+			}
+			972 = {
+				is_fully_controlled_by = ROOT
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		cancel_trigger = {
+			OR = {
+				69 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				74 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				972 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+			}
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_2 } #days NEEDS to be same as the above days_remove
+			}
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 4
+		}
+		custom_cost_text = decision_cost_civ_factory_5
+
+
+		remove_effect = {
+			if = {
+				limit = { controls_state = 69 }
+				69 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+			if = {
+				limit = { controls_state = 972 }
+				972 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							all_provinces = yes
+							#limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 9 }
+				9 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							id = 445
+							id = 494
+							#limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 74 }
+				74 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+							#limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					70 = {
+						controls_or_subject_of = yes
+					}
+				}
+				70 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							id = 9539
+							id = 9692
+							#limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+				CZE_bop_very_low_increase_effect = yes
+			}
+
+			clr_country_flag = CZE_fortification_decision_inprogress
+			set_country_flag = CZE_fourth_sudetenland_fortification_program_was_finished
+		}
+	}
+
+	CZE_fortify_the_crossroads_with_slo = {
+		icon = GFX_decision_generic_fortification
+
+		ai_will_do = {
+			base = 5
+			modifier = {
+				factor = 0.5
+				is_in_faction_with = GER
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_provinces = { 
+				6418
+				11542
+				11556
+				6562
+				3569
+				541
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 #Set in history file
+
+		fire_only_once = yes
+
+		available = {
+			has_completed_focus = CZE_the_second_fortification_program
+			9 = {
+				is_fully_controlled_by = ROOT
+			}
+			75 = {
+				is_fully_controlled_by = ROOT
+			}
+			70 = {
+				controls_or_subject_of = yes
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		visible = {
+			NOT = {
+				has_country_flag = CZE_fortify_the_crossroads_no_double_dip
+			}
+			9 = {
+				any_province_building_level = {
+					province = {
+						id = 6418
+						id = 11542
+						id = 11556
+					}
+					building = bunker
+					level < 3
+				}
+			}
+			75 = {
+				any_province_building_level = {
+					province = {
+						id = 3569
+						id = 6562
+						id = 11511
+					}
+					building = bunker
+					level < 3
+				}
+			}
+			70 = {
+				controls_or_subject_of = yes
+				any_province_building_level = {
+					province = {
+						id = 541
+					}
+					building = bunker
+					level < 3
+				}
+			}
+		}
+
+		cancel_trigger = {
+			OR = {
+				9 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				75 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				70 = {
+					controls_or_subject_of = no
+				}
+			}
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		modifier = {
+			civilian_factory_use = 1
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 } #days NEEDS to be same as the above days_remove
+			}
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 0
+		}
+		custom_cost_text = decision_cost_civ_factory_1
+
+
+		remove_effect = {
+			if = { #being overly safe since this is a decision sided
+				limit = {
+					has_dynamic_modifier = { 
+						modifier = CZE_ceskoslovenska_armada_dynamic_modifier
+					}
+				}
+				custom_effect_tooltip = CZE_ceskoslovenska_armada_ns_intro_tt
+				add_to_variable = {
+					CZE_ceskoslovenska_armada_supply_combat_penalties_on_core_factor = -0.025
+					tooltip = supply_combat_penalties_on_core_factor_tt
+				}
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+			if = {
+				limit = { 
+					9 = {
+						controls_or_subject_of = yes
+					}
+				}
+				9 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 6418
+							id = 11542
+							id = 11556
+							level < 3
+						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					75 = {
+						controls_or_subject_of = yes
+					}
+				}
+				75 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 3569
+							id = 6562
+							id = 11511
+							level < 3
+						}
+					}
+					if = {
+						limit = {
+							free_building_slots = {
+								building = anti_air_building
+								size > 0
+							}
+						}
+						add_building_construction = {
+							type = anti_air_building
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					70 = {
+						controls_or_subject_of = yes
+					}
+				}
+				70 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 541
+							level < 3
+						}
+					}
+				}
+			}
+
+			
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				CZE_bop_super_low_increase_effect = yes
+			}
+			set_country_flag = CZE_fortify_the_crossroads_no_double_dip
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+	}
+
+	CZE_fortify_the_crossroads_with_no_slo = {
+		icon = GFX_decision_generic_fortification
+		name = "CZE_fortify_the_crossroads_with_slo"
+
+		ai_will_do = {
+			base = 5
+			modifier = {
+				factor = 0.5
+				is_in_faction_with = GER
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_provinces = {
+				6418
+				11542
+				11556
+				3569
+				6562
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 #Set in history file
+
+		fire_only_once = yes
+
+		available = {
+			has_completed_focus = CZE_the_second_fortification_program
+			9 = {
+				is_fully_controlled_by = ROOT
+			}
+			75 = {
+				is_fully_controlled_by = ROOT
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		visible = {
+			NOT = {
+				has_country_flag = CZE_fortify_the_crossroads_no_double_dip
+			}
+			70 = {
+				controls_or_subject_of = no
+			}
+			9 = {
+				any_province_building_level = {
+					province = {
+						id = 6418
+						id = 11542
+						id = 11556
+					}
+					building = bunker
+					level < 3
+				}
+			}
+			75 = {
+				any_province_building_level = {
+					province = {
+						id = 3569
+						id = 6562
+					}
+					building = bunker
+					level < 3
+				}
+			}
+		}
+
+		cancel_trigger = {
+			OR = {
+				9 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				75 = {
+					NOT = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+			}
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		modifier = {
+			civilian_factory_use = 1
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 } #days NEEDS to be same as the above days_remove
+			}
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 0
+		}
+		custom_cost_text = decision_cost_civ_factory_1
+
+		remove_effect = {
+			if = { #being overly safe since this is a decision sided
+				limit = {
+					has_dynamic_modifier = { 
+						modifier = CZE_ceskoslovenska_armada_dynamic_modifier
+						SCOPE = ROOT
+					}
+				}
+				custom_effect_tooltip = CZE_ceskoslovenska_armada_ns_intro_tt
+				add_to_variable = {
+					CZE_ceskoslovenska_armada_supply_combat_penalties_on_core_factor = -0.05
+					tooltip = supply_combat_penalties_on_core_factor_tt
+				}
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+			}
+			if = {
+				limit = { 
+					75 = {
+						controls_or_subject_of = yes
+					}
+				}
+				75 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 3569
+							id = 6562
+							level < 3
+						}
+					}
+					if = {
+						limit = {
+							free_building_slots = {
+								building = anti_air_building
+								size > 0
+							}
+						}
+						add_building_construction = {
+							type = anti_air_building
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					9 = {
+						controls_or_subject_of = yes
+					}
+				}
+				9 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 6418
+							id = 11542
+							id = 11556
+							limit_to_border = yes
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+				CZE_bop_super_low_increase_effect = yes
+			}
+			set_country_flag = CZE_fortify_the_crossroads_no_double_dip
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+	}
+
+	CZE_fortify_the_hungarian_border_with_73 = {
+		icon = GFX_decision_generic_fortification
+
+		ai_will_do = {
+			base = 6
+			modifier = {
+				factor = 0.2
+				is_in_faction_with = HUN
+			}
+			modifier = {
+				factor = 0.2
+				HUN = { exists = no }
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 664
+			}
+			highlight_provinces = {
+				11691 3548 
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 #Set in history file
+
+		fire_only_once = yes
+
+		available = {
+			has_completed_focus = CZE_the_second_fortification_program
+			664 = {
+				controls_or_subject_of = yes
+			}
+			73 = { 
+			 	controls_or_subject_of = yes
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		visible = {
+			664 = {
+				controls_or_subject_of = yes
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+					building = bunker
+					level < 3
+				}
+			}
+			73 = {
+				controls_or_subject_of = yes
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+					building = bunker
+					level < 3
+				}
+			}
+		}
+
+		cancel_trigger = {
+			OR = {
+				664 = {
+					state_is_fully_controlled_by_ROOT_or_subject = no
+				}
+				73 = {
+					state_is_fully_controlled_by_ROOT_or_subject = no
+				}
+			}
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		modifier = {
+			civilian_factory_use = 2
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 } #days NEEDS to be same as the above days_remove
+			}
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 1
+		}
+		custom_cost_text = decision_cost_civ_factory_2
+
+
+		remove_effect = {
+			if = { #being overly safe since this is a decision sided
+				limit = {
+					has_dynamic_modifier = { 
+						modifier = CZE_ceskoslovenska_armada_dynamic_modifier
+					}
+				}
+				custom_effect_tooltip = CZE_ceskoslovenska_armada_ns_intro_tt
+				add_to_variable = {
+					CZE_ceskoslovenska_armada_supply_combat_penalties_on_core_factor = -0.025
+					tooltip = supply_combat_penalties_on_core_factor_tt
+				}
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+			}
+			if = {
+				limit = { 
+					664 = {
+						controls_or_subject_of = yes
+					}
+				}
+				664 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+						level < 3
+					}
+				}
+			}
+			if = {
+				limit = { 
+					73 = {
+						controls_or_subject_of = yes
+					}
+				}
+				73 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 11691
+							id = 3548
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				CZE_bop_super_low_increase_effect = yes
+			}
+
+			set_country_flag = CZE_fortify_the_hungarian_border_no_double_dip
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+	}
+
+	CZE_fortify_the_hungarian_border_no_73 = {
+		icon = GFX_decision_generic_fortification
+		name = "CZE_fortify_the_hungarian_border_with_73"
+
+		ai_will_do = {
+			base = 6
+			modifier = {
+				factor = 0.2
+				is_in_faction_with = HUN
+			}
+			modifier = {
+				factor = 0.2
+				HUN = { exists = no }
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 664
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 #Set in history file
+
+		fire_only_once = yes
+
+		available = {
+			has_completed_focus = CZE_the_second_fortification_program
+			664 = {
+				controls_or_subject_of = yes
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		visible = {
+			NOT = {
+				has_country_flag = CZE_fortify_the_hungarian_border_no_double_dip
+			}
+			664 = {
+				controls_or_subject_of = yes
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+					building = bunker
+					level < 3
+				}
+			}
+			73 = {
+				controls_or_subject_of = no
+			}
+		}
+
+
+		cancel_trigger = {
+			664 = {
+				NOT = {
+					is_fully_controlled_by = ROOT
+				}
+			}	
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		modifier = {
+			civilian_factory_use = 2
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 } #days NEEDS to be same as the above days_remove
+			}
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 1
+		}
+		custom_cost_text = decision_cost_civ_factory_2
+
+
+		remove_effect = {
+			if = { #being overly safe since this is a decision sided
+				limit = {
+					has_dynamic_modifier = { 
+						modifier = CZE_ceskoslovenska_armada_dynamic_modifier
+					}
+				}
+				custom_effect_tooltip = CZE_ceskoslovenska_armada_ns_intro_tt
+				add_to_variable = {
+					CZE_ceskoslovenska_armada_supply_combat_penalties_on_core_factor = -0.025
+					tooltip = supply_combat_penalties_on_core_factor_tt
+				}
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+			}
+			if = {
+				limit = { 
+					664 = {
+						controls_or_subject_of = yes
+					}
+				}
+				664 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+						level < 3
+					}
+				}
+			}
+			if = {
+				limit = { 
+					73 = {
+						controls_or_subject_of = yes
+					}
+				}
+				73 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 11691
+							id = 3548
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+				CZE_bop_super_low_increase_effect = yes
+			}
+
+			set_country_flag = CZE_fortify_the_hungarian_border_no_double_dip
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+	}
+
+	CZE_fortify_the_polish_border_with_72 = {
+		icon = GFX_decision_generic_fortification
+
+		ai_will_do = {
+			base = 5
+			modifier = {
+				factor = 0.2
+				is_in_faction_with = POL
+			}
+			modifier = {
+				factor = 0.2
+				POL = { exists = no }
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 72
+			}
+			highlight_provinces = {
+				581
+				3550
+				3581
+				6604
+				11554
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 #Set in history file
+
+		fire_only_once = yes
+
+		available = {
+			has_completed_focus = CZE_the_second_fortification_program
+			72 = {
+				controls_or_subject_of = yes
+			}
+			71 = {
+				controls_or_subject_of = yes
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		visible = {
+			NOT = {
+				has_country_flag = CZE_fortify_the_polish_border_no_double_dip
+			}
+			72 = {
+				controls_or_subject_of = yes
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+						limit_to_border = yes
+					}
+					building = bunker
+					level < 3
+				}
+			}
+			71 = {
+				controls_or_subject_of = yes
+				any_province_building_level = {
+					province = {
+						id = 581
+						id = 3550
+						id = 3581
+						id = 6604
+						id = 11554
+					}
+					building = bunker
+					level < 3
+				}
+			}
+		}
+
+		cancel_trigger = {
+			OR = {
+				72 = {
+					state_is_fully_controlled_by_ROOT_or_subject = no
+				}
+				71 = {
+					state_is_fully_controlled_by_ROOT_or_subject = no
+				}
+			}
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		modifier = {
+			civilian_factory_use = 2
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 } #days NEEDS to be same as the above days_remove
+			}
+			set_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 1
+		}
+		custom_cost_text = decision_cost_civ_factory_2
+
+
+		remove_effect = {
+			if = { #being overly safe since this is a decision sided
+				limit = {
+					has_dynamic_modifier = { 
+						modifier = CZE_ceskoslovenska_armada_dynamic_modifier
+					}
+				}
+				custom_effect_tooltip = CZE_ceskoslovenska_armada_ns_intro_tt
+				add_to_variable = {
+					CZE_ceskoslovenska_armada_supply_combat_penalties_on_core_factor = -0.025
+					tooltip = supply_combat_penalties_on_core_factor_tt
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+			}
+			if = {
+				limit = { 
+					72 = {
+						controls_or_subject_of = yes
+					}
+				}
+				72 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+						level < 3
+					}
+				}
+			}
+			if = {
+				limit = { 
+					71 = {
+						controls_or_subject_of = yes
+					}
+				}
+				71 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 581
+							id = 3550
+							id = 3581
+							id = 6604
+							id = 11554
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+				CZE_bop_super_low_increase_effect = yes
+			}
+
+			set_country_flag = CZE_fortify_the_polish_border_no_double_dip
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+	}
+
+	CZE_fortify_the_polish_border_no_72 = {
+		name = CZE_fortify_the_polish_border_with_72
+		icon = GFX_decision_generic_fortification
+
+		ai_will_do = {
+			base = 5
+			modifier = {
+				factor = 0.2
+				is_in_faction_with = POL
+			}
+			modifier = {
+				factor = 0.2
+				POL = { exists = no }
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		highlight_states = {
+			highlight_provinces = {
+				581
+				3550
+				3581
+				6604
+				11554
+				3484
+				11539
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+	
+		days_remove = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 #Set in history file
+
+		fire_only_once = yes
+
+		available = {
+			has_completed_focus = CZE_the_second_fortification_program
+			70 = {
+				controls_or_subject_of = yes
+			}
+			71 = {
+				controls_or_subject_of = yes
+			}
+			NOT = {
+				has_country_flag = CZE_fortification_decision_inprogress
+			}
+		}
+
+		visible = {
+			NOT = {
+				has_country_flag = CZE_fortify_the_polish_border_no_double_dip
+			}
+			72 = {
+				NOT = {
+					controls_or_subject_of = yes
+				}
+			}
+			70 = {
+				controls_or_subject_of = yes
+				any_province_building_level = {
+					province = {
+						id = 3484
+						id = 11539
+					}
+					building = bunker
+					level < 3
+				}
+			}
+			71 = {
+				controls_or_subject_of = yes
+				any_province_building_level = {
+					province = {
+						id = 581
+						id = 3550
+						id = 3581
+						id = 6604
+						id = 11554
+					}
+					building = bunker
+					level < 3
+				}
+			}
+		}
+
+		cancel_trigger = {
+			OR = {
+				70 = {
+					state_is_fully_controlled_by_ROOT_or_subject = no
+				}
+				71 = {
+					state_is_fully_controlled_by_ROOT_or_subject = no
+				}
+			}
+		}
+
+		cancel_effect = {
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+
+		modifier = {
+			civilian_factory_use = 2
+			production_speed_bunker_factor = -0.25
+		}
+
+		complete_effect = {
+			set_country_flag = CZE_fortification_decision_inprogress
+			hidden_effect = {
+				country_event = { id = MUN_czech.1029 days = CZE.CZE_second_sudetenland_fortification_program_days_remove_variable_1 } #days NEEDS to be same as the above days_remove
+			}
+		}
+
+		custom_cost_trigger = {
+			num_of_civilian_factories_available_for_projects > 1
+		}
+		custom_cost_text = decision_cost_civ_factory_2
+
+		remove_effect = {
+			if = { #being overly safe since this is a decision sided
+				limit = {
+					has_dynamic_modifier = { 
+						modifier = CZE_ceskoslovenska_armada_dynamic_modifier
+					}
+				}
+				custom_effect_tooltip = CZE_ceskoslovenska_armada_ns_intro_tt
+				add_to_variable = {
+					CZE_ceskoslovenska_armada_supply_combat_penalties_on_core_factor = -0.025
+					tooltip = supply_combat_penalties_on_core_factor_tt
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+			}
+			if = {
+				limit = { 
+					70 = {
+						controls_or_subject_of = yes
+					}
+				}
+				70 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 3484
+							id = 11539
+						}
+						level < 3
+					}
+				}
+			}
+			if = {
+				limit = { 
+					71 = {
+						controls_or_subject_of = yes
+					}
+				}
+				71 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 581
+							id = 3550
+							id = 3581
+							id = 6604
+							id = 11554
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+						id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+
+				CZE_bop_super_low_increase_effect = yes
+			}
+
+			set_country_flag = CZE_fortify_the_polish_border_no_double_dip
+			clr_country_flag = CZE_fortification_decision_inprogress
+		}
+	}
+}
+
+INS_militias_cat = {
+	INS_militias_kris_repayment = {
+		activation = {
+			always = no #Done manually via focus
+		}
+
+		available = {
+			673 = { #Sulawesi
+				infrastructure > 3
+				OR = {
+					industrial_complex > 2
+					arms_factory > 2
+					AND = {
+						industrial_complex > 0
+						arms_factory > 1
+					}
+					AND = {
+						industrial_complex > 1
+						arms_factory > 0
+					}
+				}
+			}
+
+			1056 = { #Manado
+				infrastructure > 2
+				OR = {
+					industrial_complex > 1
+					arms_factory > 1
+					AND = {
+						industrial_complex > 0
+						arms_factory > 0
+					}
+				}
+			}
+		}
+
+		icon = GFX_decision_generic_construction
+		is_good = no
+		days_mission_timeout = 1095
+		
+		timeout_effect = {
+			if = {
+				limit = {
+					673 = { #Sulawesi
+						NOT = { is_core_of = ROOT }
+					}
+				}
+				673 = {
+					add_resistance = 40
+					add_compliance = -25
+				}
+			}
+			if = {
+				limit = {
+					1056 = { #Manado
+						NOT = { is_core_of = ROOT }
+					}
+				}
+				1056 = {
+					add_resistance = 40
+					add_compliance = -25
+				}
+			}
+
+			add_stability = -0.075
+			add_war_support = -0.075
+			add_manpower = -50000
+			add_political_power = -150
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = { var = INS_missions_completed value = 1 }
+			}
+			if = {
+				limit = {
+					673 = { #Sulawesi
+						NOT = { is_core_of = ROOT }
+					}
+				}
+				673 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1056 = { #Manado
+						NOT = { is_core_of = ROOT }
+					}
+				}
+				1056 = { add_core_of = ROOT }
+			}
+		}
+	}
+
+	INS_militias_jakarta_pemuda_mission = {
+		activation = {
+			always = no #Done manually via focus
+		}
+
+		available = {
+			OR = {
+				amount_research_slots > 3
+				has_tech = construction4
+				has_tech = improved_computing_machine
+				has_tech = atomic_research
+			}
+		}
+
+		icon = GFX_decision_generic_research
+		is_good = no
+		days_mission_timeout = 720
+
+		timeout_effect = {
+			add_war_support = -0.1
+			add_stability = -0.1
+			add_political_power = -200
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = { var = INS_missions_completed value = 1 }
+			}
+		}
+	}
+}
+
+SIA_limited_war_cat = {
+    SIA_limited_war_indochina = {
+		visible = {
+			always = yes
+		}
+		is_good = no
+		highlight_states = {
+			highlight_states_trigger = {
+				is_in_array = { array = ROOT.limited_war_states value = THIS }
+				NOT = { is_controlled_by = ROOT }
+			}
+		}
+		available = {
+			all_of_scopes = {
+				array = ROOT.limited_war_states
+				is_controlled_by = ROOT
+			}
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				exists = no
+				has_capitulated = yes
+				surrender_progress > var:global.limited_war_surrender_threshold
+				var:limited_war_target = {
+					has_capitulated = yes
+					NOT = { original_tag = FRA }
+				}
+				# Fallback: target was defeated by someone else, so neither win nor loss exit can fire
+				var:limited_war_target = { exists = no }
+			}
+		}
+
+		days_mission_timeout = 120
+		complete_effect = {
+			country_event = { id = siam.10 hours = 2 }
+		}
+
+		cancel_effect = {
+			if = {
+				limit = {
+					has_variable = var:limited_war_target
+					var:limited_war_target = {
+						OR = {
+							has_capitulated = yes
+							exists = no
+						}
+						NOT = { original_tag = FRA }
+					}
+				}
+				
+				SIA_peace_out = yes
+				set_rule = { can_join_factions = yes }
+
+				SIA_re_add_to_old_faction = yes
+				SIA_clear_limited_war_variables = yes
+			}
+			if = {
+				limit = { surrender_progress > var:global.limited_war_surrender_threshold }
+				var:limited_war_target = {
+					country_event = { id = siam.15 hours = 2 }
+				}
+			}
+		}
+
+		timeout_effect = {
+			var:limited_war_target = {
+				country_event = { id = siam.15 hours = 2 }
+			}
+		}
+    }
+}
+

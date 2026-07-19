@@ -1,0 +1,1621 @@
+# Generated compatibility overlay for Road To 56RP MiyagiPatch.
+# Source log: C:\Users\ashto\Documents\sdsadada\miyagipatch-combined-valid-errors.log
+# Vanilla source root: C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV
+# Contains only missing 1.19 MIO definitions observed in debug logs.
+
+# AST_american_car_and_foundry_organization from common\military_industrial_organization\organizations\AST_organization.txt:258
+AST_american_car_and_foundry_organization = {
+	name = AST_american_car_and_foundry_organization
+	include = generic_tank_organization 
+	icon = GFX_idea_AST_american_car_and_foundry 
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+	available = {
+       	owner = { has_completed_focus = AST_united_states_as_our_keystone }
+     }
+
+    add_trait = { 
+    	token = AST_mio_trait_yeramba_engineering
+    	name = AST_mio_trait_yeramba_engineering
+    	icon = GFX_generic_mio_department_icon_infantry_quality
+    	special_trait_background = yes
+    	position = { x=5 y=0 }  
+    	available = {
+    	    owner = {
+    	        has_completed_focus = AST_yeramba
+    	    }
+    	}	
+    	equipment_bonus = {
+    		soft_attack = 0.10
+    	}
+    	production_bonus = { 
+    		production_cost_factor = -0.05 
+    	}
+    }
+
+    add_trait = {
+        token = AST_mio_trait_acf_production_pipeline
+        name = AST_mio_trait_acf_production_pipeline
+        icon = GFX_generic_mio_department_icon_tank_general_line_efficiency
+        special_trait_background = yes
+        position = { x=9 y=0 }
+        production_bonus = {
+            production_efficiency_gain_factor = 0.15
+        }
+    }
+
+    add_trait = {
+        token = AST_mio_trait_acf_lend_lease_integration
+        name = AST_mio_trait_acf_lend_lease_integration
+        icon = GFX_generic_mio_department_icon_tank_general_technology
+        special_trait_background = yes
+        position = { x=9 y=1 }
+        any_parent = { AST_mio_trait_acf_production_pipeline }
+        production_bonus = {
+            production_efficiency_cap_factor = 0.1
+        }
+    }
+
+    add_trait = {
+        token = AST_mio_trait_acf_arsenal_of_the_pacific
+        name = AST_mio_trait_acf_arsenal_of_the_pacific
+        icon = GFX_generic_mio_department_icon_tank_general_production
+        special_trait_background = yes
+        position = { x=9 y=2 }
+        any_parent = { AST_mio_trait_acf_lend_lease_integration }
+        production_bonus = {
+            production_capacity_factor = 0.05
+        }
+    }
+}
+
+# AST_cockatoo_docks_organization from common\military_industrial_organization\organizations\AST_organization.txt:476
+AST_cockatoo_docks_organization = {
+	name = AST_cockatoo_docks_organization
+	include = generic_refurbishment_repair_organization 
+	icon = GFX_idea_Cockatoo_doe
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+
+	add_trait = {
+		token = AST_mio_trait_cockatoo_docks_battle_damage_overhaul
+		name = AST_mio_trait_cockatoo_docks_battle_damage_overhaul
+		icon = GFX_generic_mio_trait_icon_reliability
+		special_trait_background = yes
+		position = { x=3 y=3 }
+		any_parent = { generic_mio_trait_counter_flooding_system }
+		equipment_bonus = {
+			reliability = 0.05
+			max_strength = 0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_cockatoo_docks_allied_fleet_servicing
+		name = AST_mio_trait_cockatoo_docks_allied_fleet_servicing
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+		position = { x=9 y=0}
+		organization_modifier = {
+			military_industrial_organization_funds_gain = 0.10
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_cockatoo_docks_drydock_capacity_expansion
+		name = AST_mio_trait_cockatoo_docks_drydock_capacity_expansion
+		icon = GFX_generic_mio_department_icon_ship_general_production
+		special_trait_background = yes
+		position = { x=5 y=4 }
+		all_parents = { generic_mio_trait_high_powered_steering generic_mio_trait_protected_pumps }
+		production_bonus = {
+			production_capacity_factor = 0.10
+		}
+	}
+}
+
+# AST_commonwealth_aircraft_corporation_organization from common\military_industrial_organization\organizations\AST_organization.txt:764
+AST_commonwealth_aircraft_corporation_organization = {
+	name = AST_commonwealth_aircraft_corporation_organization
+	include = generic_light_aircraft_organization
+	icon = GFX_idea_com_aircraft_corporation
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+
+	add_trait = {
+		token = AST_mio_trait_boomerang_spirit
+		name = AST_mio_trait_boomerang_spirit
+		icon = GFX_generic_mio_department_icon_plane_fighter_technology
+		special_trait_background = yes
+
+		position = { x=0 y=1 }
+		relative_position_id = generic_mio_trait_expanded_production_facilities
+		any_parent = { generic_mio_trait_expanded_production_facilities }
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_indigenous_airframe_design
+		name = AST_mio_trait_indigenous_airframe_design
+		icon = GFX_generic_mio_trait_icon_reliability
+		special_trait_background = yes
+
+		position = { x=0 y=1 }
+		relative_position_id = AST_mio_trait_boomerang_spirit
+		any_parent = { AST_mio_trait_boomerang_spirit }
+
+		equipment_bonus = {
+			reliability = 0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_wirraway_versatility
+		name = AST_mio_trait_wirraway_versatility
+		icon = GFX_generic_mio_trait_icon_air_ground_attack
+		special_trait_background = yes
+
+		position = { x=0 y=1 }
+		relative_position_id = generic_mio_trait_advanced_aerodynamics
+		any_parent = { generic_mio_trait_advanced_aerodynamics }
+
+		equipment_bonus = {
+			air_ground_attack = 0.05
+		}
+	}
+}
+
+# AST_evan_deakin_and_company_organization from common\military_industrial_organization\organizations\AST_organization.txt:377
+AST_evan_deakin_and_company_organization = {
+	name = AST_evan_deakin_and_company_organization
+	include = generic_raider_ship_organization 
+	icon = GFX_idea_evans_deakin_co
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+	available = {
+		owner = { has_completed_focus = AST_kangaroo_point_dry_dock_taog }
+	}
+
+	add_trait = {
+		token = AST_mio_trait_evans_deakin_coral_sea_hunters
+		name = AST_mio_trait_evans_deakin_coral_sea_hunters
+		icon = GFX_generic_mio_trait_icon_torpedo_attack
+		special_trait_background = yes
+		position = { x=5 y=1 }
+		any_parent = { generic_mio_trait_long_range_raiding generic_mio_trait_high_speed_raiding }
+		equipment_bonus = {
+			torpedo_attack = 0.05
+			surface_detection = 0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_evans_deakin_pacific_raider_refit
+		name = AST_mio_trait_evans_deakin_pacific_raider_refit
+		icon = GFX_generic_mio_trait_icon_reliability
+		special_trait_background = yes
+		position = { x=3 y=1 }
+		any_parent = { generic_mio_trait_long_range_raiding generic_mio_trait_high_speed_raiding }
+		equipment_bonus = {
+			reliability = 0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_evans_deakin_lightweight_hull_construction
+		name = AST_mio_trait_evans_deakin_lightweight_hull_construction
+		icon = GFX_generic_mio_trait_icon_maximum_speed
+		special_trait_background = yes
+		position = { x=9 y=0 }
+		equipment_bonus = {
+			naval_speed = 0.05
+			build_cost_ic = -0.05
+		}
+	}
+}
+
+# AST_ford_australia_organization from common\military_industrial_organization\organizations\AST_organization.txt:1062
+AST_ford_australia_organization = {
+	name = AST_ford_australia_organization
+	include = generic_armored_car_organization
+	icon = GFX_idea_ford_motor_company
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_commonwealth_exports
+		name = AST_mio_trait_commonwealth_exports
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=3 y=0 }  
+
+		available = {
+		}	
+
+		limit_to_equipment_type = { 
+			armored_car_equipment
+		}
+
+		organization_modifier = {
+			military_industrial_organization_funds_gain = 0.1
+		}
+
+		production_bonus = {
+			production_efficiency_cap_factor = 0.05
+		}
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_utility_conversions
+		name = AST_mio_trait_utility_conversions
+		icon = GFX_generic_mio_trait_icon_maximum_speed
+		special_trait_background = yes
+
+		position = { x=1 y=3 }  
+
+		any_parent = { generic_mio_trait_reinforced_wheels }
+
+		available = {
+		}	
+
+		limit_to_equipment_type = { 
+			armored_car_equipment
+		}
+
+		equipment_bonus = {
+			maximum_speed = 0.05
+			build_cost_ic = -0.025
+		}
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_bush_modifications
+		name = AST_mio_trait_bush_modifications
+		icon = GFX_generic_mio_trait_icon_fuel_consumption
+		special_trait_background = yes
+
+		position = { x=0 y=1 }  
+
+		any_parent = { generic_mio_trait_simplified_suspension }
+
+		available = {
+		}	
+
+		limit_to_equipment_type = { 
+			armored_car_equipment
+		}
+
+		equipment_bonus = {
+			reliability = 0.05
+			fuel_consumption = -0.05
+		}
+	}
+
+}
+
+# AST_gloster_aircraft_organization from common\military_industrial_organization\organizations\AST_organization.txt:590
+AST_gloster_aircraft_organization = {
+	name = AST_gloster_aircraft_organization
+	include = generic_high_agility_fighter_aircraft_organization
+	icon = GFX_idea_AST_gloster_aircraft
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+	available = {
+		owner = { 
+			OR = {
+				has_completed_focus = AST_solidarity_by_the_empire
+				has_completed_focus = AST_british_pact
+			}
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_gladiator_lessons_learned
+		name = AST_mio_trait_gladiator_lessons_learned
+		icon = GFX_generic_mio_trait_icon_anti_air_attack
+		special_trait_background = yes
+		
+		position = { x=6 y=0 }
+		limit_to_equipment_type = { mio_cat_eq_only_light_fighter }
+		
+		equipment_bonus = {
+			air_attack = 0.05
+		}
+		
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_raf_doctrine_integration
+		name = AST_mio_trait_raf_doctrine_integration
+		icon = GFX_generic_mio_trait_icon_air_agility
+		special_trait_background = yes
+
+		position = { x=0 y=1 }
+		relative_position_id = generic_mio_trait_high_octane_fuels
+		any_parent = { generic_mio_trait_high_octane_fuels }
+
+		limit_to_equipment_type = { mio_cat_eq_only_light_fighter }
+		equipment_bonus = {
+			air_agility = 0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_jet_transition_pathway
+		name = AST_mio_trait_jet_transition_pathway
+		icon = GFX_generic_mio_department_icon_plane_fighter_engine
+		special_trait_background = yes
+		position = { x=9 y=4 }
+
+		available = {
+			owner = {
+				has_tech = jet_engines
+			}
+		}
+
+		limit_to_equipment_type = { mio_cat_eq_only_light_fighter }
+		production_bonus = {
+			production_cost_factor = -0.10
+		}
+	}
+}
+
+# AST_holden_organization from common\military_industrial_organization\organizations\AST_organization.txt:1143
+AST_holden_organization = {
+	name = AST_holden_organization
+	include = generic_motorized_mechanized_organization
+	icon = GFX_idea_AST_holden
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_all_australian_drive
+		name = AST_mio_trait_all_australian_drive
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		special_trait_background = yes
+
+		position = { x=9 y=2 }  
+
+		available = {
+			OR = {
+				is_mio_trait_completed = generic_mio_trait_all_wheel_drive
+				is_mio_trait_completed = generic_mio_trait_armored_pulpit_mount
+				is_mio_trait_completed = generic_mio_trait_bulletproof_panels
+			}
+		}
+
+		production_bonus = {
+			production_efficiency_cap_factor = 0.10
+		}
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_light_vehicle_standardization
+		name = AST_mio_trait_light_vehicle_standardization
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		special_trait_background = yes
+
+		position = { x=4 y=1 }  
+
+		available = {
+		}	
+
+		all_parents = { generic_mio_trait_medium_machinegun_mounts }
+
+		equipment_bonus = {
+			reliability = 0.05
+		}
+
+		production_bonus = {
+			production_cost_factor = -0.05
+		}
+	}
+
+	override_trait = {
+    	token = generic_mio_trait_armored_pulpit_mount
+
+    	relative_position_id = AST_mio_trait_light_vehicle_standardization
+		
+		all_parents = { AST_mio_trait_light_vehicle_standardization }
+
+    	position = { x=0 y=1 }
+  	}
+}
+
+# AST_lithgow_arms_organization from common\military_industrial_organization\organizations\AST_organization.txt:1278
+AST_lithgow_arms_organization = { #TAOG VERSION
+	name = AST_lithgow_arms_organization
+	include = generic_infantry_equipment_organization
+	icon = GFX_idea_AST_lithgow_arms
+	allowed = {
+		original_TAG = AST
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_lee_enfield_no1_mark3
+		name = AST_mio_trait_lee_enfield_no1_mark3
+		icon = GFX_generic_mio_trait_icon_production_capacity
+		special_trait_background = yes
+
+        available = {
+            owner = {
+                has_completed_focus = AST_lee_enfield_no1_mark3
+            }
+        }	
+
+		position = { x=2 y=0 }  
+
+		production_bonus = {
+			production_cost_factor = -0.05
+		}
+
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_owen_gun
+		name = AST_mio_trait_owen_gun
+		icon = GFX_generic_mio_trait_icon_soft_attack
+		special_trait_background = yes
+
+		available = {
+		    owner = {
+		        has_completed_focus = AST_owen_gun
+		    }
+		}	
+
+		position = { x=3 y=0 }  
+
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_better_ammo_supply
+		name = AST_mio_trait_better_ammo_supply
+		icon = GFX_generic_mio_department_icon_infantry_quality
+		special_trait_background = yes
+
+		position = { x=4 y=0 }  
+
+		available = {
+		    owner = {
+		        has_completed_focus = AST_department_of_supply_and_development_taog
+		    }
+		}	
+
+		equipment_bonus = {
+			soft_attack = 0.05
+		}
+
+		production_bonus = { 
+			production_cost_factor = -0.05 
+		}
+
+	}
+
+}
+
+# AST_lockheed_organization from common\military_industrial_organization\organizations\AST_organization.txt:903
+AST_lockheed_organization = {
+	name = AST_lockheed_organization
+	include = generic_range_focused_aircraft_organization
+	icon = GFX_idea_lockheed
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+	available = {
+		owner = { 
+			has_completed_focus = AST_united_states_as_our_keystone 
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_hudson_coastal_patrol
+		name = AST_mio_trait_hudson_coastal_patrol
+		icon = GFX_generic_mio_trait_icon_torpedo_attack
+		special_trait_background = yes
+
+		relative_position_id = generic_mio_trait_large_rudders_and_flaps
+		position = { x=0 y=1 }
+
+		any_parent = { generic_mio_trait_large_rudders_and_flaps }
+		limit_to_equipment_type = { mio_cat_eq_all_small_plane mio_cat_eq_all_medium_plane }
+		equipment_bonus = {
+			air_range = 0.05
+			naval_strike_attack = 0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_pacific_overwater_endurance
+		name = AST_mio_trait_pacific_overwater_endurance
+		icon = GFX_generic_mio_trait_icon_naval_range
+		special_trait_background = yes
+
+		relative_position_id = generic_mio_trait_long_range_modifications
+		position = { x=0 y=1 }
+
+		all_parents = { generic_mio_trait_long_range_modifications }
+		limit_to_equipment_type = { mio_cat_eq_all_small_plane mio_cat_eq_all_medium_plane }
+		equipment_bonus = {
+			air_range = 0.05
+			fuel_consumption_factor = -0.05
+		}
+	}
+
+	add_trait = {
+		token = AST_mio_trait_ventura_strike_packages
+		name = AST_mio_trait_ventura_strike_packages
+		icon = GFX_generic_mio_trait_icon_torpedo_attack
+		special_trait_background = yes
+
+		relative_position_id = generic_mio_trait_high_explosive_payload
+		position = { x=0 y=1 }
+
+		any_parent = { generic_mio_trait_high_explosive_payload }
+		limit_to_equipment_type = { mio_cat_eq_all_medium_plane }
+		equipment_bonus = {
+			naval_strike_attack = 0.05
+			naval_strike_targetting = 0.03
+		}
+	}
+}
+
+# AST_new_south_wales_government_railways_organization from common\military_industrial_organization\organizations\AST_organization.txt:168
+AST_new_south_wales_government_railways_organization = {
+	name = AST_new_south_wales_government_railways_organization
+	include = generic_medium_tank_organization
+	icon = GFX_idea_AST_new_south_wales_government_railways
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_yeramba_engineering
+		name = AST_mio_trait_yeramba_engineering
+		icon = GFX_generic_mio_department_icon_infantry_quality
+		special_trait_background = yes
+
+		position = { x=5 y=0 }  
+
+		available = {
+		    owner = {
+		        has_completed_focus = AST_yeramba
+		    }
+		}	
+
+		equipment_bonus = {
+			soft_attack = 0.10
+		}
+
+		production_bonus = { 
+			production_cost_factor = -0.05 
+		}
+
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_nswgr_sentinel_casting_programme
+	    name = AST_mio_trait_nswgr_sentinel_casting_programme
+	    icon = GFX_generic_mio_department_icon_tank_general_armor
+	    special_trait_background = yes
+	    position = { x=5 y=3 }
+	    any_parent = { generic_mio_trait_spaced_armor generic_mio_trait_crew_survival_layout generic_mio_trait_sloped_side_armor }
+	    limit_to_equipment_type = { mio_cat_eq_all_medium_tank }
+	    equipment_bonus = {
+	        armor_value = 0.1
+	        defense = 0.05
+	    }
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_nswgr_railway_foundry_capacity
+	    name = AST_mio_trait_nswgr_railway_foundry_capacity
+	    icon = GFX_generic_mio_department_icon_tank_general_production
+	    special_trait_background = yes
+	    position = { x=5 y=1 }
+	    any_parent = { generic_mio_trait_armor_steel_working }
+	    production_bonus = {
+	        production_cost_factor = -0.05
+	        production_efficiency_gain_factor = 0.1
+	    }
+	}
+
+	override_trait = {
+	    token = generic_mio_trait_spaced_armor
+	    any_parent = { AST_mio_trait_nswgr_railway_foundry_capacity }
+	}
+
+	override_trait = {
+	    token = generic_mio_trait_crew_survival_layout
+	    any_parent = { AST_mio_trait_nswgr_railway_foundry_capacity }
+	}
+
+	override_trait = {
+	    token = generic_mio_trait_sloped_side_armor
+	    any_parent = { AST_mio_trait_nswgr_railway_foundry_capacity }
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_nswgr_progressive_up_armouring
+	    name = AST_mio_trait_nswgr_progressive_up_armouring
+	    icon = GFX_generic_mio_trait_icon_armor_value
+	    special_trait_background = yes
+	    position = { x=5 y=4 }
+	    any_parent = { AST_mio_trait_nswgr_sentinel_casting_programme }
+	    limit_to_equipment_type = { mio_cat_eq_all_medium_tank }
+	    equipment_bonus = {
+	        armor_value = 0.1
+	        breakthrough = 0.05
+	    }
+	}
+}
+
+# AST_nuffield_mechanizations_and_aero_organization from common\military_industrial_organization\organizations\AST_organization.txt:11
+AST_nuffield_mechanizations_and_aero_organization = {
+	name = AST_nuffield_mechanizations_and_aero_organization
+	include = generic_mobile_tank_organization 
+	icon = GFX_idea_AST_nuffield_mechanizations_and_aero
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_yeramba_engineering
+		name = AST_mio_trait_yeramba_engineering
+		icon = GFX_generic_mio_department_icon_infantry_quality
+		special_trait_background = yes
+
+		position = { x=5 y=0 }  
+
+		available = {
+		    owner = {
+		        has_completed_focus = AST_yeramba
+		    }
+		}	
+
+		equipment_bonus = {
+			soft_attack = 0.10
+		}
+
+		production_bonus = { 
+			production_cost_factor = -0.05 
+		}
+
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_nuffield_liberty_engine_refinement
+	    name = AST_mio_trait_nuffield_liberty_engine_refinement
+	    icon = GFX_generic_mio_department_icon_tank_general_engine
+	    special_trait_background = yes
+	    position = { x=1 y=3 }
+	    any_parent = { generic_mio_improved_ventilation }
+	    equipment_bonus = {
+	        maximum_speed = 0.05
+	        reliability = 0.05
+	    }
+	} 
+
+	override_trait = {
+	    token = generic_mio_improved_tracks_and_suspension
+	    all_parents = { AST_mio_trait_nuffield_liberty_engine_refinement }
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_nuffield_cruiser_tank_lineage
+	    name = AST_mio_trait_nuffield_cruiser_tank_lineage
+	    icon = GFX_generic_mio_trait_icon_soft_attack
+	    special_trait_background = yes
+	    position = { x=3 y=2 }
+	    any_parent = { generic_mio_quality_assurance_routines }
+	    equipment_bonus = {
+	        soft_attack = 0.05
+	        hard_attack = 0.03
+	    }
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_nuffield_pursuit_doctrine_optimisation
+	    name = AST_mio_trait_nuffield_pursuit_doctrine_optimisation
+	    icon = GFX_generic_mio_trait_icon_breakthrough
+	    special_trait_background = yes
+	    position = { x=4 y=4 }
+	    any_parent = { generic_mio_streamlined_production }
+	    equipment_bonus = {
+	        breakthrough = 0.05
+	        fuel_consumption = -0.05
+	    }
+	}
+}
+
+# AST_vulcan_foundry_organization from common\military_industrial_organization\organizations\AST_organization.txt:89
+AST_vulcan_foundry_organization = {
+	name = AST_vulcan_foundry_organization
+	include = generic_infantry_tank_organization 
+	icon = GFX_idea_AST_vulcan_foundry
+	allowed = {
+		original_TAG = AST
+		has_dlc = "Thunder at Our Gates"
+	}
+
+	add_trait = { 
+		token = AST_mio_trait_yeramba_engineering
+		name = AST_mio_trait_yeramba_engineering
+		icon = GFX_generic_mio_department_icon_infantry_quality
+		special_trait_background = yes
+
+		position = { x=5 y=0 }  
+
+		available = {
+		    owner = {
+		        has_completed_focus = AST_yeramba
+		    }
+		}	
+
+		equipment_bonus = {
+			soft_attack = 0.10
+		}
+
+		production_bonus = { 
+			production_cost_factor = -0.05 
+		}
+
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_vulcan_matilda_pacific
+	    name = AST_mio_trait_vulcan_matilda_pacific
+	    icon = GFX_generic_mio_trait_icon_armor_value
+	    special_trait_background = yes
+	    position = { x=7 y=3 }
+	    any_parent = { generic_mio_trait_adaptable_chassis }
+	    limit_to_equipment_type = { mio_cat_eq_all_heavy_tank }
+	    equipment_bonus = {
+	        armor_value = 0.1
+	        defense = 0.05
+	    }
+	}
+
+	override_trait = {
+	    token = generic_mio_trait_heavy_tank_specialization
+	    any_parent = { AST_mio_trait_vulcan_matilda_pacific }
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_vulcan_jungle_assault_modifications
+	    name = AST_mio_trait_vulcan_jungle_assault_modifications
+	    icon = GFX_generic_mio_trait_icon_hard_attack
+	    special_trait_background = yes
+	    position = { x=3 y=4 }
+	    any_parent = { generic_mio_trait_turret_sights }
+	    equipment_bonus = {
+	        hard_attack = 0.05
+	        soft_attack = 0.03
+	    }
+	}
+
+	add_trait = {
+	    token = AST_mio_trait_vulcan_slow_and_steady_resilience
+	    name = AST_mio_trait_vulcan_slow_and_steady_resilience
+	    icon = GFX_generic_mio_trait_icon_reliability
+	    special_trait_background = yes
+	    position = { x=9 y=4 }
+	    any_parent = { generic_mio_trait_even_thicker_armor }
+	    equipment_bonus = {
+	        reliability = 0.1
+	        defense = 0.05
+	    }
+	}
+}
+
+# CZE_CKD_plzen_organization from common\military_industrial_organization\organizations\CZE_organization.txt:2093
+CZE_CKD_plzen_organization = {
+	include = generic_train_organization
+	icon = GFX_idea_CZE_ckd_plzen
+	allowed = {
+		has_dlc = "Peace For Our Time"
+		OR = {
+			tag = CZE
+			tag = POL
+		}
+	}
+
+	available = {
+		FROM = {
+			if = {
+				limit = {
+					original_tag = POL
+				}
+				has_completed_focus = POL_join_CZE_rails
+				OR = {
+					controls_state = 9
+					any_subject_country = {
+						controls_state = 9
+					}	
+				}
+			}
+		}
+	}
+
+	visible = {
+		FROM = {
+			if = {
+				limit = {
+					original_tag = POL
+				}
+				has_completed_focus = POL_join_CZE_rails
+			}
+		}
+	}
+
+	initial_trait = {
+		name = generic_mio_initial_trait_generic_train_manufacturer
+		limit_to_equipment_type = { 
+			train_equipment 
+		}
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.10
+		}
+
+		equipment_bonus = {
+			build_cost_ic = -0.05
+		}
+	}
+
+	add_trait = { 
+		token = CZE_mio_trait_expanded_production_facilities_CKD_plzen
+		name = USA_mio_trait_expanded_production_facilities
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=0 y=1 }
+		relative_position_id = generic_mio_trait_joint_stock_scheme
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_grow_ckd_secondary_facilities
+			}
+		}
+
+		all_parents = { generic_mio_trait_joint_stock_scheme }
+		production_bonus = {
+			production_cost_factor = -0.05
+			production_capacity_factor = 0.05
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_bata_corporation
+		name = CZE_bata_corporation_name
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=9 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_diversify_bata
+				NOT = { has_country_flag = CZE_mio_trait_bata_corporation_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_bata_corporation_taken_flag
+			}
+		}
+
+		production_bonus = {
+			production_resource_penalty_factor = -0.10
+			production_resource_need_factor = -0.10
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+}
+
+# CZE_benees_mraz_organization from common\military_industrial_organization\organizations\CZE_organization.txt:1065
+CZE_benees_mraz_organization = {
+	include = generic_range_focused_aircraft_organization
+	icon = GFX_idea_CZE_benes_mraz
+	allowed = {
+		has_dlc = "Peace For Our Time"
+		OR = {
+			tag = CZE
+			tag = RKH
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_walter_co
+		name = CZE_mio_trait_walter_co_name
+		icon = GFX_generic_mio_department_icon_plane_general_engine
+		special_trait_background = yes
+
+		position = { x=0 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_joint_stock_schemes
+				NOT = { has_country_flag = CZE_mio_trait_walter_co_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_walter_co_taken_flag
+			}
+		}
+
+		equipment_bonus = {
+			maximum_speed = 0.05
+			air_agility = 0.05
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_bata_corporation
+		name = CZE_bata_corporation_name
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=0 y=1 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_diversify_bata
+				NOT = { has_country_flag = CZE_mio_trait_bata_corporation_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_bata_corporation_taken_flag
+			}
+		}
+
+		production_bonus = {
+			production_resource_penalty_factor = -0.10
+			production_resource_need_factor = -0.10
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+}
+
+# CZE_ceska_zbrojovka_uhersky_brod_organization from common\military_industrial_organization\organizations\CZE_organization.txt:1508
+CZE_ceska_zbrojovka_uhersky_brod_organization = {
+	include = CZE_automatic_weapons_equipment_organization
+	icon = GFX_idea_CZE_ceska_zbrojovka_uhersky_brod
+	allowed = { 
+		has_dlc = "Peace For Our Time"
+		OR = {
+			tag = CZE
+			tag = SLO
+			tag = GER
+			tag = RKH
+			tag = POL
+		}
+	}
+
+	visible = {
+		if = {
+			limit = {
+				FROM = {
+					original_tag = GER
+				}
+			}
+			FROM = {
+				has_completed_focus = GER_integrate_czech_manufacturers
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = POL
+				}
+			}
+			FROM = {
+				has_completed_focus = POL_join_CZE_military
+			}
+		}
+	}
+
+	available = {
+		if = {
+			limit = {
+				FROM = {
+					original_tag = CZE
+				}
+			}
+			FROM = {
+				has_completed_focus = CZE_establish_a_armament_factory_in_uhersky_brod
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						original_tag = GER
+						original_tag = SLO
+						original_tag = POL
+					}
+				}
+			}
+			FROM = { #state_is_fully_controlled_by_ROOT_or_subject = yes tooltip's FROM and Subject names don't show up in this context. It would of course be a better check to use if not for this
+				OR = {
+					controls_state = 75
+					any_subject_country = {
+						controls_state = 75
+					}	
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = POL
+				}
+			}
+			FROM = {
+				has_completed_focus = POL_join_CZE_military
+			}
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_export_models
+		name = GER_mio_trait_export_models
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=9 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+				NOT = {
+					has_completed_focus = CZE_kickstart_rapid_rearmanent 
+				}
+			}
+		}
+		
+		available = {
+			FROM = {
+				has_completed_focus = CZE_keep_focus_on_weapon_exports
+			}
+		}
+
+		production_bonus = {
+			production_efficiency_cap_factor = 0.03
+			production_cost_factor = -0.03
+		}
+		
+		ai_will_do = {
+			base = 2
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_walter_co
+		name = CZE_mio_trait_walter_co_name
+		icon = GFX_generic_mio_department_icon_plane_general_engine
+		special_trait_background = yes
+
+		position = { x=9 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_joint_stock_schemes
+				NOT = { has_country_flag = CZE_mio_trait_walter_co_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_walter_co_taken_flag
+			}
+		}
+
+		limit_to_equipment_type = { mio_cat_eq_only_light_fighter mio_cat_eq_only_strategic_bomber }
+
+		equipment_bonus = {
+			maximum_speed = 0.05
+			air_agility = 0.05
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_walter_co_german
+		name = CZE_mio_trait_walter_co_name
+		icon = GFX_generic_mio_department_icon_plane_general_engine
+		special_trait_background = yes
+
+		position = { x=9 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = GER
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				NOT = { has_country_flag = CZE_mio_trait_walter_co_german_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_walter_co_german_taken_flag 
+			}
+		}
+
+		equipment_bonus = {
+			maximum_speed = 0.05
+			air_agility = 0.05
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+}
+
+# CZE_praga_aviation_organization from common\military_industrial_organization\organizations\CZE_organization.txt:2216
+CZE_praga_aviation_organization = {
+	include = generic_helicopter_organization
+	icon = GFX_idea_cze_praga_aviation
+	
+	allowed = {	
+		original_tag = CZE
+		has_dlc = "Gotterdammerung"		
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_expanded_production_facilities_praga_aviation
+		name = USA_mio_trait_expanded_production_facilities
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=7 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_expand_praga
+			}
+		}
+
+		production_bonus = {
+			production_cost_factor = -0.03
+			production_capacity_factor = 0.03
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_export_models_praga_aviation
+		name = GER_mio_trait_export_models
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=7 y=1 }
+
+		any_parent = { CZE_mio_trait_expanded_production_facilities_praga_aviation }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+				NOT = {
+					has_completed_focus = CZE_kickstart_rapid_rearmanent 
+				}
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_keep_focus_on_weapon_exports
+			}
+		}
+
+		production_bonus = {
+			production_efficiency_cap_factor = 0.03
+			production_cost_factor = -0.03
+		}
+		
+		ai_will_do = {
+			base = 2
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_bata_corporation
+		name = CZE_bata_corporation_name
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=9 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_diversify_bata
+				NOT = { has_country_flag = CZE_mio_trait_bata_corporation_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_bata_corporation_taken_flag
+			}
+		}
+
+		production_bonus = {
+			production_resource_penalty_factor = -0.10
+			production_resource_need_factor = -0.10
+		}
+
+		ai_will_do = {
+			base = 0
+		}
+	}
+}
+
+# CZE_ringhoffer_tatra_organization from common\military_industrial_organization\organizations\CZE_organization.txt:1934
+CZE_ringhoffer_tatra_organization = {
+	include = generic_armored_car_organization
+	icon = GFX_idea_CZE_tatra
+	allowed = {	
+		OR = {
+			tag = CZE
+			tag = RKH
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_expanded_production_facilities_ringhoffer
+		name = USA_mio_trait_expanded_production_facilities
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=-1 y=1 }
+		relative_position_id = generic_mio_trait_standardized_components
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_grow_tatras_capabilities
+			}
+		}
+
+		all_parents = { generic_mio_trait_standardized_components }
+		production_bonus = {
+			production_cost_factor = -0.05
+			production_capacity_factor = 0.05
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_bata_corporation
+		name = CZE_bata_corporation_name
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=9 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_diversify_bata
+				NOT = { has_country_flag = CZE_mio_trait_bata_corporation_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_bata_corporation_taken_flag
+			}
+		}
+
+		production_bonus = {
+			production_resource_penalty_factor = -0.10
+			production_resource_need_factor = -0.10
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+}
+
+# CZE_skoda_plzen_tank_destroyer_organization from common\military_industrial_organization\organizations\CZE_organization.txt:325
+CZE_skoda_plzen_tank_destroyer_organization = {
+	include = CZE_tank_destroyer_organization
+	icon = GFX_idea_CZE_skoda_plzen
+
+	allowed = {
+		OR = {
+			tag = CZE
+			tag = AUS
+			tag = SLO
+			tag = POL
+		}
+		has_dlc = "Peace For Our Time"
+	}
+
+	available = {
+		if = {
+			limit = {
+				FROM = {
+					original_tag = CZE
+				}
+			}
+			FROM = {
+				has_completed_focus = CZE_rearmed_and_retooled
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = AUS
+				}
+			}
+			FROM = {
+				controls_state = 9
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					original_tag = POL
+				}
+			}
+			FROM = {
+				has_completed_focus = POL_join_CZE_military
+				OR = {
+					controls_state = 9
+					any_subject_country = {
+						controls_state = 9
+					}	
+				}
+			}
+		}
+	}
+
+	visible = {
+		if = {
+			limit = {
+				FROM = {
+					original_tag = POL
+				}
+			}
+			FROM = {
+				has_completed_focus = POL_join_CZE_military
+			}
+		}
+	}
+}
+
+# CZE_zlin_aircraft_organization from common\military_industrial_organization\organizations\CZE_organization.txt:1155
+CZE_zlin_aircraft_organization = {
+	include = generic_high_agility_fighter_aircraft_organization
+	icon = GFX_idea_CZE_zlin_aircraft
+	allowed = {
+		has_dlc = "Peace For Our Time"
+		tag = CZE
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_walter_co
+		name = CZE_mio_trait_walter_co_name
+		icon = GFX_generic_mio_department_icon_plane_general_engine
+		special_trait_background = yes
+
+		position = { x=9 y=0 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_joint_stock_schemes
+				NOT = { has_country_flag = CZE_mio_trait_walter_co_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_walter_co_taken_flag
+			}
+		}
+
+		equipment_bonus = {
+			maximum_speed = 0.05
+			air_agility = 0.05
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+
+	add_trait = {
+		token = CZE_mio_trait_bata_corporation
+		name = CZE_bata_corporation_name
+		icon = GFX_generic_mio_department_icon_facilities
+		special_trait_background = yes
+
+		position = { x=9 y=1 }
+
+		visible = {
+			FROM = { 
+				original_tag = CZE
+				has_dlc = "Peace For Our Time"
+			}
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = CZE_diversify_bata
+				NOT = { has_country_flag = CZE_mio_trait_bata_corporation_taken_flag }
+			}
+		}
+
+		on_complete = {
+			custom_effect_tooltip = generic_trait_will_not_be_available_in_other_organizations
+			FROM = {
+				set_country_flag = CZE_mio_trait_bata_corporation_taken_flag
+			}
+		}
+
+		production_bonus = {
+			production_resource_penalty_factor = -0.10
+			production_resource_need_factor = -0.10
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+}
+
+# INS_artillerie_inrichtingen_pyrotechnische_organization from common\military_industrial_organization\organizations\INS_organization.txt:53
+INS_artillerie_inrichtingen_pyrotechnische_organization = {
+	include = generic_infantry_equipment_organization
+	icon = GFX_idea_INS_ai_pyrotechnische
+	allowed = {	
+		original_tag = INS
+		has_dlc = "Arms Against Tyranny"
+	}
+
+}
+
+# INS_bio_pharma_organization from common\military_industrial_organization\organizations\INS_organization.txt:63
+INS_bio_pharma_organization = {
+	include = generic_support_equipment_organization
+	icon = GFX_idea_INS_bio_pharma
+	allowed = {	
+		original_tag = INS
+		has_dlc = "Arms Against Tyranny"
+		has_dlc = "Thunder at Our Gates"
+	}
+
+}
